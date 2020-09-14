@@ -1,0 +1,8 @@
+#### Install ###############################################################################
+# sudo cp 90-SainSmartRelayUsbRules.rules /etc/udev/rules.d/                               #
+# sudo udevadm control --reload-rules && sudo service udev restart && sudo udevadm trigger #
+############################################################################################
+
+# FTDI FT232 USB-Serial (UART) IC
+SUBSYSTEMS=="usb",ATTRS{idVendor}=="0403",ATTRS{idProduct}=="6001",MODE="0666"
+

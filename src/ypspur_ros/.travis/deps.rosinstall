@@ -1,0 +1,4 @@
+- git:
+    local-name: yp-spur
+    uri: https://github.com/openspur/yp-spur.git
+    version: master

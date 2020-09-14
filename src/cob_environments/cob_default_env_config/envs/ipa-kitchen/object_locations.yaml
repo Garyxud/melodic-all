@@ -1,0 +1,60 @@
+milk:
+  model: cob_gazebo_objects/objects/milk.urdf
+  position: [-2.95, 0.0, 1.02]
+  orientation: [0, 0, 0]
+
+salt:
+  model: cob_gazebo_objects/objects/salt.urdf
+  position: [-2.95, 0.1, 1]
+  orientation: [0, 0, 1.570796]
+
+tomato_soup:
+  model: cob_gazebo_objects/objects/tomato_soup.urdf
+  position: [-2.95, -0.2, 1]
+  orientation: [0, 0, 1.570796]
+
+zwieback:
+  model: cob_gazebo_objects/objects/zwieback.urdf
+  position: [-2.95, 0.25, 1]
+  orientation: [0, 0, 1.570796]
+
+tomato_sauce:
+  model: cob_gazebo_objects/objects/tomato_sauce.urdf
+  position: [-3.1, -0.1, 1]
+  orientation: [0, 0, 1.570796]
+
+#cb_4x3:
+#  model: cob_gazebo_objects/objects/cb_4x3.model
+#  position: [-0.7, -0.1, 1]
+#  orientation: [1.56, 0, 1.56]
+
+#cb_9x6:
+#  model: cob_gazebo_objects/objects/cb_9x6.model
+#  position: [-0.7, -0.1, 1]
+#  orientation: [1.56, 0, 1.56]
+
+table_ikea:
+  model: cob_gazebo_objects/objects/table_ikea.urdf.xacro
+  position: [1.1, 1.2, 0]
+  orientation: [0, 0, 0]
+
+bookcase:
+  model: cob_gazebo_objects/objects/bookcase.urdf.xacro
+  position: [-1.2, -1.9, 0]
+  orientation: [0, 0, -1.57079]
+
+chair:
+  model: cob_gazebo_objects/objects/chair.urdf.xacro
+  position: [0.7, 1.2, 0.1]
+  orientation: [0, 0, 1.5708]
+
+cabinet:
+  model: cob_gazebo_objects/objects/cabinet.urdf.xacro
+  position: [2.9, -1.85, 0]
+  orientation: [0, 0, 3.14159]
+
+cabinet_with_door:
+  model: cob_gazebo_objects/objects/cabinet_with_door.urdf.xacro
+  position: [2.2, -1.97, 0]
+  orientation: [0, 0, -1.57079]
+

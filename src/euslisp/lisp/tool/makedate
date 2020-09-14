@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# echo \"`date`\" >MAKEDATE 
+export LANG=C
+export LC_ALL=C
+echo "char *makedate="\"`date`\"';'
+echo "#if Linux"
+echo "char *gitrevision="\"`git rev-parse --short HEAD`\"';'
+echo "#else"
+echo "char *gitrevision="\"\"';'
+echo "#endif"
+echo "char *compilehost="\"`hostname`\"';'
+
+

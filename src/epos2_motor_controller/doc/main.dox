@@ -1,0 +1,220 @@
+/*! \mainpage IRI EPOS2 library
+  
+ \image html EPOS2.jpg
+
+ \section Introduction
+ 
+ This is a driver for Maxon EPOS2 Motor Controller for linux
+ 
+ This class is a low level driver to use Maxon Motor EPOS2 Controller under Linux.
+ It is tested in EPOS2 50/5 using firmware Epos_2110h_6322h_0000h_0000h.bin.
+ All hardware call values in this software are from the document EPOS2 Firmware 
+ Specification of December 2008 Edition - document number 821384-02.
+ 
+ It is implemented to use with <b> one unique controller</b> and adds
+ other useful features to simplify some tasks, such as profile setting.
+
+ Not all member functions are implemented, but almost all of them are already defined.
+ 
+ For the communication through USB port, CFTDI Class has been used.
+
+  \subsection Target
+  
+  This class implements basically velocity, profile_velocity and profile_position.
+  Other modes are <b> not implemented </b>, neither CAN communication, SDO and PDO functions of the controller nor Segmented Read / Write.
+ 
+ \section Installation
+
+  \subsection Pre-Requisites
+
+  This driver requires of the following libraries and packages
+  - <a href="http://www.cmake.org">cmake</a>, a cross-platform build system.
+  - <a href="http://www.doxygen.org">doxygen</a> and <a href="http://www.graphviz.org">graphviz</a> to generate the documentation.
+  - <a href="http://www.ftdichip.com/Drivers/D2XX.htm">D2XX Drivers</a> for usb-ftdi communication module.
+  - CFTDI from communication libraries from IRI repository.
+  - iriutils for threads and events simple use from IRI repository.
+  - usbcomm for usb communication.
+
+  Under linux all of these utilities are available in ready-to-use packages.
+
+  \subsection Download IRI sources
+
+  IRI Utilities 
+  \code 
+  svn checkout svn+ssh://haydn.upc.es/users/labrobotica/applications/utilities
+  \endcode 
+  
+  IRI Communication 
+  \code 
+  svn checkout svn+ssh://haydn.upc.es/users/labrobotica/applications/communications
+  \endcode 
+  
+  IRI EPOS2 Library
+  \code 
+  svn checkout svn+ssh://haydn.upc.es/users/labrobotica/drivers/epos2_motor_controller
+  \endcode 
+
+  \subsection Compilation
+  
+  Download and install all pre-requisites from websites/repositories.
+
+  To build the library (placed in ./lib) and obtain the executables (placed in ./bin) 
+  just type in EPOS2 /build directory:
+
+  \code 
+  cmake .
+  make
+  \endcode
+
+  To generate the documentation (placed in ./doc) type:
+  \code 
+  make doc
+  \endcode
+
+  To install the library into system folders
+  \code
+  sudo make install
+  \endcode
+
+  <em>Cmake</em> only needs to be executed once (make will automatically call
+  <em>cmake</em> if you modify one of the <em>CMakeList.txt</em> files).
+
+  The files in the <em>build</em> directory are genetated by <em>cmake</em>
+  and <em>make</em> and can be safely removed.
+  After doing so you will need to call cmake manually again.
+
+  \note Using FTDI without sudo:
+  In a terminal, copy the file into the system folder (from project root):
+  \code
+  sudo cp doc/91-epos2.rules /etc/udev/rules.d/.
+  \endcode 
+  Take into account that if another rule has got the same number already you'll 
+  need to rename the file with another rule number (example):
+  \code
+  sudo cp doc/91-epos2.rules /etc/udev/rules.d/97-epos2.rules
+  \endcode
+
+  \subsection Configuration
+
+  To build a new application using these library, first it is necessary to locate if the library
+  has been installed or not using the following command in cmake:
+
+      - FIND_PACKAGE(epos2 REQUIRED)
+
+  In the case that the package is present, it is necessary to add the header files directory to
+  the include directory path by using
+
+      - INCLUDE_DIRECTORIES(${EPOS2_INCLUDE_DIR})
+
+  Finally, it is also nevessary to link with the desired libraries by using the following command
+
+      - TARGET_LINK_LIBRARIES(your_executable ${EPOS2_LIBRARY})
+      .
+
+  Also do it for utilities and communications libraries.
+
+  \section License
+
+  This package is licensed under a  
+  <a href="http://www.gnu.org/licenses/lgpl.html">
+    LGPL 3.0 License</a>.
+
+  \section Disclaimer
+
+   This is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+    
+*/
+
+
+
+
+/*! 
+  \page maxon_doc Maxon Motor EPOS Documentation
+  These are documents used to make this driver, they are downloable from <a>http://www.maxonmotor.com/downloads.asp</a>
+  \section sec_firm Firmware
+  "EPOS2_Firmware_Specification_E.pdf"
+  \section sec_comm Communication
+  "EPOS2 Communication Guide.pdf"  
+ */
+
+
+
+
+/*!
+ \page Units Units
+ 
+ They are in default:
+ \par position: 
+ [qc] (=4*encoder counts/revolution)
+ \par velocity: 
+ [rev/min] 
+ \par acceleration: 
+ [rev/min/s] 
+ 
+if you change dimension or notation index you will have to take them into account.
+
+ */
+
+
+/*!
+  \page factor_tables Dimension and Notation Factor Tables
+
+  These are the values for factor tables
+
+  \code 
+  	Prefix	     Factor	 NotationIndex
+  	-------	------- -------	 ------ ------
+   	-	10^0	 1	 0x00	0
+  	Deci 	10^-1	 0.1	 0xFF 	-1
+  	Centi 	10^-2	 0.01	 0xFE 	-2
+  	Milli 	10^-3	 0.001	 0xFD 	-3
+  \endcode
+ */
+
+
+/*!
+ *  \page state_machine EPOS2 State Machine with libEPOS2 functions
+ * 
+ * This is EPOS2 State Machine with its correspondences with management functions of libEPOS2
+ * 
+ *   \image html state_machine_libepos2.png "State Machine EPOS2"
+ * 
+ * 
+ */
+
+
+/*!
+ *  \page diagrames IRI EPOS2 Operation Diagram
+ * 
+ * This diagram shows how to start to operate with EPOS2 using IRI EPOS2.
+ * 
+ * To start any motor operation with epos it needs to be in Operation Enabled State which 
+ * gives power to the motor, if we want to have the motor without power we will do a disableOperation()
+ * to reach a non-powered motor state. (Switch On, just do an enableOperation() to give power again )
+ * 
+ * If we want to do an operation (velocity, profile_velocity, profile_position) is needed set the 
+ * operation mode first, set the target and the options (velocity profile ) and then start and stop
+ * if it is needed.
+ * 
+ * For Profile Position mode its necessary to give the type of movement (absolute, relative) and if it will 
+ * be blocking the program or not (if not, it may be necessary to know if position desired is reached with 
+ * isTargetReached())
+ * 
+ * For more information, \ref operation_modes
+ * 
+ * 
+ *  
+ *  \image html Diagrama_libEPOS2.png "Diagrama"
+ * 
+ */

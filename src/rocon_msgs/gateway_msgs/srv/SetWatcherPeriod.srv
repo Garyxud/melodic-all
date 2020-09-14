@@ -1,0 +1,6 @@
+# set the watcher loop period (float value in secs).
+# a negative value or 0.0 returns it to the default set by param
+float32 period
+---
+# return the previous setting used for this variable
+float32 last_period

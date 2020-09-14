@@ -1,0 +1,12 @@
+<launch>
+    <node name="sink" pkg="network_monitor_udp" type="udpmonsink" args="12345" output="screen"/>
+    <node name="sink2" pkg="network_monitor_udp" type="udpmonsink" args="12346" output="screen"/>
+    <node name="source" pkg="network_monitor_udp" type="udpmonsourcenode.py" output="screen"/>
+
+    <test test-name="basic_test" pkg="network_control_tests" type="basic_test.py" name="network_monitor_udp_test"/>
+    <test test-name="metriclog_test" pkg="network_control_tests" type="metriclog_test.py" name="network_monitor_udp_test"/>  
+    <test test-name="constant_bw_test" pkg="network_control_tests" type="constant_bw_test.py" name="network_monitor_udp_test"/> 
+    <test test-name="adaptive_bw_test" pkg="network_control_tests" type="adaptive_bw_test.py" name="network_monitor_udp_test" time-limit="120"/> 
+    <test test-name="multiple_ends_test" pkg="network_control_tests" type="multiple_ends_test.py" name="network_monitor_udp_test"/> 
+    <test test-name="parameter_test" pkg="network_control_tests" type="parameter_test.py" name="network_monitor_udp_test"/> 
+</launch>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>hfl_driver</name>
+  <version>0.0.17</version>
+
+  <description>The hfl package</description>
+
+  <maintainer email="evan.flynn@continental.com">Evan Flynn</maintainer>
+  <maintainer email="gerardo.bravo@continental.com">Gerardo Bravo</maintainer>
+
+  <license>BSD</license>
+
+  <!-- <url type="website">http://wiki.ros.org/hfl</url> -->
+  <author email="evan.flynn@continental.com">Evan Flynn</author>
+  <author email="maxton.ginier@continental.com">Maxton Ginier</author>
+  <author email="gerardo.bravo@continental.com">Gerardo Bravo</author>
+  <author email="moises.diaz@continental.com">Moises Diaz</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>angles</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
+  <build_depend>camera_info_manager</build_depend>
+  <build_depend>udp_com</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>angles</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>tf2</exec_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
+  <exec_depend>camera_info_manager</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>message_generation</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>dynamic_reconfigure</exec_depend>
+	
+
+  <build_export_depend>nodelet</build_export_depend> 
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>visualization_msgs</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>angles</build_export_depend>
+  <build_export_depend>tf</build_export_depend>
+  <build_export_depend>tf2</build_export_depend>
+  <build_export_depend>tf2_geometry_msgs</build_export_depend>
+  <build_export_depend>camera_info_manager</build_export_depend>
+  <build_export_depend>udp_com</build_export_depend>
+  <build_export_depend>image_transport</build_export_depend>
+  <build_export_depend>cv_bridge</build_export_depend>
+  <build_export_depend>dynamic_reconfigure</build_export_depend>
+
+  <test_depend>rostest</test_depend>
+  <test_depend>roslint</test_depend>
+
+  <export>
+	<nodelet plugin="${prefix}/nodelets.xml" />
+  </export>
+</package>

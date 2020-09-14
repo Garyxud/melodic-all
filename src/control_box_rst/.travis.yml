@@ -1,0 +1,27 @@
+language: generic
+os: linux
+dist: bionic
+
+notifications:
+  email:
+    recipients:
+      - christoph.roesmann@tu-dortmund.de
+    on_success: change
+    on_failure: change
+
+cache:
+  apt: true
+  directories:
+   - $TRAVIS_BUILD_DIR/build/extern/
+  
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install cmake doxygen libsuitesparse-dev qt5-default coinor-libipopt-dev 
+
+script:
+  - mkdir -p build
+  - cd build
+  - cmake -D"CMAKE_BUILD_TYPE=Debug" -D"BUILD_TESTS=ON" ../src
+  - make
+  - ctest --output-on-failure

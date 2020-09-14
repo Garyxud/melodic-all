@@ -1,0 +1,11 @@
+<launch>
+  <node type="sta_test.py" name="wg_sta_test$(env IFACE)" pkg="multi_interface_roam" output="screen">
+    <param type="string" value="$(optenv METHOD None)" name="method"/>
+    <param type="string" value="$(env IFACE)" name="interface"/>
+    <rosparam command="load" file="$(find multi_interface_roam)/test/wg_bsses.yaml"/>
+  </node>
+
+  <node pkg="wpa_supplicant_node" type="wpa_supplicant_node" name="wpa_supplicant_node_$(env IFACE)"
+        args="-Dnl80211 -c $(find multi_interface_roam)/test/wg_networks.conf -i $(env IFACE) -t -dddddd" output="screen"/>
+
+</launch>

@@ -1,0 +1,210 @@
+#=======================================================================
+#//! \file
+#//! \section common_makefile_common_general General file information
+#//!   \author    Dirk Osswald 
+#//!   \date      2006-11-29
+#//!  
+#//! \brief  
+#//!   Common, non project specific stuff for all Makefiles.
+#//!
+#//!   This Makefile is meant to be included in other Makefiles, it
+#//!   provides some common variables and targets
+#//!
+#//! \section common_makefile_common_variables Makefile variables
+#//!   The following variables must be set by the calling Makefile:
+#//!   - RELEASE_FILE - name of the file to extract the PROJECT_NAME and PROJECT_RELEASE from
+#//!
+#//! \section common_makefile_common_targets Makefile targets
+#//!
+#//! \section common_makefile_common_links Links
+#//!   - The online documentation for \c gnu \c make can be found at
+#//!     <a href="http://www.gnu.org/software/make/manual/make.html">
+#//!     http://www.gnu.org/software/make/manual/make.html</a>
+#//!  
+#//! \section common_makefile_common_copyright Copyright
+#//!
+#//!  Copyright (c) 2006 SCHUNK GmbH & Co. KG
+#//!
+#//!  <HR>
+#//!  \internal
+#//!
+#//!    \subsection common_makefile_common_details SVN related, detailed file specific information:
+#//!      $LastChangedBy: Osswald2 $
+#//!      $LastChangedDate: 2011-02-14 17:47:35 +0100 (Mo, 14 Feb 2011) $
+#//!      \par SVN file revision:
+#//!        $Id: Makefile-common 6442 2011-02-14 16:47:35Z Osswald2 $
+#//!
+#//!  \subsection common_makefile_common_changelog Changelog of this file:
+#//!      \include Makefile-common.log
+#//!
+#=======================================================================
+#//! \cond ignore_me   doxygen cannot parse Makefiles, so just ignore it
+
+########################################################################
+# functions
+#
+# makefile function to extract the value of a C preprocessor macro or simple variable assignment.
+# use e.g. like '${call EXTRACT_ASSIGNMENT,PROJECT_NAME,inc/release.h}'
+# E.g.: to extract "TEST" from a line like 
+# -    '#define PROJECT_NAME "TEST"'                         in file 'inc/release.h'.
+# - or 'PROJECT_NAME = "TEST"'                               in file 'release.py'.
+# - or '    Public Const PROJECT_NAME As String = "0.1.0.8"' in file 'release.gpl'.
+#
+# The shell code below extracts the value of the C preprocessor
+# macro define named ${1} from file ${2}.
+# - Used by doxygen as project name. 
+# - Used as base name of the generated pdf documentation files. 
+# - Used as name of project directory when installing.
+#
+# \internal The mighty complex command explained:
+# - We use the make function ${shell ...} to call shell commands.
+# - We use 'cat' to print the ${2} file and filter it through some pipes:
+#   - The 'grep' command extracts the line containing the define command
+#   - The first 'sed' command removes anything before and including the name
+#     of the defined makro
+#   - The second 'sed' command removes any comment after the 
+#     value of the defined makro
+#   - The third 'sed' command removes any whitespace after the 
+#     value of the defined makro
+#   - The fourth 'sed' command replaces any space with an underscore 
+#     (spaces would lead to problems in the makefile when used as a target or the like)
+#   - The fifth 'sed' command removes the double quotes
+# \warning
+#   The regular expressions to detect white space "[ 	]*" contain
+#   a space and a tab. Make shure that these are preserved when
+#   modifying (copying/pasting) these! 
+EXTRACT_ASSIGNMENT=${shell cat ${2} |                                      \
+	grep -e "\(\#define[ 	]*${1}[ 	][ 	]*\|${1}[ 	]*=[ 	]*\|.*${1}[ 	]*As\)" -  | \
+	sed "s/^.*[ 	]*${1}\([ 	][ 	]*As[^=]*\|[ 	]*\)\(=[ 	]*\)*//"                  -  | \
+	sed "s/\/[\*\/].*$$//"                                            -  | \
+	sed "s/[ 	]*$$//"                                           -  | \
+	sed "s/ /_/g"                                                     -  | \
+	sed "s/\"//g"                                                     -    }
+
+
+## eclipse in Windows cannot handle cygwin paths properly, 
+#  so "eclipsify" the make outputs so that we can jump to errors by clicking.
+#  to use this just add an ${ECLIPSIFY} to the end of your rule. 
+ifeq (${TERM},eclipse)
+export ECLIPSIFY = 2>&1 | ~/bin/eclipsify.py
+else
+export ECLIPSIFY = 
+endif
+
+#
+########################################################################
+
+
+########################################################################
+# first some variables
+
+
+ifndef RELEASE_FILE
+
+ifndef PROJECT_NAME
+ ${error Neither RELEASE_FILE nor PROJECT_NAME is defined!}
+endif
+
+ifndef PROJECT_RELEASE
+ ${error Neither RELEASE_FILE nor PROJECT_RELEASE is defined!}
+endif
+
+else
+
+ifdef PROJECT_NAME
+OLD_PROJECT_NAME:=${PROJECT_NAME}
+endif
+ifdef PROJECT_RELEASE
+OLD_PROJECT_RELEASE:=${PROJECT_RELEASE}
+endif
+ifdef PROJECT_DATE
+OLD_PROJECT_DATE:=${PROJECT_DATE}
+endif
+
+# Name of project (extracted from header file ${RELEASE_FILE}). 
+# The makefile function extracts the value of the C preprocessor
+# macro define named PROJECT_NAME.
+# - Used by doxygen as project name. 
+# - Used as base name of the generated pdf documentation files. 
+# - Used as name of project directory when installing.
+#
+export PROJECT_NAME=${call EXTRACT_ASSIGNMENT,PROJECT_NAME,${RELEASE_FILE}}
+
+# Release name of project (extracted from header file ${RELEASE_FILE})
+# The shell code below extracts the value of the C preprocessor
+# macro define named PROJECT_RELEASE.
+# - Used by doxygen as project release.
+# - Used as name of release directory when installing.
+#
+# \internal For an explanation of the mighty complex command see above for PROJECT_NAME.
+export PROJECT_RELEASE=${call EXTRACT_ASSIGNMENT,PROJECT_RELEASE,${RELEASE_FILE}}
+
+# Release date of project (extracted from header file ${RELEASE_FILE})
+# The shell code below extracts the value of the C preprocessor
+# macro define named PROJECT_DATE.
+#
+# \internal For an explanation of the mighty complex command see above for PROJECT_NAME.
+export PROJECT_DATE=${call EXTRACT_ASSIGNMENT,PROJECT_DATE,${RELEASE_FILE}}
+
+ifdef OLD_PROJECT_NAME 
+ifneq (${OLD_PROJECT_NAME},${PROJECT_NAME})
+ ${warning Previously defined PROJECT_NAME '${OLD_PROJECT_NAME}' was changed to ' '${PROJECT_NAME}' by settings in RELEASE_FILE '${RELEASE_FILE}'.}
+endif
+endif
+
+ifdef OLD_PROJECT_RELEASE 
+ifneq (${OLD_PROJECT_RELEASE},${PROJECT_RELEASE})
+ ${warning Previously defined PROJECT_RELEASE '${OLD_PROJECT_RELEASE}' was changed to ' '${PROJECT_RELEASE}' by settings in RELEASE_FILE '${RELEASE_FILE}'.}
+endif
+endif
+
+ifdef OLD_PROJECT_DATE 
+ifneq (${OLD_PROJECT_DATE},${PROJECT_DATE})
+ ${warning Previously defined PROJECT_DATE '${OLD_PROJECT_DATE}' was changed to ' '${PROJECT_DATE}' by settings in RELEASE_FILE '${RELEASE_FILE}'.}
+endif
+endif
+
+endif
+
+## the python executable to use 
+#  (must be 2.6, to make binary windows installer work with both python2.6 and python2.5 
+PYTHONWIN = /cygdrive/d/Programme/python2.6/python.exe
+PYTHONCYG = python    # python 2.6 is now part of cygwin std installation 
+#/usr/local/bin/python2.6
+
+## extract the cygwin version. (used by distutils as part of the generated package name)
+CYGWIN_VERSION = ${shell python -c "import os ;print os.uname()[2].split('(')[0]"}
+
+#
+########################################################################
+
+
+########################################################################
+# now some common targets
+
+show_release:
+	@echo
+	@echo "The following values were given/extracted from \$${RELEASE_FILE} \"${RELEASE_FILE}\":"
+	@echo "PROJECT_NAME = \"${PROJECT_NAME}\""
+	@echo "PROJECT_RELEASE = \"${PROJECT_RELEASE}\""
+	@echo "PROJECT_DATE = \"${PROJECT_DATE}\""
+
+
+# Create TAGS file 
+tags: TAGS
+TAGS: 
+	etags `find .               -name "*.[cChH]" -o -name "*.[cChH][+pP][+pP]" -o -name "*.dox"` \
+	      `find ${COMMON_DIR}/../Protocol/inc -name "*.[cChH]" -o -name "*.[cChH][+pP][+pP]"`
+
+.PHONY: tags TAGS
+#
+########################################################################
+
+#-----------------------------------------------------------------------
+# emacs settings:
+# Local Variables:
+# mode: Makefile
+# End:
+#-----------------------------------------------------------------------
+#//! \endcond
+########################################################################

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cob_hand_bridge</name>
+  <version>0.6.8</version>
+  <description>The cob_hand_bridge package provides a driver for the gripper of Care-O-bot4.</description>
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <author email="mathias.luedtke@ipa.fraunhofer.de">Mathias Lüdtke</author>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>actionlib</depend>
+  <depend>angles</depend>
+  <depend>control_msgs</depend>
+  <depend>diagnostic_updater</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
+
+  <build_depend>message_generation</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>rosserial_python</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+</package>

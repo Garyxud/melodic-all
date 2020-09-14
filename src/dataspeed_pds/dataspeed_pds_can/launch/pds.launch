@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="live" default="true" />
+  <arg name="pds_ns" default="pds" />
+  <arg name="can_ns" default="/can_bus_dbw" />
+  
+  <!-- CAN Bus Hardware -->
+  <arg name="filter_can" default="true" />
+  <node if="$(arg live)" pkg="dataspeed_can_usb" type="can_node" name="can_node" output="screen">
+    <remap from="can_bus_1" to="can_bus_1"/>
+    <param name="bitrate_1" value="0" />
+    <remap from="can_bus_2" to="can_bus_2"/>
+    <param name="bitrate_2" value="0" />
+    <remap from="can_bus_3" to="$(arg can_ns)"/>
+    <param name="bitrate_3" value="500000" />
+    <param name="channel_3_mask_0"  value="0x800007C0" if="$(arg filter_can)" />
+    <param name="channel_3_match_0" value="0x00000400" if="$(arg filter_can)" /> <!-- SID 0x400 to 0x43F -->
+    <remap from="can_bus_4" to="can_bus_4"/>
+    <param name="bitrate_4" value="0" />
+  </node>
+
+  <!-- PDS Interface -->
+  <group ns="$(arg pds_ns)" >
+    <node pkg="dataspeed_pds_can" type="pds_node" name="pds_can" output="screen">
+      <remap from="can_rx" to="$(arg can_ns)/can_rx"/>
+      <remap from="can_tx" to="$(arg can_ns)/can_tx"/>
+    </node>
+  </group>
+  
+</launch>

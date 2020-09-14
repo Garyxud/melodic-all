@@ -1,0 +1,55 @@
+<launch>
+  <!-- Camera Arguments -->
+  <arg name="camera_model" value="hfl110dcu" />
+  <arg name="camera_version" default="v1" />
+  <arg name="camera_frame_id" default="$(arg camera_model)_01" />
+  <arg name="parent_frame_id" default="map" />
+  <arg name="camera_ip_address" default="192.168.10.21" />
+  <arg name="frame_data_port" default="1900" />
+  <arg name="computer_ip_address" default="192.168.10.5" />
+
+  <!-- Node Manager Arguments -->
+  <arg name="node_name" value="$(arg camera_frame_id)" />
+  <arg name="manager_name" value="$(arg node_name)_manager" />
+  <arg name="independentLaunch" default="true" />
+  <arg name="ethernet_interface" default="eth0" />
+
+  <!-- UDP communication node -->
+  <include file="$(find udp_com)/launch/udp_com.launch" if="$(arg independentLaunch)" >
+    <arg name="ethernet_interface" value="$(arg ethernet_interface)" />
+  </include>
+
+  <!-- Nodelet Manager -->
+  <node pkg="nodelet" type="nodelet" name="$(arg manager_name)" args="manager" output="screen" />
+
+  <!-- Static TF from Sensor to Parent Frame -->
+  <node pkg="tf" type="static_transform_publisher" name="hfl110_tf" args="0 0 1 0 0 -1.57 $(arg parent_frame_id) $(arg camera_frame_id) 100"/>
+  <!-- CameraCommander Node -->
+  <node pkg="nodelet" type="nodelet" name="$(arg node_name)" args="load hfl_driver/CameraCommander $(arg manager_name)" output="screen">
+    <param name="id" value="$(arg node_name)" />
+    <param name="model" value="$(arg camera_model)" />
+    <param name="version" value="$(arg camera_version)" />
+    <param name="frame_id" value="$(arg camera_frame_id)" />
+    <param name="ethernet_interface" value="$(arg ethernet_interface)" />
+    <param name="camera_ip_address" value="$(arg camera_ip_address)" />
+    <param name="computer_ip_address" value="$(arg computer_ip_address)" />
+    <param name="frame_data_port" value="$(arg frame_data_port)" />
+  </node>
+
+  <!-- Point cloud publisher for return 1-->
+  <node pkg="nodelet" type="nodelet" name="toPoints_$(arg node_name)" args="load depth_image_proc/point_cloud_xyzi_radial $(arg manager_name)"> 
+    <remap from="intensity/image_raw" to="$(arg node_name)/intensity/image_raw" />
+    <remap from="intensity/camera_info" to="$(arg node_name)/intensity/camera_info" />
+    <remap from="depth/image_raw" to="$(arg node_name)/depth/image_raw" />
+    <remap from="points" to="$(arg node_name)/points" />
+  </node>
+  <!-- Point cloud publisher for return 2 -->
+  <node pkg="nodelet" type="nodelet" name="toPoints2_$(arg node_name)" args="load depth_image_proc/point_cloud_xyzi_radial $(arg manager_name)" >
+          <remap from="intensity/image_raw" to="$(arg node_name)/intensity2/image_raw" />
+          <remap from="intensity/camera_info" to="$(arg node_name)/intensity2/camera_info" />
+          <remap from="depth/image_raw" to="$(arg node_name)/depth2/image_raw" />
+          <remap from="points" to="$(arg node_name)/points2" />
+  </node>
+
+  <test test-name="HFL110DCU" pkg="hfl_driver" type="tests_hfl110dcu" />
+</launch>

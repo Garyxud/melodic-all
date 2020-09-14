@@ -1,0 +1,26 @@
+<package>
+  <name>interactive_marker_proxy</name>
+  <version>0.1.2</version>
+  <description>A Proxy Server for Interactive Markers</description>
+
+  <maintainer email="rctoris@wpi.edu">Russell Toris</maintainer>
+  <author email="dgossow@willowgarage.com">David Gossow</author>
+
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/interactive_marker_proxy</url>
+  <url type="bugtracker">https://github.com/RobotWebTools/interactive_marker_proxy/issues</url>
+  <url type="repository">https://github.com/RobotWebTools/interactive_marker_proxy</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>interactive_markers</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>interactive_markers</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+</package>

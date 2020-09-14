@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="port" default="/dev/ttyACM0"/>
+
+  <group ns="/gripper">
+    <node pkg="cob_hand_bridge" type="cob_hand_node" name="cob_hand_node">
+      <rosparam param="sdhx/joint_names" subst_value="True">[gripper_finger_1_joint, gripper_finger_2_joint]</rosparam>
+      <param name="sdhx/port" value="$(arg port)"/>
+    </node>
+  </group>
+</launch>

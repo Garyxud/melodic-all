@@ -1,0 +1,20 @@
+actions: []
+authors: Daniel Stonier
+brief: ''
+bugtracker: https://github.com/robotics-in-concert/rocon_tools/issues
+depends:
+- roslaunch
+- catkin
+- rosbash
+- python-catkin-pkg
+- rocon_python_utils
+- rospy
+- rocon_console
+description: A multi-roslaunch (for single and multi-master systems).
+license: BSD
+maintainers: Daniel Stonier <d.stonier@gmail.com>
+msgs: []
+package_type: package
+repo_url: https://github.com/robotics-in-concert/rocon_tools
+srvs: []
+url: http://ros.org/wiki/rocon_launch

@@ -1,0 +1,14 @@
+<library path="libfsrobo_r_trajectory_filters">
+
+  <class name="fsrobo_r_trajectory_filters/SimpleResampleFilter"
+	type="fsrobo_r_trajectory_filters::SimpleResampleFilterAdapter" 	
+	base_class_type="planning_request_adapter::PlanningRequestAdapter">
+    <description>
+	This is a simple filter which performs a uniforming sampling of
+	a trajectory using linear interpolation. 
+	ROS parameters:
+	- sample_duration (default = 0.050)
+    </description>
+  </class>
+  
+</library>

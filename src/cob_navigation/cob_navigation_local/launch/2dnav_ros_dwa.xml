@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot"/>
+  <arg name="pkg_nav_config" default="$(find cob_navigation_config)"/>
+
+  <!-- delete old parameters -->
+  <rosparam command="delete" param="/move_base"/>
+
+  <!--- Run move base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <remap from="cmd_vel" to="base/twist_mux/command_navigation"/>
+    <remap from="odom" to="base/odometry_controller/odometry"/>
+    <param name="controller_frequency" value="12"/>
+
+    <!-- Use the dwa local planner for the PR2 -->
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
+    <!--- load common configuration files -->
+    <rosparam file="$(arg pkg_nav_config)/robots/$(arg robot)/nav/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(arg pkg_nav_config)/robots/$(arg robot)/nav/costmap_common_params.yaml" command="load" ns="local_costmap" />
+
+    <!--- load global navigation specific parameters -->
+    <rosparam file="$(find cob_navigation_local)/config/local_costmap_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find cob_navigation_local)/config/global_costmap_params.yaml" command="load" ns="global_costmap" />
+
+    <!--- load planner parameters -->
+    <rosparam file="$(arg pkg_nav_config)/robots/$(arg robot)/nav/dwa_local_planner.yaml" command="load" ns="DWAPlannerROS" />
+  </node>
+
+</launch>

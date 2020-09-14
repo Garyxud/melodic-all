@@ -1,0 +1,76 @@
+ProjectType: "Visual C++"
+Version: "__VCVERSION__"
+Name: libRTCSkel
+ProjectGUID: __GUID__
+RootNamespace: libRTCSkel
+Keyword: "Win32Proj"
+Configurations:
+  - Name: "Debug|Win32"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "4"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          for %%x in (*.idl) do makewrapper.py %%x
+          for %%x in (*.idl) do omniidl -bcxx -Wba -nf %%x
+    VCCLCompilerTool:
+      - Key: Optimization
+        Value: "0"
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;_DEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "3"
+      - Key: RuntimeLibrary
+        Value: "3"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "4"
+    VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkeld.lib"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          cd "$(OutDir)"
+          copy libRTCSkeld.lib "$(SolutionDir)\\bin"
+  - Name: "Release|Win32"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "4"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    WholeProgramOptimization: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          for %%x in (*.idl) do makewrapper.py %%x
+          for %%x in (*.idl) do omniidl -bcxx -Wba -nf %%x
+    VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;NDEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: RuntimeLibrary
+        Value: "2"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "3"
+    VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkel.lib"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          cd "$(OutDir)"
+          copy libRTCSkel.lib "$(SolutionDir)\\bin"

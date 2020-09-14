@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>hrpsys_tools</name>
+  <version>1.4.3</version>
+  <description>The hrpsys_tools package</description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/hrpsys_tools</url>
+  <url type="repository">https://github.com/start-jsk/rtmros_common</url>
+  <url type="bugtracker">https://github.com/start-jsk/rtmros_common/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>hrpsys</build_depend>
+  <build_depend>rostest</build_depend>
+
+  <run_depend>hrpsys</run_depend>
+  <run_depend>openrtm_tools</run_depend>
+
+  <export/>
+</package>

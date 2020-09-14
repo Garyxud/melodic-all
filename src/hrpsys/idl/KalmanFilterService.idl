@@ -1,0 +1,56 @@
+/**
+ * @file KalmanFilterService.idl
+ * @brief Services for the kalman filter interface
+ */
+module OpenHRP
+{
+  interface KalmanFilterService
+  {
+    /**
+     * @enum KFAlgorithm
+     * @brief Algorithm for KalmanFilter
+     */
+    enum KFAlgorithm {
+        RPYKalmanFilter,
+        QuaternionExtendedKalmanFilter
+    };
+
+    typedef double DblArray3[3];
+
+    /**
+     * @struct KalmanFilterParam
+     * @brief KalmanFilter Parameters.
+     */
+    struct KalmanFilterParam
+    {
+      // RPYKalmanFilter
+      double Q_angle;
+      double Q_rate;
+      double R_angle;
+      // Common
+      KFAlgorithm kf_algorithm;
+      DblArray3 acc_offset;
+      DblArray3 sensorRPY_offset;
+    };
+
+    /**
+     * @brief Set KalmanFilter parameters
+     * @param i_param is input parameter
+     * @return true if set successfully, false otherwise
+     */
+    boolean setKalmanFilterParam(in KalmanFilterParam i_param);
+
+    /**
+     * @brief Get KalmanFilter parameters
+     * @param i_param is input parameter
+     * @return true if set successfully, false otherwise
+     */
+    boolean getKalmanFilterParam(out KalmanFilterParam i_param);
+
+    /**
+     * @brief Reset KalmanFilter state
+     * @return true if set successfully, false otherwise
+     */
+    boolean resetKalmanFilterState();
+  };
+};

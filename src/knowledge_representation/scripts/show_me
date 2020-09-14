@@ -1,0 +1,201 @@
+#!/usr/bin/env python
+"""
+Quickly inspect individual entities or see a summary of the whole knowledgebase
+"""
+import operator
+
+import knowledge_representation
+from knowledge_representation import Entity, Concept, Instance, Map, Point, Pose, Region, AttributeValueType, id_to_typed_wrapper
+from tabulate import tabulate
+import argparse
+
+ltmc = knowledge_representation.get_default_ltmc()
+
+
+def summarize_ltmc():
+    all_entities = ltmc.get_all_entities()
+    concept_count = len(ltmc.get_all_concepts())
+    instance_count = len(ltmc.get_all_instances())
+    attributes = ltmc.get_all_attributes()
+    print("{} entities ({} concepts, {} instances), {} attributes".format(len(all_entities), concept_count, instance_count, len(attributes)))
+    summarize_entities(all_entities)
+    print("")
+    summarize_attributes(attributes)
+
+
+def summarize_entities(entity_ids):
+    rows = []
+    for entity in sorted(entity_ids, key=operator.attrgetter("entity_id")):
+        typed = id_to_typed_wrapper(ltmc, entity.entity_id)
+        rows.append([entity.entity_id, summarize_typed_entity(typed)])
+
+    print(tabulate(rows, ["ID", "Summary"]))
+
+
+def summarize_attributes(attributes):
+    header = ["Attribute Name", "Value Type"]
+    rows = []
+    for attr_name, value_type in attributes:
+        type_as_str = AttributeValueType.names.keys()[AttributeValueType.names.values().index(value_type)]
+        rows.append([attr_name, type_as_str])
+    print(tabulate(rows, header))
+
+
+def summarize_typed_entity(entity):
+    """
+    Produces a string summary, aiming to be less than 40 characters. The summary doesn't show the entity's ID, since
+    that's assumed to have been displayed elsewhere.
+
+    :param entity: A valid entity in it's most specific typed form
+    :return: a string summarizing the entity
+    """
+    if isinstance(entity, Map):
+        result = "Map \"{}\": {} points, {} poses, {} regions".format(entity.get_name(), len(entity.get_all_points()), len(entity.get_all_poses()), len(entity.get_all_regions()))
+    elif isinstance(entity, Point):
+        # We leave off parent_map for brevity
+        result = "Point \"{}\": x={:.3}, y={:.3}".format(entity.get_name(), entity.x, entity.y)
+    elif isinstance(entity, Pose):
+        result = "Pose \"{}\": x={:.3}, y={:.3}, t={:.3}".format(entity.get_name(), entity.x, entity.y, entity.theta)
+    elif isinstance(entity, Region):
+        result = "Region \"{}\": {} points".format(entity.get_name(), len(entity.points))
+    elif isinstance(entity, Concept):
+        result = "Concept \"{}\"".format(entity.get_name())
+    elif isinstance(entity, Instance):
+        name = entity.get_name()
+        result = "Instance "
+        if name:
+            result = "\"{}\" ".format(name)
+        result += str(map(lambda x: x.get_name(), entity.get_concepts()))
+    else:
+        # It's just an entity
+        if len(entity.get_attributes("name")) > 0:
+            result = "\"" + entity.get_attributes("name")[0].value + "\""
+        else:
+            result = str(entity.entity_id)
+    return result
+
+
+def about_id(entity_id, show_attributes=True):
+    typed = id_to_typed_wrapper(ltmc, entity_id)
+    if isinstance(typed, Concept):
+        # Delegate
+        about_concept(typed.name, show_attributes)
+        return
+
+    parent_map = None
+    if isinstance(typed, Map):
+        print(summarize_typed_entity(typed))
+    elif isinstance(typed, Point):
+        print(summarize_typed_entity(typed))
+        parent_map = typed.parent_map
+    elif isinstance(typed, Pose):
+        print(summarize_typed_entity(typed))
+        parent_map = typed.parent_map
+    elif isinstance(typed, Region):
+        about_region(typed)
+        parent_map = typed.parent_map
+
+    if parent_map:
+        print("Belongs to map {} (\'{}\')".format(parent_map.entity_id, parent_map.get_name()))
+
+    if isinstance(typed, Instance):
+        print(summarize_typed_entity(typed))
+
+    if not typed:
+        print("Entity {} does not exist".format(entity_id))
+        exit(1)
+    if show_attributes:
+        about_entity_attributes(typed)
+
+
+def about_entity_attributes(entity):
+    attributes = entity.get_attributes()
+    if len(attributes) == 0:
+        print "No attributes"
+        return
+    headers = ["Attribute Name", "Value"]
+    rows = []
+    for attr in attributes:
+        unwrapped = attr.value
+        if isinstance(attr.value, int):
+            other_entity = id_to_typed_wrapper(ltmc, attr.value)
+            if other_entity:
+                unwrapped = "{} ({})".format(attr.value, summarize_typed_entity(other_entity))
+        elif isinstance(attr.value, str):
+            unwrapped = "\"{}\"".format(attr.value)
+
+        rows.append([attr.attribute_name, unwrapped])
+    print(tabulate(rows, headers))
+
+
+def about_concept(concept_name, show_attributes=True):
+    concept = ltmc.get_concept(concept_name)
+    instances = concept.get_instances()
+    print("{} instances of {}".format(len(instances), concept_name))
+    summarize_entities(instances)
+    if show_attributes:
+        about_entity_attributes(concept)
+
+
+def about_region(region):
+    print("Region \"{}\"".format(region.get_name()))
+    rows = []
+    for point in region.points:
+        rows.append([point[0], point[1]])
+
+    print(tabulate(rows, ["x", "y"]))
+    print("")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("arg", type=str, nargs="?", help="An entity ID or a name")
+    parser.add_argument("--concept", action="store_true", help="Interpret the string argument as a concept name")
+    parser.add_argument("--instance", action="store_true", help="Interpret the string argument as an instance name")
+    args = parser.parse_args()
+    if args.arg is None:
+        summarize_ltmc()
+        return
+    if args.arg.isdigit():
+        args.entity_id = int(args.arg)
+        args.string_arg = None
+    else:
+        args.string_arg = args.arg
+        args.entity_id = None
+
+    if args.entity_id:
+        # Disambiguation flags don't change anything here; an ID is an ID
+        about_id(args.entity_id)
+    elif args.string_arg:
+        if args.instance:
+            name_match = ltmc.get_entities_with_attribute_of_value("name", args.string_arg)
+            if len(name_match) == 0:
+                print("There is no instance with the name \"{}\"".format(args.string_arg))
+                exit()
+            elif len(name_match) > 1:
+                matched_ids = map(lambda e: e.entity_id, name_match)
+                summarize_entities(matched_ids)
+            else:
+                about_id(name_match[0].entity_id)
+        elif args.concept:
+            about_concept(args.string_arg)
+        else:
+            # Look for the most specific information we could print, but fallback to summaries if ambiguous
+            name_match = ltmc.get_entities_with_attribute_of_value("name", args.string_arg)
+            if len(name_match) == 1:
+                # Since it's unique, show a lot of detail. We have to display the ID because about_id won't
+                entity_id = name_match[0].entity_id
+                print("Showing information for the instance named '{}' ({})".format(args.string_arg, entity_id))
+                about_id(entity_id)
+            elif len(name_match) != 0:
+                # Give summaries for all matches
+                print("Showing information for instances named '{}'".format(args.string_arg))
+                matched_ids = map(lambda e: e.entity_id, name_match)
+                summarize_entities(matched_ids)
+            else:
+                print("Showing information for the concept named '{}'".format(args.string_arg))
+                about_concept(args.string_arg)
+
+
+if __name__ == "__main__":
+    main()

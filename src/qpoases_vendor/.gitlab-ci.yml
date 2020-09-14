@@ -1,0 +1,74 @@
+variables:
+  CROSS_TARGET_PLATFORM: generic-aarch64
+
+.build: &build_common
+  before_script:
+    - mkdir -p src_tmp/$CI_PROJECT_NAME && mv `find -maxdepth 1 -not -name . -not -name src_tmp` src_tmp/$CI_PROJECT_NAME && mv src_tmp/ src/
+    - sudo apt-get update
+    - sudo apt-get install -y libarmadillo-dev libglew-dev libssh2-1-dev python-flask python-requests wget
+    - sudo apt-get install -y python3-pip python3-setuptools python3-colcon-common-extensions
+    # Update setuptools from PyPI because the version Ubuntu ships with is too old
+    - pip3 install -U setuptools
+    - rosdep update
+    - rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+  script:
+    - source /opt/ros/${ROS_DISTRO}/setup.bash
+    - colcon build
+    - colcon build --cmake-target tests
+    - colcon test
+    - colcon test-result --verbose
+  only:
+    - merge_requests
+    - master
+
+.build_cross_vars: &build_cross_vars
+    TARGET_ARCH: aarch64
+    TOOLCHAIN_FILE_PATH: $CI_PROJECT_DIR/cross_toolchain.cmake
+    SYSROOT: /sysroot/${CROSS_TARGET_PLATFORM}
+
+.build_cross: &build_cross_common
+  script:
+    - mkdir -p src_tmp/$CI_PROJECT_NAME && mv `find -maxdepth 1 -not -name . -not -name src_tmp` src_tmp/$CI_PROJECT_NAME && mv src_tmp/ src/
+    - apt update -qq && apt install -y git wget
+    - wget https://gitlab.com/autowarefoundation/autoware.ai/autoware/raw/master/ros/cross_toolchain.cmake
+    - source ${SYSROOT}/opt/ros/${ROS_DISTRO}/setup.bash
+    - colcon build
+        --merge-install
+        --cmake-args
+        -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE_PATH}
+        -DCMAKE_SYSTEM_PROCESSOR=${TARGET_ARCH}
+        -DCMAKE_PREFIX_PATH="${SYSROOT}/opt/ros/${ROS_DISTRO};${CI_PROJECT_DIR}/install"
+        -DCMAKE_FIND_ROOT_PATH=${CI_PROJECT_DIR}/install
+  only:
+    - merge_requests
+    - master
+
+build_kinetic:
+  stage: build
+  image: autoware/autoware:bleedingedge-kinetic-base
+  variables:
+    ROS_DISTRO: kinetic
+  <<: *build_common
+
+build_melodic:
+  stage: build
+  image: autoware/autoware:bleedingedge-melodic-base
+  variables:
+    ROS_DISTRO: melodic
+  <<: *build_common
+
+build_kinetic_cross:
+  stage: build
+  image: autoware/build:${CROSS_TARGET_PLATFORM}-kinetic-bleedingedge
+  variables:
+    ROS_DISTRO: kinetic
+    <<: *build_cross_vars
+  <<: *build_cross_common
+
+build_melodic_cross:
+  stage: build
+  image: autoware/build:${CROSS_TARGET_PLATFORM}-melodic-bleedingedge
+  variables:
+    ROS_DISTRO: melodic
+    <<: *build_cross_vars
+  <<: *build_cross_common

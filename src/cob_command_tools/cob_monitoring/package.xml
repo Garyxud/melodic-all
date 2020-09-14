@@ -1,0 +1,39 @@
+<package format="2">
+  <name>cob_monitoring</name>
+  <version>0.6.16</version>
+  <description>cob_monitoring</description>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_monitoring</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <author email="fmw@ipa.fhg.de">Florian Weisshardt</author>
+  <author email="fxm@ipa.fhg.de">Felix Messmer</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>diagnostic_updater</depend>
+  <depend>roscpp</depend>
+  <depend>topic_tools</depend>
+
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>cob_light</exec_depend>
+  <exec_depend>cob_msgs</exec_depend>
+  <exec_depend>cob_script_server</exec_depend>
+  <exec_depend>diagnostic_msgs</exec_depend>
+  <exec_depend>ifstat</exec_depend>
+  <exec_depend>ipmitool</exec_depend>
+  <exec_depend>ntpdate</exec_depend>
+  <exec_depend>paramiko</exec_depend>
+  <exec_depend>python-mechanize</exec_depend>
+  <exec_depend>python-psutil</exec_depend>
+  <exec_depend>python-requests</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rostopic</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sysstat</exec_depend>
+
+</package>

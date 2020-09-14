@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "PoseProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Pose
+/// \brief Message for a pose with an optional covariance
+
+import "roboception/msgs/vector3d.proto";
+import "roboception/msgs/quaternion.proto";
+
+message Pose
+{
+  optional Vector3d position      = 1; // Position in meters
+  optional Quaternion orientation = 2; // Orientation as unit quaternion
+  repeated double covariance      = 3 [packed=true]; // Row-major representation of the 6x6 covariance matrix (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)
+}

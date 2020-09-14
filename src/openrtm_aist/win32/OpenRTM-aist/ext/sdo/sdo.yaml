@@ -1,0 +1,7 @@
+SDOService:
+  GUID: FD1558E1-7C3B-11E0-A37E-000C290BB873
+  Files:
+    - Id: ComponentObserverConsumer.dll
+      ShortName: CompObsC.dll
+      Name: ComponentObserverConsumer.dll
+      Source: ..\\ext\\sdo\\observer\\ComponentObserverConsumer\\Release\\ComponentObserverConsumer.dll

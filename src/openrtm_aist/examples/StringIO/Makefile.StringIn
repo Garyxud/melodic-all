@@ -1,0 +1,24 @@
+# -*- Makefile -*-
+
+CXXFLAGS = `rtm-config --cflags`
+LDFLAGS  = `rtm-config --libs`
+SHFLAGS  = -shared
+.SUFFIXES: .cpp .o .so
+
+all: StringInComp StringIn.so
+
+.cpp.o:
+	rm -f $@
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+.o.so:
+	rm -f $@
+	$(CXX) $(SHFLAGS) -o $@ $< $(LDFLAGS)
+
+StringInComp: StringIn.o StringInComp.o
+	$(CXX) -o $@ StringIn.o StringInComp.o $(LDFLAGS) 
+
+clean:
+	rm -f *~ *.o *.so *Comp
+
+

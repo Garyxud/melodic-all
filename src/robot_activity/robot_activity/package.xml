@@ -1,0 +1,29 @@
+<package format="2">
+  <name>robot_activity</name>
+  <version>0.1.1</version>
+  <description>
+    The robot_activity package implements ROS node lifecycle
+  </description>
+
+  <author email="maciej.zurad@gmail.com">Maciej ZURAD</author>
+  <maintainer email="maciej.zurad@gmail.com">Maciej ZURAD</maintainer>
+
+  <license>BSD</license>
+
+  <url>http://www.ros.org/wiki/robot_activity</url>
+  <url type="bugtracker">https://github.com/snt-robotics/robot_activity/issues</url>
+  <url type="repository">https://github.com/snt-robotics/robot_activity</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_srvs</depend>
+  <depend>robot_activity_msgs</depend>
+
+  <build_depend>roslint</build_depend>
+  <test_depend>rostest</test_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml" />
+  </export>
+</package>

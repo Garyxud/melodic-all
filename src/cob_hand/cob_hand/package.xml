@@ -1,0 +1,23 @@
+<package format="2">
+  <name>cob_hand</name>
+  <version>0.6.8</version>
+  <description>The cob_hand stack includes packages that provide access to the Care-O-bot hand through ROS serial.</description>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_hand</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <maintainer email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</maintainer>
+  <author email="mathias.luedtke@ipa.fraunhofer.de">Mathias Lüdtke</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>cob_hand_bridge</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

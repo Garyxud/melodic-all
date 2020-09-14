@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>criutils</name>
+  <version>0.1.3</version>
+  <description>The criutils package</description>
+
+  <author email="fsuarez6@gmail.com">Francisco Suarez-Ruiz</author>
+  <maintainer email="fsuarez6@gmail.com">Francisco Suarez-Ruiz</maintainer>
+  <license>BSD 3-Clause</license>
+  <url type="website">http://wiki.ros.org/criutils</url>
+  <url type="repository">https://github.com/crigroup/criutils</url>
+  <url type="bugtracker">https://github.com/crigroup/criutils/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>baldor</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>image_geometry</exec_depend>
+  <exec_depend>python-numpy</exec_depend>
+  <exec_depend>python-termcolor</exec_depend>
+  <exec_depend>resource_retriever</exec_depend>
+  <exec_depend>rostopic</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+
+  <doc_depend>python-numpydoc</doc_depend>
+  <doc_depend>rosdoc_lite</doc_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml"/>
+  </export>
+
+</package>

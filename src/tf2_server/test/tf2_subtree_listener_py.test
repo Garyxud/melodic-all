@@ -1,0 +1,11 @@
+<launch>
+    <param name="/use_sim_time" value="false" />
+
+    <include file="$(dirname)/tf_tree.launch" />
+
+    <node name="tf2_buffer_server" pkg="tf2_server" type="tf2_server_node" />
+
+    <test test-name="test_tf2_subtree_listener_py" pkg="tf2_server" type="test_tf2_subtree_listener_py">
+        <remap from="tf2_server" to="tf2_buffer_server" />
+    </test>
+</launch>

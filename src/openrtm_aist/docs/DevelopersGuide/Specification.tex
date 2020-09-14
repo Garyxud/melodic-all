@@ -1,0 +1,941 @@
+% -*- LaTeX -*-
+%
+% @file Specification.tex
+% @brief OpenRTM-aist developers guide [Specification]
+% @date $Date: 2005-05-12 09:06:21 $
+% @author Noriaki Ando <n-ando@aist.go.jp>
+%
+% Copyright (C) 2003-2005
+%     Task-intelligence Research Group,
+%     Intelligent Systems Research Institute,
+%     National Institute of
+%         Advanced Industrial Science and Technology (AIST), Japan
+%     All rights reserved.
+%
+% $Id$
+%
+
+\chapter{RTM Specification}
+
+OpenRTM\--aist は 独立行政法人新エネルギー・産業技術統合開発機構 (NEDO) の21世紀ロボットチャレンジプログラム「ロボット機能発現のために必要な要素技術開発」において標準化作業が進められている RTM Specification のインターフェース仕様に準拠する実装のひとつとして開発されました。
+
+プロジェクトでは、ロボットのための標準的なプラットフォームとなるようなミドルウエアを開発するために、インターフェースレベルでの仕様策定と標準化作業が行われ RTM Specification としてまとめられました。
+
+本章では OpenRTM\--aist のインターフェース仕様の基となっている RTM Specification について、仕様と実装の関係を説明します。
+また、IDLのインターフェース定義を示しながら、RTM Specification インターフェース仕様と OpenRTM\--aist により独自に拡張されたインターフェースをそれぞれ示しながら、これらの違いについて説明します。
+
+\section{OpenRTM\--aist と RTM Specification}
+
+RTMは独立行政法人新エネルギー・産業技術統合開発機構 (NEDO) の21世紀ロボットチャレンジプログラム「ロボット機能発現のために必要な要素技術開発」に於いて、ネットワークロボットのプラットフォームとなるミドルウエア技術を開発する目的の元に、独立行政法人産業技術総合研究所 (National Institute of Advanced Industrial Science and Technology: AIST)、松下電工株式会社 (Matsushita Electric Works, Ltd.: MEW)と日本ロボット工業会 (Japan Robot Association: JARA) の3者 (図~\ref{fig:ResaerchOrganization}) により、平成14年度から平成16年度までの3年間のプロジェクトとして研究開発が行われました。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/ResearchOrganization.eps,width=0.7\columnwidth}}
+\caption{RTM研究組織}
+\label{fig:ResaerchOrganization}
+\end{figure}
+
+RTMの標準化作業に向けた研究開発においては、様々なメーカー、コンポーネントベンダ、研究者が開発したコンポーネントが相互接続できるよう、インターフェースレベルでの標準化が進められました。
+同一のインターフェースを持つコンポーネントであれば、実装の如何に関わらず様々なコンポーネントが同一システムにおいて協調できることを目指しています。
+
+この標準仕様事態はオープンなものであり、この仕様に基づいて誰でもこの実装を作成することが出来ます。
+実装されたものは、作成者が任意のライセンスに基づいて配布・販売することが出来ます。
+OpenRTM\--aist は独立行政法人産業技術総合研究所がフリーで提供する RTM Specification に基づいた実装のひとつにあたります (図~\ref{fig:RTM_Standardization})。
+現在のところ、このRTMインターフェース仕様に準拠したRTM実装でフリーなものは OpenRTM\--aist しかありません。
+RTM Specification はコンポーネントの基本的なインターフェース、すなわちコンポーネントオブジェクト、Inport/Outportオブジェクトについての基本的なインターフェースを規定しているに過ぎません。
+OpenRTM\--aist では標準インターフェース仕様に準拠したコンポーネントとともに、これを容易に開発するためのフレームワーク、各種サービス群をいったいとして配布しています。
+
+\begin{figure}[H]
+\vspace{5mm}
+\centering{\epsfile{file=figs/RTM_Standardization.eps,width=0.7\columnwidth}}
+\caption{RTM Specification と OpenRTM\--aist の関係}
+\label{fig:RTM_Standardization}
+\end{figure}
+
+InPort/OutPortのデータ型、マネージャなど、コンポーネント運用上必要であるが、そのアプリケーションによりまた実装者により様々な形態が考えられ、かつコンポーネントの相互接続性に関与しない部分については基本仕様からは除かれています。
+たとえば、OpenRTM\--aist においてはコンポーネント運用上の必要性から独自にコンポーネントマネージャCORBAオブジェクト、InPort/OutPort基本データ型、コンポーネントプロファイルなどの拡張CORBAオブジェクトを含んでいます。
+また、コンポーネントオブジェクトのインターフェースについても、コンポーネントの複合化やリアルタイム動作のための基本的なコンポーネントインターフェース \verb|RTComponent| を継承する形でいくつかの拡張を行っており、そのインターフェースは \verb|RTCBase| として定義されています。
+
+
+\section{RTMの標準化}
+上記RTMプロジェクトでは、オブジェクト指向技術の標準化団体であるOMG (Object Management Group) に対して、RTMをOMG標準として認定されるよう活動を行っています。
+
+
+\subsection{OMG (Object Management Group)}
+
+OMG (Objet Management Group: オブジェクトマネージメントグループ)は 1989年に発足したオブジェクト指向技術の標準化団体で、現在では世界から800以上のソフトウェアベンダ、ディベロッパ、一般企業が参画するソフトウエア業界最大の団体です。
+オブジェクト指向の分散アプリケーション構築を可能にするフレームワークの仕様を提案することを目的として標準化活動を行っています。
+
+OMGの代表的な仕事としては、CORBAなどの分散オブジェクトプラットフォームの仕様策定や、UML (Unified Modeling Language) といった、オブジェクト指向のソフトウェア開発における、プログラム設計図の統一表記法の策定\footnote{UML 自体は Rational Software 社のGrady Booch氏、James Rumbaugh氏、Ivar Jacobson氏の3人によって開発されたオブジェクト指向設計の表記法ですが、1997年11月に OMG がUMLを標準認定したことにより、事実上業界のオブジェクト指向設計表記法の標準となりました。}などがあります。
+
+\subsection{MDA (Model Driven Architecture)}
+OMG が掲げたアーキテクチャに、MDA (Model Driven Architecture)というものがあります。
+日本語では一般に「モデル駆動アーキテクチャ」と訳されます。
+
+現在のソフトウエアの移植性、相互運用において、同じ機能を持つソフトウェアであっても、プラットフォームが異なると様々な実装があり、本来再利用が可能なはずのソフトウェアがプラットフォームが変わると相互運用が困難になることが大きな問題となっています。
+
+MDA は、モデリング主導のシステム開発およびライフサイクル管理を実現するためのアーキテクチャです。
+MDA の考え方は、全てのシステムはまずモデルにより定義、デザインされ、モデルが定義されることで特定言語や製品へのマッピングは自動的に決定され、システム管理、インテグレーションもモデルを中心として行うことで、システム開発の効率向上を図ろうというものです。
+
+モデルの形で仕様を定めれば、それよりも下流の詳細設計やコーディングといった工程が大幅に自動化されるので、これが実現すればシステム構築の工数を大幅に削減できます。
+最終的には、モデルから実装コードの自動生成なども視野に入れているようですが、まだ実現にまでは至っていないようです。
+しかしながら、この考えも1980年代のCASEツールが登場したときと同じだとの批判もあるのが事実です。
+
+しかしながら、MDAで取り扱うモデルは、プラットフォームが変わっても透過性の高い再利用可能なシステムデザインの知見であり、システム開発に関わる関係者がシステムについて議論できる具体的な対象を与えてくれるという意味においては、有効な手法であるといえそうです。
+
+MDAに基づいた開発では、
+\begin{enumerate}
+\item OSや言語、ミドルウェアなどに依存しないモデル「PIM (Platform Independent Model) を作成する。 
+\item PIMを基に、OSや言語、ミドルウェアなどに特化したモデル「PSM (Platform Specific Model)」を作成する。
+\item PSMを基に、プログラムを生成する
+\end{enumerate}
+という流れで開発が進められるということになっています。
+
+\subsection{PIM (Platform Independent Model)}
+PIM とはプラットフォームに依存しないモデルであり、ここでのプラットフォームとはOSや言語、ミドルウェアなどを指します。
+RTM プロジェクトにおいて策定された仕様はCORBAを前提としたIDLファイルと周辺の仕様として提供されています。
+したがって、RTM仕様はプラットフォームに依存するという意味で PIM とはなっていません。
+しかしながら、インターフェース設計に関わる考え方を PIM に一般化することは可能ですので、将来的には PIM レベルで標準化が行われる可能性もあります。
+PIM レベルでの標準化が行われれば、他のプラットフォーム (JEB, DCOM, SOAP, XML-RPC) などへのポーティングも可能になるでしょう(図~\ref{fig:RTM_Standardization})。
+
+\subsection{PSM (Platform Specific Model)}
+PSM とはプラットフォームに依存したモデルであり、例えば CORBA をプラットフォームと規定した場合 IDL インターフェースレベルでのモデル化になります。
+RTM では、仕様を CORBA の IDL レベルでのインターフェースの統一化による標準化を行ってきており、現在得られている仕様はPSMであるといえます(図~\ref{fig:RTM_Standardization})。
+
+\newpage
+\section{RTM Specification Ver.0.1}
+
+\subsection{RTMBase.idl}
+\verb|RTMBase.idl| では全体に共通する雑多な定義を行っています。
+
+\begin{src}{RTMBase.idl}\footnotesize
+\begin{verbatim}
+module RTM {
+
+  typedef short RtmRes;
+
+  const RtmRes RTM_OK        = 0;
+  const RtmRes RTM_ERR       = 1;
+  const RtmRes RTM_WARNING   = 2;
+  const RtmRes RTM_FATAL_ERR = 4;
+
+  struct NamedValue {
+    string name;
+    any value;
+  };
+
+  typedef sequence<NamedValue> NVList;
+
+  struct Time
+  {
+    unsigned long sec;    // sec
+    unsigned long nsec;   // nano sec
+  };
+};
+\end{verbatim}
+\end{src}
+
+RTMのオペレーションの戻り値として \verb|RtmRes| を定義しています。
+オペレーションが正常に実行されたかどうかを戻り値として返す場合、\verb|RtmRes| を戻り値として、以下の値を定義しています。
+
+\begin{tab}{● オペレーションの戻り値}
+\begin{tabular}{ll}
+\verb|const RtmRes RTM_OK        = 0;| & 正常終了\\
+\verb|const RtmRes RTM_ERR       = 1;| & エラー終了\\
+\verb|const RtmRes RTM_WARNING   = 2;| & 警告\\
+\verb|const RtmRes RTM_FATAL_ERR = 4;| & 致命的エラー終了\\
+\end{tabular}
+\end{tab}
+
+任意の型の値を格納する構造体として、\verb|NamedValue| を定義しています。
+また、\verb|NamedValue| のシーケンス型として \verb|NVList| を定義しています。
+
+時間を格納する構造体として \verb|Time| 構造体を定義しています。
+Time構造体は 秒単位の \verb|sec| 及びナノ秒単位の \verb|nsec| のメンバから構成されます。
+主に、InPort/OutPortでやり取りされるデータのタイムスタンプに使用されます。
+
+\newpage
+\subsection{RTComponent}
+以下にRTComponentのインターフェースIDLを示します。
+
+\begin{src}{RTComponent.idl (1)}\footnotesize
+\begin{verbatim}
+#include "RTMBase.idl"
+#include "RTCInPort.idl"
+#include "RTCOutPort.idl"
+
+module RTM {
+  interface RTComponent
+  //    : NamedObject, PropertySet
+  {
+    readonly attribute string instance_id;
+    readonly attribute string implementation_id;
+    readonly attribute string description;
+    readonly attribute string version;
+    readonly attribute string maker;
+    readonly attribute string category;
+
+    typedef short ComponentState;
+
+    const ComponentState RTC_UNKNOWN        = 0;
+    const ComponentState RTC_BORN           = 1;
+    const ComponentState RTC_INITIALIZING   = 2;
+    const ComponentState RTC_READY          = 3;
+    const ComponentState RTC_STARTING       = 4;
+    const ComponentState RTC_ACTIVE         = 5;
+    const ComponentState RTC_STOPPING       = 6;
+    const ComponentState RTC_ABORTING       = 7;
+    const ComponentState RTC_ERROR          = 8;
+    const ComponentState RTC_FATAL_ERROR    = 9;
+    const ComponentState RTC_EXITING        = 10;
+
+    exception IllegalTransition {};
+
+\end{verbatim}
+\end{src}
+
+RTコンポーネントの本体となるオブジェクトの宣言で \verb|interface RTComponent| インターフェースとして定義されています。
+RTMのインターフェース定義は全て \verb|RTM| 名前空間の下で定義されます。
+
+\subsubsection*{プロファイルのattribute}
+コンポーネントプロファイル情報の以下の項目を \verb|attribute| として定義しています。
+
+\begin{tab}{● コンポーネントのプロファイル情報}
+\begin{tabular}{ll}
+\verb|readonly attribute string instance_id;|       & インスタンスID \\
+\verb|readonly attribute string implementation_id;| & インプリメンテーションID\\
+\verb|readonly attribute string description;|       & 概要説明\\
+\verb|readonly attribute string version;|           & バージョン\\
+\verb|readonly attribute string maker;|             & 作成者\\
+\verb|readonly attribute string category;|          & カテゴリ\\
+\end{tabular}
+\end{tab}
+
+\subsection{コンポーネントアクティビティ状態}
+コンポーネントアクティビティの状態として、CORBA の short 型変数として \verb|ComponentState| を \verb|typedef| し、各状態を表す \verb|const| 定数として以下の11の状態を定義しています。
+
+\begin{tab}{● コンポーネントアクティビティ状態}
+\begin{tabular}{ll}
+\verb|const ComponentState RTC_UNKNOWN        = 0;| & UNKNOWN 状態 \\
+\verb|const ComponentState RTC_BORN           = 1;| & BORN 状態 \\
+\verb|const ComponentState RTC_INITIALIZING   = 2;| & INITIALIZING 状態\\
+\verb|const ComponentState RTC_READY          = 3;| & READY状態\\
+\verb|const ComponentState RTC_STARTING       = 4;| & STARTING状態\\
+\verb|const ComponentState RTC_ACTIVE         = 5;| & ACTIVE状態\\
+\verb|const ComponentState RTC_STOPPING       = 6;| & STOPPING状態\\
+\verb|const ComponentState RTC_ABORTING       = 7;| & ABORTING状態\\
+\verb|const ComponentState RTC_ERROR          = 8;| & ERROR状態\\
+\verb|const ComponentState RTC_FATAL_ERROR    = 9;| & FATAL\_ERROR状態\\
+\verb|const ComponentState RTC_EXITING        = 10;| & EXITING状態
+\end{tabular}
+\end{tab}
+
+上記の状態は図~\ref{fig:RTC_StateTransition}の状態遷移に従います。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RT_RTComponentStateChart.eps,width=0.9\columnwidth}}
+\caption{RTコンポーネント状態遷移図}
+\label{fig:RTC_StateTransition}
+\end{figure}
+
+\newpage
+
+\begin{src}{RTComponent.idl (2)}\footnotesize
+\begin{verbatim}
+    RtmRes rtc_worker();
+
+    RtmRes rtc_start() raises (IllegalTransition);
+    RtmRes rtc_stop() raises (IllegalTransition);
+    RtmRes rtc_reset() raises (IllegalTransition);
+    RtmRes rtc_exit() raises (IllegalTransition);
+    RtmRes rtc_kill();
+
+    readonly attribute OutPort rtc_state;
+
+    exception NoSuchName { string name; };
+    readonly attribute InPortList inports;
+    InPort get_inport(in string name) raises (NoSuchName);
+    readonly attribute OutPortList outports;
+    OutPort get_outport(in string name) raises (NoSuchName);
+
+    //! Return connector port object reference list
+    //    readonly attribute ConnectorList connectors;
+    //    OutPort get_connector(in string name) raises (NoSuchName);
+
+    //    readonly attribute PropertySet rtc_settings;
+
+  };
+
+  typedef sequence<RTComponent> RTComponentList;
+  
+};  // end of module RTM
+\end{verbatim}
+\end{src}
+
+\verb|rtc_worker()| オペレーションはコンポーネントのアクティビティ本体が実行されるオペレーションです。
+通常は、内部から実行され外部から呼び出されることはありませんが、複合コンポーネントを構成する場合などに外部の同期を取るコンポーネントなどから呼び出されることもあります。
+
+\verb|rtc_start()|-\verb|rtc_kill()| オペレーションはコンポーネントの状態を遷移させるためのオペレーションとして定義されています。
+コンポーネントアクティビティの状態遷移は図~\ref{fig:RTC_StateTransition}にしたがって行われます。
+
+呼び出されるオペレーションが現在の状態において適切でなかった場合、\verb|IllegalTransition| が発生します。
+
+\verb|rtc_state| はコンポーネントの状態を出力するOutPortオブジェクトのリファレンスを返します。
+このOutPortを用いてコンポーネントの状態をpull型またはpush型データ転送で取得することが出来ます。
+
+\begin{tab}{● コンポーネントアクティビティと状態遷移オペレーション}
+\begin{tabular}{lp{45mm}}
+\verb|RtmRes rtc_worker();| & アクティビティ本体\\
+&\\
+\verb|RtmRes rtc_start() raises (IllegalTransition);| & ACTIVE 状態へ遷移\\
+\verb|RtmRes rtc_stop() raises (IllegalTransition);| & READY 状態へ遷移\\
+\verb|RtmRes rtc_reset() raises (IllegalTransition);| & INITIALIZING状態へ遷移\\
+\verb|RtmRes rtc_exit() raises (IllegalTransition);| & EXITING状態へ遷移\\
+\verb|RtmRes rtc_kill();| & FATAL\_ERROR 状態のときEXITING状態へ遷移\\
+\verb|readonly attribute OutPort rtc_state;| & コンポーネント状態OutPort \\
+\end{tabular}
+\end{tab}
+
+
+コンポーネントは1つ以上のデータ入出力オブジェクト InPort/OutPort を持つことが出来ます。
+以下のオペレーションを使用しこれらのオブジェクトリファレンスを取得することが出来ます。
+
+\begin{tab}{● InPort/OutPort}
+\begin{tabular}{lp{60mm}}
+\verb|exception NoSuchName { string name;};| & 例外定義 \\
+\verb|readonly attribute InPortList inports;| & InPortList を取得 \\
+\verb|InPort get_inport(in string name)| & 名前を指定しInPortを取得\\
+\verb|             raises (NoSuchName);| & \\
+\verb|readonly attribute OutPortList outports;| & OutPortListを取得\\
+\verb|OutPort get_outport(in string name)| & 名前を指定しOutPortを取得\\
+\verb|             raises (NoSuchName);| & \\
+\end{tabular}
+\end{tab}
+
+最後に、コンポーネントのオブジェクトリファレンスをシーケンスとして保存する \verb|RTComponentList| を定義しています。
+複数のコンポーネントをまとめて扱う場合に使用します。
+
+
+\newpage
+\subsection{RTCInPort.idl}
+\begin{src}{RTCInPort.idl}\footnotesize
+\begin{verbatim}
+#include "RTMBase.idl"
+
+module RTM {
+  typedef string SubscriptionID;
+
+  struct PortProfile
+  {
+    string name;
+    CORBA::TypeCode port_type;
+    NVList properties;
+  };
+  
+  interface InPort
+  {
+    exception Disconnected{};
+
+    void put(in any data) raises(Disconnected);
+
+    readonly attribute PortProfile profile;
+  };
+
+  typedef sequence<InPort> InPortList;
+  typedef sequence<PortProfile> PortProfileList;
+
+}; // end of module RTM
+
+\end{verbatim}
+\end{src}
+
+まず、CORBA string 型として \verb|SubscriptionID| を定義しています。
+\verb|SubscriptionID| はOutPortをサブスクライブする際の識別IDで、通常はUUIDを使用します。
+
+構造体 \verb|PortProfile| は InPort/OutPort のプロファイル情報を格納する構造体です。トップレベルには、ポート名: \verb|name|とポート型: \verb|port_type| のみをもち、その他の情報は \verb|NamedValue| のシーケンス: \verb|NVList| として保持します。
+
+InPortのインターフェース宣言では、InPortにデータを送る\verb|put()|インターフェースがあり、これによりInPortにデータを渡すことが出来ます。
+すでに、接続が切断されているOutPortからputを呼び出すと \verb|Disconnected| 例外が発生します。
+InPortのプロファイルデータはメンバの \verb|profile| に格納されています。
+
+\newpage
+\subsection{RTCOutPort.idl}
+\begin{src}{RTCOutPort.idl}\footnotesize
+\begin{verbatim}
+#include "RTMBase.idl"
+#include "RTCInPort.idl"
+
+module RTM {
+  typedef short SubscriptionType;
+  
+  const SubscriptionType OPS_ONCE                = 0;
+  const SubscriptionType OPS_PERIODIC            = 1;
+  const SubscriptionType OPS_NEW                 = 2;
+  const SubscriptionType OPS_TRIGGERED           = 3;
+  const SubscriptionType OSP_PERIODIC_NEW        = 4;
+  const SubscriptionType OPS_NEW_PERIODIC        = 5;
+  const SubscriptionType OPS_PERIODIC_TRIGGERED  = 6;
+  const SubscriptionType OPS_TRIGGERRED_PERIODIC = 7;
+  
+  struct SubscriberProfile
+  {
+    SubscriptionType subscription_type;
+    boolean event_base;
+    NVList properties;
+  };
+
+  interface OutPort
+  {
+    any get();
+    RtmRes subscribe(in InPort in_port, out SubscriptionID id,
+                     in SubscriberProfile profile);
+    RtmRes unsubscribe(in SubscriptionID id);
+    readonly attribute InPortList inports;
+    readonly attribute PortProfile profile;
+  };
+
+  typedef sequence<OutPort> OutPortList;
+}; // end of module RTM
+
+\end{verbatim}
+\end{src}
+
+まずはじめに、OutPortをサブスクライブする際のモード \verb|SubscriptionType| をCORBA short 型で \verb|typedef| しています。
+
+サブスクリプション型定数は以下のように定義されています。
+
+\begin{src}{● サブスクリプション型}
+\begin{tabular}{ll}
+\verb|OPS_ONCE                = 0;| & 一度だけデータ取得する \\
+\verb|OPS_PERIODIC            = 1;| & 一定周期でデータ送信\\
+\verb|OPS_NEW                 = 2;| & データ更新時にデータ送信\\
+\verb|OPS_TRIGGERED           = 3;| & トリガによりデータ送信\\
+\verb|OSP_PERIODIC_NEW        = 4;| & 一定周期でデータ更新時のみ送信\\
+\verb|OPS_NEW_PERIODIC        = 5;| & データ更新時に送信・一定周期で送信\\
+\verb|OPS_PERIODIC_TRIGGERED  = 6;| & 一定周期でトリガ時のみ送信\\
+\verb|OPS_TRIGGERRED_PERIODIC = 7;| & トリガ時に送信・一定周期で送信\\
+\end{tabular}
+\end{src}
+
+\verb|OPS_ONCE|ではサブスクライブ後一度だけデータを取得して接続が切断されます。
+
+\verb|OPS_PERIODIC| は指定した周期でデータ送信をサブスクライバに送信します。
+
+\verb|OPS_NEW| はOutPortのデータが更新され次第すぐにサブスクライバにデータが送信されます。
+
+\verb|OPS_TRIGGERED| では、予め設定されたトリガによりトリガが発生したときにデータが送信されます。
+トリガとは、ポートごとに設定される送信条件で、例えば「OutPortの値が4.0以上になったら送信」などのような条件のことです。
+
+\verb|OSP_PERIODIC_NEW| はデータ更新時のみ、予め設定された周期のタイミングでデータが送信されます。周期が $\Delta t$ [s] に設定されたとき、データ送信のタイミングは、データが更新されてから最も近い $n\Delta t$ [s] に行われます。
+
+\verb|OPS_NEW_PERIODIC| では、データ更新時にすぐにデータは送信されますが、それ以降はデータが更新され続ける限りは一定周期で送信されます。
+
+\verb|OPS_PERIODIC_TRIGGERED| では、 \verb|OPS_PERIODIC_NEW| の送信条件がトリガに変わるだけで、そのほかの動作は\verb|OPS_PERIODIC_NEW|と同じになります。
+
+\verb|OPS_TRIGGERRED_PERIODIC| では、\verb|OPS_NEW_PERIODIC| の送信条件がトリガに変わるだけで、そのほかの動作は\verb|OPS_NEW_PERIODIC|と同じになります。
+
+
+\verb|SubscriptionType| を含めたサブスクライブに関するサブスクライバのプロファイルを定義しているのが、次の \verb|SubscriberProfile| です。
+
+\begin{src}{}
+\begin{verbatim}
+  struct SubscriberProfile
+  {
+    SubscriptionType subscription_type;
+    boolean event_base;
+    NVList properties;
+  };
+\end{verbatim}
+\end{src}
+\verb|SubscriptionType subscription_type|に上記の \verb|SubscriptionType| を指定します。
+サブスクリプションがイベントに依存するか否かを CORBA Boolean 型で \verb|event_base| に指定します。
+サブスクリプションに関するその他のプロパティは \verb|NVList properties| に指定します。
+
+OutPortをサブスクライブする場合には、この構造体に適切なデータをセットして、OutPortの\verb|subscribe()| オペレーションを呼び出さなければなりません。
+
+次に OutPort インターフェースです。
+
+\begin{src}{}
+\begin{verbatim}
+  interface OutPort
+  {
+    any get();
+    RtmRes subscribe(in InPort in_port, out SubscriptionID id,
+                     in SubscriberProfile profile);
+    RtmRes unsubscribe(in SubscriptionID id);
+    readonly attribute InPortList inports;
+    readonly attribute PortProfile profile;
+  };
+
+  typedef sequence<OutPort> OutPortList;
+\end{verbatim}
+\end{src}
+
+\verb|get()| オペレーションでは、現在のOutPortの値をAny型で取得することが出来ます。
+
+定期的にデータをpush型で送ってほしい場合には \verb|subscribe()| オペレーションでサブスクライブします。
+引数には、サブスクライブするInPortのオブジェクトリファレンスと、サブスクライバのプロファイル構造体を指定します。
+\verb|subscribe()| が成功すると \verb|RtmRes| に \verb|RTM_OK| が戻り値として返り、\verb|SubscriptionID id| に UUID (Universally Unique IDentifier) を返します。
+
+サブスクライブをやめるときにはこのUUIDを指定して\verb|unsubscribe()|オペレーションを発行します。
+
+OutPort はサブスクライブしているInPortのリスト \verb|InPortList inports| を \verb|attribute| として保持しています。
+また、OutPort自身のプロファイルとして \verb|PortProfile profile| を \verb|attribute| として保持しています。
+
+
+\newpage
+\section{OpenRTM\--aist インターフェース定義}
+OpenRTM\--aist では、RTM Specification に基づき、いくつかのインターフェースの拡張と、新たなオブジェクトインターフェースの定義を追加しています。
+
+\begin{tab}{● OpenRTM\--aist インターフェース定義IDLファイル}
+\begin{tabular}{ll}
+\verb|RTCBase.idl| & RTComponent を拡張するインターフェースを定義\\
+\verb|RTCProfile.idl| & RTComponentが持つプロファイルを拡張し構造体として定義\\
+\verb|RTCDataType.idl| & InPort/OutPortのための標準的なデータタイプを定義\\
+\verb|RTCMnager.idl| & RTComponent のライフサイクルを管理するマネージャ\\
+\end{tabular}
+\end{tab}
+
+\subsection{RTCBase.idl}
+OpenRTM\--aist では RTComponent インターフェースを拡張したインターフェース定義 \verb|RTCBase| を提供します。
+拡張インターフェースは主に、複合コンポーネントを構成するために必要なインターフェースを定義しています。
+
+\begin{src}{RTCBase.idl}\footnotesize
+\begin{verbatim}
+#include "RTComponent.idl"
+#include "RTCProfile.idl"
+
+module RTM {
+  
+  interface RTCBase;
+  typedef sequence<RTCBase> RTCBaseList;
+
+  interface RTCBase
+    : RTComponent
+  {
+    RtmRes rtc_ready_entry();
+    RtmRes rtc_ready_do();
+    RtmRes rtc_ready_exit();
+    RtmRes rtc_active_entry();
+    RtmRes rtc_active_do();
+    RtmRes rtc_active_exit();
+    RtmRes rtc_error_entry();
+    RtmRes rtc_error_do();
+    RtmRes rtc_error_exit();
+    RtmRes rtc_fatal_entry();
+    RtmRes rtc_fatal_do();
+    RtmRes rtc_fatal_exit();
+    RtmRes rtc_init_entry();
+    RtmRes rtc_starting_entry();
+    RtmRes rtc_stopping_entry();
+    RtmRes rtc_aborting_entry();
+    RtmRes rtc_exiting_entry();
+
+    RtmRes rtc_stop_thread();
+    RtmRes rtc_start_thread();
+
+    RtmRes rtc_set_parent(in RTCBase comp);
+    RtmRes rtc_add_component(in RTCBase comp);
+    RtmRes rtc_delete_component(in RTCBase comp);
+    RtmRes rtc_replace_component(in RTCBase comp1, in RTCBase comp2);
+    RtmRes rtc_replace_component_by_name(in string name1, in string name2);
+    RTCBaseList rtc_components();
+    RTCBase rtc_get_component(in string name);
+
+    RtmRes rtc_attach_inport(in InPort in_port);
+    RtmRes rtc_attach_inport_by_name(in RTCBase comp, in string name);
+    RtmRes rtc_detatch_inport(in InPort in_port);
+    RtmRes rtc_detatch_inport_by_name(in string name);
+
+    RtmRes rtc_attach_outport(in OutPort out_port);
+    RtmRes rtc_attach_outport_by_name(in RTCBase comp, in string name);
+    RtmRes rtc_detatch_outport(in OutPort out_port);
+    RtmRes rtc_detatch_outport_by_name(in string name);
+
+    readonly attribute RTCProfile profile;
+  };
+};
+\end{verbatim}
+\end{src}
+
+コンポーネントアクティビティの各状態に対応するメソッドを、CORBAオペレーションとして定義しています。
+
+\begin{src}{アクティビティオペレーション}
+\begin{verbatim}
+    RtmRes rtc_ready_entry();
+    RtmRes rtc_ready_do();
+    RtmRes rtc_ready_exit();
+    RtmRes rtc_active_entry();
+    RtmRes rtc_active_do();
+    RtmRes rtc_active_exit();
+    RtmRes rtc_error_entry();
+    RtmRes rtc_error_do();
+    RtmRes rtc_error_exit();
+    RtmRes rtc_fatal_entry();
+    RtmRes rtc_fatal_do();
+    RtmRes rtc_fatal_exit();
+    RtmRes rtc_init_entry();
+    RtmRes rtc_starting_entry();
+    RtmRes rtc_stopping_entry();
+    RtmRes rtc_aborting_entry();
+    RtmRes rtc_exiting_entry();
+\end{verbatim}
+\end{src}
+
+これらのオペレーションを定義することにより、アクティビティを実行する主体(スレッド)をコンポーネントの外部に置くことが出来るようになります。
+これは、複数のコンポーネントをグループ化しアクティビティを同期的かつシーケンシャルに実行する同期複合コンポーネントにおいて使用することを目的としています。
+
+\begin{src}{アクティビティオスレッド制御ペレーション}
+\begin{verbatim}
+    RtmRes rtc_stop_thread();
+    RtmRes rtc_start_thread();
+\end{verbatim}
+\end{src}
+
+これらのオペレーションによりコンポーネント内部のアクティビティを実行するスレッドの実行を制御することが出来ます。
+複合コンポーネントにおいては、アクティビティ実行の主体であるスレッドを外部に置くため、コンポーネント内部のスレッドを停止させなければなりません。
+したがって、外部からコンポーネントアクティビティスレッドを制御する必要性から、これらのインターフェースが定義されています。
+
+\begin{src}{コンポーネントの親子関係を制御するオペレーション}
+\begin{verbatim}
+    RtmRes rtc_set_parent(in RTCBase comp);
+    RtmRes rtc_add_component(in RTCBase comp);
+    RtmRes rtc_delete_component(in RTCBase comp);
+    RtmRes rtc_replace_component(in RTCBase comp1, in RTCBase comp2);
+    RtmRes rtc_replace_component_by_name(in string name1, in string name2);
+    RTCBaseList rtc_components();
+    RTCBase rtc_get_component(in string name);
+\end{verbatim}
+\end{src}
+
+これらのオペレーションはコンポーネントの親子関係を制御するためのコンポーネントです。
+通常の単体のコンポーネントでは、\verb|rtc_set_parent()| オペレーションは無効になり \verb|RTM_ERR| を返します。
+複合コンポーネントでは、これらのオペレーションを使用し複数のコンポーネントを子供として所有することが出来ます。
+
+\begin{src}{InPortアタッチオペレーション}
+\begin{verbatim}
+    RtmRes rtc_attach_inport(in InPort in_port);
+    RtmRes rtc_attach_inport_by_name(in RTCBase comp, in string name);
+    RtmRes rtc_detatch_inport(in InPort in_port);
+    RtmRes rtc_detatch_inport_by_name(in string name);
+\end{verbatim}
+\end{src}
+
+これらのオペレーションを使用することにより複合コンポーネントが所有する子コンポーネントのInPortを親である複合コンポーネントのInPortとして再定義できるようになります。
+実際には、親コンポーネントで子コンポーネントのInPortのオブジェクトリファレンスを保持しているだけです。
+
+\begin{src}{OutPortアタッチオペレーション}
+\begin{verbatim}
+    RtmRes rtc_attach_outport(in OutPort out_port);
+    RtmRes rtc_attach_outport_by_name(in RTCBase comp, in string name);
+    RtmRes rtc_detatch_outport(in OutPort out_port);
+    RtmRes rtc_detatch_outport_by_name(in string name);
+\end{verbatim}
+\end{src}
+
+これらのオペレーションを使用することにより複合コンポーネントが所有する子コンポーネントのOutPortを親である複合コンポーネントのOutPortとして再定義できるようになります。
+実際には、親コンポーネントで子コンポーネントのOutPortのオブジェクトリファレンスを保持しているだけです。
+
+\newpage
+\subsection{RTCProfile.idl}
+\verb|RTCProfile.idl| では　RTCProfile インターフェースを定義しています。
+\verb|RTCProfile| は　\verb|RTComponent| の \verb|instance_id, implementation_id| 等のプロファイル定義を拡張し、構造にしたものです。
+\verb|RTCBase| ではこのプロファイルを取得するオペレーションが拡張され、プロファイル全体を1度に取得できるようになっています。
+
+\begin{src}{RTCProfile.idl}\footnotesize
+\begin{verbatim}
+module RTM {
+  interface RTComponent;
+
+  enum RTComponentType {
+    STATIC,
+    UNIQUE,
+    COMMUTATIVE
+  };
+
+  enum RTCActivityType {
+    PERIODIC,
+    SPORADIC,
+    EVENT_DRIVEN
+  };
+
+  enum RTCLangType {
+    COMPILE,
+    SCRIPT
+  };
+
+  struct RTCProfile
+  {
+    string name;
+    string instance_id;
+    string implementation_id;
+    string description;
+    string version;
+    string maker;
+    string category;
+    RTComponentType component_type;
+    RTCActivityType activity_type;
+    long max_instance;
+    string language;
+    RTCLangType language_type;
+    string module_profile_file;
+    PortProfileList outport_profile_list;
+    PortProfileList inport_profile_list;
+  };
+};
+\end{verbatim}
+\end{src}
+
+以下の \verb|instance_id, implementation_id| 等については \verb|RTComponent.idl| で定義されているものと全く同じです。
+
+\begin{tab}{● 基本的なプロファイル}
+\begin{verbatim}
+    string instance_id;
+    string implementation_id;
+    string description;
+    string version;
+    string maker;
+    string category;
+\end{verbatim}
+\end{tab}
+
+\verb|RTComponentType| はコンポーネントのタイプを指定します。
+コンポーネントタイプとは、生成されるコンポーネントのインスタンスの形式を指します。
+コンポーネントタイプには以下のものがあります。
+
+\begin{tab}{● {\tt RTComponentType}}
+\begin{tabular}{lp{95mm}}
+STATIC & コンポーネントはマネージャに登録されると同時にインスタンス化され、新たに生成することはできない。ハードウエアに密接に関係するコンポーネント等はこのタイプにするとハードウエアとコンポーネントの対応がとりやすい。\\
+UNIQUE & コンポーネントは動的に生成・削除するができるが、component0 と component1 は異なる内部状態を持ち交換可能ではない。\\
+COMMUTATIVE & コンポーネントは、互いに交換可能。ソフトウエアのロジックのみのコンポーネントはこのタイプになる。
+\end{tabular}
+\end{tab}
+
+
+\verb|RTCActivityType| はコンポーネントのアクティビティのタイプを指定します。
+コンポーネントのアクティビティタイプは以下のタイプがあります。
+
+\begin{tab}{● {\tt RTCActivityType}}
+\begin{tabular}{lp{95mm}}
+PERIODIC & コンポーネントの活動は一定周期で行われます。ただし、動作周期を守れるか否かは、OSに依存します。リアルタイムOS(ART-LINUX)を使用すれば一定周期動作を行わせることはできますが、非リアルタイムOSでは厳密な周期動作をさせることは不可能です。\\
+SPORADIC & コンポーネントの活動の周期は一定ではないが、繰り返し行われます。\\
+EVENT\_DRIVEN & 外部からのオペレーションにより受動的に動作します。
+\end{tabular}
+\end{tab}
+
+その他の項目については以下のとおりです。
+
+\begin{tab}{● その他}
+\begin{tabular}{ll}
+\verb|long max_instance;|          & 最大のインスタンス数　\\
+\verb|string language;|            & コンポーネント記述言語 \\
+\verb|RTCLangType language_type;|  & コンポーネント記述言語型\\
+\verb|string module_profile_file;| & モジュールプロファイルファイル名\\
+\end{tabular}
+\end{tab}
+
+また、\verb|RTCProfile| はInPort/OutPortのプロファイルもリストとして保持しています。
+
+\begin{tab}{● InPort/OutPortプロファイルリスト}
+\begin{tabular}{ll}
+\verb|PortProfileList outport_profile_list;| & InPort プロファイルのリスト\\
+\verb|PortProfileList inport_profile_list;|  & OutPort プロファイルのリスト\\
+\end{tabular}
+\end{tab}
+
+\verb|PortProfileList| は \verb|RTCInPort.idl| で定義されている \verb|PortProfile| のシーケンスです。
+
+\newpage
+\subsection{RTCDataType.idl}
+以下に、\verb|RTCDataType.idl| を示します。
+
+\begin{src}{RTCDataType.idl (基本型)}\footnotesize
+\begin{verbatim}
+#include "RTMBase.idl"
+
+module RTM {
+  struct TimedState
+  {
+    Time tm;
+    short data;
+  };
+ struct TimedShort
+  {
+    Time tm;
+    short data;
+  };
+ struct TimedLong
+  {
+    Time tm;
+    long data;
+  };
+  struct TimedUShort
+  {
+    Time tm;
+    unsigned short data;
+  };
+  struct TimedULong
+  {
+    Time tm;
+    unsigned long data;
+  };
+  struct TimedFloat
+  {
+    Time tm;
+    float data;
+  };
+  struct TimedDouble
+  {
+    Time tm;
+    double data;
+  };
+  struct TimedChar
+  {
+    Time tm;
+    char data;
+  };
+  struct TimedBoolean
+  {
+    Time tm;
+    boolean data;
+  };
+  struct TimedOctet
+  {
+    Time tm;
+    octet data;
+  };
+  struct TimedString
+  {
+    Time tm;
+    string data;
+  };
+\end{verbatim}
+\end{src}
+
+OpenRTM\--aist では、InPort/OutPort でやり取りするデータ型としてタイムスタンプ付きのデータ型を、CORBAの基本型とそのシーケンス型について提供しています。
+
+\begin{src}{RTCDataType.idl (シーケンス型)}\footnotesize
+\begin{verbatim}
+  struct TimedShortSeq
+  {
+    Time tm;
+    sequence<short> data;
+  };
+  struct TimedLongSeq
+  {
+    Time tm;
+    sequence<long> data;
+  };
+  struct TimedUShortSeq
+  {
+    Time tm;
+    sequence<unsigned short> data;
+  };
+  struct TimedULongSeq
+  {
+    Time tm;
+    sequence<unsigned long> data;
+  };
+  struct TimedFloatSeq
+  {
+    Time tm;
+    sequence<float> data;
+  };
+  struct TimedDoubleSeq
+  {
+    Time tm;
+    sequence<double> data;
+  };
+  struct TimedCharSeq
+  {
+    Time tm;
+    sequence<char> data;
+  };
+  struct TimedBooleanSeq
+  {
+    Time tm;
+    sequence<boolean> data;
+  };
+  struct TimedOctetSeq
+  {
+    Time tm;
+    sequence<octet> data;
+  };
+  struct TimedStringSeq
+  {
+    Time tm;
+    sequence<string> data;
+  };
+};
+\end{verbatim}
+\end{src}
+
+\newpage
+\subsection{RTCManager.idl}
+
+\verb|RTCManager| は \verb|RTComponent| のモジュールのロード、インスタンス化等のライフサイクル管理を行うオブジェクトです。
+
+\begin{src}{RTCProfile.idl}\footnotesize
+\begin{verbatim}
+#include "RTMBase.idl"
+#include "RTComponent.idl"
+#include "RTCBase.idl"
+
+module RTM
+{
+  typedef sequence<string> ComponentFactoryList;
+  
+  interface RTCManager
+  {
+    RtmRes load(in string pathname, in string initfunc);
+    RtmRes unload(in string pathname);
+    RTCBase create_component(in string comp_name,
+                             out string instance_name);
+    RtmRes delete_component(in string instance_name);
+    ComponentFactoryList component_factory_list();
+    RTCBaseList component_list();
+    RtmRes command(in string cmd, out string ret);
+  };
+
+}; // end of namespace RTM
+\end{verbatim}
+\end{src}
+
+ダイナミックにモジュールをロード・アンロードするための、\verb|load(), unload()|
+ オペレーションが定義されています。
+
+
+\begin{tab}{● モジュールのロード・アンロードオペレーション}
+\begin{tabular}{ll}
+\verb|load(in string pathname, in string initfunc);| & モジュールのロード\\
+\verb|unload(in string pathname);|  & モジュールのアンロード\\
+\end{tabular}
+\end{tab}
+
+また、\verb|create_component(), delete_component()| はコンポーネントの生成・削除を行うオペレーションです。
+
+\begin{tab}{● コンポーネントの生成・削除を行うオペレーション}
+\begin{tabular}{ll}
+\verb|create_component(in string comp_name,| & コンポーネントの生成\\
+\verb|                  out string instance_name);| & \\
+\verb|delete_component(in string instance_name);|   & コンポーネントの削除\\
+\end{tabular}
+\end{tab}
+
+その他のオペレーションとしては、コンポーネントを生成するファクトリのリストを取得する \verb|component_factory_list()| や、現在インスタンス化されているコンポーネントのリストを取得する \verb|component_list()|があります。
+
+\begin{tab}{● その他のオペレーション}
+\begin{tabular}{ll}
+\verb|component_factory_list();| & コンポーネントファクトリのリスト\\
+\verb|component_list();|  & コンポーネントのリスト\\
+\verb|command(in string cmd, out string ret);|  & 簡易コマンドインタプリタ\\
+\end{tabular}
+\end{tab}
+
+
+\section{OpenRTM\--aistの拡張オペレーションと標準化}
+
+現在、RTM Specification は標準化作業の途中であり、ここで示したインターフェース仕様は今後変わる可能性があります。
+標準化を行う過程で、実際に多くのアプリケーションに使用した結果からのフィードバックを得て、より実用的で使いやすい標準仕様とすることを目指しています。
+
+OpenRTM\--aist で拡張された仕様も、今後変更される可能性があります。
+一部のものは RTM Specification に取り込まれ、拡張され、あるいは削除されるかもしれません。

@@ -1,0 +1,25 @@
+<package>
+  <name>uos_freespace</name>
+  <version>1.0.0</version>
+  <description>uos_freespace package</description>
+  <maintainer email="spuetz@uos.de">Sebastian Pütz</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/uos_freespace</url>
+
+  <author>Jochen Sprickerhof</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>tf</run_depend>
+
+</package>

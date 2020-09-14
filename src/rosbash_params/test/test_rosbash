@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+rosbash_init_node "node_name" "$@"  # parse the command line arguments
+
+rosbash_param mandatory_param "param_name"  # if default value is not specified, the param is mandatory
+rosbash_param optional_param "param2_name" "default_value" # optional param
+rosbash_param bool_param1 "bool_name1" # bool param without default
+rosbash_param bool_param2 "bool_name2" "True" # bool param with default
+rosbash_param bool_param3 "bool_name3" "False" # bool param with default
+
+echo "mandatory_param = ${mandatory_param}"  # access the parsed parameter value
+echo "optional_param = ${optional_param}"  # access the parsed parameter value
+echo "bool_param1 = ${bool_param1}"  # access the parsed parameter value
+echo "bool_param2 = ${bool_param2}"  # access the parsed parameter value
+echo "bool_param3 = ${bool_param3}"  # access the parsed parameter value
+
+echo "rosbash_unused_argv = ${rosbash_unused_argv[@]}"  # all CLI args not parsed as a parameter

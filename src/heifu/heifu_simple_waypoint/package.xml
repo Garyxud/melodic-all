@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+    <name>heifu_simple_waypoint</name>
+    <version>0.7.1</version>
+    <description>Heifu mavros interface</description>
+
+    <maintainer email="joao.m.carvalho@pdmfc.com">João Pedro Carvalho</maintainer>
+    <maintainer email="fabio.azevedo@beyond-vision.pt">Fábio Azevedo</maintainer>
+
+    <license>BSD</license>
+    <url>https://gitlab.pdmfc.com/drones/heifu/tree/master/heifu_simple_waypoint</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <build_depend>mavros</build_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>roslib</build_depend>
+    <build_depend>ros_utils</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+    <build_depend>std_msgs</build_depend>
+    <build_depend>tf</build_depend>
+
+    <run_depend>mavros</run_depend>
+    <run_depend>roscpp</run_depend>
+    <run_depend>roslib</run_depend>
+    <run_depend>ros_utils</run_depend>
+    <run_depend>sensor_msgs</run_depend>
+    <run_depend>std_msgs</run_depend>
+    <run_depend>tf</run_depend>
+
+    <!-- The export tag contains other, unspecified, tags -->
+    <export>
+    <!-- Other tools can request additional information be placed here -->
+
+    </export>
+</package>

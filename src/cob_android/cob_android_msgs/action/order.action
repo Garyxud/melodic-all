@@ -1,0 +1,9 @@
+#goal
+int16[] object_ids
+string[] object_tags
+---
+#result
+int16 error_code
+---
+#feedback
+string current_state

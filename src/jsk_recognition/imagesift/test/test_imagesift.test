@@ -1,0 +1,18 @@
+<launch>
+
+  <include file="$(find imagesift)/sample/imagesift_sample.launch">
+    <arg name="gui" value="false" />
+  </include>
+
+  <test test-name="test_imagesift"
+        name="test_imagesift"
+        pkg="jsk_tools" type="test_topic_published.py">
+    <rosparam>
+      topic_0: /Feature0D
+      timeout_0: 10
+      topic_1: /ImageFeature0D
+      timeout_1: 10
+    </rosparam>
+  </test>
+
+</launch>

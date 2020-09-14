@@ -1,0 +1,5 @@
+set(LIBIO_DIR io CACHE PATH "directory of hrpIo")
+add_subdirectory(${LIBIO_DIR} ${LIBIO_DIR})
+if(USE_HRPSYSUTIL)
+  add_subdirectory(util)
+endif()

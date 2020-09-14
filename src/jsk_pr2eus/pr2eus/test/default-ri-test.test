@@ -1,0 +1,5 @@
+<launch>
+  <!-- start test -->
+  <test test-name="default_ri_test" pkg="roseus" type="roseus"
+	args="$(find pr2eus)/test/default-ri-test.l" time-limit="1800" />
+</launch>

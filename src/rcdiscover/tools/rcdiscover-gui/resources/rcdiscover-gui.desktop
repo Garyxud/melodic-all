@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=rcdiscover
+Comment=Discover devices via GigE Vision
+Exec=rcdiscover-gui
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=rcdiscover-gui
+Categories=Utility;

@@ -1,0 +1,35 @@
+// -*- IDL -*-
+/*!
+ * @file Camera.idl
+ * @brief Services for the Camera interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef Camera_idl
+#define Camera_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface Camera
+{
+    /// Get the geometry of the camera.
+    Geometry3D GetGeometry ();
+
+    /// Get the camera's parameters.
+    CameraInfo GetCameraInfo ();
+};
+};
+
+#endif // Camera_idl
+

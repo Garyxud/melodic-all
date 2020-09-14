@@ -1,0 +1,206 @@
+%\documentstyle[titlepage,makeidx,twoside,epsf,mytabbing]{article}
+
+%%% added from jmanual.tex 2004.12.14
+\documentclass[a4paper]{article}
+\usepackage{makeidx,mytabbing,fancyheadings,amsmath}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx,bookmarks=true,bookmarksnumbered=true,bookmarkstype=toc]{hyperref}
+
+%%%
+\newcommand{\eusversion}{9.27}
+
+\flushbottom
+\makeindex
+\pagestyle{myheadings}
+\oddsidemargin=0cm
+\evensidemargin=0cm
+
+% A4 size
+\textwidth=16.5cm
+\textheight=24.6cm
+\topmargin=-0.8cm
+\oddsidemargin= 0.5cm
+\evensidemargin=0.5cm
+
+% Letter size
+%\topmargin=0.5cm
+%\textwidth=17.6cm
+%\textheight=23cm
+%\oddsidemargin= 0.2cm
+%\evensidemargin=0.2cm
+
+\parindent=10mm
+\parskip=1mm
+%\baselineskip 14pt
+
+\setcounter{totalnumber}{3}
+\renewcommand{\topfraction}{0.99}       % 85% of a page (from page
+                                        % top)
+                                        % can be occupied by tbl / fig
+                                        %
+\renewcommand{\bottomfraction}{0.99}    % 85% of a page (from page
+                                        % bottom)
+                                        % can be occupied by tbl / fig
+\renewcommand{\textfraction}{0.0}      % text shoud occupy 15% or
+                                        % more in
+                                        % a page
+%\renewcommand{\floatpagefraction}{0.99} % 70% or more shoud occupy in
+                                        % a
+                                        % a float page
+
+
+% \jintercharskip=0pt plus3.0pt minus1pt%
+
+\begin{document}
+
+\newcommand{\ptext}[1]
+{\tt \begin{quote} \begin{tabbing} #1 \end{tabbing} \end{quote} \rm}
+
+\newcommand{\desclist}[1]{
+\begin{list}{ }{\setlength{\rightmargin}{0mm}\topsep=0mm\partopsep=0mm}
+\item #1
+\end{list}
+\vspace{3mm}}
+
+\newcommand{\functiondescription}[4]{
+\index{#1}
+{\bf #1} \em #2 \rm \hfill [#3] 
+%\if#4 \vspace{3mm} \\ \else \desclist{#4} \fi
+%\ifx#4 \vspace{3mm} \\ \else \desclist{#4} \fi
+ \desclist{\hspace{0mm}#4}
+}
+
+\newcommand{\bfx}[1]{\index{#1}{\bf #1}}
+\newcommand{\emx}[1]{\index{#1}{\em #1}}
+
+\newcommand{\longdescription}[4]{
+\index{#2}
+\begin{tabbing}
+{\bf #2} \rm \hspace{3mm} \= \`[#1] \\
+\> \it #3
+\end{tabbing}
+\rm
+\desclist{#4}
+}
+
+\newcommand{\funcdesc}[3]{\functiondescription{#1}{#2}{function}{#3}}
+\newcommand{\macrodesc}[3]{\functiondescription{#1}{#2}{macro}{#3}}
+\newcommand{\specialdesc}[3]{\functiondescription{#1}{#2}{special}{#3}}
+\newcommand{\methoddesc}[3]{\functiondescription{#1}{#2}{method}{#3}}
+\newcommand{\vardesc}[2]{\functiondescription{#1}{}{variable}{#2}}
+
+%\newcommand{\fundesc}[2]{\functiondescription{#1}{#2}{function}{
+%}}
+%\newcommand{\macdesc}[2]{\functiondescription{#1}{#2}{macro}{
+%}}
+%\newcommand{\spedesc}[2]{\functiondescription{#1}{#2}{special}{
+%}}
+%\newcommand{\metdesc}[2]{\functiondescription{#1}{#2}{method}{
+%}}
+\newcommand{\fundesc}[2]{\functiondescription{#1}{#2}{function}{\hspace{0mm}}}
+\newcommand{\macdesc}[2]{\functiondescription{#1}{#2}{macro}{\hspace{0mm}}}
+\newcommand{\spedesc}[2]{\functiondescription{#1}{#2}{special}{\hspace{0mm}}}
+\newcommand{\metdesc}[2]{\functiondescription{#1}{#2}{method}{\hspace{0mm}}}
+
+\newcommand{\constdesc}[2]{\functiondescription{#1}{}{constant}{#2}}
+
+\newcommand{\classdesc}[4]{	%class, super slots description
+\vspace{2mm} 
+\index{#1}
+{\large {\bf #1 }} \hfill [class]  %super
+\begin{tabbing}
+\hspace{30mm} :super \hspace{5mm} \= {\bf #2} \\
+\hspace{30mm} :slots \> #3 
+\end{tabbing}
+\vspace{4mm}
+\desclist{#4}}
+
+\newenvironment{refdesc}{
+ \vspace{5mm} \parindent=0mm \topsep=0mm \parskip=0mm \leftmargin=10mm}{
+             \parindent=10mm \topsep=3mm \parskip=1mm \leftmargin=0mm }
+
+\date{}
+\title{{\Huge \bf EusLisp} \\
+{\Large \bf version \eusversion} \\
+{\LARGE \bf Reference Manual} \\
+{\large Featuring Multithread and XToolKit} \\ 
+\vspace{10mm}
+%ETL-RM-87-06E \\
+{\large ETL-TR-95-2} \\
+{\large January, 1995}  \\ }
+
+
+\author{{\large Toshihiro Matsui}\\
+matsui@etl.go.jp\\
+Intelligent Systems Division \\
+Electrotechnical Laboratory \\
+Agency of Industrial Science and Technology \\
+Ministry of International Trading and Industry \\
+1-1-4 Umezono,
+Tsukuba-city, Ibaraki 305, JAPAN}
+\normalsize
+\thispagestyle{empty}
+\maketitle
+\pagenumbering{roman}
+\tableofcontents
+% \listoffigures
+% \listoftables
+\bibliographystyle{plain}
+\newpage
+\pagenumbering{arabic}
+\part{EusLisp Basics}
+\markboth{EusLisp version \eusversion Reference Manual (Part I)}{Basics}
+\input{intro}
+\input{generals}
+\input{controls}
+\input{objects}
+%\input{predicates}
+\input{arith}
+\input{symbols}
+\input{sequences}
+\input{text}
+\input{datetime}
+\input{io}
+\input{evaluation}
+\newpage
+\part{EusLisp Extensions}
+\markboth{EusLisp version \eusversion Reference Manual (Part II)}{System Functions}
+\input{sysfunc}
+\input{mthread}
+\markboth{EusLisp version \eusversion Reference Manual (Part III)}{Geometric/Robot Functions}
+\input{matrix}
+\input{geometry}
+\input{contact}
+\input{voronoi}
+\input{graphics}
+\input{image}
+\input{manipulator}
+% \input{mars-pre}
+\markboth{EusLisp version \eusversion Reference Manual (Part IV)}{X-windows}
+\input{xwindow}
+\input{xtoolkit} \newpage
+\markboth{EusLisp version \eusversion Reference Manual (Part V)}{Applications}
+\input{database}
+\input{http}
+% \input{sound}
+%
+\begin{thebibliography}{99}
+\bibitem{Hirukawa:1991a}{T.Matsui H.Hirukawa and K.Takase. A general algorithm for derivation and analysis of constraint for motion of polyhedra in contact. In IEEE/RSJ International Workshop on Intelligent Robots and Systems'91, pages 38-43, 1991.}
+\bibitem{CLtL}{G. L. Steel Jr. Common Lisp the Language. Digital-Press, 1984.}
+\bibitem{CLtL2}{G. L. Steel Jr. Common Lisp the Language Second Ed. Digital-Press,1990.}
+\bibitem{CLOS:Keene}{S.E. Keene. Object-Oriented Programming in Common Lisp. Addison-Wesley, 1988.}
+\bibitem{Eus4}{T. Matsui and M. Inaba. Euslisp: An object-based implementation of lisp. Journal of Information Processing, 13(3), 1990.}
+\bibitem{MTEus1}{Toshihiro Matsui. Multithread object-oriented language euslisp for parallel and asynchronous programming in robotics. In Workshop on Concurrent Object-based Systems, IEEE 6th Symposium on Parallel and Distributed Processing, October 1994.}
+%% \bibitem{Eus5}{松井俊浩. Euslisp: オブジェクト指向に基づくlispの実現. 電子技術総合研究所彙報, 54(8), 1990.}
+%% \bibitem{Eus6}{松井俊浩. オブジェクト指向型モデルに基づくロボットプログラミングシステムの研究. Researches of the Electrotechnical Laboratory, (926), 1991.}
+%% \bibitem{Eus7}{松井俊浩, 稲葉雅幸. Euslisp: オブジェクト指向に基づくlispの実現と幾何モデラへの応用. In 情報処理学会記号処理研究会, number 2 in 50, 1989.}
+%% \bibitem{MTEus2}{松井俊浩, 原功. マルチスレッドeuslispの並列・非同期プログラミング機能. In 日本ロボット学会第12回学術講演会, November 1994.}
+%% \bibitem{Hirukawa:1991b}{比留川博久, 松井俊浩, and 高瀬國克. 多面体間の接触による拘束条件の高速解法と その離脱動作計画への応用. 日本ロボット学会誌, 9(7):841-848, 1991.}
+%% \bibitem{Hirukawa:1991c}{比留川博久, 松井俊浩, and 高瀬國克. 多面体間の接触による拘束条件を幾何モデルから導出する 一般的なアルゴリズム. 日本ロボット学会誌, 9(4):415-426, 1991.}
+\end{thebibliography}
+\cleardoublepage
+\markboth{EusLisp version \eusversion Reference Manual}{Index}
+\footnotesize
+\printindex
+\end{document}
+

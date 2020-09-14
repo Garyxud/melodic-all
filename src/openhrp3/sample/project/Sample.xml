@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grxui>
+    <mode name="Simulation">
+        <item class="com.generalrobotix.ui.item.GrxSimulationItem" name="SampleSimulation" select="true">
+        	<property name="integrate" value="true"/>
+            <property name="viewsimulate" value="false"/>
+            <property name="totalTime" value="1.0 "/>
+            <property name="timeStep" value="0.0020 "/>
+            <property name="method" value="RUNGE_KUTTA"/>
+            <property name="gravity" value="9.8 "/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxWorldStateItem" name="Sample" select="true">
+            <property name="logTimeStep" value="0.0020 "/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxModelItem" name="box2" select="true" url="$(PROJECT_DIR)/../model/box2.wrl">
+            <property name="isRobot" value="false"/>
+            <property name="controller" value=""/>
+            <property name="controlTime" value="0.1"/>
+            <property name="WAIST.rotation" value="0.0 1.0 0.0 0.2 "/>
+            <property name="WAIST.translation" value="0.15 0.15 0.3 "/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxModelItem" name="box" select="true" url="$(PROJECT_DIR)/../model/box.wrl">
+            <property name="isRobot" value="false"/>
+            <property name="WAIST.rotation" value="0.0 1.0 0.0 0 "/>
+            <property name="WAIST.translation" value="0.0 0.0 0.0 "/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxCollisionPairItem" name="CP#box#box2" select="true">
+            <property name="objectName1" value="box"/>
+            <property name="objectName2" value="box2"/>
+            <property name="jointName1" value=""/>
+            <property name="jointName2" value=""/>
+            <property name="staticFriction" value="0.5"/>
+            <property name="slidingFriction" value="0.5"/>
+            <property name="sprintDamperModel" value="false"/>
+            <property name="damperConstant" value="0 0 0 0 0 0"/>
+            <property name="springConstant" value="0 0 0 0 0 0"/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxGraphItem" name="GraphList1" select="true">
+            <property name="Graph0.dataItems" value=""/>
+            <property name="Graph1.dataItems" value=""/>
+            <property name="Graph2.dataItems" value=""/>
+            <property name="Graph3.dataItems" value=""/>
+        </item>
+        <view class="com.generalrobotix.ui.view.Grx3DView" name="3DView">
+            <property name="view.mode" value="Room"/>
+            <property name="showCoM" value="false"/>
+            <property name="showCoMonFloor" value="false"/>
+            <property name="showDistance" value="false"/>
+            <property name="showIntersection" value="false"/>
+            <property name="eyeHomePosition" value="-0.63298 -0.10803 0.76659 2.31545 0.77417 -0.08833 0.62679 1.90609 -0 0.99022 0.13954 0.56402 0 0 0 1 "/>
+            <property name="showCollision" value="true"/>
+            <property name="showActualState" value="true"/>
+            <property name="showScale" value="true"/>
+        </view>
+    </mode>
+</grxui>

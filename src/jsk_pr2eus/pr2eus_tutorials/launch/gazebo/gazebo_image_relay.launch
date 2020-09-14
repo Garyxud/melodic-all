@@ -1,0 +1,37 @@
+<launch>
+  <arg name="camera" value="head_mount_kinect"/>
+  <arg name="camera_relay" value="openni"/>
+
+  <group ns="$(arg camera_relay)">
+    <group ns="rgb">
+      <node pkg="topic_tools"
+	    type="relay"
+	    name="relay_camera_info"
+	    args="/$(arg camera)/rgb/camera_info /$(arg camera_relay)/rgb/camera_info" />
+      <node pkg="topic_tools"
+	    type="relay"
+	    name="relay_image_raw"
+	    args="/$(arg camera)/rgb/image_raw /$(arg camera_relay)/rgb/image_raw" />
+    </group>
+    <group ns="depth">
+      <node pkg="topic_tools"
+	    type="relay"
+	    name="relay_camera_info"
+	    args="/$(arg camera)/depth/camera_info /$(arg camera_relay)/depth/camera_info" />
+      <node pkg="topic_tools"
+	    type="relay"
+	    name="relay_image_raw"
+	    args="/$(arg camera)/depth/image_raw /$(arg camera_relay)/depth/image_raw" />
+    </group>
+    <group ns="depth_registered">
+      <node pkg="topic_tools"
+	    type="relay"
+	    name="relay_camera_info"
+	    args="/$(arg camera)/depth/camera_info /$(arg camera_relay)/depth_registered/camera_info " />
+      <node pkg="topic_tools"
+	    type="relay"
+	    name="relay_image_raw"
+            args="/$(arg camera)/depth/image_raw /$(arg camera_relay)/depth_registered/image_raw" />
+    </group>
+  </group>
+</launch>

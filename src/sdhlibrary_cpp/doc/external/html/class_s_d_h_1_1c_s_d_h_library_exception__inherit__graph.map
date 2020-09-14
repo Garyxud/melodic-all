@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_s_d_h_1_1c_d_s_a_exception.html" title="Derived exception class for low&#45;level DSA related exceptions." alt="" coords="296,167,445,252"/>
+<area shape="rect" id="node5" href="$class_s_d_h_1_1c_s_d_h_error_communication.html" title="Derived exception class for exceptions related to communication between the SDHLibrary and the SDH..." alt="" coords="469,158,677,261"/>
+<area shape="rect" id="node18" href="$class_s_d_h_1_1c_s_d_h_error_invalid_parameter.html" title="Derived exception class for exceptions related to invalid parameters." alt="" coords="701,167,915,252"/>
+<area shape="rect" id="node20" href="$class_s_d_h_1_1c_simple_vector_exception.html" title="Derived exception class for low&#45;level simple vector related exceptions." alt="" coords="939,167,1139,252"/>
+<area shape="rect" id="node7" href="$class_s_d_h_1_1c_serial_base_exception.html" title="Derived exception class for low&#45;level serial communication related exceptions." alt="" coords="481,310,665,413"/>
+<area shape="rect" id="node9" href="$class_s_d_h_1_1c_c_a_n_serial___e_s_d_exception.html" title="Derived exception class for low&#45;level CAN ESD related exceptions." alt="" coords="5,471,221,556"/>
+<area shape="rect" id="node11" href="$class_s_d_h_1_1c_c_a_n_serial___p_e_a_k_exception.html" title="Derived exception class for low&#45;level CAN PEAK related exceptions." alt="" coords="245,471,469,556"/>
+<area shape="rect" id="node13" href="$class_s_d_h_1_1c_r_s232_exception.html" title="Derived exception class for low&#45;level RS232 related exceptions." alt="" coords="493,462,653,565"/>
+<area shape="rect" id="node16" href="$class_s_d_h_1_1c_t_c_p_serial_exception.html" title="Derived exception class for low&#45;level CAN ESD related exceptions." alt="" coords="677,471,856,556"/>
+</map>

@@ -1,0 +1,7 @@
+The changes to the SDHLibrary-CPP are described in the doxygen comment
+of the PROJECT_RELEASE define in the file sdh/release.h
+
+So see sdh/release.h for details.
+
+
+

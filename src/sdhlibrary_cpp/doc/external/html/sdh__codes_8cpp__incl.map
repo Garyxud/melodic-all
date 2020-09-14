@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdh__codes_8h.html" title="This file contains function to convert the binary command codes of the SDH. To use this from a non gc..." alt="" coords="261,83,357,112"/>
+<area shape="rect" id="node11" href="$util_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="576,83,627,112"/>
+<area shape="rect" id="node5" href="$sdhlibrary__settings_8h.html" title="This file contains settings to make the SDHLibrary compile on differen systems:gcc/Cygwin/Windowsgcc/..." alt="" coords="315,315,456,344"/>
+<area shape="rect" id="node7" href="$sdh__command__codes_8h.html" title="This file contains the binary command codes of the SDH. To use this from a non gcc compiler you might..." alt="" coords="5,160,165,189"/>
+<area shape="rect" id="node9" href="$sdh__return__codes_8h.html" title="This file contains a typedef for a common Return Codes enum." alt="" coords="189,160,325,189"/>
+<area shape="rect" id="node22" href="$simplevector_8h.html" title="Interface of class SDH::cSimpleVector." alt="" coords="549,160,653,189"/>
+<area shape="rect" id="node25" href="$sdhexception_8h.html" title="Interface of the exception base class SDH::cSDHLibraryException and SDH::cMsg." alt="" coords="544,237,653,267"/>
+</map>

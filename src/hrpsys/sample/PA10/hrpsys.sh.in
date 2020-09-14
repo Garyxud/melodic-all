@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=@CMAKE_INSTALL_PREFIX@/lib:@OPENHRP_DIR@/lib
+
+rtcd -o "manager.modules.preload: hrpEC.so,RobotHardware.so" -o "manager.components.precreate: RobotHardware"
+

@@ -1,0 +1,11 @@
+# Compute paths
+set(file_management_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/../../../include")
+
+if(NOT TARGET file_management)
+    include("${CMAKE_CURRENT_LIST_DIR}/file_management-targets.cmake")
+endif()
+
+set(file_management_LIBRARIES file_management)
+
+# where the .pc pkgconfig files are installed
+set(file_management_PKGCONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../lib/pkgconfig")

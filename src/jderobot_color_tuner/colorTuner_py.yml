@@ -1,0 +1,12 @@
+ColorTuner:
+  Camera:
+    Server: 2 # Deactivate, 1- ROS2 , 2- ROS
+    Proxy: "cameraA:tcp -h localhost -p 9999"
+    Format: BGR8
+    Topic: "/usb_cam/image_raw"
+#    Topic: "/rosout"
+    Name: cameraA
+    Fps: 30
+
+  NodeName: ColorTuner
+

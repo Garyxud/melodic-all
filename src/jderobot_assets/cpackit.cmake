@@ -1,0 +1,51 @@
+# To generate the debian package
+# run: `cpack -P jderobot-assets .`
+# after running the cmake command
+
+# Determine current architecture
+macro(dpkg_arch VAR_NAME)
+        find_program(DPKG_PROGRAM dpkg DOC "dpkg program of Debian-based systems")
+        if (DPKG_PROGRAM) 
+          execute_process(
+            COMMAND ${DPKG_PROGRAM} --print-architecture
+            OUTPUT_VARIABLE ${VAR_NAME}
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+          )
+        endif(DPKG_PROGRAM)
+endmacro(dpkg_arch)
+
+include (InstallRequiredSystemLibraries)
+SET (CPACK_GENERATOR "DEB")
+SET (CPACK_SOURCE_GENERATOR TGZ)
+SET (CPACK_SET_DESTDIR ON)
+SET (CPACK_DEB_COMPONENT_INSTALL OFF)
+SET (CPACK_DEBIAN_PACKAGE_SHLIBDEPS OFF)
+
+
+# CPack version numbers for release tarball name.
+SET (CPACK_PACKAGE_VERSION_MAJOR 6)
+SET (CPACK_PACKAGE_VERSION_MINOR 1)
+SET (CPACK_PACKAGE_VERSION_PATCH 0)
+
+SET (CPACK_DEBIAN_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH})
+
+
+SET (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
+SET (CPACK_DEBIAN_PACKAGE_SECTION "net")
+dpkg_arch(CPACK_DEBIAN_PACKAGE_ARCHITECTURE)
+SET (CPACK_DEBIAN_PACKAGE_REPLACES "jderobot-gazebo-assets")
+
+SET (CPACK_MONOLITHIC_INSTALL OFF)
+
+SET (CPACK_PACKAGE_DESCRIPTION_SUMMARY
+"Assets")
+SET (CPACK_PACKAGE_DESCRIPTION
+"Assets")
+
+## Patch: CPACK_PACKAGE_DESCRIPTION behavior is broken. Always use SUMMARY
+SET (CPACK_PACKAGE_DESCRIPTION_SUMMARY ${CPACK_PACKAGE_DESCRIPTION})
+SET (CPACK_PACKAGE_CONTACT "Francisco Perez <f.perez475@gmail.com>")
+SET (CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}_${CPACK_DEBIAN_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
+
+
+include (CPack)

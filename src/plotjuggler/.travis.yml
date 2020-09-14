@@ -1,0 +1,40 @@
+sudo: required
+dist: trusty
+
+language: generic
+services:
+  - docker
+
+compiler:
+  - gcc
+
+os:
+  - linux
+  
+compiler:
+  - gcc
+
+env:
+  matrix:
+    - ROS_DISTRO="kinetic"
+    - ROS_DISTRO="melodic"
+    - ROS_DISTRO="eloquent"
+
+before_install:
+
+ - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+ - sudo add-apt-repository ppa:ubuntu-sdk-team/ppa -y
+ - sudo apt-get update -qq
+
+install:
+  - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci.git .industrial_ci -b master
+  
+script:
+  - .industrial_ci/travis.sh
+
+notifications:
+  email:
+    recipients:
+      - davide.faconti@gmail.com
+    on_success: change
+    on_failure: always

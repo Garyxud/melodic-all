@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>force_torque_sensor</name>
+  <version>1.0.0</version>
+  <description>The force_torque_sensor package</description>
+
+  <maintainer email="denis.stogl@kit.edu">Denis Štogl</maintainer>
+
+  <license>LGPLv3</license>
+
+<!--   <url type="website">http://wiki.ros.org/force_torque_sensor</url> -->
+  <url type="repository">https://github.com/KITrobotics/force_torque_sensor</url>
+  <url type="bugtracker">https://github.com/KITrobotics/force_torque_sensor/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>cmake_modules</depend>
+  <depend>dynamic_reconfigure</depend>
+  <depend>geometry_msgs</depend>
+  <depend>hardware_interface</depend>
+  <depend>iirob_filters</depend>
+  <depend>pluginlib</depend>
+  <depend>realtime_tools</depend>
+  <depend>roscpp</depend>
+  <depend>rosparam_handler</depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+
+  <exec_depend>message_runtime</exec_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <force_torque_sensor plugin="${prefix}/force_torque_sensor_plugin.xml"/>
+  </export>
+</package>

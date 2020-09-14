@@ -1,0 +1,73 @@
+# $NetBSD: Makefile,v 1.3 2011/04/21 16:34:17 drochner Exp $
+#
+
+DISTNAME=		omniORB-4.1.6
+CATEGORIES=		devel
+MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=omniorb/}
+EXTRACT_SUFX+=		.tar.bz2
+
+MAINTAINER=		ianzag@mail.ru
+HOMEPAGE=		http://omniorb.sourceforge.net/
+COMMENT=		CORBA ORB
+
+PKG_DESTDIR_SUPPORT=	user-destdir
+
+MAKE_FILE=		GNUmakefile
+
+GNU_CONFIGURE=	YES
+USE_LANGUAGES=	c c++
+USE_TOOLS+=	gmake
+
+PKGCONFIG_OVERRIDE+= contrib/pkgconfig/omniCOS4.pc.in
+PKGCONFIG_OVERRIDE+= contrib/pkgconfig/omniCOSDynamic4.pc.in
+PKGCONFIG_OVERRIDE+= contrib/pkgconfig/omniConnectionMgmt4.pc.in
+PKGCONFIG_OVERRIDE+= contrib/pkgconfig/omniDynamic4.pc.in
+PKGCONFIG_OVERRIDE+= contrib/pkgconfig/omniORB4.pc.in
+PKGCONFIG_OVERRIDE+= contrib/pkgconfig/omnithread3.pc.in
+
+# Startup script settigns
+#PKG_SYSCONFBASE= /etc
+#RCD_SCRIPTS_DIR= ${PKG_SYSCONFBASE}/rc.d
+#PKG_RCD_SCRIPTS= YES
+RCD_SCRIPTS= 	 omninames
+
+# omniORB requires native threads support
+PTHREAD_OPTS=	require native
+
+OMNIORB_ETCDIR?= ${PKG_SYSCONFDIR}
+OMNIORB_CONFIG=	${OMNIORB_ETCDIR}/omniORB.cfg
+
+CONFIGURE_ARGS+=	--with-omniORB-config=${OMNIORB_CONFIG:Q}
+#CONFIGURE_ARGS+=	--with-omniNames-logdir=/var/log
+#CONFIGURE_ARGS+=	--with-openssl
+
+PKG_OPTIONS_VAR=	PKG_OPTIONS.omniORB
+PKG_SUPPORTED_OPTIONS=	inet6
+.include "../../mk/bsd.options.mk"
+.if empty(PKG_OPTIONS:Minet6)
+CONFIGURE_ARGS+=--disable-ipv6
+.endif
+
+PY_PATCHPLIST=		yes
+REPLACE_PYTHON+=	src/tool/omniidl/python/scripts/omniidlrun.py
+
+post-install:
+	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/examples/omniORB/
+	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/doc/omniORB/
+	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/doc/omniORB/omniORB
+	${INSTALL_DATA} ${WRKSRC}/sample.cfg \
+		${DESTDIR}${PREFIX}/share/examples/omniORB/
+	${INSTALL_DATA} ${WRKSRC}/doc/*.html \
+		${DESTDIR}${PREFIX}/share/doc/omniORB/
+	${INSTALL_DATA} ${WRKSRC}/doc/*.pdf \
+		${DESTDIR}${PREFIX}/share/doc/omniORB/
+	${INSTALL_DATA} ${WRKSRC}/doc/omniORB/* \
+		${DESTDIR}${PREFIX}/share/doc/omniORB/omniORB/
+	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/
+	${INSTALL_MAN} ${WRKSRC}/man/man1/* \
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/
+
+.include "../../lang/python/application.mk"
+.include "../../lang/python/extension.mk"
+.include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

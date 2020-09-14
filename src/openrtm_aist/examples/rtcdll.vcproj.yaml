@@ -1,0 +1,392 @@
+#
+# @brief VCProject configuration file for loadable RT-Component 
+# @date $Date: 2008-03-06 06:48:01 $
+# @author Norkai Ando <n-ando@aist.go.jp>
+#
+ProjectType: "Visual C++"
+Version: "__VCVERSION__"
+Name: __PROJECT_NAME__
+ProjectGUID: __GUID__
+RootNamespace: __PROJECT_NAME__
+Keyword: "Win32Proj"
+Configurations:
+#------------------------------------------------------------
+# Debug Configuration
+#------------------------------------------------------------
+  - Name: "Debug|Win32"
+    OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(ConfigurationName)"
+    IntermediateDirectory: "__PROJECT_NAME__\\$(ConfigurationName)"
+    ConfigurationType: "2"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VCCLCompilerTool:
+      - Key: Optimization
+        Value: "0"
+      - Key: PreprocessorDefinitions
+        Value: "INCLUDED_stub_in_nt_dll;WIN32;_DEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "3"
+      - Key: RuntimeLibrary
+        Value: "3"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "4"
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_libd)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+#      - Key: Version
+#        Value: __VERSION__
+      - Key: LinkIncremental
+        Value: "2"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "true"
+      - Key: SubSystem
+        Value: "2"
+      - Key: TargetMachine
+        Value: "1"
+    VC10_OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(Configuration)"
+    VC10_IntermediateDirectory: "__PROJECT_NAME__\\$(Configuration)"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_LinkIncrementalCondition: "true"
+    VC10_VCPreBuildEventTool:
+      - Key: Command
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VC10_VCCLCompilerTool:
+      - Key: Optimization
+        Value: "Disabled"
+      - Key: PreprocessorDefinitions
+        Value: "USE_stub_in_nt_dll;WIN32;_DEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "EnableFastChecks"
+      - Key: RuntimeLibrary
+        Value: "MultiThreadedDebugDLL"
+      - Key: PrecompiledHeader
+        Value: "NotUsing"
+      - Key: WarningLevel
+        Value: "Level3"
+      - Key: DebugInformationFormat
+        Value: "EditAndContinue"
+    VC10_VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_libd);%(AdditionalDependencies)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+#      - Key: Version
+#        Value: __VERSION__
+      - Key: LinkIncremental
+        Value: "true"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "true"
+      - Key: SubSystem
+        Value: "Windows"
+      - Key: TargetMachine
+        Value: "MachineX86"
+  - Name: "Debug|x64"
+    OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(ConfigurationName)"
+    IntermediateDirectory: "__PROJECT_NAME__\\$(ConfigurationName)"
+    ConfigurationType: "2"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VCCLCompilerTool:
+      - Key: Optimization
+        Value: "0"
+      - Key: PreprocessorDefinitions
+        Value: "INCLUDED_stub_in_nt_dll;WIN32;_DEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "3"
+      - Key: RuntimeLibrary
+        Value: "3"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "4"
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_libd)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+#      - Key: Version
+#        Value: __VERSION__
+      - Key: LinkIncremental
+        Value: "2"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "true"
+      - Key: SubSystem
+        Value: "2"
+      - Key: TargetMachine
+        Value: "1"
+    VC10_OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(Configuration)"
+    VC10_IntermediateDirectory: "__PROJECT_NAME__\\$(Configuration)"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_LinkIncrementalCondition: "true"
+    VC10_VCPreBuildEventTool:
+      - Key: Command
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VC10_VCCLCompilerTool:
+      - Key: Optimization
+        Value: "Disabled"
+      - Key: PreprocessorDefinitions
+        Value: "INCLUDED_stub_in_nt_dll;WIN32;_DEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "EnableFastChecks"
+      - Key: RuntimeLibrary
+        Value: "MultiThreadedDebugDLL"
+      - Key: PrecompiledHeader
+        Value: "NotUsing"
+      - Key: WarningLevel
+        Value: "Level3"
+      - Key: DebugInformationFormat
+        Value: "EditAndContinue"
+    VC10_VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_libd);%(AdditionalDependencies)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+#      - Key: Version
+#        Value: __VERSION__
+      - Key: LinkIncremental
+        Value: "true"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "true"
+      - Key: SubSystem
+        Value: "Windows"
+      - Key: TargetMachine
+        Value: "MachineX64"
+#------------------------------------------------------------
+# Release Configuration
+#------------------------------------------------------------
+  - Name: "Release|Win32"
+    OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(ConfigurationName)"
+    IntermediateDirectory: "__PROJECT_NAME__\\$(ConfigurationName)"
+    ConfigurationType: "2"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    WholeProgramOptimization: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          if NOT EXIST "$(SolutionDir)\\\\components" mkdir "$(SolutionDir)\\\\components"
+          copy "$(OutDir)\\\\__PROJECT_NAME__.dll" "$(SolutionDir)\\\\components"
+    VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "INCLUDED_stub_in_nt_dll;WIN32;NDEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key:         RuntimeLibrary
+        Value: "2"
+      - Key:         UsePrecompiledHeader
+        Value: "0"
+      - Key:         WarningLevel
+        Value: "3"
+      - Key:         DebugInformationFormat
+        Value: "3"
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_lib)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+      - Key: LinkIncremental
+        Value: "1"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "false"
+      - Key: SubSystem
+        Value: "2"
+      - Key: OptimizeReferences
+        Value: "2"
+      - Key: EnableCOMDATFolding
+        Value: "2"
+      - Key: TargetMachine
+        Value: "1"
+    VC10_OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(Configuration)"
+    VC10_IntermediateDirectory: "__PROJECT_NAME__\\$(Configuration)"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_LinkIncrementalCondition: "false"
+    VC10_VCPreBuildEventTool:
+      - Key: Command
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VC10_VCPostBuildEventTool:
+      - Key: Command
+        Value: |
+          if NOT EXIST "$(SolutionDir)\\\\components" mkdir "$(SolutionDir)\\\\components"
+          copy "$(OutDir)\\\\__PROJECT_NAME__.dll" "$(SolutionDir)\\\\components"
+    VC10_VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "USE_stub_in_nt_dll;WIN32;NDEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key:         RuntimeLibrary
+        Value: "MultiThreadedDLL"
+      - Key:         PrecompiledHeader
+        Value: "NotUsing"
+      - Key:         WarningLevel
+        Value: "Level3"
+      - Key:         DebugInformationFormat
+        Value: "ProgramDatabase"
+    VC10_VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_lib);%(AdditionalDependencies)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+      - Key: LinkIncremental
+        Value: "false"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "false"
+      - Key: SubSystem
+        Value: "Windows"
+      - Key: OptimizeReferences
+        Value: "true"
+      - Key: EnableCOMDATFolding
+        Value: "true"
+      - Key: TargetMachine
+        Value: "MachineX86"
+  - Name: "Release|x64"
+    OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(ConfigurationName)"
+    IntermediateDirectory: "__PROJECT_NAME__\\$(ConfigurationName)"
+    ConfigurationType: "2"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    WholeProgramOptimization: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          if NOT EXIST "$(SolutionDir)\\\\components" mkdir "$(SolutionDir)\\\\components"
+          copy "$(OutDir)\\\\__PROJECT_NAME__.dll" "$(SolutionDir)\\\\components"
+    VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "INCLUDED_stub_in_nt_dll;WIN32;NDEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key:         RuntimeLibrary
+        Value: "2"
+      - Key:         UsePrecompiledHeader
+        Value: "0"
+      - Key:         WarningLevel
+        Value: "3"
+      - Key:         DebugInformationFormat
+        Value: "3"
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_lib)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+      - Key: LinkIncremental
+        Value: "1"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "false"
+      - Key: SubSystem
+        Value: "2"
+      - Key: OptimizeReferences
+        Value: "2"
+      - Key: EnableCOMDATFolding
+        Value: "2"
+      - Key: TargetMachine
+        Value: "1"
+    VC10_OutputDirectory: "$(ProjectDir)__PROJECT_NAME__\\$(Configuration)"
+    VC10_IntermediateDirectory: "__PROJECT_NAME__\\$(Configuration)"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_LinkIncrementalCondition: "false"
+    VC10_VCPreBuildEventTool:
+      - Key: Command
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\\\;%PATH%
+          for %%x in (*.idl) do rtm-skelwrapper.py --include-dir="" --skel-suffix=Skel --stub-suffix=Stub --idl-file=%%x
+          for %%x in (*.idl) do $(rtm_idlc) $(rtm_idlflags) -Wbdll_includes %%x
+    VC10_VCPostBuildEventTool:
+      - Key: Command
+        Value: |
+          if NOT EXIST "$(SolutionDir)\\\\components" mkdir "$(SolutionDir)\\\\components"
+          copy "$(OutDir)\\\\__PROJECT_NAME__.dll" "$(SolutionDir)\\\\components"
+    VC10_VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "INCLUDED_stub_in_nt_dll;WIN32;NDEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key:         RuntimeLibrary
+        Value: "MultiThreadedDLL"
+      - Key:         PrecompiledHeader
+        Value: "NotUsing"
+      - Key:         WarningLevel
+        Value: "Level3"
+      - Key:         DebugInformationFormat
+        Value: "ProgramDatabase"
+    VC10_VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(rtm_lib);%(AdditionalDependencies)"
+#      - Key: OutputFile
+#        Value: "$(OutDir)\\__PROJECT_NAME__.dll"
+      - Key: LinkIncremental
+        Value: "false"
+#      - Key: ModuleDefinitionFile
+#        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "false"
+      - Key: SubSystem
+        Value: "Windows"
+      - Key: OptimizeReferences
+        Value: "true"
+      - Key: EnableCOMDATFolding
+        Value: "true"
+      - Key: TargetMachine
+        Value: "MachineX64"

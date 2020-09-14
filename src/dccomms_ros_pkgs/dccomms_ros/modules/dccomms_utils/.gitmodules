@@ -1,0 +1,9 @@
+[submodule "modules/dccomms"]
+	path = modules/dccomms
+	url = https://github.com/dcentelles/dccomms.git
+[submodule "modules/cxxopts"]
+	path = modules/cxxopts
+	url = https://github.com/jarro2783/cxxopts.git
+[submodule "modules/dccomms_packets"]
+	path = modules/dccomms_packets
+	url = https://github.com/dcentelles/dccomms_packets.git

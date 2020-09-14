@@ -1,0 +1,7 @@
+Header header
+float64 azimuth
+float64 elevation
+float64 confidence
+float64 energy
+geometry_msgs/Twist head_position_frame_torso
+geometry_msgs/Twist head_position_frame_robot

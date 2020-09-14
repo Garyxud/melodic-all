@@ -1,0 +1,16 @@
+<launch>
+    <node name="hostapd1" pkg="hostapd_access_point" type="ap_hostapd_node.py" output="screen">
+    	  <param name="interface" command="$(find hostapd_access_point)/scripts/find_hwsim_iface.py 1 3"/>
+    </node>
+    <node name="hostapd2" pkg="hostapd_access_point" type="ap_hostapd_node.py" output="screen">
+    	  <param name="interface" command="$(find hostapd_access_point)/scripts/find_hwsim_iface.py 2 3"/>
+    </node>
+    <node name="ap1_source" pkg="network_monitor_udp" type="udpmonsink" args="12345" output="screen"/>    
+    <node name="sta_sink" pkg="network_monitor_udp" type="udpmonsourcenode.py" output="screen"/>
+    
+    <test test-name="hostapd_test" pkg="network_control_tests" type="hostapd_test.py" name="hostapd_access_point_test" time-limit="120">
+    	  <param name="ap1_iface" command="$(find hostapd_access_point)/scripts/find_hwsim_iface.py 1 3"/>
+    	  <param name="ap2_iface" command="$(find hostapd_access_point)/scripts/find_hwsim_iface.py 2 3"/>
+    	  <param name="sta_iface" command="$(find hostapd_access_point)/scripts/find_hwsim_iface.py 3 3"/>
+    </test> 
+</launch>

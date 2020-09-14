@@ -1,0 +1,252 @@
+// RTC.idl
+
+#include "SDOPackage.idl"
+
+#pragma prefix "omg.org"
+
+#define EXECUTION_HANDLE_TYPE_NATIVE long
+module RTC {
+	typedef EXECUTION_HANDLE_TYPE_NATIVE												ExecutionContextHandle_t;
+	typedef SDOPackage::UniqueIdentifier												UniqueIdentifier;
+	typedef SDOPackage::NVList												NVList;
+
+	enum ReturnCode_t {
+		RTC_OK,
+		RTC_ERROR,
+		BAD_PARAMETER,
+		UNSUPPORTED,
+		OUT_OF_RESOURCES,
+		PRECONDITION_NOT_MET
+	};
+
+	enum LifeCycleState {
+		CREATED_STATE,
+		INACTIVE_STATE,
+		ACTIVE_STATE,
+		ERROR_STATE
+	};
+
+	interface ExecutionContext;
+	typedef sequence<ExecutionContext> ExecutionContextList;
+
+	interface ComponentAction {
+		ReturnCode_t on_initialize();
+		ReturnCode_t on_finalize();
+		ReturnCode_t on_startup(
+			in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_shutdown(
+			in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_activated(
+			in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_deactivated(
+			in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_aborting(
+			in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_error(in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_reset(in ExecutionContextHandle_t exec_handle);
+	};
+
+	interface LightweightRTObject : ComponentAction {
+		ReturnCode_t initialize();
+		ReturnCode_t finalize();
+		boolean is_alive(in ExecutionContext exec_context);
+		ReturnCode_t reset();
+		ReturnCode_t exit();
+		ExecutionContextHandle_t attach_context(
+			in ExecutionContext exec_context);
+		ReturnCode_t detach_context(
+			in ExecutionContextHandle_t exec_handle);
+		ExecutionContext get_context(
+			in ExecutionContextHandle_t exec_handle);
+		ExecutionContextList get_owned_contexts();
+		ExecutionContextList get_participating_contexts();
+	};
+
+	enum ExecutionKind {
+		PERIODIC,
+		EVENT_DRIVEN,
+		OTHER
+	};
+
+	interface ExecutionContext {
+		boolean is_running();
+		ReturnCode_t start();
+		ReturnCode_t stop();
+		double get_rate();
+		ReturnCode_t set_rate(in double rate);
+		ReturnCode_t add_component(
+			in LightweightRTObject comp);
+		ReturnCode_t remove_component(
+			in LightweightRTObject comp);
+		ReturnCode_t activate_component(
+			in LightweightRTObject comp);
+		ReturnCode_t deactivate_component(
+			in LightweightRTObject comp);
+		ReturnCode_t reset_component(
+			in LightweightRTObject comp);
+		LifeCycleState get_component_state(
+			in LightweightRTObject comp);
+		ExecutionKind get_kind();
+	};
+
+	interface DataFlowComponentAction {
+		ReturnCode_t on_execute(
+			in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_state_update(
+			in ExecutionContextHandle_t exec_handle);
+		ReturnCode_t on_rate_changed(
+			in ExecutionContextHandle_t exec_handle);
+	};
+
+	interface DataFlowComponent : DataFlowComponentAction {
+	};
+
+	interface Fsm {
+	};
+
+	interface FsmParticipantAction {
+		ReturnCode_t on_action(
+			in ExecutionContextHandle_t exec_handle);
+	};
+
+	interface FsmParticipant : FsmParticipantAction {
+	};
+
+	interface Mode {
+	};
+
+	interface ModeCapable {
+		Mode get_default_mode();
+		Mode get_current_mode();
+		Mode get_current_mode_in_context(
+			in ExecutionContext exec_context);
+		Mode get_pending_mode();
+		Mode get_pending_mode_in_context(
+			in ExecutionContext exec_context);
+		ReturnCode_t set_mode(
+			in Mode new_mode,
+			in boolean immediate);
+	};
+
+	interface MultiModeComponentAction {
+		ReturnCode_t on_mode_changed(
+			in ExecutionContextHandle_t exec_handle);
+	};
+
+	interface MultiModeObject : 	ModeCapable,
+								   MultiModeComponentAction {
+	};
+
+	interface RTObject;
+
+	enum PortInterfacePolarity {
+		PROVIDED,
+		REQUIRED
+	};
+
+	struct PortInterfaceProfile {
+		string instance_name;
+		string type_name;
+		PortInterfacePolarity polarity;
+	};
+
+	typedef sequence<PortInterfaceProfile> PortInterfaceProfileList;
+
+	interface PortService;
+	typedef sequence<PortService> PortServiceList;
+	typedef sequence<RTObject> RTCList;
+
+	struct ConnectorProfile {
+		string name;
+		UniqueIdentifier connector_id;
+		PortServiceList ports;
+		NVList properties;
+	};
+
+	typedef sequence<ConnectorProfile> ConnectorProfileList;
+
+	struct PortProfile {
+		string name;
+		PortInterfaceProfileList interfaces;
+		PortService port_ref;
+		ConnectorProfileList connector_profiles;
+		RTObject owner;
+		NVList properties;
+	};
+
+	typedef sequence<PortProfile> PortProfileList;
+
+	struct ExecutionContextProfile {
+		ExecutionKind kind;
+		double rate;
+		RTObject owner;
+		RTCList participants;
+		NVList properties;
+	};
+
+	typedef sequence<ExecutionContextProfile>
+	ExecutionContextProfileList;
+
+	interface FsmObject {
+		ReturnCode_t send_stimulus(
+			in string message,
+			in ExecutionContextHandle_t exec_handle);
+	};
+
+	struct FsmBehaviorProfile {
+		FsmParticipantAction action_component;
+		UniqueIdentifier id;
+	};
+
+	typedef sequence<FsmBehaviorProfile> FsmBehaviorProfileList;
+	struct FsmProfile {
+		FsmBehaviorProfileList behavior_profiles;
+	};
+
+	interface FsmService : SDOPackage::SDOService {
+		 FsmProfile get_fsm_profile();
+		 ReturnCode_t set_fsm_profile(in FsmProfile fsm_profile);
+	};
+
+	struct ComponentProfile {
+		string instance_name;
+		string type_name;
+		string description;
+		string version;
+		string vendor;
+		string category;
+		PortProfileList port_profiles;
+		RTObject parent;
+		NVList properties;
+	};
+
+	typedef sequence<ComponentProfile> ComponentProfileList;
+
+	interface PortService : SDOPackage::SDOService {
+		PortProfile get_port_profile();
+		ConnectorProfileList get_connector_profiles();
+		ConnectorProfile get_connector_profile(
+			in UniqueIdentifier connector_id);
+		ReturnCode_t connect(
+			inout ConnectorProfile connector_profile);
+		ReturnCode_t disconnect(in UniqueIdentifier connector_id);
+		ReturnCode_t disconnect_all();
+		ReturnCode_t notify_connect(
+			inout ConnectorProfile connector_profile);
+		ReturnCode_t notify_disconnect(
+			in UniqueIdentifier connector_id);
+	};
+
+	interface ExecutionContextService :										ExecutionContext,
+											SDOPackage::SDOService {
+		ExecutionContextProfile get_profile();
+	};
+
+	typedef sequence<ExecutionContextService>
+	ExecutionContextServiceList;
+
+	interface RTObject : LightweightRTObject, SDOPackage::SDO {
+		ComponentProfile get_component_profile();
+		PortServiceList get_ports();
+	};
+};

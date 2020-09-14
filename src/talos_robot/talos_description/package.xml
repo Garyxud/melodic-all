@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>talos_description</name>
+  <version>1.0.45</version>
+  <description>The talos_description package</description>
+
+  <maintainer email="hilario.tome@pal-robotics.com">Hilario Tomé</maintainer>
+
+  <license>Proprietary</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>talos_description_calibration</exec_depend>
+  <exec_depend>talos_description_inertial</exec_depend>
+
+  <test_depend>rostest</test_depend>
+  <test_depend>urdf_test</test_depend>
+
+  <export>
+  </export>
+
+</package>

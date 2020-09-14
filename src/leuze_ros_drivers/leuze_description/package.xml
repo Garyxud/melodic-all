@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>leuze_description</name>
+  <version>1.0.1</version>
+  <description>This package contains . </description>
+
+  <author email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</author>
+  <author email="harshavardhan.deshpande@ipa.fraunhofer.de">Harshavardhan Deshpande</author>
+  <author email="tejas.kumar.shastha@ipa.fraunhofer.de">Tejas Kumar Shastha</author>
+  <maintainer email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</maintainer>
+
+  <license>APACHE2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <test_depend>roslaunch</test_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
+  <export>
+
+  </export>
+</package>

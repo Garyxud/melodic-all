@@ -1,0 +1,49 @@
+## -*- Makefile -*-
+##------------------------------------------------------------
+## Makefile.doc for OpenRTM-aist documents.
+##
+## $Id$
+##------------------------------------------------------------
+
+all: ClassReference ClassReference-en IDLReference IDLReference-en
+
+DevelopersGuide.pdf: DevelopersGuide/DevelopersGuide.tex
+	(cd  DevelopersGuide ; make ; cd -)
+
+DevelopersGuide.ps: DevelopersGuide/DevelopersGuide.tex
+	(cd  DevelopersGuide ; make ; cd -)
+
+ClassReference: doxygen_classref.conf
+	doxygen doxygen_classref.conf
+#	(cd ClassReference/platex ; nkf --euc --overwrite * ; make)
+
+ClassReference-en: doxygen_classref.conf
+	rm -f tmp.conf
+	cp doxygen_classref.conf tmp.conf
+	echo "ENABLED_SECTIONS       = " >> tmp.conf
+	echo "OUTPUT_LANGUAGE        = English" >> tmp.conf
+	echo "OUTPUT_DIRECTORY       = ClassReference-en" >> tmp.conf
+	doxygen tmp.conf
+	rm -f tmp.conf
+#	(cd ClassReference-en/platex ; nkf --euc --overwrite * ; make)
+
+
+IDLReference: doxygen_idlref.conf
+	doxygen doxygen_idlref.conf
+#	(cd IDLReference/platex ; nkf --euc --overwrite * ; make)
+
+IDLReference-en: doxygen_idlref.conf
+	rm -f tmp.conf
+	cp doxygen_idlref.conf tmp.conf
+	echo "ENABLED_SECTIONS       = " >> tmp.conf
+	echo "OUTPUT_LANGUAGE        = English" >> tmp.conf
+	echo "OUTPUT_DIRECTORY       = IDLReference-en" >> tmp.conf
+	doxygen tmp.conf
+	rm -f tmp.conf
+#	(cd IDLReference-en/platex ; nkf --euc --overwrite * ; make)
+
+
+clean:
+	rm -rf ClassReference ClassReference-en IDLReference IDLReference-en
+	rm -f DevelopersGuide.ps DevelopersGuide.pdf *~ tmp.conf
+	(cd  DevelopersGuide ; make clean)

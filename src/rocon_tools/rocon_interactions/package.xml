@@ -1,0 +1,41 @@
+<package>
+  <name>rocon_interactions</name>
+  <version>0.3.2</version>
+  <description>
+    Interaction management for human interactive agents in the concert.
+  </description>
+  <maintainer email="d.stonier@gmail.com">Daniel Stonier</maintainer>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/rocon_interactions</url>
+  <url type="repository">https://github.com/robotics-in-concert/rocon_tools</url>
+  <url type="bugtracker">https://github.com/robotics-in-concert/rocon_tools/issues</url>
+  <author>Daniel Stonier</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>python-catkin-pkg</build_depend>
+  <build_depend>roslint</build_depend>
+  <build_depend>rostest</build_depend> <!-- testing only -->
+
+  <test_depend>rosunit</test_depend>
+
+  <run_depend>genpy</run_depend>
+  <run_depend>python-rospkg</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rocon_bubble_icons</run_depend>
+  <run_depend>rocon_console</run_depend>
+  <run_depend>rocon_icons</run_depend>
+  <run_depend>rocon_app_manager_msgs</run_depend>
+  <run_depend>rocon_interaction_msgs</run_depend>
+  <run_depend>rocon_python_comms</run_depend>
+  <run_depend>rocon_python_utils</run_depend>
+  <run_depend>rocon_std_msgs</run_depend>
+  <run_depend>rocon_uri</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>unique_id</run_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml"/>
+  </export>
+
+</package>

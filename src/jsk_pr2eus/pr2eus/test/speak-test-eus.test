@@ -1,0 +1,17 @@
+<launch>
+  <env name="DISPLAY" value=":0.0" />
+  <arg name="test_action" default="false" />
+
+  <test test-name="stest_peak_publish_euslisp_$(arg test_action)" pkg="roseus" type="roseus"
+        args="$(find pr2eus)/test/speak-test.l"/>
+
+  <group if="$(arg test_action)" >
+    <node pkg="pr2eus" type="test_dummy_soundplay_node.py" name="sound_play">
+      <remap from="sound_play" to="robotsound"  />
+    </node>
+    <node pkg="pr2eus" type="test_dummy_soundplay_node.py" name="sound_node_jp">
+      <remap from="sound_play" to="robotsound_jp" />
+    </node>
+  </group>
+
+</launch>

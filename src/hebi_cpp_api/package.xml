@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>hebi_cpp_api</name>
+  <version>3.2.0</version>
+  <description>A ROS package providing access to the HEBI C++ API.</description>
+
+  <maintainer email="chris@hebirobotics.com">Chris Bollinger</maintainer>
+
+  <license>HEBI C++ Software License (https://www.hebirobotics.com/softwarelicense)</license>
+
+  <url type="website">http://docs.hebi.us/tools.html#cpp-api</url>
+  <url type="website">http://hebirobotics.com</url>
+
+  <!-- Author tags are optional, multiple are allowed, one per tag -->
+  <!-- Authors do not have to be maintainers, but could be -->
+  <!-- Example: -->
+  <author email="chris@hebirobotics.com">Chris Bollinger</author>
+  <author email="matt@hebirobotics.com">Matthew Tesch</author>
+
+  <!-- The *depend tags are used to specify dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>eigen</build_depend>
+</package>

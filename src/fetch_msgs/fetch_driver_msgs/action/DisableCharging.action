@@ -1,0 +1,8 @@
+# Disable charging for a specific amount of time
+duration disable_duration
+---
+# Returns true if charging was successfully disabled,
+# false if we are unable to disable charging
+bool charging_disabled
+---
+# No feedback

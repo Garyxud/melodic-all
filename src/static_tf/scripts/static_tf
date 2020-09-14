@@ -1,0 +1,58 @@
+#!/usr/bin/python
+
+import tf
+import rospy
+import tf2_ros
+import argparse
+from geometry_msgs.msg import TransformStamped
+
+parser = argparse.ArgumentParser()
+parser.add_argument('parent_frame', type=str)
+parser.add_argument('child_frame', type=str)
+parser.add_argument('-x', type=float, default=0.0)
+parser.add_argument('-y', type=float, default=0.0)
+parser.add_argument('-z', type=float, default=0.0)
+parser.add_argument('-r', '--roll', type=float)
+parser.add_argument('-p', '--pitch', type=float)
+parser.add_argument('--yaw', type=float)
+parser.add_argument('-qx', type=float)
+parser.add_argument('-qy', type=float)
+parser.add_argument('-qz', type=float)
+parser.add_argument('-qw', type=float)
+
+args = parser.parse_args()
+rospy.init_node('static_tf', anonymous=True)
+
+has_quat = args.qx or args.qy or args.qz or args.qw
+has_rpy = args.roll or args.pitch or args.yaw
+
+transform = TransformStamped()
+transform.header.stamp = rospy.Time.now()
+transform.header.frame_id = args.parent_frame
+transform.child_frame_id = args.child_frame
+
+translation = transform.transform.translation
+translation.x = args.x
+translation.y = args.y
+translation.z = args.z
+
+rotation = transform.transform.rotation
+
+if has_quat and has_rpy:
+    print 'Must specify quaternion or RPY, not both!'
+    exit(-1)
+elif has_quat:
+    rotation.x = args.qx or 0.0
+    rotation.y = args.qy or 0.0
+    rotation.z = args.qz or 0.0
+    rotation.w = args.qw or 0.0
+else:
+    quat = tf.transformations.quaternion_from_euler(args.roll or 0.0, args.pitch or 0.0, args.yaw or 0.0)
+    rotation.x = quat[0]
+    rotation.y = quat[1]
+    rotation.z = quat[2]
+    rotation.w = quat[3]
+
+static = tf2_ros.StaticTransformBroadcaster()
+static.sendTransform(transform)
+rospy.spin()

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippets>
+    <snippet name="Sum_A_B">
+        <global></global>
+        <equation>$$PLOT_A$$ + $$PLOT_B$$</equation>
+    </snippet>
+    
+    <snippet name="1st_derivative">
+        <global>
+var prevX = 0
+var prevY = 0
+        </global>
+        <equation>
+dx = time - prevX
+dy = value - prevY
+prevX = time
+prevY = value
+
+return dy/dx
+        </equation>
+    </snippet>
+    
+    <snippet name="1st_order_low_pass">
+        <global>
+var prevY = 0
+var alpha = 0.1
+        </global>
+        <equation>
+prevY = alpha * value + (1.-alpha) * prevY
+
+return prevY
+        </equation>
+    </snippet>
+    
+    <snippet name="quaternion_to_euler">
+        <global/>
+        <equation>
+return quaternionToEulerAngle($$x$$, $$y$$, $$z$$, $$w$$)[2]; // yaw in degrees
+        </equation>
+    </snippet>
+    
+    <snippet name="geographic_coordinates_distance">
+        <global>
+// see https://geographiclib.sourceforge.io/1.49/js
+var geod = GeographicLib.Geodesic.WGS84;
+        </global>
+        <equation>
+r = geod.Inverse(-41.32, 174.81, $$lat$$, $$lon$$);
+return r.s12 // distance in meters
+        </equation>
+    </snippet>
+
+</snippets>

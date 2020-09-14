@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>md49_serialport</name>
+  <version>0.1.4</version>
+  <description>The md49_serialport package</description>
+
+  <author email="scheik.todeswache@googlemail.com">Fabian Prinzing</author>
+
+  <maintainer email="scheik.todeswache@googlemail.com">Fabian Prinzing</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://www.the-starbearer.de</url>
+  <url type="bugtracker">https://github.com/scheik/md49_base_controller/issues</url>
+  <url type="repository">https://github.com/scheik/md49_base_controller</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <run_depend>roscpp</run_depend>
+
+  <export>
+    <cpp cflags="-I${prefix}/include" lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib -lserialportport"/>
+  </export>
+</package>

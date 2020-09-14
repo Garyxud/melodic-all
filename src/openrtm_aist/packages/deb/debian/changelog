@@ -1,0 +1,41 @@
+openrtm-aist (1.1.2-0) precise; urgency=low
+
+  * 1.1.2-0 (1.1.2-RELEASE). OpenRTM-aist-1.1.2-RELEASE  
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Thu, 17 Sep 2015 13:50:25 +0900
+
+openrtm-aist (1.1.1-0) experimental; urgency=low
+
+  * 1.1.1-0 (1.1.1-RELEASE). OpenRTM-aist-1.1.1-RELEASE
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Fri, 31 Oct 2014 13:12:50 +0900
+
+openrtm-aist (1.1.0-0) experimental; urgency=low
+
+  * 1.1.0-0 (1.1.0-RELEASE). OpenRTM-aist-1.1.0-RELEASE
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Thu, 28 May 2010 16:58:44 +0900
+
+openrtm-aist (1.0.0-2) unstable; urgency=low
+
+  * 1.0.0-2 (1.0.0-RELEASE). A bug (rtcprof not included) has been fixed.
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Thu, 28 May 2010 16:58:44 +0900
+
+openrtm-aist (1.0.0-1) unstable; urgency=low
+
+  * 1.0.0-1 (1.0.0-RELEASE).
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Thu, 28 May 2010 16:58:44 +0900
+
+openrtm-aist (1.0.0-0) unstable; urgency=low
+
+  * 1.0.0-0 (1.0.0-RC1).
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Thu, 28 May 2009 11:58:55 +0900
+
+openrtm-aist (0.4.2-0) unstable; urgency=low
+
+ * Initial release.
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Mon, 23 Jun 2008 16:18:55 +0900

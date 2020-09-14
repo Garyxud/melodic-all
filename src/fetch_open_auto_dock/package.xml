@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fetch_open_auto_dock</name>
+  <version>0.1.2</version>
+  <description>
+    An open-source version of the Fetch charge docking system.
+  </description>
+
+  <author>Michael Ferguson</author>
+  <author>Griswald Brooks</author>
+  <maintainer email="rtoris@fetchrobotics.com">Russell Toris</maintainer>
+  <maintainer email="amoriarty@fetchrobotics.com">Alex Moriarty</maintainer>
+
+  <license>LGPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>angles</build_depend>
+
+  <depend>actionlib</depend>
+  <depend>eigen</depend>
+  <depend>fetch_auto_dock_msgs</depend>
+  <depend>fetch_driver_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>roscpp</depend>
+  <depend>roslib</depend>
+  <depend>rospy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>tf</depend>
+  
+</package>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<package>
+  <name>visp</name>
+  <version>3.3.0</version>
+  <description>
+    ViSP standing for Visual Servoing Platform is a modular cross
+    platform library that allows prototyping and developing applications
+    using visual tracking and visual servoing technics at the heart of the
+    researches done by Inria Lagadic team. ViSP is able to compute control
+    laws that can be applied to robotic systems. It provides a set of visual
+    features that can be tracked using real time image processing or computer
+    vision algorithms. ViSP provides also simulation capabilities.
+
+    ViSP can be useful in robotics, computer vision, augmented reality
+    and computer animation.
+  </description>
+
+  <author>Thomas Moulard, Fabien Spindler</author>
+  <maintainer email="Fabien.Spindler@inria.fr">Fabien Spindler</maintainer>
+  <license>GPLv2</license>
+
+  <url type="website">http://www.ros.org/wiki/visp</url>
+  <url type="bugtracker">https://github.com/lagadic/visp-release/issues</url>
+  <url type="repository">https://github.com/lagadic/visp-release</url>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <build_depend>doxygen</build_depend>
+  <build_depend>libopencv-dev</build_depend>
+  <build_depend>liblapack-dev</build_depend>
+  <build_depend>libcoin80-dev</build_depend>
+  <build_depend>libogre-dev</build_depend>
+  <build_depend>libdc1394-dev</build_depend>
+  <build_depend>libxml2</build_depend>
+  <build_depend>libjpeg</build_depend>
+  <build_depend>libpng-dev</build_depend>
+  <build_depend>bzip2</build_depend>
+  <build_depend>libx11-dev</build_depend>
+  <build_depend>libv4l-dev</build_depend>
+  <build_depend>libois-dev</build_depend>
+  <build_depend>libdmtx-dev</build_depend>
+  <build_depend>zbar</build_depend>
+  <build_depend>eigen</build_depend>
+
+  <run_depend>libopencv-dev</run_depend>
+  <run_depend>liblapack-dev</run_depend>
+  <run_depend>libcoin80-dev</run_depend>
+  <run_depend>libogre-dev</run_depend>
+  <run_depend>libdc1394-dev</run_depend>
+  <run_depend>libxml2</run_depend>
+  <run_depend>libjpeg</run_depend>
+  <run_depend>libpng-dev</run_depend>
+  <run_depend>bzip2</run_depend>
+  <run_depend>libx11-dev</run_depend>
+  <run_depend>libv4l-dev</run_depend>
+  <run_depend>libois-dev</run_depend>
+  <run_depend>libdmtx-dev</run_depend>
+  <run_depend>zbar</run_depend>
+  <run_depend>eigen</run_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>trajectory_tracker_rviz_plugins</name>
+  <version>0.3.1</version>
+  <description>Rviz plugins for trajectory_tracker_msgs</description>
+  <maintainer email="atsushi.w@ieee.org">Atsushi Watanabe</maintainer>
+  <license>BSD</license>
+  <license>Creative Commons</license>
+  <author email="atsushi.w@ieee.org">Atsushi Watanabe</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>qtbase5-dev</build_depend>
+
+  <exec_depend>libqt5-core</exec_depend>
+  <exec_depend>libqt5-gui</exec_depend>
+  <exec_depend>libqt5-widgets</exec_depend>
+
+  <depend>pluginlib</depend>
+  <depend>rviz</depend>
+  <depend>trajectory_tracker_msgs</depend>
+
+  <export>
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+</package>

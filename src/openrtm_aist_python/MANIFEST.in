@@ -1,0 +1,19 @@
+include OpenRTM-aist.pth
+include MANIFEST.in
+include MANIFEST_examples.in
+include setup.py
+include README
+recursive-include OpenRTM_aist *.py *.pth *.conf *.sample README *.idl *.sh
+recursive-include OpenRTM_aist/RTM_IDL *.py *.idl
+recursive-include OpenRTM_aist/utils *.py *.idl *.conf
+recursive-include OpenRTM_aist/docs *.css *.gif *.png *.html *.hhc *.hhk *.hhp
+include OpenRTM_aist/ext/sdo/observer/setup.bat
+include OpenRTM_aist/ext/sdo/observer/test/setup.bat
+include OpenRTM_aist/utils/rtcd/rtcd_python
+include OpenRTM_aist/utils/rtcd/rtcd_python.bat
+include OpenRTM_aist/utils/rtcd/rtcd_python.exe
+include OpenRTM_aist/utils/rtcprof/rtcprof_python
+include OpenRTM_aist/utils/rtcprof/rtcprof_python.bat
+include OpenRTM_aist/docs/Makefile
+include OpenRTM_aist/docs/Doxyfile_jp
+include OpenRTM_aist/docs/Doxyfile_en

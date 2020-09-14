@@ -1,0 +1,68 @@
+<package>
+  <name>pr2_gripper_sensor_controller</name>
+  <version>1.0.11</version>
+  <description>The pr2_gripper_sensor_controller package is a real-time controller that integrates signals from the PR2 hand-mounted accelerometer and finger-mounted pressure sensors with motor control of the gripper joint to do highly responsive sensing and low-latency closed-loop control.</description>
+  <maintainer email="ros-orphaned-packages@googlegroups.com">ROS Orphaned Package Maintainers</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/pr2_gripper_sensor_controller</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Joe Romano</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>pr2_controller_interface</build_depend>
+  <build_depend>pr2_mechanism_model</build_depend>
+  <build_depend>pr2_controllers_msgs</build_depend>
+  <build_depend>realtime_tools</build_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rosrt</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>pr2_gripper_sensor_msgs</build_depend>
+  <build_depend>pr2_controller_manager</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>pr2_controller_interface</run_depend>
+  <run_depend>pr2_mechanism_model</run_depend>
+  <run_depend>pr2_controllers_msgs</run_depend>
+  <run_depend>realtime_tools</run_depend>
+  <run_depend>pluginlib</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rosrt</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>pr2_gripper_sensor_msgs</run_depend>
+  <run_depend>pr2_controller_manager</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>pr2_controller_interface</test_depend> -->
+  <!-- <test_depend>pr2_mechanism_model</test_depend> -->
+  <!-- <test_depend>pr2_controllers_msgs</test_depend> -->
+  <!-- <test_depend>realtime_tools</test_depend> -->
+  <!-- <test_depend>pluginlib</test_depend> -->
+  <!-- <test_depend>actionlib_msgs</test_depend> -->
+  <!-- <test_depend>roscpp</test_depend> -->
+  <!-- <test_depend>rosrt</test_depend> -->
+  <!-- <test_depend>roslib</test_depend> -->
+  <!-- <test_depend>std_msgs</test_depend> -->
+  <!-- <test_depend>std_srvs</test_depend> -->
+  <!-- <test_depend>pr2_gripper_sensor_msgs</test_depend> -->
+  <!-- <test_depend>pr2_controller_manager</test_depend> -->
+
+<export>
+    <cpp cflags="-I${prefix}/msg/cpp"/>
+    <pr2_controller_interface plugin="${prefix}/controller_plugins.xml"/>
+</export>
+
+</package>
+

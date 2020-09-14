@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <omni_dllver>$(OMNI_DLLVER)</omni_dllver>
+    <omnithread_dllver>$(OMNITHREAD_DLLVER)</omnithread_dllver>
+    <rtm_dllver>$(RTM_DLLVER)</rtm_dllver>
+    <rtm_version>$(RTM_VERSION)</rtm_version>
+    <rtm_shortver>$(RTM_SHORTVER)</rtm_shortver>
+    <coil_dllver>$(COIL_DLLVER)</coil_dllver>
+    <coil_lib>coil$(coil_dllver).lib</coil_lib>
+    <coil_libd>coil$(coil_dllver)d.lib</coil_libd>
+    <omni_includes>$(omni_root)\include</omni_includes>
+    <omni_libdir>$(omni_root)\lib\x86_win32</omni_libdir>
+    <omni_bin>$(omni_root)\bin\x86_win32</omni_bin>
+    <omni_lib>omniORB$(omni_dllver)_rt.lib;omniDynamic$(omni_dllver)_rt.lib;omnithread$(omnithread_dllver)_rt.lib</omni_lib>
+    <omni_libd>omniORB$(omni_dllver)_rtd.lib;omniDynamic$(omni_dllver)_rtd.lib;omnithread$(omnithread_dllver)_rtd.lib</omni_libd>
+    <rtm_includes>$(rtm_root);$(rtm_root)\rtm\idl;$(rtm_root)\rtm\ext</rtm_includes>
+    <rtm_libdir>$(rtm_root)\bin</rtm_libdir>
+    <rtm_bin>$(rtm_root)\bin;$(rtm_root)\build</rtm_bin>
+    <rtm_path>$(rtm_bin);$(omni_bin)</rtm_path>
+    <rtm_libd>RTC$(rtm_dllver)d.lib;$(coil_libd);$(omni_libd);advapi32.lib;ws2_32.lib;mswsock.lib;$(user_libd)</rtm_libd>
+    <rtm_lib>RTC$(rtm_dllver).lib;$(coil_lib);$(omni_lib);advapi32.lib;ws2_32.lib;mswsock.lib;$(user_lib)</rtm_lib>
+    <rtm_idlc>omniidl</rtm_idlc>
+    <rtm_idlflags>-bcxx -Wba -nf -I $(SolutionDir)\rtm\idl</rtm_idlflags>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>OpenRTM-aist-$(RTM_SHORTVER)</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(omni_includes);$(rtm_includes);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>RTC_CORBA_CXXMAPPING11;_WIN32_WINNT=0x0500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(omni_libdir);$(rtm_libdir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="omni_root">
+      <Value>$(omni_root)</Value>
+    </BuildMacro>
+    <BuildMacro Include="omni_dllver">
+      <Value>$(omni_dllver)</Value>
+    </BuildMacro>
+    <BuildMacro Include="omnithread_dllver">
+      <Value>$(omnithread_dllver)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_root">
+      <Value>$(rtm_root)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_dllver">
+      <Value>$(rtm_dllver)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_version">
+      <Value>$(rtm_version)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_shortver">
+      <Value>$(rtm_shortver)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_dllver">
+      <Value>$(coil_dllver)</Value>
+    </BuildMacro>
+    <BuildMacro Include="omni_includes">
+      <Value>$(omni_includes)</Value>
+    </BuildMacro>
+    <BuildMacro Include="omni_libdir">
+      <Value>$(omni_libdir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="omni_bin">
+      <Value>$(omni_bin)</Value>
+    </BuildMacro>
+    <BuildMacro Include="omni_lib">
+      <Value>$(omni_lib)</Value>
+    </BuildMacro>
+    <BuildMacro Include="omni_libd">
+      <Value>$(omni_libd)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_includes">
+      <Value>$(rtm_includes)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_libdir">
+      <Value>$(rtm_libdir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_bin">
+      <Value>$(rtm_bin)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_path">
+      <Value>$(rtm_path)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_libd">
+      <Value>$(rtm_libd)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_lib">
+      <Value>$(rtm_lib)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_idlc">
+      <Value>$(rtm_idlc)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_idlflags">
+      <Value>$(rtm_idlflags)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_lib">
+      <Value>$(coil_lib)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_libd">
+      <Value>$(coil_libd)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

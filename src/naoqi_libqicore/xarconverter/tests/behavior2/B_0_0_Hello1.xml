@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BoxInterface uuid="" box_version="1.0.0.0" name="Hello" localization="8" tooltip="Simple hello animation.&#x0A;&#x0A;!!Warning!! There is no speech in this box. It is a just an animation box with some&#x0A;leds animation."  format_version="4" >
+    <Bitmap path="media/images/box/movement/move.png" />
+    <Input name="onLoad" signature="()" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+    <Input name="onStart" signature="()" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+    <Input name="onStop" signature="()" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+    <Output name="onStopped" signature="()" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+    <Resource name="Head" lock_type="Lock" timeout="0" />
+    <Resource name="Arms" lock_type="Lock" timeout="0" />
+    <Contents>
+        <Content type="0" path="B_0_0_Hello1.py" checksum="" />
+        <Content type="3" path="B_0_0_Hello1.bhs" checksum="" />
+        <Content type="4" path="B_0_0_Hello1.anim" checksum="" />
+    </Contents>
+</BoxInterface>

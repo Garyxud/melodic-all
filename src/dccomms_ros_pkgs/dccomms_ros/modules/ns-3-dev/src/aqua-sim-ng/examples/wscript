@@ -1,0 +1,26 @@
+# -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    obj = bld.create_ns3_program('broadcastMAC_example', ['network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'broadcastMAC_example.cc'
+
+    obj = bld.create_ns3_program('floodtest', ['network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'floodtest.cc'
+
+    obj = bld.create_ns3_program('GOAL_string', ['network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'GOAL_string.cc'
+
+    obj = bld.create_ns3_program('ddos', ['network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'ddos.cc'
+
+    obj = bld.create_ns3_program('bMAC', ['netanim', 'network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'bMAC.cc'
+
+    obj = bld.create_ns3_program('ND_example', ['network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'named_data_example.cc'
+
+    obj = bld.create_ns3_program('VBF', ['network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'VBF.cc'
+
+    obj = bld.create_ns3_program('FloodingMac', ['network', 'mobility', 'energy', 'applications', 'aqua-sim-ng'])
+    obj.source = 'floodMac.cc'

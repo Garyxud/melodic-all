@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: fsrobo_r
+    relative_path: urdf/fsrobo_r.urdf
+  SRDF:
+    relative_path: config/fsrobo_r.srdf
+  CONFIG:
+    author_name: nedo
+    author_email: test@example.com
+    generated_timestamp: 1516768220

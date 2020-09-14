@@ -1,0 +1,5 @@
+string rapp
+int16 priority
+---
+string[] available_resources
+string[] preemptible_resources

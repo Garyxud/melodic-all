@@ -1,0 +1,5 @@
+<launch>
+  <!-- start test -->
+  <test test-name="pr2_ri_test_simple" pkg="roseus" type="roseus"
+	args="$(find pr2eus)/test/pr2-ri-test-simple.l" time-limit="1800" />
+</launch>

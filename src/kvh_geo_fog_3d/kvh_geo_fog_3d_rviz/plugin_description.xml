@@ -1,0 +1,19 @@
+<!--
+Copyright (c) 2019, The MITRE Corporation
+All rights reserved.
+
+Sections of this project contains content developed by The MITRE Corporation.
+If this code is used in a deployment or embedded within another project,
+it is requested that you send an email to opensource@mitre.org in order to
+let us know where this software is being used.
+-->
+
+<library path="lib/libkvh_geo_fog_3d_rviz">
+  <class name="kvh_geo_fog_3d_rviz/StatusPanel"
+         type="kvh::StatusPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel that allows us to view status of the KVH GEO FOG 3D sensor.
+    </description>
+  </class>
+</library>

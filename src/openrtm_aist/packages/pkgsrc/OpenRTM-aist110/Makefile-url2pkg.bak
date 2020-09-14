@@ -1,0 +1,17 @@
+# $NetBSD$
+#
+
+DISTNAME=	OpenRTM-aist-1.1.0-RELEASE
+CATEGORIES=	net
+MASTER_SITES=	http://www.openrtm.org/pub/OpenRTM-aist/cxx/1.1.0/
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	INSERT_YOUR_MAIL_ADDRESS_HERE
+HOMEPAGE=	http://www.openrtm.org/pub/OpenRTM-aist/cxx/1.1.0/
+COMMENT=	TODO: Short description of the package
+#LICENSE=	# TODO: (see mk/license.mk)
+
+PKG_DESTDIR_SUPPORT=	user-destdir
+
+# url2pkg-marker (please do not remove this line.)
+.include "../../mk/bsd.pkg.mk"

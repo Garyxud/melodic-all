@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Input arguments -->
+    <arg name="argID"               default="1"/>
+    <arg name="argSafety"           default="false"/>
+    <arg name="argTakeOffAltitude"  default="5.0"/>
+    <arg name="argTakeOffThreshold" default="0.3"/>
+    <arg name="argTargetFrame"      default="base_link"/>
+    <arg name="argSourceFrame"      default="odom"/>
+    <arg name="argNodeRate"         default="100.0"/>
+    <arg name="argNamespace"        default="heifu"/>
+    <arg name="argSim"              default="false"/>
+    <arg name="argJoyConfig"	    default="xbox360"/>
+    <arg name="yi"                  default= "0"/>
+    <arg name="xi"                  default= "0"/>
+    <arg name="Y"                   default= "0"/>
+    <arg name="argVehicle"          default="heifu"/>
+    <arg name="argUseCase"          default="5"/>
+    <arg name="argSecredas"         default="false"/>
+    <arg name="argPlanners"         default="false"/>
+    <arg name="argGimbal"           default="true"/>
+
+    <!-- Launch gazebo -->
+    <include file="$(find heifu_description)/launch/gazebo.launch" if="$(arg argSim)">
+    </include>
+
+     <!-- Launch mavros node -->
+    <include file="$(find heifu_mavros)/launch/heifu_mavros.launch">
+        <arg name="argTakeOffAltitude"  value="$(arg argTakeOffAltitude)"/>
+        <arg name="argTakeOffThreshold" value="$(arg argTakeOffThreshold)"/>
+        <arg name="argTargetFrame"      value="$(arg argTargetFrame)"/>
+        <arg name="argSourceFrame"      value="$(arg argSourceFrame)"/>
+        <arg name="argNodeRate"         value="$(arg argNodeRate)"/>
+	    <arg name="argNamespace" 	    value="$(arg argNamespace)"/>
+        <arg name="argSimulation" 	    value="$(arg argSim)"/>
+    </include>
+
+    <!-- Launch controller input mux -->
+    <include file="$(find heifu_tools)/launch/heifu_twist_mux.launch" >
+        <arg name="argNamespace" value="$(arg argNamespace)"/>
+    </include>
+
+    <!-- Initialize control by joystick -->
+    <include file="$(find heifu_tools)/launch/joy_teleop.launch">
+        <arg if="$(arg argSafety)" 	name="argJoySafety" value="_safety"/>
+        <arg name="argNamespace"   	value="$(arg argNamespace)"/>
+		<arg name="argJoyConfig"	value="$(arg argJoyConfig)"/>
+    </include>
+
+    <!-- Initialize Heifu_Sim_Sensors -->
+    <include file="$(find heifu_sim_sensors)/launch/heifu_sim_sensors.launch" if="$(arg argSecredas)">
+        <arg name="argNamespace"    value="$(arg argNamespace)"/>
+        <arg name="argID"           value="$(arg argID)"/>
+        <param name="argUseCase"    type="int" value="$(arg argUseCase)"/>
+    </include>
+
+    <!-- Initialize Planners -->
+    <include file="$(find prm)/launch/prm.launch" if="$(arg argPlanners)">
+        <arg name="argNamespace"    value="$(arg argNamespace)"/>
+        <arg name="argID"           value="$(arg argID)"/>
+    </include>
+
+    <!-- Initialize Static Colision Avoidance -->
+    <include file="$(find colision_avoidance)/launch/ColisionAvoidance.launch" if="$(arg argPlanners)">
+        <arg name="argNamespace"    value="$(arg argNamespace)"/>
+        <arg name="argID"           value="$(arg argID)"/>
+    </include>
+
+    <!-- Initialize Global Coordinate converter -->
+    <include file="$(find gnss_utils)/launch/LLA2ENU_MavROS.launch" if="$(arg argPlanners)">
+        <arg name="argNamespace"    value="$(arg argNamespace)"/>
+        <arg name="argID"           value="$(arg argID)"/>
+    </include>
+    
+    <!-- Include Gimbal controll -->
+    <include file="$(find gimbal)/launch/gimbal.launch" if="$(arg argGimbal)">
+        <arg name="argNamespace"    value="$(arg argNamespace)"/>
+        <arg name="argID"           value="$(arg argID)"/>
+        <arg name="argJoy"          value="false"/>
+    </include>
+
+</launch>
+

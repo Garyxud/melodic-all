@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- MAVROS SITL environment launch script -->
+    <!-- Launches Gazebo environment, spawns the vehicle and initializes MAVROS -->
+
+    <!-- Input arguments -->
+    <arg name="argNamespace" default=""/>
+    <arg name="argVehicle"   default="heifu"/>
+    <arg name="argID"        default="0"/>
+    <arg name="xi" default= "0"/>
+    <arg name="yi" default= "0"/>
+    <arg name="zi" default="1.1"/>
+    <arg name="Y" default="0"/>
+
+    <arg name="fcu_udp_addr" value="$(eval 14550 + 10*arg('argID'))"/>
+    <arg name="fcu_url" default="udp://:$(arg fcu_udp_addr)@"/>
+
+    <!-- ArduPilot SITL and vehicle spawn -->
+    <include file="$(find heifu_description)/launch/heifu_spawn.launch">
+        <arg name="x" value="$(arg yi)"/>
+        <arg name="y" value="$(eval -1 * arg('xi'))"/>
+        <arg name="z" value="$(arg zi)"/>
+        <arg name="R" value="0"/>
+        <arg name="P" value="0"/>
+        <arg name="Y" value="$(arg Y)"/>
+        <arg name="argVehicle" value="$(arg argVehicle)"/>
+        <arg name="argID" value="$(arg argID)"/>
+    </include>
+
+    <!-- MAVROS -->
+    <include file="$(find mavros)/launch/apm.launch">
+        <arg name="fcu_url"      value="$(arg fcu_url)"/>
+        <arg name="argNamespace" value="$(arg argNamespace)"/>
+        <arg name="tgt_system"   value="$(eval 1 + arg('argID'))"/>
+    </include>
+
+    <!-- TF static publishers -->
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_camera_link_link" args="0 0 0 1.57079633 3.14159265 1.57079633 /$(arg argNamespace)/base_link /$(arg argNamespace)/heifu::camera_link 100" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="$(arg argNamespace)_link" args="$(arg xi) $(arg yi) $(arg zi) 0 0 0 /odom_combined /$(arg argNamespace)/odom"/>
+    
+
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_base_link" args="0 0 0 0 0 0 /$(arg argNamespace)/base_link /base_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_odom_link" args="0 0 0 0 0 0 /$(arg argNamespace)/odom /odom 100" />
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_odom_ned" args="0 0 0 0 0 0 /$(arg argNamespace)/odom /odom_ned 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_fcu" args="$(arg xi) $(arg yi) $(arg zi) 0 0 0 /odom_combined /fcu 100" />
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_fcu_frd" args="$(arg xi) $(arg yi) $(arg zi) 0 0 0 /odom_combined /fcu_frd 100" />
+    
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_map" args="0 0 0 0 0 0 /odom_combined /map 100" />
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_map_ned" args="0 0 0 0 0 0 /odom_combined /map_ned 100" />
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_camera_link" args="0 0 0 1.57079633 3.14159265 1.57079633 /base_link /camera_depth_optical_frame 100" /> -->
+</launch>

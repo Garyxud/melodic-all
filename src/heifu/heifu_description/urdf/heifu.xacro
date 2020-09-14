@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+
+<robot name="heifu" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:arg name="argNameSpace" default="heifu" />
+
+    <!-- Properties -->
+    <xacro:property name="namespace" value="$(arg argNameSpace)" />
+    <xacro:property name="rotor_velocity_slowdown_sim" value="10" />
+
+    <!--GeneralConstants-->
+    <xacro:property name="PI" value="3.1415926535897931" />
+    <xacro:property name="scale" value="1"/>
+
+    <!--Main Frame Constants-->
+    <xacro:property name="main_frame_weight" value="2.5"/>
+
+    <!--Landing Gear Constants-->
+    <xacro:property name="landing_gear_weight" value="0.25"/>
+    <xacro:property name="propeller_weight" value="0.002"/>
+
+    <!--Propeller Constants-->
+    <xacro:property name="propeller_ixx" value="9.75e-07"/>
+    <xacro:property name="propeller_ixy" value="0.0"/>
+    <xacro:property name="propeller_ixz" value="0.0"/>
+    <xacro:property name="propeller_iyy" value="0.000273104"/>
+    <xacro:property name="propeller_iyz" value="0.0"/>
+    <xacro:property name="propeller_izz" value="0.000274004"/>
+
+
+<!--Links-->
+
+  <!--Main Frame-->
+  <link name="${namespace}/base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find heifu_description)/meshes/base_link.dae" scale="${scale} ${scale} ${scale}"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find heifu_description)/meshes/base_link.dae" scale="${scale} ${scale} ${scale}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${main_frame_weight}"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.5"/>
+    </inertial>
+  </link>
+<!--
+  <link name="${namespace}/gimbal">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.03"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.07" radius="0.03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <joint name="${namespace}/gimbal_link" type="continuous">
+      <parent link="base_link"/>
+      <child link="gimbal"/>
+      <origin xyz="0 0 -0.04" rpy="0 0 0" />
+      <axis xyz="0 1 0" />    
+  </joint>
+-->
+  <link name="${namespace}/camera_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.03"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.03"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <joint name="${namespace}/camera_joint" type="fixed">
+      <parent link="${namespace}/base_link"/> <!-- change to gimbal to control camera position -->
+      <child link="${namespace}/camera_link"/>
+      <origin xyz="0 0 -0.1" rpy="0 0 0" />   
+  </joint>
+<!--
+  <gazebo>
+   <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+    <alwaysOn>true</alwaysOn>
+    <updateRate>30</updateRate>
+    <leftJoint>gimbal_link</leftJoint>
+    <rightJoint>gimbal_link</rightJoint>
+    <wheelSeparation>1</wheelSeparation>
+    <wheelDiameter>0.5</wheelDiameter>
+    <torque>0.1</torque>
+    <commandTopic>/camera/cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <robotBaseFrame>base_link</robotBaseFrame>
+   </plugin>
+  </gazebo>
+-->
+      <!-- camera -->
+  <gazebo reference="${namespace}/camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>1280</width>
+          <height>720</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>${namespace}/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>${namespace}/camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+  <!--Landing Gear Macro-->
+  <xacro:macro name="landing_gear_macro" params="prefix x_joint yaw">
+    <link name="${namespace}/landing_gear_${prefix}">
+      <visual>
+        <geometry>
+          <mesh filename="file://$(find heifu_description)/meshes/landingGear.dae" scale="${scale} ${scale} ${scale}"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="file://$(find heifu_description)/meshes/landingGear.dae" scale="${scale} ${scale} ${scale}"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </collision>
+      <inertial>
+        <mass value="${landing_gear_weight}"/>
+        <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
+      </inertial>
+    </link>
+
+    <!-- Landing Gear Joints-->
+    <joint name="${namespace}/base_to_lg_${prefix}" type="fixed">
+      <parent link="${namespace}/base_link"/>
+      <child link="${namespace}/landing_gear_${prefix}"/>
+      <origin xyz="0 ${x_joint} 0" rpy="0 0 ${yaw}" />
+    </joint>
+  </xacro:macro>
+  <!-- Generate Landing Gear-->
+
+  <xacro:landing_gear_macro prefix="right" x_joint="-0.2" yaw="-1.570796" />
+  <xacro:landing_gear_macro prefix="left" x_joint="0.2" yaw="1.570796"/>
+
+
+
+  <!--Propelllers Macro-->
+  <xacro:macro name="propeller_macro" params="robot_namespace prefix x y z motor_name turning_direction left_or_right motor_num">
+    <link name="${namespace}/rotor_${prefix}">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find heifu_description)/meshes/${left_or_right}.dae" scale="${scale} ${scale} ${scale}"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find heifu_description)/meshes/${left_or_right}.dae" scale="${scale} ${scale} ${scale}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="${propeller_weight}"/>
+        <inertia ixx="${propeller_ixx}" ixy="${propeller_ixy}" ixz="${propeller_ixz}" iyy="${propeller_iyy}" iyz="${propeller_iyz}" izz="${propeller_izz}"/>
+      </inertial>
+    </link>
+
+    <!-- Propeller Joint-->
+    <joint name="${namespace}/rotor_${prefix}_joint" type="continuous">
+      <parent link="${namespace}/base_link"/>
+      <child link="${namespace}/rotor_${prefix}"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+    <!--Gazebo Controller-->
+    <gazebo>
+      <plugin filename="libgazebo_motor_model.so" name="${motor_name}_motor_model">
+        <robotNamespace>${robot_namespace}</robotNamespace>
+        <jointName>${namespace}/rotor_${prefix}_joint</jointName>
+        <linkName>${namespace}/rotor_${prefix}</linkName>
+        <turningDirection>${turning_direction}</turningDirection>
+        <timeConstantUp>0.0125</timeConstantUp>
+        <timeConstantDown>0.025</timeConstantDown>
+        <maxRotVelocity>1000</maxRotVelocity>
+        <motorConstant>8.54858e-06</motorConstant>
+        <momentConstant>0.06</momentConstant>
+        <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
+        <motorNumber>${motor_num}</motorNumber>
+        <rotorDragCoefficient>0.000806428</rotorDragCoefficient>
+        <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+        <motorSpeedPubTopic>/motor_speed/${motor_num}</motorSpeedPubTopic>
+        <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      </plugin>
+    </gazebo>
+
+  </xacro:macro>
+
+  <!-- Generate Propellers-->
+  <xacro:propeller_macro prefix="0" x="0" y="0.98" z="0" motor_name="back_left" turning_direction="ccw" left_or_right="propLeft" motor_num="1" robot_namespace="${namespace}"/>
+  <xacro:propeller_macro prefix="1" x="0.85" y="-0.49" z="0" motor_name="front_left" turning_direction="ccw" left_or_right="propLeft" motor_num="4" robot_namespace="${namespace}"/>
+  <xacro:propeller_macro prefix="2" x="-0.85" y="-0.49" z="0" motor_name="back_left" turning_direction="ccw" left_or_right="propLeft" motor_num="3" robot_namespace="${namespace}"/>
+  <xacro:propeller_macro prefix="3" x="0" y="-0.98" z="0" motor_name="front_left" turning_direction="cw" left_or_right="propRight" motor_num="0" robot_namespace="${namespace}"/>
+  <xacro:propeller_macro prefix="4" x="0.85" y="0.49" z="0" motor_name="front_right" turning_direction="cw" left_or_right="propRight" motor_num="2" robot_namespace="${namespace}"/>
+  <xacro:propeller_macro prefix="5" x="-0.85" y="0.49" z="0" motor_name="back_right" turning_direction="cw" left_or_right="propRight" motor_num="5" robot_namespace="${namespace}"/>
+
+
+  
+</robot>

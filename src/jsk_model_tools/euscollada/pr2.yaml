@@ -1,0 +1,46 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+torso:
+  - torso_lift_joint : torso-waist-z
+larm:
+  - l_shoulder_pan_joint   : larm-collar-y
+  - l_shoulder_lift_joint  : larm-shoulder-p
+  - l_upper_arm_roll_joint : larm-shoulder-r
+  - l_elbow_flex_joint     : larm-elbow-p
+  - l_forearm_roll_joint   : larm-elbow-r
+  - l_wrist_flex_joint     : larm-wrist-p
+  - l_wrist_roll_joint     : larm-wrist-r
+rarm:
+  - r_shoulder_pan_joint   : rarm-collar-y
+  - r_shoulder_lift_joint  : rarm-shoulder-p
+  - r_upper_arm_roll_joint : rarm-shoulder-r
+  - r_elbow_flex_joint     : rarm-elbow-p
+  - r_forearm_roll_joint   : rarm-elbow-r
+  - r_wrist_flex_joint     : rarm-wrist-p
+  - r_wrist_roll_joint     : rarm-wrist-r
+head:
+  - head_pan_joint  : head-neck-y
+  - head_tilt_joint : head-neck-p
+
+##
+## end-coords
+##
+larm-end-coords: 
+  parent : l_gripper_tool_frame
+  rotate : [0, 1, 0, 00]
+rarm-end-coords:
+  parent : r_gripper_tool_frame
+  rotate : [0, 1, 0, 00]
+head-end-coords:
+  translate : [0.08, 0, 0.13]
+  rotate    : [0, 1, 0, 90]
+
+##
+## reset-pose
+##
+angle-vector:
+  reset-manip-pose : [300.0, 75.0, 50.0, 110.0, -110.0, -20.0, -10.0, -10.0, -75.0, 50.0, -110.0, -110.0, 20.0, -10.0, -10.0, 0.0, 50.0]
+  reset-pose : [50.0, 60.0, 74.0, 70.0, -120.0, 20.0, -30.0, 180.0, -60.0, 74.0, -70.0, -120.0, -20.0, -30.0, 180.0, 0.0, 0.0]
+

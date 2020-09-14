@@ -1,0 +1,103 @@
+#
+# @brief VCProject configuration file for standalone RT-Component 
+# @date $Date: 2008-02-29 04:53:35 $
+# @author Norkai Ando <n-ando@aist.go.jp>
+#
+ProjectType: "Visual C++"
+Version: "__VCVERSION__"
+Name: __PROJECT_NAME__
+ProjectGUID: __GUID__
+RootNamespace: __PROJECT_NAME__
+Keyword: "Win32Proj"
+Configurations:
+#------------------------------------------------------------
+# Debug Configuration
+#------------------------------------------------------------
+  - Name: "Debug|Win32"
+    OutputDirectory: "$(ProjectDir)\\$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "1"
+    InheritedPropertySheets: "$(SolutionDir)coil_config.vsprops;$(SolutionDir)\\coiltest_config.vsprops"
+    CharacterSet: "0"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=%PATH%;$(cppunit_path)
+          cd "$(OutDir)"
+          start /MIN /WAIT $(ProjectName).exe --xml $(ProjectDir)\$(ProjectName).$(ConfigurationName).xml --xsl default.xsl
+    VCCLCompilerTool:
+      - Key: Optimization
+        Value: 0
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;_DEBUG;_CONSOLE;__WIN32__;__x86__;_WIN32_WINNT=0x0500;__NT__;__OSVERSION__=4;_CRT_SECURE_NO_DEPRECATE"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "3"
+      - Key: RuntimeLibrary
+        Value: "3"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "3"
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(coiltest_libd)"
+      - Key: OutputFile
+        Value: "$(OutDir)\\$(ProjectName).exe"
+      - Key: LinkIncremental
+        Value: "2"
+      - Key: GenerateDebugInformation
+        Value: "true"
+      - Key: SubSystem
+        Value: "1"
+      - Key: TargetMachine
+        Value: "1"
+#------------------------------------------------------------
+# Release Configuration
+#------------------------------------------------------------
+  - Name: "Release|Win32"
+    OutputDirectory: "$(ProjectDir)\\$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "1"
+    InheritedPropertySheets: "$(SolutionDir)coil_config.vsprops;$(SolutionDir)\\coiltest_config.vsprops"
+    CharacterSet: "0"
+    WholeProgramOptimization: "0"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=%PATH%;$(cppunit_path)
+          cd "$(OutDir)"
+          start /MIN /WAIT $(ProjectName).exe --xml $(ProjectDir)\$(ProjectName).$(ConfigurationName).xml --xsl default.xsl
+    VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;NDEBUG;_CONSOLE;__WIN32__;__x86__;_WIN32_WINNT=0x0500;__NT__;__OSVERSION__=4;_CRT_SECURE_NO_DEPRECATE"
+      - Key: RuntimeLibrary
+        Value: "2"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "3"
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(coiltest_lib)"
+      - Key: OutputFile
+        Value: "$(OutDir)\\$(ProjectName).exe"
+      - Key: LinkIncremental
+        Value: "1"
+      - Key: GenerateDebugInformation
+        Value: "false"
+      - Key: SubSystem
+        Value: "1"
+      - Key: OptimizeReferences
+        Value: "2"
+      - Key: EnableCOMDATFolding
+        Value: "2"
+      - Key: LinkTimeCodeGeneration
+        Value: "0"
+      - Key: TargetMachine
+        Value: "1"

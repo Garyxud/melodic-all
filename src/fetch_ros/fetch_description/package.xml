@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fetch_description</name>
+  <version>0.8.2</version>
+  <description>
+    URDF for Fetch Robot.
+  </description>
+
+  <author>Michael Ferguson</author>
+  <author>Melonee Wise</author>
+  <maintainer email="rtoris@fetchrobotics.com">Russell Toris</maintainer>
+  <maintainer email="amoriarty@fetchrobotics.com">Alex Moriarty</maintainer>
+
+  <license>CreativeCommons-Attribution-NonCommercial-ShareAlike-4.0-International</license>
+  <url type="wiki">http://ros.org/wiki/fetch_description</url>
+  <url type="website">http://docs.fetchrobotics.com/robot_hardware.html</url>
+  <url type="bugtracker">https://github.com/fetchrobotics/fetch_ros/issues</url>
+  <url type="repository">https://github.com/fetchrobotics/fetch_ros</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+</package>

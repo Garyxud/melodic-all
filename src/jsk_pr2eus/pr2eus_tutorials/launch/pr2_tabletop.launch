@@ -1,0 +1,15 @@
+<launch>
+  <arg name="run_rviz" default="true" />
+
+  <include file="$(find roseus_tutorials)/launch/tabletop-object-detector.launch" >
+    <arg name="run_rviz" value="false" />
+    <arg name="tabletop_segmentation_points_in"
+         value="/kinect_head_c2/depth_registered/points_throttle" />
+    <arg name="convert_to_base_link" value="true" />
+  </include>
+
+  <node if="$(arg run_rviz)"
+        pkg="rviz" name="pr2_rviz" type="rviz"
+        args="-d $(find pr2eus_tutorials)/config/tabletop.rviz" />
+
+</launch>

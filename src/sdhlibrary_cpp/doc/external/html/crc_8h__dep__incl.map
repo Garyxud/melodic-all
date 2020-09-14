@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="137,83,215,112"/>
+<area shape="rect" id="node9" href="$crc_8cpp.html" title="Implementation of class SDH::cCRC_DSACON32m (actually only the static members all other is derived)..." alt="" coords="239,83,329,112"/>
+<area shape="rect" id="node11" href="$sdhserial_8cpp.html" title="Interface of class SDH::cSDHSerial." alt="" coords="353,83,476,112"/>
+<area shape="rect" id="node5" href="$demo-benchmark_8cpp.html" title="Simple script to benchmark communication speed of the SDH. See __help__ and online help (&quot;&#45;h&amp;quo..." alt="" coords="5,160,187,189"/>
+<area shape="rect" id="node7" href="$dsa_8cpp.html" title="This file contains definition of SDH::cDSA, a class to communicate with the tactile sensors of the SD..." alt="" coords="211,160,304,189"/>
+</map>

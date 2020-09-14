@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tf2_server</name>
+  <version>1.0.6</version>
+  <description>TF2 server that can provide transforms over separate TF topics</description>
+
+  <maintainer email="peckama2@fel.cvut.cz">Martin Pecka</maintainer>
+  <author email="peckama2@fel.cvut.cz">Martin Pecka</author>
+
+  <url>https://github.com/peci1/tf2_server</url>
+  <url type="bugtracker">https://github.com/peci1/tf2_server/issues</url>
+  <url type="repository">https://github.com/peci1/tf2_server</url>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>geometry_msgs</depend>
+  <depend>nodelet</depend>
+  <depend>roscpp</depend>
+  <depend>tf2_msgs</depend>
+  <depend>tf2_ros</depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_export_depend>message_runtime</build_export_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <exec_depend>rospy</exec_depend>
+
+  <test_depend>gtest</test_depend>
+  <test_depend>rostest</test_depend>
+  <test_depend>tf</test_depend>
+
+  <export>
+    <nodelet plugin="${prefix}/tf2_server_plugins.xml" />
+  </export>
+</package>

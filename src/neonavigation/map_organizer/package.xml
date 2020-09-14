@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>map_organizer</name>
+  <version>0.10.1</version>
+  <description>Layered costmap organizer package</description>
+
+  <maintainer email="atsushi.w@ieee.org">Atsushi Watanabe</maintainer>
+  <license>BSD</license>
+  <author email="atsushi.w@ieee.org">Atsushi Watanabe</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <test_depend>rostest</test_depend>
+  <test_depend>roslint</test_depend>
+
+  <depend>geometry_msgs</depend>
+  <depend>map_server</depend>
+  <depend>nav_msgs</depend>
+  <depend>pcl_conversions</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+
+  <depend>map_organizer_msgs</depend>
+  <depend>neonavigation_common</depend>
+
+  <depend>eigen</depend>
+
+  <build_depend>libpcl-all-dev</build_depend>
+  <exec_depend>libpcl-all</exec_depend>
+</package>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
+	<arg name="robot_env" default="$(optenv ROBOT_ENV !!NO_ROBOT_ENV_SET!!)"/>
+	<arg name="pkg_robot_config" default="$(find cob_default_robot_config)"/>
+	<arg name="pkg_env_config" default="$(find cob_default_env_config)"/>
+
+	<!-- send ROBOT parameters to parameter server -->
+	<rosparam command="load" ns="/android/settings/topic_names" file="$(find cob_android_settings)/config/topic_names.yaml"/>
+	<rosparam command="load" ns="/android/settings/service_names" file="$(find cob_android_settings)/config/service_names.yaml"/>
+	<rosparam command="load" ns="/android/settings/strings" file="$(find cob_android_settings)/config/strings.yaml"/>
+	<rosparam command="load" ns="/command_gui/control_buttons" file="$(arg pkg_robot_config)/robots/$(arg robot)/script_server/command_gui_buttons.yaml"/>
+	<rosparam command="load" ns="/command_gui/nav_buttons" file="$(arg pkg_env_config)/envs/$(arg robot_env)/command_gui_buttons.yaml"/>
+	<rosparam command="load" ns="/android/settings/categories_groups" file="$(find cob_android_settings)/config/categories_groups.yaml"/>
+</launch>

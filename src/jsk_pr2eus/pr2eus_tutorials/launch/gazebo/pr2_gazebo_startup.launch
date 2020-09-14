@@ -1,0 +1,46 @@
+<launch>
+  <arg name="launch_empty_map" default="true" />
+  <arg name="launch_move_base" default="true" />
+  <arg name="launch_move_tilt_scan" default="true" />
+
+  <arg name="launch_moveit" default="false" />
+  <arg name="launch_moveit_gui" default="false" />
+
+  <arg name="launch_openni" default="true" />
+
+  <!-- empty map -->
+  <include if="$(arg launch_empty_map)"
+	   file="$(find jsk_maps)/launch/start_empty_map.launch"/>
+
+  <!-- move base -->
+  <include if="$(arg launch_move_base)"
+           file="$(find jsk_pr2_startup)/jsk_pr2_move_base/pr2_2dnav.launch" >
+    <arg name="gazebo" value="true"/>
+  </include>
+
+  <!-- tilt scan -->
+  <include if="$(arg launch_move_tilt_scan)"
+           file="$(find jsk_pr2_startup)/jsk_pr2_sensors/tilt_scan_cloud.launch" />
+
+  <!-- move it -->
+  <include if="$(arg launch_moveit)"
+	   file="$(find jsk_pr2_startup)/jsk_pr2_moveit/start_pr2_moveit.launch" >
+    <arg name="USE_LASER_AND_KINECT" value="false"/>
+    <arg name="USE_KINECT" value="true"/>
+  </include>
+
+  <!-- move it gui -->
+  <include if="$(arg launch_moveit_gui)"
+	   file="$(find pr2_moveit_config)/launch/moveit_rviz.launch" >
+    <arg name="config" value="true"/>
+  </include>
+
+  <!-- openni -->
+  <group if="$(arg launch_openni)">
+    <include file="$(find pr2eus_tutorials)/launch/gazebo/gazebo_image_relay.launch"/>
+    <include file="$(find jsk_pr2_startup)/jsk_pr2_sensors/kinect_head.launch" >
+      <arg name="launch_openni" value="false"/>
+    </include>
+  </group>
+
+</launch>

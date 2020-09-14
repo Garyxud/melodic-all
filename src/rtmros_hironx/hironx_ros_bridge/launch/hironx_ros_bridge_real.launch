@@ -1,0 +1,41 @@
+<launch>
+  <arg name="COLLADA_FILE" default="$(find hironx_ros_bridge)/models/kawada-hironx.dae" />
+  <arg name="CONF_FILE_COLLISIONDETECT" default="$(find hironx_ros_bridge)/conf/hironx_realrobot_fixedpath.conf" />
+  <arg name="corbaport" default="15005" />
+  <arg name="MODEL_FILE" default="/opt/jsk/etc/HIRONX/model/main.wrl" /> <!-- This shouldn't be changed unless you know what you're doing -->
+  <arg name="nameserver" default="hiro" />
+  <env name="RTCTREE_NAMESERVERS" value="$(arg nameserver):$(arg corbaport)" />
+  <arg name="USE_ROBOTHARDWARE" default="true" />
+  <arg name="USE_SERVOCONTROLLER" default="true" />
+  <arg name="USE_IMPEDANCECONTROLLER" default="false"/>
+  <arg name="USE_COLLISIONCHECK" default="false"/>
+  <arg name="USE_HAND_JOINT_STATE_PUBLISHER" default="true"/>
+
+  <!-- BEGIN:hrpsys.py setting -->
+  <arg name="HRPSYS_PY_PKG" default="hironx_ros_bridge"/>
+  <arg name="HRPSYS_PY_NAME" default="hironx.py"/>
+  <arg name="HRPSYS_PY_ARGS" default='--host $(arg nameserver) --port $(arg corbaport) --modelfile $(arg MODEL_FILE) --robot RobotHardware' />
+
+  <arg name="LAUNCH_HRPSYSPY" default="true" />
+  <!-- END:hrpsys.py setting -->
+
+  <group if="$(arg LAUNCH_HRPSYSPY)">
+    <node name="hrpsys_py" pkg="$(arg HRPSYS_PY_PKG)" type="$(arg HRPSYS_PY_NAME)" output="screen"
+          args="$(arg HRPSYS_PY_ARGS)" />
+  </group>
+
+  <include file="$(find hironx_ros_bridge)/launch/hironx_ros_bridge.launch" >
+    <arg name="COLLADA_FILE" value="$(arg COLLADA_FILE)" />
+    <arg name="CONF_FILE_COLLISIONDETECT" value="$(arg CONF_FILE_COLLISIONDETECT)" />
+    <arg name="corbaport" default="$(arg corbaport)" />
+    <arg name="MODEL_FILE" value="$(arg MODEL_FILE)" />
+    <arg name="nameserver" value="$(arg nameserver)" />
+    <arg name="USE_ROBOTHARDWARE" value="$(arg USE_ROBOTHARDWARE)" />
+    <arg name="USE_SERVOCONTROLLER" value="$(arg USE_SERVOCONTROLLER)" />
+    <arg name="USE_IMPEDANCECONTROLLER" value="$(arg USE_IMPEDANCECONTROLLER)"/>
+    <arg name="USE_COLLISIONCHECK" value="$(arg USE_COLLISIONCHECK)"/>
+  </include>
+
+  <node if="$(arg USE_HAND_JOINT_STATE_PUBLISHER)"
+	name="hand_joint_state_publisher" type="hand_joint_state_publisher.py" pkg="hironx_ros_bridge"/>
+</launch>

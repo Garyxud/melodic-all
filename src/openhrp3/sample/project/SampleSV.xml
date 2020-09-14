@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grxui>
+    <mode name="Simulation">
+        <item class="com.generalrobotix.ui.item.GrxSimulationItem" name="SampleSimulation" select="true">
+        	<property name="integrate" value="true"/>
+            <property name="viewsimulate" value="false"/>
+            <property name="totalTime" value="10.0 "/>
+            <property name="timeStep" value="0.0020 "/>
+            <property name="method" value="RUNGE_KUTTA"/>
+            <property name="gravity" value="9.8 "/>
+        </item>    
+        <item class="com.generalrobotix.ui.item.GrxWorldStateItem" name="untitled" select="true">
+            <property name="logTimeStep" value="0.0020 "/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxRTSItem" name="untitled" select="true">
+	    <property name="SampleSV0.period" value="0.002"/>  
+	    <property name="simple_vehicle.period" value="0.002"/>  
+	    <property name="connection" value="simple_vehicle.steer:SampleSV0.steer"/>  
+	    <property name="connection" value="simple_vehicle.vel:SampleSV0.vel"/>  
+	    <property name="connection" value="SampleSV0.torque:simple_vehicle.torque"/>  
+        </item>
+		<item class="com.generalrobotix.ui.item.GrxModelItem" name="longfloor" select="true" url="$(PROJECT_DIR)/../model/longfloor.wrl">
+            <property name="isRobot" value="false"/>
+            <property name="WAIST.rotation" value="0.0 1.0 0.0 0.0 "/>
+            <property name="WAIST.translation" value="0.0 0.0 -0.1 "/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxModelItem" name="simple_vehicle" select="true" url="$(PROJECT_DIR)/../model/simple_vehicle_with_camera.wrl">
+	    <property name="outport" value="steer:JOINT_VALUE"/>
+	    <property name="outport" value="vel:JOINT_VELOCITY"/>
+	    <property name="outport" value="range:JOINT_VELOCITY"/>
+	    <property name="inport" value="torque:JOINT_TORQUE"/>
+            <property name="isRobot" value="true"/>
+            <property name="controller" value="SampleSVController"/>
+            <property name="controlTime" value="0.002"/>
+            <property name="setupDirectory" value="$(PROJECT_DIR)/../controller/SampleSV"/>
+            <property name="setupCommand" value="SampleSV$(BIN_SFX)"/>
+            <property name="BODY.translation" value="0.0 -1.0 0.1 "/>
+            <property name="BODY.rotation" value="0.0 0.0 0.1 1.5708 "/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxCollisionPairItem" name="CP#floor#simple_vehicle" select="true">
+            <property name="springConstant" value="0 0 0 0 0 0"/>
+            <property name="slidingFriction" value="0.5"/>
+            <property name="jointName2" value=""/>
+            <property name="jointName1" value=""/>
+            <property name="sprintDamperModel" value="false"/>
+            <property name="damperConstant" value="0 0 0 0 0 0"/>
+            <property name="objectName2" value="simple_vehicle"/>
+            <property name="objectName1" value="longfloor"/>
+            <property name="staticFriction" value="0.5"/>
+        </item>
+        <item class="com.generalrobotix.ui.item.GrxGraphItem" name="GraphList1" select="true">
+            <property name="Graph1.dataItems" value=""/>
+            <property name="Graph2.dataItems" value=""/>
+            <property name="Graph3.dataItems" value=""/>
+            <property name="Graph0.dataItems" value=""/>
+        </item>
+        <view class="com.generalrobotix.ui.view.Grx3DView" name="3DView">
+            <property name="view.mode" value="Room"/>
+            <property name="showCoM" value="false"/>
+            <property name="showCoMonFloor" value="false"/>
+            <property name="showDistance" value="false"/>
+            <property name="showIntersection" value="false"/>
+            <property name="eyeHomePosition" value="-0.79886 -0.31952 0.50964 6.6548 0.60152 -0.42434 0.67684 6.03133 -0 0.84726 0.53119 4.54456 0 0 0 1 "/>
+            <property name="showCollision" value="true"/>
+            <property name="showActualState" value="true"/>
+            <property name="showScale" value="true"/>
+        </view>
+    </mode>
+</grxui>

@@ -1,0 +1,51 @@
+#!/usr/bin/env roseus
+(ros::roseus "realtime_tabletop")
+(load "package://pr2eus_tutorials/euslisp/template_grasp_samples.l")
+
+(defun setup ()
+  (setq *ri* (instance pr2-interface :init))
+  (ros::advertise "image_marker" image_view2::ImageMarker2 10)
+  (ros::advertise "tabletop_detection_marker_array" visualization_msgs::MarkerArray 10)
+  (ros::advertise "tabletop_occlusion_marker_array" visualization_msgs::MarkerArray 10)
+  (ros::set-param "stop_tabletop" 0)
+  (setq *rate* 5)
+  (ros::rate (/ 1.0 *rate*))
+  )
+
+
+(defun visualize-occlusion (pclist tableply &key (counter 0) (ns nil) (lifetime 10) (color #f(0 1 0)) (alpha 1) (scale 10))
+  (let ((tm (ros::time-now)) camcd oclist mk-list (msg (instance visualization_msgs::MarkerArray :init)))
+    (if (send *tfl* :wait-for-transform "/base_footprint" "/openni_depth_optical_frame" tm 5.0)
+        (setq camcd (send *tfl* :lookup-transform "/base_footprint" "/openni_depth_optical_frame" tm))
+      (return-from visualize-occlusion nil))
+    (dolist (pc pclist)
+      (push (quickhull (remove nil (mapcar #'(lambda(p) (cadr (send tableply :intersect-point-vector (send camcd :pos) (normalize-vector (v- (v+ (apply #'float-vector p) (float-vector 0 0 51)) (send camcd :pos)))))) (read-from-string (subseq (format nil "~A" (send pc :points)) 3 (length (format nil "~A" (send pc :points))))))) (send tableply :normal)) oclist)
+      )
+    (dolist (oc oclist)
+      (push (line->marker-msg (flatten (list oc (elt oc (1- (length oc))) (elt oc 0))) (instance std_msgs::Header :init :stamp tm :frame_id "/base_footprint") :color color :alpha 1 :id (incf counter) :scale scale :ns ns :lifetime lifetime) mk-list)
+      )
+    (send msg :markers mk-list)
+    (ros::publish "tabletop_occlusion_marker_array" msg)
+    )
+  )
+
+(setup)
+(ros::ros-info "waiting service: tabletop_segmentation")
+(ros::wait-for-service "/tabletop_segmentation")
+
+;;(do-until-key
+(while (ros::ok)
+ (ros::spin-once)
+ (ros::ros-info "Scanning loop")
+ (when (zerop (ros::get-param "stop_tabletop"))
+   (let ((td-res (tabletop-detect)) pc-list tablepoly)
+     (when td-res
+       (setq pc-list (car td-res))
+       (setq tablepoly (cadr td-res))
+       (visualize-object-image pc-list :outline-colors (list (instance std_msgs::ColorRGBA :init :r 0.0 :g 0.0 :b 0.8 :a 1.0)) :lifetime *rate* :use-text nil :ns "tabletop")
+       (visualize-object-rviz pc-list :lifetime *rate* :ns "tabletop")
+       (visualize-occlusion pc-list tablepoly :lifetime *rate* :ns "tabletop_occ" :color (float-vector 0 1 0) :counter 100 :scale 10)
+       )))
+ (ros::sleep))
+
+(ros::exit)

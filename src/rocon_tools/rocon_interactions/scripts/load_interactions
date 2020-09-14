@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_concert/license/LICENSE
+#
+##############################################################################
+# Imports
+##############################################################################
+
+import os
+import sys
+import argparse
+import rospy
+import rocon_interactions
+
+##############################################################################
+# Functions
+##############################################################################
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Load a list of interactions from yaml')
+    parser.add_argument('-s', '--service-name', action='store',
+                        default='/concert/interactions/set_interactions',
+                        type=str,
+                        help="service name used to load interactions")
+    parser.add_argument('-n', '--namespace', action='store',
+                        default='/interactions',
+                        help='namespace to push connections down into [/interactions]')
+    parser.add_argument('package', type=str, help="package containing the yaml file")
+    parser.add_argument('yaml', type=str, help="interactions configuration yaml (.interactions)")
+    myargs = rospy.myargv(argv=sys.argv)
+    args = parser.parse_args(args=myargs[1:])
+    if os.path.splitext(args.yaml)[-1] == '':  # no ext given
+        args.yaml = args.yaml + ".interactions"
+    return args
+
+##############################################################################
+# Main
+##############################################################################
+
+if __name__ == '__main__':
+    rospy.init_node('load_interactions')
+    args = parse_arguments()
+    try:
+        interactions_loader = rocon_interactions.InteractionsLoader()
+    except rospy.exceptions.ROSException as e:
+        rospy.logerr("Interactions Loader : aborting, %s." % str(e))
+        sys.exit(1)
+    except rospy.exceptions.ROSInterruptException as e:
+        sys.exit(1)
+    try:
+        interactions_loader.load_from_resource(args.package + '/' + args.yaml, args.namespace)
+    except rocon_interactions.YamlResourceNotFoundException as e:
+        rospy.logerr("Interactions Loader : %s." % str(e))
+        sys.exit(1)
+    except rocon_interactions.MalformedInteractionsYaml as e:
+        rospy.logwarn("Interactions Loader : %s" % str(e))
+        sys.exit(1)

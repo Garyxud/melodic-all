@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_frame_id" default="base_link"/>
+    <arg name="odom_frame_id" default="odom"/>
+    <arg name="current_twist_topic" default="current_twist"/>
+    <arg name="current_pose_topic" default="current_pose"/>
+
+    <node pkg="odom_frame_publisher" type="odom_frame_publisher_node" name="odom_frame_publisher_node" output="log" respawn="false" respawn_delay="0">
+        <param name="odom_frame_id" value="$(arg odom_frame_id)"/>
+        <param name="robot_frame_id" value="$(arg robot_frame_id)"/>
+        <param name="current_twist_topic" value="$(arg current_twist_topic)"/>
+        <param name="current_pose_topic" value="$(arg current_pose_topic)"/>
+    </node>
+</launch>

@@ -1,0 +1,57 @@
+(load "unittest.l")
+(init-unit-test)
+(load "package://pr2eus/pr2-utils.l")
+(pr2)
+
+(if (and x::*display* (> x::*display* 0)) (objects (list *pr2*)))
+
+(defun test-ik (arm target-coords &rest args)
+  (send *pr2* :reset-pose)
+  (assert
+   (send* *pr2* arm :inverse-kinematics target-coords :debug-view (and x::*display* (> x::*display* 0)) args)
+   (format nil "failed to solve (send* *pr2* ~A :inverse-kinematics ~A '~A)~%"
+   arm  (list 'make-coords :pos (send target-coords :pos) :rot (send target-coords :rot)) args))
+   )
+
+(deftest pr2-test-angle-vector ()
+  (send *pr2* :angle-vector))
+
+(deftest pr2-test-ik-1 ()
+  (test-ik :larm (make-coords :pos #f(700 0 900)) :rotation-axis t)
+  (test-ik :rarm (make-coords :pos #f(700 0 900)) :rotation-axis t))
+
+(deftest pr2-test-ik-larm ()
+  (let ((torso-height (send *pr2* :torso :waist-z :joint-angle))
+        (target (send (send *pr2* :larm :end-coords :copy-worldcoords) :locate #f(0 0 100))))
+    (send *pr2* :reset-pose)
+    (assert (send *pr2* :larm :inverse-kinematics target))
+    (assert (eps= torso-height (send *pr2* :torso :waist-z :joint-angle)))
+    ))
+
+(defun pr2-test-ik-both (&key use-torso)
+  (let ((torso-height (send *pr2* :torso :waist-z :joint-angle))
+        (target-l (send (send *pr2* :larm :end-coords :copy-worldcoords) :locate #f(0 0 100)))
+        (target-r (send (send *pr2* :rarm :end-coords :copy-worldcoords) :locate #f(0 0 100)))
+        height-changed)
+    (send *pr2* :reset-pose)
+    (assert (send *pr2* :inverse-kinematics (list target-l target-r)
+                  :move-target (list (send *pr2* :larm :end-coords)
+                                     (send *pr2* :rarm :end-coords))
+                  :use-torso use-torso))
+    (setq height-changed (not (eps= torso-height (send *pr2* :torso :waist-z :joint-angle))))
+    (assert (if use-torso height-changed (not height-changed))
+            (format nil "height changed ~A from ~A" torso-height (send *pr2* :torso :waist-z :joint-angle)))
+    (assert (send *pr2* :inverse-kinematics (list target-r target-l)
+                  :move-target (list (send *pr2* :rarm :end-coords)
+                                     (send *pr2* :larm :end-coords))
+                  :use-torso use-torso))
+    (setq height-changed (not (eps= torso-height (send *pr2* :torso :waist-z :joint-angle))))
+    (assert (if use-torso height-changed (not height-changed))
+            (format nil "height changed ~A from ~A" torso-height (send *pr2* :torso :waist-z :joint-angle)))
+    ))
+
+(deftest pr2-test-ik-both1 () (pr2-test-ik-both :use-torso nil))
+(deftest pr2-test-ik-both2 () (pr2-test-ik-both :use-torso t))
+
+(run-all-tests)
+(exit)

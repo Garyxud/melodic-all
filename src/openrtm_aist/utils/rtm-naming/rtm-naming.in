@@ -1,0 +1,335 @@
+#
+#  @file rtm-naming
+#  @brief OpenRTM-aist name server launcher
+#  @date $Date: 2005-05-12 09:06:19 $
+#  @author Noriaki Ando <n-ando@aist.go.jp>
+# 
+#  Copyright (C) 2003-2011
+#      Intelligent Systems Research Institute,
+#      National Institute of
+#          Advanced Industrial Science and Technology (AIST), Japan
+#      All rights reserved.
+# 
+#  $Id$
+# 
+
+pname=`basename $cosnames`
+hostname=`hostname`
+currdir=`pwd`
+DEBUG=""
+
+usage()
+{
+	cat<<EOF
+Usage: rtm-naming port_number
+EOF
+}
+
+
+#
+# debug <text>
+#
+# Debug print. If variable "DEBUG" is defined, text will be printed.
+#
+# @param text to be printed.
+#
+debug()
+{
+    if test "x$DEBUG" != "x"; then
+	echo $*
+    fi
+}
+
+#
+# get_pid_of_nsport <port_number>
+#
+# @param  pid_of_nsport: Process ID of a process which is using the port.
+# @param  pname_of_nsport: Process name which is using the port is set
+# @param  pid_of_nsport: Process ID which is using the port is set
+# @return 0 process that is using the port was found
+#         1 process not found
+#
+#
+get_pid_of_nsport()
+{
+    _port=$1
+    debug "netstat -tanp 2> /dev/null | grep $_port | awk '{print $7;}'"
+    netstat_tanp=`netstat -tanp`
+    _netstat=`netstat -tanp 2> /dev/null | grep $_port | awk '{if($7!="-"){print $7;}}'`
+    debug "A possible process that is using $port port:" $_netstat
+    if test "x$_netstat" = "x"; then
+	debug "No process using port number ${_port} on the system."
+	return 1
+    fi
+    if test "x$_netstat" = "x"; then
+	debug "Process information could not be identified."
+	return 1
+    fi
+
+    _pid=`echo $_netstat | awk 'BEGIN{FS="/";}{print $1;}'`
+    pname_of_nsport=`echo $_netstat | awk 'BEGIN{FS="/";}{print $2;}'`
+    pid_of_nsport=$_pid
+    debug "$_port port is used by $pname_of_nsport (pid = $_pid)."
+    return 0
+}
+
+
+#
+# is_launch_from_init <prog_name> (<pid>)
+#
+# @param prog_name The name of the program
+# @param pid The pid of the program
+# @param init_script A path to init script is set
+# @return 0: The program might be started from init script
+#         1: The program might not be started from init script
+# 
+is_started_from_init()
+{
+    debug "number of args" $#
+    if test $# -eq 2; then
+	_pname=$1
+	_pid=$2
+    elif test $# -eq 1; then
+	debug "pid is not specified. It is obtained from pid file."
+	_pname=$1
+	_pid=`cat /var/run/$_pname.pid`
+    elif test $# -eq 0; then
+	debug "No program name specified."
+    fi
+
+    if test -f /var/run/$_pname.pid; then
+	debug "pid file: /var/run/$_pname.pid found"
+	_var_run_pid=`cat /var/run/$_pname.pid`
+
+	debug "specified pid:        " $_pid
+	debug "/var/run/$_pname.pid: " $_var_run_pid 
+
+	if test $_pid -eq $_var_run_pid; then
+	    debug "The process $_pname ($_pid) might be started " \
+		"from init script."
+	    debug "searching init script: $cosnames"
+	    init_script=`grep $cosnames /etc/init.d/* | awk 'BEGIN{FS=":";}{if(FNR==1){print $1;}}'`
+
+	    if test "x$init_script" = "x"; then
+
+		echo "Init script not found. Aborting"
+		exit 1
+	    fi
+	    debug "Init script found: $init_script"
+	    return 0
+	fi
+
+	debug "The process $_pname ($_pid) might not be started " \
+	    "from init script."
+	return 1
+    fi
+    debug "/var/run/$_pname.pid not found."
+    return 1
+}
+
+
+#
+# check_cosname
+#
+# Checking if global variable "cosname" is set.
+#
+check_cosname()
+{
+    if test ! -f $cosnames ; then
+	echo "Name service program ($cosnames) not found."
+	echo "Please install or chech rtm-naming script."
+	exit 1
+    fi
+}
+
+
+#
+# stop_existing_ns
+#
+# This function try to stop existing nameing service.
+#
+# 1. It tries to find a process which is using specified port.  If the
+#    process is not same as naming-service to be started by this
+#    script, script will be aborted.
+#
+# 2. Next, it checks if the process is started from init script. If
+#    the process is started from the init script, it tries to stop it
+#    by the script.
+#
+# 3. The process is not started by init script, it tries to stop the
+#    process by pkill command.
+#
+stop_existing_ns()
+{
+    get_pid_of_nsport $port
+    if test $? -eq 0; then
+	debug "The Process information using the port could be obtained."
+        # If "port" is used by other program -> abort
+
+	pids=`pgrep $pname`
+	matchflag=0
+	for p in $pids; do
+	    if test "x$pid_of_nsport" = "x$p"; then
+		matchflag=1
+	    fi
+	done
+	if test $matchflag -eq 0; then
+	    echo "$pname_of_nsport (not $pname) is using the port."
+	    echo "Starting $pname aborted. Please use the other port."
+	    exit 1
+	fi
+    else
+	debug "The process information using the port could not be obtained."
+	pname_of_nsport=$pname
+	pid_of_nsport=`pgrep $pname`
+    fi
+
+
+    is_started_from_init $pname_of_nsport $pid_of_nsport
+
+    # omniNames is not started by init script
+    if test $? -ne 0; then
+	debug "$pname might not be started from init script."
+	if test "x$pid_of_nsport" != "x" ; then
+	    echo "$pname (pid: $pid_of_nsport) is running"
+	    read -p "Kill anyway and start $pname again? (y/N)" killns
+	    if test "x$killns" = "xy" -o  "x$killns" = "xY"; then
+		pkill -f $pname
+		echo "$pname (pid: $pid_of_nsport) are killed"
+		return 0
+	    fi
+	    echo "Aborting"
+	    exit 1
+	fi
+	echo "No running $pname found. The process using the port $port "
+	echo "cannot be estimated. Arboting"
+	exit 1
+    fi
+
+    # omniNames is started by init script
+    echo "omniNames might be started $init_script."
+    echo "Stop it (password for sudo is required.)"
+    read -p "and start omniNames by rtm-naming? (y/N)" startns
+
+    if test "x$startns" != "xy" -a "x$startns" != "xY" ; then
+	echo "Aborted."
+	exit 1
+    fi
+    echo "Stopping omniNames by $init_script."
+    sudo $init_script stop
+    return 0
+}
+
+#------------------------------------------------------------
+# omniNames specific functions
+#------------------------------------------------------------
+#
+# start_omninames
+#
+# This function starts omniNames and checks it is properly started.
+# If omniNames could not be started properly, this function returns 1.
+#
+start_omninames()
+{
+    echo 'Starting omniORB omniNames: '$hostname':'$port
+    rm -f ./omninames-$hostname.log
+    rm -f ./omninames-$hostname.bak
+    rm -f ./omninames-$hostname.dat
+    $cosnames -start $port -logdir $currdir &
+    ret=$!
+    sleep 1
+    debug "return code of omniNames:" $ret
+    omnip=`ps $! | wc -l`
+    if test $omnip -gt 1; then
+	echo "omniNames properly started"
+	exit 0
+    fi
+    return 1
+}
+
+omniname()
+{
+    # Check cosname variable is properly set
+    check_cosname
+
+    # Starting omniNames
+    start_omninames
+    echo "omniNames was not properly started."
+
+    # Stopping existing name service
+    stop_existing_ns
+
+    # Try to start omniNames again
+    start_omninames
+    echo "omniNames was not properly started."
+}
+
+#------------------------------------------------------------
+# TAO Naming_Service specific functions
+#------------------------------------------------------------
+#
+# start_taonames
+#
+# This function starts TAO Naming_Service and checks it is properly started.
+# If TAO Naming_Service could not be started properly, this function returns 1.
+#
+start_taonames()
+{
+    if test ! -f $cosnames ; then
+	echo "TAO Naming_Service not found. Aborting."
+	exit 1
+    fi
+    echo 'Starting TAO Naming_Service: '$hostname':'$port
+    $cosnames -m 0 -ORBListenEndpoints iiop://:$port &
+    ret=$!
+    sleep 1
+    debug "return code of TAO Naming_Service:" $ret
+    omnip=`ps $! | wc -l`
+    if test $omnip -gt 1; then
+	echo "TAO Naming_Service properly started"
+	exit 0
+    fi
+    return 1
+
+}
+
+taonames()
+{
+    # Check cosname variable is properly set
+    check_cosname
+
+    # Starting omniNames
+    start_taonames
+    echo "TAO Naming_Service was not properly started."
+
+    # Stopping existing name service
+    stop_existing_ns
+
+    # Try to start omniNames again
+    start_taonames
+    echo "TAO Naming_Service was not properly started."
+}
+
+
+
+#------------------------------------------------------------
+# main
+#------------------------------------------------------------
+if test $# -gt 0; then
+    port=$1
+else
+    port=2809
+fi
+
+case $orb in
+	omniORB)
+		omniname
+		;;
+	TAO)
+		taonames
+		;;
+	*)
+		usage
+		;;
+esac
+

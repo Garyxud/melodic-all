@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#  @file rtc-link
+#  @brief rtc-link application launch script
+#  @date $Date: 2005-05-12 09:06:19 $
+#  @author Noriaki Ando <n-ando@aist.go.jp>
+# 
+#  Copyright (C) 2003-2005
+#      Task-intelligence Research Group,
+#      Intelligent Systems Research Institute,
+#      National Institute of
+#          Advanced Industrial Science and Technology (AIST), Japan
+#      All rights reserved.
+# 
+#  $Id$
+# 
+
+import sys
+import re
+import os
+
+libdir_path = os.popen("rtm-config --libdir", "r").read().split("\n")
+rtclink_path = libdir_path[0] + "/rtc-link"
+sys.path.append(rtclink_path)
+
+execfile(rtclink_path + "/RtcLink.py")

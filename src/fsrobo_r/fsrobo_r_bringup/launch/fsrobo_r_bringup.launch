@@ -1,0 +1,30 @@
+<launch>
+
+  <!-- kinematics -->
+  <arg name="kinematics" default="service" />
+
+  <!-- robot model -->
+  <include file="$(find fsrobo_r_description)/launch/fsrobo_r_upload.launch" />
+  
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <!-- TF Buffer Server -->
+  <node pkg="tf2_ros" type="buffer_server" name="tf2_buffer_server">
+    <param name="buffer_size" value="120.0"/>
+  </node>
+
+  <include file="$(find fsrobo_r_driver)/launch/robot_interface.launch">
+    <!-- robot_ip: IP-address of the robot's socket-messaging server -->
+    <arg name="robot_ip" default="192.168.0.23" />
+  </include>
+
+  <include file="$(find fsrobo_r_moveit_config)/launch/fsrobo_r_moveit_planning_execution.launch">
+    <arg name="kinematics" value="$(arg kinematics)"/>
+  </include>
+
+  <arg name="gui" default="true" />
+  <include if="$(arg gui)" file="$(find fsrobo_r_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="kinematics" value="$(arg kinematics)"/>
+  </include>
+  
+</launch>

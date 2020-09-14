@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="launch_manager" pkg="capabilities" type="test_launch_manager.py"
+        launch-prefix="$(find capabilities)/test/run_coverage run --append " time-limit="360.0" />
+</launch>

@@ -1,0 +1,612 @@
+============================================================
+ コンポーネント作成チュートリアル
+============================================================
+
+
+このドキュメントでは、aist-rtm-0.2.0 において簡単なコンポーネントを作成する
+方法を説明します。
+
+1. コンポーネントの仕様を決める
+まずはじめに、作成したいコンポーネントの仕様を決定します。
+コンポーネントを作成するために以下の項目をあらかじめ決める必要があります。
+
+ [1] コンポーネントモジュール名
+ [2] コンポーネントカテゴリ名
+ [3] コンポーネントタイプ
+ [4] コンポーネントのアクティビティのタイプ
+ [5] InPortの数、名前、変数型
+ [6] OutPortの数、名前、変数型
+
+1.1 コンポーネントモジュール名
+コンポーネント名は、他のアプリケーション、コンポーネント等からそのコンポーネント
+を探すときにに使用します。
+
+ 例: PA10 (マニピュレータ), NittaFTSensor (力トルクセンサ), 
+     ForceControllerForPA10 (PA10を力制御するコントローラコンポーネント) 等
+
+1.2 コンポーネントカテゴリ名
+コンポーネントのカテゴリをあらわす名前を指定します。
+
+ 例: Manipulator (マニピュレータ), FTSensor (力トルクセンサ),
+     Controller (コントローラ) など
+
+1.3 コンポーネントタイプ
+コンポーネントのタイプとは、コンポーネントのインスタンスの形式を指します。
+コンポーネントタイプには以下のものがあります。
+ STATIC: コンポーネントはマネージャに登録されると同時にインスタンス化され、
+         新たに生成することはできない。ハードウエアに密接に関係するコンポーネ
+         ント等。
+ UNIQUE: コンポーネントは動的に生成・削除するができるが、component0 と
+         component1 は異なる内部状態を持ち交換可能ではない。
+ COMMUTATIVE: コンポーネントは、互いに交換可能。ソフトウエアのロジックのみのコン
+         ポーネントはこのタイプになる。
+
+1.4 コンポーネントのアクティビティのタイプ
+コンポーネントの内部の活動の形式により以下のタイプがあります。
+
+ PERIODIC: コンポーネントの活動は一定周期で行われます。
+ SPORADIC: コンポーネントの活動の周期は一定ではないが、繰り返し行われます。
+ EVENT_DRIVEN: 外部からのオペレーションにより受動的に動作します。
+
+1.5 InPortの数、名前、変数型
+InPortとは外部からのデータを受け取る口に当たります。コンポーネントは複数のInPort
+を持つことができます。InPortには名前をつけることができ、外部のアプリケーションや
+コンポーネントはその名前によりInPortを特定します。
+ <<名前>>
+  例: "velocity", "reference", "position" 等
+
+ <<変数型>>
+  InPortには決まった変数型のものがあらかじめ用意されています。型の種類は
+  値をひとつしか保持しない
+    TimedShort
+    TimedLong
+    TimedUShort
+    TimedULong
+    TimedFloat
+    TimedDouble
+    TimedChar
+    TimedBoolean
+    TimedOctet
+    TimedString
+  と、配列として複数の値を保持できる、
+    TimedShortSeq
+    TimedLongSeq
+    TimedUShortSeq
+    TimedULongSeq
+    TimedFloatSeq
+    TimedDoubleSeq
+    TimedCharSeq
+    TimedBooleanSeq
+    TimedOctetSeq
+    TimedStringSeq
+  があります。
+
+1.6 OutPortの数、名前、変数型
+OutPortとは外部からのデータを受け取る口に当たります。コンポーネントは複数の
+OutPortを持つことができます。OutPortには名前をつけることができ、外部のアプリケー
+ションやコンポーネントはその名前によりOutPortを特定します。
+ <<名前>>
+  例: "velocity", "reference", "position" 等
+
+ <<変数型>>
+  OutPortには決まった変数型のものがあらかじめ用意されています。型の種類は
+  値をひとつしか保持しない
+    TimedShort
+    TimedLong
+    TimedUShort
+    TimedULong
+    TimedFloat
+    TimedDouble
+    TimedChar
+    TimedBoolean
+    TimedOctet
+    TimedString
+  と、配列として複数の値を保持できる、
+    TimedShortSeq
+    TimedLongSeq
+    TimedUShortSeq
+    TimedULongSeq
+    TimedFloatSeq
+    TimedDoubleSeq
+    TimedCharSeq
+    TimedBooleanSeq
+    TimedOctetSeq
+    TimedStringSeq
+  があります。
+
+
+2. rtc-template を使用して雛形を作成する
+上記の項目を決めたら、コンポーネントのテンプレートジェネレータ: rtm-template を
+使用してコンポーネントの雛形を作成することができます。
+
+ここでは以下の仮定に基づき、コンポーネントを作成していきます。
+
+2.1 コンポーネントの仕様を決める
+マニピュレータ制御用のライブラリが存在し、ライブラリの関数には以下のようなものが
+あると仮定する。
+  manipulator_init()   : マニピュレータの初期化
+  manipulator_on()     : マニピュレータのサーボをONにする
+  manipualtor_off()    : マニピュレータのサーボをOFFにする
+  manipulator_setpos() : マニピュレータの手先の目標値を設定する
+  manipulator_getpos() : マニピュレータの手先の位置姿勢を取得する
+  manipulator_emgstop(): マニピュレータを緊急停止させる
+  manipulator_destroy(): マニピュレータのリソースを開放する
+
+コンポーネントモジュール名: MyManipulator
+コンポーネントカテゴリ名: Manipulator
+コンポーネントタイプ: STATIC
+コンポーネントのアクティビティのタイプ: PERIODIC
+InPortの数、名前、変数型: 1個, "pos", TimedFloatSeq　-> 目標値を受け取る
+OutPortの数、名前、変数型: 1個, "pos", TimedFloatSeq -> 現在位置を出力する
+
+2.2 rtc-template で雛形を作成
+
+コンポーネントを作成するデイレクトリ(任意のディレクトリで結構です。)を作成して、
+そこでコンポーネントを作成します。
+
+------------------------------------------------------------
+> cd 
+> mkdir MyManipulator
+> cd MyManipulator
+------------------------------------------------------------
+
+まずはhelpを見てみます。
+
+------------------------------------------------------------
+> rtc-template --help
+
+Usage: rtc-template [OPTIONS]
+Options:
+    [--help]                              Print this help.
+    [--c++]                               Generate C++ template code.
+    [--python]                            Generate Python tempalte code.
+    [--output[=output_file]]              Output base file name.
+    [--module-name[=name]]                Your module name.
+    [--module-desc[=description]]         Module description.
+    [--module-version[=version]]          Module version.
+    [--module-author[=author]]            Module author.
+    [--module-category[=category]]        Module category.
+    [--module-comp-type[=component_type]] Component type.
+    [--module-act-type[=activity_type]]   Component's activity type.
+    [--module-max-inst[=max_instance]]    Number of maximum instance.
+    [--module-lang[=language]]            Language.
+    [--module-inport[=PortName:Type]]     InPort's name and tyoe.
+    [--module-outport[=PortName:Type]]    OutPort's name and type
+       :
+     中略
+       :
+Example:
+    rtc-template --c++ --module-name=Sample --module-desc='Sample component' \
+    --module-version=0.1 --module-author=DrSample --module-category=Generic \
+    --module-comp-type=COMMUTATIVE --module-act-type=SPORADIC \
+    --module-max-inst=10  \
+    --module-inport=Ref:TimedFloat --module-inport=Sens:TimedFloat \
+    --module-outport=Ctrl:TimedDouble --module-outport=Monitor:TimedShort
+------------------------------------------------------------
+
+rtc-template に作成したコンポーネントの設定を引数として渡すと、コンポーネントの
+雛形を作成します。ここでは、上記の仕様にしたがって、オプションを指定し雛形を作成
+します。
+
+------------------------------------------------------------
+> rtc-template --c++ --module-name=MyManipulator \
+    --module-desc='My simple manipulator' \
+    --module-version=0.1 --module-author=MyName --module-category=Manipulator \
+    --module-comp-type=STATIC --module-act-type=PERIODIC \
+    --module-max-inst=1  \
+    --module-inport=posin:TimedFloatSeq --module-outport=posout:TimedFloatSeq
+MyManipulator.h was generated.
+MyManipulator.cpp was generated.
+MyManipulatorComp.cpp was generated.
+Makefile.MyManipulator was generated.
+> ls
+Makefile.MyManipulator  MyManipulator.h        MyManipulatorComp.cpp
+MyManipulator.cpp       MyManipulator.h
+MyManipulator.cpp       MyManipulatorComp.cpp
+------------------------------------------------------------
+
+このように、コンポーネントのC++のコードとMakefileが作成されます。ここで、
+
+> make -f Makefile.MyManipulator
+もしくは
+> mv Makefile.MyManipulator Makefile
+> make
+
+として make してみます。
+
+------------------------------------------------------------
+> make -f Makefile.MyManipulator
+rm -f MyManipulator.o
+g++ `rtm-config --cflags` -c -o MyManipulator.o MyManipulator.cpp
+     :
+    中略
+     :
+g++ `rtm-config --libs` -o MyManipulatorComp MyManipulator.o MyManipulatorComp.o
+rm -f MyManipulator.so
+g++ -shared `rtm-config --libs` -o MyManipulator.so MyManipulator.o
+> ls
+Makefile.MyManipulator  MyManipulator.o     MyManipulatorComp.cpp
+MyManipulator.cpp       MyManipulator.so*   MyManipulatorComp.o
+MyManipulator.h         MyManipulatorComp*  
+------------------------------------------------------------
+これで、ローダブルモジュール版のコンポーネント(MyManipulator.so)と実行形式のコンポーネ
+ント(MyManipulatorComp)が作成されました。しかし、まだアクティビティに何も記述していない
+ので、このコンポーネントは何も仕事をしません。コンポーネントに行わせたい処理を
+作成された雛形に埋め込んでいくことで、コンポーネントを作成していきます。
+
+
+3. コンポーネントのソースコードを見てみる
+
+コンポーネントのソースコードを見てみてください。
+
+> less MyManipulator.h
+
+ヘッダには以下の記述があるはずです。
+
+------------------------------------------------------------
+class MyManipulator
+  : public RTM::RtcBase
+{
+ public:
+  MyManipulator(RtcManager* manager);
+
+  //  virtual RtmRes rtc_ready_entry();
+  //  virtual RtmRes rtc_ready_do();
+  //  virtual RtmRes rtc_ready_exit();
+  //  virtual RtmRes rtc_active_entry();
+  virtual RtmRes rtc_active_do();
+  //  virtual RtmRes rtc_active_exit();
+  //  virtual RtmRes rtc_error_entry();
+  //  virtual RtmRes rtc_error_do();
+  //  virtual RtmRes rtc_error_exit();
+  //  virtual RtmRes rtc_fatal_entry();
+  //  virtual RtmRes rtc_fatal_do();
+  //  virtual RtmRes rtc_fatal_exit();
+  //  virtual RtmRes rtc_init_do();
+  //  virtual RtmRes rtc_starting_entry();
+  //  virtual RtmRes rtc_stopping_entry();
+  //  virtual RtmRes rtc_aborting_entry();
+  //  virtual RtmRes rtc_exiting_entry();
+
+  TimedFloatSeq m_posin;
+  InPortAny<TimedFloatSeq> m_posIn;
+  TimedFloatSeq m_posout;
+  OutPortAny<TimedFloatSeq> m_posOut;
+
+};
+
+------------------------------------------------------------
+
+たくさん並んでいる rtc_xxx_yyy() というメソッドは状態に対応するメソッドです。
+コンポーネントのアクティビティは状態を持ちます。状態には以下のものがあります。
+
+RTC_UNKNOWN      : 下記に定義される状態以外の状態。通常この状態には成り得ない。
+RTC_BORN         : インスタンス生成中の状態。
+RTC_INITIALIZING : 内部状態を初期化する初期状態。
+RTC_READY        : 活動し外部からのオペレーションを受け付ける状態。
+RTC_STARTING     : READY状態からACTIVE状態へ移行するときに通過する過渡状態。
+RTC_ACTIVE       : 活性状態となりメインとなる処理を実行する状態。
+RTC_STOPPING     : ACTIVE状態からREADY状態へ移行するときに通過する過渡状態。
+RTC_ABORTING     : 活性状態時にエラーを捕捉しERROR状態へと移行する過渡状態。
+RTC_ERROR        : 復帰可能なエラー状態。
+RTC_FATAL_ERROR  : 致命的エラー状態。復帰することはできない。
+RTC_EXITING      : コンポーネント終了状態。リソースの解放等を行う。
+
+状態遷移を図にすると以下のようになります。
+
+--------------------------------------------------------------------------------
+	 The State Chart of RTComponent
+	                                  __                      __
+	                        _________V_ \          __________V_ \
+	                       |           |/  (any)->|            |/
+	                       |  Active   |          | FatalError |
+	                       |___________|--,       |____________|
+	                           A    |  ___|______      |
+	                     ______|___ | |          |     |
+	                    |          || | Aborting |     |
+	                    | Starting || |__________|     |
+	                    |__________||     |   __       |
+	            ____________   |    |   __V__V_ \   ___V_____
+	  _____    |            |<-+----+--|       |/  |         |    ___
+	 (Start)-->|Initializing|  |    |  | Error |-->| Exiting |-->(End)
+	  ~~~~~    |____________|--+----+->|_______|   |_________|    ~~~
+	               A  |        | ___|______  A         A
+	               |  |        ||          | |         |
+	               |  |        || Stopping | |         |
+	               |  |        ||__________| |         |
+	               |  |        |    |        |         |
+	               |  |     ___|____V__      |         |
+	               |  `--->|           |-----'         |
+	               `-------|   Ready   |               |
+	                      /|___________|---------------'
+	                      \__A
+	
+--------------------------------------------------------------------------------
+
+それぞれの状態において、対応するメソッドが実行されます。たとえば、RTC_READY 状態
+であれば rtc_ready_???() が実行されます。??? の部分はその状態のどのタイミングで
+実行されるかを示しています。
+
+ entry: その状態に進入するときに一度だけ実行される。
+ do: その状態にある間繰り返し実行される。
+ exit: その状態から出るときに実行される。
+
+
+3.1 使用するアクティビティを決める
+さて、これから作成するMyManipulatorコンポーネントは各状態で以下のような処理を実
+行するようにします。
+
+[RTC_INITIALIZING] : rtc_init_do()
+ライブラリの初期化処理を行うために manipulator_init() を呼び出す。
+manipulator_init() は初期化が成功したかどうかを戻り値 (bool型) で知らせるものと
+仮定する。
+
+[RTC_STARTING] : rtc_starting_entry()
+マニピュレータのサーボをONにするために、manipulator_on() を呼び出す。
+manipulator_on() はサーボONの処理が成功したかどうかを戻り値 (bool型) で知らせる
+ものと仮定す
+る。
+
+[RTC_STOPPING] : rtc_stopping_entry()
+マニピュレータのサーボをOFFにするために、manipulator_off() を呼び出す。
+manipulator_off() はサーボOFFの処理が成功したかどうかを戻り値 (bool型) で知らせ
+るものと仮定する。
+
+[RTC_ACTIVE] : rtc_active_do()
+マニピュレータに InPort から入ってきた位置指令を manipulator_setpos() で設定し、
+現在位置を manipulator_getpos() で取得しOutPortに出力する。
+
+[RTC_ABORTING] : rtc_aborting_entry()
+RTC_ACTIVE状態で何らかのエラーが生じ緊急停止をさせるため manipulator_emgstop() 
+を呼び出す。
+
+[RTC_EXITING] : rtc_exiting_entry()
+コンポーネントの終了処理。リソースを開放するために manipulator_destroy() を呼び
+出す。
+
+
+3.2 実装
+以上のように各状態で行うことを決定したら、それぞれの状態に対応するメソッドを実装していきます。
+
+3.2.1 [RTC_INITIALIZING] : rtc_init_entry()
+
+MyManipulator.h
+------------------------------------------------------------
+    virtual RtmRes rtc_init_do();
+------------------------------------------------------------
+出力された雛形ではコメントをはずすだけです。
+
+MyManipulator.cpp
+------------------------------------------------------------
+RtmRes MyComponent::rtc_init_entry()
+{
+  if (!manipulator_init())
+  {
+    return RTM_ERR;
+  }
+  return RTM_OK;
+}
+------------------------------------------------------------
+ここでは、manipulator_init() の戻り値を見て、trueであれば、RTM_OKを返しています。状態に対応するメソッドでは、戻り値 "RtmRes" に以下の値をとります。
+
+ RTM_OK: 正常終了
+ RTM_ERR: エラー終了
+ RTM_FATL_ERR: 致命的エラー終了
+
+正常終了では、そのまま次の状態へ遷移します。この場合では、 RTC_READY 状態に遷移
+します。
+エラー終了するとエラー状態に入ります。エラー状態では、外部から再度初期化すること
+によりRTC_INITIALIZE状態に戻ることができます。
+致命的エラー終了の場合は、復帰できません。逆に、復帰不可能なエラーとして処理した
+い場合には、致命的エラー状態へ遷移させます。
+
+3.2.2 [RTC_STARTING] : rtc_starting_entry()
+
+MyManipulator.h
+------------------------------------------------------------
+    virtual RtmRes rtc_starting_entry();
+------------------------------------------------------------
+出力された雛形ではコメントをはずすだけです。
+
+MyManipulator.cpp
+------------------------------------------------------------
+RtmRes MyComponent::rtc_starting_entry()
+{
+  if (!manipulator_on())
+  {
+    return RTM_ERR;
+  }
+  return RTM_OK;
+}
+------------------------------------------------------------
+manipulator_on()の戻り値に応じて RTM_OK または RTM_ERR を返します。
+
+3.2.3 [RTC_STOPPING] : rtc_stopping_entry()
+
+MyManipulator.h
+------------------------------------------------------------
+    virtual RtmRes rtc_stopping_endry();
+------------------------------------------------------------
+出力された雛形ではコメントをはずすだけです。
+
+MyManipulator.cpp
+------------------------------------------------------------
+RtmRes MyComponent::rtc_stopping_entry()
+{
+  if (!manipulator_off())
+  {
+    return RTM_ERR;
+  }
+  return RTM_OK;
+}
+------------------------------------------------------------
+manipulator_off()の戻り値に応じて RTM_OK または RTM_ERR を返します。
+
+
+3.2.4 [RTC_ACTIVE] : rtc_active_do()
+
+MyManipulator.h
+------------------------------------------------------------
+    virtual RtmRes rtc_active_do();
+------------------------------------------------------------
+出力された雛形ではコメントをはずすだけです。
+
+MyManipulator.cpp
+------------------------------------------------------------
+RtmRes MyComponent::rtc_active_do()
+{
+  float pos_in[6];
+  float pos_out[6];
+
+  // InPort からデータ読み込み
+  m_posin = m_posIn.read();
+  for (int i = 0; i < 6; i++)
+  {
+     pos_in[i] = m_posin.data[i];
+  }
+  // 位置データをセット
+  if (!manipulator_setpos(pos_in))
+  {
+    return RTM_ERR;
+  }
+
+  // 現在位置を取得
+  if (!manipulator_getpos(pos_out))
+  {
+    return RTM_ERR+
+  }
+
+  // OutPort に出力
+  m_posout.length(6);
+  for (int i = 0; i < 6; i++)
+  {
+     m_posout[i] = pos_out[i];
+  }
+  m_posOut.write(m_posout);
+
+  return RTM_OK;
+}
+------------------------------------------------------------
+rtc_active_do() ではマニピュレータに InPort から入ってきた位置指令を
+manipulator_setpos() で設定し、現在位置を manipulator_getpos() で取得し
+OutPort に出力します。InPort は m_posIn.read() によりデータを読み込みます。
+TimedFloatSeq 型(とその他のシーケンス型)は構造体で、時間 tm とデータ data のメン
+バを持ちます。data はシーケンス型になっていて、
+
+ m_poin.data[1] -> 添え字によるアクセス
+ m_posin.data.length() -> 要素数の取得
+ m_posin.data.length(10) -> 領域の確保
+ 
+などが行えます。OutPortも同様で、manipulator_getpos() でマニピュレータの手先位置
+を配列として取得したあとに、m_posout にデータをコピーし、最後に
+
+ m_posOut.write(m_posout);
+
+によりOutPortに出力しています。
+InPort, OutPort のメソッドの詳細はマニュアルもしくはソースコードを見てください。
+
+
+3.2.5 [RTC_ABORTING] : rtc_aborting_entry()
+
+MyManipulator.h
+------------------------------------------------------------
+    virtual RtmRes rtc_aborting_entry();
+------------------------------------------------------------
+出力された雛形ではコメントをはずすだけです。
+
+MyManipulator.cpp
+------------------------------------------------------------
+RtmRes MyComponent::rtc_aborting_entry()
+{
+  if (!manipulator_emgstop())
+  {
+    return RTM_FATAL_ERR;
+  }
+  return RTM_OK;
+}
+------------------------------------------------------------
+RTC_ACTIVE 状態でエラーが発生した場合、緊急停止しなければならないと仮定します。
+そこで、rtc_aborting_entry() で manipulator_emgstop() を呼び出します。
+戻り値に応じて RTM_OK または RTM_ERR を返します。
+
+
+3.2.6 [RTC_EXITING] : rtc_exiting_entry()
+
+MyManipulator.h
+------------------------------------------------------------
+    virtual RtmRes rtc_exiting_entry();
+------------------------------------------------------------
+出力された雛形ではコメントをはずすだけです。
+
+MyManipulator.cpp
+------------------------------------------------------------
+RtmRes MyComponent::rtc_exiting_entry()
+{
+  manipulator_destroy();
+  return RTM_OK;
+}
+------------------------------------------------------------
+リソースを開放します。この状態では終了する他ないため RTM_OK しか返しません。
+
+
+4. make および実行
+
+ソースが完成したら、再びmakeします。
+
+------------------------------------------------------------
+> make -f Makefile.MyManipulator
+------------------------------------------------------------
+
+実行形式のコンポーネントを実行してみます。コンポーネントの実行にはコンフィギュレ
+ーションファイル(通常は rtc.conf という名前)が必要です。
+ここでは、簡易版のものをカレントディレクトリに作成します。
+
+------------------------------------------------------------
+> cat > rtc.conf
+NameServer      現在のPCのホスト名:ポート番号
+^D(Ctrl+D)
+------------------------------------------------------------
+ここで、仮にホスト名：rtm.or.jp ポート番号:6789 とします。
+
+------------------------------------------------------------
+> cat > rtc.conf
+NameServer      rtm.or.jp:6789 (このように入力する)
+^D(Ctrl+D)
+> cat rtc.conf (確認)
+NameServer      rtm.or.jp:6789
+------------------------------------------------------------
+次に、CORBA のネーミングサービスを起動します。CORBAのネーミングサービスは、
+
+> rtm-naming ポート番号
+
+で起動できますので、先ほどrtc.conf で指定したポート番号を指定して起動してください。
+
+------------------------------------------------------------
+> rtm-naming 6789
+Starting omniORB omniNames: ichi:9999
+n-ando@ichi:/tmp/SampleComponent> 
+Fri Oct 29 17:12:51 2004:
+
+Starting omniNames for the first time.
+Wrote initial log file.
+Read log file successfully.
+Root context is IOR:010000002b00000049444c3a6f6d672e6f72672f436f734e616d696e672f
+4e616d696e67436f6e746578744578743a312e300000010000000000000060000000010102000e00
+00003135302e32392e39362e313638000f270b0000004e616d655365727669636500020000000000
+0000080000000100000000545441010000001c000000010000000100010001000000010001050901
+01000100000009010100
+Checkpointing Phase 1: Prepare.
+Checkpointing Phase 2: Commit.
+Checkpointing completed.
+------------------------------------------------------------
+次に、コンポーネントを起動します。
+
+------------------------------------------------------------
+> MyManipulatorComp -f rtc.conf
+------------------------------------------------------------
+これで、正常に起動されるかどうか試してください。
+
+詳細はマニュアルを参照してください。
+
+
+

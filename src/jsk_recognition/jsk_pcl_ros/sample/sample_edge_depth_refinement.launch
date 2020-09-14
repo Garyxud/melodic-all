@@ -1,0 +1,23 @@
+<launch>
+
+  <include file="$(find jsk_pcl_ros_utils)/sample/include/play_rosbag_shelf_bin.xml" />
+
+  <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
+
+  <node name="edge_depth_refinement_manager"
+        pkg="nodelet" type="nodelet"
+        args="manager" />
+
+  <node name="edge_detector"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/OrganizedEdgeDetector edge_depth_refinement_manager">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+  </node>
+  <node name="edge_depth_refinement"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/EdgeDepthRefinement edge_depth_refinement_manager">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+    <remap from="~input_indices" to="/edge_detector/output_straight_edges_indices" />
+  </node>
+
+</launch>

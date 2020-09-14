@@ -1,0 +1,54 @@
+// -*- IDL -*-
+/*!
+ * @file ActArray.idl
+ * @brief Services for the ActArray interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef ActArray_idl
+#define ActArray_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface ActArray
+{
+    /// Get the array's geometry information.
+    /// @return An ActArrayGeometry structure containing the array geometry.
+    ActArrayGeometry GetGeometry ();
+
+    /// Send one or all actuators to a predefined home position.
+    /// @param index Zero-based index of the actuator to send home, or -1 for all actuators.
+    void GoHome (in unsigned short index);
+
+    /// Enable or disable power to the array.
+    void Power (in boolean enable);
+
+    /// Engage or disengage brakes on one or all actuators that have brakes.
+    /// @param index Zero-based index of the actuator to brake, or -1 for all actuators.
+    void Brakes (in boolean engage);
+
+    /// Set the movement speed of an actuator when using position control.
+    /// @param index Zero-based index of the actuator.
+    /// @param speed New speed, in metres per second or radians per second.
+    void ConfigSpeed (in unsigned short index, in double speed);
+
+    /// Set the acceleration of an actuator.
+    /// @param index Zero-based index of the actuator.
+    /// @param accel New acceleration, in metres per second squared or radians per second squared.
+    void ConfigAccel (in unsigned short index, in double accel);
+};
+};
+
+#endif // ActArray_idl
+

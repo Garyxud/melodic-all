@@ -1,0 +1,702 @@
+QiCore README
+=============
+
+This lib is a fork of the "frameManager", it aims to execute behaviors that
+was previous executed with the frameManager but with much more flexibility.
+
+At the moment, QiCore is only a compatibility layer, but it aims to become
+the new execution core of behaviors.
+
+QiCore and the frameManager are independant, meaning that you can execute behaviors
+with both of us.
+
+
+Getting Started:
+----------------
+Let's suppose you want to execute a behavior stored in a xar file.
+First of all, correctly set your PYTHONPATH to collect all python modules needed.
+
+1/ Convert the behavior:
+python2 xar_converter.py path/to/behavior/behavior.xar output_folder/
+
+This step will give you a folder with all objects needed by the behavior and
+a main.py, entry point of the behavior.
+
+2/ Execute the behavior:
+python2 output_folder/main.py IP PORT
+Where IP and PORT are the ip and port of the naoqi you want to connect.
+
+The part to understand in the execution process is that the behavior is executed
+on the machine that lunch the behavior with the python interpreter but the result
+of the behavior is visible on the naoqi you are connected to.
+In other words, commands are send to the distant naoqi at the right time, but this
+distant naoqi does not know anything about the behavior.
+
+To execute behaviors the same way that frameManager does, you probably want
+to copy libQicore to the robot and then execute the following command on the robot:
+python2 output_folder/main.py 127.0.0.1 9559
+
+
+Sub-Projects:
+-------------
+QiCore can be splitted in different entities:
+- The converter
+    It converts a xar file (v3) to a new format, discussed later.
+
+- The core with C++ Objects that executes a behavior
+    Composed with Timeline, StateMachine, Box, Transition
+
+- The object factory
+    Load python objects at run-time and connect them
+
+- The qicore_legacy
+    Provide the support of functions provided previously by ALBehavior
+
+Status:
+-------
+- Converter:
+    Subject to a lot of testing, it converts successfully all tested behaviors.
+    May be an effort can be put in printing nice error if file is incorrect.
+
+- Core:
+    StateMachine: used to replace behaviorKeyFrames, behaviorLayers
+    Timeline: a lot of code comes from the legacy timeline, but this
+      object handles only actuatorCurves. Threading model has been rebuilt.
+    Box: Represents a legacy box, a box is also a state in the stateMachine
+    Transition: Represents a transitions between two boxes
+
+    The main differences in objects representations with the frameManager is
+    that what is called Timeline in the frameManager is splitted into :
+    Timeline and StateMachine in QiCore. Also the Timeline in QiCore is a lot
+    simpler, and handles much less work.
+
+- Object Factory:
+    At the moment, only load python objects.
+
+- QiCore Legacy:
+    Provide the same level of functionnalities than ALBehavior.
+    Differences : qicore_legacy does not provide resource management at the
+    moment. Objects are not ALModules for the moment.
+
+
+Benefits over frameManager:
+---------------------------
+- Interactions between C++ and Python:
+    In the frameManager, interactions between C++ and Python are not very clear,
+    some of the work are done in python, but connections between boxes are done
+    in C++. C++ code calls python that will call C++ again.
+
+    With QiCore, the behavior is written in Python, this Python code plays with
+    C++ objects transparently (Swig is used for the binding).
+    Sometimes C++ has to hold a callback in the Python world, but there is an
+    effort to minimize the number of callbacks. Callbacks are listed later.
+
+- ALBehavior, ALPythonBridge, ALMemory
+    frameManager required all these objects to work. Signals between boxes are
+    done by ALMemory, it is a bottleneck because ALMemory is a centralized
+    sytem. All the Python code is executed in a special C++ Thread with an
+    embedded Python interpreter.
+
+    With QiCore, interactions between boxes are done by qi::Signal, so boxes can
+    interacts with each others without the help of a central module.
+    Python code can be executed directly by any stand alone python interpreter.
+
+- Timeline concept and StateMachine
+    The timeline concept was a bit messy and unintuitive with the frameManager.
+    A lot of people was using the timeline of the frameManager as a StateMachine.
+
+    QiCore provides a Timeline that executes only actuatorCurves and a StateMachine
+
+- Code generation
+    FrameManager generates a lot of code with each boxes, and debugging generated
+    code is awful.
+
+    QiCore aims to generate a mimum of code, and leave the original code almost
+    untouched, code needed by the boxes are added at run-time, transparently.
+
+- Play with C++ Objects
+    FrameManager does not provide an API to play with Timeline and others objects
+
+    QiCore provides an API to interact with objects in behaviors
+
+- Maintain the code
+    All concepts in the frameManager are intertwined, so the code is hard to
+    maintain and understand.
+
+    QiCore wants to provide clean concepts, easy to unterstand.
+
+- New format
+    Format supported by the frameManager include embedded python code.
+
+    QiCore provides a new format with python code stored as .py and meta informations
+    stored in xml files. Objects are splitted in different files.
+
+- Stand alone
+    FrameManager can not produce a stand alone python file that can be executed
+
+    With QiCore you can simply execute a behavior with the following command:
+    python2 behavior/main.py IP PORT
+    That means you can execute a behavior on a desktop computer and send commands
+    to a robot.
+    We can also imagine that a robot send a behavior to another robot or a desktop
+    computer can execute the same behavior on multiple robots.
+
+To do:
+------
+- Catch SIGINT and send a on_stop signal to all boxes to quit elegantly.
+
+- At the moment objects does not need to be in globals, may be change that.
+
+- Path to file needed by the behaviors are incorrect, for example if you want
+  to play a sound on a robot.
+
+- All functions that handles resources just do nothing (qicore_legacy.py,
+  waitForResources, ...)
+
+- Naoqi is still needed to create proxies on services, but it is possible
+  to replace ALProxy in naoqi by some qimessaging binding
+
+- Boxes uses qi::signal, but are not naoqi2 objects
+
+- Timeline tests are not usable, fix it
+
+- Improve the ALMemoryWatcher and replace the polling thread by a
+  subscribeToEvent
+
+- Fix the "from naoqi import *" in py files
+
+- Cleaner XML generation in converter/file_writer.py
+
+- Swig detects a leak with boost::shared_ptr<ALBroker>, fix it.
+  This leaks only happends when creating a timeline
+
+- There is a mix between the new API and the old API, an effort can be put
+  to use a minimum of the old API.
+
+- The goTo in the stateMachine can be faster if we store labels in a map, instead
+  of going though each box.
+
+- The goTo in StateMachine and Timeline is a bit messy, it is the StateMachine
+  that handles the goto, and then we handle the timeline. May be it will be
+  cleaner to let the Timeline handle the goTo and contact the StateMachine if
+  we need to change the state
+
+- To be able to control the StateMachine or the Timeline of a parent, each box
+  have a pointer to its parent. But this pointer can be replaced by a signal.
+
+- A lot of fixes to execute behaviors exactly as frameManager
+
+To know:
+--------
+- The StateMachine execute transitions in a thread, transitions are queued are
+  performed in order of arrival (FIFO)
+
+- Callbacks:
+  * When changing states the the StateMachine will call the load callback on the
+    next state, the unload callback on the previous state, and call the
+    onNewState callback to trigger IO between boxes.
+  * When the timeline has reached the last frame, it calls a python callback
+    to trigger onStopped Outputs
+
+- If you want to convert a crg file to the new format you can do the following:
+  ar vx my_behavior.crg && tar vxf data.tar.gz
+  to extract the .xar file and then convert it.
+
+- Functions generated by the frameManager are added at run time and generated
+  in function_generator.py
+
+- The code that converts a old-style Timeline in a StateMachine is in the converter,
+  in the file converter/new_format_generator.py
+
+- To be able to reproduce the goTo of the old-style Timeline, the StateMachine
+  uses two things: labels, that allows to a state associated with the label and
+  provides an interval that belongs the state, this is useful when the user
+  want to jump to a frame.
+
+- Connections between boxes are done when loading the state associated and
+  destroyed when leaving the state
+
+- The Timeline have flags to trigger each state of the StateMachine at the
+  right time. A flag is the association of a state name and the frame you want
+  to trigger the transition. The only exception is the first frame, there is
+  no flag for it, cause it is the initial state and the state is entered by
+  calling run on the stateMachine
+
+Hacks:
+------
+- There is a ref couting on load/unload boxes to prevent multiple loads, indeed
+  when converting an old-style timeline to a stateMachine some objects are duplicated
+  but you do not want to load them multiple times
+
+- The same ref couting mechanism is present with connection between boxes for the
+  same reasons.
+
+- onLoad signal seems like a hack in the frameManager, this signal is triggerd each time
+  we enter in a new keyframe. In the StateMachine this signal has to be triggered
+  when entering a new state but this signal must not trigger boxes already activated.
+  So every time the onLoad signal is triggerd, this signal is replaced by a new one
+  with no connections. The previous onLoad is then stored because we do not want
+
+
+
+Xar format documentation:
+-------------------------
+
+A Xar file is an xml file that describes a behavior
+
+Elements:
+- Box
+- Diagram
+- Timeline
+- BehaviorLayer
+- BehaviorKeyFrame
+- Script
+- Content
+- Input
+- Output
+- Parameter
+- Resource
+- ActuatorList
+- ActuatorCurve
+- Key
+- Link
+- Bitmap
+
+
+Box:
+    Attributes:
+      - name: name of the box
+      - robot: robot targeted by the behavior
+      - id: id of the box
+      - tooltip: hint about how to use the box
+      - bitmap_expanded: FIXME
+      - plugin: FIXME
+      - x: x coordinate of the box
+      - y: y coordinate of the box
+
+    Inner-Elements:
+      - bitmap
+      - script
+      - Input
+      - Output
+      - Parameters
+      - Timeline
+      - Resources
+
+Bitmap:
+    Content:
+      - Path to the bitmap file
+
+Script:
+    Attributes:
+      - Language:
+        - 0 -> C++
+        - 1 -> URBI
+        - 2 -> Ruby
+        - 3 -> Dynamic Librabry
+        - 4 -> Python
+        - 5 -> QiChat
+        - 6 -> No Script
+
+    Content:
+      - Content Beacon
+
+Content:
+    Content:
+      - The script it-self.
+
+Input:
+    Attributes:
+      - name : Name of the input
+      - type:
+        - 0 -> Dynamic
+        - 1 -> Bang
+        - 2 -> Number
+        - 3 -> String
+        - 4 -> Bitmap
+        - 5 -> Sound
+      - type_size: size of the type
+      - nature:
+        - 0 -> onLoad
+        - 1 -> unDef
+        - 2 -> onStart
+        - 3 -> onStop
+        - 4 -> STMValue
+      - stm_value_name : value associated in ALMemory
+      - inner :
+      - tooltip : tip for the user
+      - id : identifier for the IO Port (local to the box)
+
+Output:
+    Attributes:
+      - name : Name of the input
+      - type:
+        - 0 -> Dynamic
+        - 1 -> Bang
+        - 2 -> Number
+        - 3 -> String
+        - 4 -> Bitmap
+        - 5 -> Sound
+      - type_size: size of the type
+      - nature:
+        - 0 -> unDef
+        - 1 -> Stopped
+        - 2 -> Punctual
+        - 3 -> Recurrent
+      - inner :
+      - tooltip : tip for the user
+      - id : identifier for the IO Port (local to the box)
+
+Parameter:
+    Attributes:
+      - name: name of the parameter
+      - inherits_from_parent:
+        - 0 -> parameter is not inherited
+        - 1 -> inherited parameter
+      - content_type:
+        - 0 -> Bool
+        - 1 -> Int
+        - 2 -> Double
+        - 3 -> String
+        - 4 -> Resource
+      - value: value of the parameter
+      - default_value: default value taken by the parameter
+      - min : min value for the parameter
+      - max : max value for the parameter
+      - tooltip : hint for the user
+      - id : identifier for the parameter (local to the box)
+      - custom_choice : FIXME
+
+Timeline:
+    Attributes:
+      - enable:
+        - 0 -> disabled
+        - 1 -> enabled
+      - name: timeline name
+      - fps : Frames per seconds
+      - resource_acquisition:
+        - 0 -> Passive
+        - 1 -> Waiting
+        - 2 -> Aggresive
+      - size: FIXME
+      - start_frame: first frame
+      - end_frame: last frame
+      - scale : FIXME
+    Inner-Elements:
+      - BehaviorLayer
+      - ActuatorList
+      - watches : FIXME
+
+BehaviorLayer:
+    Attributes:
+      - name : name of the behaviorLayer
+      - mute : FIXME
+    Inner-Elements:
+      - BehaviorKeyFrame
+
+BehaviorKeyFrame:
+    Attributes:
+      - name : name of the keyframe
+      - index : frame associated with the keyframe
+    Inner-Elements:
+      - Diagram
+
+Diagram:
+    Attributes:
+      - scale : FIXME
+    Inner-Elements:
+      - Box
+      - Link
+
+Link:
+    Attributes:
+      - inputowner : id of the box local to the diagram, 0 means the
+                      parent box
+      - outputower : same as previous
+      - indexofinput : id of the input (local to the box)
+      - indexofoutput : id of the output (local to the box)
+
+
+ActuatorList:
+    Attirbutes:
+      - model : FIXME
+    Inner-Elements:
+      - ActuatorCurve
+
+ActuatorCurve:
+    Attributes:
+      - name : name of the actuatorCurve
+      - actuator : Resource concerned by the actuatorCurve
+      - recordable : FIXME
+      - mute : FIXME
+      - unit : FIXME
+    Inner-Elements:
+      - Key
+
+Key:
+    Attributes:
+      - frame : frame concerned by the parent ActuatorCurve
+      - value
+
+Resource:
+    Attributes:
+      - name : name of the resource
+      - type :
+        - 0 -> Lock
+        - 1 -> Stop_on_demand
+        - 2 -> Pause_on_demand
+        - 3 -> Callback_on_demand
+      - timeout
+
+
+
+Elements Hierarchy:
+
+<Box>
+  <bitmap> </bitmap>
+  <script>
+    <content> </content>
+  </script>
+  <Input />
+  ...
+  <Input />
+  <Output />
+  ...
+  <Output />
+  <Parameter />
+  ...
+  <Parameter />
+  <Timeline>
+    <BehaviorLayer>
+      <BehaviorKeyFrame>
+        <Diagram>
+          <Box>
+          </Box>
+          ....
+          <Box>
+          </Box>
+        </Diagram>
+      </BehaviorKeyFrame>
+      <BehaviorKeyFrame>
+        ... (same as previous)
+      </BehaviorKeyFrame>
+    </BehaviorLayer>
+    <BehaviorLayer>
+      ... (same as previous)
+    </BehaviorLayer>
+    <ActuatorList>
+      <ActuatorCurve>
+        <Key />
+        ...
+        <Key />
+      </ActuatorCurve>
+      <ActuatorCurve>
+        ... (same as previous)
+      </ActuatorCurve>
+    </ActuatorList>
+  </Timeline>
+  <Resource />
+  ...
+  <Resource />
+</Box>
+
+
+New format documentation:
+-------------------------
+
+This new format is not a definitive format, but is more like a test on how
+to create a format more human readable and easy to edit. It aims to be compatible
+with the previous xar format.
+
+There is two kind of files:
+- .xml files -> contains meta informations about the object
+- .py files -> contains the Python code of the object
+
+All these files are stored in the same directory
+
+Each object is made of one py file and on xml file. Let's say I have an object
+called foo, its reprensentation is:
+- l0_foo.xml
+- l0_foo.py
+
+Naming convention:
+The previous format does not provide an unique name to each object, so we have
+to handle it. The naming convention is pretty simple:
+=> l + 'level of the object in previous format' + _ + 'name of the object'
+Let's say I have on object foo on level 42 (so in level 42 in the hierarchy of the
+xar format), the object will be named:
+- l42_foo.xml
+- l42_foo.py
+
+Name collisions:
+If two objects have the same name, the converter will add a unique number to each object.
+Let's say I have two objects foo, the converter will give:
+- l1_foo.xml
+- l1_foo.py
+- l1_foo_1.xml
+- l1_foo_1.py
+
+Main:
+There is one special file : main.py
+This file does not represents an object but it is the file to execute when
+you want to play the behavior
+
+StateMachine and Timeline:
+Each object can have a state_machine and a timeline associated. In this case
+this object take the name of the owner and appending "state_machine" or
+"timeline".
+Let's say I have a root box with a stateMachine and a timeline, this will give
+me:
+- l0_root.py
+- l0_root.xml
+- l0_root_state_machine.xml
+- l0_root_timeline.xml
+
+Note that StateMachine and Timeline have no .py associated, there is no code
+that comes with these objects.
+
+States:
+A state machine a different state associated with it, the naming convention is
+the following, let's say I have a root box with a stateMachine and three states.
+- l0_root.py
+- l0_root.xml
+- l0_root_state_machine.xml
+- l0_root_state_0.xml
+- l0_root_state_1.xml
+- l0_root_state_2.xml
+
+Note that a state has no .py associated either.
+
+The loader will load only file needed in the behavior (i.e. presents
+in the objects graph) and will leaves the others alone.
+If an object that is not connected to others in present in the directory,
+it will not be loaded.
+
+
+
+XML files:
+
+Elements:
+- Box
+- Timeline
+- Input
+- Output
+- Parameter
+- Resource
+- ActuatorList
+- ActuatorCurve
+- Key
+- Link
+- StateMachine
+- State
+
+Box:
+    Attributes:
+      - name: name of the box
+      - robot: robot targeted by the behavior
+      - id: id of the box
+      - tooltip: hint about how to use the box
+      - bitmap_expanded: FIXME
+      - plugin: FIXME
+      - x: x coordinate of the box
+      - y: y coordinate of the box
+      - bitmap
+
+Input:
+-> Same has the xar format
+
+Output:
+-> Same has the xar format
+
+Parameter:
+-> Same has the xar format
+
+Timeline:
+    Attributes:
+      - enable:
+        - 0 -> disabled
+        - 1 -> enabled
+      - name: timeline name
+      - fps : Frames per seconds
+      - resource_acquisition:
+        - 0 -> Passive
+        - 1 -> Waiting
+        - 2 -> Aggresive
+      - size: FIXME
+      - start_frame: first frame
+      - end_frame: last frame
+      - scale : FIXME
+
+    Inner-Elements:
+      - ActuatorList
+      - watches : FIXME
+
+ActuatorList:
+-> Same has the xar format
+
+ActuatorCurve:
+-> Same has the xar format
+
+Key:
+-> Same has the xar format
+
+Resource:
+-> Same has the xar format
+
+StateMachine:
+    Attributes:
+      - State : state in this stateMachine
+      - InitialState : initial state in the stateMachine
+      - FinalState : final state in the stateMachine
+      - Transition : a transition between two states
+
+State (in the stateMachine file):
+    Attributes:
+      - Name : name of the state
+
+InitialState
+    Attributes:
+      - Name : name of the state
+
+FinalState
+    Attributes:
+      - Name : name of the state
+
+Transition
+    Attributes:
+      - From : name of the from state
+      - To : name of the to state
+
+State (in its own file):
+    Attributes:
+      - Object : object in the state
+      - Interval : begin and end frame of the state
+      - Label : name associated to state
+      - Link : a connection between two objects
+
+Object:
+    Attributes:
+      - Name : name of the object
+
+Interval:
+    Attributes:
+      - begin : first frame in the state
+      - end : last frame in the state
+
+Label:
+    Attributes:
+      - Name : name associated with the state
+
+Link:
+    Attributes:
+      - inputowner : name of the input object
+      - outputower : name of the output object
+      - indexofinput : name of the input
+      - indexofoutput : name of the output
+
+Objects in their own .xml files:
+- Box
+- StateMachine
+- State
+- Timeline
+

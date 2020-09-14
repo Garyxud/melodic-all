@@ -1,0 +1,38 @@
+// -*- IDL -*-
+/*!
+ * @file DataPort.idl
+ * @brief DataPort interface definition
+ * @date $Date: 2007-01-09 15:40:14 $
+ * @author Noriaki Ando <n-ando@aist.go.jp>
+ *
+ * Copyright (C) 2006
+ *     Noriaki Ando
+ *     Task-intelligence Research Group,
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *
+ *     All rights reserved.
+ *
+ * $Id: DataPort.idl 990 2008-10-29 06:30:09Z n-ando $
+ *
+ */
+
+#ifndef DataInPort_idl
+#define DataInPort_idl
+
+module RTC
+{
+  interface InPortAny
+  {
+    void put(in any data);
+  };
+
+
+  interface OutPortAny
+  {
+    any get();
+  };
+
+};
+#endif

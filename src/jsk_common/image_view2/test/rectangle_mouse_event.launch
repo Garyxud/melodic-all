@@ -1,0 +1,29 @@
+<launch>
+
+  <include file="$(find image_view2)/sample/sample_rectangle_mouse_event.launch" >
+    <arg name="gui" value="false" />
+  </include>
+
+  <node name="publish_mouse_event"
+        pkg="image_view2" type="publish_mouse_event.py">
+    <remap from="~plus_rect_event" to="camera_0/image/event" />
+    <remap from="~minus_rect_event" to="camera_1/image/event" />
+    <rosparam>
+      image_width: 512
+      image_height: 512
+    </rosparam>
+  </node>
+
+  <test test-name="image_view2_topics"
+        name="image_view2_topics"
+        pkg="jsk_tools" type="test_topic_published.py"
+        retry="3">
+    <rosparam>
+      topic_0: /camera_0/image/screenrectangle_image
+      timeout_0: 10
+      topic_1: /camera_1/image/screenrectangle_image
+      timeout_1: 10
+    </rosparam>
+  </test>
+
+</launch>

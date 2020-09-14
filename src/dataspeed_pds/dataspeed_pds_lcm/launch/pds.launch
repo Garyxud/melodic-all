@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="pds_ns" default="pds" />
+  <arg name="lcm_url" default="udpm://225.0.0.0:7667?ttl=1" />
+
+  <!-- PDS Interface -->
+  <group ns="$(arg pds_ns)" >
+    <node pkg="dataspeed_pds_lcm" type="pds_node" name="pds_lcm" output="screen">
+      <param name="lcm_url" value="$(arg lcm_url)" />
+    </node>
+  </group>
+  
+</launch>

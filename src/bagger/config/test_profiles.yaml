@@ -1,0 +1,3 @@
+profile_name_to_record_options_map:
+        everything: "-a -O everything"
+        nav: "-e ^.*(odometry).*$ -O nav --chunksize=48"

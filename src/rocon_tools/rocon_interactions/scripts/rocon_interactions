@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_concert/license/LICENSE
+#
+##############################################################################
+# Imports
+##############################################################################
+
+import sys
+import argparse
+import rospy
+import rocon_interactions  # usually a problem naming script the same as a module, but this is a global script, so ok.
+import rocon_console.console as console
+import rocon_interaction_msgs.srv as interaction_srvs
+import rocon_uri
+import rocon_python_comms
+import rosgraph
+
+##############################################################################
+# Functions
+##############################################################################
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="\
+        Prettifies the rocon interactions list.:\n\n\
+  1. By default, shows all loaded interactions\n\
+  2. Use args to filter the returned list",
+        epilog="Refer to http://www.ros.org/wiki/rocon_interactions for details.",  #@IgnorePep8
+        formatter_class=argparse.RawTextHelpFormatter                               #@IgnorePep8
+                                     )
+    parser.add_argument('-u', '--rocon-uri', action='store', default=rocon_uri.default_uri_string, help="filter by rocon_uri")
+    parser.add_argument('-g', '--group', action='store', default='', help="filter by group")
+    parser.add_argument('-p', '--runtime-pairing-requirements', default=False, action='store_true', help="filter by runtime pairing requirements")
+    args = parser.parse_args()
+    return args
+
+##############################################################################
+# Main
+##############################################################################
+
+if __name__ == '__main__':
+    rospy.init_node('rocon_interactions')
+    args = parse_arguments()
+    try:
+        service_name = rocon_python_comms.find_service('rocon_interaction_msgs/GetInteractions',
+                                                       timeout=rospy.rostime.Duration(5.0),
+                                                       unique=True)
+    except rocon_python_comms.NotFoundException as e:
+        print(console.red +
+              "failed to find unique service of type 'rocon_interaction_msgs/GetInteractions' [%s]" %
+              str(e) + console.reset)
+        sys.exit(1)
+    pairings_service_name = rosgraph.names.namespace(service_name) + "get_pairings"
+    # Pairings
+    get_pairings = rospy.ServiceProxy(pairings_service_name, interaction_srvs.GetPairings)
+    request = interaction_srvs.GetPairingsRequest()
+    response = get_pairings(request)
+    pairings_table = rocon_interactions.PairingsTable()
+    pairings_table.load(response.pairings)
+    print("%s" % pairings_table)
+    # Interactions
+    get_interactions = rospy.ServiceProxy(service_name, interaction_srvs.GetInteractions)
+    groups = [args.group] if args.group else []
+    request = interaction_srvs.GetInteractionsRequest(groups=groups, uri=args.rocon_uri, runtime_pairing_requirements=args.runtime_pairing_requirements)
+    response = get_interactions(request)
+    interactions_table = rocon_interactions.InteractionsTable()
+    interactions_table.load(response.interactions)
+    print("%s" % interactions_table)

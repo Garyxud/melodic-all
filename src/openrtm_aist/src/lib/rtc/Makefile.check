@@ -1,0 +1,10 @@
+CXXFLAGS=-I..
+
+
+
+all: DataFlowComponentBase IComponentAction IDataFlowComponentAction IDataFlowComponent IExecutionContext IFsm IFsmObject IFsmParticipantAction IFsmParticipant IFsmService ILightweightRTObject IModeCapable IMode IMultiModeComponentAction IPortService IRTObject 
+
+.h:
+	$(CXX) $(CXXFLAGS) $<
+	rm -f $<.gch
+	rm -f *~

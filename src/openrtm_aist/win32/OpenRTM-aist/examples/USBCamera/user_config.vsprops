@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="OpenCV"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(cv_includes)"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="$(cv_libdir)"
+	/>
+	<UserMacro
+		Name="rtm_root"
+		Value="..\..\"
+	/>
+	<UserMacro
+		Name="user_lib"
+		Value="$(cv_lib)"
+	/>
+	<UserMacro
+		Name="user_libd"
+		Value="$(cv_libd)"
+	/>
+	<UserMacro
+		Name="cv_root"
+		Value="C:\Program Files\OpenCV"
+	/>
+	<UserMacro
+		Name="cv_includes"
+		Value="&quot;$(cv_root)\cv\include&quot;;&quot;$(cv_root)\cvaux\include&quot;;&quot;$(cv_root)\cxcore\include&quot;;&quot;$(cv_root)\otherlibs\highgui&quot;;&quot;$(cv_root)\otherlibs\cvcam\include&quot;"
+	/>
+	<UserMacro
+		Name="cv_libdir"
+		Value="&quot;$(cv_root)\lib&quot;"
+	/>
+	<UserMacro
+		Name="cv_bin"
+		Value="$(cv_root)\bin"
+	/>
+	<UserMacro
+		Name="cv_lib"
+		Value="cv.lib cvcam.lib highgui.lib cxcore.lib"
+	/>
+	<UserMacro
+		Name="cv_libd"
+		Value="cv.lib cvcam.lib highgui.lib cxcore.lib"
+	/>
+</VisualStudioPropertySheet>

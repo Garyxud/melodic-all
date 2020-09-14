@@ -1,0 +1,197 @@
+#====================================================================
+#
+#      ethercatmaster.cdl
+#
+#      EtherCAT Master stack configuration data
+#
+# ====================================================================
+#===========================================================================
+#	This file is part of "EtherCAT Master Library".
+#	Copyright (C) 2005 FMTC vzw, Diamant Building, A. Reyerslaan 80,
+#	B-1030 Brussels, Belgium.
+#
+#	EtherCAT Master Library is free software; you can redistribute it
+#	and/or modify it under the terms of the GNU General Public License
+#	as published by the Free Software Foundation; either version 2 or
+#	(at your option) any later version.
+#
+#	EtherCAT Master Code is distributed in the hope that it will be
+#	useful, but WITHOUT ANY WARRANTY; without even the implied
+#	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+#	PURPOSE. See the GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with the EtherCAT Master Library; if not, write to the Free
+#	Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+#	02111-1307 USA.
+#
+#	EtherCAT, the EtherCAT trade name and logo are the intellectual
+#	property of, and protected by Beckhoff. You can use "EtherCAT
+#	Master Library" for creating and/or selling or otherwise
+#	distributing an EtherCAT network master under the terms of the
+#	EtherCAT Master License.
+#
+#	You should have received a copy of the EtherCAT Master License
+#	along with the EtherCAT Master Library; if not, write to Beckhoff
+#	Automation GmbH, Eiserstrasse 5, D-33415 Verl, Germany.
+# ===========================================================================
+
+# ===========================================================================
+# FIXME 
+# - Dependencies on other packages need to be fixed
+#
+# ====================================================================
+
+######DESCRIPTIONBEGIN####
+#
+# Author(s):	  Bob Koninckx, Klaas Gadeyne
+# Contributors:   
+# Date:           2005-04-06
+#
+#####DESCRIPTIONEND####
+#
+# ====================================================================
+
+cdl_package CYGPKG_NET_ETHERCATMASTER {
+	display         "EtherCAT Master"
+	description	"EtherCAT Master protocol stack"	
+
+	compile	-library=libextras.a ecos/support.cxx \
+                         ecos/init.cxx
+
+        cdl_option CYGNUM_ETHERCATMASTER_LOG_LEVEL {
+                display      "EtherCAT Master log level"
+                flavor       data
+                legal_values {0 1 2 3 4}
+                default_value 0
+                description  { "Verbosity of logging information messages. Log level
+                                0 prevents anything from being logged. Level 1 will
+                                only show fatal errors, level 2 shows all errors. Level
+                                3 adds warnings, end, level 4 finally also shows mere
+                                informational messages." }
+        }
+
+        cdl_option CYGNUM_ETHERCATMASTER_DELIVERY_STACK_SIZE {            
+            display          "Delivery thread stack size"
+            flavor           data
+            default_value    16384
+            description      "
+               The EtherCAT ethernet device driver implements a delivery thread
+               which responds to incoming packets and sends out queued packets
+               as soon as the device is available again. This option determines
+               the stack size of this delivery thread."
+        }
+
+        cdl_option CYGNUM_ETHERCATMASTER_DELIVERY_PRIORITY {
+            display          "Delivery thread priority"
+            flavor           data
+            default_value    8
+            legal_values     0 to 31
+            description      "
+               The EtherCAT ethernet device driver implements a delivery thread
+               which responds to incoming packets and sends out queued packets
+               as soon as the device is available again. This option determines
+               the priority of this delivery thread."
+        }
+
+	cdl_component CYGPKG_ETHERCATMASTER_DLL {
+		display     "Datalink layer subsystem"
+                flavor      none
+		requires    CYGPKG_IO_ETH_DRIVERS
+		description "Configuration for the Data Link Layer Subsystem"
+		compile     dll/ethercat_dll.cxx \
+                            dll/ethercat_telegram.cxx \
+			    dll/ethercat_frame.cxx \
+			    dll/ethercat_device_addressed_telegram.cxx \
+			    dll/ethercat_logical_addressed_telegram.cxx \
+			    dll/ethercat_slave_memory.cxx 
+		
+		cdl_option CYGDAT_ETHERCATMASTER_ETH_DEVICE {
+			display         "Ethernet device"
+			flavor          data
+			default_value	{"\"eth0\""}
+			description     "Ethernet device to be used by the EtherCAT master"
+		}
+
+	       	cdl_option CYGNUM_ETHERCATMASTER_TIMEOUT_DELAY {            
+		   display          "Timeout value"
+		   flavor           data
+		   default_value    20000000
+		   description      "
+                       Due to its implementation where slaves process
+		       the EtherCAT frames on-the-fly,  EtherCAT frames
+		       should return to the master 'instantaneously'.
+		       Due to hardware problems (e.g. disconnecting a
+		       slave from the logical ring,  sometimes frames
+		       don't get back.  For this reason, a the rx part
+		       implements a timeout after which it gives up.
+		       This option determines the value of this
+		       timeout, expressed in nanoseconds."
+		}
+
+	       cdl_option CYGNUM_ETHERCATMASTER_TIMEOUT_DELAY_TICKS {            
+		   display          "Timeout value in ticks"
+		   flavor           data
+		   calculated       ((CYGNUM_ETHERCATMASTER_TIMEOUT_DELAY * CYGNUM_HAL_RTC_DENOMINATOR) / CYGNUM_HAL_RTC_NUMERATOR)
+		}
+	}
+
+	cdl_component CYGPKG_ETHERCATMASTER_AL {
+		display     "Application layer subsystem"
+                flavor      none
+		requires    CYGPKG_ETHERCATMASTER_DLL
+		description "Configuration for the Application Link Subsystem"
+		compile     al/ethercat_slave_conf.cxx \
+			    al/ethercat_FSM.cxx \
+			    al/ethercat_slave_handler.cxx \
+			    al/ethercat_AL.cxx \
+			    al/ethercat_mbx.cxx \
+			    al/ethercat_router.cxx \
+			    al/ethercat_process_data.cxx \
+		            al/ethercat_master.cxx
+			    		    
+	        cdl_option CYGNUM_ETHERCATMASTER_ROUTE_STACK_SIZE {            
+		    display          "Route thread stack size"
+		    flavor           data
+		    default_value    16384
+		    description      "
+                        The EtherCAT ethernet device driver implements a
+                        periodic route thread which is used to check if any
+	                of the EtherCAT slaves has posted something in its
+	                mailbox.  This option determines the stack size of this
+	                thread."
+	       }
+
+	       cdl_option CYGNUM_ETHERCATMASTER_ROUTE_PRIORITY {            
+		   display          "Route thread priority"
+		   flavor           data
+		   default_value    10
+		   legal_values     0 to 31
+		   description      "
+                       The EtherCAT ethernet device driver implements a period
+                       route thread which is used to check if any of the
+	               EtherCAT slaves has posted something in its mailbox.
+	               This option determines the thread priority of this
+                       thread."
+	       }
+
+	       cdl_option CYGNUM_ETHERCATMASTER_ROUTE_PERIOD {            
+		   display          "Route thread period"
+		   flavor           data
+		   default_value    100000000
+		   description      "
+                       The EtherCAT ethernet device driver implements a period
+                       route thread which is used to check if any of the
+	               EtherCAT slaves has posted something in its mailbox.
+	               This option determines the period of this thread (and
+                       thus the responsiveness of ROUTE commands)
+		       expressed in nanoseconds."
+		}
+
+	       cdl_option CYGNUM_ETHERCATMASTER_ROUTE_PERIOD_TICKS {            
+		   display          "Route thread period in ticks"
+		   flavor           data
+		   calculated       ((CYGNUM_ETHERCATMASTER_ROUTE_PERIOD * CYGNUM_HAL_RTC_DENOMINATOR) / CYGNUM_HAL_RTC_NUMERATOR)
+		}
+	}
+}

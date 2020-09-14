@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>libpcan</name>
+  <version>0.6.17</version>
+  <description>This package wraps the libpcan to use it as a ros dependency</description>
+
+  <license>LGPL</license>
+
+  <url type="website">http://p103112.typo3server.info/fileadmin/media/linux/index.htm</url>
+
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <author>Florian Weisshardt</author>
+  <author>Benjamin Maidel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

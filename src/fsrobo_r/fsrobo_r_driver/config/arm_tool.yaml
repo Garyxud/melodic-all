@@ -1,0 +1,21 @@
+tool_io:
+  robot_ns: 'arm'
+  open:
+    trigger:
+      - '17': 0
+      - '16': 1
+    state:
+      - '8': 0
+  close:
+    trigger:
+      - '16': 0
+      - '17': 1
+    state:
+      - '8': 0
+
+tool:
+  action_ns: 'arm/tool/gripper_action'
+  open_param: [100, 0]
+  close_param: [0, 0]
+  planning_group: 'arm/tool'
+  origin_link: 'arm/Link6'

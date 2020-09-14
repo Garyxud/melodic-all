@@ -1,0 +1,3 @@
+# Way points
+
+Waypoint[] waypoints

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Animation fps="25" start_frame="1" end_frame="-1" size="300" format_version="4" >
+    <ActuatorList model="Nao" >
+        <ActuatorCurve name="value" actuator="HeadYaw" recordable="1" mute="0" unit="-1" >
+            <Key frame="20" value="-7.73688" smooth="None" symmetrical="None" />
+            <Key frame="39" value="-20.1296" smooth="None" symmetrical="None" />
+            <Key frame="56" value="-23.8211" smooth="None" symmetrical="None" />
+            <Key frame="70" value="-23.9968" smooth="None" symmetrical="None" />
+            <Key frame="87" value="-29.7977" smooth="None" symmetrical="None" />
+            <Key frame="115" value="-21.5359" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="HeadPitch" recordable="1" mute="0" unit="-1" >
+            <Key frame="20" value="16.9607" smooth="None" symmetrical="None" />
+            <Key frame="39" value="-9.75839" smooth="None" symmetrical="None" />
+            <Key frame="56" value="-19.5144" smooth="None" symmetrical="None" />
+            <Key frame="70" value="-3.43018" smooth="None" symmetrical="None" />
+            <Key frame="87" value="-11.0768" smooth="None" symmetrical="None" />
+            <Key frame="115" value="-0.617646" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="LShoulderPitch" recordable="1" mute="0" unit="-1" >
+            <Key frame="18" value="64.0707" smooth="None" symmetrical="None" />
+            <Key frame="37" value="53.1721" smooth="None" symmetrical="None" />
+            <Key frame="54" value="53.8752" smooth="None" symmetrical="None" />
+            <Key frame="68" value="49.3927" smooth="None" symmetrical="None" />
+            <Key frame="85" value="51.4143" smooth="None" symmetrical="None" />
+            <Key frame="113" value="48.2502" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="LShoulderRoll" recordable="1" mute="0" unit="-1" >
+            <Key frame="18" value="20.8279" smooth="None" symmetrical="None" />
+            <Key frame="37" value="13.0056" smooth="None" symmetrical="None" />
+            <Key frame="54" value="11.6872" smooth="None" symmetrical="None" />
+            <Key frame="68" value="12.4782" smooth="None" symmetrical="None" />
+            <Key frame="85" value="14.2361" smooth="None" symmetrical="None" />
+            <Key frame="113" value="13.0056" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="LElbowYaw" recordable="1" mute="0" unit="-1" >
+            <Key frame="18" value="-46.0577" smooth="None" symmetrical="None" />
+            <Key frame="37" value="-39.6416" smooth="None" symmetrical="None" />
+            <Key frame="54" value="-38.9384" smooth="None" symmetrical="None" />
+            <Key frame="68" value="-34.9833" smooth="None" symmetrical="None" />
+            <Key frame="85" value="-43.1572" smooth="None" symmetrical="None" />
+            <Key frame="113" value="-38.4111" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="LElbowRoll" recordable="1" mute="0" unit="-1" >
+            <Key frame="18" value="-79.0123" smooth="None" symmetrical="None" />
+            <Key frame="37" value="-73.9145" smooth="None" symmetrical="None" />
+            <Key frame="54" value="-67.7621" smooth="None" symmetrical="None" />
+            <Key frame="68" value="-71.5415" smooth="None" symmetrical="None" />
+            <Key frame="85" value="-75.5845" smooth="None" symmetrical="None" />
+            <Key frame="113" value="-67.85" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="LWristYaw" recordable="1" mute="0" unit="-1" >
+            <Key frame="37" value="8.4352" smooth="None" symmetrical="None" />
+            <Key frame="113" value="6.85315" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="LHand" recordable="1" mute="0" unit="-1" >
+            <Key frame="37" value="0.238207" smooth="None" symmetrical="None" />
+            <Key frame="113" value="0.240025" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="RShoulderPitch" recordable="1" mute="0" unit="-1" >
+            <Key frame="16" value="14.153" smooth="None" symmetrical="None" />
+            <Key frame="35" value="-67.1469" smooth="None" symmetrical="None" />
+            <Key frame="52" value="-62.4007" smooth="None" symmetrical="None" />
+            <Key frame="66" value="-72.2446" smooth="None" symmetrical="None" />
+            <Key frame="83" value="-65.8285" smooth="None" symmetrical="None" />
+            <Key frame="111" value="58.4504" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="RShoulderRoll" recordable="1" mute="0" unit="-1" >
+            <Key frame="16" value="-13.8893" smooth="None" symmetrical="None" />
+            <Key frame="35" value="-54.6711" smooth="None" symmetrical="None" />
+            <Key frame="52" value="-26.3699" smooth="None" symmetrical="None" />
+            <Key frame="66" value="-55.0226" smooth="None" symmetrical="None" />
+            <Key frame="83" value="-18.8112" smooth="None" symmetrical="None" />
+            <Key frame="111" value="-14.3288" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="RElbowYaw" recordable="1" mute="0" unit="-1" >
+            <Key frame="16" value="-17.9323" smooth="None" symmetrical="None" />
+            <Key frame="35" value="32.3418" smooth="None" symmetrical="None" />
+            <Key frame="52" value="22.41" smooth="None" symmetrical="None" />
+            <Key frame="66" value="19.949" smooth="None" symmetrical="None" />
+            <Key frame="83" value="21.8826" smooth="None" symmetrical="None" />
+            <Key frame="93" value="56" smooth="None" symmetrical="None" />
+            <Key frame="111" value="47.3712" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="RElbowRoll" recordable="1" mute="0" unit="-1" >
+            <Key frame="16" value="79.3686" smooth="None" symmetrical="None" />
+            <Key frame="35" value="13.8893" smooth="None" symmetrical="None" />
+            <Key frame="42" value="20" smooth="None" symmetrical="None" />
+            <Key frame="52" value="53.5285" smooth="None" symmetrical="None" />
+            <Key frame="60" value="39" smooth="None" symmetrical="None" />
+            <Key frame="66" value="11" smooth="None" symmetrical="None" />
+            <Key frame="76" value="15" smooth="None" symmetrical="None" />
+            <Key frame="83" value="40.5205" smooth="None" symmetrical="None" />
+            <Key frame="93" value="58.4" smooth="None" symmetrical="None" />
+            <Key frame="111" value="72.5131" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="RWristYaw" recordable="1" mute="0" unit="-1" >
+            <Key frame="35" value="-17.9323" smooth="None" symmetrical="None" />
+            <Key frame="83" value="-17.405" smooth="None" symmetrical="None" />
+            <Key frame="111" value="10.4567" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+        <ActuatorCurve name="value" actuator="RHand" recordable="1" mute="0" unit="-1" >
+            <Key frame="35" value="0.853478" smooth="None" symmetrical="None" />
+            <Key frame="83" value="0.854933" smooth="None" symmetrical="None" />
+            <Key frame="111" value="0.425116" smooth="None" symmetrical="None" />
+        </ActuatorCurve>
+    </ActuatorList>
+</Animation>

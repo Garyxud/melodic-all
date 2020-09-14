@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package>
+  <name>rocon_msgs</name>
+  <version>0.9.0</version>
+  <description>
+    Communication types (msgs/srvs/actions) for robotics in concert (aka multimaster).    
+  </description>
+  <license>BSD</license>
+
+  <url type="website">http://www.ros.org/wiki/rocon_msgs</url>
+  <url type="repository">https://github.com/robotics-in-concert/rocon_msgs</url>
+  <url type="bugtracker">https://github.com/robotics-in-concert/rocon_msgs/issues</url>
+
+  <maintainer email="d.stonier@gmail.com">Daniel Stonier</maintainer>
+  <maintainer email="jihoonlee.in@gmail.com">Jihoon Lee</maintainer>
+
+  <author>Daniel Stonier</author>
+  <author>Jihoon Lee</author>
+  <author>Piyush Khandelwal</author>
+  <author>Jack O'Quin</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>concert_msgs</run_depend>
+  <run_depend>gateway_msgs</run_depend>
+  <run_depend>rocon_app_manager_msgs</run_depend>
+  <run_depend>rocon_interaction_msgs</run_depend>
+  <run_depend>concert_service_msgs</run_depend>
+  <run_depend>rocon_service_pair_msgs</run_depend>
+  <run_depend>rocon_std_msgs</run_depend>
+  <run_depend>rocon_tutorial_msgs</run_depend>
+  <run_depend>scheduler_msgs</run_depend>
+  <run_depend>rocon_device_msgs</run_depend>
+  
+  <export>
+    <metapackage/>
+  </export>
+</package>
+

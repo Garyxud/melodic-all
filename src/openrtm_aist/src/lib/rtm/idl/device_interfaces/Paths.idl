@@ -1,0 +1,68 @@
+// -*- IDL -*-
+/*!
+ * @file Paths.idl
+ * @brief Services for the Paths interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef Paths_idl
+#define Paths_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface PathPlanner2D
+{
+    /// Set the coarse path that should be planned along (minimum of two waypoints: start and end).
+    void SetTask (in Waypoint2DList coarsePath);
+};
+
+interface PathPlanner3D
+{
+    /// Set the coarse path that should be planned along (minimum of two waypoints: start and end).
+    void SetTask (in Waypoint3DList coarsePath);
+};
+
+interface PathFollower2D
+{
+    /// Set the path to be followed (minimum of two waypoints: start and end).
+    void SetPath (in Waypoint2DList path);
+
+    /// Start/stop following the path.
+    void Enable (in boolean enable);
+
+    /// Get the zero-based index of the waypoint currently being targetted.
+    unsigned short GetCurrentWaypointIndex ();
+
+    /// Get the waypoint currently being targetted.
+    Waypoint2D GetCurrentWaypoint ();
+};
+
+interface PathFollower3D
+{
+    /// Set the path to be followed (minimum of two waypoints: start and end).
+    void SetPath (in Waypoint3DList path);
+
+    /// Start/stop following the path.
+    void Enable (in boolean enable);
+
+    /// Get the zero-based index of the waypoint currently being targetted.
+    unsigned short GetCurrentWaypointIndex ();
+
+    /// Get the waypoint currently being targetted.
+    Waypoint3D GetCurrentWaypoint ();
+};
+};
+
+#endif // Paths_idl
+

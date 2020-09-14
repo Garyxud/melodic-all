@@ -1,0 +1,388 @@
+// -*- IDL -*-
+/*!
+ * @file Logger.idl
+ * @brief Component logger SDO service
+ * @date $Date$
+ * @author Noriaki Ando <n-ando@aist.go.jp>
+ *
+ * Copyright (C) 2011
+ *     Noriaki Ando
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ * $Id$
+ *
+ */
+
+#include "BasicDataType.idl"
+#include "SDOPackage.idl"
+/*!
+ * @if jp
+ * @brief コンポーネントログ収集サービスインターフェース
+ *
+ * コンポーネントのログ情報を外部から取得するためのインターフェース。コ
+ * ンポーネントに対して、本SDOサービスオブジェクトをアタッチすることで、
+ * コンポーネントが出力するログを外部から取得することができる。
+ * 
+ * @since 1.1
+ *
+ * @else
+ * @brief Component logging service interface
+ *
+ * This interface defines logging service of an RT-Component from
+ * outside. Attaching this service interface to an RT-Component, you
+ * can get logging information from the RT-Component.
+ *
+ * @since 1.1
+ * @endif
+ *
+ */
+module OpenRTM
+{
+  /*!
+   * @if jp
+   *
+   * @brief ログレベル
+   * 
+   * ログレベル。ログレベルは9段階あり、それぞれ以下の意味を持つ。
+   * 
+   *  - SILENT  : ロギング機能をオフにするための疑似レベル
+   *  - ERROR   : エラーが発生したことを意味するログレベル
+   *  - WARN    : エラーではないが注意すべき警告を意味するログレベル
+   *  - INFO    : 付加的な情報を提供するためのログレベル
+   *  - NORMAL  : 通常の情報を提供するためのログレベル
+   *  - DEBUG   : デバッグ情報を提供する際のログレベル
+   *  - TRACE   : トレースレベルの情報を提供する際のログレベル
+   *  - VERBOSE : トレース情報以上に詳細な情報を提供する際のログレベル
+   *  - PARANOID: リアルタイム周期処理実行時等の情報を提供するログレベル
+   * 
+   * @else
+   *
+   * @brief Log level
+   * 
+   * This enumeration defines log levels. The log level consists of
+   * nine levels, and each level means the following meaning.
+   * 
+   *  - SILENT  : Pseudo log level to stop logging function.
+   *  - ERROR   : This log level means that an error event is occurring.
+   *  - WARN    : This log level means that a warning event is occurring.
+   *  - INFO    : This log level used to notify information.
+   *  - NORMAL  : This log level means that an event is normal thing.
+   *  - DEBUG   : This log level used to notify debugging information.
+   *  - TRACE   : This log level used to notify trace information.
+   *  - VERBOSE : This log level used to notify more detailed information.
+   *  - PARANOID: This is used only to notify information in real-time loop.
+   *
+   * @endif
+   */
+  enum LogLevel
+  {
+    SILENT,
+    ERROR,
+    WARN,
+    INFO,
+    NORMAL,
+    DEBUG,
+    TRACE,
+    VERBOSE,
+    PARANOID
+  };
+
+  /*!
+   * @if jp
+   * @brief ログレコード構造体
+   *
+   * ログメッセージを含むログ情報を保持する構造体
+   *
+   * @else
+   * @brief Log record structure
+   *
+   * This struct defines logging information including log message.
+   *
+   * @endif
+   *
+   */
+  struct LogRecord
+  {
+    /*!
+     * @if jp
+     * @brief 時刻
+     * タイムスタンプ
+     * @else
+     * @brief Time
+     * Time stump.
+     * @endif
+     */
+    RTC::Time   time;
+
+    /*!
+     * @if jp
+     * @brief ロガー名
+     * ログを書きこんだロガーオブジェクト名
+     * @else
+     * @brief logger name
+     * The logger name which writes this record.
+     * @endif
+     */
+    string loggername;
+
+    /*!
+     * @if jp
+     * @brief ログレベル
+     * このレコードのログレベル
+     * @else
+     * @brief Log level
+     * The log level of this record
+     * @endif
+     */
+    LogLevel  level;
+
+    /*!
+     * @if jp
+     * @brief メッセージ
+     * ログメッセージ
+     * @else
+     * @brief Message
+     * Log message.
+     * @endif
+     */
+    string message;
+  };
+
+
+  /*!
+   * @if jp
+   *
+   * @interface Logger インターフェース
+   *
+   * 個別のRTCのログ情報を取得するためのサービスインターフェース。SDO
+   * Service として対象となるRTC/SDOに対してアタッチされ、RTC/SDOのログ
+   * 情報を外部から取得する。実際の処理シーケンスは以下の通りである。
+   *
+   * -# SDO::get_configuration() により Configuration オブジェクトを取得
+   * -# Configuration::add_service_profile() によりTool側の
+   *     Logger を ServiceProfile により RTC に与える。
+   *     ServiceProfile のメンバーは以下のように設定すること
+   *   - id: UUID など一意なIDを設定する。削除時にも必要になるので、Tool
+   *     側ではIDを保持しておかなければならない。
+   *   - interface_type: 当該サービスのIFRのIDを文字列として指定。RTC側で
+   *     はこの文字列により当該サービスオブジェクトを受け入れるか決定す
+   *     るため指定は必須となる。
+   *   - properties: RTC側のサービスの受け入れ側に通知するプロパティを設
+   *     定する。このサービスでは、下記のログレベル関連のプロパティを
+   *     指定する。
+   *    - service: SDOService オブジェクトの参照を指定する。
+   * -# RTC側でロガーへの書き込みが有った場合には publish() オペレーション
+   *     が LogRecord 構造体としてログメッセージやタイムスタンプをサー
+   *     ビス側に通知する。サービスを保持する側では、LogRecord内の情報
+   *     をファイルに書き込む、表示する等の方法で利用することができる。
+   * -# RTC側が終了するときには、close() オペレーションが呼び出されるの
+   *    で、サービス提供側は適切な終了処理を行う必要がある。close()が呼
+   *    ばれた場合は、remove_service_profile() により明示的にサービスを
+   *    削除する必要はない。またRTC側ではclose() を呼んだ後は、当該サー
+   *    ビスに関する情報やリソースを適切に開放しなければならない。
+   * -# ツール等のサービス提供側が終了する場合などは、
+   *    remove_service_profile() オペレーションを呼び出し、当該RTC上の
+   *    リソースを適切に開放する必要がある。RTC側は、
+   *    remove_service_profile() が呼び出された際には、当該ロギングに関
+   *    するリソースを適切に開放する必要がある。
+   *
+   * 上記のプロセスを下記シーケンス図に示す。
+   *
+   * <pre>
+   * 
+   *   [RTC]    [Configuration]           [Logger]      [Tool]
+   *     |            |                       |            |
+   *     |            | get_configuration()   |            |
+   *     |<------------------------------------------------|
+   *     |            |                       |            |
+   *     |            | add_service_profile(prof)          |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            | publish(logrecord)    |            |
+   *     |----------------------------------->|            |
+   *     |            | publish(logrecord)    |            |
+   *     |----------------------------------->|            |
+   *     |            |       :               |            |
+   *     |            |       :               |            |
+   *     |            | 1) RTCが先に終了するとき           |
+   *     |            |       :               |            |
+   *     |            | [close()]             |            |
+   *     |----------------------------------->|            |
+   *     |            |       :               |            |
+   *     |            | 2) ツールがロギングを終了するとき  |
+   *     |            |       :               |            |
+   *     |            | remove_service_profile(id)         |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            |                       x            x
+   *
+   * </pre>
+   *
+   * なお、ServiceProfile::properties に指定するプロパティとしては、
+   *
+   * - logger.log_level: (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE,
+   *                     PARANOID)
+   * - logger.filter: logger name or "ALL"
+   *
+   * がある、
+   *
+   * - logger.log_level: ERROR, WARN, INFO, NORMAL, DEBUG, TRACE,
+   *   VERBOSE またはPARANOID のうち一つを指定する。無指定の場合は
+   *   NORMAL と同等となる。指定されたレベルと同等あるいはそれより重要
+   *   な情報がロギングされる。すなわち、それぞれのログレベルを指定した
+   *   際に出力されるログは以下の関係になる。
+   *   - ERROR   : (ERROR)
+   *   - WARN    : (ERROR, WARN)
+   *   - INFO    : (ERROR, WARN, INFO)
+   *   - NORMAL  : (ERROR, WARN, INFO, NORMAL)
+   *   - DEBUG   : (ERROR, WARN, INFO, NORMAL, DEBUG)
+   *   - TRACE   : (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE)
+   *   - VERBOSE : (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE)
+   *   - PARANOID: (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARA)
+   * - logger.filter: RTC内部は、RTC本体、データポート、サービスポート
+   *   等それぞれのオブジェクトにロガーオブジェクトが存在する。このプロ
+   *   パティはロギングする対象のロガーオブジェクトをカンマ区切りで指定
+   *   する。または、ALLを指定することでRTC配下のすべてのロギングオブジェ
+   *   クトからのメッセージを受信する。無指定の場合はALLと同等になる。
+   *
+   * @else
+   * @class
+   *
+   * @interface Logger interface
+   *
+   * This interface defines logging service for each RT-Component.
+   * This service would be attached to a target RTC/SDO, and provides
+   * functionality to collect log information from remote
+   * applications.  Actual process sequences are the following.
+   *
+   * -# Get configuration object by SDO::get_configuration() 
+   * -# Attach Logger object with ServiceProfile by
+   *    Configuration::add_service_profile(). ServiceProfile should be
+   *    set as follows.
+   *   - id: An unique ID like UUID. This ID is used when this service
+   *         is removed. Tools or applications should keep the ID for
+   *         this.
+   *   - interface_type: Specify this service's IFR ID in string. This
+   *         string is used to search available service in the RTC,
+   *         and if it matches with available SDO services, this
+   *         service is accepted.
+   *   - properties: This member specifies properties to notify
+   *         information to the target RTC.  The following properties
+   *         for log level and others would be specified in this
+   *         properties.
+   *
+   *   - service: A SDOService object reference is specified.
+   * -# When logging occurs in the RTC side, the "publish()" operation
+   *    notifies a log message, time stamp and so on to the service
+   *    provider as a LogRecord structure. The service provider can
+   *    use notified information for e.g. writing to files and
+   *    showing them on the display.
+   * -# When RTC is terminated, the "close()" operation is called, and
+   *    the service provider has to terminate the logging service
+   *    properly.  In this case, tools and applications that have
+   *    service provider do not need to call remove_service_profile()
+   *    and remove the service explicitly. After calling close()
+   *    operation, the RTC has to release the service profile and
+   *    resources.
+   * -# When tools and applications terminate services, they have to
+   *    call remove_service_profile() operation, and have to release
+   *    resources in the target RTC. When remove_service_profile() is
+   *    called, the RTC have to release service profile and resources
+   *    for this service.
+   *
+   * The following diagram shows above mentioned sequence.
+   *
+   * <pre>
+   * 
+   *   [RTC]    [Configuration]           [Logger]      [Tool]
+   *     |            |                       |            |
+   *     |            | get_configuration()   |            |
+   *     |<------------------------------------------------|
+   *     |            |                       |            |
+   *     |            | add_service_profile(prof)          |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            | publish(logrecord)    |            |
+   *     |----------------------------------->|            |
+   *     |            | publish(logrecord)    |            |
+   *     |----------------------------------->|            |
+   *     |            |       :               |            |
+   *     |            |       :               |            |
+   *     |            | 1) When RTC is terminated          |
+   *     |            |       :               |            |
+   *     |            | [close()]             |            |
+   *     |----------------------------------->|            |
+   *     |            |       :               |            |
+   *     |            | 2) When tool terminates logging    |
+   *     |            |       :               |            |
+   *     |            | remove_service_profile(id)         |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            |                       x            x
+   *
+   * </pre>
+   *
+   * So far, the following properties for ServiceProfile::properties
+   * are available.
+   *
+   * - logger.log_level: (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE,
+   *                     PARANOID)
+   * - logger.filter: logger name or "ALL"
+   *
+   *
+   * - logger.log_level: One of ERROR, WARN, INFO, NORMAL, DEBUG,
+   *     TRACE, VERBOSE or PARANOID can be specified.  If no
+   *     properties are specified, it will be NORMAL.  Log messages
+   *     equals and/or more important specified log level would be
+   *     published.  The following list shows the relation between
+   *     specified level and published level.
+   *   - ERROR   : (ERROR)
+   *   - WARN    : (ERROR, WARN)
+   *   - INFO    : (ERROR, WARN, INFO)
+   *   - NORMAL  : (ERROR, WARN, INFO, NORMAL)
+   *   - DEBUG   : (ERROR, WARN, INFO, NORMAL, DEBUG)
+   *   - TRACE   : (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE)
+   *   - VERBOSE : (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE)
+   *   - PARANOID: (ERROR, WARN, INFO, NORMAL, DEBUG, TRACE, VERBOSE, PARA)
+   * - logger.filter: Some logger objects exist in some object of an
+   *     RTC such as RTC body, data port, service port and so on.
+   *     Some logger objects exist in some object of an RTC such as
+   *     RTC body, data port, service port and so on.  This properties
+   *     specify target logger names separated with commas.  If ALL is
+   *     specified, all the logger's messages under the target RTC's
+   *     logger would be published.  If no property is specified, all
+   *     the messages will be published.
+   *
+   * @endif
+   *
+   */
+  interface Logger
+    : SDOPackage::SDOService
+  {
+    /*!
+     * @if jp
+     * @brief ログメッセージ配信
+     * ログメッセージを配信する
+     * @else
+     * @brief Publish log message
+     * This operation publishes log message.
+     * @endif
+     */
+    oneway void publish(in LogRecord record);
+
+    /*!
+     * @if jp
+     * @brief サービスの終了
+     * ロギングサービスの終了を通知する
+     * @else
+     * @brief Terminate service
+     * This operation notifies logging service.
+     * @endif
+     */
+    void close();
+  };
+};
+

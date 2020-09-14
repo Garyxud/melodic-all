@@ -1,0 +1,16 @@
+# Rules list specifying interactions with a remote gateway.
+# Depending on the service, this gets used for either flips or pulls.
+
+# List of flip/pull rules
+RemoteRule[] remotes
+
+# if true, attempt to cancel an existing flip rather than creating it
+bool cancel
+
+---
+
+# Return a verbose error string to help with debugging if success fails.
+# Strings defined in gateway_msgs.ErrorCodes
+int8 result
+string error_message
+

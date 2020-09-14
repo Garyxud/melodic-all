@@ -1,0 +1,5 @@
+uint32 set_pins
+uint32 clear_pins
+---
+bool success
+

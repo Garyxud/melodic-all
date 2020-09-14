@@ -1,0 +1,41 @@
+// -*- IDL -*-
+/*!
+ * @file AIO.idl
+ * @brief Services for the AIO interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef AIO_idl
+#define AIO_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface AIO
+{
+    /// Get the number of channels available in the device.
+    unsigned short NumChannels ();
+
+    /// Set a reference level for one of the channels of the device.
+    /// @param index Zero-based index of the channel.
+    /// @param level New reference level, in volts.
+    void SetReferenceLevel (in unsigned short index, in double level);
+
+    /// Get the resolution of a channel.
+    /// @param index Zero-based index of the channel.
+    double GetResolution (in unsigned short index);
+};
+};
+
+#endif // AIO_idl
+

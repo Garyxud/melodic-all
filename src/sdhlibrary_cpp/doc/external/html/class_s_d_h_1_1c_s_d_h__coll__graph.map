@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$class_s_d_h_1_1c_s_d_h_base.html" title="The base class to control the SCHUNK Dexterous Hand." alt="" coords="379,365,667,936"/>
+<area shape="rect" id="node11" href="$class_s_d_h_1_1c_s_d_h_serial.html" title="The class to communicate with a SDH via RS232." alt="" coords="192,1003,360,2978"/>
+<area shape="rect" id="node4" href="$class_s_d_h_1_1c_d_b_g.html" title="A class to print colored debug messages." alt="" coords="251,5,357,264"/>
+<area shape="rect" id="node8" href="$class_s_d_h_1_1c_serial_base.html" title="Low&#45;level communication class to access a serial port." alt="" coords="5,469,173,832"/>
+<area shape="rect" id="node6" href="$class_s_d_h_1_1c_simple_vector.html" title="A simple vector implementation." alt="" coords="452,5,593,264"/>
+<area shape="rect" id="node14" href="$class_s_d_h_1_1c_simple_string_list.html" title="A simple string list. (Fixed maximum number of strings of fixed maximum length)" alt="" coords="197,547,355,754"/>
+<area shape="rect" id="node17" href="$class_s_d_h_1_1c_unit_converter.html" title="Unit conversion class to convert values between physical unit systems." alt="" coords="435,1801,584,2181"/>
+</map>

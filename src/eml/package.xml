@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+   <name>eml</name>
+   <version>1.8.15</version>
+   <description>
+      This is an implementation of the EtherCAT master protocol for the PR2
+      robot based on the work done at Flanders' Mechatronics Technology Centre.
+   </description>
+
+   <maintainer email="dave@cse.unr.edu">David Feil-Seifer</maintainer>
+
+   <author>Austin Hendrix</author>
+   <license>Binary Only</license>
+   <author>Tom Panis</author>
+   <author>Klaas Gadeyne</author>
+   <author>Bob Koninckx</author>
+
+   <buildtool_depend>cmake</buildtool_depend>
+   <run_depend>catkin</run_depend>
+
+   <export>
+      <build_type>cmake</build_type>
+      <doxymaker external="https://github.com/redheli/ethercat"/>
+   </export>
+</package>

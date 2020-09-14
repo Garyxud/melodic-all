@@ -1,0 +1,30 @@
+qi_create_gmock(
+  test_ka
+  SRC
+    "ark/test_mutable.cpp"
+    "test_algorithm.cpp"
+    "test_conceptpredicate.cpp"
+    "test_empty.cpp"
+    "test_errorhandling.cpp"
+    "test_functional.cpp"
+    "test_functional_common.hpp"
+    "test_integersequence.cpp"
+    "test_macro.cpp"
+    "test_macroregular.cpp"
+    "test_moveoncopy.cpp"
+    "test_mutablestore.cpp"
+    "test_opt.cpp"
+    "test_range.cpp"
+    "test_relationpredicate.cpp"
+    "test_scoped.cpp"
+    "test_sha1.cpp"
+    "test_src.cpp"
+    "test_testutils.cpp"
+    "test_typetraits.cpp"
+    "test_unit.cpp"
+    "test_utility.cpp"
+  DEPENDS
+    ASSUME_SYSTEM_INCLUDE BOOST BOOST_SYSTEM BOOST_THREAD BOOST_DATE_TIME OPENSSL
+  TIMEOUT
+    120
+)

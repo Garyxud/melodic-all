@@ -1,0 +1,15 @@
+<launch>
+    <node name="tf_base_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 odom base_link 100" />
+
+    <node name="tf_left_track" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 base_link left_track 10" />
+    <node name="tf_front_left_flipper" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 left_track front_left_flipper 10" />
+    <node name="tf_front_left_flipper_endpoint" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 front_left_flipper front_left_flipper_endpoint" />
+    <node name="tf_rear_left_flipper" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 left_track rear_left_flipper 10" />
+    <node name="tf_rear_left_flipper_endpoint" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 rear_left_flipper rear_left_flipper_endpoint" />
+
+    <node name="tf_right_track" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 base_link right_track 10" />
+    <node name="tf_front_right_flipper" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 right_track front_right_flipper 10" />
+    <node name="tf_front_right_flipper_endpoint" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 front_right_flipper front_right_flipper_endpoint" />
+    <node name="tf_rear_right_flipper" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 right_track rear_right_flipper 10" />
+    <node name="tf_rear_right_flipper_endpoint" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 rear_right_flipper rear_right_flipper_endpoint" />
+</launch>

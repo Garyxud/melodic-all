@@ -1,0 +1,448 @@
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changelog for package hironx_ros_bridge
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.2.0 (2020-05-13)
+------------------
+* force set ORBgiopMaxMsgSize=2147483648  for hironx_client.py (`#540 <https://github.com/start-jsk/rtmros_hironx/issues/540>`_)
+
+  * increase test_no_moveit
+  * hot fix for https://github.com/start-jsk/rtmros_hironx/issues/539
+    On 16.04 (omniorb4-dev 4.1) if we start openhrp-model-loader with   <env name="ORBgiopMaxMsgSize" value="2147483648" /> all connection(?) conect respenct giopMaxMsgSize
+    But on 18.04 (omniorb4-dev 4.2) wnneed to set ORBgiopMaxMsgSize=2147483648  for each clients
+
+* [hironx_ros_bridge] Enable to run CollisionDetector RTC by setting conf (Robot.conf) (`#535 <https://github.com/start-jsk/rtmros_hironx/issues/535>`_)
+
+  * [hironx_ros_bridge] Simplify CollisionDetector disabling specific to HIRONX
+  * [hironx_ros_bridge] Generalize disabling/enabling RTCs from conf
+  * [hironx_ros_bridge] Enable to run CollisionDetector RTC by setting conf (Robot.conf)
+  * [hironx_ros_bridge] Add test to check if CollisionDetector is disabled with default conf
+  * [hironx_ros_bridge] Add test to disable/enable RTCs from conf
+
+* Contributors: Kei Okada, Shun Hasegawa
+
+2.1.1 (2019-02-20)
+------------------
+* Avoid node clashing when USE_COLLISIONCHECK is true (`#528 <https://github.com/start-jsk/rtmros_hironx/issues/528>`_ )
+* hironx_ros_bridge/test/test-hironx-ros-bridge.test: increse time-limit from 100 to 200 (`#531 <https://github.com/start-jsk/rtmros_hironx/issues/531>`_ )
+
+  * increse time-limit from 100 to 200, to solve https://api.travis-ci.org/v3/job/407698809/log.txt
+
+* fix python_qt_binding for qt5 (`#525 <https://github.com/start-jsk/rtmros_hironx/issues/525>`_ )
+* hironx_ros_bridge/src/hironx_ros_bridge/old_api.py: add python file to support old api (`#521 <https://github.com/start-jsk/rtmros_hironx/issues/521>`_ )
+* Contributors: Guilherme Affonso, Kei Okada, Felix von Drigalski
+
+2.1.0 (2017-09-07)
+------------------
+* get nshost from rtmnameserver, sometimes nshost is different from rosmaster (`#513 <https://github.com/start-jsk/rtmros_hironx/issues/513>`_)
+* hironx_ros_bridge_real.launch: support HRPSYS_PY\_{PKG,NAME,ARGS} as https://github.com/start-jsk/rtmros_common/blob/master/hrpsys_tools/launch/hrpsys.launch#L97-L103 (`#514 <https://github.com/start-jsk/rtmros_hironx/issues/514>`_)
+* Add hand_joint_state_publisher.py for 2017/Feb? verison of MoveIt, that strictly requrired all robot states for planning (`#519 <https://github.com/start-jsk/rtmros_hironx/issues/519>`_)
+* Contributors: Kei Okada, Ryosuke Tajima
+
+2.0.0 (2017-08-10)
+------------------
+* [ros_bridge.py][startImpedance_315_3] More precise error message. (`#502 <https://github.com/start-jsk/rtmros_hironx/issues/502>`_)
+  *  When run by itself, `getImpedanceControllerParam` command at least finishes, so it's not failing. The error message is a bit misleading about what happened internally in `startImpedance_315_3` method.
+
+* use docker to run tests and add kinetic test (`#517 <https://github.com/start-jsk/rtmros_hironx/issues/517>`_ from k-okada/kinetic)
+  * fix install(CDOE
+  * use control_msgs is pr2_controllers_msgs is not exists
+  * test/test-hironx.test: add retry=4
+  * remove pr2_controller_msgs and use control_msgs
+
+* enable to output forcesensor value on simulation (`#510 <https://github.com/start-jsk/rtmros_hironx/issues/510>`_)
+
+* [qnx dynpick] Add a working setting to start sensor drivers connected via USB hub (`#509 <https://github.com/start-jsk/rtmros_hironx/issues/509>`_)
+* robot_description before staring ROS_Client (RobotCommander) (`#511 <https://github.com/start-jsk/rtmros_hironx/issues/511>`_)
+* clearOfGroup after setTargetPose breaks sequencer (`#505 <https://github.com/start-jsk/rtmros_hironx/issues/505>`_)
+  * [ros_bridge] Set hrpsys version limitation to some methods.
+  * temporaly workaround utnil https://github.com/fkanehiro/hrpsys-base/pull/1141, send setJointAnglesOfGrup to clear sequencer
+  * add test to check https://github.com/tork-a/rtmros_nextage/issues/332 situation
+
+* Contributors: Isaac I.Y. Saito, Kei Okada
+
+1.1.25 (2017-06-02)
+-------------------
+* [QNX log fetch] Fix to get it working again.
+* [QNX log fetch] Add a feature to remove existing .log files on QNX to save disk space. `#508 <https://github.com/start-jsk/rtmros_hironx/pull/508>`_
+* Contributors: Isaac I.Y. Saito
+
+1.1.24 (2017-05-09)
+-------------------
+* [py] Better error msg, better doc about impedance control. `#496 <https://github.com/start-jsk/rtmros_hironx/pull/496>`_, `#499 <https://github.com/start-jsk/rtmros_hironx/pull/499>`_
+* Contributors: Isaac I.Y. Saito
+
+1.1.23 (2017-04-03)
+-------------------
+* [enhancement][test] Common testcase module location change `#490 <https://github.com/start-jsk/rtmros_hironx/issues/490>`_.
+* [doc] More elaboration on startImpedance* methods.
+* Contributors: Isaac I.Y. Saito
+
+1.1.22 (2017-03-24)
+-------------------
+* [Improve][rtm py] Return more specific error when actual error occurs. `#487 <https://github.com/start-jsk/rtmros_hironx/issues/487>`_.
+* [test] Export a common test py module. `#490 <https://github.com/start-jsk/rtmros_hironx/issues/490>`_.
+* Contributors: Isaac I.Y. Saito
+
+1.1.21 (2017-03-16)
+-------------------
+* [fix][hironx py] Let setTargetPose fail when invalid kinematic group name passed. `#470 <https://github.com/start-jsk/rtmros_hironx/pull/470>`_
+* [capability][hrpsys-sim] Add hand camera feature.
+* [capability] Add rviz.launch. Now you can run RViz with a default view (without running MoveIt! when you don't need to).
+
+1.1.20 (2017-02-09)
+-------------------
+* [Capability] Enable head cameras for hrpsys simulator.
+* Contributors: Kei Okada
+
+1.1.19 (2017-01-12)
+-------------------
+* [fix] more precision on end effector's location
+* [fix][dynpick qnx driver] compilation.
+* [fix][hironx script] Correct exception when no ROS master found.
+* [fix] updated translation of last joint to match CAD data. updated arm end translation
+* Contributors: Hajime SAITO, Isaac I.Y. Saito, Kei Okada
+
+1.1.18 (2016-10-28)
+-------------------
+* [fix] servoOn error that returns always -1 for robots without Servo Controller RTC for hands. See https://github.com/start-jsk/rtmros_hironx/pull/398#pullrequestreview-5575278
+* Contributors: Isaac I.Y. Saito
+
+1.1.17 (2016-10-13)
+-------------------
+* [fix] Fix versioning; use StrictVersion to compare version string
+* [improve] acceptancetest_hironx.py: display what to do
+* [fix] acceptancetest to work with gazebo environment
+* [improve] ros_client.py : for ros_clinet to use control_msgs instaed of pr2_controllers, this should work on latest hrpsys_ros_bridge which support both interface
+* Contributors: Kei Okada
+
+1.1.16 (2016-07-11)
+-------------------
+* [fix] Use existing running hrtpsy components when available (fix to `tork-a/rtmros_nextage/#248 <https://github.com/tork-a/rtmros_nextage/issues/248>`_)
+* [fix][hironx.py] Remove an arg that was merged by mistake.
+* Contributors: Isaac I.Y. Saito, Kei Okada
+
+1.1.15 (2016-06-02)
+-------------------
+
+1.1.14 (2016-05-19)
+-------------------
+* [fix] remove duplicate functions, put them in upstream
+* [enhance][hironx.py] easier default model file location when operating the real robot.
+* Contributors: Kei Okada, Isaac I.Y. Saito
+
+1.1.13 (2016-05-16)
+-------------------
+* [fix] Correct collada file location for real robot.
+* [sys] Add better test for ros_client
+* Contributors: Kei Okada, Isaac I.Y. Saito
+
+1.1.12 (2016-05-05)
+-------------------
+* [fix][RTM py] Remove redundant connection for impedance controller RTC.
+* [fix][ROS py] fix segfault on ros_client exit.
+* [feat] Add QNX driver for Dynpick F/T sensor.
+* Contributors: Isaac Kei Okada, I.Y. Saito
+
+1.1.11 (2016-02-18)
+-------------------
+* [fix][rqt dashboard] Enable to connect remote RTM nameserver (Fix #429)
+* [doc][hironx py] Add doc for overridden methods
+* Contributors: Isaac I.Y. Saito
+
+1.1.10 (2016-02-11)
+-------------------
+* use stupid code instead of using termcolor #437
+* Contributors: Kei Okada
+
+1.1.9 (2016-02-11)
+------------------
+* [fix] test_depend on unittest seems no longer necessary Indigo onward
+* Contributors: Isaac I.Y. Saito
+
+1.1.8 (2016-02-09)
+------------------
+* [fix][ROS_Client] Correctly import termcolor. Better error handling (Fix `#436 <https://github.com/start-jsk/rtmros_hironx/issues/436>`_)
+* Contributors: Isaac I.Y. Saito
+
+1.1.7 (2016-02-05)
+------------------
+* [fix] ROS py client gets stuck when ros master is not running (`#430 <https://github.com/start-jsk/rtmros_hironx/issues/430>`_)
+* [fix] RTM py client not printing upon checkEncoders failure (`#428 <https://github.com/start-jsk/rtmros_hironx/issues/428>`_)
+* Contributors: Isaac I.Y. Saito
+
+1.1.6 (2016-02-03)
+------------------
+* [fix] calibration bug (checkEncoders) `#227 <https://github.com/tork-a/rtmros_nextage/issues/227>`_
+* Contributors: Isaac I.Y. Saito, Hajime Saito
+
+1.1.5 (2016-01-26)
+------------------
+* [feat][moveit config, ROS_CLient] Upperbody move group. Add more fundamental command.
+* [feat][moveit config, ROS_CLient] More fundamental command.
+* [feat][moveit config] Factory-init pose for MoveIt! reserved pose.
+* [feat] Rename both arms group to adjust to that of NEXTAGE Open.
+* [feat][ROS_Client] Exporting move group members publicly.
+* [feat][ROS_Client] Remove some standalone methods that are less maintained. Instead, utilize more from MoveIt! RobotCommander and MoveitCommander.
+* Contributors: Isaac I.Y. Saito
+
+1.1.4 (2016-01-25)
+------------------
+* [fix] servoOn debug msg failure (`#425 <https://github.com/start-jsk/rtmros_hironx/issues/425>`_)
+* [fix][ROS_Client] Implement missing methods `#421 <https://github.com/start-jsk/rtmros_hironx/issues/421>`_
+* [feat][ROS_Client] ROS client now Inherits moveitcommander.RobotCommander class.
+* [feat][hironx/rqt dashboard] Add HiroNXO specific commands
+* Contributors: Kei Okada, pazeshun, Isaac I.Y. Saito, 
+
+1.1.3 (2015-12-16)
+------------------
+* [fix] add error msg when checkEncoders did not go well
+* [sys] add test for head and waste joints
+* Contributors: Isaac I.Y. Saito
+
+1.1.2 (2015-11-11)
+------------------
+* [sys] Add a testcase for checking `#335 <https://github.com/start-jsk/rtmros_hironx/issues/335>`_
+* [sys] add DEBUG_HRPSYS argument
+* [sys] Remove redundant install rule
+* [sys][travis] Drop rosbuild checking for Indigo onward
+* Contributors: Isaac I.Y. Saito, Kei Okada
+
+1.1.1 (2015-11-02)
+------------------
+* [improved] Elaborate print message upon hands servo-on failure
+* [fix] Disable EKF that causes unnecessary error (unless robot moves)
+* Contributors: Isaac I.Y. Saito
+
+1.0.37 (2015-09-11)
+-------------------
+* [test] Optimize rostest time-limit 
+* Contributors: Shunichi Nozawa
+
+1.0.36 (2015-08-24)
+-------------------
+* [feat] Add dual-arm moveit group
+* Contributors: Isaac IY Saito
+
+1.0.35 (2015-08-14)
+-------------------
+* [feat] show Hrpsys host controller version info
+* [sys] Install missing older IDL (hrpsys_315_1_9.hrpsys) to increase compatibility with older version of hrpsys host
+* [test] Generalization, add some robust tests (test_set_target_pose_relative_333 will be fail for old hrpsys https://github.com/start-jsk/rtmros_hironx/pull/334)
+* Contributors: Kei Okada, Isaac IY Saito
+
+1.0.34 (2015-08-04)
+-------------------
+* [fix] Don't initialize ROS client if robot_description is not found
+* Contributors: Kei Okada
+
+1.0.33 (2015-07-30)
+-------------------
+* [fix] Fix unusual Hironx robot host name in launch file.
+* [fix] Cleaner tf frame (BODY_LINK to WAIST)
+* [sys] More robust unit test 
+* Contributors: Ryosuke, Shunichi Nozawa, Isaac IY Saito
+
+1.0.32 (2015-07-16)
+-------------------
+* [feat] force compensation for old hrpsys version
+* [Doc] Indigo update. hironx clarification for conf files.
+* [sys] Remove manifest.xml from hironx_ros_bridge package.
+* Contributors: Kei Okada, TORK Developer 534, Isaac I.Y. Saito
+
+1.0.31 (2015-04-28)
+-------------------
+* (Improvement) [hironx_client.py] need to support newer version of idl (https://github.com/fkanehiro/hrpsys-base/pull/580)
+* Contributors: Kei Okada
+
+1.0.30 (2015-04-16)
+-------------------
+* [hironx_client.py] fix due to API changes https://github.com/fkanehiro/hrpsys-base/pull/555/files
+* [test/test-hirionx-ros-bridge-send-pose.launch] remove some of test sequence to pass travis
+* [test/test-hirionx-ros-bridge-send-test.launch] remove some of test sequence to pass travis
+* (robot) Add OSS log files on QNX fetch script.
+* Contributors: Isaac IY Saito, Kei Okada
+
+1.0.29 (2015-04-06)
+-------------------
+* Feature
+
+ * [robot-compile-hrpsys.sh] Optimization (remove downloaded source file, this consumes hdd spaces)
+ * [kawada-hironx.dae, test_hironx.py] add forcesensor in dae model and update test_impedance_Controller
+
+* Fix
+
+ * [hironx_client.py] Enable to work on older hrpsys (possible fix to `#337 <https://github.com/start-jsk/rtmros_hironx/issues/337>`_)
+ * Let the build of JR3 driver pass (by reverting unnecessary lint-ization (fix `#271 <https://github.com/start-jsk/rtmros_hironx/issues/271>`_))
+ * [hironx_ros_bridge] hironx_ros_bridge.launch: collision detector use component, not plugin so instance name is not co, but CollisionDetector
+
+* UnitTest
+ * [*.test] short time-limit because travis raise error if we do get any output for 10 min
+ * [hironx_ros_bridge/test] Modularize test cases
+ * [test-hironx-ros-bridge.test] add retry=2 for test_hironx_ros_bridge.py
+ * [test_hironx.py] Check version of hrpsys for impedance_controller
+ * [test_hironx_ik.py] add test code to check `#319 <https://github.com/start-jsk/rtmros_hironx/issues/319>`_
+ * relax test code, that `#287 <https://github.com/start-jsk/rtmros_hironx/issues/287>`_ is not closed
+
+* Contributors: Kei Okada, Isaac IY Saito
+
+1.0.28 (2015-02-06)
+-------------------
+* Add rqt hironx_dashboard.
+* Now users can pecify a reference frame with set/get* methods of hrpsys_config.
+* Now hironx.py is called from launch file so that hrpsys init process can be completed only by launch file. Also if robot_description_semantic is not found, warn and do not start ros_client.
+* Better handling force sensor (See `#462 <https://github.com/fkanehiro/hrpsys-base/pull/462>`_).
+* Enormous improvement for QNX installer.
+* (doc) Add backup text files of tutorial (http://wiki.ros.org/rtmros_nextage/Tutorials).
+* Contributors: Kei Okada, Shunichi Nozawa, Daiki Maekawa, Isaac IY Saito
+
+1.0.27 (2014-11-04)
+-------------------
+* fix roobt-script-date.tgz name
+* (hrpiob) Add missing files.
+* Contributors: Isaac IY Saito, Kei Okada
+
+1.0.26 (2014-10-07)
+-------------------
+* (hironx_calient.py) check if rmfo is defined in HrpsysConfigurator
+* (hironx_ros_bridge) Add hrpiob files under multi-license.
+* (hironx_ros_bridge) add missing run_depend package.
+* Contributors: Hiroaki Yaguchi, Isaac IY Saito, Kei Okada
+
+1.0.25 (2014-10-03)
+-------------------
+* (hironx_ros_bridge)
+
+  * Add impedance controller.
+  * Add Kinect launch file.
+* Contributors: Hiroaki Yaguchi, Isaac IY Saito, Kei Okada
+
+1.0.24 (2014-09-16)
+-------------------
+* (hironx.py)
+
+  * Start ROS_Client in addition to RTM client (HIRONX).
+  * if hrpsys_config.py is not new, then client must know fk version.
+* Add roslint. Code cleaned to pass roslint
+* Contributors: Kei Okada, Isaac IY Saito
+
+1.0.23 (2014-09-02)
+-------------------
+* (ROS cpp client) Export the right lib file (Fix `#229 <https://github.com/start-jsk/rtmros_hironx/issues/229>`_).
+* (hironx ROS client py) Add cartesian set target method. Acceptance test for it is not working yet.
+* (hironx_ros) Split constants as a class.
+* Contributors: Isaac I.Y. Saito
+
+1.0.22 (2014-08-26)
+-------------------
+* (RTM client) Remove redundant implementation of derived methods. Now the API doc of the methods derived from the super class, we need to refer to `the upstream repository <https://github.com/fkanehiro/hrpsys-base/blob/master/python/hrpsys_config.py>`_ until an alternative solution is introduced (`discussed in <https://github.com/fkanehiro/hrpsys-base/issues/268>`_).
+* Add hironx ros cpp client and its acceptance test by @iory
+* (robot install) Many improvements.
+  * Store ssh connection
+* Depency improvement (removed hrpsys trajectory_msgs and pr2_controller_msgs that are transitively handled in hrpsys_ros_bridge, see `#208 <https://github.com/start-jsk/rtmros_hironx/issues/208>`_)
+* Contributors: Isaac I.Y. Saito, Kei Okada, Iory Yanokura
+
+1.0.21 (2014-08-11)
+-------------------
+* (robot installability check) 
+
+  * Update md5sum to 7/17/2014 KWD version.
+  * Update checker QNX binary.
+  * Many improvements (no duplicate ssh password. Add tool's version. Fix memory-checking regex).
+  * save result to db.
+  * save hrpsys veresion.
+
+* (test_hironx_ros_bridge) add assertion, fix to work on simulation.
+* (doc) Add unit tests policy.
+* Contributors: Kei Okada, Isaac I.Y. Saito
+
+1.0.20 (2014-07-31)
+-------------------
+* Add ROS client. See acceptancetest_hironx.py for usage sample.
+* acceptancetest_hironx.py:
+  * Add tasks written in ROS. 
+  * Add option to wait kb input before every task.
+  * Move location to /scripts so that you can call by `ipython -i `rospack find hironx_ros_bridge`/scripts/acceptancetest_hironx.py` (similar to `hironx.py`).
+* Add doc about launch and test files.
+* Contributors: Isaac IY Saito
+
+1.0.19 (2014-07-28)
+-------------------
+* Enable RobotHardwareServiceROSBridge for when working with real robot. Fixes `#138 <https://github.com/start-jsk/rtmros_hironx/issues/138>`_ (servoOn/Off issue).
+* (hironx_client) Add readDigitalOut.
+* Robot installation
+  * (robot-compile-openrtm.sh) Fix: Non-existent path. Add more instruction message.
+  * (visionpc_install_setup.sh) Minor update (Add ros desktop-full, remove unnecessary Ubuntu init folders, ros env setting for nxouser)
+* Contributors: Isaac IY Saito
+
+1.0.18 (2014-07-21)
+-------------------
+* (hironx_client) Fixed some methods not returning what super class returns.
+* Contributors: Isaac IY Saito
+
+1.0.17 (2014-07-13)
+-------------------
+* 1st fully functional release (robot-compile-setup.sh, robot-system-check).
+* Add install script for Vision PC Ubuntu.
+* Add Nitta JR3 driver
+* Adjust a few launch files to accommodate servo controller argument.
+* Contributors: Kei Okada, Isaac IY Saito, Hajime Saito
+
+1.0.16 (2014-07-08)
+-------------------
+* First release of install script suites (for QNX)
+* (test-hironx.test, test-hironx-ros-bridge.test) Add omniNames script to start it on ros buildfarm (see https://github.com/start-jsk/rtmros_common/issues/416#issuecomment-46846623)
+* (hironx_ros_bridge.launch) Pass corba port to collision detector launch
+* hironx_ros_bridge_real.launch, enable ServoController for real robot
+* Contributors: Kei Okada, Isaac IY Saito
+
+1.0.15 (2014-06-22)
+-------------------
+* fix `#107 <https://github.com/start-jsk/rtmros_hironx/issues/107>`_
+* Add acceptance test code for hrpsys-based api.
+* (hironx_client.py) api document improved.
+* (test_hironx.py) Add a testcase to check both arms simultaneous operation
+* Launch collision detection viewer ("natto"-view) by default.
+* (test-hironx-ros-bridge.test) Accept corba port input
+* (robot/robot-compile-hrpsys.sh) update to use github
+* (hironx_client.py) Improve arg name (#issues61#issuecomment-37535993)
+* (test_hironx.py, test_hironx_ik.py, test_hironx_ros_bridge.py) relax test condition to pass travis
+* rename test-hironx-ros-bridge.launch -> test-hironx-ros-bridge.test
+* Add depends to gnuplot for test, currently our travis code does not see test_depends so add them to the {build,run}_depend
+* (`#81 <https://github.com/start-jsk/rtmros_hironx/issues/81>`_) set test code for simulation environment
+* add roslang/rosbash to depends for roslib.load_manifest()
+* Contributors: Isaac IY Saito, Kei Okada
+
+1.0.14 (2014-03-07)
+-------------------
+* Fix https://github.com/start-jsk/rtmros_hironx/issues/45 Add versioned build_dependency.
+* Contributors: Isaac Isao Saito
+
+1.0.13 (2014-03-06)
+-------------------
+* Add comment to clarify necessary build_depend.
+* quick hack for missing python-tk on hrpsys/waitInput.py
+* disable test-hironx-ros-bridge for now
+* Comform to python file naming scheme so that test files run from travis
+* use pkg-config --variable=idl_dir openhrp3.1 to specify openhrp3 directory
+* support corbaport arguments
+* Enable rostest
+* Contributors: Isaac Isao Saito, Kei Okada
+
+1.0.12 (2014-02-26)
+-------------------
+* Adding and improving unit test files.
+* Adding travis conf files.
+* Adding more checker programs for robot's internal os.
+* Contributors: Isaac Isao Saito, Kei Okada
+
+1.0.11 (2014-02-19)
+-------------------
+* Moved from googlecode.com to github.
+* (hironx_client.py) Documenting a bunch. Removed humanoid specific methods.
+* (hironx.py) fix to `#14 <https://github.com/start-jsk/rtmros_hironx/issues/14>`_
+* add checker program for robot's internal os
+* (test-hironx.py) quick fix to get it run with a real robot. This needs enhancement for versatility. Also removed test_goOffpose that interrupt the testing sequence by turning down servo.
+* Fix the same issue with https://github.com/tork-a/rtmros_nextage/issues/25#issuecomment-32332068 by the same patch (https://github.com/tork-a/rtmros_nextage/commit/d4268d81ec14a514bb4b3b52614c81e708dd1ecc#diff-20257dd6ad60c0892cfb122c37a8f2ba)
+* (hironx.py) Use generic name for the robot instance. This enables users on the script commandline (eg. ipython0 to run the same commands without asking them to specifically tell what robot they're using (eg. hiro, nxc). This is backward compatible so that users can still keep using `hiro`.
+* Contributors: Isaac Isao Saito, Kei Okada

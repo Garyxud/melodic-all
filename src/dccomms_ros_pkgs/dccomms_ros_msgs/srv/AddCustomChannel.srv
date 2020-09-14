@@ -1,0 +1,7 @@
+uint32 id
+float64 minPrTime
+float64 prTimeIncPerMeter
+string logLevel
+---
+bool res
+

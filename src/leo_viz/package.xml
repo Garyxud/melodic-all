@@ -1,0 +1,25 @@
+<package format="2">
+  <name>leo_viz</name>
+  <version>0.2.0</version>
+  <description>
+    Visualization launch files and RViz configurations for Leo Rover
+  </description>
+
+  <author>Błażej Sowa</author>
+
+  <maintainer email="support@fictionlab.pl">fictionlab</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>rviz</exec_depend>
+
+  <exec_depend>leo_description</exec_depend>
+
+  <export>
+  </export>
+</package>

@@ -1,0 +1,74 @@
+<launch>
+
+  <arg name="gui" default="true"/>
+
+  <node name="sample_simulate_tabletop_cloud"
+        pkg="jsk_pcl_ros" type="sample_simulate_tabletop_cloud.py"/>
+
+  <node name="sample_manager"
+        pkg="nodelet" type="nodelet"
+        args="manager"/>
+
+  <node name="plane_supported_cuboid_estimator"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/PlaneSupportedCuboidEstimator /sample_manager">
+    <param name="sensor_frame" value="sensor_frame"/>
+    <remap from="~input" to="sample_simulate_tabletop_cloud/output"/>
+    <remap from="~fast_input" to="sample_simulate_tabletop_cloud/output"/>
+    <remap from="~input/polygon" to="sample_simulate_tabletop_cloud/output/polygon"/>
+    <remap from="~input/coefficients" to="sample_simulate_tabletop_cloud/output/coef"/>
+    <rosparam>
+      init_local_position_z_min: 0.05
+      init_local_position_z_max: 0.25
+      step_x_variance: 0.0001
+      step_y_variance: 0.002
+      step_z_variance: 0.002
+      step_roll_variance: 0.000001
+      step_pitch_variance: 0.000001
+      step_yaw_variance: 0.001
+      step_dx_variance: 0.0
+      step_dy_variance: 0.0
+      step_dz_variance: 0.0
+      init_dx_variance: 0.0
+      init_dy_variance: 0.0
+      init_dz_variance: 0.0
+      init_dx_mean: 0.1
+      init_dy_mean: 0.1
+      init_dz_mean: 0.1
+      particle_num: 1000
+      use_occlusion_likelihood: true
+      use_range_likelihood: true
+      range_likelihood_local_min_z: 0.05
+      range_likelihood_local_max_z: 0.1
+    </rosparam>
+  </node>
+
+  <node name="interactive_cuboid_likelihood"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/InteractiveCuboidLikelihood /sample_manager">
+    <remap from="~input" to="plane_supported_cuboid_estimator/output/candidate_cloud"/>
+    <param name="sensor_frame" value="sensor_frame"/>
+  </node>
+
+  <node name="sensor_frame"
+        pkg="jsk_interactive_marker" type="marker_6dof">
+    <rosparam>
+      publish_tf: true
+      tf_frame: sensor_frame
+      frame_id: odom
+      object_x: 0.1
+      object_y: 0.1
+      object_z: 0.1
+      initial_z: 2.0
+      initial_x: -0.5
+      initial_orientation: [0.641, 0.759, 0.052, 0.102]
+    </rosparam>
+  </node>
+
+  <group if="$(arg gui)">
+    <node name="rviz"
+          pkg="rviz" type="rviz"
+          args="-d $(find jsk_pcl_ros)/sample/rviz/plane_supported_cuboid_estimator.rviz"/>
+  </group>
+
+</launch>

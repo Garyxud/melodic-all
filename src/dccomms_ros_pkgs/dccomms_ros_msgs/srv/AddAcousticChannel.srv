@@ -1,0 +1,18 @@
+uint32 id
+
+#Bandwidth of propagation in Hz
+float64 bandwidth
+
+#Temperature of water (C)
+float64 temperature
+
+#Salinty of water (ppt)
+float64 salinity
+
+#Noise level in dB
+float64 noiseLvl
+
+#Logging
+string logLevel
+---
+bool res

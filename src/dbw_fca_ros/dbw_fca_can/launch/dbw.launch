@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="live" default="true" />
+  <arg name="load_urdf" default="true" />
+  <arg name="ulc" default="true" />
+  <arg name="vehicle_ns" default="vehicle" />
+  <arg name="can_ns" default="/can_bus_dbw" />
+
+  <!-- CAN Bus Hardware -->
+  <arg name="filter_can" default="true" />
+  <node if="$(arg live)" pkg="dataspeed_can_usb" type="can_node" name="can_node" output="screen">
+    <remap from="can_bus_1" to="can_bus_1"/>
+    <param name="bitrate_1" value="0" />
+    <remap from="can_bus_2" to="can_bus_2"/>
+    <param name="bitrate_2" value="0" />
+    <remap from="can_bus_3" to="$(arg can_ns)"/>
+    <param name="bitrate_3" value="500000" />
+    <param name="channel_3_mask_0"  value="0x800007E0" if="$(arg filter_can)" />
+    <param name="channel_3_match_0" value="0x00000060" if="$(arg filter_can)" /> <!-- SID 0x060 to 0x07F -->
+    <remap from="can_bus_4" to="can_bus_4"/>
+    <param name="bitrate_4" value="0" />
+  </node>
+
+  <!-- Vehicle Interface -->
+  <arg name="urdf_model" default="pacifica" />
+  <arg name="frame_id" default="base_footprint"/>
+  <arg name="warn_cmds" default="true"/>
+  <arg name="buttons" default="true"/>
+  <arg name="pedal_luts"    default="false"/>
+  <arg name="ackermann_wheelbase" default="3.08864"/>
+  <arg name="ackermann_track"     default="1.73228"/>
+  <arg name="steering_ratio"      default="16.2"/>
+  <group ns="$(arg vehicle_ns)" >
+    <node pkg="dbw_fca_can" type="dbw_node" name="dbw_node" output="screen">
+      <remap from="can_rx" to="$(arg can_ns)/can_rx"/>
+      <remap from="can_tx" to="$(arg can_ns)/can_tx"/>
+      <param name="frame_id" value="$(arg frame_id)" />
+      <param name="warn_cmds" value="$(arg warn_cmds)" />
+      <param name="buttons" value="$(arg buttons)" />
+      <param name="pedal_luts" value="$(arg pedal_luts)" />
+      <param name="ackermann_wheelbase" value="$(arg ackermann_wheelbase)" />
+      <param name="ackermann_track" value="$(arg ackermann_track)" />
+      <param name="steering_ratio" value="$(arg steering_ratio)" />
+    </node>
+    <node if="$(arg ulc)" pkg="dataspeed_ulc_can" type="ulc_node" name="ulc_node" output="screen">
+      <remap from="can_rx" to="$(arg can_ns)/can_rx"/>
+      <remap from="can_tx" to="$(arg can_ns)/can_tx"/>
+    </node>
+    <include if="$(arg load_urdf)" file="$(find dbw_fca_description)/launch/urdf.launch" >
+      <arg name="urdf_model" value="$(arg urdf_model)" />
+    </include>
+  </group>
+
+</launch>

@@ -1,0 +1,25 @@
+<launch>
+  <!-- start up empty world : expand following launch files to respawn gazebo -->
+  <!-- include file="$(find pr2_gazebo)/launch/pr2_empty_world.launch" -->
+  <!-- include file="$(find gazebo_worlds)/launch/empty_world_paused.launch" -->
+  <!-- set use_sim_time flag -->
+  <param name="/use_sim_time" value="true" />
+  <arg name="gui" default="false"/>
+  <env name="DISPLAY" value=":0.0" if="$(arg gui)"/>
+  <env name="DISPLAY" value="" unless="$(arg gui)"/>
+
+  <!-- start empty world -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" args="-r worlds/empty.world" respawn="true" output="screen"/>
+  <group if="$(arg gui)">
+    <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+  </group>
+
+  <!-- start pr2 robot -->
+  <include file="$(find pr2_gazebo)/launch/pr2.launch"/>
+  <param name="/l_gripper_controller/gripper_action_node/stall_velocity_threshold" value="1.0" /> <!-- 0.33 -->
+  <param name="/r_gripper_controller/gripper_action_node/stall_velocity_threshold" value="1.0" />
+
+  <!-- start test -->
+  <test test-name="pr2_ri_test" pkg="roseus" type="roseus" retry="1"
+	args="$(find pr2eus)/test/pr2-ri-test.l" time-limit="800" />
+</launch>

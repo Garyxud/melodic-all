@@ -1,0 +1,1461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">   
+  <?define ProductName = "{% Product.Name %}-{% Product.Version %} for Python"?>
+  <Product Name="{% Product.Name %}-{% Product.Version %} for Python" 
+           Id="{% Product.Id %}"
+           Language='$(var.language)'
+           Codepage='$(var.codepage)'
+           Version="{% Product.Version %}" 
+           Manufacturer="{% Product.Manufacturer %}"
+           UpgradeCode="{% Product.UpgradeCode %}">
+    <Package Id="*" 
+             Keywords="Installer"
+             Description="{% Package.Description %}"
+             InstallerVersion="{% Package.InstallerVersion %}"
+             Languages='$(var.language)'
+             Compressed="{% Package.Compressed %}"
+             SummaryCodepage='$(var.codepage)' />
+
+    <!-- Property -->
+    <Property Id='USERPROFILEDIR' Value='%USERPROFILE%' />
+
+    <!-- RTSE Property-->
+    <Property Id="RTSE_FILEEXISTS">
+      <DirectorySearch Id="CheckFileDir" Path="C:\Program Files\OpenRTM-aist\{% Product.ShortVersion %}">
+        <DirectorySearch Id="CheckFileDir2" Path ="OpenRTP">
+          <DirectorySearch Id="CheckFileDir3" Path ="{% Product.ShortVersion %}\RTSystemEditor">
+            <FileSearch Id="CheckFile" Name="RTSystemEditorRCP.exe" />
+          </DirectorySearch>
+        </DirectorySearch>
+      </DirectorySearch>
+    </Property>
+
+    <Property Id="PYTHON24">
+      <RegistrySearch Id="Python24"
+                      Root="HKLM"
+                      Key="SOFTWARE\Python\PythonCore\2.4\InstallPath"
+                      Type="raw" />
+    </Property>
+
+    <Property Id="PYTHON25">
+      <RegistrySearch Id="Python25"
+                      Root="HKLM"
+                      Key="SOFTWARE\Python\PythonCore\2.5\InstallPath"
+                      Type="raw" />
+    </Property>
+
+    <Property Id="PYTHON26">
+      <RegistrySearch Id="Python26"
+                      Root="HKLM"
+                      Key="SOFTWARE\Python\PythonCore\2.6\InstallPath"
+                      Type="raw" />
+    </Property>
+
+    <SetProperty Id="PYTHON24DIR" After="AppSearch" Value="[PYTHON24]">
+    </SetProperty>
+
+    <SetProperty Id="PYTHON25DIR" After="AppSearch" Value="[PYTHON25]">
+    </SetProperty>
+
+    <SetProperty Id="PYTHON26DIR" After="AppSearch" Value="[PYTHON26]">
+    </SetProperty>
+
+    <Upgrade Id="{% Product.UpgradeCode %}">
+      <UpgradeVersion OnlyDetect="yes"
+                      Minimum="1.0.0"
+                      Maximum="1.1.0"
+                      Property="NEWERVERSIONDETECTED"
+                      IncludeMinimum="no" /> 
+      <UpgradeVersion OnlyDetect="no"
+                      Minimum="1.0.0"
+                      Maximum="1.1.0.1"
+                      Property="OLDERVERSIONBEINGUPGRADED"
+                      IncludeMaximum="no" /> 
+      <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
+                      Minimum='1.0.0' IncludeMinimum='yes'
+                      Maximum='1.1.0' IncludeMaximum='no' />
+    </Upgrade>
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize"/>
+
+      <Custom Action="IDLCOMPILE_PY24" After='InstallFinalize'>
+	NOT Installed AND PYTHON24
+      </Custom>
+      <Custom Action="IDLCOMPILE_PY25" After='InstallFinalize'>
+	NOT Installed AND PYTHON25
+      </Custom>
+      <Custom Action="IDLCOMPILE_PY26" After='InstallFinalize'>
+	NOT Installed AND PYTHON26
+      </Custom>
+
+      <Custom Action="REMOVEFOLDER_PY24" Before='InstallInitialize'>
+	Installed AND PYTHON24
+      </Custom>
+      <Custom Action="REMOVEFOLDER_PY25" Before='InstallInitialize'>
+	Installed AND PYTHON25
+      </Custom>
+      <Custom Action="REMOVEFOLDER_PY26" Before='InstallInitialize'>
+	Installed AND PYTHON26
+      </Custom>
+
+      <Custom Action="REMOVEFOLDER_RTM" Before='InstallInitialize'>Installed</Custom>
+
+    </InstallExecuteSequence>
+
+    <Media Id="1" Cabinet="OpenRTMpython.cab" EmbedCab="yes"/>
+
+    <!-- enable this value when you want register to ALL User -->
+    <!-- <Property Id="ALLUSERS" Value="1" /> -->
+
+    <Condition Message="[ProductName] requires python 2.4, 2.5 or 2.6">
+      <![CDATA[Installed OR (PYTHON24 <> "" OR PYTHON25 <> "" OR PYTHON26 <> "")]]>
+    </Condition>
+
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <!-- for Python24 -->
+      <Directory Id="PYTHON24DIR" Name="[[PYTHON24]]">
+        <!-- omniORBpy components -->
+        <?include omniORBpy24_inc.wxs ?>
+        <!-- end of omniORBpy -->
+
+        <!-- rtcprof -->
+        <Component Id="Py24_RtmOpenrtm_aistUtilsRtcprof" 
+                   Guid="{% RtmOpenrtm_aist24UtilsRtcprof.GUID %}">
+          <RemoveFile Id='Py24_RtmOpenrtm_aistUtilsRtcprof' On='uninstall' Name='*.pyc' />
+          <RemoveFile Id='Py24_RtmOpenrtm_aistUtilsRtcprof_2' On='uninstall' Name='rtc*.log' />
+          {% for file in RtmOpenrtm_aist24UtilsRtcprof.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- rtcd -->
+        <Component Id="Py24_RtmOpenrtm_aistUtilsRtcd" 
+                   Guid="{% RtmOpenrtm_aist24UtilsRtcd.GUID %}">
+          {% for file in RtmOpenrtm_aist24UtilsRtcd.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+            <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+                      Name="Start RTC daemon"
+                      Arguments=' -d -f "[Version]examples\Python\rtcd.conf"'
+                      Show="normal" WorkingDirectory="bin"/>
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- Lib -->
+        <Directory Id="py24Lib" Name="Lib">
+          <!-- site-packages -->
+          <Directory Id="Py24_site_packages" Name="site-packages">
+
+            <Component Id="Py24_RtmOpenrtm_aistRoot" 
+                       Guid="{% RtmOpenrtm_aist24Root.GUID %}">
+              <RemoveFile Id='Py24_RtmOpenrtm_aistRoot' On='uninstall' Name='*.pyc' />
+              {% for file in RtmOpenrtm_aist24Root.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+
+            <!-- OpenRTM_aist -->
+            <Directory Id="Py24_OpenRTM_aist" Name="OpenRTM_aist">
+              <Component Id="Py24_RtmOpenrtm_aist" 
+                         Guid="{% RtmOpenrtm_aist24.GUID %}">
+                <RemoveFile Id='Py24_RtmOpenrtm_aist' On='uninstall' Name='*.pyc' />
+                <RemoveFolder Id='Py24_RtmOpenrtm_aist_f' On='uninstall' />
+                {% for file in RtmOpenrtm_aist24.Files %}
+                <File Id="{% file.Id %}" Name="{% file.Name %}"
+                      DiskId="1" Source="{% file.Source %}">
+                </File>
+                {% endfor %}
+              </Component>
+
+              <!-- rtc-template -->
+              <Directory Id="Py24_rtc_template" Name="rtc-template">
+                <Component Id="Py24_RtmOpenrtm_aistRtctemplate" 
+                           Guid="{% RtmOpenrtm_aist24UtilsRtctemplate.GUID %}">
+                  <RemoveFile Id='Py24_RtmOpenrtm_aistRtctemplate' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py24_RtmOpenrtm_aistRtctemplate_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist24UtilsRtctemplate.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- observer -->
+              <Directory Id="Py24_ext" Name="ext">
+                <Component Id="Py24_RtmOpenrtm_aistExt" 
+                           Guid="{% RtmOpenrtm_aist24Ext.GUID %}">
+                  <RemoveFile Id='Py24_RtmOpenrtm_aistExt' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py24_RtmOpenrtm_aistExt_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist24Ext.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+				<Directory Id="Py24_sdo" Name="sdo">
+                  <Component Id="Py24_RtmOpenrtm_aistExtSdo" 
+							 Guid="{% RtmOpenrtm_aist24ExtSdo.GUID %}">
+					<RemoveFile Id='Py24_RtmOpenrtm_aistExtSdo' On='uninstall' Name='*.pyc' />
+					<RemoveFolder Id='Py24_RtmOpenrtm_aistExtSdo_f' On='uninstall' />
+					{% for file in RtmOpenrtm_aist24ExtSdo.Files %}
+					<File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+					</File>
+					{% endfor %}
+                  </Component>
+				  <Directory Id="Py24_observer" Name="observer">
+					<Component Id="Py24_RtmOpenrtm_aistExtSdoObserver" 
+							   Guid="{% RtmOpenrtm_aist24ExtSdoObserver.GUID %}">
+					  <RemoveFile Id='Py24_RtmOpenrtm_aistExtSdoObserver' On='uninstall' Name='*.pyc' />
+					  <RemoveFolder Id='Py24_RtmOpenrtm_aistExtSdoObserver_f' On='uninstall' />
+					  {% for file in RtmOpenrtm_aist24ExtSdoObserver.Files %}
+					  <File Id="{% file.Id %}" Name="{% file.Name %}"
+							DiskId="1" Source="{% file.Source %}">
+					  </File>
+					  {% endfor %}
+					</Component>
+				  </Directory>
+
+				</Directory>
+              </Directory>
+
+              <!-- RTM_IDL -->
+              <Directory Id="Py24_RTM_IDL" Name="RTM_IDL">
+                <Component Id="Py24_RtmOpenrtm_aistRtm_idl" 
+                           Guid="{% RtmOpenrtm_aist24Rtm_idl.GUID %}">
+                  <RemoveFile Id='Py24_RtmOpenrtm_aistRtm_idl' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py24_RtmOpenrtm_aistRtm_idl_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist24Rtm_idl.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+
+                <!-- device_interfaces -->
+                <Directory Id="Py24_device_interfaces" Name="device_interfaces">
+                  <Component Id="Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces" 
+                             Guid="{% RtmOpenrtm_aist24Rtm_idlDevice_interfaces.GUID %}">
+                    <RemoveFile Id='Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aist24Rtm_idlDevice_interfaces.Files %}
+                    <File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+              </Directory>
+
+            <!-- end of OpenRTM_aist -->
+            </Directory>
+
+          <!-- end of site-packages -->
+          </Directory>
+
+        <!-- end of Lib -->
+        </Directory>
+      </Directory>
+
+
+      <!-- for Python25 -->
+      <Directory Id="PYTHON25DIR" Name="[[PYTHON25]]">
+        <!-- omniORBpy components -->
+        <?include omniORBpy25_inc.wxs ?>
+        <!-- end of omniORBpy -->
+
+        <!-- rtcprof -->
+        <Component Id="Py25_RtmOpenrtm_aistUtilsRtcprof" 
+                   Guid="{% RtmOpenrtm_aist25UtilsRtcprof.GUID %}">
+          <RemoveFile Id='Py25_RtmOpenrtm_aistUtilsRtcprof' On='uninstall' Name='*.pyc' />
+          <RemoveFile Id='Py25_RtmOpenrtm_aistUtilsRtcprof_2' On='uninstall' Name='rtc*.log' />
+          {% for file in RtmOpenrtm_aist25UtilsRtcprof.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- rtcd -->
+        <Component Id="Py25_RtmOpenrtm_aistUtilsRtcd" 
+                   Guid="{% RtmOpenrtm_aist25UtilsRtcd.GUID %}">
+          {% for file in RtmOpenrtm_aist25UtilsRtcd.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+            <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+                      Name="Start RTC daemon"
+                      Arguments=' -d -f "[Version]examples\Python\rtcd.conf"'
+                      Show="normal" WorkingDirectory="bin"/>
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- Lib -->
+        <Directory Id="py25Lib" Name="Lib">
+          <!-- site-packages -->
+          <Directory Id="Py25_site_packages" Name="site-packages">
+
+            <Component Id="Py25_RtmOpenrtm_aistRoot" 
+                       Guid="{% RtmOpenrtm_aist25Root.GUID %}">
+              <RemoveFile Id='Py25_RtmOpenrtm_aistRoot' On='uninstall' Name='*.pyc' />
+              {% for file in RtmOpenrtm_aist25Root.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+
+            <!-- OpenRTM_aist -->
+            <Directory Id="Py25_OpenRTM_aist" Name="OpenRTM_aist">
+              <Component Id="Py25_RtmOpenrtm_aist" 
+                         Guid="{% RtmOpenrtm_aist25.GUID %}">
+                <RemoveFile Id='Py25_RtmOpenrtm_aist' On='uninstall' Name='*.pyc' />
+                <RemoveFolder Id='Py25_RtmOpenrtm_aist_f' On='uninstall' />
+                {% for file in RtmOpenrtm_aist25.Files %}
+                <File Id="{% file.Id %}" Name="{% file.Name %}"
+                      DiskId="1" Source="{% file.Source %}">
+                </File>
+                {% endfor %}
+              </Component>
+
+              <!-- rtc-template -->
+              <Directory Id="Py25_rtc_template" Name="rtc-template">
+                <Component Id="Py25_RtmOpenrtm_aistRtctemplate" 
+                           Guid="{% RtmOpenrtm_aist25UtilsRtctemplate.GUID %}">
+                  <RemoveFile Id='Py25_RtmOpenrtm_aistRtctemplate' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py25_RtmOpenrtm_aistRtctemplate_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist25UtilsRtctemplate.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- observer -->
+              <Directory Id="Py25_ext" Name="ext">
+                <Component Id="Py25_RtmOpenrtm_aistExt" 
+                           Guid="{% RtmOpenrtm_aist25Ext.GUID %}">
+                  <RemoveFile Id='Py25_RtmOpenrtm_aistExt' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py25_RtmOpenrtm_aistExt_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist25Ext.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+				<Directory Id="Py25_sdo" Name="sdo">
+                  <Component Id="Py25_RtmOpenrtm_aistExtSdo" 
+							 Guid="{% RtmOpenrtm_aist25ExtSdo.GUID %}">
+					<RemoveFile Id='Py25_RtmOpenrtm_aistExtSdo' On='uninstall' Name='*.pyc' />
+					<RemoveFolder Id='Py25_RtmOpenrtm_aistExtSdo_f' On='uninstall' />
+					{% for file in RtmOpenrtm_aist25ExtSdo.Files %}
+					<File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+					</File>
+					{% endfor %}
+                  </Component>
+				  <Directory Id="Py25_observer" Name="observer">
+					<Component Id="Py25_RtmOpenrtm_aistExtSdoObserver" 
+							   Guid="{% RtmOpenrtm_aist25ExtSdoObserver.GUID %}">
+					  <RemoveFile Id='Py25_RtmOpenrtm_aistExtSdoObserver' On='uninstall' Name='*.pyc' />
+					  <RemoveFolder Id='Py25_RtmOpenrtm_aistExtSdoObserver_f' On='uninstall' />
+					  {% for file in RtmOpenrtm_aist25ExtSdoObserver.Files %}
+					  <File Id="{% file.Id %}" Name="{% file.Name %}"
+							DiskId="1" Source="{% file.Source %}">
+					  </File>
+					  {% endfor %}
+					</Component>
+				  </Directory>
+
+				</Directory>
+              </Directory>
+
+              <!-- RTM_IDL -->
+              <Directory Id="Py25_RTM_IDL" Name="RTM_IDL">
+                <Component Id="Py25_RtmOpenrtm_aistRtm_idl" 
+                           Guid="{% RtmOpenrtm_aist25Rtm_idl.GUID %}">
+                  <RemoveFile Id='Py25_RtmOpenrtm_aistRtm_idl' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py25_RtmOpenrtm_aistRtm_idl_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist25Rtm_idl.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+
+                <!-- device_interfaces -->
+                <Directory Id="Py25_device_interfaces" Name="device_interfaces">
+                  <Component Id="Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces" 
+                             Guid="{% RtmOpenrtm_aist25Rtm_idlDevice_interfaces.GUID %}">
+                    <RemoveFile Id='Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aist25Rtm_idlDevice_interfaces.Files %}
+                    <File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+              </Directory>
+
+            <!-- end of OpenRTM_aist -->
+            </Directory>
+
+          <!-- end of site-packages -->
+          </Directory>
+
+        <!-- end of Lib -->
+        </Directory>
+      </Directory>
+
+
+      <!-- for Python26 -->
+      <Directory Id="PYTHON26DIR" Name="[[PYTHON26]]">
+        <!-- omniORBpy components -->
+        <?include omniORBpy26_inc.wxs ?>
+        <!-- end of omniORBpy -->
+
+        <!-- rtcprof -->
+        <Component Id="Py26_RtmOpenrtm_aistUtilsRtcprof" 
+                   Guid="{% RtmOpenrtm_aist26UtilsRtcprof.GUID %}">
+          <RemoveFile Id='Py26_RtmOpenrtm_aistUtilsRtcprof' On='uninstall' Name='*.pyc' />
+          <RemoveFile Id='Py26_RtmOpenrtm_aistUtilsRtcprof_2' On='uninstall' Name='rtc*.log' />
+          {% for file in RtmOpenrtm_aist26UtilsRtcprof.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- rtcd -->
+        <Component Id="Py26_RtmOpenrtm_aistUtilsRtcd" 
+                   Guid="{% RtmOpenrtm_aist26UtilsRtcd.GUID %}">
+          {% for file in RtmOpenrtm_aist26UtilsRtcd.Files %}
+          <File Id="{% file.Id %}" Name="{% file.Name %}"
+                DiskId="1" Source="{% file.Source %}">
+            <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+                      Name="Start RTC daemon"
+                      Arguments=' -d -f "[Version]examples\Python\rtcd.conf"'
+                      Show="normal" WorkingDirectory="bin"/>
+          </File>
+          {% endfor %}
+        </Component>
+
+        <!-- Lib -->
+        <Directory Id="py26Lib" Name="Lib">
+          <!-- site-packages -->
+          <Directory Id="Py26_site_packages" Name="site-packages">
+
+            <Component Id="Py26_RtmOpenrtm_aistRoot" 
+                       Guid="{% RtmOpenrtm_aist26Root.GUID %}">
+              <RemoveFile Id='Py26_RtmOpenrtm_aistRoot' On='uninstall' Name='*.pyc' />
+              {% for file in RtmOpenrtm_aist26Root.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+
+            <!-- OpenRTM_aist -->
+            <Directory Id="Py26_OpenRTM_aist" Name="OpenRTM_aist">
+              <Component Id="Py26_RtmOpenrtm_aist" 
+                         Guid="{% RtmOpenrtm_aist26.GUID %}">
+                <RemoveFile Id='Py26_RtmOpenrtm_aist' On='uninstall' Name='*.pyc' />
+                <RemoveFolder Id='Py26_RtmOpenrtm_aist_f' On='uninstall' />
+                {% for file in RtmOpenrtm_aist26.Files %}
+                <File Id="{% file.Id %}" Name="{% file.Name %}"
+                      DiskId="1" Source="{% file.Source %}">
+                </File>
+                {% endfor %}
+              </Component>
+
+              <!-- rtc-template -->
+              <Directory Id="Py26_rtc_template" Name="rtc-template">
+                <Component Id="Py26_RtmOpenrtm_aistRtctemplate" 
+                           Guid="{% RtmOpenrtm_aist26UtilsRtctemplate.GUID %}">
+                  <RemoveFile Id='Py26_RtmOpenrtm_aistRtctemplate' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26_RtmOpenrtm_aistRtctemplate_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist26UtilsRtctemplate.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- observer -->
+              <Directory Id="Py26_ext" Name="ext">
+                <Component Id="Py26_RtmOpenrtm_aistExt" 
+                           Guid="{% RtmOpenrtm_aist26Ext.GUID %}">
+                  <RemoveFile Id='Py26_RtmOpenrtm_aistExt' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26_RtmOpenrtm_aistExt_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist26Ext.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+				<Directory Id="Py26_sdo" Name="sdo">
+                  <Component Id="Py26_RtmOpenrtm_aistExtSdo" 
+							 Guid="{% RtmOpenrtm_aist26ExtSdo.GUID %}">
+					<RemoveFile Id='Py26_RtmOpenrtm_aistExtSdo' On='uninstall' Name='*.pyc' />
+					<RemoveFolder Id='Py26_RtmOpenrtm_aistExtSdo_f' On='uninstall' />
+					{% for file in RtmOpenrtm_aist26ExtSdo.Files %}
+					<File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+					</File>
+					{% endfor %}
+                  </Component>
+				  <Directory Id="Py26_observer" Name="observer">
+					<Component Id="Py26_RtmOpenrtm_aistExtSdoObserver" 
+							   Guid="{% RtmOpenrtm_aist26ExtSdoObserver.GUID %}">
+					  <RemoveFile Id='Py26_RtmOpenrtm_aistExtSdoObserver' On='uninstall' Name='*.pyc' />
+					  <RemoveFolder Id='Py26_RtmOpenrtm_aistExtSdoObserver_f' On='uninstall' />
+					  {% for file in RtmOpenrtm_aist26ExtSdoObserver.Files %}
+					  <File Id="{% file.Id %}" Name="{% file.Name %}"
+							DiskId="1" Source="{% file.Source %}">
+					  </File>
+					  {% endfor %}
+					</Component>
+				  </Directory>
+
+				</Directory>
+              </Directory>
+
+              <!-- RTM_IDL -->
+              <Directory Id="Py26_RTM_IDL" Name="RTM_IDL">
+                <Component Id="Py26_RtmOpenrtm_aistRtm_idl" 
+                           Guid="{% RtmOpenrtm_aist26Rtm_idl.GUID %}">
+                  <RemoveFile Id='Py26_RtmOpenrtm_aistRtm_idl' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26_RtmOpenrtm_aistRtm_idl_f' On='uninstall' />
+                  {% for file in RtmOpenrtm_aist26Rtm_idl.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+
+                <!-- device_interfaces -->
+                <Directory Id="Py26_device_interfaces" Name="device_interfaces">
+                  <Component Id="Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces" 
+                             Guid="{% RtmOpenrtm_aist26Rtm_idlDevice_interfaces.GUID %}">
+                    <RemoveFile Id='Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aist26Rtm_idlDevice_interfaces.Files %}
+                    <File Id="{% file.Id %}" Name="{% file.Name %}"
+                          DiskId="1" Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+              </Directory>
+
+            <!-- end of OpenRTM_aist -->
+            </Directory>
+
+          <!-- end of site-packages -->
+          </Directory>
+
+        <!-- end of Lib -->
+        </Directory>
+      </Directory>
+
+
+      <!-- Program Files -->
+      <Directory Id="ProgramFilesFolder" SourceName="PFILE">
+        <Directory Id="INSTALLLOCATION"
+				   Name="{% Product.Name %}">
+		  <Directory Id="Version"
+					 Name="{% Product.ShortVersion %}">
+
+            <!-- bin -->
+            <Directory Id="bin" Name="bin">
+              <Component Id="Rtm_Bin" Guid="{% RtmOpenrtm_aistUtilsRtmnaming.GUID %}">
+                <RemoveFile Id='Rtm_Bin' On='uninstall' Name='*.pyc' />
+                <RemoveFolder Id='Rtm_Bin_f' On='uninstall' />
+                {% for file in RtmOpenrtm_aistUtilsRtmnaming.Files %}
+                <File Id="{% file.Id %}"
+                      Name="{% file.Name %}" DiskId="1"
+                      Source="{% file.Source %}">
+                  {% if file.Name is rtm-naming.py %}
+                  <Shortcut Id="rtmnaming.py" Directory="ToolsMenuFolder"
+                            Name="Start Naming Service"
+                            Show="normal" WorkingDirectory="bin"/>
+                  {% endif %}
+                </File>
+                {% endfor %}
+
+              </Component>
+
+              <Component Id="Rtm_Bin2" Guid="{% RtmIdlcompiler.GUID %}">
+                <RemoveFile Id='Rtm_Bin2' On='uninstall' Name='*.pyc' />
+                <RemoveFolder Id='Rtm_Bin2_f' On='uninstall' />
+
+                {% for file in RtmIdlcompiler.Files %}
+                <File Id="{% file.Id %}"
+                      Name="{% file.Name %}" DiskId="1"
+                      Source="{% file.Source %}">
+                </File>
+                {% endfor %}
+
+              </Component>
+            </Directory>
+
+            <!-- doc -->
+            <Directory Id="doc" Name="doc">
+
+              <!-- Python -->
+              <Directory Id="Pythondoc" Name="Python">
+
+                <!-- classref_jp -->
+                <Directory Id="classref_jp" Name="classref_jp">
+                  <Component Id="RtmDocsClassreferencejpHtml" 
+                             Guid="{% RtmDocsClassreferencejpHtml.GUID %}">
+                    <RemoveFolder Id='RtmDocsClassreferencejpHtml_f' On='uninstall' />
+                    {% for file in RtmDocsClassreferencejpHtml.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is index.html %}
+                      <Shortcut Id="{% file.Id %}" Directory="DocMenuFolder"
+                                Name="Japanese Class reference"
+                                Show="normal"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- classref_en -->
+                <Directory Id="classref_en" Name="classref_en">
+                  <Component Id="RtmDocsClassreferenceenHtml" 
+                             Guid="{% RtmDocsClassreferenceenHtml.GUID %}">
+                    <RemoveFolder Id='RtmDocsClassreferenceenHtml_f' On='uninstall' />
+                    {% for file in RtmDocsClassreferenceenHtml.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is index.html %}
+                      <Shortcut Id="{% file.Id %}" Directory="DocMenuFolder"
+                                Name="English Class reference"
+                                Show="normal"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+              </Directory>
+            </Directory>
+
+            <!-- examples -->
+            <Directory Id="examples" Name="examples">
+
+              <!-- Python -->
+              <Directory Id="Pythonexamples" Name="Python">
+
+                <Component Id="RtmOpenrtm_aistExamples" 
+                           Guid="{% RtmOpenrtm_aistExamples.GUID %}">
+                  {% for file in RtmOpenrtm_aistExamples.Files %}
+                  <File Id="{% file.Id %}"
+                        Name="{% file.Name %}" DiskId="1"
+                        Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+
+                <!-- AutoControl -->
+                <Directory Id="AutoControl" Name="AutoControl">
+                  <Component Id="RtmOpenrtm_aistExamplesAutocontrol" 
+                             Guid="{% RtmOpenrtm_aistExamplesAutocontrol.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesAutocontrol' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesAutocontrol_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesAutocontrol.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is AutoControl.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="AutoControl.py"
+                                Show="normal" WorkingDirectory="AutoControl"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- Composite -->
+                <Directory Id="Composite" Name="Composite">
+                  <Component Id="RtmOpenrtm_aistExamplesComposite" 
+                             Guid="{% RtmOpenrtm_aistExamplesComposite.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesComposite' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesComposite_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesComposite.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is Composite.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="Composite.py"
+                                Show="normal" WorkingDirectory="Composite"/>
+                      {% endif %}
+                      {% if file.Name is Controller.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="Controller.py"
+                                Show="normal" WorkingDirectory="Composite"/>
+                      {% endif %}
+                      {% if file.Name is Motor.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="Motor.py"
+                                Show="normal" WorkingDirectory="Composite"/>
+                      {% endif %}
+                      {% if file.Name is Sensor.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="Sensor.py"
+                                Show="normal" WorkingDirectory="Composite"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- ConfigSample -->
+                <Directory Id="ConfigSample" Name="ConfigSample">
+                  <Component Id="RtmOpenrtm_aistExamplesConfigsample" 
+                             Guid="{% RtmOpenrtm_aistExamplesConfigsample.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesConfigsample' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesConfigsample_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesConfigsample.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is ConfigSample.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="ConfigSample.py"
+                                Show="normal" WorkingDirectory="ConfigSample"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- ExtTrigger -->
+                <Directory Id="ExtTrigger" Name="ExtTrigger">
+                  <Component Id="RtmOpenrtm_aistExamplesExttrigger" 
+                             Guid="{% RtmOpenrtm_aistExamplesExttrigger.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesExttrigger' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesExttrigger_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesExttrigger.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- MobileRobotCanvas -->
+                <Directory Id="MobileRobotCanvas" Name="MobileRobotCanvas">
+                  <Component Id="RtmOpenrtm_aistExamplesMobilerobotcanvas" 
+                             Guid="{% RtmOpenrtm_aistExamplesMobilerobotcanvas.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesMobilerobotcanvas' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesMobilerobotcanvas_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesMobilerobotcanvas.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is TkMobileRobotSimulator.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="TkMobileRobotSimulator.py"
+                                Show="normal" WorkingDirectory="MobileRobotCanvas"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- NXTRTC -->
+                <Directory Id="NXTRTC" Name="NXTRTC">
+                  <Component Id="RtmOpenrtm_aistExamplesNxtrtc" 
+                             Guid="{% RtmOpenrtm_aistExamplesNxtrtc.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesNxtrtc' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesNxtrtc_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesNxtrtc.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is NXTRTC.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="NXTRTC.py"
+                                Show="normal" WorkingDirectory="NXTRTC"/>
+                      {% endif %}
+                      {% if file.Name is NXTRTC20.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="NXTRTC20.py"
+                                Show="normal" WorkingDirectory="NXTRTC"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- SeqIO -->
+                <Directory Id="SeqIO" Name="SeqIO">
+                  <Component Id="RtmOpenrtm_aistExamplesSeqio" 
+                             Guid="{% RtmOpenrtm_aistExamplesSeqio.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesSeqio' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesSeqio_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesSeqio.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is SeqIn.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="SeqIn.py"
+                                Show="normal" WorkingDirectory="SeqIO"/>
+                      {% endif %}
+                      {% if file.Name is SeqOut.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="SeqOut.py"
+                                Show="normal" WorkingDirectory="SeqIO"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- SimpleIO -->
+                <Directory Id="SimpleIO" Name="SimpleIO">
+                  <Component Id="RtmOpenrtm_aistExamplesSimpleio" 
+                             Guid="{% RtmOpenrtm_aistExamplesSimpleio.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesSimpleio' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesSimpleio_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesSimpleio.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is ConsoleIn.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="ConsoleIn.py"
+                                Show="normal" WorkingDirectory="SimpleIO"/>
+                      {% endif %}
+                      {% if file.Name is ConsoleOut.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="ConsoleOut.py"
+                                Show="normal" WorkingDirectory="SimpleIO"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- SimpleService -->
+                <Directory Id="SimpleService" Name="SimpleService">
+                  <Component Id="RtmOpenrtm_aistExamplesSimpleservice" 
+                             Guid="{% RtmOpenrtm_aistExamplesSimpleservice.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesSimpleservice' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesSimpleservice_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesSimpleservice.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is MyServiceConsumer.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="MyServiceConsumer.py"
+                                Show="normal" WorkingDirectory="SimpleService"/>
+                      {% endif %}
+                      {% if file.Name is MyServiceProvider.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="MyServiceProvider.py"
+                                Show="normal" WorkingDirectory="SimpleService"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- Slider_and_Motor -->
+                <Directory Id="Slider_and_Motor" Name="Slider_and_Motor">
+                  <Component Id="RtmOpenrtm_aistExamplesSlider_and_motor" 
+                             Guid="{% RtmOpenrtm_aistExamplesSlider_and_motor.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesSlider_and_motor' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesSlider_and_motor_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesSlider_and_motor.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is SliderComp.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="SliderComp.py"
+                                Show="normal" WorkingDirectory="Slider_and_Motor"/>
+                      {% endif %}
+                      {% if file.Name is TkMotorComp.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="TkMotorComp.py"
+                                Show="normal" WorkingDirectory="Slider_and_Motor"/>
+                      {% endif %}
+                      {% if file.Name is TkMotorPosComp.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="TkMotorPosComp.py"
+                                Show="normal" WorkingDirectory="Slider_and_Motor"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- TkJoyStick -->
+                <Directory Id="TkJoyStick" Name="TkJoyStick">
+                  <Component Id="RtmOpenrtm_aistExamplesTkjoystick" 
+                             Guid="{% RtmOpenrtm_aistExamplesTkjoystick.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesTkjoystick' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesTkjoystick_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesTkjoystick.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is TkJoyStickComp.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="TkJoyStickComp.py"
+                                Show="normal" WorkingDirectory="TkJoyStick"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- TkLRFViewer -->
+                <Directory Id="TkLRFViewer" Name="TkLRFViewer">
+                  <Component Id="RtmOpenrtm_aistExamplesTklrfviewer" 
+                             Guid="{% RtmOpenrtm_aistExamplesTklrfviewer.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesTklrfviewer' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesTklrfviewer_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesTklrfviewer.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                      {% if file.Name is TkLRFViewer.py %}
+                      <Shortcut Id="{% file.Name %}" Directory="ExpMenuFolder"
+                                Name="TkLRFViewer.py"
+                                Show="normal" WorkingDirectory="TkLRFViewer"/>
+                      {% endif %}
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+                <!-- Templates -->
+                <Directory Id="Templates" Name="Templates">
+                  <Component Id="RtmOpenrtm_aistExamplesTemplates" 
+                             Guid="{% RtmOpenrtm_aistExamplesTemplates.GUID %}">
+                    <RemoveFile Id='RtmOpenrtm_aistExamplesTemplates' On='uninstall' Name='*.pyc' />
+                    <RemoveFolder Id='RtmOpenrtm_aistExamplesTemplates_f' On='uninstall' />
+                    {% for file in RtmOpenrtm_aistExamplesTemplates.Files %}
+                    <File Id="{% file.Id %}"
+                          Name="{% file.Name %}" DiskId="1"
+                          Source="{% file.Source %}">
+                    </File>
+                    {% endfor %}
+                  </Component>
+                </Directory>
+
+              <!-- end of Python -->
+              </Directory>
+
+            <!-- end of examples -->
+            </Directory>
+
+			<!-- rtmtools components -->
+			<?if $(env.INCLUDE_OPENRTP) = YES ?>
+			<?include OpenRTP_inc.wxs ?>
+			<?endif ?>
+			<!-- end of rtmtools -->
+
+          </Directory>
+        </Directory>
+
+      <!-- end of Program Files Folder -->
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="AppMenuFolder"
+				   Name="{% Product.Name %} {% Product.ShortVersion %}">
+          <Directory Id="PythonMenuFolder" Name="Python">
+            <Directory Id="ToolsMenuFolder" Name="tools">
+            </Directory>
+            <Directory Id="Components" Name="components">
+              <Directory Id="ExpMenuFolder" Name="examples">
+              </Directory>
+            </Directory>
+            <Directory Id="DocMenuFolder" Name="documents">
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+    <!-- end of SourceDir -->
+    </Directory>
+
+    <!-- Function definition omniORBpy24 -->
+    <Feature Id="omniORBpy24" Level="1" Title="OpenRTM-aist for Python 2.4"
+             ConfigurableDirectory="PYTHON24DIR">
+      <Condition Level="1"><![CDATA[ NOT PYTHON24 =  ""]]></Condition>
+      <Condition Level="0"><![CDATA[ NOT PYTHON24 <> ""]]></Condition>
+
+      <!-- runtime -->
+      <Feature Id="Py24_Runtime" Level="1" Title="omniORBpy for Python 2.4">
+        <ComponentRef Id="Py24BinX86_win32"/>
+        <ComponentRef Id="Py24LibX86_win32"/>
+        <ComponentRef Id="Py24LibPython"/>
+        <ComponentRef Id="Py24BinDll"/>
+        <ComponentRef Id="Py24LibPythonCosnaming"/>
+        <ComponentRef Id="Py24LibPythonCosnaming__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniidl"/>
+        <ComponentRef Id="Py24LibPythonOmniidl_be"/>
+        <ComponentRef Id="Py24LibPythonOmniorb"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCos"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoscollection"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoscollection__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoscompoundlifecycle"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoscompoundlifecycle__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoscontainment"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoscontainment__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoseventchanneladmin"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoseventchanneladmin__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoseventcomm"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoseventcomm__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosexternalization"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosexternalizationcontainment"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosexternalizationcontainment__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosexternalizationreference"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosexternalizationreference__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosexternalization__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosgraphs"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosgraphs__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoslifecycle"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoslifecyclecontainment"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoslifecyclecontainment__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoslifecyclereference"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoslifecyclereference__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCoslifecycle__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnaming"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnaming__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotification"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotification__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotifychanneladmin"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotifychanneladmin__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotifycomm"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotifycomm__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotifyfilter"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosnotifyfilter__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosobjectidentity"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosobjectidentity__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistenceddo"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistenceddo__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistenceds_cli"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistenceds_cli__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepds"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepds_da"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepds_da__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepds__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepid"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepid__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepo"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepom"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepom__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospersistencepo__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospropertyservice"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCospropertyservice__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosquery"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosquerycollection"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosquerycollection__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosquery__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosreference"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosreference__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosrelationships"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosrelationships__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosstream"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCosstream__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostime"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostimerevent"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostimerevent__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostime__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostrading"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostradingdynamic"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostradingdynamic__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostradingrepos"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostradingrepos__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostrading__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypedeventchanneladmin"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypedeventchanneladmin__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypedeventcomm"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypedeventcomm__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypednotifychanneladmin"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypednotifychanneladmin__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypednotifycomm"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosCostypednotifycomm__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosLifecycleservice"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosLifecycleservice__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosRditesttypes"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosRditesttypes__poa"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosTimebase"/>
+        <ComponentRef Id="Py24LibPythonOmniorbCosTimebase__poa"/>
+      </Feature>
+
+      <!-- OpenRTM_aist -->
+      <Feature Id="Py24_OpenRTM_aist" Level="1" Title="OpenRTM-aist (Python)">
+        <ComponentRef Id="Py24_RtmOpenrtm_aistUtilsRtcprof"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistUtilsRtcd"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistRoot"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aist"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistRtctemplate"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistExt"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistExtSdo"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistExtSdoObserver"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistRtm_idl"/>
+        <ComponentRef Id="Py24_RtmOpenrtm_aistRtm_idlDevice_interfaces"/>
+      </Feature>
+    </Feature>
+
+    <!-- Function definition omniORBpy25 -->
+    <Feature Id="omniORBpy25" Level="1" Title="OpenRTM-aist for Python 2.5"
+             ConfigurableDirectory="PYTHON25DIR">
+      <Condition Level="1"><![CDATA[ NOT PYTHON25 =  ""]]></Condition>
+      <Condition Level="0"><![CDATA[ NOT PYTHON25 <> ""]]></Condition>
+
+      <!-- runtime -->
+      <Feature Id="Py25_Runtime" Level="1" Title="omniORBpy for Python 2.5">
+        <ComponentRef Id="Py25BinX86_win32"/>
+        <ComponentRef Id="Py25LibX86_win32"/>
+        <ComponentRef Id="Py25LibPython"/>
+        <ComponentRef Id="Py25BinDll"/>
+        <ComponentRef Id="Py25LibPythonCosnaming"/>
+        <ComponentRef Id="Py25LibPythonCosnaming__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniidl"/>
+        <ComponentRef Id="Py25LibPythonOmniidl_be"/>
+        <ComponentRef Id="Py25LibPythonOmniorb"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCos"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoscollection"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoscollection__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoscompoundlifecycle"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoscompoundlifecycle__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoscontainment"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoscontainment__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoseventchanneladmin"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoseventchanneladmin__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoseventcomm"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoseventcomm__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosexternalization"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosexternalizationcontainment"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosexternalizationcontainment__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosexternalizationreference"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosexternalizationreference__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosexternalization__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosgraphs"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosgraphs__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoslifecycle"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoslifecyclecontainment"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoslifecyclecontainment__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoslifecyclereference"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoslifecyclereference__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCoslifecycle__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnaming"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnaming__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotification"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotification__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotifychanneladmin"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotifychanneladmin__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotifycomm"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotifycomm__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotifyfilter"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosnotifyfilter__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosobjectidentity"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosobjectidentity__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistenceddo"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistenceddo__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistenceds_cli"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistenceds_cli__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepds"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepds_da"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepds_da__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepds__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepid"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepid__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepo"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepom"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepom__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospersistencepo__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospropertyservice"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCospropertyservice__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosquery"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosquerycollection"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosquerycollection__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosquery__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosreference"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosreference__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosrelationships"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosrelationships__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosstream"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCosstream__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostime"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostimerevent"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostimerevent__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostime__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostrading"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostradingdynamic"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostradingdynamic__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostradingrepos"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostradingrepos__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostrading__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypedeventchanneladmin"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypedeventchanneladmin__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypedeventcomm"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypedeventcomm__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypednotifychanneladmin"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypednotifychanneladmin__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypednotifycomm"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosCostypednotifycomm__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosLifecycleservice"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosLifecycleservice__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosRditesttypes"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosRditesttypes__poa"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosTimebase"/>
+        <ComponentRef Id="Py25LibPythonOmniorbCosTimebase__poa"/>
+      </Feature>
+
+      <!-- OpenRTM_aist -->
+      <Feature Id="Py25_OpenRTM_aist" Level="1" Title="OpenRTM-aist (Python)">
+        <ComponentRef Id="Py25_RtmOpenrtm_aistUtilsRtcprof"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistUtilsRtcd"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistRoot"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aist"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistRtctemplate"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistExt"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistExtSdo"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistExtSdoObserver"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistRtm_idl"/>
+        <ComponentRef Id="Py25_RtmOpenrtm_aistRtm_idlDevice_interfaces"/>
+      </Feature>
+    </Feature>
+
+    <!-- Function definition omniORBpy26 -->
+    <Feature Id="omniORBpy26" Level="1" Title="OpenRTM-aist for Python 2.6"
+             ConfigurableDirectory="PYTHON26DIR">
+      <Condition Level="1"><![CDATA[ NOT PYTHON26 =  ""]]></Condition>
+      <Condition Level="0"><![CDATA[ NOT PYTHON26 <> ""]]></Condition>
+
+      <!-- runtime -->
+      <Feature Id="Py26_Runtime" Level="1" Title="omniORBpy for Python 2.6">
+        <ComponentRef Id="Py26BinX86_win32"/>
+        <ComponentRef Id="Py26LibX86_win32"/>
+        <ComponentRef Id="Py26LibPython"/>
+        <ComponentRef Id="Py26BinDll"/>
+        <ComponentRef Id="Py26LibPythonCosnaming"/>
+        <ComponentRef Id="Py26LibPythonCosnaming__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniidl"/>
+        <ComponentRef Id="Py26LibPythonOmniidl_be"/>
+        <ComponentRef Id="Py26LibPythonOmniorb"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCos"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoscollection"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoscollection__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoscompoundlifecycle"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoscompoundlifecycle__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoscontainment"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoscontainment__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoseventchanneladmin"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoseventchanneladmin__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoseventcomm"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoseventcomm__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosexternalization"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosexternalizationcontainment"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosexternalizationcontainment__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosexternalizationreference"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosexternalizationreference__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosexternalization__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosgraphs"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosgraphs__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoslifecycle"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoslifecyclecontainment"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoslifecyclecontainment__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoslifecyclereference"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoslifecyclereference__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCoslifecycle__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnaming"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnaming__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotification"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotification__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotifychanneladmin"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotifychanneladmin__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotifycomm"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotifycomm__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotifyfilter"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosnotifyfilter__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosobjectidentity"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosobjectidentity__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistenceddo"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistenceddo__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistenceds_cli"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistenceds_cli__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepds"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepds_da"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepds_da__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepds__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepid"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepid__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepo"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepom"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepom__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospersistencepo__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospropertyservice"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCospropertyservice__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosquery"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosquerycollection"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosquerycollection__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosquery__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosreference"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosreference__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosrelationships"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosrelationships__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosstream"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCosstream__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostime"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostimerevent"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostimerevent__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostime__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostrading"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostradingdynamic"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostradingdynamic__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostradingrepos"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostradingrepos__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostrading__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypedeventchanneladmin"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypedeventchanneladmin__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypedeventcomm"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypedeventcomm__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypednotifychanneladmin"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypednotifychanneladmin__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypednotifycomm"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosCostypednotifycomm__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosLifecycleservice"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosLifecycleservice__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosRditesttypes"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosRditesttypes__poa"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosTimebase"/>
+        <ComponentRef Id="Py26LibPythonOmniorbCosTimebase__poa"/>
+      </Feature>
+
+      <!-- OpenRTM_aist -->
+      <Feature Id="Py26_OpenRTM_aist" Level="1" Title="OpenRTM-aist (Python)"
+			   ConfigurableDirectory="INSTALLLOCATION">
+        <ComponentRef Id="Py26_RtmOpenrtm_aistUtilsRtcprof"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistUtilsRtcd"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistRoot"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aist"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistRtctemplate"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistExt"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistExtSdo"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistExtSdoObserver"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistRtm_idl"/>
+        <ComponentRef Id="Py26_RtmOpenrtm_aistRtm_idlDevice_interfaces"/>
+      </Feature>
+    </Feature>
+
+    <!-- Function definition OpenRTM-aist -->
+    <Feature Id="ProductFeature" Level="1" Title="OpenRTM-aist (Python) common files"
+             ConfigurableDirectory="INSTALLLOCATION">
+
+      <!-- runtime -->
+      <Feature Id="Rtm_Runtime" Level="1" Title="Utility">
+        <ComponentRef Id="Rtm_Bin"/>
+        <ComponentRef Id="Rtm_Bin2"/>
+      </Feature>
+
+      <!-- documents -->
+      <Feature Id="Rtm_Docs" Level="1" Title="Documents">
+        <ComponentRef Id="RtmDocsClassreferencejpHtml"/>
+        <ComponentRef Id="RtmDocsClassreferenceenHtml"/>
+      </Feature>
+
+      <!-- examples -->
+      <Feature Id="Rtm_Examples" Level="1" Title="Examples">
+        <ComponentRef Id="RtmOpenrtm_aistExamples"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesAutocontrol"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesComposite"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesConfigsample"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesExttrigger"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesMobilerobotcanvas"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesNxtrtc"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesSeqio"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesSimpleio"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesSimpleservice"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesSlider_and_motor"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesTkjoystick"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesTklrfviewer"/>
+        <ComponentRef Id="RtmOpenrtm_aistExamplesTemplates"/>
+      </Feature>
+
+    </Feature>
+
+    <!-- OpenRTP tools -->
+    <?if $(env.INCLUDE_OPENRTP) = YES ?>
+    <Feature Id="OpenRTP" Level="1" Title="OpenRT Platform Tool Chain"
+			 ConfigurableDirectory="INSTALLLOCATION">
+      <Condition Level ="1"><![CDATA[ (RTSE_FILEEXISTS =  "") ]]></Condition>
+      <Condition Level ="0"><![CDATA[ (RTSE_FILEEXISTS <> "") ]]></Condition>
+
+      <!-- rtse rcp -->
+      <Feature Id="RTSystemEditor" Level="1" Title="RTSystemEditor">
+	<ComponentRef Id="Openrtp" />
+	<ComponentRef Id="OpenrtpConfiguration" />
+	<ComponentRef Id="OpenrtpPlugins" />
+	<ComponentRef Id="org.eclipse.core.runtime.compatibility.registry_3.2.200.v20080610" />
+	<ComponentRef Id="META_INF" />
+	<ComponentRef Id="org.eclipse.equinox.launcher.win32.win32.x86_1.0.101.R34x_v20080731" />
+	<ComponentRef Id="META_INF_2" />
+      </Feature>
+    </Feature>
+    <?endif ?>
+
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="Bitmaps/bannrbmp.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="Bitmaps/dlgbmp.bmp" />
+    <WixVariable Id="WixUICostingPopupOptOut" Value="1" Overridable="no" />
+
+    <!-- <UIRef Id="WixUI_Mondo" /> -->
+    <UIRef Id="WixUI_Mondo_RTM" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+
+    <CustomAction Id='IDLCOMPILE_PY24' Directory="PYTHON24DIR"
+                  ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.4 "[Version]examples\Python"' 
+                  Return='asyncWait' />
+
+    <CustomAction Id='IDLCOMPILE_PY25' Directory="PYTHON25DIR"
+                  ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.5 "[Version]examples\Python"' 
+                  Return='asyncWait' />
+
+    <CustomAction Id='IDLCOMPILE_PY26' Directory="PYTHON26DIR"
+                  ExeCommand='"[bin]idlcompile.bat" "[bin]idlcompile.py" 2.6 "[Version]examples\Python"' 
+                  Return='asyncWait' />
+
+    <CustomAction Id='REMOVEFOLDER_PY24' Directory="PYTHON24DIR"
+                  ExeCommand='cmd.exe /C RMDIR /Q /S Lib\\site-packages\\OpenRTM_aist' Return='ignore' />
+    <CustomAction Id='REMOVEFOLDER_PY25' Directory="PYTHON25DIR"
+                  ExeCommand='cmd.exe /C RMDIR /Q /S Lib\\site-packages\\OpenRTM_aist' Return='ignore' />
+    <CustomAction Id='REMOVEFOLDER_PY26' Directory="PYTHON26DIR"
+                  ExeCommand='cmd.exe /C RMDIR /Q /S Lib\\site-packages\\OpenRTM_aist' Return='ignore' />
+
+    <CustomAction Id='REMOVEFOLDER_RTM' Directory="INSTALLLOCATION"
+                  ExeCommand='cmd.exe /C RMDIR /Q /S {% Product.ShortVersion %}\\examples\\Python' Return='ignore' />
+
+  </Product>
+</Wix>

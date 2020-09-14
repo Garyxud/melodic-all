@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rts:RtsProfile rtsExt:comment="Sample RTSystem" rts:updateDate="2008-05-06T13:49:53"
+    rts:creationDate="2008-05-06T13:49:53"
+    rts:abstract="Sample Abstract" rts:version="0.2"
+    rts:id="RTSystem:jp.go.aist:SampleRTS:1.0.0"
+    xmlns:rtsExt="http://www.openrtp.org/namespaces/rts_ext"
+    xmlns:rts="http://www.openrtp.org/namespaces/rts"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rts:Components xsi:type="rtsExt:component_ext" rtsExt:visible="true"
+        rts:isRequired="true" rts:compositeType="None"
+        rts:activeConfigurationSet="configSet_1"
+        rts:instanceName="SampleComponent_1"
+        rts:pathUri="file://localhost/C:/RTM/XMLSample/XML/SampleXML.xml"
+        rts:id="RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0">
+        <rts:DataPorts xsi:type="rtsExt:dataport_ext" rtsExt:visible="true"
+            rts:name="Comp1_outport1"/>
+        <rts:DataPorts xsi:type="rtsExt:dataport_ext" rtsExt:visible="true"
+            rts:name="Comp1_outport2"/>
+        <rts:DataPorts xsi:type="rtsExt:dataport_ext" rtsExt:visible="true"
+            rts:name="Comp1_outport3"/>
+        <rts:ServicePorts xsi:type="rtsExt:serviceport_ext"
+            rts:name="SrvPort2"/>
+        <rts:ConfigurationSets rts:id="configSet_1">
+            <rts:ConfigurationData rts:data="value" rts:name="name_1"/>
+            <rts:ConfigurationData rts:data="value" rts:name="name_2"/>
+        </rts:ConfigurationSets>
+        <rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext"
+            rts:rate="1000.0" rts:kind="PeriodicExecutionContext"
+            rts:id="Comp1Ec1"/>
+        <rtsExt:Location rtsExt:direction="right" rtsExt:width="-1"
+            rtsExt:height="-1" rtsExt:y="93" rtsExt:x="93"/>
+    </rts:Components>
+    <rts:Components xsi:type="rtsExt:component_ext" rtsExt:visible="true"
+        rts:isRequired="true" rts:compositeType="None"
+        rts:activeConfigurationSet="configSet_1"
+        rts:instanceName="SampleComponent2_1"
+        rts:pathUri="file://localhost/C:/RTM/XMLSample/XML/SampleXML2.xml"
+        rts:id="RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0">
+        <rts:DataPorts xsi:type="rtsExt:dataport_ext" rtsExt:visible="true"
+            rts:name="Comp2_inport1"/>
+        <rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext"
+            rts:rate="500.0" rts:kind="PeriodicExecutionContext"
+            rts:id="Comp2Ec1"/>
+        <rtsExt:Location rtsExt:direction="right" rtsExt:width="-1"
+            rtsExt:height="-1" rtsExt:y="276" rtsExt:x="93"/>
+    </rts:Components>
+    <rts:Components xsi:type="rtsExt:component_ext" rtsExt:visible="true"
+        rts:isRequired="true" rts:compositeType="None"
+        rts:instanceName="SampleComponent3_1"
+        rts:pathUri="file://localhost/C:/RTM/XMLSample/XML/SampleXML3.xml"
+        rts:id="RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0">
+        <rts:DataPorts xsi:type="rtsExt:dataport_ext" rtsExt:visible="true"
+            rts:name="Comp3_inport2"/>
+        <rts:ServicePorts xsi:type="rtsExt:serviceport_ext"
+            rts:name="SrvPort4"/>
+        <rts:ExecutionContexts xsi:type="rtsExt:execution_context_ext"
+            rts:rate="300.0" rts:kind="PeriodicExecutionContext"
+            rts:id="Comp3Ec1"/>
+        <rtsExt:Location rtsExt:direction="left" rtsExt:width="-1"
+            rtsExt:height="-1" rtsExt:y="93" rtsExt:x="93"/>
+    </rts:Components>
+    <rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext"
+        rts:subscriptionType="Flush" rts:dataflowType="PUSH"
+        rts:interfaceType="CORBA_Any" rts:dataType="RTC::TimedLong"
+        rts:name="Comp1_outport1_Comp2_inport1"
+        rts:connectorId="9c477198-dbf4-4298-9713-c5e1b1b30607">
+        <rts:sourceDataPort xsi:type="rtsExt:target_port_ext"
+            rts:portName="Comp1_outport1" rts:instanceName="SampleComponent_1"
+            rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0"/>
+        <rts:targetDataPort xsi:type="rtsExt:target_port_ext"
+            rts:portName="Comp2_inport1" rts:instanceName="SampleComponent2_1"
+            rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0"/>
+    </rts:DataPortConnectors>
+    <rts:DataPortConnectors xsi:type="rtsExt:dataport_connector_ext"
+        rts:subscriptionType="Flush" rts:dataflowType="PUSH"
+        rts:interfaceType="CORBA_Any" rts:dataType="RTC::TimedDouble"
+        rts:name="Comp1_outport3_Comp3_inport2"
+        rts:connectorId="c5e1b1b306-9713-4298-dbf4-9c47719807">
+        <rts:sourceDataPort xsi:type="rtsExt:target_port_ext"
+            rts:portName="Comp1_outport3" rts:instanceName="SampleComponent_1"
+            rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0"/>
+        <rts:targetDataPort xsi:type="rtsExt:target_port_ext"
+            rts:portName="Comp3_inort2" rts:instanceName="SampleComponent3_1"
+            rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0"/>
+    </rts:DataPortConnectors>
+    <rts:ServicePortConnectors xsi:type="rtsExt:serviceport_connector_ext"
+        rts:name="SrvPort2_SrvPort4"
+        rts:connectorId="9fbb4aa9-cd3f-4723-9375-b8e1201d0b6f">
+        <rts:sourceServicePort xsi:type="rtsExt:target_port_ext"
+            rts:portName="SrvPort4" rts:instanceName="SampleComponent3_1"
+            rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0"/>
+        <rts:targetServicePort xsi:type="rtsExt:target_port_ext"
+            rts:portName="SrvPort2" rts:instanceName="SampleComponent_1"
+            rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0"/>
+    </rts:ServicePortConnectors>
+    <rts:StartUp>
+        <rts:targets xsi:type="rtsExt:condition_ext" rts:sequence="1">
+            <rts:WaitTime rts:waitTime="1000"/>
+            <rts:TargetComponent rts:id="Comp1Ec1"
+                rts:instanceName="SampleComponent_1"
+                rts:componentId="RTC:SampleVendor.SampleCategory.SampleComponent:1.0.0"/>
+        </rts:targets>
+        <rts:targets xsi:type="rtsExt:condition_ext" rts:sequence="2">
+            <rts:WaitTime rts:waitTime="500"/>
+            <rts:TargetComponent rts:id="Comp2Ec1"
+                rts:instanceName="SampleComponent2_1"
+                rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0"/>
+        </rts:targets>
+        <rts:targets xsi:type="rtsExt:condition_ext" rts:sequence="3">
+            <rts:WaitTime rts:waitTime="750"/>
+            <rts:TargetComponent rts:id="Comp3Ec1"
+                rts:instanceName="SampleComponent3_1"
+                rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0"/>
+        </rts:targets>
+    </rts:StartUp>
+    <rts:ShutDown>
+        <rts:targets xsi:type="rtsExt:condition_ext" rts:sequence="1">
+            <rts:WaitTime rts:waitTime="300"/>
+            <rts:TargetComponent rts:id="Comp3Ec1"
+                rts:instanceName="SampleComponent3_1"
+                rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0"/>
+        </rts:targets>
+        <rts:targets xsi:type="rtsExt:condition_ext" rts:sequence="2">
+            <rts:Preceding rts:sendingTiming="SYNC" rts:timeout="100">
+                <rts:PrecedingComponents rts:id="Comp3Ec1"
+                    rts:instanceName="SampleComponent3_1"
+                    rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0"/>
+            </rts:Preceding>
+            <rts:TargetComponent rts:id="Comp2Ec1"
+                rts:instanceName="SampleComponent2_1"
+                rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0"/>
+        </rts:targets>
+        <rts:targets xsi:type="rtsExt:condition_ext" rts:sequence="3">
+            <rts:Preceding rts:sendingTiming="SYNC" rts:timeout="100">
+                <rts:PrecedingComponents rts:id="Comp3Ec1"
+                    rts:instanceName="SampleComponent3_1"
+                    rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0"/>
+                <rts:PrecedingComponents rts:id="Comp2Ec1"
+                    rts:instanceName="SampleComponent2_1"
+                    rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0"/>
+            </rts:Preceding>
+            <rts:TargetComponent rts:id="Comp1Ec1"
+                rts:instanceName="SampleComponent_1"
+                rts:componentId="RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0"/>
+        </rts:targets>
+    </rts:ShutDown>
+</rts:RtsProfile>
+

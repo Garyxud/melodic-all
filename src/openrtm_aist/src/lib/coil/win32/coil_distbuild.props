@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <coil_root>$(SolutionDir)</coil_root>
+    <coil_depend_libd>"advapi32.lib";"ws2_32.lib";"mswsock.lib";"rpcrt4.lib";"msvcrtd.lib";"msvcmrtd.lib"</coil_depend_libd>
+    <coil_depend_lib>"advapi32.lib";"ws2_32.lib";"mswsock.lib";"rpcrt4.lib";"msvcrt.lib";"msvcmrt.lib"</coil_depend_lib>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>coil-dist-$(COIL_SHORTVER)</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="coil_root">
+      <Value>$(coil_root)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_depend_libd">
+      <Value>$(coil_depend_libd)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_depend_lib">
+      <Value>$(coil_depend_lib)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

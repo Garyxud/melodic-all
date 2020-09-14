@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude" name="room73b2-wanda">
+  <macro name="room73b2-wanda" params="name parent *origin">
+    <gazebo>
+      <static>false</static>
+    </gazebo>
+    <link name="${name}_nil_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 -0 0"/>
+        <geometry>
+          <mesh filename="package://eusurdf/textured_models/room73b2-wanda/meshes/nil_link_mesh.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 -0 0"/>
+        <geometry>
+          <mesh filename="package://eusurdf/textured_models/room73b2-wanda/meshes/nil_link_mesh.dae" scale="1 1 1"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.3"/>
+        <origin xyz="0 0 0" rpy="0 -0 0"/>
+        <inertia ixx="1e-03" ixy="0" ixz="0" iyy="1e-03" iyz="0" izz="1e-03"/>
+      </inertial>
+    </link>
+    <gazebo reference="${name}_nil_link">
+      <mu1>0.9</mu1>
+      <mu2>0.9</mu2>
+    </gazebo>
+    <joint name="${name}_root_parent_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_nil_link"/>
+      <insert_block name="origin"/>
+    </joint>
+  </macro>
+</robot>

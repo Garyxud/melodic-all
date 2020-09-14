@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="fsrobo_r">
+  <!-- fsrobo_r -->
+  <xacro:include filename="$(find fsrobo_r_description)/urdf/fsrobo_r.urdf.xacro" /> 
+  
+  <!-- arm -->
+  <xacro:fsrobo_r_robot prefix="arm1/"/>
+
+  <link name="world" />
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "arm1/base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+</robot>

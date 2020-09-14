@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+  xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+  xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+  xmlns:xacro="http://ros.org/wiki/xacro" name="rsl_400">
+ 
+  <xacro:macro name="rsl_400" params="name">
+
+  <link name="${name}_mount_link">
+    <visual>
+    <origin xyz="0 0 0" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <mesh filename="package://leuze_description/meshes/RSL_400_visual.dae" />
+      </geometry>
+    </visual>
+    <collission>
+    <origin xyz="0 0 0" rpy="$0.0 0.0 0.0" />
+      <geometry>
+        <mesh filename="package://leuze_description/meshes/RSL_400_collision.stl" />
+      </geometry>
+    </collission>
+  </link>
+  <joint name="${name}_joint" type="fixed">
+    <parent link="${name}_mount_link" />
+    <child link = "${name}_laser" />
+    <origin xyz="0.0 0.0 0.106" rpy="0.0 0.0 0.0" />
+  </joint>
+  <link name="${name}_laser">
+  </link>
+  </xacro:macro>
+
+  <xacro:macro name="leuze_RSL400_gazebo" params="name link ros_topic update_rate samples min_angle max_angle min_range max_range">
+    <gazebo reference="${link}">
+      <material value="Gazebo/Blue" />
+      <sensor type="ray" name="${name}">
+        <always_on>true</always_on>
+        <update_rate>${update_rate}</update_rate>
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${samples}</samples>
+              <resolution>1</resolution>
+              <min_angle>${min_angle}</min_angle>
+              <max_angle>${max_angle}</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>${min_range}</min>
+            <max>${max_range}</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_laser.so">
+          <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>${update_rate}</updateRate>
+          <topicName>${ros_topic}</topicName>
+          <frameName>${link}</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>

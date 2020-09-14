@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>pyquaternion</name>
+  <version>0.9.6</version>
+  <description>quaternion operations</description>
+
+  <maintainer email="achille.verheye@gmail.com">achille</maintainer>
+  <license>MIT</license>
+  <!-- <url type="website">http://wiki.ros.org/pyquaternion</url> -->
+  <author email="achille.verheye@gmail.com">achille</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>python-numpy</exec_depend>
+
+</package>

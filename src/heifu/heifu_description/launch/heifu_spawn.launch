@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- HEIFU SITL Gazebo environment launch script -->
+    <!-- Launches HEIFU with ArduPilot -->
+
+    <!-- Vehicle pose -->
+    <arg name="x" default="0"/>
+    <arg name="y" default="3"/>
+    <arg name="z" default="1"/>
+    <arg name="R" default="0"/>
+    <arg name="P" default="0"/>
+    <arg name="Y" default="0"/>
+
+    <!-- Vehicle model and config -->
+    <arg name="argVehicle" default="heifu"/>
+    <arg name="argID" default="0"/>
+
+    <arg name="argFDMAddress" value="127.0.0.1"/>
+    <arg name="argFDMPortIn"  value="$(eval 9002 + 10*arg('argID'))"/>
+    <arg name="argFDMPortOut" value="$(eval 9003 + 10*arg('argID'))"/>
+
+    <!-- Spawn vehicle -->
+    <arg name="cmd" default="$(find xacro)/xacro $(find heifu_description)/models/heifu_with_ardupilot/model.sdf.xacro name:=$(arg argVehicle) fdm_addr:=$(arg argFDMAddress) fdm_port_in:=$(arg argFDMPortIn) fdm_port_out:=$(arg argFDMPortOut)"/>
+    <param command="$(arg cmd)" name="model_description"/>
+    <node name="$(arg argVehicle)$(arg argID)_spawn" output="screen" pkg="gazebo_ros" type="spawn_model" args="-sdf -param model_description -model $(arg argVehicle) -package_to_model -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/>
+</launch>

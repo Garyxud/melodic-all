@@ -1,0 +1,26 @@
+
+name: win
+
+on: [push]
+
+jobs:
+  windows_mingw7:
+    runs-on: [windows-latest]
+    steps: 
+      - uses: actions/checkout@v1
+      
+      - name: get-cmake
+        uses: lukka/get-cmake@v2.3
+        
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2.5.3
+        with:
+          arch: win64_mingw73
+          install-deps: 'true'
+          modules: 'qtsvg qtxml qtmultimedia qtmultimediawidgets qtqml qtprintsupport'
+      
+      - name: Configure
+        run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=release -G "CodeBlocks - MinGW Makefiles" ..
+  
+      - name: Build
+        run: cmake --build build --target all -- -j 4

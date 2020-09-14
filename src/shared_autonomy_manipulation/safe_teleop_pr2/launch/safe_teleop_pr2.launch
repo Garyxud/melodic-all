@@ -1,0 +1,13 @@
+<launch>
+  <node pkg="pr2_teleop" type="teleop_pr2" name="pr2_teleop" output="screen">
+    <remap from="cmd_vel" to="unsafe_vel" />
+    <rosparam file="$(find pr2_teleop)/teleop.yaml" command="load" />
+  </node>
+
+  <node pkg="safe_teleop_base" type="safe_teleop_base" respawn="false" name="safe_teleop_base" output="screen">
+    <remap from="unsafe_vel" to="base_velocity"/>
+    <remap from="safe_vel" to="base_controller/command"/>
+
+    <rosparam file="$(find safe_teleop_pr2)/config/safe_teleop_pr2_params.yaml" command="load" />
+  </node>
+</launch>

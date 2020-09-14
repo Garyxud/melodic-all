@@ -1,0 +1,8 @@
+<launch>
+    <node name="ap_wlan0" pkg="hostapd_access_point" type="ap_hostapd_node.py"> 
+        <param name="interface" value="wlan0"/>
+	<param name="ip" value="192.168.68.1"/>
+        <param name="netmask" value="255.255.255.0"/>
+    </node>
+    <node name="reconfigure_node" pkg="dynamic_reconfigure" type="reconfigure_gui"/>
+</launch>

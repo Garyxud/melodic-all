@@ -1,0 +1,34 @@
+<launch>
+  <arg name="use_sim_time" default="true" />
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="world_name" default="$(find gazebo_ros)/worlds/empty_world.world" />
+
+  <!-- Robot Spawn Pose -->
+  <arg name="x"     default="0"/>
+  <arg name="y"     default="0"/>
+  <arg name="z"     default="0.1"/>
+  <arg name="yaw"   default="0"/>
+
+  <!-- Configuration of Dingo which you would like to simulate.
+       See dingo_description for details. -->
+  <arg name="config" default="$(optenv DINGO_CONFIG base)" />
+
+  <!-- Launch Gazebo with the specified world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="0" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="use_sim_time" value="$(arg use_sim_time)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="world_name" value="$(arg world_name)" />
+  </include>
+
+  <!-- Load Dingo's description, controllers, and teleop nodes. -->
+  <include file="$(dirname)/spawn_dingo.launch">
+    <arg name="x"         value="$(arg x)" />
+    <arg name="y"         value="$(arg y)" />
+    <arg name="z"         value="$(arg z)" />
+    <arg name="yaw"       value="$(arg yaw)" />
+    <arg name="config"    value="$(arg config)" />
+  </include>
+</launch>

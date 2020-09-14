@@ -1,0 +1,16 @@
+<launch>
+  <arg name="DISPLAY" default="" />
+  <arg name="gui" default="false"/>
+
+  <env name="DISPLAY" value="$(arg DISPLAY)" />
+
+  <include file="$(find pr2_gazebo)/launch/pr2_empty_world.launch" >
+    <arg name="gui" default="$(arg gui)"/>
+    <arg name="paused" default="false"/>
+  </include>
+  <include file="$(find pr2_moveit_config)/launch/move_group.launch" />
+
+  <!-- test : it takes ~60 sec to launch gazebo -->
+  <test pkg="pr2eus_moveit" type="test-pr2eus-moveit.l"
+        test-name="test_pr2eus_moveit" time-limit="360" retry="2" />
+</launch>

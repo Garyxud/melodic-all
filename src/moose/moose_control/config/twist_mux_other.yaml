@@ -1,0 +1,10 @@
+topics:
+- name    : other
+  topic   : cmd_vel
+  timeout : 0.5
+  priority: 1
+locks:
+- name    : unmanned
+  topic   : teleop/unmanned
+  timeout : 0.5
+  priority: 100

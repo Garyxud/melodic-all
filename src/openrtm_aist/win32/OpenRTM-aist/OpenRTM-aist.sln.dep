@@ -1,0 +1,28 @@
+libcoil:
+libRTC: libcoil libRTCSkel
+librtmManipulator: libcoil libRTCSkel libRTC
+librtmCamera: libcoil libRTCSkel librtmManipulator libRTC
+rtcd: libcoil libRTC
+rtcprof: libcoil libRTC
+ComponentObserverConsumer: libcoil libRTC
+ConfigSampleComp: libcoil libRTC
+ConfigSample: libcoil libRTC
+ConsoleInComp: libcoil libRTC
+ConsoleIn: libcoil libRTC
+ConsoleOutComp: libcoil libRTC
+ConsoleOut: libcoil libRTC
+SeqInComp: libcoil libRTC
+SeqIn: libcoil libRTC
+SeqOutComp: libcoil libRTC
+SeqOut: libcoil libRTC
+MyServiceConsumerComp: libcoil libRTC
+MyServiceConsumer: libcoil libRTC MyServiceConsumerComp
+MyServiceProviderComp: libcoil libRTC MyServiceConsumerComp MyServiceConsumer
+MyServiceProvider: libcoil libRTC MyServiceConsumerComp MyServiceConsumer MyServiceProviderComp
+Motor: libcoil libRTC
+MotorComp: libcoil libRTC
+Controller: libcoil libRTC
+ControllerComp: libcoil libRTC
+Sensor: libcoil libRTC
+SensorComp: libcoil libRTC
+Composite: libcoil libRTC

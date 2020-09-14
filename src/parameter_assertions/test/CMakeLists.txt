@@ -1,0 +1,13 @@
+set(PARAMETER_ASSERTIONS_TEST_LIBRARIES ${catkin_LIBRARIES} parameter_assertions ${GTEST_LIBRARIES})
+
+add_rostest_gtest(test_getParam test_getParam.test test_getParam.cpp)
+target_link_libraries(test_getParam ${PARAMETER_ASSERTIONS_TEST_LIBRARIES})
+
+add_rostest_gtest(test_param test_param.test test_param.cpp)
+target_link_libraries(test_param ${PARAMETER_ASSERTIONS_TEST_LIBRARIES})
+
+add_rostest_gtest(test_getParam_with_assertions test_getParam_with_assertions.test test_getParam_with_assertions.cpp)
+target_link_libraries(test_getParam_with_assertions ${PARAMETER_ASSERTIONS_TEST_LIBRARIES})
+
+add_rostest_gtest(test_param_with_assertions test_param_with_assertions.test test_param_with_assertions.cpp)
+target_link_libraries(test_param_with_assertions ${PARAMETER_ASSERTIONS_TEST_LIBRARIES})

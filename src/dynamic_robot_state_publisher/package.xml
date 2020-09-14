@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dynamic_robot_state_publisher</name>
+  <version>1.1.1</version>
+  <description>Improved ROS robot_state_publisher which can update the robot model via dynamic_reconfigure.</description>
+  <license>BSD</license>
+
+  <author email="peckama2@fel.cvut.cz">Martin Pecka</author>
+  <maintainer email="peckama2@fel.cvut.cz">Martin Pecka</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>dynamic_reconfigure</depend>
+  <depend>kdl_parser</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+</package>

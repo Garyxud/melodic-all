@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!-- root directory -->		
+  <Directory Id="OpenCVRoot" Name="OpenCV2.1">
+    <Component Id="OpenCV" Guid="{% OpenCV.GUID %}">
+	  <Environment Id="OPENCV_DIR" Name="OpenCV_DIR" Action="set"
+		           System="yes" Value="[OpenCVRoot]" />
+	    {% for file in OpenCV.Files %}
+	      <File Id="{% file.Id %}" Name="{% file.Name %}"
+	            DiskId="1" Source="{% file.Source %}">
+	      </File>
+	    {% endfor %}
+    </Component>
+      
+    <!-- bin -->
+    <Directory Id="OpenCV_bin" Name="bin">
+      <Component Id="OpenCVBin" Guid="{% OpenCVBin.GUID %}">
+	    <Environment Id="OpenCVUpdatePath" Name="PATH" Action="set"
+			         System="yes" Part="last"
+			         Value="[OpenCV_bin]" />
+	      {% for file in OpenCVBin.Files %}
+	        <File Id="{% file.Id %}" Name="{% file.Name %}"
+		          DiskId="1" Source="{% file.Source %}">
+	        </File>
+	      {% endfor %}
+      </Component>
+    </Directory>
+      
+    <!-- include -->
+    <Directory Id="OpenCV_include" Name="include">
+      <Directory Id="OpenCV_include_opencv" Name="opencv">
+        <Component Id="OpenCVIncludeOpencv" Guid="{% OpenCVIncludeOpencv.GUID %}">
+	      {% for file in OpenCVIncludeOpencv.Files %}
+	        <File Id="{% file.Id %}" Name="{% file.Name %}"
+		          DiskId="1" Source="{% file.Source %}">
+	        </File>
+	      {% endfor %}
+        </Component>
+      </Directory>
+    </Directory>
+      
+    <!-- lib -->
+    <Directory Id="OpenCV_lib" Name="lib">
+      <Component Id="OpenCVLib" Guid="{% OpenCVLib.GUID %}">
+	    {% for file in OpenCVLib.Files %}
+	      <File Id="{% file.Id %}" Name="{% file.Name %}"
+		        DiskId="1" Source="{% file.Source %}">
+	      </File>
+	    {% endfor %}
+      </Component>
+    </Directory>
+    <!-- end of lib -->
+
+    <!-- doc -->
+    <Directory Id="OpenCV_doc" Name="doc">
+      <Component Id="OpenCVDoc" Guid="{% OpenCVDoc.GUID %}">
+	    {% for file in OpenCVDoc.Files %}
+	      <File Id="{% file.Id %}" Name="{% file.Name %}"
+		        DiskId="1" Source="{% file.Source %}">
+	      </File>
+	    {% endfor %}
+      </Component>
+    </Directory>
+    <!-- end of doc -->
+  </Directory>
+</Include>
+

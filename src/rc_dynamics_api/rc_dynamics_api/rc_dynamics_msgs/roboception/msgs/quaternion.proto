@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "QuaternionProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Quaternion
+/// \brief A message for a quaternion
+
+message Quaternion
+{
+  optional double x = 2;
+  optional double y = 3;
+  optional double z = 4;
+  optional double w = 5;
+}

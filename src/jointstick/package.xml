@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>jointstick</name>
+  <version>0.9.1</version>
+  <description>Move any joint with any controller!</description>
+
+  <author email="stavrinosgeo@gmail.com">George Stavrinos</author>
+  <maintainer email="stavrinosgeo@gmail.com">George Stavrinos</maintainer>
+
+  <license>BSD-3-Clause</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>controller_manager_msgs</depend>
+  <depend>trajectory_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>std_msgs</depend>
+
+</package>

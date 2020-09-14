@@ -1,0 +1,285 @@
+<?xml version='1.0'?>
+
+<robot name="moose" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <xacro:property name="wheel_radius" value="0.3175" />
+  <xacro:property name="wheel_width" value="0.303" />
+  <xacro:property name="wheel_mass" value="16.8" />
+
+  <xacro:property name="front_axle_x_offset" value="1.0036" />
+  <xacro:property name="front_mid_axle_x_offset" value="0.33639" />
+  <xacro:property name="rear_mid_axle_x_offset" value="-0.33638" />
+  <xacro:property name="rear_axle_x_offset" value="-1.01123" />
+  <xacro:property name="axle_y_offset" value="0.6249" />
+  <xacro:property name="high_axle_z_offset" value="0.04115" />
+  <xacro:property name="low_axle_z_offset" value="0.01892" />
+
+  <xacro:property name="chassis_length" value="2.9532" />
+  <xacro:property name="chassis_width" value="1.416" />
+  <xacro:property name="chassis_height" value="0.52705" />
+  <xacro:property name="chassis_mass" value="1590" />
+
+  <xacro:property name="dummy_inertia" value="1e-09"/>
+
+  <xacro:macro name="wheel_inertia" params="m r h">
+    <inertia ixx="${m*(3*r*r+h*h)/12}" ixy="0" ixz="0"
+             iyy="${m*r*r/2}" iyz="0"
+             izz="${m*(3*r*r+h*h)/12}" />
+  </xacro:macro>
+
+  <xacro:macro name="box_inertia" params="m x y z">
+    <inertia ixx="${m*(y*y+z*z)/12}" ixy="0" ixz="0"
+             iyy="${m*(x*x+z*z)/12}" iyz="0"
+             izz="${m*(x*x+z*z)/12}" />
+  </xacro:macro>
+
+  <material name="dark_grey"><color rgba="0.2 0.2 0.2 1.0" /></material>
+  <material name="light_grey"><color rgba="0.4 0.4 0.4 1.0" /></material>
+  <material name="yellow"><color rgba="0.95 0.816 0.082 1.0" /></material>
+  <material name="black"><color rgba="0.15 0.15 0.15 1.0" /></material>
+  <material name="white"><color rgba="0.9 0.9 0.9 1.0" /></material>
+  <material name="red"><color rgba="0.9 0.0 0.0 1.0" /></material>
+
+  <xacro:macro name="wheel" params="prefix side *joint_pose">
+    <link name="${prefix}_${side}_wheel_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="${wheel_mass}" />
+        <xacro:wheel_inertia m="${wheel_mass}" r="${wheel_radius}" h="${wheel_width}" />
+      </inertial>
+      <visual>
+        <origin xyz="0 ${wheel_width/2} 0" rpy="${PI/2} 0 0"/>
+        <geometry>
+          <mesh filename="package://moose_description/meshes/wheel.stl" />
+        </geometry>
+        <material name="dark_grey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}_${side}_wheel" type="continuous">
+      <parent link="chassis_link"/>
+      <child link="${prefix}_${side}_wheel_link"/>
+      <xacro:insert_block name="joint_pose" />
+      <axis xyz="0 1 0"/>
+    </joint>
+    <gazebo reference="${prefix}_${side}_wheel_link">
+      <selfCollide>false</selfCollide>
+      <mu1>0.3</mu1>
+      <mu2>0.3</mu2>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0" />
+      <material>Gazebo/Grey</material>
+    </gazebo>
+    <transmission name="${prefix}_${side}_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}_${side}_wheel">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${side}_${prefix}_actuator">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+
+  <xacro:wheel prefix="front" side="left">
+    <origin xyz="${front_axle_x_offset} ${axle_y_offset*1} ${high_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+  <xacro:wheel prefix="front_mid" side="left">
+    <origin xyz="${front_mid_axle_x_offset} ${axle_y_offset*1} ${low_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+  <xacro:wheel prefix="front" side="right">
+    <origin xyz="${front_axle_x_offset} ${axle_y_offset*-1} ${high_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+  <xacro:wheel prefix="front_mid" side="right">
+    <origin xyz="${front_mid_axle_x_offset} ${axle_y_offset*-1} ${low_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+  <xacro:wheel prefix="rear" side="left">
+    <origin xyz="${rear_axle_x_offset} ${axle_y_offset*1} ${high_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+  <xacro:wheel prefix="rear_mid" side="left">
+    <origin xyz="${rear_mid_axle_x_offset} ${axle_y_offset*1} ${low_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+  <xacro:wheel prefix="rear" side="right">
+    <origin xyz="${rear_axle_x_offset} ${axle_y_offset*-1} ${high_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+  <xacro:wheel prefix="rear_mid" side="right">
+    <origin xyz="${rear_mid_axle_x_offset} ${axle_y_offset*-1} ${low_axle_z_offset}" rpy="0 0 0" />
+  </xacro:wheel>
+
+
+  <link name="base_link"></link>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 0 -0.263525" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="chassis_link" />
+  </joint>
+
+  <link name="chassis_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${chassis_mass}"/>
+      <xacro:box_inertia m="${chassis_mass}" x="${chassis_length}"
+                         y="${chassis_width}" z="${chassis_height}" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://moose_description/meshes/chassis.stl" />
+      </geometry>
+      <material name="dark_grey" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://moose_description/meshes/chassis-collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="drive_motor_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.01" />
+      <inertia
+        ixx="0.01" ixy="0.0" ixz="0.0"
+        iyy="0.01" iyz="0.0"
+        izz="0.01" />
+    </inertial>
+  </link>
+
+  <joint name="drive_motor" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="drive_motor_link" />
+  </joint>
+
+  <transmission name="drive_motor_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="drive_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="drive_motor_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <link name="steer_motor_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.01" />
+      <inertia
+        ixx="0.01" ixy="0.0" ixz="0.0"
+        iyy="0.01" iyz="0.0"
+        izz="0.01" />
+    </inertial>
+  </link>
+
+  <joint name="steer_motor" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="steer_motor_link" />
+  </joint>
+
+  <transmission name="steer_motor_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="steer_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="steer_motor_actuator">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <link name="top_chassis_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://moose_description/meshes/top-deck.stl" />
+      </geometry>
+      <material name="yellow" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://moose_description/meshes/top-deck-collision.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="top_chassis_link">
+      <selfCollide>false</selfCollide>
+      <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <joint name="top_link_joint" type="fixed">
+    <origin xyz="0 0 0.52705" rpy="0 0 0" />
+    <parent link="chassis_link"/>
+    <child link="top_chassis_link" />
+  </joint>
+
+  <link name="front_top_chassis_link"></link>
+
+  <joint name="front_top_link_joint" type="fixed">
+    <origin xyz="1.57075 0 0" rpy="0 0 0" />
+    <parent link="top_chassis_link"/>
+    <child link="front_top_chassis_link" />
+  </joint>
+
+  <link name="rear_top_chassis_link"></link>
+
+  <joint name="rear_top_link_joint" type="fixed">
+    <origin xyz="-1.3825 0 0" rpy="0 0 0" />
+    <parent link="top_chassis_link"/>
+    <child link="rear_top_chassis_link" />
+  </joint>
+
+  <xacro:if value="$(optenv MOOSE_GENERATOR 0)">
+    <link name="generator_link">
+      <visual>
+        <geometry>
+          <mesh filename="package://moose_description/meshes/generator.stl" />
+        </geometry>
+        <material name="yellow" />
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://moose_description/meshes/generator-collision.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <gazebo reference="generator_link">
+        <selfCollide>false</selfCollide>
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+
+    <joint name="generator_joint" type="fixed">
+      <origin xyz="-0.641204 0 0" rpy="0 0 0" />
+      <parent link="top_chassis_link"/>
+      <child link="generator_link" />
+    </joint>
+  </xacro:if>
+
+  <link name="imu_link" />
+  <joint name="imu_link_joint" type="fixed">
+    <origin xyz="$(optenv MOOSE_IMU_XYZ 0 0 0)" rpy="$(optenv MOOSE_IMU_RPY 0 0 0)" />
+    <parent link="chassis_link"/>
+    <child link="imu_link" />
+  </joint>
+  <!-- Bring in simulation data for Gazebo. -->
+  <xacro:include filename="$(find moose_description)/urdf/moose.gazebo" />
+
+  <!-- Optional standard accessories, including their simulation data. The rendering
+       of these into the final description is controlled by optenv variables, which
+       default each one to off.-->
+  <xacro:include filename="$(find moose_description)/urdf/accessories.urdf.xacro" />
+
+  <!-- Optional custom includes. -->
+  <xacro:include filename="$(optenv MOOSE_URDF_EXTRAS empty.urdf)" />
+</robot>

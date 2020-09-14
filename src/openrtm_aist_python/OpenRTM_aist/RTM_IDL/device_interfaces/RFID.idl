@@ -1,0 +1,42 @@
+// -*- IDL -*-
+/*!
+ * @file RFID.idl
+ * @brief Services for the RFID interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef RFID_idl
+#define RFID_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface RFID
+{
+    /// Get the geometry of the device.
+    Geometry3D GetGeometry ();
+
+    /// Write data to an RFID tag.
+    /// @param GUID The GUID of the tag to write to.
+    /// @param data The data to write to the tag.
+    void Write (in string GUID, in RFIDTagData data);
+
+    /// Read data from an RFID tag.
+    /// @param GUID The GUID of the tag to write to.
+    RFIDTagData Read (in string GUID);
+};
+};
+
+#endif // RFID_idl
+
+

@@ -1,0 +1,13 @@
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Transform: Flip and/or swap axis">
+  <Param type="RichBool" value="false" name="flipX"/>
+  <Param type="RichBool" value="true" name="flipY"/>
+  <Param type="RichBool" value="false" name="flipZ"/>
+  <Param type="RichBool" value="false" name="swapXY"/>
+  <Param type="RichBool" value="false" name="swapXZ"/>
+  <Param type="RichBool" value="false" name="swapYZ"/>
+  <Param type="RichBool" value="true" name="Freeze"/>
+ </filter>
+ <filter name="Invert Faces Orientation"/>
+</FilterScript>

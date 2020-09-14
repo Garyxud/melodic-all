@@ -1,0 +1,14 @@
+authors: Daniel Stonier <d.stonier@gmail.com>
+brief: ''
+bugtracker: https://github.com/robotics-in-concert/rocon_tools/issues
+depends:
+- python-catkin-pkg
+- catkin
+description: Command line python console utilities (mostly for colourisation).
+license: BSD
+maintainers: Daniel Stonier <d.stonier@gmail.com>
+msgs: []
+package_type: package
+repo_url: https://github.com/robotics-in-concert/rocon_tools
+srvs: []
+url: http://ros.org/wiki/rocon_console

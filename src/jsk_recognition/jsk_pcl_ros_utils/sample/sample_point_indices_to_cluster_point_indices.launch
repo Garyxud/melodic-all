@@ -1,0 +1,33 @@
+<launch>
+
+  <arg name="gui" default="true" />
+
+  <include file="$(find jsk_pcl_ros_utils)/sample/include/play_rosbag_shelf_bin.xml" />
+
+  <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
+  <arg name="INPUT_IMAGE" value="/right_hand_camera/rgb/image_rect_color" />
+
+  <node name="pointcloud_to_point_indices"
+        pkg="jsk_pcl_ros_utils" type="pointcloud_to_point_indices">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+  </node>
+
+  <node name="point_indices_to_cluster_point_indices"
+        pkg="jsk_pcl_ros_utils" type="point_indices_to_cluster_point_indices">
+    <remap from="~input" to="pointcloud_to_point_indices/output" />
+  </node>
+
+  <node name="cluster_point_indices_decomposer"
+        pkg="jsk_pcl_ros" type="cluster_point_indices_decomposer">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+    <remap from="~target" to="point_indices_to_cluster_point_indices/output" />
+  </node>
+
+  <group if="$(arg gui)">
+    <node name="rviz"
+          pkg="rviz" type="rviz"
+          args="-d $(find jsk_pcl_ros_utils)/sample/config/sample_point_indices_to_cluster_point_indices.rviz">
+    </node>
+  </group>
+
+</launch>

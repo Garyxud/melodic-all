@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fetch_tools</name>
+  <version>0.2.1</version>
+  <description>Commands for performing common operations when
+  developing on the robots. For help, run `fetch -h` and `fetch
+  COMMAND -h`.</description>
+
+  <author>Alex Henning</author>
+  <maintainer email="rtoris@fetchrobotics.com">Russell Toris</maintainer>
+  <maintainer email="amoriarty@fetchrobotics.com">Alex Moriarty</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://github.com/fetchrobotics/fetch_tools/blob/master/README.md</url>
+  <url type="repository">https://github.com/fetchrobotics/fetch_tools</url>
+  <url type="bugtracker">https://github.com/fetchrobotics/fetch_tools/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>python-rospkg</build_depend>
+
+  <exec_depend>python-argcomplete</exec_depend>
+  <exec_depend>python-catkin-lint</exec_depend>
+  <exec_depend>roslint</exec_depend>
+  <exec_depend>sshpass</exec_depend>
+
+  <export></export>
+</package>

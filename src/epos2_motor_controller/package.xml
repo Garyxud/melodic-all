@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>epos2_motor_controller</name>
+  <version>1.0.0</version>
+  <description>EPOS2 motor controller driver</description>
+  <maintainer email="spuetz@uos.de">Sebastian Pütz</maintainer>
+  <license>LGPL</license>
+  <author email="mmorta@iri.upc.edu">Martí Morta Garriga</author>
+  <author email="jochen@sprickerhof.de">Jochen Sprickerhof</author>
+
+  <depend>libftdi-dev</depend>
+  <depend>libftdipp-dev</depend>
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

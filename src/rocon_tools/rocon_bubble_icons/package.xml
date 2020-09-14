@@ -1,0 +1,20 @@
+<package>
+  <name>rocon_bubble_icons</name>
+  <version>0.3.2</version>
+  <description>
+    Bubble icon library for rocon.
+  </description>
+  <maintainer email="d.stonier@gmail.com">Daniel Stonier</maintainer>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/rocon_bubble_icons</url>
+  <url type="repository">https://github.com/robotics-in-concert/rocon_tools</url>
+  <url type="bugtracker">https://github.com/robotics-in-concert/rocon_tools/issues</url>
+  <author>Daniel Stonier</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>python-catkin-pkg</build_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml"/>    
+  </export>
+</package>

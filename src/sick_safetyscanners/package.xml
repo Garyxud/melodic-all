@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sick_safetyscanners</name>
+  <version>1.0.5</version>
+  <description>Provides an Interface to read the sensor output of a SICK
+  Safety Scanner</description>
+
+  <maintainer email="puck@fzi.de">Lennart Puck</maintainer>
+
+  <author>Lennart Puck</author>
+
+  <license>ALv2</license>
+
+  <depend>diagnostic_updater</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>dynamic_reconfigure</depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>rqt_reconfigure</exec_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

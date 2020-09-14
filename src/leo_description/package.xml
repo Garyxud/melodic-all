@@ -1,0 +1,18 @@
+<package format="2">
+  <name>leo_description</name>
+  <version>0.3.0</version>
+  <description>
+    URDF Description package for Leo Rover
+  </description>
+
+  <author>Błażej Sowa</author>
+
+  <maintainer email="support@fictionlab.pl">fictionlab</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

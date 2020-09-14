@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>soem</name>
+  <!--
+    This package tracks the upstream Open Ethercat Master Repo and thus should
+    directly reference the respective version number of the upstream.
+    As this does not allow for intermediate releases that only change ROS specific
+    parts, like the CMake plumbing, it has been decided to deviate from the upstream
+    version by adding an arbitrary number (100) to the patch part of the version,
+    and then multiplying by ten (i.e. (patch of upstream + 100) * 10).
+    This allows for intermediate releases in between integrations of upstream releases.
+    
+    Thus, the version numbers relate to each other as follows:
+    
+    1.4.1000 -> upstream 1.4.0
+    1.4.1010 -> upstream 1.4.1
+    1.4.1011 -> upstream 1.4.1 + ROS specific changes 1
+    
+    The idea for this approach was taken from the cartographer_ros package at
+    https://github.com/ros2/cartographer_ros
+  -->
+  <version>1.4.1003</version>
+  <description>
+    ROS wrapper for the Simple Open EtherCAT Master SOEM.
+    This is an updated version of the original SOEM wrapper released into ROS now including
+    the upstream Repo as a git subtree.
+  </description>
+
+  <maintainer email="matthias.gruhler@gmail.com">Matthias Gruhler</maintainer>
+
+  <license>GPLv2 with linking exception</license>
+
+  <url type="website">http://openethercatsociety.github.io/</url>
+  <url type="website">http://wiki.ros.org/soem</url>
+  <url type="bugtracker">https://github.com/mgruhler/soem/issues</url>
+
+  <author>Arthur Ketels and M.J.G. van den Molengraft</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

@@ -1,0 +1,152 @@
+class update_dataspeed_pds_msgs_Status_f20dd126a9c24597f17cd54cc580204d(MessageUpdateRule):
+	old_type = "dataspeed_pds_msgs/Status"
+	old_full_text = """
+Header header
+bool inverter_master
+bool inverter_slave
+Mode mode_master
+Mode mode_slave
+Script script_master
+Script script_slave
+ChannelStatus[24] channel_status
+float32 board_temp_master
+float32 board_temp_slave
+float32 thermocouple_temp_master
+float32 thermocouple_temp_slave
+float32 voltage_master
+float32 voltage_slave
+================================================================================
+MSG: std_msgs/Header
+# Standard metadata for higher-level stamped data types.
+# This is generally used to communicate timestamped data 
+# in a particular coordinate frame.
+# 
+# sequence ID: consecutively increasing ID 
+uint32 seq
+#Two-integer timestamp that is expressed as:
+# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')
+# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')
+# time-handling sugar is provided by the client library
+time stamp
+#Frame this data is associated with
+# 0: no frame
+# 1: global frame
+string frame_id
+
+================================================================================
+MSG: dataspeed_pds_msgs/Mode
+# The actual value of the mode enum.
+uint8 mode
+
+# An enumeration of the possible values of the mode enum.
+uint8 AUTO=0
+uint8 MANUAL=1
+uint8 VALET=2
+================================================================================
+MSG: dataspeed_pds_msgs/Script
+# The actual value of the script enum.
+uint8 script
+
+# An enumeration of the possible values of the script enum.
+uint8 NONE=0
+uint8 STARTUP=1
+uint8 SHUTDOWN=2
+================================================================================
+MSG: dataspeed_pds_msgs/ChannelStatus
+# The actual value of the channel status enum.
+uint8 status
+
+# An enumeration of the possible values of the channel_status enum.
+uint8 OFF=0
+uint8 ON=1
+uint8 NO_LOAD=2
+uint8 BAD_RELAY=3
+uint8 BAD_FUSE=4
+uint8 OVER_CURRENT=5
+"""
+
+	new_type = "dataspeed_pds_msgs/Status"
+	new_full_text = """
+Header header
+Mode mode
+Script script
+ChannelStatus[24] channel_status
+bool inverter_master
+bool inverter_slave
+float32 board_temp_master
+float32 board_temp_slave
+float32 thermocouple_temp_master
+float32 thermocouple_temp_slave
+float32 voltage_master
+float32 voltage_slave
+
+================================================================================
+MSG: std_msgs/Header
+# Standard metadata for higher-level stamped data types.
+# This is generally used to communicate timestamped data 
+# in a particular coordinate frame.
+# 
+# sequence ID: consecutively increasing ID 
+uint32 seq
+#Two-integer timestamp that is expressed as:
+# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')
+# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')
+# time-handling sugar is provided by the client library
+time stamp
+#Frame this data is associated with
+# 0: no frame
+# 1: global frame
+string frame_id
+
+================================================================================
+MSG: dataspeed_pds_msgs/Mode
+# The actual value of the mode enum.
+uint8 mode
+
+# An enumeration of the possible values of the mode enum.
+uint8 AUTO=0
+uint8 MANUAL=1
+uint8 VALET=2
+================================================================================
+MSG: dataspeed_pds_msgs/Script
+# The actual value of the script enum.
+uint8 script
+
+# An enumeration of the possible values of the script enum.
+uint8 NONE=0
+uint8 STARTUP=1
+uint8 SHUTDOWN=2
+================================================================================
+MSG: dataspeed_pds_msgs/ChannelStatus
+# The actual value of the channel status enum.
+uint8 status
+
+# An enumeration of the possible values of the channel_status enum.
+uint8 OFF=0
+uint8 ON=1
+uint8 NO_LOAD=2
+uint8 BAD_RELAY=3
+uint8 BAD_FUSE=4
+uint8 OVER_CURRENT=5
+"""
+
+	order = 0
+	migrated_types = [
+		("Header","Header"),
+		("ChannelStatus","ChannelStatus"),]
+
+	valid = True
+
+	def update(self, old_msg, new_msg):
+		self.migrate(old_msg.header, new_msg.header)
+		new_msg.mode = old_msg.mode_master
+		new_msg.script = old_msg.script_master
+		self.migrate_array(old_msg.channel_status, new_msg.channel_status, "dataspeed_pds_msgs/ChannelStatus")
+		new_msg.inverter_master = old_msg.inverter_master
+		new_msg.inverter_slave = old_msg.inverter_slave
+		new_msg.board_temp_master = old_msg.board_temp_master
+		new_msg.board_temp_slave = old_msg.board_temp_slave
+		new_msg.thermocouple_temp_master = old_msg.thermocouple_temp_master
+		new_msg.thermocouple_temp_slave = old_msg.thermocouple_temp_slave
+		new_msg.voltage_master = old_msg.voltage_master
+		new_msg.voltage_slave = old_msg.voltage_slave

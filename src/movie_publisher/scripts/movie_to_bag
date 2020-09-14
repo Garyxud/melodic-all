@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+usage=$(cat <<"USAGE"
+Convert a movie file to a bag file with video topic.
+Usage: movie_to_bag _movie:=movie.mp4 _bag:=target.bag _topic:=output_topic_basename [_overwrite_bag:=false] [_tmp_bag:=/tmp/movie.bag] [_transport:=compressed] [[additional movie_publisher.launch args]...]
+  * `movie`: path to the source movie file
+  * `bag`: path where the result should be stored
+  * `topic`: name of the movie's topic in the bag file
+  * `overwrite_bag` (default false): If true, overwrites existing 'bag' file, otherwise exits with error if 'bag' exists.
+  * `tmp_bag` (default /tmp/movie.bag): Path where a temporary bag file might be stored.
+  * `transport` (default `compressed`): Name of the image transport to use for encoding the image. Either `raw`, `compressed`, `theora` or any other installed image transport.
+  * `additional movie_publisher.launch args`: Additional arguments that are passed through to movie_publisher.launch. Refer to that file for their description.
+USAGE
+)
+trap '[[ $? != 0 ]] && [[ ${SHLVL} -le 2 ]] && echo "${usage}" 1>&2' EXIT
+
+if [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]]; then
+    echo "${usage}"
+    exit 0
+fi
+
+# Load ROS parameters
+
+rosbash_init_node "movie_to_bag" "$@"
+
+rosbash_param movie "movie"
+rosbash_param bag "bag"
+rosbash_param topic "topic"
+rosbash_param overwrite_bag "overwrite_bag" False
+rosbash_param tmp_bag "tmp_bag" "/tmp/movie.bag"
+rosbash_param transport "transport" "compressed"
+
+additional_args="${rosbash_unused_argv[@]}"
+
+# Validate parameters
+
+if [[ ! -f "${movie}" ]]; then
+    echo "Movie ${movie} does not exist." 1>&2
+    exit 2
+fi
+
+if [[ -f "${bag}" ]] && [[ "${overwrite_bag}" == "False" ]]; then
+    echo "Target ${bag} already exists, not overwriting." 1>&2
+    exit 3
+fi
+
+topic_suffix="/${transport}"
+if [[ "${transport}" == "raw" ]]; then
+    topic_suffix=""
+fi
+
+# Run conversion to bag file in immediate mode
+
+echo "Converting movie '${movie}' to bag '${bag}'"
+rosbag record -O "${tmp_bag}" --buffsize=0 "${topic}${topic_suffix}" __name:=movie_to_bag 1>/dev/null &
+
+echo "Launching movie_publisher.launch with these additional arguments: ${additional_args}"
+roslaunch movie_publisher movie_publisher.launch movie_file:="${movie}" transport:="${transport}" \
+    wait_after_publisher_created:=5.0 immediate:=true republished_topic_basename:="${topic}" ${additional_args} 1>/dev/null
+
+sleep 2
+
+rosnode kill movie_to_bag 1>/dev/null
+
+while [[ -f "${tmp_bag}.active" ]]; do
+    sleep 1
+done
+
+num_frames_bag=$(rosbag info -k messages -y "${tmp_bag}")
+if [[ -z "${num_frames_bag}" ]]; then
+    exit 4
+fi
+
+num_frames_video=$(rosparam get "/movie_publisher/num_frames")
+if [[ -z "${num_frames_bag}" ]]; then
+    exit 5
+fi
+
+if [[ "${num_frames_bag}" -lt $((${num_frames_video} * 9 / 10)) ]]; then
+    echo "Bag file contains only ${num_frames_bag} frames out of ${num_frames_video}. Consider setting playback_rate
+argument to a value like 3*fps, 2*fps or even less, so that the image_transport/republish node has enough time to
+encode the messages." 1>&2
+fi
+
+# Fix timestamps from headers
+
+echo "Fixing timestamps"
+
+rosrun movie_publisher fix_bag_timestamps _in_bag:="${tmp_bag}" _out_bag:="${bag}" \
+    _overwrite_existing:="${overwrite_bag}" || exit 6
+
+rm "${tmp_bag}"
+
+echo "Done"

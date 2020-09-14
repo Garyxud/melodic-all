@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>dynamic-graph-python</name>
+  <version>3.5.3</version>
+  <description>
+    Dynamic graph library Python bindings
+  </description>
+  <maintainer email="ostasse@laas.fr">Olivier Stasse</maintainer>
+  <license>BSD</license>
+
+  <url>http://github.com/stack-of-tasks/dynamic-graph-python</url>
+  <author>Nicolas Mansard</author>
+  <author>Olivier Stasse</author>
+
+  <build_depend>git</build_depend>
+  <build_depend>doxygen</build_depend>
+  <doc_depend>doxygen</doc_depend>
+  <!-- The following tags are recommended by REP-136 -->
+  <exec_depend condition="$ROS_VERSION == 1">catkin</exec_depend>
+  <exec_depend condition="$ROS_VERSION == 2">ament_cmake</exec_depend>
+  <depend>dynamic-graph</depend>
+  <depend>roscpp</depend>
+  <depend>boost</depend>
+  
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+
+</package>

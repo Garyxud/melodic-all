@@ -1,0 +1,4 @@
+uint8[] input_pins
+uint8[] output_pins
+---
+bool success

@@ -1,0 +1,7 @@
+coverage:
+  ignore:
+    - tests/*
+    - samples/*
+    - apps/*
+    - **/3rdparty
+    - 3rdparty/*

@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import argparse
+import logging
+
+import rosbag_pandas
+
+
+def build_parser():
+    """
+    Builds the parser for reading the command line arguments
+    :return: The argument parser
+    """
+    parser = argparse.ArgumentParser(description='Script to parse bagfile to csv file')
+    parser.add_argument('-b', '--bag', help='Bag file to read', required=True,
+                        type=str)
+    parser.add_argument('-i', '--include',
+                        help='List for topics to include',
+                        nargs='*')
+    parser.add_argument('-e', '--exclude',
+                        help='List for topics to exclude',
+                        nargs='*')
+    parser.add_argument('-o', '--output', help='name of the output file', required=True)
+    parser.add_argument('-v', '--verbose',
+                        help="Log verbose",
+                        default=False, action="store_true")
+    return parser
+
+
+if __name__ == '__main__':
+    parser = build_parser()
+    args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+
+    df = rosbag_pandas.bag_to_dataframe(args.bag, include=args.include, exclude=args.exclude)
+    df.to_csv(args.output)

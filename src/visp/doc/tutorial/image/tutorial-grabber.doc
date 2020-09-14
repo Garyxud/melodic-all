@@ -1,0 +1,334 @@
+
+/**
+  \page tutorial-grabber Tutorial: Image frame grabbing
+  \tableofcontents
+
+
+\section grabber-into Introduction
+
+In this tutorial you will learn how to grab images with ViSP, either from cameras or from a video stream.
+
+Grabbing images from a real camera is only possible if you have installed the corresponding 3rd party. The complete list of 3rd parties supported by ViSP and dedicated to framegrabbing is given <a href="https://visp.inria.fr/3rdparty_sensor/">here</a>. From this page you will also found useful information to install these 3rd parties.
+
+All the material (source code and videos) described in this tutorial is part of ViSP source code and could be downloaded using the following command:
+
+\code
+$ svn export https://github.com/lagadic/visp.git/trunk/tutorial/grabber
+\endcode
+
+\section grabber-camera-flycap Frame grabbing using FlyCapture SDK
+
+After ViSP 3.0.0, we introduce vpFlyCaptureGrabber class, a wrapper over PointGrey FlyCapture SDK that allows to grab images from any PointGrey camera. This grabber was tested under Ubuntu and Windows with the following cameras:
+  - Flea3 USB 3.0 cameras (FL3-U3-32S2M-CS, FL3-U3-13E4C-C)
+  - Flea2 firewire camera (FL2-03S2C)
+  - Dragonfly2 firewire camera (DR2-COL)
+  
+It should also work with GigE PGR cameras.
+
+The following example also available in tutorial-grabber-flycapture.cpp shows how to use vpFlyCaptureGrabber to capture grey level images from a PointGrey camera under Ubuntu or Windows. The following example suppose that a window renderer (libX11 on Ubuntu or GDI on Windows) and FlyCapture SDK 3rd party are available throw VISP.
+
+\subsection grabber-camera-flycap-src Source code explained
+\include tutorial-grabber-flycapture.cpp
+
+Here after we explain the source code.
+
+First an instance of the frame grabber is created. 
+\snippet tutorial-grabber-flycapture.cpp vpFlyCaptureGrabber construction
+
+Once the grabber is created, we turn auto shutter and auto gain on and set the camera image size, color coding, and framerate. 
+These settings are enclosed in a try/catch to be able to continue if one of these settings are not supported by the camera.
+\snippet tutorial-grabber-flycapture.cpp vpFlyCaptureGrabber settings
+
+Then the grabber is initialized using:
+\snippet tutorial-grabber-flycapture.cpp vpFlyCaptureGrabber open
+
+From now the grey level image \c I is also initialized with the size corresponding to the grabber settings. 
+
+Then we enter in a while loop where image acquisition is simply done by:
+\snippet tutorial-grabber-flycapture.cpp vpFlyCaptureGrabber acquire
+
+This image is then displayed using libX11 or GDI renderer:
+\snippet tutorial-grabber-flycapture.cpp vpFlyCaptureGrabber display
+
+Depending on the command line options we are recording a sequence of images, or single shot images. We are also waiting for a non blocking mouse event to quit the while loop.
+\snippet tutorial-grabber-flycapture.cpp vpFlyCaptureGrabber click to exit
+
+\subsection grabber-camera-flycap-use How to acquire images
+
+Once tutorial-grabber-flycapture.cpp is built, the binary usage is given by:
+\code
+./tutorial-grabber-flycapture --help
+\endcode
+To just view images, run:
+\code
+./tutorial-grabber-flycapture
+\endcode
+To grab single shot images (for camera calibration for example), you may use:
+\code
+./tutorial-grabber-flycapture --seqname I%04d.pgm --record 1
+\endcode
+To grab a sequence of images, you may rather use:
+\code
+./tutorial-grabber-flycapture --seqname I%04d.pgm --record 0
+\endcode
+
+\section grabber-camera-dc1394 Frame grabbing using libdc1394 SDK
+
+The next example also available in tutorial-grabber-1394.cpp shows how to use a framegrabber to acquire color images from a firewire or USB3 camera under Unix. The following example suppose that libX11 and libdc1394-2 3rd party are available.
+
+\subsection grabber-camera-dc1394-src Source code explained
+
+The source code is the following:
+\include tutorial-grabber-1394.cpp
+
+Here after we explain the new lines that are introduced.
+
+First an instance of the frame grabber is created. During the creating a bus reset is send. If you don't want to reset the firewire bus, just turn reset to false.
+\snippet tutorial-grabber-1394.cpp vp1394TwoGrabber construction
+
+Once the grabber is created, we set the camera image size, color coding, and framerate. 
+\snippet tutorial-grabber-1394.cpp vp1394TwoGrabber settings
+
+Note that here you can specify some other settings such as the firewire transmission speed. For a more complete list of settings see vp1394TwoGrabber class. 
+\code
+  g.setIsoTransmissionSpeed(vp1394TwoGrabber::vpISO_SPEED_800);
+\endcode
+
+Then the grabber is initialized using:
+\snippet tutorial-grabber-1394.cpp vp1394TwoGrabber open
+
+From now the color image \c I is also initialized with the size corresponding to the grabber settings. 
+
+Then we enter in a while loop where image acquisition is simply done by:
+\snippet tutorial-grabber-1394.cpp vp1394TwoGrabber acquire
+
+As in the previous example, depending on the command line options we are recording a sequence of images, or single shot images. We are also waiting for a non blocking mouse event to quit the while loop.
+\snippet tutorial-grabber-1394.cpp vp1394TwoGrabber click to exit
+
+In the previous example we use vp1394TwoGrabber class that works for firewire cameras under Unix. If you are under Windows, you may use vp1394CMUGrabber class. A similar example is provided in tutorial-grabber-CMU1394.cpp. 
+
+\subsection grabber-camera-dc1394-use How to acquire images
+
+Once tutorial-grabber-1394.cpp is built, the binary usage is given by:
+\code
+./tutorial-grabber-1394 --help
+\endcode
+To just view images, run:
+\code
+./tutorial-grabber-1394
+\endcode
+To grab single shot images (for camera calibration for example), you may use:
+\code
+./tutorial-grabber-1394 --seqname I%04d.pgm --record 1
+\endcode
+To grab a sequence of images, you may rather use:
+\code
+./tutorial-grabber-1394 --seqname I%04d.pgm --record 0
+\endcode
+
+\section grabber-camera-v4l2 Frame grabbing using libv4l2 SDK
+
+If you want to grab images from an usb camera under Unix, you may use vpV4l2Grabber class that is a wrapper over Video For Linux SDK. To this end libv4l should be installed. An example is provided in tutorial-grabber-v4l2.cpp. 
+
+\subsection grabber-camera-v4l2-use How to acquire images
+
+Once tutorial-grabber-v4l2.cpp is built, the binary usage is given by:
+\code
+./tutorial-grabber-v4l2 --help
+\endcode
+To just view images, run:
+\code
+./tutorial-grabber-v4l2
+\endcode
+To grab single shot images (for camera calibration for example), you may use:
+\code
+./tutorial-grabber-v4l2 --seqname I%04d.pgm --record 1
+\endcode
+To grab a sequence of images, you may rather use:
+\code
+./tutorial-grabber-v4l2 --seqname I%04d.pgm --record 0
+\endcode
+
+\section grabber-camera-pylon Frame grabbing using Pylon SDK
+
+It is also possible to grab images using Pylon, the SDK for Basler cameras. You may find an example in tutorial-grabber-basler-pylon.cpp.
+
+\subsection grabber-camera-pylon-use How to acquire images
+
+Once tutorial-grabber-basler-pylon.cpp is built, the binary usage is given by:
+\code
+./tutorial-grabber-basler-pylon --help
+\endcode
+To just view images, run:
+\code
+./tutorial-grabber-basler-pylon
+\endcode
+To grab single shot images (for camera calibration for example), you may use:
+\code
+./tutorial-grabber-basler-pylon --seqname I%04d.pgm --record 1
+\endcode
+To grab a sequence of images, you may rather use:
+\code
+./tutorial-grabber-basler-pylon --seqname I%04d.pgm --record 0
+\endcode
+
+\section grabber-camera-realsense Frame grabbing using Realsense SDK
+
+It is also possible to grab images using librealsense, the SDK provided for Intel Realsense RDB-D cameras. You may find an example in tutorial-grabber-realsense.cpp.
+
+\subsection grabber-camera-realsense-use How to acquire images
+
+Once tutorial-grabber-realsense.cpp is built, the binary usage is given by:
+\code
+./tutorial-grabber-realsense --help
+\endcode
+To just view images, run:
+\code
+./tutorial-grabber-realsense
+\endcode
+To grab single shot images (for camera calibration for example), you may use:
+\code
+./tutorial-grabber-realsense --seqname I%04d.pgm --record 1
+\endcode
+To grab a sequence of images, you may rather use:
+\code
+./tutorial-grabber-realsense --seqname I%04d.pgm --record 0
+\endcode
+
+\section grabber-camera-opencv Frame grabbing using OpenCV
+
+It is also possible to grab images using OpenCV. You may find an example in tutorial-grabber-opencv.cpp.
+
+\subsection grabber-camera-opencv-use How to acquire images
+
+Once tutorial-grabber-opencv.cpp is built, the binary usage is given by:
+\code
+./tutorial-grabber-opencv --help
+\endcode
+To just view images, run:
+\code
+./tutorial-grabber-opencv
+\endcode
+To grab single shot images (for camera calibration for example), you may use:
+\code
+./tutorial-grabber-opencv --seqname I%04d.pgm --record 1
+\endcode
+To grab a sequence of images, you may rather use:
+\code
+./tutorial-grabber-opencv --seqname I%04d.pgm --record 0
+\endcode
+
+\section grabber-camera-cmu1394 Frame grabbing using CMU1394 SDK
+
+It is also possible to grab images using CMU1394 SDK if you want to use a firewire camera under Windows. You may find an example in tutorial-grabber-CMU1394.cpp.
+
+\section grabber-bebop2 Frame grabbing using Parrot Bebop 2 drone
+
+It is also possible to grab images using a Parrot Bebop 2 drone. You may find an example in tutorial-grabber-bebop2.cpp.
+
+\warning Image grabbing with Bebop 2 drone only works if ViSP was built with Parrot ARSDK3 and OpenCV support.
+
+\subsection grabber-bebop2-use How to acquire images
+
+Once tutorial-grabber-bebop2.cpp is built, the binary usage is given by:
+\code
+./tutorial-grabber-bebop2 --help
+\endcode
+To just view images, run:
+\code
+./tutorial-grabber-bebop2
+\endcode
+To grab single shot images (for camera calibration for example), you may use:
+\code
+./tutorial-grabber-bebop2 --seqname I%04d.pgm --record 1
+\endcode
+To grab a sequence of images, you may rather use:
+\code
+./tutorial-grabber-bebop2 --seqname I%04d.pgm --record 0
+\endcode
+You can chose to record HD 720p pictures from the drone (instead of default 480p) using --hd_resolution option : 
+\code
+./tutorial-grabber-bebop2 --seqname I%04d.pgm --record 0 --hd_resolution
+\endcode
+
+\section grabber-video-stream Images from a video stream
+
+With ViSP it also possible to get images from an input video stream. Supported formats are *.avi, *.mp4, *.mov, *.ogv, *.flv and many others... To this end we exploit OpenCV 3rd party.
+
+The example below available in tutorial-video-reader.cpp shows how to consider an mpeg video stream.
+
+\warning We recall that this example only works if ViSP was built with OpenCV support.
+
+\subsection grabber-video-stream-src Source code explained
+
+The source code is the following:
+\include tutorial-video-reader.cpp
+
+We explain now the new lines that were introduced.
+
+\snippet tutorial-video-reader.cpp Include
+Include the header of the vpTime class that allows to measure time, and of the vpVideoReader class that allows to read a video stream.
+
+\snippet tutorial-video-reader.cpp vpVideoReader construction
+Create an instance of a video reader.
+
+\snippet tutorial-video-reader.cpp vpVideoReader setting
+Set the name of the video stream. Here \c videoname corresponds to a video file name location. For example we provide the file \c video.mpg located in the same folder than the executable.
+
+The vpVideoReader class can also handle a sequence of images. For example, to read the following images:
+
+\code
+% ls *.png
+image0000.png
+image0001.png
+image0002.png
+image0003.png
+image0004.png
+...
+\endcode
+
+you may use the following:
+
+\code
+  g.setFileName("./image%04d.png");
+\endcode
+where you specify that each image number is coded with 4 digits. Here, we will use \c libpng or \c OpenCV to read PNG images. Supported image formats are PPM, PGM, PNG and JPEG. 
+
+Then as for any other grabber, you have to initialize the frame grabber using:
+
+\snippet tutorial-video-reader.cpp vpVideoReader open
+
+Then we enter in the while loop until the last image was not reached:
+\snippet tutorial-video-reader.cpp vpVideoReader while loop
+
+To get the next image in the stream, we just use:
+\snippet tutorial-video-reader.cpp vpVideoReader acquire
+
+To synchronize the video decoding with the video framerate, we measure the beginning time of each loop iteration:
+
+\snippet tutorial-video-reader.cpp vpVideoReader loop start time
+
+The synchronization is done by waiting from the beginning of the iteration the corresponding time expressed in milliseconds by using:
+\snippet tutorial-video-reader.cpp vpVideoReader loop rate
+
+\subsection grabber-video-stream-use How to acquire images
+
+Once tutorial-video-reader.cpp is built, the binary usage is given by:
+\code
+./tutorial-video-reader --help
+\endcode
+To read the default video video.mpg, run:
+\code
+./tutorial-video-reader
+\endcode
+To read an other video, let say my-video.mpg, you may use:
+\code
+./tutorial-grabber-realsense --name my-video.mpg
+\endcode
+
+\section grabber-next Next tutorial
+
+You are now ready to see how to continue with:
+- \ref tutorial-multi-threading if you want to see how to extend these examples with one thread for capture and an other one for display
+- or with a simple image processing that shows how to track blobs explained in \ref tutorial-tracking-blob.
+*/

@@ -1,0 +1,11 @@
+string parent_frame  # the top-most frame in TF tree you're interested in
+string[] child_frames  # if empty, stream the whole subtree of parent_frame
+bool intermediate_frames  # if false, stream only direct parent->child TFs (no matter if they were originally direct neighbors); if true, stream all the TFs between parent and all children
+duration publication_period  # how often to publish the TFs
+bool allow_transforms_update  # if true, not all transforms have to be available at the time of call - they will be searched for continuously
+int32 publisher_queue_size  # queue size of the publisher
+string requested_topic_name  # if nonempty, request this topic name for TFs
+string requested_static_topic_name  # if nonempty, request this topic name for static TFs
+---
+string topic_name  # absolute name of the topic where the transform stream gets published
+string static_topic_name  # absolute name of the topic where static transforms get published

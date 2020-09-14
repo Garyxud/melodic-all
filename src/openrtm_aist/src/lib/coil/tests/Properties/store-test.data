@@ -1,0 +1,24 @@
+C:\Program\ Files\OpenRTM-aist
+i386
+PARANOID
+C++
+zonu.a02.aist.go.jp
+"Hello World"
+omniORB
+IIOPAddrPort, -ORBendPoint, giop:tcp:
+FreeBSD
+6.1-RELEASE
+Camera, Manipulator, Force Sensor
+Noriaki Ando
+aist
+AIST TaskIntelligence
+0.4.0
+
+---------------------------------------------------------
+このファイルはPropertiesTests.cppのtest_checkStoredData()
+メソッドで読み込まれる。
+test_store()で"stored.conf"にプロパティを書き出しているが
+その書き出されるであろう値をこのファイルに記述している。
+test_checkStoredData()では、このファイルに書かれた値と、
+stored.confに書き出された値の比較を行っている。
+--------------------------------------------------------

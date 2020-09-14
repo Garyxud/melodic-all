@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="sim" default="false"/>
+    <arg name="scenario_parameters" value="sim:=$(arg sim)"/> 
+    
+    <!-- send urdf to param server -->
+    <param name="sensor_description" command="$(find xacro)/xacro --inorder '$(find ati_force_torque)/description/urdf/sensor_mini58.urdf.xacro' $(arg scenario_parameters)"/>  
+    
+    <!-- sensor state publisher -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="sensor_state_publisher">
+        <param name="publish_frequency" type="double" value="200.0" />
+        <param name="tf_prefix" type="string" value="" />
+        <remap from="robot_description" to="sensor_description" />
+    </node>
+    
+    <!-- start FTS Driver Node -->
+    <node pkg="ati_force_torque" type="ati_force_torque_node" name="fts" cwd="node" respawn="false" output="screen">
+    </node>
+
+</launch>

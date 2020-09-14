@@ -1,0 +1,8 @@
+<launch>
+    <arg name="get_description" default="false"/>
+    <arg name="test_suffix" default=""/>
+
+    <param unless="$(arg get_description)" name="robot_description" value="None"/>
+
+    <test test-name="test_urdf$(arg test_suffix)" pkg="urdf_test" type="test_urdf.py"/>
+</launch>

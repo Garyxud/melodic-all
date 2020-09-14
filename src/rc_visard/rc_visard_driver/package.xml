@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rc_visard_driver</name>
+  <version>3.0.2</version>
+  <description>
+    The rc_visard_driver provides data from a Roboception rc_visard 3D sensor on several ROS topics.
+  </description>
+
+  <maintainer email="felix.ruess@roboception.de">Felix Ruess</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/rc_visard_driver</url>
+  <url type="repository">https://github.com/roboception/rc_visard_ros</url>
+  <url type="bugtracker">https://github.com/roboception/rc_visard_ros/issues</url>
+
+  <author email="heiko.hirschmueller@roboception.de">Heiko Hirschmueller</author>
+  <author email="christian.emmerich@roboception.de">Christian Emmerich</author>
+  <author email="felix.ruess@roboception.de">Felix Ruess</author>
+
+  <!-- system dependencies -->
+  <build_depend>protobuf-dev</build_depend>
+  <exec_depend>protobuf</exec_depend>
+  <depend>curl</depend>
+  <depend version_gte="2.0.0">rc_genicam_api</depend>
+  <depend version_gte="0.10.0">rc_dynamics_api</depend>
+  <depend version_gte="0.5.0">rc_common_msgs</depend>
+
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <!-- depend is a shorthand for build_depend, build_export_depend and exec_depend -->
+  <depend>nodelet</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>stereo_msgs</depend>
+  <depend>image_transport</depend>
+  <depend>dynamic_reconfigure</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf</depend>
+  <depend>visualization_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>diagnostic_updater</depend>
+  <!-- <depend>diagnostic_msgs</depend> -->
+
+  <doc_depend>doxygen</doc_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <nodelet plugin="${prefix}/rc_visard_driver_nodelet.xml"/>
+  </export>
+</package>

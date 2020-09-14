@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>pr2_kinematics</name>
+  <version>1.0.10</version>
+  <description>The pr2_kinematics package</description>
+
+  <maintainer email="ros-orphaned-packages@googlegroups.com">ROS Orphaned Package Maintainers</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>pr2_arm_kinematics</run_depend>
+ 
+  <export>
+   <metapackage/>
+  </export>
+</package>

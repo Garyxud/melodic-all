@@ -1,0 +1,116 @@
+<?xml version='1.0'?>
+<sdf version="1.6" xmlns:xacro='http://ros.org/wiki/xacro'>
+
+    <xacro:arg name="name"         default="heifu"/>
+    <xacro:arg name="fdm_addr"     default="127.0.0.1" />
+    <xacro:arg name="fdm_port_in"  default="9002" />
+    <xacro:arg name="fdm_port_out" default="9003" />
+
+    <model name="$(arg name)">
+        <include>
+            <uri>model:///heifu_with_standoffs</uri>
+        </include>
+
+        <!--<include>
+          <uri>model://gimbal_small_2d</uri>
+          <pose>0 -0.01 -0.05 1.57 0 1.57</pose>
+        </include>
+
+        <joint name="heifu_gimbal_mount" type="revolute">
+          <parent>heifu::base_link</parent>
+          <child>gimbal_small_2d::base_link</child>
+          <axis>
+            <limit>
+              <lower>0</lower>
+              <upper>0</upper>
+            </limit>
+            <xyz>0 0 1</xyz>
+            <use_parent_model_frame>true</use_parent_model_frame>
+          </axis>
+        </joint>-->
+
+    
+        <!-- plugins -->
+        <xacro:macro name="rotor_plugin_macro" params="motor_number blade_number fw_force cp">
+            <plugin name="rotor_${motor_number}_blade_${blade_number}" filename="libLiftDragPlugin.so">
+                <a0>0.3</a0>
+                <alpha_stall>1.4</alpha_stall>
+                <cla>4.2500</cla>
+                <cda>0.10</cda>
+                <cma>0.00</cma>
+                <cla_stall>-0.025</cla_stall>
+                <cda_stall>0.0</cda_stall>
+                <cma_stall>0.0</cma_stall>
+                <area>0.002</area>
+                <air_density>1.2041</air_density>
+                <cp>${cp} 0 0</cp>
+                <forward>0 ${fw_force} 0</forward>
+                <upward>0 0 1</upward>
+                <link_name>heifu::rotor_${motor_number}</link_name>
+            </plugin>
+        </xacro:macro>
+
+        <xacro:rotor_plugin_macro motor_number="0" blade_number="1" fw_force="-1" cp="0.075"/>
+        <xacro:rotor_plugin_macro motor_number="0" blade_number="2" fw_force="1" cp="-0.075"/>
+
+        <xacro:rotor_plugin_macro motor_number="1" blade_number="1" fw_force="1"  cp="0.075" />
+        <xacro:rotor_plugin_macro motor_number="1" blade_number="2" fw_force="-1" cp="-0.075"/>
+
+        <xacro:rotor_plugin_macro motor_number="2" blade_number="1" fw_force="-1" cp="0.075"/>
+        <xacro:rotor_plugin_macro motor_number="2" blade_number="2" fw_force="1" cp="-0.075"/>
+
+        <xacro:rotor_plugin_macro motor_number="3" blade_number="1" fw_force="1"  cp="0.075" />
+        <xacro:rotor_plugin_macro motor_number="3" blade_number="2" fw_force="-1" cp="-0.075"/>
+
+        <xacro:rotor_plugin_macro motor_number="4" blade_number="1" fw_force="1"  cp="0.075" />
+        <xacro:rotor_plugin_macro motor_number="4" blade_number="2" fw_force="-1" cp="-0.075"/>
+
+        <xacro:rotor_plugin_macro motor_number="5" blade_number="1" fw_force="-1" cp="0.075"/>
+        <xacro:rotor_plugin_macro motor_number="5" blade_number="2" fw_force="1" cp="-0.075"/>
+
+        <xacro:macro name="rotor_channel_macro" params="motor_number multiplier">
+            <control channel="${motor_number}">
+            <!--
+                incoming control command [0, 1]
+                so offset it by 0 to get [0, 1]
+                and divide max target by 1.
+                offset = 0
+                multiplier = 1000 max rpm / 1 = 1000
+            -->
+                <type>VELOCITY</type>
+                <offset>0</offset>
+                <cmd_max>5</cmd_max>
+                <cmd_min>-5</cmd_min>
+                <jointName>heifu::rotor_${motor_number}_joint</jointName>
+                <multiplier>${multiplier}</multiplier>
+                <controlVelocitySlowdownSim>1</controlVelocitySlowdownSim>
+            </control>
+        </xacro:macro>
+
+        <xacro:macro name="arducopter_plugin_macro" params="fdm_addr fdm_port_in fdm_port_out">
+            <plugin name="arducopter_plugin" filename="libArduPilotPlugin.so">
+                <fdm_addr>${fdm_addr}</fdm_addr>
+                <fdm_port_in>${fdm_port_in}</fdm_port_in>
+                <fdm_port_out>${fdm_port_out}</fdm_port_out>
+                <!--
+                  Require by APM :
+                  Only change model and gazebo from XYZ to XY-Z coordinates
+                -->
+                <modelXYZToAirplaneXForwardZDown>0 0 0 3.141593 0 0</modelXYZToAirplaneXForwardZDown>
+                <gazeboXYZToNED>0 0 0 3.141593 0 0</gazeboXYZToNED>
+                <imuName>$(arg name)::heifu::imu_link::imu_sensor</imuName>
+                <connectionTimeoutMaxCount>6</connectionTimeoutMaxCount>
+
+                <xacro:rotor_channel_macro motor_number="0" multiplier="-1000"/>
+                <xacro:rotor_channel_macro motor_number="1" multiplier="1000" />
+                <xacro:rotor_channel_macro motor_number="2" multiplier="-1000"/>
+                <xacro:rotor_channel_macro motor_number="3" multiplier="1000" />
+                <xacro:rotor_channel_macro motor_number="4" multiplier="1000" />
+                <xacro:rotor_channel_macro motor_number="5" multiplier="-1000"/>
+            </plugin>
+        </xacro:macro>
+
+        <xacro:arducopter_plugin_macro fdm_addr="$(arg fdm_addr)" fdm_port_in="$(arg fdm_port_in)" fdm_port_out="$(arg fdm_port_out)" />
+
+    </model>
+</sdf>

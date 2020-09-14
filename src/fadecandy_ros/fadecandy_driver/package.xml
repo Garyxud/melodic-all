@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>fadecandy_driver</name>
+  <version>0.1.2</version>
+  <description>ROS driver for fadecandy LED controllers</description>
+
+  <maintainer email="jon.binney@ironox.com">Jon Binney</maintainer>
+
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>diagnostic_updater</exec_depend>
+  <exec_depend>fadecandy_msgs</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-usb</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-usb</exec_depend>
+  <exec_depend>rospy</exec_depend>
+</package>

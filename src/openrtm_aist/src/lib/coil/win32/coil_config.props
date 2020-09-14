@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <coil_dllver>$(COIL_DLLVER)</coil_dllver>
+    <coil_version>$(COIL_VERSION)</coil_version>
+    <coil_shortver>$(COIL_SHORTVER)</coil_shortver>
+    <coil_includes>$(coil_root);..</coil_includes>
+    <coil_libdir>$(coil_root)\bin</coil_libdir>
+    <coil_bin>$(coil_root)\bin;$(coil_root)\build</coil_bin>
+    <coil_path>$(coil_bin)</coil_path>
+    <coil_libd>"advapi32.lib";"ws2_32.lib";"mswsock.lib";"coild$(coil_dllver).lib";"$(user_libd)"</coil_libd>
+    <coil_lib>"advapi32.lib";"ws2_32.lib";"mswsock.lib";"coil$(coil_dllver).lib";"$(user_lib)"</coil_lib>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>coil-$(COIL_SHORT_VER)</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(coil_includes);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(coil_libdir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="coil_root">
+      <Value>$(coil_root)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_dllver">
+      <Value>$(coil_dllver)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_version">
+      <Value>$(coil_version)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_shortver">
+      <Value>$(coil_shortver)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_includes">
+      <Value>$(coil_includes)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_libdir">
+      <Value>$(coil_libdir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_bin">
+      <Value>$(coil_bin)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_path">
+      <Value>$(coil_path)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_libd">
+      <Value>$(coil_libd)</Value>
+    </BuildMacro>
+    <BuildMacro Include="coil_lib">
+      <Value>$(coil_lib)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

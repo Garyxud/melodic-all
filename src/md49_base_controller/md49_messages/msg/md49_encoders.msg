@@ -1,0 +1,11 @@
+Header header
+int32 encoder_l
+int32 encoder_r
+int16 encoderbyte1l
+int16 encoderbyte2l
+int16 encoderbyte3l
+int16 encoderbyte4l
+int16 encoderbyte1r
+int16 encoderbyte2r
+int16 encoderbyte3r
+int16 encoderbyte4r

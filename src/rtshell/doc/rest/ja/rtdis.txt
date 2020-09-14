@@ -1,0 +1,73 @@
+=====
+rtdis
+=====
+
+----------
+接続を消す
+----------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtdis [options] <path 1> <path 2> [<path 3> ...]
+
+概要
+====
+
+ポートの間の接続を消します。一つのポートから全ての接続を消すこともコンポーネン
+トから全ての接続を消すことも可能です。
+
+オプション
+==========
+
+-i ID, --id=ID
+  接続のID。
+
+.. include:: ../../common/ja/common_opts.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtdis /localhost/ConsoleIn0.rtc:out /localhost/ConsoleOut0.rtc:in
+
+``ConsoleIn0.rtc`` の ``out`` ポートと ``ConsoleOut0.rtc`` の ``in`` ポートの
+間の全ての接続を消します。
+
+::
+
+  $ rtdis /localhost/ConsoleIn0.rtc:out
+
+``ConsoleIn0.rtc`` の ``out`` ポートに接続されている全ての接続を消します。
+
+::
+
+  $ rtdis /localhost/ConsoleIn0.rtc
+
+``ConsoleIn0.rtc`` の全てのポートから全ての接続を消します。
+
+::
+
+  $ rtdis -i con1 /localhost/ConsoleIn0.rtc:out
+
+``ConsoleIn0.rtc`` の ``out`` ポートから ``con1`` というIDを持つ接続のみを消
+します。
+
+::
+
+  $ rtdis -i con1 /localhost/ConsoleIn0.rtc
+
+``ConsoleIn0.rtc`` のポートのうち ``con1`` というIDの接続のみを消
+します。
+
+参照
+====
+
+  ``rtcat`` (1),
+  ``rtcon`` (1)
+

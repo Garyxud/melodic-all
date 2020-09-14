@@ -1,0 +1,25 @@
+<package>
+  <name>flexbe_testing</name>
+  <version>1.2.5</version>
+  <description>
+     flexbe_testing provides a framework for unit testing states.
+  </description>
+  <maintainer email="schillin@kth.se">Philipp Schillinger</maintainer>
+  <license>BSD</license>
+
+  <url>http://ros.org/wiki/flexbe_testing</url>
+  <author>Philipp Schillinger</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rostest</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>smach_ros</run_depend>
+  <run_depend>flexbe_core</run_depend>
+  <run_depend>flexbe_msgs</run_depend>
+
+  <test_depend>rosunit</test_depend>
+  <test_depend>std_msgs</test_depend>
+
+</package>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>dataspeed_pds_rqt</name>
+  <version>1.0.5</version>
+  <description>
+    ROS rqt GUI for the Dataspeed Inc. Power Distribution System (PDS)
+  </description>
+
+  <license>BSD</license>
+  <author email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</author>
+  <author email="emyllyoja@dataspeedinc.com">Eric Myllyoja</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</maintainer>
+  <maintainer email="emyllyoja@dataspeedinc.com">Eric Myllyoja</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/dataspeed_pds</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/dataspeed_pds/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_PYTHON_VERSION == 2">python-setuptools</buildtool_depend>
+  <buildtool_depend condition="$ROS_PYTHON_VERSION == 3">python3-setuptools</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>rqt_gui</depend>
+  <depend>rqt_gui_py</depend>
+  <depend>python_qt_binding</depend>
+  <depend>dataspeed_pds_msgs</depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
+  </export>
+
+</package>

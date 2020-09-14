@@ -1,0 +1,14 @@
+<launch>
+  <!--node pkg="wpa_supplicant_node" type="wpa_supplicant_node" name="wpa_supplicant_node"
+    args="-Dnl80211 -c /etc/ros/roam/networks.conf -i wlan0 -N -Dnl80211 -c /etc/ros/roam/networks.conf -i wlan1 -dddd"/-->
+  
+  <node pkg="wpa_supplicant_node" type="wpa_supplicant_node" name="wpa_supplicant_node_wlan0"
+    args="-Dnl80211 -c /etc/ros/roam/networks.conf -i wlan0 -tdddd"/>
+  
+  <node pkg="wpa_supplicant_node" type="wpa_supplicant_node" name="wpa_supplicant_node_wlan1"
+    args="-Dnl80211 -c /etc/ros/roam/networks.conf -i wlan1 -tdddd"/>
+
+  <node pkg="multi_interface_roam" type="roam_node2.py" name="roam_test" output="screen" launch-prefix="python -m cProfile -o profile.txt" respawn="false">
+    <rosparam command="load" file="$(find multi_interface_roam)/configs/test.yaml"/>
+  </node>
+</launch>

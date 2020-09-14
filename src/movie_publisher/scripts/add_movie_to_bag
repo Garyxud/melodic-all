@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+usage=$(cat <<USAGE
+Add a movie file to an existing bagfile as a topic.
+Usage: add_movie_to_bag _movie:=movie.mp4 _bag_in:=source.bag _bag_out:=target.bag _topic:=output_topic_basename [_movie_delay:=0] [_overwrite_out_bag:=false] [_bag_tmp:=/tmp/movie_add_to.bag] [_transport:=compressed] [[additional movie_publisher.launch args]...]
+USAGE
+)
+trap '[[ $? != 0 ]] && [[ ${SHLVL} -le 2 ]] && echo "${usage}" 1>&2' EXIT
+
+if [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]]; then
+    echo "${usage}"
+    exit 0
+fi
+
+rosbash_init_node "add_movie_to_bag" "$@"
+
+rosbash_param movie "movie"
+rosbash_param bag_in "bag_in"
+rosbash_param bag_out "bag_out" "output.bag"
+rosbash_param topic "topic"
+rosbash_param movie_delay "movie_delay" 0.0
+rosbash_param overwrite_out_bag "overwrite_out_bag" False
+rosbash_param bag_tmp "bag_tmp" "/tmp/movie_add_to.bag"
+rosbash_param transport "transport" "compressed"
+
+additional_args="${rosbash_unused_argv[@]}"
+
+if [[ ! -f "${bag_in}" ]]; then
+    echo "Source bag ${bag_in} does not exist." 1>&2
+    exit 2
+fi
+
+if [[ -f "${bag_out}" ]]; then
+    if [[ "${overwrite_out_bag}" == "False" ]]; then
+        echo "Target ${bag_out} already exists, not overwriting." 1>&2
+        exit 3
+    else
+        echo "Target ${bag_out} already exists, deleting it."
+        rm "${bag_out}"
+    fi
+fi
+
+bag_start_time=$(rosbag info -k start -y "${bag_in}")
+if [[ -z "${bag_start_time}" ]]; then
+    exit 4
+fi
+bag_start_time=$(python -c "print '%.2f' % (${bag_start_time} + ${movie_delay})")
+
+rosrun movie_publisher movie_to_bag _movie:="${movie}" _bag:="${bag_tmp}" _topic:="${topic}" \
+    _transport:="${transport}" _overwrite_bag:=true fake_time_start:="${bag_start_time}" ${additional_args} || exit $?
+
+echo "Merging into ${bag_out}"
+
+rosrun movie_publisher merge.py --output "${bag_out}" "${bag_in}" "${bag_tmp}" || exit 6
+
+echo "Merged"
+
+rm "${bag_tmp}"

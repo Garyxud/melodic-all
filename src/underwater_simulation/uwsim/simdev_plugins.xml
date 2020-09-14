@@ -1,0 +1,38 @@
+<library path="lib/libuwsim_plugins_simdev">
+
+  <class name="SimDev_Echo_Factory" type="SimDev_Echo_Factory" 
+    base_class_type="uwsim::SimulatedDeviceFactory">
+  <description>
+  Example plugin
+  </description>
+  </class>
+
+  <class name="ForceSensor_Factory" type="ForceSensor_Factory" 
+    base_class_type="uwsim::SimulatedDeviceFactory">
+  <description>
+  Force Sensor
+  </description>
+  </class>
+
+  <class name="DredgeTool_Factory" type="DredgeTool_Factory" 
+    base_class_type="uwsim::SimulatedDeviceFactory">
+  <description>
+  Drege Tool
+  </description>
+  </class>
+
+  <class name="CustomCommsDevice_Factory" type="CustomCommsDevice_Factory"
+  base_class_type="uwsim::SimulatedDeviceFactory">
+  <description>
+  Creates a comms device for dccomms_ros simulator
+  </description>
+  </class>
+
+    <class name="AcousticCommsDevice_Factory" type="AcousticCommsDevice_Factory"
+    base_class_type="uwsim::SimulatedDeviceFactory">
+    <description>
+    Creates a comms device for dccomms_ros simulator
+    </description>
+    </class>
+
+</library>

@@ -1,0 +1,36 @@
+string dccommsId
+uint32 mac
+string frameId
+uint32 maxTxFifoSize
+
+#bps
+float64 bitrate
+
+#milliseconds
+float64 txJitter
+float64 rxJitter
+
+#intrinsic delay in ms
+float64 intrinsicDelay
+
+#meters
+float64 maxDistance
+float64 minDistance
+
+#Error rate: 0.0 - 1.0 (Not used)
+float64 minPktErrorRate
+float64 pktErrorRateIncPerMeter
+
+#Rate Error Model (ns3) (rate in [0.0 - 1.0]:
+string errorRateExpr
+string errorUnit
+
+#logging
+string logLevel
+
+#Mac protocol: broadcast MAC ; T-MAC ; FAMA ; Slotted-FAMA ; UWAN-MAC ; COPE-MAC ; ALOHA ; R-MAC ; GOAL
+string macProtocol
+float64 macDistance
+uint32 maxBackoffSlots
+---
+bool res

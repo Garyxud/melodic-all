@@ -1,0 +1,39 @@
+sudo: required
+
+language: python
+python:
+  - "2.7"
+cache: pip
+services:
+  - docker
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      env: ROS_DISTRO="kinetic"
+    - os: linux
+      dist: bionic
+      env: ROS_DISTRO="melodic"
+
+before_install:
+  - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+  - sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+  - sudo apt update
+  - sudo pip install -U rosdep catkin_tools catkin_pkg
+  - sudo rosdep init
+  - sudo sh -c 'echo "yaml https://raw.githubusercontent.com/ct2034/rosdistro/master/rosdep/python.yaml" > /etc/ros/rosdep/sources.list.d/30-docker-py.list'
+  - rosdep update
+
+install:
+  - rosdep install -v --from-paths .
+  - source /opt/ros/$ROS_DISTRO/setup.bash
+  - export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages
+  - mkdir -p ~/ws/src/dockeros
+  - cd ~/ws/src
+  - catkin_init_workspace
+  - cp -r /home/travis/build/ct2034/dockeROS/* ~/ws/src/dockeros
+  - cd ~/ws
+
+script:
+  - catkin run_tests

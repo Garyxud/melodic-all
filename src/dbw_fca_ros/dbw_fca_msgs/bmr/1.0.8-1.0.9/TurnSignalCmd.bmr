@@ -1,0 +1,54 @@
+class update_dbw_fca_msgs_TurnSignalCmd_f1310dcd252c98fc408c6df907b9495a(MessageUpdateRule):
+	old_type = "dbw_fca_msgs/TurnSignalCmd"
+	old_full_text = """
+# Turn signal command enumeration
+TurnSignal cmd
+
+================================================================================
+MSG: dbw_fca_msgs/TurnSignal
+uint8 value
+
+uint8 NONE=0
+uint8 LEFT=1
+uint8 RIGHT=2
+"""
+
+	new_type = "dbw_fca_msgs/TurnSignalCmd"
+	new_full_text = """
+# Turn signal command enumeration
+TurnSignal cmd
+
+# Door open/close command
+DoorCmd door
+
+================================================================================
+MSG: dbw_fca_msgs/TurnSignal
+uint8 value
+
+uint8 NONE=0
+uint8 LEFT=1
+uint8 RIGHT=2
+
+================================================================================
+MSG: dbw_fca_msgs/DoorCmd
+uint8 NONE=0
+
+uint8 select
+uint8 LEFT=1
+uint8 RIGHT=2
+uint8 TRUNK=3
+
+uint8 action
+uint8 OPEN=1
+uint8 CLOSE=2
+"""
+
+	order = 1
+	migrated_types = [
+		("TurnSignal","TurnSignal"),]
+
+	valid = True
+
+	def update(self, old_msg, new_msg):
+		self.migrate(old_msg.cmd, new_msg.cmd)
+		new_msg.door = self.get_new_class('dbw_fca_msgs/DoorCmd')()

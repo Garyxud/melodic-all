@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>map_merge_3d</name>
+  <version>0.1.1</version>
+  <description>Merging multiple 3D maps, represented as pointclouds,
+  without knowledge of initial positions of robots.</description>
+
+  <author email="laeqten@gmail.com">Jiri Horner</author>
+  <maintainer email="laeqten@gmail.com">Jiri Horner</maintainer>
+
+  <license>BSD</license>
+  <url type="website">http://wiki.ros.org/map_merge_3d</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>pcl_ros</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_eigen</depend>
+
+  <test_depend>rosunit</test_depend>
+  <test_depend>roslaunch</test_depend>
+</package>

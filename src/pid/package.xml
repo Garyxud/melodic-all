@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+  <name>pid</name>
+  <version>0.0.27</version>
+  <description>Launch a PID control node.</description>
+
+  <maintainer email="andyz@utexas.edu">Andy Zelenak</maintainer>
+
+  <license>BSD</license>
+
+ <url type="website">http://wiki.ros.org/pid</url>
+
+ <author email="andyz@utexas.edu">Andy Zelenak</author>
+ <author>Paul Bouchier</author>
+
+  <!-- Use buildtool_depend for build tool packages: -->
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <!-- Use build_depend for packages you need at compile time: -->
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+
+  <!-- Use run_depend for packages you need at runtime: -->
+  <run_depend>message_runtime</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  
+</package>

@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- TODO: add collision and inertial elements -->
+  <xacro:macro name="null_end_effector" params="name">
+    <link name="${name}/INPUT_INTERFACE"/>
+  </xacro:macro>
+
+  <xacro:macro name="parallel_gripper_outer_subassembly" params="name prefix">
+    <link name="${name}/${prefix}_finger">
+      <visual>
+        <origin xyz="-0.006 -0.0055 -0.0045" rpy="${pi/2} 0 ${pi/2}" />
+        <geometry>
+          <mesh filename="package://hebi_description/meshes/PM-2221-01.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:silver_material/>
+      </visual>
+    </link>
+    <link name="${name}/${prefix}_outer_linkage">
+      <visual>
+        <origin xyz="-0.0115 0.029 -0.004" rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh filename="package://hebi_description/meshes/PM-2358-02.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:black_material/>
+      </visual>
+    </link>
+    <link name="${name}/${prefix}_gripper">
+      <visual>
+        <origin xyz="-0.006 -0.004 0.0115" rpy="0 ${pi/2} 0" />
+        <geometry>
+          <mesh filename="package://hebi_description/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:black_material/>
+      </visual>
+      <collision>
+        <origin xyz="-0.006 -0.004 0.0115" rpy="0 ${pi/2} 0" />
+        <geometry>
+          <mesh filename="package://hebi_description/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${name}/input_${prefix}_finger" type="revolute">
+      <xacro:if value="${prefix == 'l'}">
+        <origin xyz="0 0.0125 .0115" rpy="0 0 0" />
+      </xacro:if>
+      <xacro:if value="${prefix == 'r'}">
+        <origin xyz="0 -0.0125 .0115" rpy="0 0 ${pi}" />
+        <mimic joint="${name}/input_l_finger" multiplier="1.0" offset="0" />
+      </xacro:if>
+      <parent link="${name}/INPUT_INTERFACE"/>
+      <child link="${name}/${prefix}_finger"/>
+      <limit effort="1000" velocity="1000" lower="0" upper="1.1675"/>
+    </joint>
+    <joint name="${name}/${prefix}_finger_${prefix}_outer_linkage" type="fixed">
+      <origin xyz="0 0.015 0" rpy="0 0 0" />
+      <parent link="${name}/${prefix}_finger"/>
+      <child link="${name}/${prefix}_outer_linkage"/>
+    </joint>
+    <joint name="${name}/${prefix}_outer_linkage_${prefix}_gripper" type="continuous">
+      <origin xyz="0 0.025 0.018" rpy="0 0 0" />
+      <parent link="${name}/${prefix}_outer_linkage"/>
+      <child link="${name}/${prefix}_gripper"/>
+      <mimic joint="${name}/input_l_finger" multiplier="-1.0" offset="${pi/2}" />
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:macro name="parallel_gripper_inner_subassembly" params="name prefix">
+    <link name="${name}/${prefix}_inner_linkage">
+      <visual>
+        <origin xyz="-0.0115 -0.004 -0.004" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://hebi_description/meshes/PM-2359-02.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:black_material/>
+      </visual>
+    </link>
+
+    <joint name="${name}/center_hub_${prefix}_inner_linkage" type="continuous">
+      <xacro:if value="${prefix == 'l'}">
+        <origin xyz="0 0.005 0.023" rpy="0 0 0" />
+      </xacro:if>
+      <xacro:if value="${prefix == 'r'}">
+        <origin xyz="0 -0.005 0.023" rpy="0 0 ${pi}" />
+      </xacro:if>
+      <parent link="${name}/center_hub"/>
+      <child link="${name}/${prefix}_inner_linkage"/>
+      <mimic joint="${name}/input_l_finger" multiplier="1.0" offset="-1.145" />
+    </joint>
+
+  </xacro:macro>
+
+  <!-- NOTE: only "parallel" is currently supported for type -->
+  <xacro:macro name="gripper" params="name type">
+    <!-- The base body of the gripper -->
+    <link name="${name}/INPUT_INTERFACE">
+      <visual>
+        <origin xyz="0 0 0.00375" />
+          <geometry>
+          <cylinder length="0.0075" radius=".0225" />
+        </geometry>
+        <xacro:black_material/>
+      </visual>
+    </link>
+
+    <!-- Tree branch for center hub -->
+    <link name="${name}/center_hub">
+      <visual>
+        <origin xyz="-0.0225 0.0225 0" rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh filename="package://hebi_description/meshes/PM-2357-02.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:black_material/>
+      </visual>
+    </link>
+    
+    <joint name="${name}/input_center_hub" type="fixed">
+      <origin xyz="0 0 0.0045" rpy="0 0 0" />
+      <parent link="${name}/INPUT_INTERFACE"/>
+      <child link="${name}/center_hub"/>
+    </joint>
+
+    <!-- Tree branches for fingers, outer linkages, and grippers -->
+    <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="l"/>
+    <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="r"/>
+
+    <!-- Tree branches for inner linkages -->
+    <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="l"/>
+    <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="r"/>
+
+  </xacro:macro>
+</robot>
+

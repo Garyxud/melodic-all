@@ -1,0 +1,8 @@
+std_msgs/Header header
+
+float32 can_fac_tgt_range_r2m
+float32 can_fac_tgt_range_m2t
+float32 can_fac_tgt_range1
+uint8  can_fac_tgt_mtg_space_hor
+uint8  can_fac_tgt_mtg_offset
+uint8  can_fac_align_samp_req

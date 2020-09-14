@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <!-- BEGIN:common setting -->
+  <arg name="PROJECT_FILE" />
+  <arg name="MODEL_FILE" />
+  <arg name="CONF_FILE" />
+  <arg name="RESPAWN_MODELLOADER" default="true"/>
+  <arg name="RESPAWN_RTCD" default="false" />
+  <arg name="RESPAWN_SIMULATOR" default="true" />
+  <arg name="OUTPUT" default="log"/>
+  <arg name="SIMULATOR_NAME"/>
+  <env name="LANG" value="C" />
+  <env name="ORBgiopMaxMsgSize" value="2147483648" />
+  <!-- END:common setting -->
+
+  <!-- BEGIN:openrtm setting -->
+  <arg name="nameserver" default="localhost" />
+  <arg name="corbaport" default="15005" />
+  <arg name="managerport" default="2810" />
+  <!-- <arg name="managerport" default="15006" /> -->
+  <!-- available in Kinetic -->
+  <!-- <arg name="managerport" default="$(eval arg('corbaport') + 1)"/> -->
+  <arg name="KILL_SERVERS" default="false" />
+  <env name="RTCTREE_NAMESERVERS" value="$(arg nameserver):$(arg corbaport)" />
+  <arg name="omniorb_args" default="-ORBInitRef NameService=corbaloc:iiop:$(arg nameserver):$(arg corbaport)/NameService" />
+  <arg name="openrtm_args" default='-o "corba.master_manager:$(arg nameserver):$(arg managerport)" -o "corba.nameservers:$(arg nameserver):$(arg corbaport)" -o "naming.formats:%n.rtc" -o "logger.file_name:/tmp/rtc%p.log"' />
+  <!-- END:openrtm setting -->
+
+  <!-- BEGIN:setting for hrpsys-simulator or rtcd -->
+  <arg name="USE_RTCD" default="false" />
+  <arg name="USE_CHOREONOID" default="false" />
+  <arg name="REALTIME" default="false" />
+  <arg name="GUI" default="true" />
+  <arg name="DEBUG_HRPSYS" default="false" />
+  <arg unless="$(arg DEBUG_HRPSYS)" name="RTCD_LAUNCH_PREFIX" default="" />
+  <arg     if="$(arg DEBUG_HRPSYS)" name="RTCD_LAUNCH_PREFIX"
+           default='xterm -e gdb -iex "set height 0" -ex run --args' /> <!-- for debugging with gdb -->
+  <arg name="PY_LAUNCH_PREFIX" default=""/>
+  <!--   for hrpsys-simulator -->
+  <arg unless="$(arg USE_RTCD)" name="hrpsys_periodic_rate" default="1000000"/>
+  <!-- see http://code.google.com/p/hrpsys-base/issues/detail?id=14 for  exec_cxt.periodic.rate:100000 -->
+  <arg unless="$(arg USE_RTCD)" name="hrpsys_precreate_rtc" default="HGcontroller"/>
+  <arg unless="$(arg USE_RTCD)" name="hrpsys_preload_rtc" default="$(arg hrpsys_precreate_rtc).so"/>
+  <arg unless="$(arg USE_RTCD)" name="hrpsys_periodic_type" value="SynchExtTriggerEC" />
+  <arg unless="$(arg REALTIME)" name="hrpsys_opt_args" value="-endless " />
+  <arg unless="$(arg GUI)" name="hrpsys_gui_args" value="-nodisplay" />
+  <!--   for rtcd -->
+  <arg     if="$(arg USE_RTCD)" name="hrpsys_periodic_rate" default="200"/>
+  <arg     if="$(arg USE_RTCD)" name="hrpsys_preload_rtc" default="RobotHardware.so,hrpEC.so"/>
+  <arg     if="$(arg USE_RTCD)" name="hrpsys_precreate_rtc" default="RobotHardware"/>
+  <arg     if="$(arg USE_RTCD)" name="hrpsys_periodic_type" value="hrpExecutionContext" />
+  <arg     if="$(arg REALTIME)" name="hrpsys_opt_args" value="-endless -realtime" />
+  <arg     if="$(arg GUI)" name="hrpsys_gui_args" value="" />
+  <!--   for both -->
+  <arg name="hrpsys_load_path" default="$(find hrpsys)/lib"/>
+  <arg name="RobotHardware_conf" default="$(arg CONF_FILE)"/>
+  <arg name="hrpsys_rtc_config_args" default='
+-o "example.SequencePlayer.config_file:$(arg CONF_FILE)"
+-o "example.ForwardKinematics.config_file:$(arg CONF_FILE)"
+-o "example.ImpedanceController.config_file:$(arg CONF_FILE)"
+-o "example.AutoBalancer.config_file:$(arg CONF_FILE)"
+-o "example.StateHolder.config_file:$(arg CONF_FILE)"
+-o "example.TorqueFilter.config_file:$(arg CONF_FILE)"
+-o "example.TorqueController.config_file:$(arg CONF_FILE)"
+-o "example.ThermoEstimator.config_file:$(arg CONF_FILE)"
+-o "example.ThermoLimiter.config_file:$(arg CONF_FILE)"
+-o "example.VirtualForceSensor.config_file:$(arg CONF_FILE)"
+-o "example.AbsoluteForceSensor.config_file:$(arg CONF_FILE)"
+-o "example.RemoveForceSensorLinkOffset.config_file:$(arg CONF_FILE)"
+-o "example.KalmanFilter.config_file:$(arg CONF_FILE)"
+-o "example.Stabilizer.config_file:$(arg CONF_FILE)"
+-o "example.CollisionDetector.config_file:$(arg CONF_FILE)"
+-o "example.SoftErrorLimiter.config_file:$(arg CONF_FILE)"
+-o "example.HGcontroller.config_file:$(arg CONF_FILE)"
+-o "example.PDcontroller.config_file:$(arg CONF_FILE)"
+-o "example.EmergencyStopper.config_file:$(arg CONF_FILE)"
+-o "example.ReferenceForceUpdater.config_file:$(arg CONF_FILE)"
+-o "example.ObjectContactTurnaroundDetector.config_file:$(arg CONF_FILE)"
+-o "example.RobotHardware.config_file:$(arg RobotHardware_conf)"
+    '/>
+  <arg name="hrpsys_opt_rtc_config_args" default=''/>
+  <arg name="hrpsys_args" default='
+-o "exec_cxt.periodic.rate:$(arg hrpsys_periodic_rate)"
+-o "manager.shutdown_onrtcs:NO"
+-o "manager.modules.load_path:$(arg hrpsys_load_path)"
+-o "manager.modules.preload:$(arg hrpsys_preload_rtc)"
+-o "manager.components.precreate:$(arg hrpsys_precreate_rtc)"
+-o "exec_cxt.periodic.type:$(arg hrpsys_periodic_type)"
+ $(arg hrpsys_rtc_config_args) $(arg hrpsys_opt_rtc_config_args)
+' unless="$(arg USE_CHOREONOID)" />
+  <arg name="hrpsys_args" default='
+-o "manager.shutdown_onrtcs:NO"
+-o "manager.modules.load_path:$(arg hrpsys_load_path)"
+-o "manager.modules.preload:$(arg hrpsys_preload_rtc)"
+-o "manager.components.precreate:$(arg hrpsys_precreate_rtc)"
+ $(arg hrpsys_rtc_config_args) $(arg hrpsys_opt_rtc_config_args)
+' if="$(arg USE_CHOREONOID)" />
+
+  <arg name="openrtm_openhrp_server_start" default="true"/>
+  <!-- END:setting for hrpsys-simulator or rtcd -->
+
+  <!-- BEGIN:hrpsys.py setting -->
+  <arg name="HRPSYS_PY_PKG" default="hrpsys_tools"/>
+  <arg name="HRPSYS_PY_NAME" default="hrpsys_tools_config.py"/>
+  <arg name="HRPSYS_PY_ARGS" default='' />
+  <arg name="LAUNCH_HRPSYSPY" default="true" />
+  <!-- END:hrpsys.py setting -->
+
+  <!-- <node if="$(arg START_NAME_SERVER)" -->
+  <!--       name="rtm_naming" pkg="openrtm" type="rtm-naming-restart" /> -->
+
+  <group if="$(arg KILL_SERVERS)">
+    <node name="hrpsys_kill_all" pkg="openhrp3" type="openhrp-shutdown-servers" />
+  </group>
+
+  <node name="modelloader" pkg="openhrp3" type="openhrp-model-loader"
+        args="$(arg omniorb_args)"
+        respawn="$(arg RESPAWN_MODELLOADER)" output="screen"
+        if="$(arg openrtm_openhrp_server_start)"/> <!-- loading dae files crushes model loader -->
+
+  <node if="$(arg USE_RTCD)"
+        name="hrpsys" pkg="openrtm_aist" type="rtcd" respawn="$(arg RESPAWN_RTCD)" output="$(arg OUTPUT)"
+        launch-prefix="$(arg RTCD_LAUNCH_PREFIX)"
+        args="$(arg PROJECT_FILE) -o manager.is_master:YES $(arg openrtm_args) $(arg hrpsys_args)" />
+  <group unless="$(arg USE_RTCD)">
+  <node unless="$(arg USE_CHOREONOID)"
+        name="hrpsys" pkg="hrpsys" type="hrpsys-simulator" respawn="$(arg RESPAWN_SIMULATOR)" output="$(arg OUTPUT)"
+        launch-prefix="$(arg RTCD_LAUNCH_PREFIX)"
+        args="$(arg PROJECT_FILE) -o manager.is_master:YES $(arg openrtm_args) $(arg hrpsys_gui_args) $(arg hrpsys_opt_args) $(arg hrpsys_args)" />
+  <include if="$(arg USE_CHOREONOID)"
+           file="$(find hrpsys_choreonoid)/launch/choreonoid.launch" >
+    <arg name="PROJECT_FILE" value="$(arg PROJECT_FILE)" />
+    <arg name="RTC_ARGS" value="-o manager.is_master:YES $(arg openrtm_args) $(arg hrpsys_gui_args) $(arg hrpsys_opt_args) $(arg hrpsys_args)" />
+    <arg name="RESPAWN_SIMULATOR" value="$(arg RESPAWN_SIMULATOR)" />
+    <arg name="OUTPUT" value="$(arg OUTPUT)" />
+  </include>
+  </group>
+  <!-- node name="rtcgraph" pkg="openrtm" type="rtcgraph" output="screen"/ -->
+
+  <group if="$(arg LAUNCH_HRPSYSPY)">
+    <node name="hrpsys_py" pkg="$(arg HRPSYS_PY_PKG)" type="$(arg HRPSYS_PY_NAME)" output="screen"
+          args='$(arg HRPSYS_PY_ARGS) $(arg SIMULATOR_NAME) $(arg MODEL_FILE) $(arg openrtm_args) $(arg omniorb_args)'
+          launch-prefix="$(arg PY_LAUNCH_PREFIX)" /> <!-- omniorb_args is still used for backward compatibility -->
+  </group>
+
+  <!-- <node name="abstransform2posrpy" pkg="hrpsys" type="AbsTransformToPosRpy" output="$(arg OUTPUT)" -->
+  <!--       args="$(arg openrtm_args)" respawn="$(arg RESPAWN)" /> -->
+
+</launch>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>leuze_ros_drivers</name>
+  <version>1.0.1</version>
+  <description>The leuze_ros_drivers metapackage</description>
+
+  <author email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</author>
+  <author email="harshavardhan.deshpande@ipa.fraunhofer.de">Harshavardhan Deshpande</author>
+  <author email="tejas.kumar.shastha@ipa.fraunhofer.de">Tejas Kumar Shastha</author>
+  <maintainer email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</maintainer>
+
+  <license>APACHE2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>leuze_bringup</exec_depend>
+  <exec_depend>leuze_description</exec_depend>
+  <exec_depend>leuze_msgs</exec_depend>
+  <exec_depend>leuze_rsl_driver</exec_depend>
+  <exec_depend>leuze_phidget_driver</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

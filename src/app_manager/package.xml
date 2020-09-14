@@ -1,0 +1,39 @@
+<package>
+  <name>app_manager</name>
+  <version>1.1.1</version>
+  <description>app_manager</description>
+  <maintainer email="ros-orphaned-packages@googlegroups.com">ROS Orphaned Package Maintainers</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/app_manager</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Jeremy Leibs</author>
+  <author>Ken Conley</author>
+  <author>Yuki Furuta</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>roslaunch</build_depend>
+  <build_depend>rosgraph</build_depend>
+  <build_depend>rosunit</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>rospack</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>roslaunch</run_depend>
+  <run_depend>rosgraph</run_depend>
+  <run_depend>rosunit</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>message_runtime</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>rospy</test_depend> -->
+  <!-- <test_depend>roslaunch</test_depend> -->
+  <!-- <test_depend>rosgraph</test_depend> -->
+  <!-- <test_depend>rosunit</test_depend> -->
+
+</package>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="coiltest"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(cppunit_includes)"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="$(cppunit_libdir)"
+	/>
+	<!-- cppunit macros -->
+	<UserMacro
+		Name="cppunit_root"
+		Value="%CPPUNIT_ROOT%"
+	/>
+	<UserMacro
+		Name="cppunit_includes"
+		Value="&quot;$(cppunit_root)\include&quot;"
+	/>
+	<UserMacro
+		Name="cppunit_libdir"
+		Value="&quot;$(cppunit_root)\lib&quot;"
+	/>
+	<UserMacro
+		Name="cppunit_bin"
+		Value="&quot;$(cppunit_root)\lib&quot;"
+	/>
+	<UserMacro
+		Name="cppunit_path"
+		Value="$(cppunit_bin)"
+	/>
+	<UserMacro
+		Name="cppunit_libd"
+		Value="cppunitd_dll.lib"
+	/>
+	<UserMacro
+		Name="cppunit_lib"
+		Value="cppunit_dll.lib"
+	/>
+	<!-- coil macros -->
+	<UserMacro
+		Name="coiltest_libd"
+		Value="$(cppunit_libd) $(coil_libd) $(coil_depend_libd)"
+	/>
+	<UserMacro
+		Name="coiltest_lib"
+		Value="$(cppunit_lib) $(coil_lib) $(coil_depend_lib)"
+	/>
+	<!--  -->
+	<UserMacro
+		Name="coil_depend_libd"
+		Value="advapi32.lib ws2_32.lib mswsock.lib rpcrt4.lib"
+	/>
+	<UserMacro
+		Name="coil_depend_lib"
+		Value="advapi32.lib ws2_32.lib mswsock.lib rpcrt4.lib"
+	/>
+
+</VisualStudioPropertySheet>

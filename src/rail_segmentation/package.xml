@@ -1,0 +1,47 @@
+<package>
+  <name>rail_segmentation</name>
+  <version>0.1.15</version>
+  <description>Segmentation Functionality from the RAIL Lab</description>
+
+  <author email="russell.toris@gmail.com">Russell Toris</author>
+  <author email="dekent@gatech.edu">David Kent</author>
+  <maintainer email="russell.toris@gmail.com">Russell Toris</maintainer>
+  <maintainer email="dekent@gatech.edu">David Kent</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/rail_segmentation</url>
+  <url type="bugtracker">https://github.com/GT-RAIL/rail_segmentation/issues</url>
+  <url type="repository">https://github.com/GT-RAIL/rail_segmentation</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>boost</build_depend>
+  <build_depend>pkg-config</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>pcl_conversions</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rail_manipulation_msgs</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>yaml-cpp</build_depend>
+
+  <run_depend>boost</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>pcl_conversions</run_depend>
+  <run_depend>pcl_ros</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rail_manipulation_msgs</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>tf2</run_depend>
+  <run_depend>tf2_ros</run_depend>
+  <run_depend>yaml-cpp</run_depend>
+</package>

@@ -1,0 +1,7 @@
+<launch>
+  <arg name="robot_mode" />
+
+  <rosparam command="load" file="$(find fsrobo_r_driver)/config/ik_proxy_$(arg robot_mode).yaml"/>
+  <node pkg="fsrobo_r_driver" type="ik_proxy.py" name="ik_proxy" output="screen"/>
+
+</launch>

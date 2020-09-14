@@ -1,0 +1,10 @@
+redirect_console: True
+wireless_namespace: 'ddwrt'
+local_networks: [ '10.68.1.0/24' ]
+tunnel_interface: 'tun9'
+wpa_config: "/etc/ros/wifi/networks.conf" 
+base_station: "gate_public"
+ping_port: 6868
+interfaces:
+  ra0: {}
+  ra1: {}

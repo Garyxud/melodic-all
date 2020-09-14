@@ -1,0 +1,6 @@
+taskkill /F /IM omniNames.exe
+taskkill /F /IM openhrp-collision-detector.exe
+taskkill /F /IM openhrp-aist-dynamics-simulator.exe
+taskkill /F /IM openhrp-model-loader.exe
+taskkill /F /IM openhrp-controller-bridge.exe
+taskkill /F /IM openhrp-path-planner.exe

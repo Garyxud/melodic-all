@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BoxInterface uuid="" box_version="1.0.0.0" name="Light_AskForAttentionEyes" localization="8" tooltip="Set an animated gaze which calls for attention (purple eyes).&#x0A;&#x0A;Note: It is a never ending box. You must call onStop to stop it.&#x0A;&#x0A;*** state: 5a_release ***&#x0A;*** ref box in: 5a_release\Leds\Light_AskForAttentionEyes\Light_AskForAttentionEyes.xar ***&#x0A;*** last modification date(svn): Version it! ***"  format_version="4" >
+    <Bitmap path="media/images/box/interaction/LED.png" />
+    <Input name="onLoad" signature="()" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+    <Input name="onStart" signature="()" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+    <Input name="onStop" signature="()" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+    <Output name="onStopped" signature="()" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+    <Contents>
+        <Content type="0" path="B_0_0_B1_0_0_Light_AskForAttentionEyes1.py" checksum="" />
+    </Contents>
+</BoxInterface>

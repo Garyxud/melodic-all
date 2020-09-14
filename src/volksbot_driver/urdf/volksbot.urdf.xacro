@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<robot
+  xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+  xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  name="volksbot_base">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:property name="wheel_width" value="0.06" />
+  <!-- This is the wheel radius for the robot height, the one for the odometry is in volksbot_node.cpp  -->
+  <xacro:property name="wheel_radius" value="0.103" />
+  <xacro:property name="axis_length" value="0.41" />
+  <xacro:property name="wheel_x_offset" value="0.225" />
+  <xacro:property name="wheel_z_offset" value="-0.0275" />
+  <xacro:property name="turning_adaptation" value="0.95" />
+  <xacro:property name="base_mass" value="10" />
+  <xacro:property name="wheel_mass" value="0.25" />
+
+  <xacro:property name="base_link_length" value="0.55"/>
+  <xacro:property name="base_link_width" value="0.32"/>
+  <xacro:property name="base_link_height" value="0.155"/>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <!--<box size="${base_link_length} ${base_link_width} ${base_link_height}" />-->
+        <mesh filename="package://volksbot_driver/meshes/base.stl"/>
+      </geometry>
+      <material name="grey" >
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <!--<box size="${base_link_length} ${base_link_width} ${base_link_height}" />-->
+        <mesh filename="package://volksbot_driver/meshes/base.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${base_mass}" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="${0.0833333 * base_mass * (base_link_width*base_link_width + base_link_height*base_link_height)}" ixy="0.0" ixz="0.0"
+        iyy="${0.0833333 * base_mass * (base_link_length*base_link_length + base_link_height*base_link_height)}" iyz="0.0"
+        izz="${0.0833333 * base_mass * (base_link_length*base_link_length + base_link_width*base_link_width)}" />
+    </inertial>
+  </link>
+
+  <xacro:macro name="volksbot_wheel" params="name xyz rotate_visual friction">
+    <!-- rotate_visual: 0 for right side, 1 for left side -->
+    <link name="${name}_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${rotate_visual * M_PI}" />
+        <geometry>
+          <!--<cylinder length="${wheel_width}" radius="${wheel_radius}"/>-->
+          <mesh filename="package://volksbot_driver/meshes/wheel.stl" />
+        </geometry>
+        <material name="blackish">
+          <color rgba="0.2 0.2 0.2 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
+        <!--<origin xyz="0 0 0" rpy="0 0 0" />-->
+        <geometry>
+          <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
+          <!--<cylinder length="${wheel_width}" radius="${wheel_radius}"/>-->
+          <mesh filename="package://volksbot_driver/meshes/wheel.stl" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="${wheel_mass}" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="${0.0833333 * wheel_mass * (3 * wheel_radius * wheel_radius + wheel_width * wheel_width)}" ixy="0.0" ixz="0.0"
+          iyy="${0.0833333 * wheel_mass * (3 * wheel_radius * wheel_radius + wheel_width * wheel_width)}" iyz="0.0"
+          izz="${0.5 * wheel_mass * wheel_radius * wheel_radius}" />
+      </inertial>
+    </link>
+
+    <!-- friction parameters -->
+    <gazebo reference="${name}_wheel_link">
+      <!-- Turtlebot: -->
+      <mu1 value="${friction}"/>
+      <mu2 value="${friction}"/>
+      <kp value="100000000.0"/>
+      <kd value="10000.0"/>
+      <material value="Gazebo/FlatBlack" />
+    </gazebo>
+
+    <joint name="${name}_wheel_joint" type="continuous">
+      <origin xyz="${xyz}" rpy="0 0 0" />
+      <parent link="base_link"/>
+      <child link="${name}_wheel_link"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:volksbot_wheel name="left_front" xyz="${wheel_x_offset} ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" friction="1.0" />
+  <xacro:volksbot_wheel name="left_middle" xyz="0 ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" friction="100.0" />
+  <xacro:volksbot_wheel name="left_rear" xyz="${-wheel_x_offset} ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" friction="1.0" />
+  <xacro:volksbot_wheel name="right_front" xyz="${wheel_x_offset} ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" friction="1.0" />
+  <xacro:volksbot_wheel name="right_middle" xyz="0 ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" friction="100.0" />
+  <xacro:volksbot_wheel name="right_rear" xyz="${-wheel_x_offset} ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" friction="1.0" />
+
+  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
+       navigation stack depends on this frame -->
+  <link name="base_footprint"/>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 ${wheel_radius -  wheel_z_offset}" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+  </joint>
+
+  <link name="base_top" />
+
+  <joint name="base_top_joint" type="fixed">
+    <origin xyz="0 0 ${base_link_height / 2.0}" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="base_top"/>
+  </joint>
+
+  <gazebo>
+    <plugin name="volksbot_diffdrive" filename="libgazebo_ros_diffdrive_uos.so">
+      <alwaysOn>true</alwaysOn>
+      <cmd_vel_topic_name>cmd_vel</cmd_vel_topic_name>
+      <odom_topic_name>odom</odom_topic_name>
+      <joint_states_topic_name>joint_states</joint_states_topic_name>
+      <left_front_wheel_joint>left_front_wheel_joint</left_front_wheel_joint>
+      <left_middle_wheel_joint>left_middle_wheel_joint</left_middle_wheel_joint>
+      <left_rear_wheel_joint>left_rear_wheel_joint</left_rear_wheel_joint>
+      <right_front_wheel_joint>right_front_wheel_joint</right_front_wheel_joint>
+      <right_middle_wheel_joint>right_middle_wheel_joint</right_middle_wheel_joint>
+      <right_rear_wheel_joint>right_rear_wheel_joint</right_rear_wheel_joint>
+      <wheel_separation>${axis_length}</wheel_separation>
+      <wheel_diameter>${2*wheel_radius}</wheel_diameter>
+      <turning_adaptation>${turning_adaptation}</turning_adaptation>
+      <torque>4.0</torque>
+      <max_velocity>0.9</max_velocity>
+      <updateRate>40.0</updateRate>
+    </plugin>
+  </gazebo>
+
+  <!-- publish ground truth for pose of base_footprint -->
+  <gazebo>
+    <plugin name="base_footprint_controller" filename="libgazebo_ros_p3d.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>30.0</updateRate>
+      <bodyName>base_footprint</bodyName>
+      <topicName>base_footprint_pose_ground_truth</topicName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <frameName>map</frameName>
+      <interface:position name="base_footprint_p3d_position_iface" />
+    </plugin>
+  </gazebo>
+</robot>

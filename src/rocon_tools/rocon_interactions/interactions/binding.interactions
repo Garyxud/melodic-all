@@ -1,0 +1,27 @@
+##############################################################################
+# Param Binding
+###############################################################################
+
+interactions:
+    - name: Parameter binding
+      role: 'Binding'
+      compatibility: rocon:/*
+      command: ''
+      description: Example to demonstrate parameter binding
+      icon:
+        resource_name: rocon_bubble_icons/rocon.png
+      parameters: 
+        internal_param: __test__
+        global_param: __/name__
+
+    - name: Namespaced Parameter binding
+      command: ''
+      role: 'Binding'
+      compatibility: rocon:/*
+      
+      namespace: /namespace
+      description: Example to demonstrate parameter binding
+      icon:
+        resource_name: rocon_bubble_icons/rocon.png
+      parameters: 
+        namespaced_param: __test__

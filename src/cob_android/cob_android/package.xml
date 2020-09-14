@@ -1,0 +1,23 @@
+<package format="2">
+  <name>cob_android</name>
+  <version>0.1.7</version>
+  <description>cob_android package provides tools for android apps operation.</description>
+ 
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_android</url>
+
+  <maintainer email="bnm@ipa.fhg.de">Benjamin Maidel</maintainer>
+  <author email="bnm@ipa.fhg.de">Benjamin Maidel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>cob_android_msgs</exec_depend>
+  <exec_depend>cob_android_resource_server</exec_depend>
+  <exec_depend>cob_android_script_server</exec_depend>
+  <exec_depend>cob_android_settings</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

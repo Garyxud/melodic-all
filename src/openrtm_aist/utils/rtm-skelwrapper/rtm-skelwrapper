@@ -1,0 +1,162 @@
+#!/usr/bin/env python
+# -*- python -*-
+# -*- coding: utf-8 -*-
+#
+#  @file rtm-skelwrapper
+#  @brief CORBA skelton/stub wrapper generator
+#  @date $Date: 2007-01-11 08:58:25 $
+#  @author Noriaki Ando <n-ando@aist.go.jp>
+# 
+#  Copyright (C) 2004-2007
+#      Task-intelligence Research Group,
+#      Intelligent Systems Research Institute,
+#      National Institute of
+#          Advanced Industrial Science and Technology (AIST), Japan
+#      All rights reserved.
+# 
+#  $Id$
+# 
+
+import os
+import sys
+import getopt
+
+libdir_path = os.popen("rtm-config --libdir", "r").read().split("\n")
+pyhelper_path = libdir_path[0] + "/py_helper"
+sys.path.append(pyhelper_path)
+
+import skel_wrapper
+
+opt_args_fmt = ["help",
+		"idl-file=",
+		"include-dir=",
+		"skel-suffix=",
+		"stub-suffix="]
+
+
+config_inc = """
+#include <rtm/config_rtc.h>
+#undef PACKAGE_BUGREPORT
+#undef PACKAGE_NAME
+#undef PACKAGE_STRING
+#undef PACKAGE_TARNAME
+#undef PACKAGE_VERSION
+"""
+
+
+def usage():
+	print """
+Usage: rtm-skelwrapper [OPTIONS]
+
+Options:
+
+    [--help or -h]                        Print this help.
+    [--idl-file[=IDL_file]]               IDL file name
+    [--skel-suffix[=suffix]]              Suffix of server skelton files
+    [--stub-suffix[=suffix]]              Suffix of client stub files
+    [--include-dir[=dir] or -I]           include prefix in #include
+    [--output-dir[=dir] or -o]            output directory
+
+Example:
+$ rtm-skelwrapper --idl=file=<IDL path>/<IDL basename>.idl
+                  --include-dir=<include dir>
+                  --output-dir=<output dir>
+                  -skel-suffix=<skel suffix> 
+                  -stub-suffix=<stub suffix> 
+
+In this case, the following files are generated under <output dir>.
+
+  <IDL basename><skel suffix>.h
+  <IDL basename><skel suffix>.cpp
+  <IDL basename><stub suffix>.h
+  <IDL basename><stub suffix>.cpp
+
+And these files include the target IDL file by the following
+#include directive.
+
+#include <<include dir>/<IDL basename>(CORBA impl specific suffix)>
+
+Absolute path is not recommended for the "--include-dir" option.
+When option "--include-dir=my/idl" is specified, the generated
+skeleton's header includes actual CORBA implementation dependent
+skeletons as follows.
+
+#if   defined ORB_IS_TAO
+#  include "my/idl/RangerC.h"
+#  include "my/idl/RangerS.h"
+#elif defined ORB_IS_OMNIORB
+#  include "my/idl/Ranger.hh"
+#endif
+         
+Therefore, if you compile this skeletons/stubs, you have to specify an
+appropriate include directory in the compiler options.
+
+<IDL path> is used for only include-guard. For example, if
+"--idl-file=/usr/include/idl/MyInterface.idl" is specified, the
+following include guard will be defined.
+
+#ifndef _USR_INCLUDE_IDL_MYINTERFACE_H
+#define _USR_INCLUDE_IDL_MYINTERFACE_H
+
+  : (codes)
+
+#endif // _USR_INCLUDE_IDL_MYINTERFACE_H
+
+"""
+
+
+def main():
+	try:
+		opts, args = getopt.getopt(sys.argv[1:], "f:I:o:h",
+					   opt_args_fmt)
+	except getopt.GetoptError:
+		print "Error: Invalid options.", getopt.GetoptError
+		usage()
+		sys.exit(-1)
+
+	if not opts:
+		usage()
+		sys.exit(-1)
+
+	include_dir = ""
+	output_dir  = ""
+	skel_suffix = "Skel"
+	stub_suffix = "Stub"
+	idl_file    = None
+
+	for opt, arg in opts:
+		if opt in ("-h", "--help"):
+			usage()
+
+		if opt in ("-f", "--idl-file"):
+			idl_file = arg
+
+		if opt in ("-I", "--include-dir"):
+			include_dir = arg
+
+		if opt in ("-o", "--output-dir"):
+			output_dir = arg
+
+		if opt in ("--skel-suffix"):
+			skel_suffix = arg
+
+		if opt in ("--stub-suffix"):
+			stub_suffix = arg
+
+	if not idl_file:
+		print "Error: IDL file is not given."
+		usage()
+		sys.exit(-1)
+
+
+	import skel_wrapper
+
+	s = skel_wrapper.skel_wrapper(idl_file, skel_suffix, stub_suffix,
+				      include_dir, config_inc, output_dir)
+	s.generate()
+
+
+if __name__ == "__main__":
+	main()
+
+		

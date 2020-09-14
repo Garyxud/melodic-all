@@ -1,0 +1,9 @@
+<library path="lib/libdataspeed_pds_can">
+  <class name="dataspeed_pds_can/PdsNodelet"
+         type="dataspeed_pds_can::PdsNodelet"
+         base_class_type="nodelet::Nodelet">
+    <description> 
+      Dataspeed Power Distribution System (PDS) nodelet using CAN
+    </description>
+  </class>
+</library>

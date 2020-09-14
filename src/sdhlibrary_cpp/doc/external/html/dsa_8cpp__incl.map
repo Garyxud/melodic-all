@@ -1,0 +1,15 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdhlibrary__settings_8h.html" title="This file contains settings to make the SDHLibrary compile on differen systems:gcc/Cygwin/Windowsgcc/..." alt="" coords="508,547,649,576"/>
+<area shape="rect" id="node11" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="677,83,731,112"/>
+<area shape="rect" id="node51" href="$sdhbase_8h.html" title="Interface of class SDH::cSDHBase." alt="" coords="1015,315,1097,344"/>
+<area shape="rect" id="node78" href="$util_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="1489,315,1540,344"/>
+<area shape="rect" id="node89" href="$tcpserial_8h.html" title="Interface of class SDH::cTCPSerial, class to access TCP port cygwin/linux." alt="" coords="451,160,533,189"/>
+<area shape="rect" id="node15" href="$sdhexception_8h.html" title="Interface of the exception base class SDH::cSDHLibraryException and SDH::cMsg." alt="" coords="1144,469,1253,499"/>
+<area shape="rect" id="node25" href="$dbg_8h.html" title="This file contains interface and implementation of class SDH::cDBG, a class for colorfull debug messa..." alt="" coords="775,392,828,421"/>
+<area shape="rect" id="node38" href="$rs232-cygwin_8h.html" title="Interface of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="693,160,803,189"/>
+<area shape="rect" id="node62" href="$simpletime_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="568,160,664,189"/>
+<area shape="rect" id="node68" href="$crc_8h.html" title="This file contains interface to cCRC, a class to handle CRC calculation." alt="" coords="209,160,260,189"/>
+<area shape="rect" id="node44" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="709,237,800,267"/>
+<area shape="rect" id="node57" href="$simplevector_8h.html" title="Interface of class SDH::cSimpleVector." alt="" coords="1004,392,1108,421"/>
+<area shape="rect" id="node71" href="$basisdef_8h.html" title="This file contains some basic definitions (defines, macros, datatypes)" alt="" coords="195,237,275,267"/>
+</map>

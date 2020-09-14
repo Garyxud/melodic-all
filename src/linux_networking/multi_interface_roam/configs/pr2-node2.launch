@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="multi_interface_roam" type="roam_node2.py" name="roam_pr2" output="screen" launch-prefix="python -m cProfile -o profile.txt" respawn="false">
+    <rosparam command="load" file="$(find multi_interface_roam)/configs/pr2-node2.yaml"/>
+  </node>
+</launch>

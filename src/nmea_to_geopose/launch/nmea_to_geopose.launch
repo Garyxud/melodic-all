@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="input_topic" default="/nmea_sentence"/>
+
+    <node pkg="nmea_to_geopose" type="nmea_to_geopose_node" name="nmea_to_geopose_node" output="screen" respawn="true" respawn_delay="0">
+        <param name="input_topic" value="$(arg input_topic)"/>
+    </node>
+</launch>

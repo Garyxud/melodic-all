@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Node parameters -->
+  <arg name="broadcast_port"    default="50472" />
+  <arg name="broadcast_ip"      default="195.0.0.255" />
+  <arg name="gga_topic"         default="gps/gga" />
+  <arg name="ntrip_credentials" default="$(find oxford_gps_eth)/dummy_credentials.yaml" />
+  <arg name="output"            default="screen" /> <!-- screen/log -->
+
+  <!-- Start the node -->
+  <node pkg="oxford_gps_eth" type="ntrip_forwarding.py" name="ntrip_forwarding" output="$(arg output)">
+    <param name="broadcast_port" value="$(arg broadcast_port)" />
+    <param name="broadcast_ip" value="$(arg broadcast_ip)" />
+    <remap from="gps/gga" to="$(arg gga_topic)" />
+    <rosparam file="$(arg ntrip_credentials)" />
+  </node>
+
+</launch>

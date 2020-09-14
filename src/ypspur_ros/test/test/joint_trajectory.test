@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="use_sim_time" value="true" />
+
+  <test test-name="test_joint_trajectory" pkg="ypspur_ros" type="test_joint_trajectory" />
+  
+  <node pkg="ypspur_ros" type="ypspur_ros" name="ypspur_ros">
+    <param name="compatible" value="1" />
+    <param name="simulate_control" value="true" />
+    <param name="param_file" value="$(find ypspur_ros)/test/config/test.param" />
+    <param name="joint0_enable" value="true" />
+    <param name="hz" value="20.0" />
+  </node>
+</launch>

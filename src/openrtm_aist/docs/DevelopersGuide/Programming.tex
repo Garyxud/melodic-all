@@ -1,0 +1,1303 @@
+% -*- LaTeX -*-
+%
+% @file Programming.tex
+% @brief OpenRTM-aist developers guide [Programming]
+% @date $Date: 2005-05-12 09:06:21 $
+% @author Noriaki Ando <n-ando@aist.go.jp>
+%
+% Copyright (C) 2003-2005
+%     Task-intelligence Research Group,
+%     Intelligent Systems Research Institute,
+%     National Institute of
+%         Advanced Industrial Science and Technology (AIST), Japan
+%     All rights reserved.
+%
+% $Id$
+%
+
+\chapter{RTコンポーネントプログラミング}
+
+\section{RTコンポーネント開発の流れ}
+OpenRTM\--aist は、コンポーネントを開発したいユーザ (コンポーネントデベロッパ) が持つ既存のソフトウエア資産、あるいは新たに作成したソフトエアを容易にRTコンポーネント化するためのフレームワークを提供します。
+
+コンポーネント作成の大まかな流れは図~\ref{fig:RtComponentDevelFlow}のようになります。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RT_devel_flow.eps,width=0.7\columnwidth}}
+\caption{RTコンポーネントの開発フロー}
+\label{fig:RtComponentDevelFlow}
+\end{figure}
+
+コンポーネントデベロッパは、既存のソフトウエア資産のライブラリ関数・クラスライブラリ等をコンポーネントフレームワークに埋め込みコンポーネントを作成します。
+こうすることで、既存のソフトウエア資源をソフトウエア部品であるRTコンポーネントとして作成しておき、様々な場面で再利用することが出来るようになります。
+作成されたRTコンポーネントは、ネットワーク上の適切な場所に配置して、分散オブジェクトとしてネットワーク上の任意の場所から利用することができます。
+
+図~\ref{fig:RtComponentDevelFlow}に示すように、RTコンポーネントフレームワークに則って作成されたRTコンポーネントは大きく分けて2つの実行形式のバイナリファイルとして作成することが出来ます。
+スタンドアロンRTコンポーネント (Standalone RTComponent) は、単一ファイルでそのまま実行できる実行バイナリ形式です。
+ローダブルモジュールRTコンポーネント (Loadable Module RTComponent) は動的にロード可能なローダブルモジュール形式のバイナリファイルです。
+RTコンポーネントはこれらの2つの形式で作成、配布、実行することができます。
+
+%============================================================
+\subsection{コンポーネントの形態}
+
+上でも述べたように、RTコンポーネントは、単体で実行可能な「スタンドアロンRTコンポーネント (Standalone RTComponent) 」および、動的にロードされ実行される「ローダブルモジュールRTコンポーネント (Loadable Module RTComponent) 」の2つの形式として生成することができます。
+「スタンドアロンコンポーネント」および「ローダブルモジュールコンポーネント」は以下のような特徴があります。
+
+\subsubsection{スタンドアロンコンポーネント}
+単体で実行可能なバイナリ形式のコンポーネントです。
+1プロセスにつき原則として1種類のコンポーネント(複数のインスタンスを持つことができる。)に対応します。
+他のコンポーネントとの通信はCORBA経由で行うため、速度的には不利ですが、他のコンポーネントがエラーで停止しても、影響を被らないため安定性では有利となります。
+
+また、コンポーネントの起動、停止はプロセスのそれと同義ですので、他のコンポーネントに影響を与えることなくプロセスごと起動や停止することが出来ます。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RT_StandAloneComponent.eps,width=0.7\columnwidth}}
+\caption{スタンドアロンコンポーネント}
+\label{fig:StandAloneComponent}
+\end{figure}
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RT_ComponentError_StandAlone.eps,width=0.7\columnwidth}}
+\caption{スタンドアロンコンポーネントのエラーの影響}
+\label{fig:LoadableModuleComponent}
+\end{figure}
+\clearpage
+
+\subsubsection{ローダブルモジュールコンポーネント}
+マネージャにより動的にロードされ、実体化されるコンポーネントです。
+
+ローダブルモジュールコンポーネントRTコンポーネントは通常、共有ライブラリの形態をとります。
+共有ライブラリとは、実行時に動的にロードされるライブラリのことです。
+通常 UNIX 系では拡張子が {\tt .so} (HP-UX では {\tt .sl})、Windowsでは {\tt .dll} となっています。
+ダイナミックロード・コンポーネントを作成する際に書くプログラムには {\tt main} 関数がないのでそのままでは実行できません。
+実行はコンポーネントサーバが、ダイナミックロードコンポーネントを動的にロードし、コンポーネントサーバ内のコンポーネントマネージャがコンポーネントを生成し実行します。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RT_LoadableModuleComponent.eps,width=0.7\columnwidth}}
+\caption{ローダブルモジュールコンポーネント}
+\label{fig:LoadableModuleComponent}
+\end{figure}
+
+ローダブルモジュールコンポーネントは、1つのプロセスに対して複数の種類の複数のインスタンスを持つことができます(図~\ref{fig:LoadableModuleComponent})。
+CORBA実装の多くは同一プロセス内でのCORBAオペレーション呼び出しを高速化する機構が組み込まれているものが多く、密接に連携させたいコンポーネントを同一のサーバ上に生成し接続すると、パフォーマンスの向上が見込める場合があります。
+
+ただし、これは使用しているCORBA実装に依る所が大きく、具体的にどの程度高速化されるかは一概には言えませんが、速度的制約の厳しいシステムを構成する場合にはこうした構成方法が有効となる場合があるでしょう。
+
+ローダブルモジュールRTコンポーネントはスタンドアロンRTコンポーネントとは異なり、プロセス内の1つのコンポーネントがセグメント違反等の致命的エラーを起こして停止すると、同一プロセス内の全てのコンポーネントも停止します(図~\ref{fig:LoadableModuleComponentError})。
+したがって、安定でないコンポーネントを他のコンポーネントと同時に動作させると、安定に動作しているコンポーネントも巻き添えにして停止するなど、全体として不安定になるデメリットがあります。
+
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RT_ComponentError_Loadable.eps,width=0.7\columnwidth}}
+\caption{ローダブルモジュールコンポーネントのエラーの影響}
+\label{fig:LoadableModuleComponentError}
+\end{figure}
+
+一旦インターフェース等の仕様が確定し、十分にデバッグされ安定に動作するコンポーネントが完成すれば、そのコンポーネントを利用するユーザは、コンポーネントのソースコードに手つけることなしに、他のコンポーネントと組み合わせ、ロボットシステムを構築することができます。
+これが、RTコンポーネントを利用する大きなメリットのひとつです。
+コンポーネントデベロッパはソースコード、ローダブルモジュール形式、実行ファイル形式の任意の形式で自分が作成したコンポーネントを配布することができます。
+
+
+\subsection{モジュールとコンポーネント}
+OpenRTM\--aist では、モジュールとコンポーネントを以下のように区別しています。
+
+\begin{tab}{● モジュールとコンポーネント}
+\begin{tabular}{lp{110mm}}
+\bf モジュール	&  RTコンポーネントのモデルを定義するクラス。 \\
+\bf コンポーネント	& モジュールのクラスから実体化され、実際に配置されるソフトウエア構成部品すなわちRTコンポーネントそのもの。
+\end{tabular}
+\end{tab}
+
+C++のプログラム的解釈をすると、モジュール=クラスであり、コンポーネント=インスタンスというイメージになります。
+コンポーネントはモジュールから生成されるものであり、Aというモジュールに対して、コンポーネント(A0, A1, ... , An)は複数存在することができます (図~\ref{fig:Module_and_Component}) 。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/Module_and_Component,width=0.5\columnwidth}}
+\caption{モジュールとコンポーネント}
+\label{fig:Module_and_Component}
+\end{figure}
+あくまで、処理を実行しているのはコンポーネントであり、モジュールはそのコンポーネントの鋳型という関係です。
+この鋳型を作成するための基底クラスがOpenRTM\--aist のコンポーネント作成のためのフレームワークとして用意されています。
+コンポーネントデベロッパは、この基底クラスを継承して自分のコンポーネントを作成します。
+
+\section{コンポーネントの作成}
+ここからは、実際に簡単なコンポーネントを作成しながら、コンポーネント作成の手順を説明してゆきます。
+なお、以下で紹介するサンプルのソースコードは、配布ソースコードの{\tt example}ディレクトリの下にあります。
+
+\section{Hello RT World サンプル}
+まず始めに、''Hello RT World'' コンポーネントを作成します。
+
+この ``Hello RT World'' コンポーネントは、起動されるとコンソールに''Hello RT World!!!''と表示し続けるだけのコンポーネントです。
+それ以外には何もしない簡単なコンポーネントです。
+ここでは、コンポーネントフレームワークの最も基本となる部分について説明します。
+
+コンポーネント作成のために必要なファイルは次の4つです。
+
+\begin{tab}{●HelloWorldコンポーネント作成に必要なファイル}
+\begin{tabular}{lp{100mm}}
+\verb|HelloRTWorld.h| & HelloRTWorld コンポーネントのヘッダファイル。 \\
+\verb|HelloRTWorld.cpp| & HelloRTWorld コンポーネントのソースファイル。\\
+\verb|HelloRTWorldComp.cpp| & HelloRTWorld コンポーネントのスタンドアロンコンポーネントのためのソースファイル。\\
+\verb|Makefile| & ビルドするためのMakefile。\\
+\end{tabular}
+\end{tab}
+
+\verb|HelloRTWorld.h| と \verb|HelloRTWorld.cpp| でコンポーネントのクラスである HelloRTWorld クラスを定義・実装します。
+HelloRTWorld クラスはコンポーネントの実態となるクラスで、コンポーネントの基底クラスである \verb|RtcBase| クラスを継承して作成します。
+
+また、ここでは HelloRTWorld コンポーネントをスタンドアロンコンポーネントとして実装しますので、コンポーネントを実体化し実行するためのソースコードとして、\verb|HelloRTWorldComp.cpp| を作成します。
+\verb|HelloRTWorldComp.cpp| をコンパイルして HelloRTWorld クラスのオブジェクトファイルとリンクしたものを \verb|HelloRTWorldComp| とし、これを実行することで HelloRTWorld コンポーネントを実体化・実行します。
+
+同時に、ここではローダブルモジュールも作成します。
+作成の仕方は \verb|Makefile| 作成の項で述べます。
+
+\subsection{ヘッダファイル}
+
+まずは、ヘッダを定義します。
+ヘッダは上でも述べたように、\verb|HelloRTWorld| クラスを定義するもので \verb|RtcBase| クラスを継承します。
+そのほかにも、コンポーネントクラスを作成するための定型的宣言がいくつもあります。
+では、\verb|HelloRTWorld.h| を見てみましょう。
+
+\begin{src}{HelloRTWorld.h}\footnotesize
+\begin{verbatim}
+#ifndef __HELLORTWORLD_h__
+#define __HELLORTWORLD_h__
+
+
+#include <rtm/RtcBase.h>
+#include <rtm/RtcManager.h>
+#include <rtm/RtcInPort.h>
+#include <rtm/RtcOutPort.h>
+
+using namespace RTM;
+
+static RtcModuleProfSpec hellortworld_spec[] =
+  {
+  
+  {RTC_MODULE_NAME, "HelloRTWorld"},
+  {RTC_MODULE_DESC, "Hello RT world component"},
+  {RTC_MODULE_VERSION, "0.1"},
+  {RTC_MODULE_AUTHOR, "DrSample"},
+  {RTC_MODULE_CATEGORY, "Generic"},
+  {RTC_MODULE_COMP_TYPE, "COMMUTATIVE"},
+  {RTC_MODULE_ACT_TYPE, "SPORADIC"},
+  {RTC_MODULE_MAX_INST, "10"},
+  {RTC_MODULE_LANG, "C++"},
+  {RTC_MODULE_LANG_TYPE, "COMPILE"},
+  {RTC_MODULE_SPEC_END, NULL}
+  };
+
+
+	
+class HelloRTWorld
+  : public RTM::RtcBase
+{
+ public:
+  HelloRTWorld(RtcManager* manager);
+  virtual RtmRes rtc_active_do();
+};
+
+
+extern "C" {
+  RtcBase* HelloRTWorldNew(RtcManager* manager);
+  void HelloRTWorldDelete(RtcBase* p);
+  void HelloRTWorldInit(RtcManager* manager);
+};
+#endif // __HELLORTWORLD_h__
+\end{verbatim}
+\end{src}
+
+行っていることは以下のとおりです。
+\begin{itemize}\itemsep=-2mm
+\item インクルードガード
+\item 各種ヘッダのインクルード
+\item namespace の使用宣言
+\item モジュールのプロファイルリストの定義
+\item HelloWorldクラス宣言
+\item ファクトリ関数と初期化関数の宣言
+\end{itemize}
+
+まず、インクルードガードですが、ヘッダの二重インクルード防止する決まり文句です。
+最後の対応する \verb|#endif| を忘れないでください。
+
+RTM に関する各種ヘッダをインクルードします。
+コンポーネントデベロッパが作成するコンポーネントは、必ず \verb|RtcBase| クラス(もしくはそのサブクラス)を継承することになります。
+したがって、\verb|RtcBase.h| (もしくはそのサブクラスのヘッダ)をインクルードする必要があります。
+また、RTコンポーネントのコンストラクタは \verb|RtcManager| のポインタを受け取るので、\verb|RtcManager.h| をインクルードするか、\verb|RtcManager| のクラス宣言が必要となります。
+
+RTM関連のクラスは、すべて \verb|RTM| という名前空間の下に存在しています。
+しがたって、これらのクラスや関数を使用する場合には、名前解決演算子{\tt ::}を使用して \verb|RTM::RtcBase|と指定するか、\verb|using namespace| を使用して名前空間を取り込む必要があります。
+ここでは、名前空間 \verb|RTM| を取り込んでいます。
+
+次に、モジュールプロファイルリストを宣言しています。
+モジュールには、モジュール名、作成者、バージョンといった、モジュール(およびコンポーネント)に関する情報を関連付ける必要があります。
+モジュールプロファイルには、以下の情報を格納します。
+
+
+\begin{tab}{●コンポーネントプロファイル}
+\begin{tabular}{lp{90mm}}
+\verb|RTC_MODULE_NAME| & モジュール名。 
+ モジュールの名前を指定します。(HelloRTWorld) \\
+\verb|RTC_MODULE_DESC| & モジュール概要。 
+ モジュールの短い説明を指定します。(Hello RT world component) \\
+\verb|RTC_MODULE_VERSION| & モジュールバージョン。 
+ モジュールのバージョンをを指定します。(0.1) \\
+\verb|RTC_MODULE_AUTHOR| & モジュール作成者。 
+ モジュールの作成者を指定します。(DrSample) \\
+%\verb|RTC_MODULE_COMPANY| & モジュールベンダ名。 
+% モジュールの作成者の所属を指定します。(AIST, Japan) \\
+\verb|RTC_MODULE_CATEGORY| & モジュールカテゴリ。 
+ モジュールのカテゴリを指定します。(Generic) \\
+\verb|RTC_MODULE_COMP_TYPE| & コンポーネント型。 
+ モジュールのが生成するコンポーネントの型を指定します。(COMMUTATIVE) \\
+\verb|RTC_MODULE_ACT_TYPE| & アクティビティ型。  
+ モジュールのアクティビティ型を指定します。(SPORADIC) \\
+\verb|RTC_MODULE_MAX_INST| & 最大インスタンス数。 
+ モジュールが生成する最大のコンポーネント数を指定します。(10) \\
+\verb|RTC_MODULE_LANG| & モジュール記述言語名。 
+ モジュールの記述言語を指定します。(C++) \\
+\verb|RTC_MODULE_LANG_TYPE| & モジュール記述言語型。 
+ モジュールの記述言語型を指定します。(COMPILE) \\
+\verb|RTC_MODULE_SPEC_END| & リスト終了マーカ。 
+ このリストの終わりを意味します。リストの最後に必ず必要です。 \\
+\end{tabular}
+\end{tab}
+
+\subsubsection*{{\tt RTC\_MODULE\_NAME}:モジュール名}
+このモジュールの名前を英数字で記述します。
+{\tt Motor} とか {\tt Sensor} といった一般的な名詞は極力避け、できるだけ具体的な名前を使用するようにしてください。
+
+デフォルトでは、このモジュール名を利用してコンポーネントに名前がつけられます。
+たとえば、モジュール名 {\tt HelloRTWorld}というモジュールからは、{\tt HelloRTWorld0, HelloRTWorld1, ... } というコンポーネントが生成されます。
+モジュール名に後ろにつく名前は同一マネージャ上に存在するモジュールに対して、0から順番に付加されます。
+このようにして、コンポーネントのインスタンスごとにつけられた名前は、ネーミングサービスに登録され、以後コンポーネントを識別するために使用されます。
+この名前付けの規則はユーザが任意に変えることが出来ますが、その方法についてはここでは割愛します。
+
+\subsubsection*{{\tt RTC\_MODULE\_DESC}:モジュール概要}
+モジュールの概要を記述します。
+わかりやすい概要を簡潔に記述してください。
+
+\subsubsection*{{\tt RTC\_MODULE\_VERSION}:モジュールバージョン}
+モジュールのバージョン番号を記述してください。
+バージョン番号のつけ方の作法としては、メジャーバージョンとマイナーバージョンをつけるやり方が一般的です。
+大幅な機能の改訂、後方互換性が無くなるなどの変更は、メジャーバージョンアップとし、それらに満たない小さな改訂はマイナーバージョンとするなどです。
+小さなバグフィックスなどは、マイナーバージョンアップとせず修正版としてリリースすることが多いようです。
+
+\subsubsection*{{\tt RTC\_MODULE\_AUTHOR}:モジュール作成者・ベンダ名}
+このモジュールを作成した人の氏名および所属を記述します。
+
+\subsubsection*{{\tt RTC\_MODULE\_CATEGORY}:モジュールカテゴリ}
+モジュールのカテゴリを記述します。
+カテゴリに関しては、特に決まりを設けていませんが、今後規定が設けられる可能性があります。
+今のところは、自由に名前をつけてもかまいません。
+
+\subsubsection*{{\tt RTC\_MODULE\_COMP\_TYPE}:コンポーネント型}
+コンポーネントはその存在形態により以下の3種類の型に分けられます。
+
+\begin{tab}{● コンポーネント型}
+\begin{tabular}{lp{90mm}}
+\verb|STATIC| & 静的に存在するコンポーネント。コンポーネントはモジュールの初期化と同時に生成され、以後動的に生成されたり削除されたりしません。
+ハードウエアと深く結びついたコンポーネントは、コンポーネントの数が物理的デバイスの数に制限されます。このように、動的な生成が意味を成さないコンポーネントはSTATIC型に当たります。\\
+\verb|UNIQUE| & このコンポーネントは、動的に生成したり削除したりすることができます。しかしながら、それぞれのコンポーネントは内部に固有の状態を持っており、必ずしも可換ではありません。\\
+\verb|COMMUTATIVE| & このコンポーネントは、動的に生成したり削除したりすることができます。また、内部に固有の状態を持たないので、生成されたコンポーネントは可換です。\\
+\end{tabular}
+\end{tab}
+
+自分が作成したいコンポーネントの型にあわせて、{\tt STATIC, UNIQUE, COMMUTATIVE} のいずれかをダブルクオートで囲んで指定します。 
+このコンポーネントは {\tt COMMUTATIVE} 型に設定されています。
+現在のところ、この設定はコンポーネントの挙動に影響を与えません。
+
+\subsubsection*{{\tt RTC\_MODULE\_ACT\_TYPE}:アクティビティ型}
+コンポーネントのアクティビティは、動作形態の種類により以下の3種類に分けられます。
+(OpenRTM\--aist\--0.2.0 の実装ではこれらの宣言は使用されていません。リアルタイム周期処理を実現したい場合は、現在はユーザがその処理を実装する必要がありますが、将来的にはリアルタイムOS上でのリアルタイムな周期実行をサポートする予定です。)
+\begin{tab}{●アクティビティ型}
+\begin{tabular}{lp{100mm}}
+\verb|PERIODIC| & Periodic(=周期的な) アクティビティ。メインのアクティビティは一定時間ごとに繰り返し処理されます。リアルタイムOS上では、正確な周期処理が可能です。\\
+\verb|SPORADIC| & Sporadic(=散発的な) アクティビティ。メインのアクティビティは繰り返し処理は行われますが、その周期は不定となります。例えば、センサの値が変化したときだけ、外部にそれを知らせるコンポーネント等はSporadicなコンポーネントになるでしょう。\\
+\verb|EVENT_DRIVEN| & 外部からのイベントに応じて処理を行うコンポーネント。この場合の外部とは主に、他のコンポーネントから発行されるCORBAオペレーションの事を指します。\\
+\end{tabular}
+\end{tab}
+このコンポーネントでは、{\tt SPORADIC} に設定されています。
+
+\subsubsection*{{\tt RTC\_MODULE\_MAX\_INST}:最大インスタンス数}
+生成できる最大のインスタンス数(=コンポーネント数)を指定します。
+\verb|STATIC| なコンポーネントでは、モジュール初期化時に最大数のインスタンスが生成されます。
+それ以外のコンポーネントでは、この数値以上のインスタンスを生成することは出来ません。
+このコンポーネントはインスタンス化可能な最大数は10に設定されています。
+
+\subsubsection*{{\tt RTC\_MODULE\_LANG}:モジュール記述言語名とその型}
+ここには、このコンポーネントを記述するプログラミング言語およびその言語の型を指定します。
+
+\begin{tab}{●モジュール記述言語と型}
+\begin{tabular}{ll}
+モジュール記述言語名 & {\tt ``C++'', ``Python'', ``Ruby'', ``Tcl''} \\
+モジュール記述言語型 & {\tt ``COMPILE'', ``SCRIPT''} \\
+\end{tabular}
+\end{tab}
+
+現在サポートしている言語は、C++とPythonのみです。
+モジュール記述言語型はそれぞれ、C++ であれば ``COMPILE'', Python であれば ``SCRIPT'' を指定します。
+
+
+これらコンポーネントのプロファイルの指定の仕方は、今後変更される可能性があります。
+XML形式のプロファイル記述ファイルに記述し読み込むことでプロファイルを設定する方法が検討されています。
+
+
+\subsection{ソースファイル}
+次に、処理の本体と、ファクトリ関数、初期化関数の実装のソースコードを作成します。
+\verb|HelloRTWorld.h| で定義したクラスのメソッドを実装してゆきます。
+
+では、ソースコードを見てみましょう。
+
+\begin{src}{HelloRTWorld.cpp}\footnotesize
+\begin{verbatim}
+
+#include "HelloRTWorld.h"
+#include <iostream>
+
+using namespace std;
+
+HelloRTWorld::HelloRTWorld(RtcManager* manager)
+  : RtcBase(manager) 
+
+{
+}
+
+RtmRes HelloRTWorld::rtc_active_do()
+{
+  std::cout << "Hello RT World!!!" << std::endl;
+  return RTM_OK;
+}
+
+extern "C" {
+  
+  RtcBase* HelloRTWorldNew(RtcManager* manager)
+  {
+    return new HelloRTWorld(manager);
+  }
+  
+  
+  void HelloRTWorldDelete(RtcBase* p)
+  {
+    delete (HelloRTWorld *)p;
+    return;
+  }
+  
+  
+  void HelloRTWorldInit(RtcManager* manager)
+  {
+    RtcModuleProfile profile(hellortworld_spec);
+    manager->registerComponent(profile, HelloRTWorldNew, HelloRTWorldDelete);
+  }
+};
+\end{verbatim}
+\end{src}
+
+
+コンストラクタでは、コンポーネントマネージャへのポインタを受け取り、このマネージャのポインタを基底クラス{\tt RtcBase}に渡してRtcBaseを初期化しています。
+{\tt RtcBase}の初期化を忘れずに行ってください。
+
+次に、唯一のメソッド \verb|RtmRes HelloRTWorld::rtc_active_do()| があります。
+これがRTコンポーネントのメインの処理部分です。
+
+このメインの処理の部分をコンポーネントの{\bf アクティビティ}とよびます。
+コンポーネントのコンポーネントのアクティビティはいくつかの状態を持ちその状態間を規則にしたがって遷移します。
+\verb|rtc_active_do()|というメソッドは、コンポーネントが起動し、そのコンポーネントのアクティビティが \verb|ACTIVE| 状態にあるときループ実行されます。
+
+コンポーネントのアクティビティの状態には以下のものがあります。
+
+\begin{tab}{●コンポーネントアクティビティ状態}
+\begin{tabular}{lp{90mm}}
+\verb|UNKNOWN|      : & 下記に定義される状態以外の状態。通常この状態には成り得ない。\\
+\verb|BORN|         : & インスタンス生成中の状態。\\
+\verb|INITIALIZING| : & 内部状態を初期化する初期状態。\\
+\verb|READY|        : & 活動し外部からのオペレーションを受け付ける状態。\\
+\verb|STARTING|     : & READY状態からACTIVE状態へ移行するときに通過する過渡状態。\\
+\verb|ACTIVE|       : & 活性状態となりメインとなる処理を実行する状態。\\
+\verb|STOPPING|     : & ACTIVE状態からREADY状態へ移行するときに通過する過渡状態。\\
+\verb|ABORTING|     : & 活性状態時にエラーを捕捉しERROR状態へと移行する過渡状態。\\
+\verb|ERROR|        : & 復帰可能なエラー状態。\\
+\verb|FATAL_ERROR|  : & 致命的エラー状態。復帰することはできない。\\
+\verb|EXITING|      : & コンポーネント終了状態。リソースの解放等を行う。\\
+\end{tabular}
+\end{tab}
+
+これらのアクティビティの状態は図~\ref{fig:RTC_State} の状態遷移図に従って遷移します。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RT_RTComponentStateChart.eps,width=0.9\columnwidth}}
+\caption{RTコンポーネント状態遷移図}
+\label{fig:RTC_State}
+\end{figure}
+
+それぞれの状態において、対応するメソッドが実行されます。たとえば、\verb|RTC_READY| 状態であれば \verb|rtc_ready_???()| が実行されます。\verb|???| の部分はその状態のどのタイミングで実行されるかを示しています。
+
+\verb|entry| はその状態に入るときに一度だけ実行されます。
+\verb|exit| はその状態から出るときに一度だけ実行されます。
+\verb|do| はその状態にいる間周期実行されます。
+
+\begin{tab}{●状態遷移詳細}
+\begin{tabular}{ll}
+ entry & : その状態に進入するときに一度だけ実行される。 \\
+ do    & : その状態にある間繰り返し実行される。\\
+ exit  & : その状態から出るときに実行される。\\
+\end{tabular}
+\end{tab}
+
+これらの状態は大きく分けて、定常状態と過渡状態に分けられます。
+
+\begin{tab}{●定常状態と過渡状態}
+\begin{tabular}{lp{120mm}}
+定常状態 & \verb|READY, ACTIVE, ERROR, FATAL_ERROR| \\
+過渡状態 & \verb|BORN, INITIALIZING, STARTING STOPPING, ABORTING, EXITING| \\
+その他   & \verb|UNKNOWN|
+\end{tabular}
+\end{tab}
+
+定常状態は、一旦その状態に入ると、何らかのアクション(活性化する、非活性化する、再初期化する、強制終了する)があるまで、その状態に留まります。
+その間、{\tt rtc\_xxx\_do()}をループ実行し続けます。
+定常状態では、その状態から出るときと入るときに{\tt rtc\_xxx\_entry(), rtc\_xxx\_exit()}が実行されます。
+
+これに対して過渡状態は、その状態に入るとき{\tt rtc\_xxx\_entry()}を一度だけ処理し、すぐに次の状態に遷移します。
+したがって、過渡状態に対応するメソッドには \verb|rtc_xxx_do()| と \verb|rtc_xxx_exit()| がありません。
+
+RTコンポーネントの基底クラス、{\tt RtcBase}では上記の状態それぞれの場合に処理するメソッドが virtual 定義されています。
+したがって、コンポーネントデベロッパは、自分作成するコンポーネントに必要だと思う状態についての処理を、対応するメソッドを再定義することで、それぞれのタイミングで処理を実行させることができます。
+
+基底クラス、RtcBase に定義されているメソッドは以下のとおりです。
+
+\begin{center}
+\begin{tabular}{|l|}\hline
+\multicolumn{1}{|c|}{\tt RtcBase} \\\hline
+\footnotesize\verb|+ virtual RtmRes rtc_init_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_ready_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_ready_do()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_ready_exit()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_starting_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_active_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_active_do()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_active_exit()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_stopping_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_aborting_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_error_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_error_do()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_error_exit()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_fatal_entry()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_fatal_do()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_fatal_exit()| \\
+\footnotesize\verb|+ virtual RtmRes rtc_exiting_entry()|\\\hline
+\end{tabular}
+\end{center}
+
+この、HelloRTWorldの例では、単にコンポーネントが活性状態の時にコンソールに''HelloRTWorld!!!''と表示し続けるだけの処理なので、{\tt rtc\_active\_do()}に
+\begin{src}{\tt HelloRTWorld::rtc\_active\_do()}
+\begin{verbatim}
+  RtmRes HelloRTWorld::rtc_active_do()
+  {
+    std::cout << "Hello RT World!!!" << std::endl;
+    return RTM_OK;
+  }
+\end{verbatim}
+\end{src}
+と記述します。
+ここで、戻り値{\tt RtmRes (RTM result)} が {\tt RTM\_OK} となっています。
+
+{\tt RtmRes}には、{\tt RTM\_OK, RTM\_ERR, RTM\_WARNING, RTM\_FATAL\_ERR} の4種類の値があり、意味は以下のようになっています。
+
+\begin{tab}{RtmRes}
+\begin{tabular}{lp{90mm}}
+\verb|RTM_OK| & 正常終了。現在の状態を保持する。 \\
+\verb|RTM_ERR| & エラー終了。Error状態へ移行する。Active状態のときはAbortingを通過してからError状態へ遷移する。　\\
+\verb|RTM_WARNING| & 警告状態。何らかの異常があったことを呼び出し側に伝えるが、現在の状態を保持する。\\
+\verb|RTM_FATAL_ERR| & 致命的エラー終了。FatalError状態へ移行する。Active状態のときはAbortingを通過してからError状態へ遷移する。\\
+\end{tabular}
+\end{tab}
+
+このように、戻り値{\tt RtmRes} は値によりコンポーネントの状態を変化させる効果を持ちます。
+ここでは、常に \verb|RTM_OK| を返します。
+
+\subsection{コンポーネント実行ファイル}
+上記のコンポーネントを単体の実行ファイルとしてビルドするための\verb|main|関数を含むソースコードを作成します。
+ここでは、コンポーネントマネージャを作成し、このマネージャ上でコンポーネントを生成・アクティブ状態にします。
+ソースコード \verb|HelloRTWorldComp.cpp| は次のようになります。
+
+\verb|main|関数では、マネージャオブジェクトを生成し、初期化、アクティブ化、コンポーネントの生成、マネージャの実行を行っています。
+
+マネージャはコンストラクタの引数としてコマンドライン引数をとるので、\verb|main|のコマンドライン引数をそのまま与えています。
+
+\verb|initManager()|でマネージャの初期化、\verb|activateManager|でアクティブ化とマネージャのネーミングサービスへの登録を行います。
+
+\verb|initModuleProc|はマネージャへのポインタを引数として取る関数へのポインタを与えています。
+この与えられた関数をマネージャは適切なタイミングで実行します。
+最後に\verb|runManager()|でマネージャが起動します。
+
+\verb|MyModuleInit()|では、コンポーネントの初期化関数 \verb|HelloRTWorldInit()| を呼び出しコンポーネントを初期化しています。
+その後、マネージャ上で \verb|HelloRTWorld|コンポーネントを作成するために \verb|createComponent()| を呼び出し、コンポーネントのインスタンスを1つ生成しています。
+このとき、 \verb|createComponent()|の第1引数には、コンポーネントのモジュール名 (ここでは \verb|HelloRTWorld|)、第2引数にはカテゴリ名を与えています。
+
+最後に、このコンポーネントに対して \verb|rtc_start()| を呼び出し、コンポーネントの状態を \verb|ACTIVE| 状態にしています。
+\verb|usleep(5000)| はコンポーネントが生成され \verb|READY| 状態になるまで待つためのウェイトです。
+この例はサンプルなので、コンポーネントの生成、アクティブ化までを \verb|MyModuleInit()| にて行っていますが、通常は外部から何らかの方法 (rtc-link を用いる等) で、生成・アクティブ化を行います。
+
+\begin{src}{HelloRTWorldComp.cpp}
+\begin{verbatim}
+#include <rtm/RtcManager.h>
+#include <string>
+#include "HelloRTWorld.h"
+
+
+void MyModuleInit(RtcManager* manager)
+{
+  HelloRTWorldInit(manager);
+
+  std::string name;
+  RtcBase* comp;
+  comp = manager->createComponent("HelloRTWorld", "Generic", name);
+  usleep(5000);
+  comp->rtc_start();
+
+}
+
+
+int main (int argc, char** argv)
+{
+  RTM::RtcManager manager(argc, argv);
+  // Initialize manager
+  manager.initManager();
+  // Activate manager and register to naming service
+  manager.activateManager();
+  // Initialize my module on this maneger
+  manager.initModuleProc(MyModuleInit);
+  // Main loop
+  manager.runManager();
+  return 0;
+}
+\end{verbatim}
+\end{src}
+
+
+
+\subsection{Makefileの作成とビルド}
+上記の \verb|HelloWorld.cpp, HelloWorld.h, HelloWorldComp.cpp| の3つのソースを合わせて、スタンドアロンコンポーネントとローダブルモジュールをビルドします。
+コンポーネントをビルドするための Makefile はおおよそ以下のようになります。
+
+\verb|CXX_FLAGS|および\verb|LD_FLAGS|は OpenRTMをビルドした環境により異なります。
+ここでは、omniORBを使用して OpenRTM\--aist がビルドされたものとしてそれぞれ、下記のようなコンパイル・リンクオプションとなっていますが、ACE、omniORB、boost等の依存パッケージのインストール先によりこれらのオプションは変わってきます。
+自分の環境に合わせた適切なオプションを指定する必要があります。
+後の例ではここで示す例より、より汎用的な方法について解説しますが、ここではこういったコンパイル・リンクオプションが必要なことを理解してください。
+
+\begin{src}{Makefile}
+\begin{verbatim}
+CXXFLAGS = -I/usr/local/include -I/usr/local/include/rtm/idl
+LDFLAGS  = -L/usr/local/lib -lpthread -lACE -lboost_regex -lomniORB4 \
+           -lomnithread -lomniDynamic4 -lRTC
+SHFLAGS  = -shared
+.SUFFIXES: .cpp .o .so
+
+all: HelloRTWorldComp HelloRTWorld.so
+
+.cpp.o:
+	rm -f $@
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+.o.so:
+	rm -f $@
+	$(CXX) $(SHFLAGS) -o $@ $< $(LDFLAGS)
+
+HelloRTWorldComp: HelloRTWorld.o HelloRTWorldComp.o
+	$(CXX) -o $@ HelloRTWorld.o HelloRTWorldComp.o $(LDFLAGS) 
+
+clean:
+	rm -f *~ *.o *.so *Comp
+\end{verbatim}
+\end{src}
+
+なお、このMakefileでは \verb|.o.so|ルールも指定されており、これによりローダブルモジュールコンポーネント \verb|HelloWorld.so| も同時に生成するようになっています。
+このコンポーネントは、OpenRTM\--aist 付属のコンポーネントサーバ \verb|rtcd| にロードして使用することができます。
+詳細については各種ツールの使用法を参照してください。
+
+\subsection{実行・テスト}
+上記のMakefileでソースをビルドして、実行ファイル \verb|HelloWorldComp| を作成します。
+この実行ファイルを \verb|-f rtc.conf| などのコンポーネント設定ファイルを引数として与えて実行します。
+実行すると図~\ref{fig:HelloRTWorld} のようになります。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/HelloRTWorld.eps,width=0.5\columnwidth}}
+\caption{HelloRTWorldComp の実行}
+\label{fig:HelloRTWorld}
+\end{figure}
+
+\newpage
+%-------------------------------------------------------------------------------
+\section{{\tt rtc-template} を使用したコンポーネントの作成}\label{sec:CompCreate_rtc_template}
+これまで見てきたように、コンポーネント化するためのコードというのはほとんど決まりきったものになります。
+OpenRTM\--aist にはこれらのコードを自動的に生成するコードジェネレータ \verb|rtc-template| が付属しています。
+ここからは、この \verb|rtc-template| を使用してコンポーネントを作成する方法を説明します。
+
+このコマンドは、コンポーネントの名前やタイプ、InPort/OutPortの名前や型を与えてやると、RTコンポーネントのC++(やPython)のソースコードの雛形を出力します。
+コンポーネントデベロッパは、出力された雛形のクラスの各アクティビティに対応するメソッドに行いたい処理を追加するだけで、コンポーネントの挙動を記述することができます。
+
+\subsection{コンポーネントの仕様を決める}
+まずはじめに、作成したいコンポーネントの仕様を決定します。
+コンポーネントを作成するために以下の項目をあらかじめ決める必要があります。
+
+\begin{itemize}\itemsep=0mm
+\item コンポーネントモジュール名
+\item コンポーネントカテゴリ名
+\item コンポーネントタイプ
+\item コンポーネントのアクティビティのタイプ
+\item InPortの数、名前、変数型
+\item OutPortの数、名前、変数型
+\end{itemize}
+
+「コンポーネントモジュール名」、「コンポーネントカテゴリ名」、「コンポーネントタイプ」、「コンポーネントのアクティビティのタイプ」はそれぞれ HelloRTWorld サンプルのヘッダにおいて \verb|RtcModuleProfile| 構造体に指定した、\verb|RTC_MODULE_NAME|, \verb|RTC_MODULE_CATEGORY|, \verb|RTC_MODULE_COMP_TYPE|, \verb|RTC_MODULE_ACT_TYPE| に対応します。
+
+\subsubsection*{コンポーネントモジュール名}
+コンポーネント名は、他のアプリケーション、コンポーネント等からそのコンポーネントを探すときに使用します。
+名前は、他のコンポーネントと衝突しないように、できるだけ具体的な名前をつけたほうがよいでしょう。
+名前の付け方については特にガイドラインなどはありませんが、ユーザが増加し何らかのガイドラインを設ける必要が発生した場合には、以後のバージョンにおいてガイドラインを設ける可能性もあります。
+
+\begin{tab}{● 例: コンポーネントモジュール名}
+\begin{tabular}{ll}
+PA10 & マニピュレータ \\
+NittaFTSensor & 力トルクセンサ \\
+ForceControllerForPA10 & PA10を力制御するコントローラコンポーネント \\
+:&:
+\end{tabular}
+\end{tab}
+
+\subsubsection*{コンポーネントカテゴリ名}
+コンポーネントのカテゴリをあらわす名前を指定します。
+名前は、そのコンポーネントのカテゴリを表すのに適切な名前をつけたほうがよいでしょう。
+名前の付け方については特にガイドラインなどはありませんが、ユーザが増加し何らかのガイドラインを設ける必要が発生した場合には、以後のバージョンにおいてガイドラインを設ける可能性もあります。
+
+\begin{tab}{● 例: コンポーネントカテゴリ名}
+\begin{tabular}{ll}
+Manipulator & マニピュレータ \\
+FTSensor & 力トルクセンサ \\
+Controller & コントローラ \\
+:&:
+\end{tabular}
+\end{tab}
+
+\subsubsection*{コンポーネントタイプ}
+コンポーネントのタイプとは、生成されるコンポーネントのインスタンスの形式を指します。
+コンポーネントタイプには以下のものがあります。
+
+\begin{tab}{● コンポーネントタイプ}
+\begin{tabular}{lp{95mm}}
+STATIC & コンポーネントはマネージャに登録されると同時にインスタンス化され、新たに生成することはできない。ハードウエアに密接に関係するコンポーネント等はこのタイプにするとハードウエアとコンポーネントの対応がとりやすい。\\
+UNIQUE & コンポーネントは動的に生成・削除するができるが、component0 と component1 は異なる内部状態を持ち交換可能ではない。\\
+COMMUTATIVE & コンポーネントは、互いに交換可能。ソフトウエアのロジックのみのコンポーネントはこのタイプになる。
+\end{tabular}
+\end{tab}
+
+\subsubsection*{コンポーネントのアクティビティのタイプ}
+コンポーネントの内部の活動の形式により以下のタイプがあります。
+
+\begin{tab}{● コンポーネントアクティビティタイプ}
+\begin{tabular}{lp{95mm}}
+PERIODIC & コンポーネントの活動は一定周期で行われます。ただし、動作周期を守れるか否かは、OSに依存します。リアルタイムOS(ART-LINUX)を使用すれば一定周期動作を行わせることはできますが、非リアルタイムOSでは厳密な周期動作をさせることは不可能です。\\
+SPORADIC & コンポーネントの活動の周期は一定ではないが、繰り返し行われます。\\
+EVENT\_DRIVEN & 外部からのオペレーションにより受動的に動作します。
+\end{tabular}
+\end{tab}
+
+
+\subsubsection*{InPortの数、名前、変数型}
+InPortとは外部からのデータを受け取る口に当たります。
+コンポーネントは複数のInPortを持つことができます。
+InPortには名前をつけ、外部のアプリケーションやコンポーネントはその名前によりInPortを特定します。
+
+\subsubsection*{名前}
+\begin{tab}{● 例: InPortの名前}
+\begin{tabular}{lp{100mm}}
+\bf "velocity" & 速度 \\
+\bf "reference" & 目標値 \\
+\bf "position" & 位置 \\
+\end{tabular}
+\end{tab}
+
+\subsubsection*{変数型}
+InPortには幾つかの決まった変数型のものがあらかじめ用意されています。
+型の種類は値をひとつしか保持しないものと、配列として複数の値を保持できるシーケンス型があります。
+
+\begin{tab}{● InPort/OutPortの変数型}
+\begin{tabular}{ll}
+TimedShort & タイムスタンプつき符号付 Short Int 型\\
+TimedLong & タイムスタンプつき符号付 Long Int 型\\
+TimedUShort & タイムスタンプつき符号なしShort Int 型\\
+TimedULong & タイムスタンプつき符号なし Long Int 型\\
+TimedFloat & タイムスタンプつき Float 型\\
+TimedDouble & タイムスタンプつき Double 型\\
+TimedChar & タイムスタンプつき Char 型\\
+TimedBoolean & タイムスタンプつき Boolean 型\\
+TimedOctet & タイムスタンプつき Octet 型\\
+TimedString & タイムスタンプつき String 型\\
+\end{tabular}
+\end{tab}
+
+\begin{tab}{● InPort/OutPortの変数型(シーケンス)}
+\begin{tabular}{ll}
+TimedShortSeq & タイムスタンプつき符号付 Short Int シーケンス型\\
+TimedLongSeq & タイムスタンプつき符号付 Long Int シーケンス型\\
+TimedUShortSeq & タイムスタンプつき符号なし Short Int シーケンス型\\
+TimedULongSeq & タイムスタンプつき符号なし Long Int シーケンス型\\
+TimedFloatSeq & タイムスタンプつき Float シーケンス型\\
+TimedDoubleSeq & タイムスタンプつき Double シーケンス型\\
+TimedCharSeq & タイムスタンプつき Char シーケンス型\\
+TimedBooleanSeq & タイムスタンプつき Boolean シーケンス型\\
+TimedOctetSeq & タイムスタンプつき Octet シーケンス型\\
+TimedStringSeq & タイムスタンプつき String シーケンス型\\
+\end{tabular}
+\end{tab}
+
+OpenRTM\--aist においてはこれらの型を CORBA 経由で交換可能な型として \verb|RTCDataType.idl| 内で定義しています。
+ユーザは必要ならば、\verb|RTCDataType.idl| に構造体を追加することで、新たな型を使用することが出来ますが、ここではその詳細は割愛します。。
+
+\subsubsection*{OutPortの数、名前、変数型}
+OutPortとは外部からのデータを受け取る口に当たります。コンポーネントは複数のOutPortを持つことができます。
+OutPortには名前をつけることができ、外部のアプリケーションやコンポーネントはその名前によりOutPortを特定します。
+
+\subsubsection*{名前}
+\begin{tab}{● 例: InPortの名前}
+\begin{tabular}{lp{100mm}}
+\bf "velocity" & 速度 \\
+\bf "reference" & 目標値 \\
+\bf "position" & 位置 \\
+\end{tabular}
+\end{tab}
+
+\subsubsection*{変数型}
+OutPortにはInPortと同様の決まった変数型のものがあらかじめ用意されています。型の種類はInPortと同じで、同じ型同士のInPortとOutPortのみがデータをやり取りできます(~\ref{fig:RTM_InPort_OutPort_Type})。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RTM_InPort_OutPort_Type.eps,width=0.5\columnwidth}}
+\caption{InPort と OutPort の型と接続}
+\label{fig:RTM_InPort_OutPort_Type}
+\end{figure}
+
+\subsection{rtc-template を使用して雛形を作成する}
+上記の項目を決めたら、コンポーネントのテンプレートジェネレータ: \verb|rtc-template| を使用してコンポーネントの雛形を作成することができます。
+
+ここでは以下の仮定に基づき、コンポーネントを作成していきます。
+
+\subsubsection*{アクティビティの処理}
+マニピュレータ制御用のライブラリが存在し、ライブラリの関数には以下のようなものがあると仮定します。
+
+\begin{tab}{●例: マニピュレータ制御用ライブラリ関数の例}
+\begin{tabular}{ll}
+  manipulator\_init()   & : マニピュレータの初期化\\
+  manipulator\_on()     & : マニピュレータのサーボをONにする\\
+  manipualtor\_off()    & : マニピュレータのサーボをOFFにする\\
+  manipulator\_setpos() & : マニピュレータの手先の目標値を設定する\\
+  manipulator\_getpos() & : マニピュレータの手先の位置姿勢を取得する\\
+  manipulator\_emgstop()& : マニピュレータを緊急停止させる\\
+  manipulator\_destroy()& : マニピュレータのリソースを開放する
+\end{tabular}
+\end{tab}
+
+\begin{tab}{●コンポーネントの仕様}
+\begin{tabular}{lp{50mm}}
+\bf コンポーネントモジュール名 & MyManipulator\\
+\bf コンポーネントカテゴリ名   & Manipulator\\
+\bf コンポーネントタイプ       & STATIC\\
+\bf コンポーネントアクティビティタイプ & PERIODIC\\
+\bf InPortの数 & 1個: 目標値を受け取る\\
+\bf InPortの名前 & "pos"\\
+\bf InPortの変数型 & TimedFloatSeq\\
+\bf OutPortの数 & 1個: 現在位置を出力する\\
+\bf OutPortの名前 & "pos" \\
+\bf OutPortの変数型 & TimedFloatSeq
+\end{tabular}
+\end{tab}
+
+\subsubsection*{rtc-template で雛形を作成}
+
+コンポーネントを作成するデイレクトリ(任意のディレクトリで結構です。)を作成して、そこでコンポーネントを作成します。
+
+\begin{cmd}
+\begin{verbatim}
+> cd 
+> mkdir MyManipulator
+> cd MyManipulator
+\end{verbatim}
+\end{cmd}
+
+
+まずはhelpを見てみます。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> rtc-template --help
+
+Usage: rtc-template [OPTIONS]
+Options:
+    [--help]                              Print this help.
+    [--c++]                               Generate C++ template code.
+    [--python]                            Generate Python tempalte code.
+    [--output[=output_file]]              Output base file name.
+    [--module-name[=name]]                Your module name.
+    [--module-desc[=description]]         Module description.
+    [--module-version[=version]]          Module version.
+    [--module-author[=author]]            Module author.
+    [--module-category[=category]]        Module category.
+    [--module-comp-type[=component_type]] Component type.
+    [--module-act-type[=activity_type]]   Component's activity type.
+    [--module-max-inst[=max_instance]]    Number of maximum instance.
+    [--module-lang[=language]]            Language.
+    [--module-inport[=PortName:Type]]     InPort's name and tyoe.
+    [--module-outport[=PortName:Type]]    OutPort's name and type
+       :
+     中略
+       :
+Example:
+    rtc-template --c++ --module-name=Sample --module-desc='Sample component' \
+    --module-version=0.1 --module-author=DrSample --module-category=Generic \
+    --module-comp-type=COMMUTATIVE --module-act-type=SPORADIC \
+    --module-max-inst=10  \
+    --module-inport=Ref:TimedFloat --module-inport=Sens:TimedFloat \
+    --module-outport=Ctrl:TimedDouble --module-outport=Monitor:TimedShort
+\end{verbatim}
+\end{cmd}
+
+\verb|rtc-template| に作成したいコンポーネントの設定を引数として渡すと、コンポーネントの雛形のソースコードを作成します。
+ここでは、上記の仕様にしたがって、オプションを指定し雛形を作成します。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> rtc-template --c++ --module-name=MyManipulator \
+    --module-desc='My simple manipulator' \
+    --module-version=0.1 --module-author=MyName --module-category=Manipulator \
+    --module-comp-type=STATIC --module-act-type=PERIODIC \
+    --module-max-inst=1  \
+    --module-inport=posin:TimedFloatSeq --module-outport=posout:TimedFloatSeq
+MyManipulator.h was generated.
+MyManipulator.cpp was generated.
+MyManipulatorComp.cpp was generated.
+Makefile.MyManipulator was generated.
+> ls
+Makefile.MyManipulator  MyManipulator.h        MyManipulatorComp.cpp
+MyManipulator.cpp       MyManipulator.h
+MyManipulator.cpp       MyManipulatorComp.cpp
+\end{verbatim}
+\end{cmd}
+
+このように、コンポーネントのC++のコードとMakefileが作成されます。ここで、
+\begin{cmd}
+\begin{verbatim}
+> make -f Makefile.MyManipulator
+もしくは
+> mv Makefile.MyManipulator Makefile
+\end{verbatim}
+\end{cmd}
+
+として make してみます。
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> make
+rm -f MyManipulator.o
+g++ `rtm-config --cflags` -c -o MyManipulator.o MyManipulator.cpp
+     :
+    中略
+     :
+g++ `rtm-config --libs` -o MyManipulatorComp MyManipulator.o MyManipulatorComp.o
+rm -f MyManipulator.so
+g++ -shared `rtm-config --libs` -o MyManipulator.so MyManipulator.o
+> ls
+Makefile.MyManipulator  MyManipulator.o     MyManipulatorComp.cpp
+MyManipulator.cpp       MyManipulator.so*   MyManipulatorComp.o
+MyManipulator.h         MyManipulatorComp*  
+\end{verbatim}
+\end{cmd}
+
+これで、ローダブルモジュール版のコンポーネント(\verb|MyManipulator.so|)と実行形式のコンポーネント(\verb|MyManipulatorComp|)が作成されました。
+しかし、まだアクティビティに何も記述していないので、このコンポーネントは何も仕事をしません。コンポーネントに行わせたい処理を作成された雛形に埋め込んでいくことで、コンポーネントを作成していきます。
+
+\subsection{コンポーネントのソースコードを見てみる}
+
+\verb|rtc-template| によって生成されたコンポーネントのソースコードを見てみてください。
+HelloRTWorld コンポーネントで作成したのとほぼ同じで、コンポーネント名、InPort/OutPortの部分が指定したもので置き換えられたソースコードになっています。
+
+\begin{tab}{●{\tt rtc-template}により生成されるファイル}
+\begin{tabular}{lp{100mm}}
+\verb|MyManipulator.h| & MyManipulator コンポーネントのヘッダファイル。 \\
+\verb|MyManipulator.cpp| & MyManipulator コンポーネントのソースファイル。\\
+\verb|MyManipulatorComp.cpp| & MyManipulator コンポーネントのスタンドアロンコンポーネントのためのソースファイル。\\
+\verb|Makefile| & ビルドするためのMakefile。\\
+\end{tabular}
+\end{tab}
+
+たとえば、ヘッダ \verb|MyManipulator.h| には以下の記述があるはずです。
+
+\begin{src}{MyManipulator.h}\footnotesize
+\begin{verbatim}
+class MyManipulator
+  : public RTM::RtcBase
+{
+ public:
+  MyManipulator(RtcManager* manager);
+
+  //  virtual RtmRes rtc_ready_entry();
+  //  virtual RtmRes rtc_ready_do();
+  //  virtual RtmRes rtc_ready_exit();
+  //  virtual RtmRes rtc_active_entry();
+  virtual RtmRes rtc_active_do();
+  //  virtual RtmRes rtc_active_exit();
+  //  virtual RtmRes rtc_error_entry();
+  //  virtual RtmRes rtc_error_do();
+  //  virtual RtmRes rtc_error_exit();
+  //  virtual RtmRes rtc_fatal_entry();
+  //  virtual RtmRes rtc_fatal_do();
+  //  virtual RtmRes rtc_fatal_exit();
+  //  virtual RtmRes rtc_init_entry();
+  //  virtual RtmRes rtc_starting_entry();
+  //  virtual RtmRes rtc_stopping_entry();
+  //  virtual RtmRes rtc_aborting_entry();
+  //  virtual RtmRes rtc_exiting_entry();
+
+  TimedFloatSeq m_posin;
+  InPortAny<TimedFloatSeq> m_posIn;
+  TimedFloatSeq m_posout;
+  OutPortAny<TimedFloatSeq> m_posOut;
+
+};
+\end{verbatim}
+\end{src}
+
+たくさん並んでいる \verb|rtc_xxx_yyy()| というメソッドは状態に対応するメソッドです。
+各状態遷移については、図~\ref{fig:RTC_State} (p.\pageref{fig:RTC_State})の状態遷移図および説明を参照してください。
+
+\subsection{使用するアクティビティを決める}
+さて、図~\ref{fig:RTC_State} の状態遷移図を念頭において、アクティビティにおいて行う処理を決めていきます。
+埋め込むライブラリの動作と状態の意味を考えながら、各状態で実際行いたい処理を割り当ててください。
+\verb|INITIALIZING| 状態では初期化、\verb|STARTING| 状態では \verb|ACTIVE| 状態に入る直前に行う処理、\verb|ACTIVE| 状態ではメインとなる周期処理、\verb|STOPPING| 状態では \verb|ACTIVE| 状態から待機(\verb|READY|)状態へ移行するときに行うべき処理、といった形で対応させてゆきます。
+
+これから作成する MyManipulator コンポーネントは各状態で以下のような処理を実行するようにします。
+
+\newpage
+
+\begin{tab}{● 処理の内容}
+\begin{tabular}{lp{90mm}}
+\verb|rtc_init_entry()| & 
+ライブラリの初期化処理を行うために \verb|manipulator_init()| を呼び出す。
+
+\verb|manipulator_init()| は初期化が成功したかどうかを戻り値 (bool型) で知らせるものと仮定する。\\
+\verb|rtc_starting_entry()| &
+マニピュレータのサーボをONにするために、\verb|manipulator_on()| を呼び出す。
+
+\verb|manipulator_on()| はサーボONの処理が成功したかどうかを戻り値 (bool型) で知らせるものと仮定する。\\
+\verb|rtc_stopping_entry()| & 
+マニピュレータのサーボをOFFにするために、\verb|manipulator_off()| を呼び出す。
+
+\verb|manipulator_off()| はサーボOFFの処理が成功したかどうかを戻り値 (bool型) で知らせるものと仮定する。\\
+\verb|rtc_active_do()| &
+マニピュレータに InPort から入ってきた位置指令を \verb|manipulator_setpos()| で設定し、現在位置を \verb|manipulator_getpos()| で取得しOutPortに出力する。\\
+\verb|rtc_aborting_entry()| &
+\verb|RTC_ACTIVE| 状態で何らかのエラーが生じ緊急停止をさせるため \verb|manipulator_emgstop()| を呼び出す。\\
+\verb|rtc_exiting_entry()| &
+コンポーネントの終了処理。リソースを開放するために \verb|manipulator_destroy()| を呼び出す。
+\end{tabular}
+\end{tab}
+
+\subsection{実装}
+以上のように各状態で行うことを決定したら、それぞれの状態に対応するメソッドを実装していきます。
+
+安全なコンポーネントを作成するためには、エラーを適切に処理することが大変重要となります。
+どのような場合に \verb|ERROR| 状態に遷移させ、どのような場合には \verb|FATAL_ERR| 状態に遷移させるかをよく考えて実装しましょう。
+
+
+\subsubsection*{状態: {\tt RTC\_INITIALIZING}, メソッド: {\tt rtc\_init\_entry()} の実装}
+
+\begin{src}{\bf MyManipulator.h}
+\begin{verbatim}
+virtual RtmRes rtc_init_entry();
+\end{verbatim}
+\end{src}
+出力された雛形ではコメントをはずすだけです。
+
+\newpage
+
+\begin{src}{MyManipulator.cpp}
+\begin{verbatim}
+RtmRes MyComponent::rtc_init_entry()
+{
+  if (!manipulator_init())
+  {
+    return RTM_ERR;
+  }
+  return RTM_OK;
+}
+\end{verbatim}
+\end{src}
+
+ここでは、\verb|manipulator_init()| の戻り値を見て、trueであれば、\verb|RTM_OK| を返しています。状態に対応するメソッドでは、戻り値 \verb|RtmRes| に以下の値をとります。
+
+\begin{tab}{● 終了状態と戻り値}
+\begin{tabular}{ll}
+{\tt RTM\_OK}        : & 正常終了 \\
+{\tt RTM\_ERR}       : & エラー終了 \\
+{\tt RTM\_FATAL\_ERR} : & 致命的エラー終了 \\
+\end{tabular}
+\end{tab}
+
+正常終了では、そのまま次の状態へ遷移します。この場合では、 \verb|RTC_READY| 状態に遷移します。
+エラー終了するとエラー状態に入ります。エラー状態では、外部から再度初期化することにより \verb|RTC_INITIALIZE| 状態に戻ることができます。
+致命的エラー終了の場合は、復帰できません。逆に、復帰不可能なエラーとして処理したい場合には、致命的エラー状態へ遷移させます。
+
+\subsubsection*{状態: {\tt RTC\_STARTING}, メソッド {\tt rtc\_starting\_entry()} の実装}
+
+\begin{src}{MyManipulator.h}
+\begin{verbatim}
+virtual RtmRes rtc_starting_entry();
+\end{verbatim}
+\end{src}
+
+出力された雛形ではコメントをはずすだけです。
+
+\begin{src}{MyManipulator.cpp}
+\begin{verbatim}
+RtmRes MyComponent::rtc_starting_entry()
+{
+  if (!manipulator_on())
+  {
+    return RTM_ERR;
+  }
+  return RTM_OK;
+}
+\end{verbatim}
+\end{src}
+
+\verb|manipulator_on()|の戻り値に応じて \verb|RTM_OK| または \verb|RTM_ERR| を返します。
+
+\subsubsection*{状態: {\tt RTC\_STOPPING}, メソッド: {\tt rtc\_stopping\_entry()} の実装}
+
+\begin{src}{MyManipulator.h}
+\begin{verbatim}
+virtual RtmRes rtc_stopping_entry();
+\end{verbatim}
+\end{src}
+
+出力された雛形ではコメントをはずすだけです。
+
+\begin{src}{MyManipulator.cpp}
+\begin{verbatim}
+RtmRes MyComponent::rtc_stopping_entry()
+{
+  if (!manipulator_off())
+  {
+    return RTM_ERR;
+  }
+  return RTM_OK;
+}
+\end{verbatim}
+\end{src}
+
+\verb|manipulator_off()|の戻り値に応じて \verb|RTM_OK| または \verb|RTM_ERR| を返します。
+
+
+\subsubsection*{状態: {\tt RTC\_ACTIVE}, メソッド: {\tt rtc\_active\_do()} の実装}
+
+\begin{src}{MyManipulator.h}
+\begin{verbatim}
+virtual RtmRes rtc_active_do();
+\end{verbatim}
+\end{src}
+
+出力された雛形ではコメントをはずすだけです。
+
+次に \verb|rtc_active_do()| を実装していきます。
+
+\verb|rtc_active_do()| ではマニピュレータに InPort から入ってきた位置指令を \verb|manipulator_setpos()| で設定し、現在位置を \verb|manipulator_getpos()| で取得し
+OutPort に出力します。InPort は \verb|m_posIn.read()| によりデータを読み込みます。
+
+\newpage
+
+\begin{src}{MyManipulator.cpp}
+\begin{verbatim}
+RtmRes MyComponent::rtc_active_do()
+{
+  float pos_in[6];
+  float pos_out[6];
+
+  // InPort からデータ読み込み
+  m_posin = m_posIn.read();
+
+  // InPort に規定数のデータが入っているか確認
+  if (m_posin.data.length() == 6)
+  {
+    for (int i = 0; i < 6; i++)
+    {
+       pos_in[i] = m_posin.data[i];
+    }
+    // 位置データをセット
+    if (!manipulator_setpos(pos_in))
+    {
+      return RTM_ERR;
+    }
+  }
+  
+  // 現在位置を取得
+  if (!manipulator_getpos(pos_out))
+  {
+    return RTM_ERR+
+  }
+
+  // OutPort に出力
+  m_posout.data.length(6);
+  for (int i = 0; i < 6; i++)
+  {
+     m_posout.data[i] = pos_out[i];
+  }
+  m_posOut.write(m_posout);
+
+  return RTM_OK;
+}
+\end{verbatim}
+\end{src}
+
+
+TimedFloatSeq 型(とその他のシーケンス型)は構造体で、時間 \verb|tm| とデータ \verb|data| のメンバを持ちます。\verb|data| はシーケンス型になっていて、
+
+\begin{tab}{● InPort/OutPortデータ型へのアクセス}
+\begin{tabular}{ll}
+\verb|m_poin.data[1]|          & 添え字によるアクセス \\
+\verb|m_posin.data.length()|   & 要素数の取得 \\
+\verb|m_posin.data.length(10)| & 領域の確保 \\
+\end{tabular}
+\end{tab}
+ 
+などが行えます。OutPortも同様で、\verb|manipulator_getpos()| でマニピュレータの手先位置を配列として取得したあとに、\verb|m_posout| にデータをコピーし、最後に
+
+\begin{verbatim}
+ m_posOut.write(m_posout);
+\end{verbatim}
+
+によりOutPortに出力しています。
+InPort, OutPort のメソッドの詳細はマニュアルもしくはソースコードを見てください。
+
+
+\subsubsection*{状態: {\tt RTC\_ABORTING}, メソッド: {\tt rtc\_aborting\_entry()} の実装}
+
+\begin{src}{MyManipulator.h}
+\begin{verbatim}
+    virtual RtmRes rtc_aborting_entry();
+\end{verbatim}
+\end{src}
+
+出力された雛形ではコメントをはずすだけです。
+
+\begin{src}{MyManipulator.cpp}
+\begin{verbatim}
+RtmRes MyComponent::rtc_aborting_entry()
+{
+  if (!manipulator_emgstop())
+  {
+    return RTM_FATAL_ERR;
+  }
+  return RTM_OK;
+}
+\end{verbatim}
+\end{src}
+
+\verb|RTC_ACTIVE| 状態でエラーが発生した場合、緊急停止しなければならないと仮定します。
+そこで、\verb|rtc_aborting_entry()| で \verb|manipulator_emgstop()| を呼び出します。
+戻り値に応じて \verb|RTM_OK| または \verb|RTM_ERR| を返します。
+
+\subsubsection*{状態: {\tt RTC\_EXITING}, メソッド: {\tt rtc\_exiting\_entry()} の実装}
+
+\begin{src}{MyManipulator.h}
+\begin{verbatim}
+virtual RtmRes rtc_exiting_entry();
+\end{verbatim}
+\end{src}
+
+出力された雛形ではコメントをはずすだけです。
+
+\begin{src}{MyManipulator.cpp}
+\begin{verbatim}
+RtmRes MyComponent::rtc_exiting_entry()
+{
+  manipulator_destroy();
+  return RTM_OK;
+}
+\end{verbatim}
+\end{src}
+
+リソースを開放します。この状態では終了する他ないため \verb|RTM_OK| しか返しません。
+
+
+\subsection{make および実行}
+
+ソースが完成したら、再びmakeします。
+manipulator ライブラリをリンクするためにMakefile.MyManipulator を書き換える必要があるかもしれません。
+
+\begin{cmd}
+\begin{verbatim}
+> make -f Makefile.MyManipulator
+\end{verbatim}
+\end{cmd}
+
+実行形式のコンポーネントを実行してみます。コンポーネントの実行にはコンフィギュレ
+ーションファイル(通常は rtc.conf という名前)が必要です。
+正式なコンフィギュレーションファイルはOpenRTMのソースの{\tt etc/rtc.conf.sample} を参考にしてください。
+ここでは、簡易版のものをカレントディレクトリに作成します。
+
+\begin{cmd}
+\begin{verbatim}
+NameServer      現在のPCのホスト名:ポート番号
+\end{verbatim}
+\end{cmd}
+
+ここで、仮にホスト名：rtm.or.jp ポート番号:6789 とします。
+
+
+\begin{cmd}
+\begin{verbatim}
+> cat > rtc.conf
+NameServer      rtm.or.jp:6789 (このように入力する)
+\verb|^|D(Ctrl+D)
+> cat rtc.conf (確認)
+NameServer      rtm.or.jp:6789
+\end{verbatim}
+\end{cmd}
+
+次に、CORBA のネーミングサービスを起動します。CORBAのネーミングサービスは、
+\begin{cmd}
+\begin{verbatim}
+> rtm-naming ポート番号
+\end{verbatim}
+\end{cmd}
+
+で起動できますので、先ほどrtc.conf で指定したポート番号を指定して起動してください。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> rtm-naming 6789
+Starting omniORB omniNames: ichi:9999
+n-ando@ichi:/tmp/SampleComponent> 
+Fri Oct 29 17:12:51 2004:
+
+Starting omniNames for the first time.
+Wrote initial log file.
+Read log file successfully.
+Root context is IOR:010000002b00000049444c3a6f6d672e6f72672f436f734e616d696e672f
+4e616d696e67436f6e746578744578743a312e300000010000000000000060000000010102000e00
+00003135302e32392e39362e313638000f270b0000004e616d655365727669636500020000000000
+0000080000000100000000545441010000001c000000010000000100010001000000010001050901
+01000100000009010100
+Checkpointing Phase 1: Prepare.
+Checkpointing Phase 2: Commit.
+Checkpointing completed.
+\end{verbatim}
+\end{cmd}
+
+次に、コンポーネントを起動します。
+このコンポーネントは、位置指令を受け取ることで初めて動作するコンポーネントですので、起動しただけでは何も起こりません。
+上記と同様の手順で、位置指令を与えるコンポーネントと、現在位置を受け取るコンポーネントなどを作成しそれらを接続することで、システムを構成します。
+
+\begin{cmd}
+\begin{verbatim}
+> MyManipulatorComp -f rtc.conf
+\end{verbatim}
+\end{cmd}

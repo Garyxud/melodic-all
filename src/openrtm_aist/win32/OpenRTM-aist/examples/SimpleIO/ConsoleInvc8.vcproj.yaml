@@ -1,0 +1,4 @@
+RootNamespace: ConsoleIn
+InheritedPropertySheets: ..\..\OpenRTM-aist.vsprops
+DebugLibs: ACEd.lib RTC041d.lib omniORB407_rtd.lib omniDynamic407_rtd.lib omnithread32_rtd.lib advapi32.lib ws2_32.lib mswsock.lib
+ReleaseLibs: ACE.lib RTC041.lib omniORB407_rt.lib omniDynamic407_rt.lib omnithread32_rt.lib advapi32.lib ws2_32.lib mswsock.lib

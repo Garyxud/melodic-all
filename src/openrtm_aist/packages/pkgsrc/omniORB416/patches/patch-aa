@@ -1,0 +1,19 @@
+diff --exclude=.hg -ur configure configure.orig
+--- configure.orig	2008-09-16 18:22:10.000000000 +0900
++++ configure	2009-05-12 19:15:10.000000000 +0900
+@@ -12639,6 +12639,7 @@
+   *-*-netbsd*)   plat_name="NetBSD";   plat_def="__netbsd__";   os_v="1";;
+   *-*-openbsd*)  plat_name="OpenBSD";  plat_def="__openbsd__";  os_v="3";;
+   *-*-sco*)      plat_name="OSR5";     plat_def="__osr5__";     os_v="5";;
++  *-*-nto-qnx*)  plat_name="QNX6";     plat_def-"__qnx6__";     os_v="6";;
+ esac
+ 
+ PLATFORM_NAME=$plat_name
+@@ -12655,6 +12656,7 @@
+ 
+ case "$host" in
+   i?86-*)   proc_name="x86Processor";     proc_def="__x86__";;
++  x86-pc-*) proc_name="x86Processor";     proc_def="__x86__";;
+   x86_64-*) proc_name="x8664Processor";   proc_def="__x86_64__";;
+   sparc-*)  proc_name="SparcProcessor";   proc_def="__sparc__";;
+   alpha*)   proc_name="AlphaProcessor";   proc_def="__alpha__";;

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!--
+Copyright (c) 2019, The MITRE Corporation
+All rights reserved.
+
+Sections of this project contains content developed by The MITRE Corporation.
+If this code is used in a deployment or embedded within another project,
+it is requested that you send an email to opensource@mitre.org in order to
+let us know where this software is being used.
+-->
+
+<package format="2">
+  <name>kvh_geo_fog_3d_rviz</name>
+  <version>1.3.3</version>
+  <description>The KVH GEO FOG 3D rviz plugin package</description>
+
+  <author email="zlacelle@mitre.org">Zach LaCelle</author>
+
+  <maintainer email="zlacelle@mitre.org">Zach LaCelle</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>diagnostic_msgs</depend>
+  <build_depend>kvh_geo_fog_3d_msgs</build_depend>
+  <build_depend>libqt5-svg-dev</build_depend>
+  <build_depend>libqt5multimedia5-plugins</build_depend>
+  <build_depend>qtbase5-dev</build_depend>
+  <build_depend>qtdeclarative5-dev</build_depend>
+  <build_depend>qtmultimedia5-dev</build_depend>
+  <build_depend>roslint</build_depend>
+  <build_depend>rviz</build_depend>
+  <build_export_depend>kvh_geo_fog_3d_msgs</build_export_depend>
+  <build_export_depend>rviz</build_export_depend>
+  <exec_depend>kvh_geo_fog_3d_msgs</exec_depend>
+  <exec_depend>rviz</exec_depend> <!-- If you don't have this, the plugin will silently fail to load in rviz!! #feature -->
+
+  <export>
+    <rviz plugin="${prefix}/plugin_description.xml" />
+  </export>
+</package>

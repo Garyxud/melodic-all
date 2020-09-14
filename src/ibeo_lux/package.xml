@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ibeo_lux</name>
+  <version>2.0.1</version>
+  <description>ROS driver for IBEO LUX</description>
+  <license>MIT</license>
+
+  <maintainer email="software@autonomoustuff.com">AutonomouStuff Software Development Team</maintainer>
+  <author email="jkale@autonomoustuff.com">Joe Kale</author>
+  <author email="jwhitley@autonomoustuff.com">Joshua Whitley</author>
+
+  <url type="website">http://wiki.ros.org/ibeo_lux</url>
+  <url type="repository">https://github.com/astuff/ibeo_lux</url>
+  <url type="bugtracker">https://github.com/astuff/ibeo_lux/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>ibeo_core</depend>
+  <depend>pcl_ros</depend>
+  <depend>geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>network_interface</depend>
+  <depend>ibeo_msgs</depend>
+</package>

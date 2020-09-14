@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--
+    As you add to this URDF, please be aware that both the robot and
+    simulation include it. You must retain compatibility with all of
+    the following launch files:
+
+    moose_viz/launch/view_model.launch
+    moose_gazebo/launch/moose_world.launch
+    moose_base/launch/base.launch
+  -->
+
+</robot>

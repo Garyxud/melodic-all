@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="urdf_model" default="pacifica" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find dbw_fca_description)/urdf/$(arg urdf_model).urdf.xacro" />
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+</launch>

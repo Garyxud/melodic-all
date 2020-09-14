@@ -1,0 +1,48 @@
+/**
+
+\page RGB2Gray
+
+\section introduction Overview
+
+This component converts an input RGB image into a grayscale image.
+
+<table>
+<tr><th>implementation_id</th><td>RGB2Gray</td></tr>
+<tr><th>category</th><td>example</td></tr>
+</table>
+
+\section dataports Data Ports
+
+\subsection inports Input Ports
+
+<table>
+<tr><th>port name</th><th>data type</th><th>unit</th><th>description</th></tr>
+<tr><td>rgb</td><td>Img::TimedCameraImage</td><td></td><td></td></tr>
+</table>
+
+\subsection outports Output Ports
+
+<table>
+<tr><th>port name</th><th>data type</th><th>unit</th><th>description</th></tr>
+<tr><td>gray</td><td>Img::TimedCameraImage</td><td></td><td></td></tr>
+</table>
+
+\section serviceports Service Ports
+
+\subsection provider Service Providers
+
+N/A
+
+\subsection consumer Service Consumers
+
+N/A
+
+\section configuration Configuration Variables
+
+N/A
+
+\section conf Configuration File
+
+N/A
+
+ */

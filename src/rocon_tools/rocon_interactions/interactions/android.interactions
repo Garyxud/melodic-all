@@ -1,0 +1,60 @@
+###############################################################################
+# Android
+###############################################################################
+
+interactions:
+    - command: com.github.rosjava.android_remocons.listener.Listener
+      group: Android
+      compatibility: rocon:/*/*/hydro|indigo/jellybean|ice_cream_sandwich
+      name: Listener
+      description: Tunes into the babble (/babbler topic).
+      max: -1
+      remappings:
+          - remap_from: chatter
+            remap_to: /babbler
+
+    - command: com.github.rosjava.android_remocons.talker.Talker
+      group: Android
+      compatibility: rocon:/*/*/hydro|indigo/jellybean|ice_cream_sandwich
+      name: Talker
+      description: Natters away like an old nag (/natter topic).
+      max: -1
+      remappings:
+        - remap_from: chatter
+          remap_to: /natter
+
+#############################
+# Other Examples
+#############################
+
+#- command: com.github.robotics_in_concert.rocon_android.SolutionManager
+#  group: 'Android'
+#  compatibility: rocon:/mega/*/hydro|indigo/jellybean|ice_cream_sandwich
+#  name: Solution Manager
+#  description: Configuration manager for the concert
+#  max: -1
+
+#- command: com.github.robotics_in_concert.rocon_android.SolutionMonitor
+#  group: 'Android'
+#  compatibility: rocon:/*/*/hydro|indigo/jellybean|ice_cream_sandwich
+#  name: Solution Monitor
+#  description: Monitors various aspects of the solution
+#  max: -1
+
+#- command: com.github.robotics_in_concert.rocon_android.Pizza
+#  group: 'Android'
+#  compatibility: rocon:/*/*/hydro|indigo/jellybean|ice_cream_sandwich
+#  name: Pizza Delivery
+#  description: Tantalises and tickles the taste buds with a virtual pizza
+#  parameters: 
+#    type: super_supreme
+
+#- command: com.github.robotics_in_concert.rocon_android.Beer
+#  group: 'Android'
+#  compatibility: rocon:/*/*/hydro|indigo/jellybean|ice_cream_sandwich
+#  name: Beer
+#  description: The super sopper
+#  remappings:
+#    - remap_from: /fosters
+#      remap_to: /beer/leffe
+

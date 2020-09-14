@@ -1,0 +1,5 @@
+string identifier
+string class_type
+string filename
+---
+bool success

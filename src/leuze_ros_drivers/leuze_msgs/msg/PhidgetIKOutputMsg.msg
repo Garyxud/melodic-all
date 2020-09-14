@@ -1,0 +1,15 @@
+Header header
+bool o_0_RES1
+bool o_1_F1
+bool o_2_F2
+bool o_3_F3
+bool o_4_F4
+bool o_5_F5
+bool o_6_SE1
+bool o_7_SE2
+bool o_8_F6
+bool o_9_F7
+bool o_10_F8
+bool o_11_F9
+bool o_12_F10
+bool o_13_RES2

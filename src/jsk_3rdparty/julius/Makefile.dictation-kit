@@ -1,0 +1,28 @@
+# -*- makefile -*-
+
+all: installed.dict
+
+VERSION = 4.4
+FILENAME = dictation-kit-v$(VERSION).zip
+TARBALL = build/$(FILENAME)
+TARBALL_URL = "https://osdn.net/frs/redir.php?m=ymu&f=%2Fjulius%2F66544%2F$(FILENAME)"
+TARBALL_PATCH =
+SOURCE_DIR = build/dictation-kit-v$(VERSION)
+UNPACK_CMD = unzip -qq
+MD5SUM_DIR = $(CURDIR)/md5sum
+MD5SUM_FILE = $(MD5SUM_DIR)/$(FILENAME).md5sum
+include $(shell rospack find mk)/download_unpack_build.mk
+
+INSTALL_DIR = `rospack find julius`
+
+installed.dict: $(SOURCE_DIR)/unpacked
+	rsync -a $(SOURCE_DIR)/model/ $(INSTALL_DIR)/model
+	rsync -a $(SOURCE_DIR)/*conf $(INSTALL_DIR)/conf
+	touch installed.dict
+
+clean:
+	rm -rf $(TARBALL)
+	rm -rf $(SOURCE_DIR)
+	rm -rf $(INSTALL_DIR)/model
+	rm -rf $(INSTALL_DIR)/conf
+	rm -rf installed.dict

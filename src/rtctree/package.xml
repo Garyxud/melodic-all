@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>rtctree</name>
+  <version>3.0.1</version>
+  <description>
+   <p>API for interacting with running RT-Components and managing RTM-based systems using OpenRTM-aist.</p>
+  </description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="iisaito@kinugarage.com">Isaac Isao Saito</maintainer>
+  <author email="git@killbots.net">Geoffrey Biggs</author>
+
+  <license>EPL</license>
+  <url type="website">http://ros.org/wiki/openrtm_tools</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>python-setuptools</build_depend>
+  <build_depend>python-omniorb</build_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+
+</package>

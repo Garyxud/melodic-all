@@ -1,0 +1,18 @@
+find_hwsim_iface.py:
+    * takes two command-line arguments: <radio index> and <total number of radios>
+    * checks that at least <total number of radios> mac80211_hwsim interface exist
+    * if there are not enough that it reloads the mac80211_hwsim module with the proper number of radios
+    * it then returns the name of the interface corresponding to the <radio index>'s radio
+
+hwsim_nat_setup.sh:
+    * sets up NAT rules and ARP entries so that one can ping between two interfaces connected to the same
+host and the packets go "on air" (rather than using the local route)
+    * takes 6 parameters: 
+       - IF1: name of first interface
+       - REAL_IP1: the ip address to be assigned to the first interface
+       - FAKE_IP1: the ip address by which the first interface can be pinged from the second interface such
+that packets go over air
+       - IF2, REAL_IP2, FAKE_IP2 similarly for the second interface
+    * note that FAKE_IP1 has to be in REAL_IP2's subnet and similarly for FAKE_IP2 and REAL_IP1
+    * an example:
+        hwsim_nat_setup.sh wlan0 192.168.68.1 192.168.69.1 wlan1 192.168.69.2 192.168.68.2

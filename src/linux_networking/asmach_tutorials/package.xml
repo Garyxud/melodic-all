@@ -1,0 +1,46 @@
+<package>
+  <name>asmach_tutorials</name>
+  <version>1.0.16</version>
+  <description>This package containes numerous examples of how to use SMACH. See the examples directory.</description>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/smach_tutorials</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Jonathan Bohren</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>rospy</build_depend>
+  <build_depend>asmach</build_depend>
+  <build_depend>smach_ros</build_depend>
+  <build_depend>turtlesim</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>rospy</run_depend>
+  <run_depend>asmach</run_depend>
+  <run_depend>smach_ros</run_depend>
+  <run_depend>turtlesim</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>rospy</test_depend> -->
+  <!-- <test_depend>asmach</test_depend> -->
+  <!-- <test_depend>smach_ros</test_depend> -->
+  <!-- <test_depend>turtlesim</test_depend> -->
+  <!-- <test_depend>actionlib</test_depend> -->
+  <!-- <test_depend>actionlib_msgs</test_depend> -->
+
+<export>
+    <cpp cflags="-I${prefix}/msg/cpp"/>
+</export>
+
+</package>

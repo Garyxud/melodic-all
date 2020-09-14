@@ -1,0 +1,43 @@
+<launch>
+
+	<!-- Some general parameters -->
+	<param name="use_sim_time" value="true" />
+	<rosparam file="$(find nav2d_tutorials)/param/ros.yaml"/>
+
+	<!-- Start Stage simulator with a given environment -->
+	<node name="Stage" pkg="stage_ros" type="stageros" args="$(find nav2d_tutorials)/world/tutorial.world">
+		<param name="base_watchdog_timeout" value="0" />
+	</node>
+
+	<!-- Start the Operator to control the simulated robot -->
+	<node name="Operator" pkg="nav2d_operator" type="operator" >
+		<remap from="scan" to="base_scan"/>
+		<rosparam file="$(find nav2d_tutorials)/param/operator.yaml"/>
+		<rosparam file="$(find nav2d_tutorials)/param/costmap.yaml" ns="local_map" />
+	</node>
+
+	<!-- Load the environment map in the map_server -->
+	<node name="MapServer" pkg="map_server" type="map_server" args="$(find nav2d_tutorials)/world/tutorial.yaml" />
+
+	<!-- Start particle filter to track the robot's position -->
+	<node name="SelfLocalizer" pkg="nav2d_localizer" type="localizer">
+		<remap from="scan" to="base_scan"/>
+		<param name="min_particles" type="int" value="5000"/>
+		<param name="max_particles" type="int" value="20000"/>
+	</node>
+
+	<!-- Start the Navigator to move the robot autonomously -->
+	<node name="Navigator" pkg="nav2d_navigator" type="navigator">
+		<rosparam file="$(find nav2d_tutorials)/param/navigator.yaml"/>
+	</node>
+
+	<node name="SetGoal" pkg="nav2d_navigator" type="set_goal_client" />
+
+	<!-- Start the joystick-driver and remote-controller for operation-->
+	<node name="Joystick" pkg="joy" type="joy_node" />
+	<node name="Remote" pkg="nav2d_remote" type="remote_joy" />
+
+	<!-- RVIZ to view the visualization -->
+	<node name="RVIZ" pkg="rviz" type="rviz" args=" -d $(find nav2d_tutorials)/param/tutorial2.rviz" />
+
+</launch>

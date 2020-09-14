@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="hz" default="50.0" /> <!-- 50 Hz -->
+  <arg name="unit_id" default="0" /> <!-- MASTER -->
+  <arg name="lcm_url" default="udpm://225.0.0.0:766$(arg unit_id)?ttl=0" />
+
+  <!-- Generate example data -->
+  <node pkg="dataspeed_pds_lcm" type="dataspeed_pds_lcm_hz" name="sim" output="screen">
+    <param name="hz" value="$(arg hz)" />
+    <param name="unit_id" value="$(arg unit_id)" />
+    <param name="lcm_url" value="$(arg lcm_url)" />
+  </node>
+
+  <!-- Start node under test -->
+  <node pkg="dataspeed_pds_lcm" type="pds_node" name="pds_lcm" output="screen">
+    <param name="lcm_url" value="$(arg lcm_url)" />
+  </node>
+
+  <!-- Start the rostest -->
+  <test test-name="hztest" pkg="rostest"
+        type="hztest" name="hztest" >
+    <param name="hz" value="$(arg hz)" />
+    <param name="hzerror" value="0.5" />
+    <param name="test_duration" value="5.0" />    
+    <param name="topic" value="status" />  
+    <param name="wait_time" value="2.0" />  
+  </test>
+
+</launch>

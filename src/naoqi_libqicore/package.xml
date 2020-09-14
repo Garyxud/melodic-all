@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>naoqi_libqicore</name>
+  <version>2.9.0</version>
+  <description>Aldebaran's libqicore: a layer on top of libqi</description>
+
+  <maintainer email="mbusy@softbankrobotics.com">Maxime Busy</maintainer>
+  <maintainer email="surya.ambrose@gmail.com">Surya Ambrose</maintainer>
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/aldebaran/libqicore</url>
+
+  <author>Aldebaran</author>
+
+  <build_depend>naoqi_libqi</build_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>naoqi_libqi</run_depend>
+</package>

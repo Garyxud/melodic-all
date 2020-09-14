@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Input arguments -->
+    <arg name="argID"               default="1"/>
+    <arg name="argNodeRate"         default="100.0"/>
+    <arg name="argNamespace"        default="heifu"/>
+    <arg name="argVehicle"          default="$(arg argNamespace)"/>
+
+    <!-- Launch Simple Waypoint node -->
+    <node name="heifu_simple_waypoint_node$(arg argID)" type="heifu_simple_waypoint_node" pkg="heifu_simple_waypoint" output="screen" ns="$(arg argNamespace)" respawn="true">
+        <param name="paramNodeRate"         type="double" value="$(arg argNodeRate)"          />
+    </node>
+
+</launch>

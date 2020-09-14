@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <include file="$(find kobuki_node)/launch/robot_with_tf.launch"/>
+  <include file="$(find openni2_launch)/launch/openni2.launch"/>
+
+</launch>

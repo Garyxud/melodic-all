@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CheatsheetDialog</class>
+ <widget class="QDialog" name="CheatsheetDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>819</width>
+    <height>657</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Cheatsheet</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;Add timeseries to a plot&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;On the left side of the main window there is a &lt;span style=&quot; text-decoration: underline;&quot;&gt;filterable&lt;/span&gt; list of timeseries. &lt;br /&gt; Select one or more timeseries, then drag&amp;amp;drop them using the &lt;span style=&quot; font-weight:600;&quot;&gt;Left Mouse Button.&lt;/span&gt; &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; You can select multiple timeseries keeping either the &lt;span style=&quot; font-weight:600;&quot;&gt;SHIFT&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;CTRL&lt;/span&gt; button pressed.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; To remove particular timeseries, edit series colors, graph appearence, etc. - use context menu, &lt;span style=&quot; font-weight:600;&quot;&gt;Right Mouse button&lt;/span&gt; on the graph area.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;Undo/Redo&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Most of the time &lt;span style=&quot; font-weight:600;&quot;&gt;CTRL + Z&lt;/span&gt; does just what you expect it to do: to revert the last action. &lt;br /&gt; This includes adding a plot, deleting it, add a row/column to the Tab, etc. &lt;br /&gt; Press &lt;span style=&quot; font-weight:600;&quot;&gt;CTRL + SHIFT + Z&lt;/span&gt; to redo the action.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;Pan View&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To pan the view (translate the plotted area) use either the &lt;span style=&quot; font-weight:600;&quot;&gt;Middle Mouse Button&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;CTRL + Middle Mouse&lt;/span&gt;.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;Zoom&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To zoom a specific area, click &lt;span style=&quot; font-weight:600;&quot;&gt;Left Mouse Button&lt;/span&gt; on a plot and move the mouse keeping the button pressed. &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt; Alternatively, use the &lt;span style=&quot; font-weight:600;&quot;&gt;Mouse Wheel,&lt;/span&gt; or the buttons &lt;span style=&quot; font-weight:600;&quot;&gt;CTRL&lt;/span&gt; and   &lt;span style=&quot; font-weight:600;&quot;&gt;Plus(+) or Minus(-)&lt;/span&gt;. &lt;br /&gt; &lt;br /&gt; If you want to zoom &lt;span style=&quot; text-decoration: underline;&quot;&gt;only the X axis&lt;/span&gt;, move the mouse&lt;span style=&quot; font-weight:600;&quot;&gt; on the bottom axis &lt;/span&gt;and use the &lt;span style=&quot; font-weight:600;&quot;&gt;Mouse Wheel&lt;/span&gt;. &lt;br /&gt; If you want to zoom &lt;span style=&quot; text-decoration: underline;&quot;&gt;only the Y axis&lt;/span&gt;, move the mouse&lt;span style=&quot; font-weight:600;&quot;&gt; on the left axis &lt;/span&gt;and use the &lt;span style=&quot; font-weight:600;&quot;&gt;Mouse Wheel&lt;/span&gt;. &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;XY plots&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;XY Plots mix together two timeseries, sharing the same time axis, to create a 2-dimensional plot. &lt;br /&gt; To activate this mode, drag&amp;amp;drop the curve that should be used as X axis using the &lt;span style=&quot; font-weight:600;&quot;&gt;Right Mouse Button&lt;/span&gt;, instead of the LEFT one.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;The vertical time tracker&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The vertical tracker is one of the most usefull features in PlotJuggler. &lt;br /&gt; Press (or keep pressed) the &lt;span style=&quot; font-weight:600;&quot;&gt;SHIFT + Left Mouse Button&lt;/span&gt; on a plot, to display a vertical red line. &lt;br /&gt; The corresponding &lt;span style=&quot; text-decoration: underline;&quot;&gt;time&lt;/span&gt; will be displayed at the bottom, where the horizontal slider is located, and the values of each timeseries on the second column of the table on the left side. Furthermore, the tracker activates the enabled &lt;span style=&quot; font-weight:600;&quot;&gt;Publishers&lt;/span&gt;.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;Swap plots&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To rearrange existing plots, you can swap them using the &lt;span style=&quot; font-weight:600;&quot;&gt;CTRL + Right Mouse Button&lt;/span&gt;.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#3465a4;&quot;&gt;Resize Fonts (legend of timeseries list)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To resize the fonts of the left timeseries list or the legend, move your mouse on top of it and move &lt;span style=&quot; font-weight:600;&quot;&gt;CTRL + Mouse Wheel&lt;/span&gt;.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CheatsheetDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CheatsheetDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

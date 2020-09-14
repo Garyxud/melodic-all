@@ -1,0 +1,15 @@
+<package>
+  <name>rocon_semantic_version</name>
+  <version>0.3.2</version>
+  <description>
+    Internal packaging of the 2.2.2 version of the python semantic version module.
+  </description>
+  <maintainer email="d.stonier@gmail.com">Daniel Stonier</maintainer>
+  <license>BSD</license>
+  <url type="website">https://github.com/rbarrois/python-semanticversion</url>
+  <url type="repository">https://github.com/robotics-in-concert/rocon_tools</url>
+  <url type="bugtracker">https://github.com/robotics-in-concert/rocon_tools/issues</url>
+  <author>Raphaël Barrois</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

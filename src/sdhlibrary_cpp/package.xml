@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sdhlibrary_cpp</name>
+  <version>0.2.10</version>
+  <description>This is SDHLibrary-CPP, the C++ library to access
+  an SDH (SCHUNK Dexterous Hand)</description>
+
+  <maintainer email="Christian.Rauch@ed.ac.uk">Christian Rauch</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <!-- Url tags are optional, but multiple are allowed, one per tag -->
+  <!-- Optional attribute type can be: website, bugtracker, or repository -->
+  <!-- Example: -->
+  <!-- <url type="website">http://wiki.ros.org/sdhlibrary_cpp</url> -->
+
+  <author email="dirk.osswald@de.schunk.com">Dirk Osswald</author>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

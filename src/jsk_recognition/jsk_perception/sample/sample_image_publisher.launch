@@ -1,0 +1,118 @@
+<launch>
+
+  <arg name="gui" default="true" />
+
+
+  <node name="raw_image_bgr"
+        pkg="jsk_perception" type="image_publisher.py">
+    <remap from="~output" to="~image_color" />
+    <remap from="~output/camera_info" to="~camera_info" />
+    <rosparam subst_value="true">
+      file_name: $(find jsk_perception)/sample/kiva_pod_image_color.jpg
+      encoding: bgr8
+      publish_info: true
+      fovx: 84.1
+      fovy: 53.8
+    </rosparam>
+  </node>
+
+  <node name="raw_image_rgb"
+        pkg="jsk_perception" type="image_publisher.py">
+    <remap from="~output" to="~image_color" />
+    <remap from="~output/camera_info" to="~camera_info" />
+    <rosparam subst_value="true">
+      file_name: $(find jsk_perception)/sample/kiva_pod_image_color.jpg
+      encoding: rgb8
+      publish_info: true
+      fovx: 84.1
+      fovy: 53.8
+    </rosparam>
+  </node>
+
+  <node name="mask_image"
+        pkg="jsk_perception" type="image_publisher.py">
+    <remap from="~output" to="~mask" />
+    <remap from="~output/camera_info" to="~camera_info" />
+    <rosparam subst_value="true">
+      file_name: $(find jsk_perception)/sample/kiva_pod_mask.jpg
+      encoding: mono8
+      publish_info: true
+      fovx: 84.1
+      fovy: 53.8
+    </rosparam>
+  </node>
+
+  <node name="depth_image_16uc1"
+        pkg="jsk_perception" type="image_publisher.py">
+    <remap from="~output" to="~image_depth" />
+    <remap from="~output/camera_info" to="~camera_info" />
+    <rosparam subst_value="true">
+      file_name: $(find jsk_perception)/sample/kiva_pod_image_depth.jpg
+      encoding: 16UC1
+      publish_info: true
+      fovx: 84.1
+      fovy: 53.8
+    </rosparam>
+  </node>
+
+  <node name="depth_image_32fc1"
+        pkg="jsk_perception" type="image_publisher.py">
+    <remap from="~output" to="~image_depth" />
+    <remap from="~output/camera_info" to="~camera_info" />
+    <rosparam subst_value="true">
+      file_name: $(find jsk_perception)/sample/kiva_pod_image_depth.jpg
+      encoding: 32FC1
+      publish_info: true
+      fovx: 84.1
+      fovy: 53.8
+    </rosparam>
+  </node>
+
+  <node name="label_image"
+        pkg="jsk_perception" type="mask_image_to_label.py">
+    <remap from="~input" to="mask_image/mask" />
+    <remap from="~output" to="~label" />
+    <rosparam>
+      publish_info: true
+      always_subscribe: true
+      fovx: 84.1
+      fovy: 53.8
+    </rosparam>
+  </node>
+
+
+  <group if="$(arg gui)">
+    <node name="image_view0"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="raw_image_bgr/image_color" />
+    </node>
+    <node name="image_view1"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="raw_image_rgb/image_color" />
+    </node>
+    <node name="image_view2"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="mask_image/mask" />
+    </node>
+    <node name="image_view3"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="depth_image_16uc1/image_depth" />
+    </node>
+    <node name="image_view4"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="depth_image_32fc1/image_depth" />
+      <rosparam>
+        do_dynamic_scaling: true
+      </rosparam>
+    </node>
+    <node name="image_view5"
+          pkg="image_view" type="image_view">
+      <remap from="image" to="label_image/label" />
+      <rosparam>
+        bg_label: 0
+      </rosparam>
+    </node>
+  </group>
+
+
+</launch>

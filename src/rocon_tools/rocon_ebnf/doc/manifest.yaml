@@ -1,0 +1,17 @@
+authors: LParis
+brief: ''
+bugtracker: https://github.com/robotics-in-concert/rocon_tools/issues
+depends:
+- python-catkin-pkg
+- catkin
+- rosunit
+description: "Internal packaging of the 0.91 version of the simple python\n    <a\
+  \ href=\"http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form\">EBNF</a>\n\
+  \    parser written by LParis."
+license: GPL
+maintainers: Daniel Stonier <d.stonier@gmail.com>
+msgs: []
+package_type: package
+repo_url: https://github.com/robotics-in-concert/rocon_tools
+srvs: []
+url: http://lparis45.free.fr/rp.html

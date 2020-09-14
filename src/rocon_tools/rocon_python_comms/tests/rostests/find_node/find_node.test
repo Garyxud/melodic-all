@@ -1,0 +1,15 @@
+<launch>
+  <node name="unique_node" pkg="rocon_python_comms" type="dummy_node.py" output="screen"/>
+  
+  <node name="non_unique_node" pkg="rocon_python_comms" type="dummy_node.py" output="screen"/>
+  <group ns="some_namespace">
+    <node name="some_node" pkg="rocon_python_comms" type="dummy_node.py" output="screen"/>
+    <node name="non_unique_node" pkg="rocon_python_comms" type="dummy_node.py" output="screen"/>
+  </group>
+  
+  <node name="some_node" pkg="rocon_python_comms" type="dummy_node.py" output="screen"/>
+  
+  <param name="unique_node_name" value="unique_node"/>
+  <param name="non_unique_node_name" value="non_unique_node"/>
+  <test test-name="test_find_node" pkg="rocon_python_comms" type="test_find_node.py"/>
+</launch>

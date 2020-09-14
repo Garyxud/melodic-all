@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="coil-%COIL_SHORTVER%"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(coil_includes)"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="$(coil_libdir)"
+	/>
+	<UserMacro
+		Name="coil_root"
+		Value="%COIL_ROOT%"
+	/>
+	<UserMacro
+		Name="coil_dllver"
+		Value="%COIL_DLLVER%"
+	/>
+	<UserMacro
+		Name="coil_version"
+		Value="%COIL_VERSION%"
+	/>
+	<UserMacro
+		Name="coil_shortver"
+		Value="%COIL_SHORTVER%"
+	/>
+	<!-- coil macros -->
+	<UserMacro
+		Name="coil_includes"
+		Value="&quot;$(coil_root)&quot;;&quot;..&quot;"
+	/>
+	<UserMacro
+		Name="coil_libdir"
+		Value="&quot;$(coil_root)\bin&quot;"
+	/>
+	<UserMacro
+		Name="coil_bin"
+		Value="&quot;$(coil_root)\bin&quot;;&quot;$(coil_root)\build&quot;"
+	/>
+	<UserMacro
+		Name="coil_path"
+		Value="$(coil_bin)"
+	/>
+	<UserMacro
+		Name="coil_libd"
+		Value="advapi32.lib ws2_32.lib mswsock.lib coild$(coil_dllver).lib $(user_libd)"
+	/>
+	<UserMacro
+		Name="coil_lib"
+		Value="advapi32.lib ws2_32.lib mswsock.lib coil$(coil_dllver).lib $(user_lib)"
+	/>
+</VisualStudioPropertySheet>

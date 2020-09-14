@@ -1,0 +1,16 @@
+redirect_console: False
+wireless_namespace: 'ddwrt'
+wpa_config: "/etc/sysros/wifi/networks.conf" 
+base_station: "demobase3"
+ping_port: 1194
+tunnel_interface: 'tun9'
+local_networks: [ '10.68.0.0/24', '10.69.0.0/24' ]
+reliability_threshold: 50
+
+interfaces:
+  wan0: { type: wired,  priority: 20 }
+  "basestation-local2@lan1": { type: static, name: bs@lan1, priority: 30 }
+  "wifi-router@lan0": { type: static, name: ddwrt }
+# Uncomment these to make enable dual ralinks:
+#  wlan0: { type: wireless }
+#  wlan1: { type: wireless }

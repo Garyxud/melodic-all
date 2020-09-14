@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+Software License Agreement (BSD)
+
+\file      multimaster_robot.launch
+\authors   Paul Bovbel <pbovbel@clearpath.ai>
+\copyright Copyright (c) 2016, Clearpath Robotics, Inc., All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that
+the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the
+   following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+   following disclaimer in the documentation and/or other materials provided with the distribution.
+ * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
+   products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WAR-
+RANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, IN-
+DIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<launch>
+
+  <!-- robot_name needs to be a unique name for this robot -->
+  <arg name="robot_namespace" default="$(anon robot)"/>
+  <arg name="public_interface" default="$(find multimaster_launch)/config/empty.yaml"/>
+  <arg name="gazebo_interface" default="$(find multimaster_launch)/config/empty.yaml"/>
+  <arg name="simulation" default="$(optenv ROBOT_SIMULATION false)"/>
+
+  <param name="robot_namespace" value="$(arg robot_namespace)" />
+
+  <!-- Multimaster configuration for this robot. Sync all visible /public topics, as well as the /robot_namespace namespace from gazebo -->
+  <node pkg="master_discovery_fkie" type="master_discovery" name="master_discovery" respawn="true" respawn_delay="5" />
+  <node pkg="master_sync_fkie" type="master_sync" name="master_sync" respawn="true" respawn_delay="5">
+    <rosparam subst_value="true">
+      sync_topics:
+        - /public*
+        - /sim*
+      sync_services:
+        - /public*
+        - /sim*
+    </rosparam>
+  </node>
+
+  <!-- Public interface configuration for message_relay -->
+  <rosparam file="$(arg public_interface)" command="load"/>
+  <rosparam subst_value="true">
+    import_relay:
+      from: /public/$(arg robot_namespace)
+      tf_prefix: $(arg robot_namespace)
+      prefix_operation: remove
+      global_frames:
+        - map
+        - world
+
+    export_relay:
+      to: /public/$(arg robot_namespace)
+      tf_prefix: $(arg robot_namespace)
+      prefix_operation: add
+      global_frames:
+        - map
+        - world
+
+    tf2_relay:
+      to: /public
+      tf_prefix: $(arg robot_namespace)
+      prefix_operation: add
+
+      throttle_frequency: 10.0
+      global_frames:
+        - map
+        - world
+  </rosparam>
+
+  <node pkg="message_relay" type="message_relay_node" name="$(arg robot_namespace)_import_relay" respawn="true" respawn_delay="5" >
+    <param name="parameter_namespace" value="import_relay"/>
+  </node>
+
+  <node pkg="message_relay" type="message_relay_node" name="$(arg robot_namespace)_export_relay" respawn="true" respawn_delay="5" >
+    <param name="parameter_namespace" value="export_relay"/>
+  </node>
+
+  <!-- Republish TFs -->
+  <node pkg="tf2_relay" type="tf2_relay_node" name="$(arg robot_namespace)_tf_relay" respawn="true" respawn_delay="5" >
+    <param name="parameter_namespace" value="tf2_relay"/>
+  </node>
+
+  <group if="$(arg simulation)">
+    <!-- Use simulation clock -->
+    <param name="/use_sim_time" value="true" />
+
+    <!-- Gazebo interface configuration for message_relay -->
+    <rosparam file="$(arg gazebo_interface)" command="load"/>
+    <rosparam subst_value="true">
+      from_sim:
+        from: /sim/$(arg robot_namespace)
+
+      to_sim:
+        to: /sim/$(arg robot_namespace)
+
+      clock_relay:
+        from: sim
+        clock_relay_type: sink
+    </rosparam>
+
+    <node pkg="message_relay" type="message_relay_node" name="$(arg robot_namespace)_import_from_sim_relay" required="true" >
+      <param name="parameter_namespace" value="from_sim"/>
+    </node>
+
+    <node pkg="message_relay" type="message_relay_node" name="$(arg robot_namespace)_export_to_sim_relay" required="true" >
+      <param name="parameter_namespace" value="to_sim"/>
+    </node>
+
+    <!-- Republish simulator clock -->
+    <node pkg="clock_relay" type="clock_relay_node" name="$(arg robot_namespace)_clock_relay" required="true" >
+      <param name="parameter_namespace" value="clock_relay"/>
+    </node>
+
+  </group>
+
+</launch>

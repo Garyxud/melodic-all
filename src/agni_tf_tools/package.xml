@@ -1,0 +1,45 @@
+<package format="2">
+  <name>agni_tf_tools</name>
+  <version>0.1.5</version>
+  <description>
+  This package provides a gui program as well as a rviz plugin to publish static transforms.
+  Both support the transformation between various Euler angle representations.
+  The rviz plugin also allows to configure the transform with an interactive marker.
+  </description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag --> 
+  <maintainer email="rhaschke@techfak.uni-bielefeld.de">Robert Haschke</maintainer>
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>BSD</license>
+
+
+  <!-- Url tags are optional, but mutiple are allowed, one per tag -->
+  <!-- Optional attribute type can be: website, bugtracker, or repository -->
+  <url type="website">http://wiki.ros.org/agni_tf_tools</url>
+
+
+  <!-- Author tags are optional, mutiple are allowed, one per tag -->
+  <author email="rhaschke@techfak.uni-bielefeld.de">Robert Haschke</author>
+
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <!-- Dependencies can be catkin packages or system dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>qtbase5-dev</build_depend>
+  <build_depend>eigen</build_depend>
+
+  <depend>roscpp</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>rviz</depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+</package>

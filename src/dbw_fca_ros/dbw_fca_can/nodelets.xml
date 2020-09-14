@@ -1,0 +1,9 @@
+<library path="lib/libdbw_fca_can">
+  <class name="dbw_fca_can/DbwNodelet"
+         type="dbw_fca_can::DbwNodelet"
+         base_class_type="nodelet::Nodelet">
+    <description> 
+      Dataspeed Chrysler Pacifica drive-by-wire nodelet
+    </description>
+  </class>
+</library>

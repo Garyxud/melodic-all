@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="port" default="/dev/ttyUSB0" />
+  <!-- The default baud rate of the sensor is 115200. The suggestions is
+       to use a baud rate of 921600 because it can handle much more data,
+       specifically the Detailed Satellites packets. It's also 8x 115200,
+       which works for high speed ports that use a frequency multiplexer
+       to achieve higher baud rates. -->
+  <arg name="baud" default="115200" />
+  <arg name="debug" default="false" />
+  <arg name="filterVehicleType" default="2" /> <!-- 2 is for car, see table 13.10.5.1 in GEO FOG Reference Manual for options -->
+  <arg name="atmosphericAltitudeEnabled" default="true" />
+  <arg name="velocityHeadingEnabled" default="false" />
+  <arg name="reversingDetectionEnabled" default="true" />
+  <arg name="motionAnalysisEnabled" default="true" />
+
+  <node pkg="kvh_geo_fog_3d_driver" type="kvh_geo_fog_3d_driver_node" name="kvh_geo_fog_3d_driver_node" output="screen">
+    <param name="port" value="$(arg port)" />
+    <param name="baud" value="$(arg baud)" />
+    <param name="debug" value="$(arg debug)" />
+    <param name="filterVehicleType" value="$(arg filterVehicleType)" />
+    <param name="atmosphericAltitudeEnabled" value="$(arg atmosphericAltitudeEnabled)" />
+    <param name="velocityHeadingEnabled" value="$(arg velocityHeadingEnabled)" />
+    <param name="reversingDetectionEnabled" value="$(arg reversingDetectionEnabled)" />
+    <param name="motionAnalysisEnabled" value="$(arg motionAnalysisEnabled)" />
+  </node>
+</launch>

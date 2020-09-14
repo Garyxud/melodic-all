@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <name>grpc</name>
+  <version>0.0.10</version>
+  <description>Catkinized gRPC Package</description>
+  <maintainer email="shengye@ucsd.edu">Shengye Wang</maintainer>
+  <license>BSD</license>
+  <build_depend>autoconf</build_depend>
+  <build_depend>libtool</build_depend>
+  <build_depend>rsync</build_depend>
+  <build_depend>git</build_depend>
+  <build_depend>zlib</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

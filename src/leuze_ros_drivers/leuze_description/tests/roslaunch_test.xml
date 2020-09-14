@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="model" default="$(find leuze_description)/urdf/rsl400_scanner.urdf.xacro"/>
+  <arg name="gui" default="false" />
+  <arg name="rvizconfig" default="$(find leuze_description)/cfg/display.rviz" />
+
+  <include file="$(find leuze_description)/launch/view_rsl400.launch">
+    <arg name="model" value="$(arg model)"/>
+    <arg name="gui" default="$(arg gui)" />
+    <arg name="rvizconfig" default="$(arg rvizconfig)" />
+  </include>
+
+  
+
+</launch>

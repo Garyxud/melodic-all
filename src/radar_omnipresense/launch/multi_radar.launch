@@ -1,0 +1,11 @@
+<launch>
+
+   <group ns="radar_1">
+			 <node pkg = "radar_omnipresense" type= "radar_publisher" name= "radar_1_data_and_services"/>
+			        <param name="serialPort" value="/dev/ttyACM0"/>
+			 </group>
+	 <group ns="radar_2">
+			 <node pkg = "radar_omnipresense" type= "radar_publisher" name= "radar_2_data_and_services"/>
+			        <param name="serialPort" value="/dev/ttyACM1"/>
+			 </group>
+</launch>

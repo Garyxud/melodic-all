@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cis_camera</name>
+  <version>0.0.4</version>
+  <description>The cis_camera package</description>
+  
+  <maintainer email="dev@opensource-robotics.tokyo.jp">Tokyo Opensource Robotics Kyokai (TORK) Development Team</maintainer>
+  <author email="yamamoto.yosuke@opensource-robotics.tokyo.jp">Yosuke Yamamoto</author>
+  
+  <license>BSD</license>
+  
+  <url type="website">http://wiki.ros.org/cis_camera</url>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roscpp</build_depend>
+  <build_depend>camera_info_manager</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>libuvc</build_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>tf_conversions</build_depend>
+  <build_depend>roslint</build_depend>
+  
+  <build_export_depend>roscpp</build_export_depend>
+  
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rgbd_launch</exec_depend>
+  <exec_depend>camera_info_manager</exec_depend>
+  <exec_depend>dynamic_reconfigure</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>libuvc</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>jsk_rviz_plugins</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>tf_conversions</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>rqt_reconfigure</exec_depend>
+  
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+  
+  <export>
+    <nodelet plugin="${prefix}/cis_camera_nodelet.xml" />
+    <rosdoc config="rosdoc.yaml" />
+  </export>
+  
+</package>

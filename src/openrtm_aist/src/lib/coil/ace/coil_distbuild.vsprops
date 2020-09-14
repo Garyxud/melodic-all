@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="coil-dist-1.0"
+	>
+	<UserMacro
+		Name="coil_root"
+		Value="$(SolutionDir)"
+	/>
+	<UserMacro
+		Name="coil_depend_libd"
+		Value="ACEd.lib advapi32.lib ws2_32.lib mswsock.lib"
+	/>
+	<UserMacro
+		Name="coil_depend_lib"
+		Value="ACE.lib advapi32.lib ws2_32.lib mswsock.lib"
+	/>
+</VisualStudioPropertySheet>

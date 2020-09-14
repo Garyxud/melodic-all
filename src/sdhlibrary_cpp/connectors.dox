@@ -1,0 +1,211 @@
+//======================================================================
+/*!
+  \file
+
+  \section sdhlibrary_connectors_dox_general General project information
+    \author  Dirk Osswald
+    \date    2007-02-19
+
+  \section sdhlibrary_connectors_dox_purpose Purpose
+
+    This page discribes the connectors of the SDH / LWA
+
+
+  \par SDH
+
+  RS232 Communication connector cable of the SDH at the base of the LWA:
+
+  - 9pin Sub-D female connector (View from connecting side):
+    \code
+         5 4 3 2 1
+     ________________  
+     \               /
+      \  o o o o o  /
+       \  o o o o  / 
+        \_________/
+          9 8 7 6
+    \endcode
+
+    -  1 :       here: nc, (normally: Data Carrier Detect)
+    -  2 :   RxD of PC = TxD of SDH
+    -  3 :   TxD 0f PC = RxD of SDH
+    -  4 :       here: nc, (normally: Data Terminal Ready)
+    -  5 :   GND
+    -  6 :       here: nc, (normally: Data Set Ready)
+    -  7 :       here: nc, (normally: Request To Send)
+    -  8 :       here: nc, (normally: Clear To Send)
+    -  9 :       here: nc, (Ring Indicator)
+
+
+  - RS232 + Power Communication connector:
+
+    - 2x12pin FWS connector, view from connecting side of FWS part mounted on LWA:
+      only one half is used for the SDH
+    
+      \code 
+                 -----------                           
+                /    /-\    \                           
+              --_    |x|     --                           
+             / [_]   \-/       \                          
+          ---      -------      ---                    
+         /      --/  o o  \--      \                   
+        /     _/ o o     o o \_     \                  
+       /     / o             o \     \                 
+      /     /o                 o\     \                
+     /     /                     \     \             
+    /     / o                   o \     \             
+    | /-\ |                       | /-\ |                    
+    | |x| |                       | |x| |
+    | \-/ |                       | \-/ |
+    \     \ o 12              1 o /     /             
+     \     \                     /     /               
+      \     \o                 o/     /                
+       \     \_o   8     5   o_/     /                 
+        \      \_o o     o o_/      /                  
+         \        \  o o  /        /                   
+          ---      -------_     ---                  
+             \       /-\ [_]   /                        
+              --     |x|     --                           
+                \    \-/    /                             
+                 -----------                           
+      \endcode 
+
+      -  1 : Pwr       (RD)      24V supply for power and logic of SDH2
+      -  2 : TxD       (BN)      RS232 TxD of PC = RxD of SDH2
+      -  3 : RxD       (WH)      RS232 RxD of PC = TxD of SDH2
+      -  4 : TxD2      (RD)      RS232 TxD of PC = RxD of SDH2, second RS232 channel of SDH2
+      -  5 : RxD2      (PK)      RS232 RxD of PC = TxD of SDH2, second RS232 channel of SDH2
+      -  6 : CAN_H     (GN)      CAN High
+      -  7 : CAN_L     (YE)      CAN Low
+      -  8 : ENET TPI+           Ethernet
+      -  9 : ENET TPI-           Ethernet
+      - 10 : ENET TPO+           Ethernet
+      - 11 : ENET TPO-           Ethernet
+      - 12 : GND       (BK)      Ground 
+
+
+
+    - 2x12pin FWS connector view from connecting side of FWS part mounted on SDH:
+      only one half is used by the SDH
+  							       
+
+      \code 
+                 -----------                           
+                /    /-\    \                           
+              --     |x|    _--                           
+             /       \-/   [_] \                          
+          ---      -------      ---                    
+         /      --/  o o  \--      \                   
+        /     _/ o o     o o \_     \                  
+       /     / o             o \     \                 
+      /     /o                 o\     \                
+     /     /                     \     \             
+    /     / o                   o \     \             
+    | /-\ |                       | /-\ |                    
+    | |x| |                       | |x| |
+    | \-/ |                       | \-/ |
+    \     \ o 1              12 o /     /             
+     \     \                     /     /               
+      \     \o                 o/     /                
+       \     \_o   5     8   o_/     /                 
+        \      \_o o     o o_/      /                  
+         \        \  o o  /        /                   
+          ---     _-------      ---                  
+             \   [_] /-\       /                        
+              --     |x|     --                           
+                \    \-/    /                             
+                 -----------                           
+      \endcode 
+
+      -  1 : Pwr       (RD)      24V supply for power and logic of SDH2
+      -  2 : TxD       (BN)      RS232 TxD of PC = RxD of SDH2
+      -  3 : RxD       (WH)      RS232 RxD of PC = TxD of SDH2
+      -  4 : TxD2      (RD)      RS232 TxD of PC = RxD of SDH2, second RS232 channel of SDH2
+      -  5 : RxD2      (PK)      RS232 RxD of PC = TxD of SDH2, second RS232 channel of SDH2
+      -  6 : CAN_H     (GN)      CAN High
+      -  7 : CAN_L     (YE)      CAN Low
+      -  8 : ENET TPI+           Ethernet
+      -  9 : ENET TPI-           Ethernet
+      - 10 : ENET TPO+           Ethernet
+      - 11 : ENET TPO-           Ethernet
+      - 12 : GND       (BK)      Ground 
+
+
+  
+  \par LWA
+
+  Combined power / CAN connector of the LWA:
+
+
+  - Male connector (View from connecting side):
+    \code
+         A1   1 2   A2
+     _____________________  
+     \    _         _    /
+      \  / \  o o  / \  /
+       \ \_/ o o o \_/ /
+        \_____________/
+             3 4 5
+    \endcode
+
+    - A1 : +24V
+    - A2 :   0V                      (blue)
+    -  1 :   CAN-High (Profibus-A1)  (green)
+    -  2 :   RxD
+    -  3 :   CAN-Low  (profibus-B1)  (yellow)
+    -  4 :   Shield
+    -  5 :   TxD
+
+
+  \par ESD CAN-USB mini
+  
+  On the PC-side CAN interface cards are often connected as follows:
+
+  - 9pin Sub-D Male connector (View from connecting side):
+    \code
+         1 2 3 4 5
+     ________________  
+     \               /
+      \  o o o o o  /
+       \  o o o o  / 
+        \_________/
+          6 7 8 9
+    \endcode
+
+    -  1 :   reserved
+    -  2 :   CAN_L       (yellow)
+    -  3 :   CAN_GND     (blue)
+    -  4 :   reserved
+    -  5 :   Shield
+    -  6 :   (CAN_GND)
+    -  7 :   CAN_H       (green)
+    -  8 :   reserved
+    -  9 :   reserved
+
+
+
+
+  \section sdhlibrary_connectors_dox_copyright Copyright
+
+  Copyright (c) 2007 SCHUNK GmbH & Co. KG
+
+  <HR>
+  \internal
+    \subsection sdhlibrary_connectors_dox_details SVN related, detailed file specific information:
+      $LastChangedBy: Osswald2 $
+      $LastChangedDate: 2008-05-27 15:45:07 +0200 (Di, 27 Mai 2008) $
+      \par SVN file revision:
+      $Id: connectors.dox 3132 2008-05-27 13:45:07Z Osswald2 $
+
+  \subsection sdhlibrary_connectors_dox_changelog Changelog of this file:
+      \include connectors.dox.log
+*/
+//======================================================================
+
+//======================================================================
+/*
+  emacs settings:
+  Local Variables:
+  mode: c++
+*/
+//======================================================================

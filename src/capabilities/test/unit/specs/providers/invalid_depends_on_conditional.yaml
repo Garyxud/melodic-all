@@ -1,0 +1,12 @@
+%YAML 1.1
+---
+name: invalid_depends_on_conditional
+spec_version: 1
+spec_type: provider
+implements: a_package/Something
+depends_on:
+    'some_pkg/SomethingElse':
+        provider_typo: 'some_pkg/SomeProvider'
+remappings_typo:
+    dynamic_parameter:
+        'foo': 'bar'

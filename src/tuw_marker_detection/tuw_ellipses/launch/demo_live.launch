@@ -1,0 +1,17 @@
+<launch>
+
+   <!-- laod camera -->
+  <include file="$(find tuw_uvc)/launch/general.launch" />
+  
+   <!-- undistore image 
+  <group ns="camera" > 
+    <node pkg="image_proc" type="image_proc" name="image_proc" />
+  </group>
+   -->
+  <node pkg="tuw_ellipses" type="ellipses_node" name="ellipses" output="screen" >
+    <remap from="image" to="camera/image_mono"/>   		
+    <remap from="camera_info" to="camera/camera_info"/>   		
+  </node>
+
+</launch>
+

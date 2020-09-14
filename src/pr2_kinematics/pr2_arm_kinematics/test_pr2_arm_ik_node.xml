@@ -1,0 +1,14 @@
+<launch>
+    <!-- load empty world -->
+    <include file="$(find gazebo)/launch/empty_world.launch"/>
+
+    <!-- Bring up the node we want to test. -->
+    <include file="$(find pr2_gazebo)/pr2.launch"/>
+
+    <!-- load ik -->
+    <include file="$(find pr2_arm_ik)/launch/pr2_ik_rarm_node.launch"/>
+
+    <!-- test -->
+    <test test-name="pr2_ik_node_test"  pkg="pr2_arm_ik" type="pr2_ik_node_regression_test"  name="pr2_ik_node_regression_test" time-limit="180" >
+    </test>
+</launch>

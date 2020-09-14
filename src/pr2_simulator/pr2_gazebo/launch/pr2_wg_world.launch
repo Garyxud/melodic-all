@@ -1,0 +1,28 @@
+<launch>
+
+  <!-- start up empty world -->
+  <arg name="gui" default="true"/>
+  <arg name="paused" default="true"/>
+  <!-- TODO: throttled not implemented in gazebo_ros/empty_world.launch
+  <arg name="throttled" default="false"/>
+  -->
+
+  <arg name="KINECT1" default="$(optenv KINECT1 false)" />
+  <arg name="KINECT2" default="$(optenv KINECT2 false)" />
+
+  <include file="$(find gazebo_ros)/launch/willowgarage_world.launch">
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)" />
+    <!-- TODO: throttled not implemented in gazebo_ros/empty_world.launch
+    <arg name="throttled" value="$(arg throttled)" />
+    -->
+  </include>
+
+  <!-- start pr2 robot -->
+  <include file="$(find pr2_gazebo)/launch/pr2.launch">
+    <arg name="KINECT1" value="$(arg KINECT1)" />
+    <arg name="KINECT2" value="$(arg KINECT2)" />
+  </include>
+
+</launch>
+

@@ -1,0 +1,61 @@
+<package>
+  <name>pr2_gripper_sensor_action</name>
+  <version>1.0.11</version>
+  <description>The pr2_gripper_sensor_action package provides an action interface for talking to the pr2_gripper_sensor_controller real-time controller.
+
+  It provides several different actions for getting high-level sensor information from the PR2 palm-mounted accelerometers, fingertip pressure arrays, and gripper motor/encoder, as well as several sensor-based gripper control actions that respond with low-latency in real-time.</description>
+  <maintainer email="ros-orphaned-packages@googlegroups.com">ROS Orphaned Package Maintainers</maintainer>
+  <license>BSD</license>
+
+  <url type="website">None</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Joe Romano</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>roscpp</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>pr2_gripper_sensor_msgs</build_depend>
+  <build_depend>pr2_mechanism_controllers</build_depend>
+  <build_depend>robot_mechanism_controllers</build_depend>
+  <build_depend>pr2_controllers_msgs</build_depend>
+  <build_depend>pr2_mechanism_model</build_depend>
+  <build_depend>pr2_gripper_sensor_controller</build_depend>
+  <build_depend>pr2_machine</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <run_depend>message_runtime</run_depend>
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>roscpp</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>pr2_gripper_sensor_msgs</run_depend>
+  <run_depend>pr2_mechanism_controllers</run_depend>
+  <run_depend>robot_mechanism_controllers</run_depend>
+  <run_depend>pr2_controllers_msgs</run_depend>
+  <run_depend>pr2_mechanism_model</run_depend>
+  <run_depend>pr2_gripper_sensor_controller</run_depend>
+  <run_depend>pr2_machine</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>roscpp</test_depend> -->
+  <!-- <test_depend>actionlib_msgs</test_depend> -->
+  <!-- <test_depend>actionlib</test_depend> -->
+  <!-- <test_depend>pr2_gripper_sensor_msgs</test_depend> -->
+  <!-- <test_depend>pr2_mechanism_controllers</test_depend> -->
+  <!-- <test_depend>robot_mechanism_controllers</test_depend> -->
+  <!-- <test_depend>pr2_controllers_msgs</test_depend> -->
+  <!-- <test_depend>pr2_mechanism_model</test_depend> -->
+  <!-- <test_depend>pr2_gripper_sensor_controller</test_depend> -->
+  <!-- <test_depend>pr2_machine</test_depend> -->
+
+<export>
+    <cpp cflags="-I${prefix}/msg/cpp"/>
+</export>
+
+</package>
+

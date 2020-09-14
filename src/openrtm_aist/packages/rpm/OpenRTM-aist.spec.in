@@ -1,0 +1,154 @@
+#------------------------------------------------------------
+#
+# @file RPM spec file for OpenRTM-aist
+# @author Noriaki Ando <n-ando@aist.go.jp>
+#
+# $Id$
+#
+%define pkgname OpenRTM-aist
+
+%define builddir       %{_topdir}/BUILD/%{distname}
+%define pkgver         0
+%define _unpackaged_files_terminate_build   1
+%define __os_install_post %{nil}
+%define rtm_libdir     %{_libdir}/openrtm-%{shortversion}
+
+#------------------------------------------------------------
+# Package information
+Name:    OpenRTM-aist
+Version: %{version}
+Release: %{pkgver}.%{distname}
+Summary: OpenRTM-aist: RT-Component development environment
+Group:   Development/Libraries
+License: LGPL
+URL:     http://www.openrtm.org/
+Source0: %{pkgname}-%{version}-RELEASE.tar.gz
+Vendor:  AIST
+
+#------------------------------------------------------------
+# Build environment
+Prefix:        /usr
+Buildroot:     %{_tmppath}/%{pkgname}-%{version}-%{release}-root
+Requires:      omniORB
+Requires:      omniORB-servers
+BuildRequires: omniORB-devel
+BuildRequires: python
+
+%description
+OpenRTM-aist is a reference implementation of RTC (Robotic Technology 
+Component) specification which is OMG standard. OpenRTM-aist includes
+RT-Middleware runtime environment and RTC framework. The OMG standard
+defines a component model and certain important infrastructure services
+applicable to the domain of robotics software development.
+OpenRTM-aist is being developed and distributed by 
+Task Intelligence Research Group, Intelligent Systems Research Institute, 
+National Institute of Advanced Industrial Science and Technology (AIST), Japan. 
+Please see http://www.is.aist.go.jp/rt/OpenRTM-aist/html/ for more detail. 
+
+#------------------------------------------------------------
+# devel package
+%package devel
+Summary: Header files
+Group: Development/Libraries
+%description devel
+The header files and libraries needed for developing programs using
+OpenRTM-aist.
+
+#------------------------------------------------------------
+# doc package
+%package doc
+Summary: Documentation
+Group: Development/Libraries
+%description doc
+Developer documentation.
+
+#------------------------------------------------------------
+# example package
+%package example
+Summary: Example
+Group: Development/Libraries
+%description example
+Example components and sources
+
+#------------------------------------------------------------
+# prep section
+%prep
+%{__rm} -rf %{buildroot}
+%setup -n %{pkgname}-%{version} -q
+
+#------------------------------------------------------------
+# build section
+%build
+%configure
+%{__make}
+
+#------------------------------------------------------------
+# install section
+%install
+export DONT_STRIP=1
+%{__make} DESTDIR=%{buildroot} install
+
+#------------------------------------------------------------
+# clean section
+%clean
+%{__rm} -rf %{buildroot}
+
+#------------------------------------------------------------
+# files section
+%files
+/etc/rtc.conf.sample
+%defattr(-,root,root,-)
+%attr(755,root,root) %{_bindir}/rtm-naming
+%attr(755,root,root) %{_bindir}/rtcd
+%attr(755,root,root) %{_bindir}/rtcprof
+%attr(755,root,root) %{_bindir}/rtm-config
+%{_libdir}/libRTC*
+%{_libdir}/libcoil*
+%{_libdir}/librtm*
+%{rtm_libdir}/ec/*
+%{rtm_libdir}/sdo/*
+
+
+#------------------------------------------------------------
+# devel package file list
+%files devel
+%defattr(-,root,root,-)
+%attr(755,root,root) %{_bindir}/rtc-template
+%attr(755,root,root) %{_bindir}/rtm-skelwrapper
+%attr(755,root,root) %{_bindir}/coil-config
+%{rtm_includedir}/*
+%{coil_includedir}/*
+%{rtm_libdir}/py_helper/*
+%{_libdir}/pkgconfig/*
+%{rtm_libdir}/cmake/*
+
+
+#------------------------------------------------------------
+# doc package file list
+%files doc
+%defattr(-,root,root,-)
+%{rtm_datadir}/doc/*
+
+
+#------------------------------------------------------------
+# example package file list
+%files example
+%defattr(-,root,root,-)
+%attr(755,root,root) %{rtm_datadir}/example/*Comp*
+%{rtm_datadir}/example/*.conf
+%{rtm_datadir}/example/src/*
+%{rtm_datadir}/example/rtc/*
+%{rtm_datadir}/example/templates/*
+
+
+#------------------------------------------------------------
+# changelog section
+%changelog
+* Thu Jun 4 2011 Noriaki Ando <n-ando@aist.go.jp> - 1.1.0-0._distname
+- CMakefile has been added.
+
+* Thu May 7 2011 Noriaki Ando <n-ando@aist.go.jp> - 1.1.0-0._distname
+- The 1.1.0 release of OpenRTM-aist.
+
+* Thu Sep 27 2007 Noriaki Ando <n-ando@aist.go.jp> - 0.4.1-1._distname
+- The second public release version of OpenRTM-aist-0.4.1.

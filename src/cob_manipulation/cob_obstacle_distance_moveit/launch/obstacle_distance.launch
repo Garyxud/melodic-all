@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot" default="$(env ROBOT)"/>
+  <arg name="pkg_moveit_config" default="$(find cob_moveit_config)"/>
+  <arg name="config_path" default="$(arg pkg_moveit_config)/robots/$(arg robot)/moveit/config"/>
+
+  <arg name="use_sensors" default="false"/>
+  <arg name="node_name" value="obstacle_distance_moveit"/>
+
+  <!-- Load Sensor Input Information -->
+  <include ns="$(arg node_name)" file="$(find cob_moveit_bringup)/launch/sensor_manager.xml">
+    <arg name="config_path" value="$(arg config_path)"/>
+    <arg name="use_sensors" value="$(arg use_sensors)"/>
+  </include>
+
+  <node pkg="cob_obstacle_distance_moveit" type="obstacle_distance_node" name="$(arg node_name)" output="screen">
+    <!--remap from="/obstacle_distances" to="/obstacle_distances"/-->  <!--only needed for the cob4 specific configuration-->
+  </node>
+</launch>

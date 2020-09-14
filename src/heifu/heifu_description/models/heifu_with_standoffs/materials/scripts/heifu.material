@@ -1,0 +1,18 @@
+material heifu/Image
+{
+  technique
+  {
+    pass
+    {
+      
+      diffuse 1.0 1.0 1.0 1.0
+      
+
+      texture_unit
+      {
+        texture heifu.png
+        filtering trilinear
+      }
+    }
+  }
+}

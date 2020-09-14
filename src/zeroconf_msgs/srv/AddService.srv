@@ -1,0 +1,3 @@
+zeroconf_msgs/PublishedService service
+---
+bool result

@@ -1,0 +1,110 @@
+=====
+rtcon
+=====
+
+----------------
+ポートを接続する
+----------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtcon [options] <path 1> <path 2> [<path 3> ...]
+
+概要
+====
+
+二つ以上のデータポートやサービスポートを接続します。
+
+データポートの場合に有効なプロパティは::
+
+  - dataport.data_type　(ポートのデータ型）
+  - dataport.dataflow_type　（データの流れ方法）
+  - dataport.interface_type　（ポートのプロトコル）
+  - dateport.serializer.cdr.endian
+
+サービスポートの場合に有効なプロパティは::
+
+  - port.port_type
+
+データポートの場合、以下のプロパティも使えます。プロパティの間に依存が
+ありますので、プロパティによって他のプロパティは影響がない時もあります。
+
+========================================= ============================ ====
+プロパティ                                値                           依存
+========================================= ============================ ====
+dataport.inport.buffer.length             <integer>
+dataport.inport.buffer.read.timeout       <float> in seconds
+dataport.inport.buffer.read.empty_policy  readback, do_nothing, block
+dataport.inport.buffer.write.timeout      <float> in seconds
+dataport.inport.buffer.write.full_policy  overwrite, do_nothing, block
+dataport.outport.buffer.length            <integer>
+dataport.outport.buffer.read.timeout      <float> in seconds
+dataport.outport.buffer.read.empty_policy readback, do_nothing, block
+dataport.outport.buffer.write.timeout     <float> in seconds
+dataport.outport.buffer.write.full_policy overwrite, do_nothing, block
+dataport.subscription_type                flush, new, periodic         dataport.dataflow_typeがpush
+dataport.publisher.push_policy            all, fifo, skip, new         dataport.subscription_typeがflushではない
+dataport.push_rate                        <float> in Hz                dataport.subscription_typeがperiodic
+dataport.publisher.skip_count             <integer>                    dataport.publisher.push_policyがskip
+========================================= ============================ ====
+
+OpenRTMのバージョンによっては、ほかのプロパティも有効な場合があります。
+
+オプション
+==========
+
+-i ID, --id=ID
+  コネクションのID
+
+-n NAME, --name=NAME
+  コネクションの名
+
+-p PROPERTIES, --property=PROPERTIES
+  コネクションのプロパティ
+
+.. include:: ../../common/ja/common_opts.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtcon /localhost/ConsoleIn0.rtc:out /localhost/ConsoleOut0.rtc:in
+
+デフォルトプロパティを使って ``ConsoleIn0.rtc`` の ``out`` ポートを
+``ConsoleOut0.rtc`` の ``in`` ポートに接続します。
+
+::
+
+  $ rtcon Motor0.rtc:out Sensor0.rtc:in --property
+    dataport.dataflow_type=pull
+
+``Pull`` 型のコネクションによって ``Motor0.rtc`` の ``out`` ポートを
+``Sensor0.rtc`` の ``in`` ポートに接続します。
+
+::
+
+  $ rtcon Motor0.rtc:out Sensor0.rtc:in -i con1 -n motor_data
+
+``Motor0.rtc`` の ``out`` ポートを ``Sensor0.rtc`` の ``in`` ポートに接続しま
+す。コネクション名は ``motor_data`` でIDは ``con1`` になります。
+
+::
+
+  $ rtcon ConsoleIn0.rtc:out ConsoleOut0.rtc:in ConsoleOut1.rtc:in
+
+デフォルトプロパティを使って ``ConsoleIn0.rtc`` の ``out`` ポートを
+``ConsoleOut0.rtc`` の ``in`` ポートと ``ConsoleOut1.rtc`` の ``in``
+ポートに接続します。
+
+参照
+====
+
+  ``rtcat`` (1),
+  ``rtdis`` (1)
+

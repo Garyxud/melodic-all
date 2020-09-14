@@ -1,0 +1,17 @@
+<launch>
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="dev" value="/dev/input/js0" />
+    <param name="autorepeat_rate" value="20" />
+  </node>
+
+  <node pkg="ezgripper_driver" type="ezgripper.py" name="ezgripper" output="screen">
+    <param name="~port" value="/dev/ttyUSB0"/>
+    <param name="~baud" value="57600"/>
+    <rosparam param="grippers">{main:[1]}</rosparam>
+  </node>
+
+  <group ns="generic_hand">
+    <rosparam command="load" file="$(find fsrobo_r_driver)/config/generic_hand.yaml"/>
+    <!--node pkg="fsrobo_r_driver" type="io_gripper_action.py" name="io_gripper_action" output="screen"/-->
+  </group>
+</launch>

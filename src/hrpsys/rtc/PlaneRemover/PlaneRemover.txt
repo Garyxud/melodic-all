@@ -1,0 +1,54 @@
+/**
+
+\page PlaneRemover
+
+\section introduction Overview
+
+This component removes planes from a point cloud.
+
+<table>
+<tr><th>implementation_id</th><td>PlaneRemover</td></tr>
+<tr><th>category</th><td>example</td></tr>
+</table>
+
+\section dataports Data Ports
+
+\subsection inports Input Ports
+
+<table>
+<tr><th>port name</th><th>data type</th><th>unit</th><th>description</th></tr>
+<tr><td>original</td><td>PointCloudTypes::PointCloud</td><td></td><td></td></tr>
+</table>
+
+\subsection outports Output Ports
+
+<table>
+<tr><th>port name</th><th>data type</th><th>unit</th><th>description</th></tr>
+<tr><td>filtered</td><td>PointCloudTypes::PointCloud</td><td></td><td></td></tr>
+</table>
+
+\section serviceports Service Ports
+
+\subsection provider Service Providers
+
+<table>
+<tr><th>port name</th><th>interface name</th><th>service type</th><th>IDL</th><th>description</th></tr>
+</table>
+
+\subsection consumer Service Consumers
+
+N/A
+
+\section configuration Configuration Variables
+
+<table>
+<tr><th>name</th><th>type</th><th>unit</th><th>default value</th><th>description</th></tr>
+<tr><td>distanceThd</td><td>double</td><td>[m]</td><td>0.02</td><td>distance to find planes</td></tr>
+<tr><td>pointNumThd</td><td>int</td><td>[point]</td><td>500</td><td>the minimum number of points to define planes</td></tr>
+</table>
+
+\section conf Configuration File
+
+N/A
+
+ */

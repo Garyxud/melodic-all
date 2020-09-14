@@ -1,0 +1,923 @@
+// -*- IDL -*-
+/*!
+ * @file InterfaceDataTypes.idl
+ * @brief Interface-specific data types for robot device interfaces.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef InterfaceDataTypes_idl
+#define InterfaceDataTypes_idl
+
+#include "BasicDataType.idl"
+#include "ExtendedDataTypes.idl"
+
+module RTC {
+    //------------------------------------------------------------
+    // ActArray
+    //------------------------------------------------------------
+
+    /*!
+     * @struct ActArrayActuatorPos
+     * @brief Stores the position of a single actuator.
+     */
+    struct ActArrayActuatorPos
+    {
+        /// Time stamp.
+        Time tm;
+        /// Zero-based index of the actuator.
+        unsigned short index;
+        /// Position of the actuator in metres or radians.
+        double position;
+    };
+
+    /*!
+     * @struct ActArrayActuatorSpeed
+     * @brief Stores the speed of a single actuator.
+     */
+    struct ActArrayActuatorSpeed
+    {
+        /// Time stamp.
+        Time tm;
+        /// Zero-based index of the actuator.
+        unsigned short index;
+        /// Speed of the actuator in metres per second or radians per second.
+        double speed;
+    };
+
+    /*!
+     * @struct ActArrayActuatorCurrent
+     * @brief Stores the current draw of a single actuator.
+     */
+    struct ActArrayActuatorCurrent
+    {
+        /// Time stamp.
+        Time tm;
+        /// Zero-based index of the actuator.
+        unsigned short index;
+        /// Current of the actuator in amps.
+        double current;
+    };
+
+    /*!
+     * @enum ActArrayActuatorStatus
+     * @brief Describes the status of an actuator.
+     */
+    enum ActArrayActuatorStatus {ACTUATOR_STATUS_IDLE,
+                                 ACTUATOR_STATUS_MOVING,
+                                 ACTUATOR_STATUS_BRAKED,
+                                 ACTUATOR_STATUS_STALLED};
+
+    /*!
+     * @struct Actuator
+     * @brief State information of a single actuator.
+     */
+    struct Actuator
+    {
+        /// Current position of the actuator, in metres (for linear actuators) or radians (for
+        /// rotary actuators).
+        double position;
+        /// Current speed of the actuator, in metres per second or radians per second.
+        double speed;
+        /// Current acceleration of the actuator, in metres per second or radians per second.
+        double accel;
+        /// Current draw of the actuator, in amps.
+        double current;
+        /// Status of the actuator.
+        ActArrayActuatorStatus status;
+    };
+
+    /*!
+     * @typedef ActuatorList
+     * @brief List of Actuator elements.
+     */
+    typedef sequence<Actuator> ActuatorList;
+    /*!
+     * @struct ActArrayState
+     * @brief State of all actuators in an array.
+     */
+    struct ActArrayState
+    {
+        /// Time stamp.
+        Time tm;
+        /// Sequence of actuator states, one for each actuator.
+        ActuatorList actuators;
+    };
+
+    /*!
+     * @enum ActArrayActuatorType
+     * @brief Describes the type of an actuator.
+     */
+    enum ActArrayActuatorType {ACTARRAY_ACTUATORTYPE_LINEAR,
+                               ACTARRAY_ACTUATORTYPE_ROTARY};
+
+    /*!
+     * @struct ActArrayActuatorGeometry
+     * @brief Describes the geometry of an individual actuator.
+     */
+    struct ActArrayActuatorGeometry
+    {
+        /// Type of the actuator.
+        ActArrayActuatorType type;
+        /// Lenght of the actuator's link to the next actuator. For linear actuators, this is the
+        /// length when at 0 position.
+        double length;
+        /// Orientation of the actuator when it is in its rest position. When combined with the
+        /// length of the actuator's link, this will give the position in space of the next actuator
+        /// in the array in the coordinate space of this actuator (i.e. it is the direction to the
+        /// next actuator).
+        Orientation3D orientation;
+        /// The axis of rotation for this actuator if it is rotary, or axis along which it moves if it is linear.
+        Vector3D axis;
+        /// Minimum range of motion of the actuator, in metres or radians.
+        double minRange;
+        /// Centre point of the actuator's range of motion, in metres or radians.
+        double centre;
+        /// Maximum range of motion of the actuator, in metres or radians.
+        double maxRange;
+        /// Home position of the actuator, in metres or radians.
+        double homePosition;
+        /// True if the actuator has brakes.
+        boolean hasBrakes;
+    };
+
+    /*!
+     * @typedef ActArrayActuatorGeometryList
+     * @brief List of ActArrayActuatorGeometry elements.
+     */
+    typedef sequence<ActArrayActuatorGeometry> ActArrayActuatorGeometryList;
+
+    /*!
+     * @struct ActArrayGeometry
+     * @brief Geometry of an actuator array.
+     */
+    struct ActArrayGeometry
+    {
+        /// Geometry of the overall array.
+        Geometry3D arrayGeometry;
+        /// Geometry of the individual actuators.
+        ActArrayActuatorGeometryList actuatorGeometry;
+    };
+
+    //------------------------------------------------------------
+    // Bumper
+    //------------------------------------------------------------
+
+    /*!
+     * @struct BumperGeometry
+     * @brief Geometry of a single bumper.
+     */
+    struct BumperGeometry
+    {
+        /// Pose of the bumper's base point in the array's coordinate space.
+        Pose3D pose;
+        /// Size of the bumper.
+        Size3D size;
+        /// Radius of curvature of the bump sensor in metres. Zero if the bumper is a straight line.
+        double roc;
+    };
+
+    /*!
+     * @typedef BumperGeometryList
+     */
+    typedef sequence<BumperGeometry> BumperGeometryList;
+
+    /*!
+     * @struct BumperArrayGeometry
+     * @brief Geometry of an array of bump sensors.
+     */
+    struct BumperArrayGeometry
+    {
+        /// Geometry of the entire array.
+        Geometry3D arrayGeometry;
+        /// Geometry of each individual bumper.
+        BumperGeometryList bumperGeometry;
+    };
+
+    //------------------------------------------------------------
+    // Camera
+    //------------------------------------------------------------
+
+    /*!
+     * @struct CameraImage
+     * @brief Stores an image from a camera or camera-like device.
+     */
+    struct CameraImage
+    {
+        /// Time stamp.
+        Time tm;
+        /// Image pixel width.
+        unsigned short width;
+        /// Image pixel height.
+        unsigned short height;
+        /// Bits per pixel.
+        unsigned short bpp;
+        /// Image format (e.g. bitmap, jpeg, etc.).
+        string format;
+        /// Scale factor for images, such as disparity maps, where the integer pixel value should be divided by this factor to get the real pixel value.
+        double fDiv;
+        /// Raw pixel data.
+        sequence<octet> pixels;
+    };
+
+    /*!
+     * @struct CameraInfo
+     * @brief Information about an image-producing device.
+     */
+    struct CameraInfo
+    {
+        /// Focal length (x, y) in metres.
+        Vector2D focalLength;
+        /// Principal point of the camera.
+        Point2D principalPoint;
+        /// Radial distortion coefficient 1.
+        double k1;
+        /// Radial distortion coefficient 2.
+        double k2;
+        /// Tangential distortion coefficient 1.
+        double p1;
+        /// Tangential distortion coefficient 2.
+        double p2;
+    };
+
+    //------------------------------------------------------------
+    // Fiducial
+    //------------------------------------------------------------
+
+    /*!
+     * @struct FiducialInfo
+     * @brief Information about a single fiducial.
+     */
+    struct FiducialInfo
+    {
+        /// Identification number.
+        unsigned long id;
+        /// Detected pose.
+        Pose3D pose;
+        /// Uncertainty in the pose.
+        Pose3D poseUncertainty;
+        /// Detected size.
+        Size3D size;
+        /// Uncertainty in the size.
+        Size3D sizeUncertainty;
+    };
+
+    /*!
+     * @typedef FiducialInfoList
+     */
+    typedef sequence<FiducialInfo> FiducialInfoList;
+
+    /*!
+     * @struct Fiducials
+     * @brief Time-stamped list of detected fiducials.
+     */
+    struct Fiducials
+    {
+        /// Time stamp.
+        Time tm;
+        /// List of detected fiducials.
+        FiducialInfoList fiducialsList;
+    };
+
+    /*!
+     * @struct FiducialFOV
+     * @brief Field of view of a fiducial tracker.
+     */
+    struct FiducialFOV
+    {
+        /// Minimum range in metres at which fiducials can be detected.
+        double minRange;
+        /// Maximum range in metres at which fiducials can be detected.
+        double maxRange;
+        /// Receptive angle in radians of the sensor (centred about the forward direction).
+        double viewAngle;
+    };
+
+    //------------------------------------------------------------
+    // GPS
+    //------------------------------------------------------------
+
+    /*!
+     * @struct GPSTime
+     * @brief Time since epoch as reported by a GPS device.
+     */
+    struct GPSTime
+    {
+        /// Seconds value.
+        unsigned long sec;
+        /// Microseconds value.
+        unsigned long msec;
+    };
+
+    /*!
+     * @enum GPSFixType
+     */
+    enum GPSFixType {GPS_FIX_NONE,
+                     GPS_FIX_NORMAL,
+                     GPS_FIX_DGPS};
+
+    /*!
+     * @struct GPSData
+     * @brief Data as returned by a common GPS device.
+     */
+    struct GPSData
+    {
+        /// Time stamp.
+        Time tm;
+        /// GPS time, according to the device.
+        GPSTime timeFromGPS;
+        /// Latitude in degrees.
+        double latitude;
+        /// Longitude in degrees.
+        double longitude;
+        /// Altitude above the ellisoid in metres.
+        double altitude;
+        /// One standard deviation in the horizontal position error, in metres.
+        double horizontalError;
+        /// One standard deviation in the vertical position error, in metres.
+        double verticalError;
+        /// Estimated heading from true north in radians.
+        double heading;
+        /// Estimated horizontal speed in metres per second.
+        double horizontalSpeed;
+        /// Estimated vertical speed in metres per second.
+        double verticalSpeed;
+        /// Number of satellites in view.
+        unsigned short numSatellites;
+        /// The type of position fix this is.
+        GPSFixType fixType;
+    };
+
+    //------------------------------------------------------------
+    // Gripper
+    //------------------------------------------------------------
+
+    /*!
+     * @enum GripperStatus
+     * @brief Describes the status of a gripper.
+     */
+    enum GripperStatus {GRIPPER_STATE_OPEN,
+                        GRIPPER_STATE_CLOSED,
+                        GRIPPER_STATE_MOVING,
+                        GRIPPER_STATE_UNKNOWN};
+
+    /*!
+     * @struct GripperState
+     * @brief State of a gripper.
+     */
+    struct GripperState
+    {
+        /// Time stamp.
+        Time tm;
+        /// Status of the gripper.
+        GripperStatus status;
+    };
+
+    /*!
+     * @struct GripperGeometry
+     * @brief Geometry of a gripper, including both the outside and inside sizes.
+     */
+    struct GripperGeometry
+    {
+        /// Geometry of the exterior of the gripper when open, in parent coordinate space.
+        Geometry3D exterior;
+        /// Geometry of the interior of the gripper when open, in gripper coordinate space.
+        Geometry3D interior;
+    };
+
+    //------------------------------------------------------------
+    // INS
+    //------------------------------------------------------------
+
+    /*!
+     * @struct INSData
+     * @brief Data returned by an inertial navigation system.
+     */
+    struct INSData
+    {
+        /// Time stamp.
+        Time tm;
+        /// Latitude in degrees.
+        double latitude;
+        /// Longitude in degrees.
+        double longitude;
+        /// Altitude in metres.
+        double altitude;
+        /// Height above mean sea level in metres.
+        double heightAMSL;
+        /// Velocity east/north/up.
+        Velocity3D velocityENU;
+        /// Orientation, where east is 0.
+        Orientation3D orientation;
+    };
+
+    //------------------------------------------------------------
+    // Limb
+    //------------------------------------------------------------
+
+    /*!
+     * @enum LimbStatus
+     */
+    enum LimbStatus {LIMB_STATUS_IDLE,
+                     LIMB_STATUS_BRAKED,
+                     LIMB_STATUS_MOVING,
+                     LIMB_STATUS_OOR,
+                     LIMB_STATUS_COLLISION};
+
+    /*!
+     * @struct LimbState
+     * @brief Time-stamped state of a limb.
+     */
+    struct LimbState
+    {
+        /// Time stamp.
+        Time tm;
+        /// Orientation, approach and position of the end-effector.
+        OAP oapMatrix;
+        /// Current status of the limb.
+        LimbStatus status;
+    };
+
+    //------------------------------------------------------------
+    // Localise
+    //------------------------------------------------------------
+
+    /*!
+     * @struct Hypothesis2D
+     * @brief A pose hypothesis in 2D space.
+     */
+    struct Hypothesis2D
+    {
+        /// Mean of the localisation hypothesis.
+        Pose2D mean;
+        /// Covariance matrix of the mean pose.
+        Covariance2D covariance;
+        /// Weight of this hypothesis for mixing.
+        double weight;
+    };
+
+    /*!
+     * @typedef Hypothesis2DList
+     */
+    typedef sequence<Hypothesis2D> Hypothesis2DList;
+
+    /*!
+     * @struct Hypotheses2D
+     * @brief Time-stamped list of localisation hypotheses in 2D space.
+     */
+    struct Hypotheses2D
+    {
+        /// Time stamp.
+        Time tm;
+        /// List of hypotheses.
+        Hypothesis2DList hypotheses;
+    };
+
+    /*!
+     * @struct Hypothesis3D
+     * @brief A pose hypothesis in 3D space.
+     */
+    struct Hypothesis3D
+    {
+        /// Mean of the localisation hypothesis.
+        Pose3D mean;
+        /// Covariance matrix of the mean pose.
+        Covariance3D covariance;
+        /// Weight of this hypothesis for mixing.
+        double weight;
+    };
+
+    /*!
+     * @typedef Hypothesis3DList
+     */
+    typedef sequence<Hypothesis3D> Hypothesis3DList;
+
+    /*!
+     * @struct Hypotheses3D
+     * @brief Time-stamped list of localisation hypotheses in 3D space.
+     */
+    struct Hypotheses3D
+    {
+        /// Time stamp.
+        Time tm;
+        /// List of hypotheses.
+        Hypothesis3DList hypotheses;
+    };
+
+    //------------------------------------------------------------
+    // Map
+    //------------------------------------------------------------
+
+    /*!
+     * @struct OGMapConfig
+     * @brief Configuration of a occupancy-grip map.
+     */
+    struct OGMapConfig
+    {
+        /// Scale on the x axis (metres per cell).
+        double xScale;
+        /// Scale on the y axis (metres per cell).
+        double yScale;
+        /// Number of cells along the x axis.
+        unsigned long width;
+        /// Number of cells along the y axis.
+        unsigned long height;
+        /// Pose of the cell at (0, 0) in the real world.
+        Pose2D origin;
+    };
+
+    /*!
+     * @typedef OGMapCells
+     */
+    typedef sequence<octet> OGMapCells;
+
+    /*!
+     * @struct OGMapTile
+     * @brief A tile from an occupancy-grid map.
+     */
+    struct OGMapTile
+    {
+        /// X coordinate of the (0, 0) cell of this tile in the whole map.
+        unsigned long column;
+        /// Y coordinate of the (0, 0) cell of this tile in the whole map.
+        unsigned long row;
+        /// Number of cells along the x axis in this tile;
+        unsigned long width;
+        /// Number of cells along the y axis in this tile;
+        unsigned long height;
+        /// Tile cells in (row, column) order.
+        OGMapCells cells;
+    };
+
+    /*!
+     * @struct PointFeature
+     * @brief A size-less point feature.
+     */
+    struct PointFeature
+    {
+        /// Probability of the feature.
+        double probability;
+        /// Position of the feature.
+        Point2D position;
+        /// Covariance matrix of the position.
+        PointCovariance2D covariance;
+    };
+    /*!
+     * @typedef PointFeatureList
+     */
+    typedef sequence<PointFeature> PointFeatureList;
+
+    /*!
+     * @struct PoseFeature
+     * @brief A size-less point feature with orientation.
+     */
+    struct PoseFeature
+    {
+        /// Probability of the feature.
+        double probability;
+        /// Pose of the feature.
+        Pose2D position;
+        /// Covariance matrix of the pose.
+        Covariance2D covariance;
+    };
+    /*!
+     * @typedef PoseFeatureList
+     */
+    typedef sequence<PoseFeature> PoseFeatureList;
+
+    /*!
+     * @struct LineFeature
+     * @brief A line feature.
+     */
+    struct LineFeature
+    {
+        /// Probability of the feature.
+        double probability;
+        /// Length of the line vector in metres.
+        double rho;
+        /// Angle of the line vector from the x axis in radians.
+        double alpha;
+        /// Covariance matrix of rho and alpha.
+        PointCovariance2D covariance;
+        /// Start point of the line segment.
+        Point2D start;
+        /// End point of the line segment.
+        Point2D end;
+        /// True if the start point of the line has been sighted (i.e. it is inside seen space).
+        boolean startSighted;
+        /// True if the end point of the line has been sighted (i.e. it is inside seen space).
+        boolean endSighted;
+    };
+    /*!
+     * @typedef LineFeatureList
+     */
+    typedef sequence<LineFeature> LineFeatureList;
+
+    /*!
+     * @struct Features
+     * Set of features in a map.
+     */
+    struct Features
+    {
+        /// Time stamp.
+        Time tm;
+        /// Point features.
+        PointFeatureList pointFeatures;
+        /// Pose features.
+        PoseFeatureList poseFeatures;
+        /// Line features.
+        LineFeatureList lineFeatures;
+    };
+
+    //------------------------------------------------------------
+    // Multicamera
+    //------------------------------------------------------------
+
+    /*!
+     * @typedef MulticameraImageList
+     */
+    typedef sequence<CameraImage> MulticameraImageList;
+    /*!
+     * @struct MulticameraImages
+     * @brief Images from a set of cameras.
+     */
+    struct MultiCameraImages
+    {
+        /// Time stamp.
+        Time tm;
+        /// Image list.
+        MulticameraImageList images;
+    };
+
+    /*!
+     * @typedef MulticameraInfoList
+     */
+    typedef sequence<CameraInfo> MulticameraInfoList;
+
+    /*!
+     * @typedef MulticameraGeometryList
+     */
+    typedef sequence<Geometry3D> MulticameraGeometryList;
+
+    /*!
+     * @struct MulticameraGeometry
+     * @brief Geometry of a multi-camera system, such as a stereo camera.
+     */
+    struct MulticameraGeometry
+    {
+        /// Overall geometry of the camera system.
+        Geometry3D geometry;
+        /// Geometry of each camera.
+        MulticameraGeometryList cameraGeometries;
+    };
+
+    //------------------------------------------------------------
+    // Paths
+    //------------------------------------------------------------
+
+    /*!
+     * @struct Waypoint2D
+     * @brief A waypoint in 2D space, including constraints.
+     */
+    struct Waypoint2D
+    {
+        /// Location of the waypoint.
+        Pose2D target;
+        /// How far away from the waypoint is considered success (radius in metres).
+        double distanceTolerance;
+        /// How much off the target heading is considered success (in radians).
+        double headingTolerance;
+        /// Target time to arrive at the waypoint by.
+        Time timeLimit;
+        /// Maximum sped to travel at while heading to the waypoint.
+        Pose2D maxSpeed;
+    };
+
+    /*!
+     * @typedef Waypoint2DList
+     */
+    typedef sequence<Waypoint2D> Waypoint2DList;
+
+    /*!
+     * @struct Path2D
+     * @brief A time-stamped path in 2D space.
+     */
+    struct Path2D
+    {
+        /// Time stamp.
+        Time tm;
+        /// The sequence of waypoints that make up the path.
+        Waypoint2DList waypoints;
+    };
+
+    /*!
+     * @struct Waypoint3D
+     * @brief A waypoint in 3D space, including constraints.
+     */
+    struct Waypoint3D
+    {
+        /// Location of the waypoint.
+        Pose3D target;
+        /// How far away from the waypoint is considered success (radius in metres).
+        double distanceTolerance;
+        /// How much off the target heading is considered success (in radians).
+        double headingTolerance;
+        /// Target time to arrive at the waypoint by.
+        Time timeLimit;
+        /// Maximum sped to travel at while heading to the waypoint.
+        Pose3D maxSpeed;
+    };
+
+    /*!
+     * @typedef Waypoint3DList
+     */
+    typedef sequence<Waypoint3D> Waypoint3DList;
+
+    /*!
+     * @struct Path3D
+     * @brief A time-stamped path in 3D space.
+     */
+    struct Path3D
+    {
+        /// Time stamp.
+        Time tm;
+        /// The sequence of waypoints that make up the path.
+        Waypoint3DList waypoints;
+    };
+
+    //------------------------------------------------------------
+    // PointCloud
+    //------------------------------------------------------------
+
+    /*!
+     * @struct PointCloudPoint
+     * @brief A point in a point cloud.
+     */
+    struct PointCloudPoint
+    {
+        /// The position of the point.
+        Point3D point;
+        /// The colour of the point, if any.
+        RGBColour colour;
+    };
+
+    /*!
+     * @typedef PointCloudPointList
+     */
+    typedef sequence<PointCloudPoint> PointCloudPointList;
+
+    /*!
+     * @struct PointCloud
+     * @brief A cloud of points in 3D space.
+     */
+    struct PointCloud
+    {
+        /// Time stamp.
+        Time tm;
+        /// The points in the cloud.
+        PointCloudPointList points;
+    };
+
+    //------------------------------------------------------------
+    // PanTilt
+    //------------------------------------------------------------
+
+    /*!
+     * @struct PanTiltAngles
+     * @brief Pan and tilt values of a pan-tilt unit.
+     */
+    struct PanTiltAngles
+    {
+        /// Time stamp.
+        Time tm;
+        /// Pan value in radians.
+        double pan;
+        /// Tilt value in radians.
+        double tilt;
+    };
+
+    /*!
+     * @struct PanTiltState
+     * @brief Status of a pan-tilt unit.
+     */
+    struct PanTiltState
+    {
+        /// Time stamp.
+        Time tm;
+        /// Pan and tilt angles.
+        PanTiltAngles angles;
+        /// Speed at which the pan-tilt unit is changing its pan angle in radians per second.
+        double panSpeed;
+        /// Speed at which the pan-tilt unit is changing its tilt angle in radians per second.
+        double tiltSpeed;
+    };
+
+    //------------------------------------------------------------
+    // Ranger
+    //------------------------------------------------------------
+
+    /*!
+     * @typedef ElementGeometryList
+     */
+    typedef sequence<Geometry3D> ElementGeometryList;
+
+    /*!
+     * @struct RangerGeometry
+     * @brief Geometry of a ranger device. A range sensor may be a single device returning multiple
+     * ranges (such as a laser scanner), or an array of sensing elements each returning a single
+     * range value (such as an array of sonar sensors). If there is only one sensing element in the
+     * device, the device should be considered a laser scanner type. If there are multiple
+     * elements, the device should be considered an array of single-range-value sensors.
+     */
+    struct RangerGeometry
+    {
+        /// Overall geometry of the ranger device, such as the centroid of an array of sonar sensors.
+        Geometry3D geometry;
+        /// Geometry of each individual sensing element. The range values should be considered
+        /// measured from each of these.
+        ElementGeometryList elementGeometries;
+    };
+
+    /*!
+     * @struct RangerConfig
+     * @brief The configuration of a ranger device.
+     */
+    struct RangerConfig
+    {
+        /// Minimum scannable angle in radians.
+        double minAngle;
+        /// Maximum scannable angle in radians.
+        double maxAngle;
+        /// Angular resolution in radians.
+        double angularRes;
+        /// Minimum scannable range in metres.
+        double minRange;
+        /// Maximum scannable range in metres.
+        double maxRange;
+        /// Range resolution in metres.
+        double rangeRes;
+        /// Scanning frequency in Hertz.
+        double frequency;
+    };
+
+    /*!
+     * @typedef RangeList
+     */
+    typedef sequence<double> RangeList;
+
+    /*!
+     * @struct RangeData
+     * @brief Range readings from a range sensor.
+     */
+    struct RangeData
+    {
+        /// Time stamp.
+        Time tm;
+        /// Range values in metres.
+        RangeList ranges;
+        /// Geometry of the ranger at the time the scan data was measured.
+        RangerGeometry geometry;
+        /// Configuration of the ranger at the time the scan data was measured.
+        RangerConfig config;
+    };
+
+    /*!
+     * @typedef IntensityList
+     */
+    typedef sequence<double> IntensityList;
+
+    /*!
+     * @struct IntensityData
+     * @brief Intensity readings from a range sensor.
+     */
+    struct IntensityData
+    {
+        /// Time stamp.
+        Time tm;
+        /// Intensity values normalised to between 0 and 1.
+        IntensityList ranges;
+        /// Geometry of the ranger at the time the scan data was measured.
+        RangerGeometry geometry;
+        /// Configuration of the ranger at the time the scan data was measured.
+        RangerConfig config;
+    };
+
+    //------------------------------------------------------------
+    // RFID
+    //------------------------------------------------------------
+
+    /*!
+     * @typedef RFIDTagData
+     */
+    typedef sequence<octet> RFIDTagData;
+};
+
+#endif // InterfaceDataTypes_idl

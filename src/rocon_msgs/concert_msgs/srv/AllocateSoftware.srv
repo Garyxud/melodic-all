@@ -1,0 +1,9 @@
+string user 
+string software
+bool allocate
+rocon_std_msgs/KeyValue[] parameters
+---
+bool success
+rocon_std_msgs/KeyValue[] parameters
+string namespace # if success
+string error_message # if fails

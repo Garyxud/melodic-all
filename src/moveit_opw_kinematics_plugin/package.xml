@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>moveit_opw_kinematics_plugin</name>
+  <version>0.2.1</version>
+  <description>
+    <p>
+      MoveIt kinematics plugin for industrial robots.
+    </p>
+    <p>
+      This plugin uses an analytical inverse kinematic library, opw_kinematics,
+      to calculate the inverse kinematics for industrial robots with 6 degrees of freedom,
+      two parallel joints, and a spherical wrist.
+    </p>
+  </description>
+
+  <maintainer email="jeroen.demaeyer@kuleuven.be">Jeroen De Maeyer</maintainer>
+
+  <license>Apache2.0</license>
+
+  <!-- <url type="website">http://wiki.ros.org/opw_kinematics_plugin</url> -->
+
+  <author>Jeroen De Maeyer</author>
+  <author>Simon Schmeisser (isys vision)</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>eigen_conversions</build_depend>
+  <build_depend>moveit_core</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>pluginlib</build_depend>
+
+  <build_export_depend>moveit_core</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+
+  <exec_depend>moveit_core</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+
+  <test_depend>rostest</test_depend>
+  <test_depend>moveit_resources</test_depend>
+  <test_depend>moveit_ros_planning</test_depend>
+
+  <export>
+    <moveit_core plugin="${prefix}/moveit_opw_kinematics_plugin_description.xml"/>
+  </export>
+</package>

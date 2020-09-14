@@ -1,0 +1,30 @@
+#group:
+#  group_name: <group_name>
+#  component_name: <component_name>
+#  buttons: [[button_name1,function_name1,parameter_name2,
+#    [button_name2,function_name2,parameter_name2]]
+
+group1:
+  group_name: base
+  component_name: base
+  buttons: [[stop,stop,omni],
+    [init,init],
+    [recover,recover]]
+group2:
+  group_name: arm pos
+  component_name: arm
+  buttons: [[stop,stop],
+    [home,move,home],
+    [upright,move,upright]]
+group3:
+  group_name: arm traj
+  component_name: arm
+  buttons: [[stop,stop]]
+group4:
+  group_name: torso
+  component_name: torso
+  buttons: [[stop,stop],
+    [init,init],
+    [recover,recover],
+    [home,move,home]]
+

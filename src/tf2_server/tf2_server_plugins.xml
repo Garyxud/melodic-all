@@ -1,0 +1,9 @@
+<library path="lib/libtf2_server_nodelet">
+    <class name="tf2_server/nodelet"
+           type="tf2_server::Tf2ServerNodelet"
+           base_class_type="nodelet::Nodelet">
+        <description>
+            Server for processing transforms.
+        </description>
+    </class>
+</library>

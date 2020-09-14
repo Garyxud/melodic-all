@@ -1,0 +1,114 @@
+<package>
+  <name>hrpsys_ros_bridge</name>
+  <version>1.4.3</version>
+  <description>hrpsys_ros_bridge package provides basic functionalities to bind
+  	<a href = "http://wiki.ros.org/hrpsys">hrpsys</a>, a 
+  	<a href = "http://openrtm.org/">OpenRTM</a>-based controller, and ROS.<br /> 
+    By using this package, you can write your ROS packages that communicate with your
+    non-ROS robots that run on hrpsys.
+  		
+    For communicating with the robots that run on OpenRTM without hrpsys,
+  	you can use <a href = "http://wiki.ros.org/openrtm_ros_bridge">openrtm_ros_bridge</a>
+  	package.
+  </description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/hrpsys_ros_bridge</url>
+  <url type="repository">https://github.com/start-jsk/rtmros_common</url>
+  <url type="bugtracker">https://github.com/start-jsk/rtmros_common/issues/</url>
+
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>actionlib</build_depend>
+  <build_depend>angles</build_depend>
+  <build_depend>camera_info_manager</build_depend>
+  <build_depend>collada_urdf</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>diagnostic_aggregator</build_depend>
+  <build_depend>diagnostic_msgs</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>euscollada</build_depend>
+  <build_depend>git</build_depend>
+  <build_depend>hostname</build_depend>
+  <build_depend version_gte="315.3.1">hrpsys</build_depend>
+  <build_depend>hrpsys_tools</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>mk</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>net-tools</build_depend>
+  <build_depend>pkg-config</build_depend>
+  <build_depend>pr2_controllers_msgs</build_depend>
+  <build_depend>pr2_msgs</build_depend>
+  <build_depend>procps</build_depend>
+  <build_depend>python-rosdep</build_depend>
+  <build_depend>robot_pose_ekf</build_depend>
+  <build_depend>robot_state_publisher</build_depend>
+  <build_depend>rosbuild</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>roslang</build_depend>
+  <build_depend>rosnode</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend>rqt_gui</build_depend>
+  <build_depend>rqt_gui_py</build_depend>
+  <build_depend>rqt_robot_dashboard</build_depend>
+  <build_depend>rqt_robot_monitor</build_depend>
+  <build_depend>rtmbuild</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>subversion</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+
+  <run_depend>actionlib</run_depend>
+  <run_depend>camera_info_manager</run_depend>
+  <run_depend>collada_urdf</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>diagnostic_aggregator</run_depend>
+  <run_depend>diagnostic_msgs</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>ipython</run_depend>
+  <run_depend>hrpsys</run_depend>
+  <run_depend>hrpsys_tools</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>pr2_controllers_msgs</run_depend>
+  <run_depend>pr2_msgs</run_depend>
+  <run_depend>python-psutil</run_depend>
+  <run_depend>robot_pose_ekf</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rosnode</run_depend>
+  <run_depend>rostest</run_depend>
+  <run_depend>rqt_gui</run_depend>
+  <run_depend>rqt_gui_py</run_depend>
+  <run_depend>rqt_robot_dashboard</run_depend>
+  <run_depend>rqt_robot_monitor</run_depend>
+  <run_depend>rtmbuild</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <!-- <test_depend>hrpsys</test_depend> -->
+  <!-- <test_depend>hrpsys_tools</test_depend> -->
+  <!-- <test_depend>openrtm_tools</test_depend> -->
+  <!-- <test_depend>openrtm_ros_bridge</test_depend> -->
+  <!-- <test_depend>roscpp</test_depend> -->
+  <!-- <test_depend>sensor_msgs</test_depend> -->
+  <!-- <test_depend>robot_state_publisher</test_depend> -->
+  <!-- <test_depend>actionlib</test_depend> -->
+  <!-- <test_depend>pr2_controllers_msgs</test_depend> -->
+  <!-- <test_depend>control_msgs</test_depend> -->
+  <!-- <test_depend>tf</test_depend> -->
+  <!-- <test_depend>camera_info_manager</test_depend> -->
+  <!-- <test_depend>image_transport</test_depend> -->
+  <!-- <test_depend>dynamic_reconfigure</test_depend> -->
+
+  <export>
+    <rqt_gui plugin="${prefix}/rqt_plugin.xml"/>
+  </export>
+</package>

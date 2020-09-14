@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rc_common_msgs</name>
+  <version>0.5.0</version>
+  <description>Common msg and srv definitions used by Roboception's ROS packages</description>
+
+  <maintainer email="felix.ruess@roboception.de">Felix Ruess</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://wiki.ros.org/rc_common_msgs</url>
+  <url type="repository">https://github.com/roboception/rc_common_msgs</url>
+  <url type="bugtracker">https://github.com/roboception/rc_common_msgs/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <depend>std_msgs</depend>
+
+  <doc_depend>doxygen</doc_depend>
+
+</package>

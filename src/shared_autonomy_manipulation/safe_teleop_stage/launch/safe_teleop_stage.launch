@@ -1,0 +1,24 @@
+<launch>
+  <param name="/use_sim_time" value="true"/>
+  <node pkg="stage_ros" type="stageros" name="stage" args="$(find stage_ros)/world/willow-erratic.world" respawn="false" output="screen"/>
+
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard"
+        launch-prefix="xterm -e" >
+    <remap from="cmd_vel" to="base_velocity" />
+  </node>
+
+  <node pkg="safe_teleop_base" type="safe_teleop_base" respawn="false" name="safe_teleop_base" output="screen">
+    <remap from="~safe_vel" to="/cmd_vel"/>
+
+    <rosparam>
+      footprint: [[-0.125, -0.175], [-0.125, 0.175], [0.225, 0.175], [0.30, 0.0], [0.225, -0.175]]
+    </rosparam>
+    <param name="footprint_padding" value="0.05" />
+
+    <rosparam file="$(find safe_teleop_stage)/config/local_costmap.yaml" command="load" />
+    <rosparam file="$(find safe_teleop_stage)/config/safe_teleop_stage_params.yaml" command="load" />
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find safe_teleop_stage)/launch/safe_teleop_stage.rviz" />
+</launch>
+

@@ -1,0 +1,19 @@
+##############################################################################
+# Web Apps
+###############################################################################
+
+interactions:
+- name: Listener
+  group: 'Web Apps'
+  # command: web_app(http://chimek.yujinrobot.com/rosjs/listener.html)
+  command: web_app(http://__WEBSERVER_ADDRESS__/rocon_tools/js/current/listener.html)
+  compatibility: rocon:/*/*/hydro|indigo/chrome|firefox
+  description: Simple listener using rosjs in a web app.
+  icon:
+    resource_name: rocon_bubble_icons/rocon.png
+  parameters: 
+    rosbridge_address: __ROSBRIDGE_ADDRESS__
+    rosbridge_port: __ROSBRIDGE_PORT__
+  remappings:
+    - remap_from: /chatter
+      remap_to: /babbler

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!--
+  These static transforms are for data fixed to the sensor or gps phase center.
+  Other measurements, such as UTM or ECEF position data, require additional
+  transforms to be published. Those are not covered in this sample launch
+  file.
+  
+  Keep in mind that the TF2 order is "x y z yaw pitch roll" or "x y z qx qy qz qw"
+  For all of our transforms, we use yaw-pitch-roll in this file for simplicity.
+-->
+
+
+<launch>
+  <!-- This is the ROS REP-105 conformant frame_id on the KVH where inertial measurements are made from.
+       It should exist in your current TF tree, outside of this file. -->
+  <arg name="base_nav_frame_id" default="nav" />
+  <!-- This is the ROS REP-105 conformant frame_id of the phase center of the primary GPS antenna (where
+       GPS measurements are referenced). You must measure this transform, in the Front-Left-Down convention,
+       and fill in your own values below. -->
+  <arg name="base_gps_frame_id" default="gps" />
+
+  <!-- Initial transform from the base_frame_id into our imu_link TF subtree -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="nav_base_frame_to_imu_link_flu" args="0 0 0 0 0 0 $(arg base_nav_frame_id) imu_link_flu" />
+
+  <!-- All of the concurrent rotational transforms, so our data can be converted properly. -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="imu_link_flu_to_imu_link_frd" args="0 0 0 0 0 -3.14159 imu_link_flu imu_link_frd" />
+
+  <!-- Raw GPS measurements are made with respect to this location. Usually the phase center of the GPS antenna,
+       which is the center of the antenna at the point where it threads into the mount.
+       
+       REPLACE THESE NUMBERS WITH YOUR MEASURED TRANSFORM!!!
+
+       The example here is from the KVH sensor mounted above the center rear axle of a test vehicle, with the
+       primary GPS antenna mounted on the roof to the left side of the vehicle.
+  -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="nav_base_frame_to_gps" args="0.25 0.394 1.143 0 0 0 nav gps" />
+</launch>

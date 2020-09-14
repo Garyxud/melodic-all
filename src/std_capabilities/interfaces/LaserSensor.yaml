@@ -1,0 +1,12 @@
+%YAML 1.1
+---
+name: LaserSensor
+spec_version: 1
+spec_type: interface
+description: 'This is the standard laser sensor interface used in ROS'
+interface:
+  topics:
+    provides:
+      'scan':
+        type: 'sensor_msgs/LaserScan'
+        description: 'Standard message format for LaserScanners in ROS. See the message description for details on how to fill it out: http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html Additionally, see REP-0138 which is related to LaserScan messages: http://www.ros.org/reps/rep-0138.html'

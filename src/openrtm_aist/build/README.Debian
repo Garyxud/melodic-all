@@ -1,0 +1,16 @@
+pkg_install_debianSarge.sh使用での注意点。
+
+/etc/apt/sources.listに以下のような、apt時にCDからパッケージをダウンロー
+ドするような記述がある場合、スクリプト実行時にインストールに使用したCD
+を入れるように促すメッセージがでる場合があります。
+
+ #file: sources.list
+
+ deb cdrom:[Debian GNU/Linux 3.1 r4 _Sarge_ - Official i386
+ \ Binary-1 (20061116)] unstable contrib main
+
+
+この問題を回避するためスクリプトを実行する前に、sources.listの
+"deb cdrom:xxxxxx"の行頭に"#"を記述しコメントアウトしてください。
+また、sources.listにリングサーバーが正しく記述されているかも合わせて確
+認してしてください。

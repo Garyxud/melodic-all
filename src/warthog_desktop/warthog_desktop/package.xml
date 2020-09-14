@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>warthog_desktop</name>
+  <version>0.0.1</version>
+  <description>Packages for working with Warthog from a ROS desktop.</description>
+
+  <maintainer email="tbaltovski@clearpathrobotics.com">Tony Baltovski</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/warthog_desktop</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>warthog_msgs</run_depend>
+  <run_depend>warthog_viz</run_depend>
+
+  <export><metapackage/></export>
+</package>

@@ -1,0 +1,36 @@
+<package>
+  <name>pr2eus_moveit</name>
+  <version>0.3.14</version>
+  <description>pr2eus_moveit</description>
+  <maintainer email="youhei@jsk.t.u-tokyo.ac.jp">YoheiKakiuchi</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/pr2eus_moveit</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>YoheiKakiuchi</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>pr2eus</build_depend>
+  <build_depend>moveit_msgs</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>roseus</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>pr2eus</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>roseus</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <test_depend>rostest</test_depend>
+  <test_depend>pr2_gazebo</test_depend>
+  <test_depend>pr2_moveit_config</test_depend>
+  <test_depend>pr2_moveit_plugins</test_depend>
+  <test_depend>moveit_planners_ompl</test_depend>
+
+</package>

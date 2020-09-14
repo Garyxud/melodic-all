@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_tools/license/LICENSE
+#
+
+##############################################################################
+# Imports
+##############################################################################
+
+import argparse
+import sys
+
+import rocon_console.console as console
+import rocon_python_utils
+import rospkg
+import rospy
+
+##############################################################################
+# Functions
+##############################################################################
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Find a resource in your ros workspace.')
+    parser.add_argument('package', nargs=1, type=str, help="name of the package")
+    parser.add_argument('name', nargs=1, type=str, help="name of the file to look for")
+    myargs = rospy.myargv(argv=sys.argv)
+    args = parser.parse_args(args=myargs[1:])
+    args.package = args.package[0]
+    args.name = args.name[0]
+    return args
+
+
+##############################################################################
+# Main
+##############################################################################
+
+if __name__ == '__main__':
+    args = parse_arguments()
+    try:
+        print(console.white + "\nLooking for " + console.green + "%s/%s" % (args.package, args.name) + console.reset + "...")
+        filename = rocon_python_utils.ros.find_resource(args.package, args.name)
+        print(console.cyan + "\n  %s/%s" % (args.package, args.name) + console.reset + "->" + console.yellow + filename + "\n" + console.reset)
+    except rospkg.ResourceNotFound as e:
+        print(console.red + "%s" % str(e))
+        sys.exit(1)
+

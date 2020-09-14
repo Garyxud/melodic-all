@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <name>photo</name>
+  <version>1.0.3</version>
+  <description>The photo package provides access to digital cameras. Much of the underlying functionality is provide by the gPhoto libary. The system package libgphoto2-2-dev or equivalent is required.></description>
+  <url type="website">http://wiki.ros.org/photo</url>
+  <url type="repository">https://github.com/bosch-ros-pkg/photo</url>
+  <url type="bugtracker">https://github.com/bosch-ros-pkg/photo/issues</url>
+
+  <license>BSD</license>
+  <maintainer email="Philip.Roan@us.bosch.com">Philip Roan</maintainer>
+  <maintainer email="karsten.knese@us.bosch.com">Karsten Knese</maintainer>
+  <author>Benjamin Pitzer</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>libgphoto-dev</build_depend>
+  <build_depend>libopencv-dev</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>self_test</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>libgphoto-dev</run_depend>
+  <run_depend>libopencv-dev</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>self_test</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+</package>

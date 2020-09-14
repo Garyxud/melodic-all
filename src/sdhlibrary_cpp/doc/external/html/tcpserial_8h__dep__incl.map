@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dsa_8cpp.html" title="This file contains definition of SDH::cDSA, a class to communicate with the tactile sensors of the SD..." alt="" coords="5,83,99,112"/>
+<area shape="rect" id="node5" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="123,83,216,112"/>
+<area shape="rect" id="node7" href="$tcpserial_8cpp.html" title="Implementation of class SDH::cTCPSerial, a class to access a TCP port on cygwin/linux and Visual Stud..." alt="" coords="240,83,360,112"/>
+</map>

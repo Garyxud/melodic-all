@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="sensor_ip" value="127.0.0.1" />
+  <arg name="port" default="9900"/>
+
+    <include file="$(find leuze_bringup)/launch/leuze_bringup.launch">
+      <arg name="sensor_ip" value="$(arg sensor_ip)" />
+      <arg name="port" value="$(arg port)" />
+    </include>
+
+    <include file="$(find leuze_bringup)/launch/leuze_phidget_driver.launch"/>
+
+</launch>

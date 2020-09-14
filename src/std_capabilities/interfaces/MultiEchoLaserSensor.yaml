@@ -1,0 +1,12 @@
+%YAML 1.1
+---
+name: MultiEchoLaserSensor
+spec_version: 1
+spec_type: interface
+description: 'This is the standard multiecho laser sensor interface used in ROS'
+interface:
+  topics:
+    provides:
+      'echo':
+        type: 'sensor_msgs/MultiEchoLaserScan'
+        description: 'Standard message format for Multiecho capable Laser Scanners in ROS. See the message description for details on how to fill it out: http://docs.ros.org/api/sensor_msgs/html/msg/MultiEchoLaserScan.html Additionally, see REP-0138 which is related to MultiEchoLaserScan messages: http://www.ros.org/reps/rep-0138.html'

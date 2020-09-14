@@ -1,0 +1,7 @@
+# Retrieve a list of variables currently available in the blackboard.
+# This is primarily used as a utility for the blackboard watcher (find what
+# variables are available without the entire spam of the blackboard contents
+# before proceeding to watch a subset of these.
+
+---
+string[] variables

@@ -1,0 +1,8 @@
+<launch>
+
+<node name="sink" pkg="network_monitor_udp" type="udpmonsink" args="12345" output="screen"/>
+<node name="source" pkg="network_monitor_udp" type="udpmonsourcenode.py" output="screen"/>
+
+</launch> 
+
+

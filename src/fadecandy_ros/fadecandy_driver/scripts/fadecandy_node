@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+import rospy
+
+from fadecandy_driver.fadecandy_node import FadecandyNode
+
+
+def main():
+    rospy.init_node('fadecandy_node')
+
+    node = FadecandyNode()
+    rospy.spin()
+
+
+if __name__ == '__main__':
+    main()

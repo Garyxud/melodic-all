@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>abseil_cpp</name>
+  <version>0.4.2</version>
+  <description>The abseil_cpp package</description>
+
+  <maintainer email="davide.faconti@gmail.com">dfaconti</maintainer>
+  <license>Apache</license>
+
+  <build_depend>rsync</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

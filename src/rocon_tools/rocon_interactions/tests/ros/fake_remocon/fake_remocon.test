@@ -1,0 +1,11 @@
+<launch>
+    <node pkg="rocon_interactions" type="interactions_manager.py" name="interactions"/>
+    <node pkg="rocon_interactions" type="load_interactions" name="load_interactions" args="-n '/pc' rocon_interactions pc"/> -->
+    
+    <test test-name="fake_remocon" time-limit="15.0" pkg="rocon_interactions" type="test_fake_remocon.py" name="test_fake_remocon">
+      <remap from="test_loader/get_interactions" to="interactions/get_interactions"/>
+    </test>
+    
+    <node pkg="rocon_interactions" type="fake_remocon" name="fake_remocon"/>
+</launch>
+

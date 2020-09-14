@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="config_freq" value="8.0" />
+
+  <!-- Node under test -->
+  <node pkg="dataspeed_ulc_can" type="ulc_node" name="ulc" output="screen" >
+    <param name="config_frequency" value="$(arg config_freq)" />
+  </node>
+
+  <!-- Test script -->
+  <test pkg="dataspeed_ulc_can" type="dataspeed_ulc_can_test_node" test-name="dataspeed_ulc_can_node" time-limit="60.0" >
+    <param name="config_frequency" value="$(arg config_freq)" />
+  </test>
+
+</launch>

@@ -1,0 +1,29 @@
+#########################
+# serialport_default.yaml
+#########################
+# 
+# XML config file with all parameters for serial comunications with MD49. 
+# The parameters set here are used from base_controller_node
+#
+# When base_controller node is started manually via rosrun these parameters 
+# should be read into namespace /serialport with the following console command:
+# rosparam load -v ~/ROS-Workspace/src/base_controller/config/serialport_defaults.yaml /serialport
+# Otherwise hardcoded defaults from base_controller_node.cpp will be used
+# 
+# Recommended way is to start the node via launchfile base_controller.launch, which reads 
+# parameters before node is started
+
+{
+################
+#/serialport/bps
+################
+#use 38400 or 9600 (Set corresponding jumper for selected baudrate on MD49)
+bps: 38400,
+#################
+#/serialport/name
+#################
+#use /dev/ttyAMA0 for Raspberry Pi
+#use /dev/ttyS0 for Banana Pi
+#use /dev/ttyS1 for pcDuino
+name: /dev/ttyS1
+}

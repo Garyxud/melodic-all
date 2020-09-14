@@ -1,0 +1,14 @@
+set(LEX_COMMON_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/../../..)
+
+# Compute paths
+set(@PROJECT_NAME@_INCLUDE_DIRS "${LEX_COMMON_ROOT_DIR}/include")
+
+if(NOT TARGET @PROJECT_NAME@)
+  include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@-targets.cmake")
+endif()
+
+set(@PROJECT_NAME@_LIB_DIR "${AWS_COMMON_ROOT_DIR}/lib")
+set(@PROJECT_NAME@_LIBRARIES @PROJECT_NAME@ @lex_IMPORTED_LIBRARIES@)
+
+# where the .pc pkgconfig files are installed
+set(@PROJECT_NAME@_PKGCONFIG_DIR "${LEX_COMMON_ROOT_DIR}/lib/pkgconfig")

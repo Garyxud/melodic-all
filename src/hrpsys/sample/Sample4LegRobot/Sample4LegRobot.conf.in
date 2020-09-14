@@ -1,0 +1,17 @@
+model: file://@OPENHRP_DIR@/share/OpenHRP-3.1/sample/model/sample_4leg_robot.wrl
+dt: 0.002
+
+abc_leg_offset: 0,0.19,0
+end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, rarm,RARM_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, larm,LARM_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0,
+
+# PDcontroller Setting
+pdgains_sim_file_name: @CMAKE_INSTALL_PREFIX@/share/hrpsys/samples/Sample4LegRobot/Sample4LegRobot.PDgain.dat
+
+# CollisionDetector Setting
+collision_pair: RLEG_JOINT5:LLEG_JOINT5 RARM_JOINT5:LARM_JOINT5
+
+# ThermoLimiter
+alarm_ratio: 0.75
+
+# SequencePlayer optional data
+seq_optional_data_dim: 8 # contactStates x 4 + controlSwingTime x 4 (4 is lfsensor, rfsensor, lhsensor, rhsensor)

@@ -1,0 +1,18 @@
+# This config file for Travis CI utilizes ros-industrial/industrial_ci package.
+# For more info for the package, see https://github.com/ros-industrial/industrial_ci/blob/master/README.rst
+language: generic 
+dist: bionic
+services:
+  - docker
+env:
+  matrix:
+    - ROS_DISTRO="kinetic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu NOT_TEST_INSTALL=true
+    - ROS_DISTRO="kinetic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros-testing/ubuntu NOT_TEST_INSTALL=true
+    - ROS_DISTRO="kinetic"  PRERELEASE=true
+    - ROS_DISTRO="melodic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu NOT_TEST_INSTALL=true
+    - ROS_DISTRO="melodic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros-testing/ubuntu NOT_TEST_INSTALL=true
+    - ROS_DISTRO="melodic"  PRERELEASE=true
+install:
+  - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config -b master
+script:
+  - .ci_config/travis.sh

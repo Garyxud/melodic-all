@@ -1,0 +1,16 @@
+%YAML 1.1
+---
+name: Navigation2D
+spec_version: 1
+spec_type: interface
+description: 'This interface describes the basic ROS components used in standard 2D navigation. In addition to the ROS components described here, the robot should provide TF transforms from "map" -> "odom" and "odom" -> "base_link", in accordance with REP-0105 <http://www.ros.org/reps/rep-0105.html>.'
+interface:
+  topics:
+    requires:
+      'goal':
+        type: 'geometry_msgs/PoseStamped'
+        description: 'Two dimensional navigation goal to which the robot should try to navigate. This goal should have the x and y components of the pose.position submessage and the z component of the pose.orientation submessage filled out. The goal should be in the /map tf frame, and the header.frame_id should be set to "/map".'
+    provides:
+      'cmd_vel':
+        type: 'geometry_msgs/Twist'
+        description: 'Command velocities for a mobile base to follow. Whether or not the command velocities are holonomic is determined by the provider of this capability and the capabilities on which it depends.'

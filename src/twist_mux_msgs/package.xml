@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>twist_mux_msgs</name>
+  <version>2.1.0</version>
+  <description>The twist_mux msgs and actions package</description>
+
+  <maintainer email="efernandez@clearpathrobotics.com">Enrique Fernandez</maintainer>
+
+  <author email="efernandez@clearpathrobotics.com">Enrique Fernandez</author>
+  <author email="siegfried.gevatter@pal-robotics.com">Siegfried-A. Gevatter Pujals</author>
+
+  <license>CC BY-NC-SA 4.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+
+  <run_depend>message_runtime</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+</package>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mrpt_rawlog</name>
+  <version>0.1.26</version>
+  <description>This package enables you to record a rawlog from a ROS drive robot.
+  At the moment the package is able to deal with odometry and 2d laser scans.</description>
+
+  <maintainer email="markus.bader@tuwien.ac.at">Markus Bader</maintainer>
+
+  <url>http://wiki.ros.org/mrpt_rawlog</url>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>tf</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>mrpt_msgs</depend>
+  <depend>mrpt_bridge</depend>
+  <depend>dynamic_reconfigure</depend>
+  <depend>rosbag</depend>
+  <depend>marker_msgs</depend>
+  <depend>mrpt1</depend>
+
+
+</package>

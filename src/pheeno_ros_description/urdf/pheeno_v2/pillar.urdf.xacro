@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot name="pillar" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Pillar Properties -->
+  <xacro:property name="pillar_radius" value=".02"/>
+  <xacro:property name="pillar_mass" value="0.005"/>
+
+  <!-- Pillar MACRO -->
+  <xacro:macro name="pillar" params="pos len x y z roll pitch yaw par chi">
+    <link name="${pos}_pillar_link">
+      <visual>
+        <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+        <geometry>
+            <cylinder length="${len}" radius="${pillar_radius}"/>
+        </geometry>
+        <material name="Red"/>
+      </visual>
+      <collision>
+        <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+        <geometry>
+            <cylinder length="${len}" radius="${pillar_radius}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="${pillar_mass}"/>
+        <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+        <cylinder_inertia m="${pillar_mass}" r="${pillar_radius}" h="${len}"/>
+      </inertial>
+    </link>
+
+    <!-- Bottom Joint -->
+    <joint name="${pos}_pillar_bottom_joint" type="fixed">
+      <parent link="${par}"/>
+      <child link="${pos}_pillar_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Top Joint -->
+    <joint name="${pos}_pillar_top_joint" type="fixed">
+      <parent link="${pos}_pillar_link"/>
+      <child link="${chi}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="${pos}_pillar_link">
+      <material>Gazebo/Red</material>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<FlowDiagram format_version="4" >
+    <BoxInstance name="Hello" id="1" x="556" y="40" path="B_0_0_Hello1.xml" />
+    <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
+    <Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="4" />
+</FlowDiagram>

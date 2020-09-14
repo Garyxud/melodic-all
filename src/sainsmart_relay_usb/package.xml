@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sainsmart_relay_usb</name>
+  <version>0.0.2</version>
+  <description>
+    SainSmart USB relay driver controller
+  </description>
+
+  <license>BSD</license>
+  <author email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</maintainer>
+  <url type="website">http://wiki.ros.org/sainsmart_relay_usb</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/sainsmart_relay_usb</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/sainsmart_relay_usb/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>libftdi-dev</depend>
+
+  <build_depend>roslib</build_depend> <!-- Needed for ROS_DISTRO environment variable -->
+
+</package>

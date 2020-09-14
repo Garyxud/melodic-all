@@ -1,0 +1,17 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdh_8h.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="743,83,820,112"/>
+<area shape="rect" id="node9" href="$crc_8h.html" title="This file contains interface to cCRC, a class to handle CRC calculation." alt="" coords="208,83,283,112"/>
+<area shape="rect" id="node21" href="$canserial-esd_8h.html" title="Interface of class SDH::cCANSerial_ESD, class to access CAN bus via ESD card on cygwin/linux." alt="" coords="383,83,516,112"/>
+<area shape="rect" id="node25" href="$canserial-peak_8h.html" title="Interface of class SDH::cCANSerial_PEAK, class to access CAN bus via PEAK card on cygwin/linux..." alt="" coords="548,83,689,112"/>
+<area shape="rect" id="node29" href="$tcpserial_8h.html" title="Interface of class SDH::cTCPSerial, class to access TCP port cygwin/linux." alt="" coords="925,83,1032,112"/>
+<area shape="rect" id="node5" href="$cancat_8cpp.html" title="Yet incomplete tool to send and receive data via CAN. See __help__ and online help (&quot;&#45;h&quot; or..." alt="" coords="720,160,843,189"/>
+<area shape="rect" id="node7" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="867,160,960,189"/>
+<area shape="rect" id="node11" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="152,160,229,189"/>
+<area shape="rect" id="node17" href="$crc_8cpp.html" title="Implementation of class SDH::cCRC_DSACON32m (actually only the static members all other is derived)..." alt="" coords="253,160,344,189"/>
+<area shape="rect" id="node19" href="$sdhserial_8cpp.html" title="Interface of class SDH::cSDHSerial." alt="" coords="5,160,128,189"/>
+<area shape="rect" id="node13" href="$demo-benchmark_8cpp.html" title="Simple script to benchmark communication speed of the SDH. See __help__ and online help (&quot;&#45;h&amp;quo..." alt="" coords="100,237,281,267"/>
+<area shape="rect" id="node15" href="$dsa_8cpp.html" title="This file contains definition of SDH::cDSA, a class to communicate with the tactile sensors of the SD..." alt="" coords="700,237,793,267"/>
+<area shape="rect" id="node23" href="$canserial-esd_8cpp.html" title="Implementation of class SDH::cCANSerial_ESD, a class to access an ESD CAN interface on cygwin/linux a..." alt="" coords="368,160,517,189"/>
+<area shape="rect" id="node27" href="$canserial-peak_8cpp.html" title="Implementation of class SDH::cCANSerial_PEAK, a class to access a PEAK CAN interface on cygwin/linux ..." alt="" coords="541,160,696,189"/>
+<area shape="rect" id="node33" href="$tcpserial_8cpp.html" title="Implementation of class SDH::cTCPSerial, a class to access a TCP port on cygwin/linux and Visual Stud..." alt="" coords="984,160,1104,189"/>
+</map>

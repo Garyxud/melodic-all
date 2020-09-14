@@ -1,0 +1,31 @@
+<launch>
+
+  <node pkg="rostopic" type="rostopic" name="input"
+        args="pub /input std_msgs/String '{data: input}' -r 10">
+  </node>
+
+  <node pkg="jsk_topic_tools" type="string_relay" name="string_relay_0">
+    <remap from="~input" to="input" />
+    </node><node pkg="jsk_topic_tools" type="string_relay" name="string_relay_1">
+    <remap from="~input" to="string_relay_0/output" />
+    </node><node pkg="jsk_topic_tools" type="string_relay" name="string_relay_2">
+    <remap from="~input" to="string_relay_1/output" />
+    </node><node pkg="jsk_topic_tools" type="string_relay" name="string_relay_3">
+    <remap from="~input" to="string_relay_2/output" />
+    </node><node pkg="jsk_topic_tools" type="string_relay" name="string_relay_4">
+    <remap from="~input" to="string_relay_3/output" />
+  </node>
+
+  <test test-name="test_connection"
+        name="test_connection"
+        pkg="jsk_topic_tools" type="test_connection.py"
+        retry="3">
+    <rosparam>
+      input_topic_type: std_msgs/String
+      check_connected_topics: [string_relay_1/output, string_relay_2/output, string_relay_3/output]
+      wait_for_connection: 3
+    </rosparam>
+    <remap from="~input" to="string_relay_4/output" />
+  </test>
+
+</launch>

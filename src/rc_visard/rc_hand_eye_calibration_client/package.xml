@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rc_hand_eye_calibration_client</name>
+  <version>3.0.2</version>
+  <description>The rc_hand_eye_calibration_client package</description>
+
+  <maintainer email="felix.ruess@roboception.de">Felix Ruess</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/rc_hand_eye_calibration_client</url>
+  <url type="repository">https://github.com/roboception/rc_visard_ros</url>
+  <url type="bugtracker">https://github.com/roboception/rc_visard_ros/issues</url>
+
+  <author email="christian.emmerich@roboception.de">Christian Emmerich</author>
+
+  <!-- system dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>curl</depend>
+
+  <depend>roscpp</depend>
+  <depend>rcdiscover</depend>
+  <depend>std_srvs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+
+  <depend>dynamic_reconfigure</depend>
+  <depend>message_generation</depend>
+  <depend>message_runtime</depend>
+
+  <doc_depend>doxygen</doc_depend>
+</package>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+  <name>md49_base_controller</name>
+  <version>0.1.4</version>
+  <description>The md49_base_controller package</description>
+
+  <author email="scheik.todeswache@googlemail.com">Fabian Prinzing</author>  
+
+  <maintainer email="scheik.todeswache@googlemail.com">Fabian Prinzing</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://www.the-starbearer.de</url>
+  <url type="bugtracker">https://github.com/scheik/md49_base_controller/issues</url>
+  <url type="repository">https://github.com/scheik/md49_base_controller</url>
+
+  <buildtool_depend>catkin</buildtool_depend>  
+  <build_depend>message_generation</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>md49_messages</build_depend>
+  <build_depend>md49_serialport</build_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>md49_messages</run_depend>
+  <run_depend>md49_serialport</run_depend>
+
+  <export>
+  </export>
+</package>

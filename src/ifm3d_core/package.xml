@@ -1,0 +1,38 @@
+<package format="2">
+  <name>ifm3d_core</name>
+  <version>0.18.0</version>
+  <description>
+    Library and Utilities for working with ifm pmd-based 3D ToF Cameras
+  </description>
+  <maintainer email="sean.kelly@ifm.com">Sean Kelly</maintainer>
+  <license>Apache</license>
+
+  <url type="website">https://github.com/ifm/ifm3d</url>
+  <url type="repository">https://github.com/ifm/ifm3d</url>
+  <url type="bugtracker">https://github.com/ifm/ifm3d/issues</url>
+
+  <author email="tom@boxrobotics.ai">Tom Panzarella</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <build_depend>boost</build_depend>
+  <build_depend>libpcl-all-dev</build_depend>
+  <build_depend>curl</build_depend>
+  <build_depend>libgoogle-glog-dev</build_depend>
+  <build_depend>libxmlrpc-c++</build_depend>
+  <build_depend>cv_bridge</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <exec_depend>libpcl-all-dev</exec_depend>
+  <exec_depend>curl</exec_depend>
+  <exec_depend>libgoogle-glog-dev</exec_depend>
+  <exec_depend>libxmlrpc-c++</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+
+  <doc_depend>doxygen</doc_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

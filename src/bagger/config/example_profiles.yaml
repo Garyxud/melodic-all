@@ -1,0 +1,5 @@
+profile_name_to_record_options_map:
+        poor: "-a"
+        everything: "-a -O /tmp/everything"
+        nav: "-e ^.*(odometry).*$ -o nav.bag --chunksize=48"
+ 

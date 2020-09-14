@@ -1,0 +1,93 @@
+# Xbox 360 wireless controller
+# Deadman (enable) button: Right Bumper
+teleop:
+  piloting:
+    type: topic
+    message_type: "geometry_msgs/Twist"
+    topic_name: xbox_vel_raw
+    deadman_buttons: [7]
+    axis_mappings:
+      -
+        axis: 3  # Right thumb stick (up/down)
+        target: linear.x
+        scale: 1.0
+        offset: 0.0
+      -
+        axis: 2  # Right thumb stick (left/right)
+        target: linear.y
+        scale: 1.0
+        offset: 0.0
+      -
+        axis: 1  # Left thumb stick (up/down)
+        target: linear.z
+        scale: 1.0
+        offset: 0.0
+      -
+        axis: 0  # Left thumb stick (left/right)
+        target: angular.z
+        scale: 1.0
+        offset: 0.0
+  takeoff:
+    type: topic
+    message_type: "std_msgs/Empty"
+    topic_name: takeoff
+    deadman_buttons: [11]  # RB + Y
+    axis_mappings: []
+  land:
+    type: topic
+    message_type: "std_msgs/Empty"
+    topic_name: land
+    deadman_buttons: [3, 7]  # RB + A
+    axis_mappings: []
+  moveItCancel:
+    type: topic
+    message_type: "std_msgs/Empty"
+    topic_name: moveit/execution/cancel
+    deadman_buttons: [7,1] # RB + X
+    axis_mappings: []
+  emergency:
+    type: topic
+    message_type: "std_msgs/Empty"
+    topic_name: disarm
+    deadman_buttons: [7,0] # RB + X
+    axis_mappings: []
+  gimbal_roll_left:
+    type: topic
+      message_type: "gimbal/setGimbalAxes"
+      topic_name: gimbal/setAxesJoy
+      deadman_buttons: [6,3] # LB + X
+      axis_mappings: []
+      message_value:
+      -
+        axe: 'x'
+        angle: -5
+  gimbal_roll_right:
+    type: topic
+      message_type: "gimbal/setGimbalAxes"
+      topic_name: gimbal/setAxesJoy
+      deadman_buttons: [6,1] # LB + X
+      axis_mappings: []
+      message_value:
+      -
+        axe: 'x'
+        angle: 5
+  gimbal_pitch_up:
+    type: topic
+      message_type: "gimbal/setGimbalAxes"
+      topic_name: gimbal/setAxesJoy
+      deadman_buttons: [6,4] # LB + X
+      axis_mappings: []
+      message_value:
+      -
+        axe: 'y'
+        angle: 5
+  gimbal_pitch_down:
+    type: topic
+      message_type: "gimbal/setGimbalAxes"
+      topic_name: gimbal/setAxesJoy
+      deadman_buttons: [6,0] # LB + X
+      axis_mappings: []
+      message_value:
+      -
+        axe: 'y'
+        angle: -5

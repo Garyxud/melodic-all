@@ -1,0 +1,10 @@
+int8 FUN_SET_DIGITAL_OUT = 1
+int8 FUN_SET_ADC_MODE = 2
+int8 STATE_NO_CHANGE = -1
+int8 STATE_ON = 1
+int8 STATE_OFF = 0
+int8 fun
+int8 address
+int8[] data
+---
+bool success

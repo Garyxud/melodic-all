@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_s_d_h_1_1c_s_d_h.html" title="SDH::cSDH is the end user interface class to control a SDH (SCHUNK Dexterous Hand)." alt="" coords="5,625,360,5442"/>
+<area shape="rect" id="node5" href="$class_s_d_h_1_1c_s_d_h_serial.html" title="The class to communicate with a SDH via RS232." alt="" coords="384,2046,552,4021"/>
+</map>

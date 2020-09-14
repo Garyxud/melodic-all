@@ -1,0 +1,15 @@
+<launch>
+
+<node name="tc_eth0" pkg="network_traffic_control" type="traffic_control_node.py">
+  <param name="interface" value="eth0"/>
+  <param name="interface_ifb" value="ifb1"/>
+  <param name="filter_egress" value="u32 match ip protocol 1 0xff"/>
+  <param name="filter_ingress" value="u32 match ip protocol 1 0xff"/>
+</node>
+
+<node name="tc_eth1" pkg="network_traffic_control" type="traffic_control_node.py">
+  <param name="interface" value="eth1"/>
+  <param name="interface_ifb" value="ifb2"/>
+</node>
+
+</launch>

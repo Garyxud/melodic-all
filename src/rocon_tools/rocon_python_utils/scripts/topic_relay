@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_tools/license/LICENSE
+#
+
+##############################################################################
+# Imports
+##############################################################################
+
+import sys
+import argparse
+import rospy
+import roslib.message
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Relays given topic')
+    parser.add_argument('in_topic', type=str, help='name of in topic')
+    parser.add_argument('out_topic', type=str, help='name of out topic')
+    parser.add_argument('topic_type', type=str, help='type of topic being relayed')
+    myargs = rospy.myargv(argv=sys.argv)
+    args = parser.parse_args(args=myargs[1:])
+
+    in_topic = args.in_topic
+    out_topic = args.out_topic
+    topic_type = args.topic_type
+
+    return in_topic, out_topic, topic_type
+
+def loginfo(msg):
+    rospy.loginfo('%s : %s'%(rospy.get_name(), str(msg)))
+
+
+class Relay(object):
+
+    def __init__(self, in_topic, out_topic, message_class):
+        message_class = roslib.message.get_message_class(topic_type)
+
+        self._pub = rospy.Publisher(out_topic, message_class, queue_size=10)
+        self._sub = rospy.Subscriber(in_topic, message_class, self.in_callback)
+
+    def in_callback(self, msg):
+        self._pub.publish(msg)
+
+
+if __name__ == '__main__': 
+    rospy.init_node('topic_relay')
+
+    in_topic, out_topic, topic_type = parse_arguments()
+
+    loginfo("Relaying %s -> %s[%s]"%(in_topic, out_topic, topic_type))
+    relay_instance = Relay(in_topic, out_topic, topic_type)
+    rospy.spin()
+    loginfo("Bye Bye")

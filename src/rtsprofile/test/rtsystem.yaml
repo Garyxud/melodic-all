@@ -1,0 +1,241 @@
+rtsProfile:
+    abstract: Sample Abstract
+    "rtsExt::comment": Sample RTSystem
+    components:
+        -
+            activeConfigurationSet: configSet_1
+            compositeType: None
+            configurationSets:
+                -
+                    id: configSet_1
+                    configurationData:
+                        -
+                            name: name1
+                            data: value
+                        -
+                            name: name2
+                            data: value
+                -
+                    id: configSet_2
+                    configurationData:
+                        -
+                            name: name1
+                            data: value
+            dataPorts:
+                -
+                    name: Comp1_outport1
+                    "rtsExt::visible": true
+                -
+                    name: Comp1_outport2
+                    "rtsExt::visible": false
+                -
+                    name: Comp1_outport3
+                    "rtsExt::visible": true
+            executionContexts:
+                -
+                    id: Comp1Ec1
+                    kind: PeriodicExecutionContext
+                    rate: 1000
+            id: RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0
+            instanceName: SampleComponent_1
+            isRequired: true
+            "rtsExt::location":
+                direction: RIGHT
+                x: 93
+                y: 93
+                height: -1
+                width: -1
+            pathUri: file://localhost/C:/RTM/XMLSample/XML/SampleXML.xml
+            servicePorts:
+                -
+                    name: SrvPort2
+            "rtsExt::visible": true
+        -
+            activeConfigurationSet: configSet_1
+            compositeType: None
+            configurationSets:
+                -
+                    id: configSet_2
+                    configurationData:
+                        -
+                            name: name1
+                            data: value
+            dataPorts:
+                -
+                    name: Comp2_inort1
+                    "rtsExt::visible": true
+            executionContexts:
+                -
+                    id: Comp2Ec1
+                    kind: PeriodicExecutionContext
+                    rate: 500
+            id: RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0
+            instanceName: SampleComponent2_1
+            isRequired: true
+            "rtsExt::location":
+                direction: RIGHT
+                x: 93
+                y: 276
+                height: -1
+                width: -1
+            pathUri: file://localhost/C:/RTM/XMLSample/XML/SampleXML2.xml
+            "rtsExt::visible": true
+        -
+            compositeType: None
+            dataPorts:
+                -
+                    name: Comp3_inort2
+                    "rtsExt::visible": true
+            executionContexts:
+                -
+                    id: Comp3Ec1
+                    kind: PeriodicExecutionContext
+                    rate: 300
+            id: RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0
+            instanceName: SampleComponent3_1
+            isRequired: true
+            "rtsExt::location":
+                direction: LEFT
+                x: 93
+                y: 93
+                height: -1
+                width: -1
+            pathUri: file://localhost/C:/RTM/XMLSample/XML/SampleXML3.xml
+            "rtsExt::visible": true
+            servicePorts:
+                -
+                    name: SrvPort4
+    creationDate:
+        day: 6
+        hour: 13
+        minute: 49
+        month: 5
+        second: 53
+        year: 2008
+    dataPortConnectors:
+        -
+            connectorId: 9c477198-dbf4-4298-9713-c5e1b1b30607
+            dataflowType: PUSH
+            dataType: RTC::TimedLong
+            name: Comp1_outport1_Comp2_inport1
+            interfaceType: CORBA_Any
+            sourceDataPort:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0
+                instanceName: SampleComponent_1
+                portName: Comp1_outport1
+            subscriptionType: Flush
+            targetDataPort:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0
+                instanceName: SampleComponent2_1
+                portName: Comp2_inort1
+        -
+            connectorId: c5e1b1b306-9713-4298-dbf4-9c47719807
+            dataflowType: PUSH
+            dataType: RTC::TimedDouble
+            name: Comp1_outport3_Comp3_inport2
+            interfaceType: CORBA_Any
+            subscriptionType: Flush
+            sourceDataPort:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0
+                instanceName: SampleComponent_1
+                portName: Comp1_outport3
+            targetDataPort:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0
+                instanceName: SampleComponent3_1
+                portName: Comp3_inort2
+    id: RTSystem:jp.go.aist:SampleRTS:1.0.0
+    servicePortConnectors:
+        -
+            connectorId: 9fbb4aa9-cd3f-4723-9375-b8e1201d0b6f
+            name: SrvPort2_SrvPort4
+            sourceServicePort:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0
+                instanceName: SampleComponent_1
+                portName: SrvPort2
+            targetServicePort:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0
+                instanceName: SampleComponent3_1
+                portName: SrvPort4
+    shutDown:
+        targets:
+            -
+                sequence: 1
+                targetComponent:
+                    componentId: RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0
+                    id: Comp3Ec1
+                    instanceName: SampleComponent3_1
+                condition:
+                    waitTime:
+                        waitTime: 300
+            -
+                sequence: 2
+                targetComponent:
+                    componentId: RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0
+                    id: Comp2Ec1
+                    instanceName: SampleComponent2_1
+                condition:
+                    preceding:
+                        timeout: 100
+                        sendingTiming: SYNC
+                        precedingComponents:
+                            -
+                                componentId: RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0
+                                id: Comp3Ec1
+                                instanceName: SampleComponent3_1
+            -
+                sequence: 3
+                targetComponent:
+                    componentId: RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0
+                    id: Comp1Ec1
+                    instanceName: SampleComponent_1
+                condition:
+                    preceding:
+                        timeout: 100
+                        sendingTiming: SYNC
+                        precedingComponents:
+                            -
+                                componentId: RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0
+                                id: Comp3Ec1
+                                instanceName: SampleComponent3_1
+                            -
+                                componentId: RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0
+                                id: Comp2Ec1
+                                instanceName: SampleComponent2_1
+    startUp:
+        targets:
+        -
+            sequence: 1
+            targetComponent:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent:1.0.0
+                id: Comp1Ec1
+                instanceName: SampleComponent_1
+            condition:
+                waitTime:
+                    waitTime: 1000
+        -
+            sequence: 2
+            targetComponent:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent2:1.0.0
+                id: Comp2Ec1
+                instanceName: SampleComponent2_1
+            condition:
+                waitTime:
+                    waitTime: 500
+        -
+            sequence: 3
+            targetComponent:
+                componentId: RTC:SampleVendor:SampleCategory:SampleComponent3:0.5.0
+                id: Comp3Ec1
+                instanceName: SampleComponent3_1
+            condition:
+                waitTime:
+                    waitTime: 750
+    updateDate:
+        day: 6
+        hour: 13
+        minute: 49
+        month: 5
+        second: 53
+        year: 2008
+    version: 0.2
+

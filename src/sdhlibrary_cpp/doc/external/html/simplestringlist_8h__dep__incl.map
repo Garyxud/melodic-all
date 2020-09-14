@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdhserial_8h.html" title="Interface of class SDH::cSDHSerial." alt="" coords="139,83,248,112"/>
+<area shape="rect" id="node13" href="$simplestringlist_8cpp.html" title="Implementation of class SDH::cSimpleStringList." alt="" coords="272,83,429,112"/>
+<area shape="rect" id="node5" href="$sdh_8h.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="93,160,171,189"/>
+<area shape="rect" id="node11" href="$sdhserial_8cpp.html" title="Interface of class SDH::cSDHSerial." alt="" coords="195,160,317,189"/>
+<area shape="rect" id="node7" href="$cancat_8cpp.html" title="Yet incomplete tool to send and receive data via CAN. See __help__ and online help (&quot;&#45;h&quot; or..." alt="" coords="5,237,128,267"/>
+<area shape="rect" id="node9" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="152,237,245,267"/>
+</map>

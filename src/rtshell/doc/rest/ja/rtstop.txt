@@ -1,0 +1,70 @@
+======
+rtstop
+======
+
+--------------------
+RTシステムを停止する
+--------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtstop [options] [RTSProfile file]
+
+概要
+====
+
+すべてのコンポーネントを deactivate すること似よってRTSProfileに保存され
+たRTシステムを停止します。コンポーネントはRTSProfileが指定された順番に
+deactivate されます。RTSProfileに「必要」と
+指定されておらず実行中ではないコンポーネントは無視します。
+
+ファイル名を指定しない場合、RTSProfileをstdinから読みます。
+
+オプション
+==========
+
+--dry-run
+  実行する内容を表示する（実際には停止は行われない）
+
+-x, --xml
+  XMLフォーマットを使う
+
+-y, --yaml
+  YAMLフォーマットを使う
+
+.. include:: ../../common/ja/common_opts.txt
+
+ステート変更のプラン
+====================
+
+.. include:: ../../common/ja/start_stop_plans.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtstop sys.rtsys
+
+``sys.rtsys`` というファイルに保存されたRTシステムを停止します。
+
+::
+
+  $ rtstop sys.rtsys --dry-run
+
+``sys.rtsys`` というファイルに保存されたRTシステムを停止するために何を
+するかを表示します。（実際には、停止は行われません。）
+
+
+参照
+====
+
+  ``rtcheck`` (1),
+  ``rtresurrect`` (1),
+  ``rtstart`` (1)
+

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fmi_adapter_examples</name>
+  <version>1.0.3</version>
+  <description>Provides small examples for use of the fmi_adapter package</description>
+
+  <maintainer email="ralph.lange@de.bosch.com">Ralph Lange</maintainer>
+  <author email="ralph.lange@de.bosch.com">Ralph Lange</author>
+
+  <license>Apache License 2.0</license>
+
+  <url type="website">http://wiki.ros.org/fmi_adapter</url>
+  <url type="repository">https://github.com/boschresearch/fmi_adapter</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>fmi_adapter</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rqt_plot</exec_depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>

@@ -1,0 +1,84 @@
+#------------------------------------------------------------
+# dictbuilde.py が生成するディクショナリについて
+#
+# dictdist.py はIDLファイルに基づき以下YAML形式で示す
+# ディクショナリを生成する。
+#
+#------------------------------------------------------------
+
+-
+
+- decl_type: interfaces     # インターフェース
+  adapter_cpp:              # アダプタコードファイル名
+  adapter_h:                # アダプタヘッダファイル名
+  adapter_h_path:           # アダプタヘッダパス
+  adapter_include_guard:    # アダプタヘッダインクルードガード
+  adapter_name:             # アダプタクラス名
+  adapter_ns: []            # アダプタネームスペース
+  corba_fq_name:            # CORBAクラス名
+  corba_iface:              # CORBAインターフェース名
+  corba_poa_name:           # CORBA POA クラス名
+  iface_cpp:                # インターフェースコードファイル名
+  iface_h:                  # インターフェースヘッダファイル名
+  iface_h_path:             # インターフェースヘッダパス
+  iface_include_guard:      # インターフェースインクルードガード
+  iface_name:               # インターフェースクラス名
+  iface_ns: []              # インターフェースネームスペース
+  include_h: []             # インクルードヘッダリスト
+  servant_cpp:              # サーバントコードファイル名
+  servant_h:                # サーバントヘッダファイル名
+  servant_h_path:           # サーバントヘッダパス
+  servant_include_guard:    # サーバントインクルードガード
+  servant_name:             # サーバントクラス名
+  servant_ns: []            # サーバントネームスペース
+  operations: []            # オペレーションリスト
+  - name:                   # オペレーション名
+    return: {}              # 返値情報
+      corba:                # CORBA の返値情報
+        base_type:          # 返値の基本型
+        ret_type:           # 返値の型
+        tk:                 # 返値のTypeCode
+      local:                # Local型の返値情報
+        base_type:          # 返値の基本型
+        decl_type:          # 返値の宣言型
+        ret_type:           # 返値の型
+        tk: tk_short        # 返値のTypeCode
+    args: []                # 引数情報
+    - corba: {}             # CORBAの引数情報
+        arg_name:           # 仮引数名
+        arg_type:           # 引数型
+        base_type:          # 引数の基本型
+        decl_type:          # 引数の宣言型
+        direction:          # 引数の方向
+        tk:                 # 引数のTypeCode
+        var_name:           # 引数の宣言時の名前
+      local: {}             # Localの引数情報
+        arg_name:           # 引数型
+        arg_type:           # 引数の基本型
+        base_type:          # 引数の基本型
+        decl_type:          # 引数の宣言型
+        direction:          # 引数の方向
+        tk:                 # 引数のTypeCode
+        var_name:           # 引数の宣言時の名前
+
+
+
+tree:
+- decl: module
+  name: 
+- decl: module
+  name: 
+
+
+
+
+メンバーなど(Struct, Union, Exception)
+
+corba:
+  idl_type: IDLの型名
+  base_type: CORBA C++型名
+  fq_type:
+  deref_type
+  
+
+local:

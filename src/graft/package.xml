@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<package>
+  <name>graft</name>
+  <version>0.2.3</version>
+  <description>
+    Graft is not yet finished. It's intended to be a full replacement to
+    robot_pose_ekf, including native absolute references, and arbitrary
+    topic configuration.
+
+    If you try to use Graft now, please note that not all parameters are
+    configured and you will not always see a change in behavior by
+    modifying the parameters.
+  </description>
+
+  <maintainer email="chadrockey@gmail.com">Chad Rockey</maintainer>
+  <maintainer email="mferguson@fetchrobotics.com">Michael Ferguson</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/graft</url>
+  <url type="bugtracker">https://github.com/ros-perception/graft/issues</url>
+  <url type="repository">https://github.com/ros-perception/graft</url>
+
+  <author email="chadrockey@willowgarage.com">Chad Rockey</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>eigen</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>rosconsole</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>rosconsole</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>tf</run_depend>
+
+</package>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="http://download.ros.org/schema/package_format3.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>neonavigation_launch</name>
+  <version>0.10.1</version>
+  <description>Demonstration and sample launch files for neonavigation meta-package</description>
+
+  <maintainer email="atsushi.w@ieee.org">Atsushi Watanabe</maintainer>
+  <license>BSD</license>
+  <author email="atsushi.w@ieee.org">Atsushi Watanabe</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>costmap_cspace</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>planner_cspace</exec_depend>
+  <exec_depend>safety_limiter</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>trajectory_tracker</exec_depend>
+  <exec_depend>trajectory_tracker_rviz_plugins</exec_depend>
+</package>

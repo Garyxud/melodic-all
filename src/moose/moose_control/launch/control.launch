@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <rosparam command="load" file="$(find moose_control)/config/control.yaml" />
+
+  <group if="$(optenv MOOSE_TRACKS 0)" >
+    <rosparam command="load" file="$(find moose_control)/config/control_tracks.yaml" />
+  </group>
+
+  <group if="$(optenv MOOSE_CONTROL_EXTRAS 0)" >
+    <rosparam command="load" file="$(env MOOSE_CONTROL_EXTRAS_PATH)" />
+  </group>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+      args="moose_joint_publisher moose_velocity_controller --timeout 10
+      --shutdown-timeout 1" />
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" />
+
+</launch>

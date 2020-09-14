@@ -1,0 +1,23 @@
+Etc:
+  GUID: 1DD2F204-2BFF-11DD-BFBD-001C23DA0BDF
+  Files:
+    - Id: Etc0000
+      ShortName: rtm_c000.vsp
+      Name: rtm_config_omni407.vsprops
+      Source: ..\\etc\\rtm_config_omni407.vsprops
+    - Id: Etc0001
+      ShortName: rtm_c001.vsp
+      Name: rtm_config_omni412.vsprops
+      Source: ..\\etc\\rtm_config_omni412.vsprops
+    - Id: Etc0003
+      ShortName: rtm_c002.vsp
+      Name: rtm_config.vsprops
+      Source: ..\\rtm_config.vsprops
+    - Id: Etc0004
+      ShortName: rtc.con
+      Name: rtc.conf.sample
+      Source: ..\\etc\\rtc.conf.sample
+    - Id: Etc0005
+      ShortName: rtm_c000.cma
+      Name: rtm_config.cmake
+      Source: ..\\cmake\\rtm_config.cmake

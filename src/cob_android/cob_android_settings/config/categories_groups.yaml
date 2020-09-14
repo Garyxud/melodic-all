@@ -1,0 +1,36 @@
+
+group1:
+ group_name: food
+ group_image: "food128.png"
+ component_name: Food
+ items:
+  item1:
+   item_name: pringles
+   item_id: 100
+   image_path: "pringels.jpg"
+  item2:
+   item_name: koala
+   item_id: 101
+   image_path: "koala.jpg"
+  item3:
+   item_name: cake
+   item_id: 102
+   image_path: "cake.png"
+
+group2:
+ group_name: drinks
+ group_image: "drink128.png"
+ component_name: Drinks
+ items:
+  item1:
+   item_name: tomatoe
+   item_id: 200
+   image_path: "scharfetomate.jpg"
+  item2:
+   item_name: fanta
+   item_id: 201
+   image_path: "fanta.jpg"
+  item3:
+   item_name: hohes c
+   item_id: 202
+   image_path: "hohesc.jpg"

@@ -1,0 +1,49 @@
+<package>
+  <name>network_control_tests</name>
+  <version>1.0.16</version>
+  <description>Test suite for the packages that are part of the "WiFi Test Setup" project:
+    network_monitor_udp, network_traffic_control, hostapd_access_point, linksys_access_point,
+    ddwrt_access_point.</description>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/network_control_tests</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Catalin Drula</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>network_monitor_udp</build_depend>
+  <build_depend>network_traffic_control</build_depend>
+  <build_depend>hostapd_access_point</build_depend>
+  <build_depend>linksys_access_point</build_depend>
+  <build_depend>ddwrt_access_point</build_depend>
+  <build_depend>access_point_control</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>rostest</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>network_monitor_udp</run_depend>
+  <run_depend>network_traffic_control</run_depend>
+  <run_depend>hostapd_access_point</run_depend>
+  <run_depend>linksys_access_point</run_depend>
+  <run_depend>ddwrt_access_point</run_depend>
+  <run_depend>access_point_control</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>rostest</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>network_monitor_udp</test_depend> -->
+  <!-- <test_depend>network_traffic_control</test_depend> -->
+  <!-- <test_depend>hostapd_access_point</test_depend> -->
+  <!-- <test_depend>linksys_access_point</test_depend> -->
+  <!-- <test_depend>ddwrt_access_point</test_depend> -->
+  <!-- <test_depend>access_point_control</test_depend> -->
+  <!-- <test_depend>dynamic_reconfigure</test_depend> -->
+  <!-- <test_depend>rostest</test_depend> -->
+
+</package>

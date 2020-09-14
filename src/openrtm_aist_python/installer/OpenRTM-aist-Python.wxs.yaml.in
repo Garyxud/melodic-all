@@ -1,0 +1,17 @@
+Product:
+  Name: OpenRTM-aist
+  ShortName: OpenRTM
+  Id: 11043B94-16BA-11DF-97DA-001C23DA0BDA
+  Language: "1041"
+  Codepage: "932"
+  Version: 1.1.0
+  ShortVersion: 1.1
+  Manufacturer: AIST
+  UpgradeCode: 958ED570-5471-4E82-8378-01C6068F31C2
+Package:
+  Description: OpenRTM-aist-Python Installer
+  InstallerVersion: "300"
+  Languages: "1041"
+  Compressed: 'yes'
+  SummaryCodepage: "932"
+

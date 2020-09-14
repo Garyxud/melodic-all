@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$classc_is_grasped_base.html" title="abstract base class for calculation of IsGrasped condition using tactile sensor information" alt="" coords="7,5,124,35"/>
+<area shape="rect" id="node3" href="$classc_is_grasped_by_area.html" title="class for calculation of IsGrasped condition using an expected area of contact measured by the tactil..." alt="" coords="173,5,304,35"/>
+</map>

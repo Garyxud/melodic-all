@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ml_classifiers</name>
+  <version>1.0.1</version>
+  <description>ml_classifiers</description>
+
+  <maintainer email="software@autonomoustuff.com">AutonomouStuff Software Development Team</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/ml_classifiers</url>
+  <url type="repository">https://github.com/astuff/ml_classifiers</url>
+  <url type="bugtracker">https://github.com/astuff/ml_classifiers/issues</url>
+
+  <author email="sniekum@cs.utexas.edu">Scott Niekum</author>
+  <author email="jwhitley@autonomoustuff.com">Joshua Whitley</author>
+
+  <buildtool_depend>ros_environment</buildtool_depend>
+
+  <buildtool_depend condition="$ROS_VERSION == 1">catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_VERSION == 2">ament_cmake</buildtool_depend>
+
+  <build_depend condition="$ROS_VERSION == 1">message_generation</build_depend>
+  <build_depend condition="$ROS_VERSION == 2">rosidl_default_generators</build_depend>
+
+  <depend>eigen</depend>
+  <depend>pluginlib</depend>
+  <depend>std_msgs</depend>
+
+  <depend condition="$ROS_VERSION == 1">roscpp</depend>
+  <depend condition="$ROS_VERSION == 1">roslib</depend>
+
+  <depend condition="$ROS_VERSION == 2">rclcpp</depend>
+
+  <exec_depend condition="$ROS_VERSION == 1">message_runtime</exec_depend>
+  <exec_depend condition="$ROS_VERSION == 2">rosidl_default_runtime</exec_depend>
+
+  <test_depend condition="$ROS_VERSION == 2">ament_lint_auto</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_copyright</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_cppcheck</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_cpplint</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_lint_cmake</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_uncrustify</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_xmllint</test_depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <ml_classifiers condition="$ROS_VERSION == 1" plugin="${prefix}/ros1_default_classifiers_plugin.xml"/>
+    <build_type condition="$ROS_VERSION == 1">catkin</build_type>
+    <build_type condition="$ROS_VERSION == 2">ament_cmake</build_type>
+  </export>
+</package>

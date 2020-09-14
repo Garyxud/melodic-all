@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>navigation_experimental</name>
+  <version>0.3.3</version>
+  <description>
+    A collection of navigation plugins and tools: Various recovery behaviors,
+    local and global planner plugins for move_base, a teleop filter for
+    obstacle avoidance, a simple control-based move_base replacement
+    etc.
+  </description>
+  <maintainer email="martin.guenther@dfki.de">Martin Günther</maintainer>
+  <license>BSD</license>
+  <url type="website">http://wiki.ros.org/navigation_experimental</url>
+  <url type="repository">https://github.com/ros-planning/navigation_experimental.git</url>
+  <url type="bugtracker">https://github.com/ros-planning/navigation_experimental/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>assisted_teleop</exec_depend>
+  <exec_depend>goal_passer</exec_depend>
+  <exec_depend>pose_base_controller</exec_depend>
+  <exec_depend>pose_follower</exec_depend>
+  <exec_depend>sbpl_lattice_planner</exec_depend>
+  <exec_depend>sbpl_recovery</exec_depend>
+  <exec_depend>twist_recovery</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

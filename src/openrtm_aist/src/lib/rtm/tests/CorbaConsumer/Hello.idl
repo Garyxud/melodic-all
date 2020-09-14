@@ -1,0 +1,4 @@
+interface hello
+{
+  void hello_world();
+};

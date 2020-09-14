@@ -1,0 +1,232 @@
+OpenCVRTCBin:
+  GUID: 90DE1F00-6BBA-11E0-8981-005056C00008
+  Files:
+    - Id: OpenCVRTCBin0000
+      ShortName: Affine.dll
+      Name: Affine.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Affine.dll
+    - Id: OpenCVRTCBin0001
+      ShortName: BackG000.dll
+      Name: BackGroundSubtractionSimple.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\BackGroundSubtractionSimple.dll
+    - Id: OpenCVRTCBin0002
+      ShortName: Binar000.dll
+      Name: Binarization.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Binarization.dll
+    - Id: OpenCVRTCBin0003
+      ShortName: Camer000.dll
+      Name: CameraViewer.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\CameraViewer.dll
+    - Id: OpenCVRTCBin0004
+      ShortName: Chrom000.dll
+      Name: Chromakey.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Chromakey.dll
+    - Id: OpenCVRTCBin0005
+      ShortName: Dilat000.dll
+      Name: DilationErosion.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\DilationErosion.dll
+    - Id: OpenCVRTCBin0006
+      ShortName: Edge.dll
+      Name: Edge.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Edge.dll
+    - Id: OpenCVRTCBin0007
+      ShortName: Findc000.dll
+      Name: Findcontour.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Findcontour.dll
+    - Id: OpenCVRTCBin0008
+      ShortName: Flip.dll
+      Name: Flip.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Flip.dll
+    - Id: OpenCVRTCBin0009
+      ShortName: Histo000.dll
+      Name: Histogram.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Histogram.dll
+    - Id: OpenCVRTCBin0010
+      ShortName: Hough.dll
+      Name: Hough.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Hough.dll
+    - Id: OpenCVRTCBin0011
+      ShortName: IEEE1000.dll
+      Name: IEEE1394Camera.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\IEEE1394Camera.dll
+    - Id: OpenCVRTCBin0012
+      ShortName: Image000.dll
+      Name: ImageCalibration.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ImageCalibration.dll
+    - Id: OpenCVRTCBin0013
+      ShortName: Image001.dll
+      Name: ImageSubstraction.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ImageSubstraction.dll
+    - Id: OpenCVRTCBin0014
+      ShortName: Objec000.dll
+      Name: ObjectTracking.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ObjectTracking.dll
+    - Id: OpenCVRTCBin0015
+      ShortName: OpenC000.dll
+      Name: OpenCVCamera.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\OpenCVCamera.dll
+    - Id: OpenCVRTCBin0016
+      ShortName: Persp000.dll
+      Name: Perspective.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Perspective.dll
+    - Id: OpenCVRTCBin0017
+      ShortName: PGRCa000.dll
+      Name: PGRCamera.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\PGRCamera.dll
+    - Id: OpenCVRTCBin0018
+      ShortName: RockP000.dll
+      Name: RockPaperScissors.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\RockPaperScissors.dll
+    - Id: OpenCVRTCBin0019
+      ShortName: Rotate.dll
+      Name: Rotate.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Rotate.dll
+    - Id: OpenCVRTCBin0020
+      ShortName: Scale.dll
+      Name: Scale.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Scale.dll
+    - Id: OpenCVRTCBin0021
+      ShortName: Sepia.dll
+      Name: Sepia.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Sepia.dll
+    - Id: OpenCVRTCBin0022
+      ShortName: SubSt000.dll
+      Name: SubStractCaptureImage.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\SubStractCaptureImage.dll
+    - Id: OpenCVRTCBin0023
+      ShortName: Template.dll
+      Name: Template.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Template.dll
+    - Id: OpenCVRTCBin0024
+      ShortName: Trans000.dll
+      Name: Translate.dll
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\Translate.dll
+    - Id: OpenCVRTCBin0025
+      ShortName: Affin000.exe
+      Name: AffineComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\AffineComp.exe
+    - Id: OpenCVRTCBin0026
+      ShortName: BackG001.exe
+      Name: BackGroundSubtractionSimpleComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\BackGroundSubtractionSimpleComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0027
+      ShortName: Binar001.exe
+      Name: BinarizationComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\BinarizationComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0028
+      ShortName: Camer001.exe
+      Name: CameraViewerComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\CameraViewerComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0029
+      ShortName: Chrom001.exe
+      Name: ChromakeyComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ChromakeyComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0030
+      ShortName: Dilat001.exe
+      Name: DilationErosionComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\DilationErosionComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0031
+      ShortName: EdgeComp.exe
+      Name: EdgeComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\EdgeComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0032
+      ShortName: Findc001.exe
+      Name: FindcontourComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\FindcontourComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0033
+      ShortName: FlipComp.exe
+      Name: FlipComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\FlipComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0034
+      ShortName: Histo001.exe
+      Name: HistogramComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\HistogramComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0035
+      ShortName: Hough000.exe
+      Name: HoughComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\HoughComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0036
+      ShortName: IEEE1001.exe
+      Name: IEEE1394CameraComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\IEEE1394CameraComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0037
+      ShortName: Image002.exe
+      Name: ImageCalibrationComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ImageCalibrationComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0038
+      ShortName: Image003.exe
+      Name: ImageSubstractionComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ImageSubstractionComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0039
+      ShortName: Objec001.exe
+      Name: ObjectTrackingComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ObjectTrackingComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0040
+      ShortName: OpenC001.exe
+      Name: OpenCVCameraComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\OpenCVCameraComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0041
+      ShortName: Persp001.exe
+      Name: PerspectiveComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\PerspectiveComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0042
+      ShortName: PGRCa001.exe
+      Name: PGRCameraComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\PGRCameraComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0043
+      ShortName: RockP001.exe
+      Name: RockPaperScissorsComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\RockPaperScissorsComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0044
+      ShortName: Rotat000.exe
+      Name: RotateComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\RotateComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0045
+      ShortName: Scale000.exe
+      Name: ScaleComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\ScaleComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0046
+      ShortName: Sepia000.exe
+      Name: SepiaComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\SepiaComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0047
+      ShortName: SubSt001.exe
+      Name: SubStractCaptureImageComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\SubStractCaptureImageComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0048
+      ShortName: Templ000.exe
+      Name: TemplateComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\TemplateComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0049
+      ShortName: trans000.exe
+      Name: translateComp.exe
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\translateComp.exe
+      Shortcut: true
+    - Id: OpenCVRTCBin0050
+      ShortName: rtc.conf
+      Name: rtc.conf
+      Source: C:\\distribution\\ImageProcessing\\opencv\\bin\\rtc.conf
+      Shortcut: false

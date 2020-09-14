@@ -1,0 +1,16 @@
+# For remocons who need to retrieve a filtered list of interactions
+# appropriate to the role and platform they will run for/on.
+
+
+# Filter according to groups. Disabled if the list is empty.
+string[] groups
+
+# Filter according to the rocon uri of the requesting device.
+# Disabled if empty string (i.e. assumes a 'rocon:/' filter).
+string uri
+
+# Check if the interactions satisty runtime pairing requirements.
+# Disabled if false.
+bool runtime_pairing_requirements
+---
+Interaction[] interactions

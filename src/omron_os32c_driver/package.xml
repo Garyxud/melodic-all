@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>omron_os32c_driver</name>
+  <version>1.1.0</version>
+  <description>Interface driver for Omron OS32C Lidar via Ethernet/IP (Industrial Protocol)</description>
+
+  <license>BSD</license>
+  <maintainer email="rein@eurogroep.com">Rein Appeldoorn</maintainer>
+  <author email="kareem@shehata.ca">Kareem Shehata</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>boost</depend>
+  <depend>diagnostic_updater</depend>
+  <depend>odva_ethernetip</depend>
+  <depend>rosconsole_bridge</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+
+  <test_depend>rosunit</test_depend>
+  <test_depend>roslaunch</test_depend>
+</package>

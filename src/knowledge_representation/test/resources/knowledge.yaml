@@ -1,0 +1,18 @@
+version: 1
+entities:
+  - concept: "lab"
+  - instance: ["yuqian", "person"]
+    attributes:
+      - name: "has"
+        value:
+          instance: ["o3_410f", "location"]
+      - name: "height"
+        value: 1.5
+  - instance: ["bwi", "lab"]
+    attributes:
+      - name: "has"
+        value:
+          instance: ["yuqian", "person"]
+      - name: "has"
+        value:
+          instance: ["l3_414b", "room"]

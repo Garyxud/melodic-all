@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>hpp-fcl</name>
+  <version>1.0.1</version>
+  <description>HPP fork of FCL with bug fixes.</description>
+  <maintainer email="wolfgang.merkt@ed.ac.uk">Wolfgang Merkt</maintainer>
+  <license>BSD</license>
+
+  <url type="website">https://github.com/humanoid-path-planner/hpp-fcl</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>git</build_depend>
+  <depend>octomap</depend>
+  <depend>eigen</depend>
+  <depend>boost</depend>
+  <depend>assimp</depend>
+</package>

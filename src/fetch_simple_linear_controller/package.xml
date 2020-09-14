@@ -1,0 +1,38 @@
+<package>
+  <name>fetch_simple_linear_controller</name>
+  <version>0.0.1</version>
+  <description>
+    Position feedback controller for simple linear motion of the fetch robot's end-effector.
+  </description>
+
+  <author email="dekent@gatech.edu">David Kent</author>
+  <maintainer email="dekent@gatech.edu">David Kent</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/fetch_simple_linear_controller</url>
+  <url type="bugtracker">https://github.com/GT-RAIL/fetch_simple_linear_controller/issues</url>
+  <url type="repository">https://github.com/GT-RAIL/fetch_simple_linear_controller</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>actionlib</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
+
+  <run_depend>actionlib</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>tf2</run_depend>
+  <run_depend>tf2_ros</run_depend>
+  <run_depend>tf2_geometry_msgs</run_depend>
+</package>

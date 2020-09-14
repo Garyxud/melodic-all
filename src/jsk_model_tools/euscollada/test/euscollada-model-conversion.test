@@ -1,0 +1,6 @@
+<launch>
+  <!-- we assume test code is invoked in alphabet order of test-name -->
+  <test test-name="euscollada_model_test" pkg="roseus" type="roseus"
+        args="$(find euscollada)/test/euscollada-model-conversion-test.l"
+        />
+</launch>

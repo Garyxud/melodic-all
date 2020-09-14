@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<WixLocalization Culture="ko-kr" Codepage="949" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+    <String Id="WixUIBack" Overridable="yes">E¤EE&amp;B)</String>
+    <String Id="WixUINext" Overridable="yes">E¤EE&amp;N)</String>
+    <String Id="WixUICancel" Overridable="yes">E¨EE/String>
+    <String Id="WixUIFinish" Overridable="yes">Eˆì¹¨(&amp;F)</String>
+    <String Id="WixUIRetry" Overridable="yes">E¤EEEœë„(&amp;R)</String>
+    <String Id="WixUIIgnore" Overridable="yes">E´EE&amp;I)</String>
+    <String Id="WixUIYes" Overridable="yes">EE&amp;Y)</String>
+    <String Id="WixUINo" Overridable="yes">EE‹ˆEE&amp;N)</String>
+    <String Id="WixUIOK" Overridable="yes">úµ•ì¸</String>
+    <String Id="WixUIPrint" Overridable="yes">E¸EE&amp;P)</String>
+    
+    <String Id="AdvancedWelcomeEulaDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="AdvancedWelcomeEulaDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="AdvancedWelcomeEulaDlgTitle" Overridable="yes">{\WixUI_Font_Title}[ProductName]EEEŒí”„ú¦¸E¨E´ E¼E´E¼E¤ E°ú±­EEE½E´E¼E¸EE</String>
+    <String Id="AdvancedWelcomeEulaDlgLicenseAcceptedCheckBox" Overridable="yes">EŒí”„ú¦¸E¨E´ E¼E´E¼E¤ E°ú±­EEE™ì˜ú±©Eˆë‹¤.(&amp;A)</String>
+    <String Id="AdvancedWelcomeEulaDlgDescriptionPerMachine" Overridable="yes">"E¤EEE¨E”ë¥¼ ú´E­ú±˜ë©´ E¨E  E¬E©EEE€EE— E€ú±´ E¤EEú±©Eˆë‹¤. E¤EEEµE˜ì„ E€E½ú±˜ë ¤E´ "EE„¸"E¨E”ë¥¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="AdvancedWelcomeEulaDlgDescriptionPerUser" Overridable="yes">"E¤EEE¨E”ë¥¼ ú´E­ú±˜ë©´ ú´Ež¬ E¬E©EEE€EE— E€ú±´ E¤EEú±©Eˆë‹¤. E¤EEEµE˜ì„ E€E½ú±˜ë ¤E´ "EE„¸"E¨E”ë¥¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="AdvancedWelcomeEulaDlgInstall" Overridable="yes">E¤EE&amp;I)</String>
+    <String Id="AdvancedWelcomeEulaDlgAdvanced" Overridable="yes">EE„¸(&amp;D)</String>
+    <String Id="Advanced_Font_Normal_Size" Overridable="yes">8</String>
+    <String Id="Advanced_Font_Bigger_Size" Overridable="yes">12</String>
+    <String Id="Advanced_Font_Title_Size" Overridable="yes">9</String>
+    <String Id="Advanced_Font_Emphasized_Size" Overridable="yes">8</String>
+    <String Id="Advanced_Font_FaceName" Overridable="yes">Tahoma</String>
+    
+    <String Id="BrowseDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="BrowseDlgComboLabel" Overridable="yes">E¾EEEE¹E&amp;L):</String>
+    <String Id="BrowseDlgWixUI_Bmp_Up" Overridable="yes">WixUI_Bmp_Up</String>
+    <String Id="BrowseDlgWixUI_Bmp_UpTooltip" Overridable="yes">ú±EE˜ì¤€ EE¡E/String>
+    <String Id="BrowseDlgNewFolder" Overridable="yes">WixUI_Bmp_New</String>
+    <String Id="BrowseDlgNewFolderTooltip" Overridable="yes">EEú«´EEEŒë“¤E°</String>
+    <String Id="BrowseDlgPathLabel" Overridable="yes">ú«´EEE´EE&amp;F):</String>
+    <String Id="BrowseDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="BrowseDlgDescription" Overridable="yes">E€EEú«´EEE¾EE³´E°</String>
+    <String Id="BrowseDlgTitle" Overridable="yes">{\WixUI_Font_Title}E€EEú«´EEE€E½</String>
+    
+    <String Id="CancelDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="CancelDlgText" Overridable="yes">[ProductName] E¤E˜ë¥¼ E¨EŒí•˜Eœê² EµEˆê¹E</String>
+    <String Id="CancelDlgIcon" Overridable="yes">WixUI_Ico_Info</String>
+    <String Id="CancelDlgIconTooltip" Overridable="yes">E•ë³´ EE´EE/String>
+    
+    <String Id="CustomizeDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="CustomizeDlgTree" Overridable="yes">E úŸEú±­E© ú¦¸E¬</String>
+    <String Id="CustomizeDlgBrowse" Overridable="yes">E¾EE³´E°(&amp;R)...</String>
+    <String Id="CustomizeDlgReset" Overridable="yes">Eëž˜E€EE&amp;S)</String>
+    <String Id="CustomizeDlgDiskCost" Overridable="yes">E”ìŠ¤ú¬ E¬E©EE&amp;U)</String>
+    <String Id="CustomizeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="CustomizeDlgText" Overridable="yes">E°E¥ E¤EEE©E•ì„ E€E½ú±˜ë ¤E´ EEž˜EEú¦¸E¬EìE ú±´E¹ EE´E˜ì„ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="CustomizeDlgDescription" Overridable="yes">E°E¥ E¤EEE©E•ì„ E úŸí•©Eˆë‹¤.</String>
+    <String Id="CustomizeDlgTitle" Overridable="yes">{\WixUI_Font_Title}E¬E©EEE€EEE¤EE/String>
+    <String Id="CustomizeDlgItemDescription" Overridable="yes">CustomizeDlgItemDescription-CustomizeDlgItemDescription</String>
+    <String Id="CustomizeDlgItemSize" Overridable="yes">CustomizeDlgItemSize-CustomizeDlgItemSize</String>
+    <String Id="CustomizeDlgLocation" Overridable="yes">CustomizeDlgLocation-CustomizeDlgLocation</String>
+    <String Id="CustomizeDlgLocationLabel" Overridable="yes">Location:</String>
+    
+    <String Id="DiskCostDlg_Title" Overridable="yes">[ProductName] Setup</String>
+    <String Id="DiskCostDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="DiskCostDlgText" Overridable="yes">E úŸëœ E¼E¨EëŠ” ú´Ež¬ E úŸí•œ E°E¥EEE¤E˜í•  EŒí¼ E©EE•œ EµEE´ EEŠµEˆë‹¤. ú±´E¹ E¼E¨EìE E¼E€ ú¨Œì¼EEEœê±°ú±˜ê±°EE E¤E˜í•  E°E¥EEEE´E°EE E¤E¸ E€EEEœë¼E´EŒë¥¼ E úŸí•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="DiskCostDlgDescription" Overridable="yes">E úŸí•œ E°E¥EEE¤E˜ì— ú±Eš”ú±EE”ìŠ¤ú¬ EµEEž…Eˆë‹¤.</String>
+    <String Id="DiskCostDlgTitle" Overridable="yes">{\WixUI_Font_Title}ú±Eš”ú±EE”ìŠ¤ú¬ EµEE/String>
+    <String Id="DiskCostDlgVolumeList" Overridable="yes">{120}{70}{70}{70}{70}</String>
+    
+    <String Id="ErrorDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="ErrorDlgErrorText" Overridable="yes">E•ë³´ ú¡ìŠ¤ú¦¸</String>
+    <String Id="ErrorDlgErrorIcon" Overridable="yes">WixUI_Ico_Info</String>
+    <String Id="ErrorDlgErrorIconTooltip" Overridable="yes">E•ë³´ EE´EE/String>
+    
+    <String Id="ExitDialog_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="ExitDialogBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="ExitDialogDescription" Overridable="yes">E¤EEEˆë²•ì‚¬E¼ Eë‚´E¤E´ "Eˆì¹¨" E¨E”ë¥¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="ExitDialogTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] E¤EEEˆë²•ì‚¬ EE£E/String>
+    
+    <String Id="FatalError_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="FatalErrorBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="FatalErrorTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] E¤EEEˆë²•ì‚¬E€ E‘ê°E— E‘ë‹¨E˜ì—ˆEµEˆë‹¤.</String>
+    <String Id="FatalErrorDescription1" Overridable="yes">E¤E˜ë¡EE¸ú±´ [ProductName] E¤EEEˆë²•ì‚¬E€ E‘ê°E— E‘ë‹¨E˜ì—ˆEµEˆë‹¤. EœìŠ¤ú¡œì´ E˜ì •ë˜E€ EŠì•˜EµEˆë‹¤. E˜ì¤‘ì— E´ ú°E¡œê·¸E¨EEE¤E˜í•˜E¤E´ E¤EEEˆë²•ì‚¬E¼ E¤EEE¤ú²‰í•˜E­Eœì˜¤.</String>
+    <String Id="FatalErrorDescription2" Overridable="yes">E¤EEEˆë²•ì‚¬E¼ Eë‚´E¤E´ "Eˆì¹¨" E¨E”ë¥¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    
+    <String Id="FeaturesDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="FeaturesDlgTree" Overridable="yes">Eœí’ˆEEE°E¥</String>
+    <String Id="FeaturesDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="FeaturesDlgDescription" Overridable="yes">E°E¥ E¤EEE©E•ì„ E úŸí•˜E­Eœì˜¤.</String>
+    <String Id="FeaturesDlgTitle" Overridable="yes">{\WixUI_Font_Title}Eœí’ˆEEE°E¥</String>
+    <String Id="FeaturesDlgItemDescription" Overridable="yes">FeaturesDlgItemDescription</String>
+    <String Id="FeaturesDlgItemSize" Overridable="yes">FeaturesDlgItemSize</String>
+    <String Id="FeaturesDlgInstall" Overridable="yes">E¤EE&amp;I)</String>
+    <String Id="FeaturesDlgChange" Overridable="yes">E€E½(&amp;C)</String>
+    
+    <String Id="FilesInUse_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="FilesInUseExit" Overridable="yes">Eë‚´E°(&amp;X)</String>
+    <String Id="FilesInUseBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="FilesInUseText" Overridable="yes">E¤EEE‘ìš© ú°E¡œê·¸E¨EìE E´ E¤EEú°E¡œê·¸E¨E´ EE°E´ú¦¸ú±´E¼ ú±  ú¨Œì¼EEE¬E©ú±˜ê³  EˆìŠµEˆë‹¤. E€E¨EEE‘ìš© ú°E¡œê·¸E¨EEE«E  "E¤EEEœë„"E¼ ú´E­ú±˜ì—¬ E¤E˜ë¥¼ EEEú±˜ê±°EE"Eë‚´E°"E¼ EŒëŸ¬ Eë‚´E­Eœì˜¤.</String>
+    <String Id="FilesInUseDescription" Overridable="yes">EE°E´ú¦¸ú±  ú¨Œì¼ EEE¼E€E¼ E¬E©ú±˜ê³  EˆìŠµEˆë‹¤.</String>
+    <String Id="FilesInUseTitle" Overridable="yes">{\WixUI_Font_Title}ú¨Œì¼ E¬E© EE/String>
+    
+    <String Id="InstallDirDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="InstallDirDlgChange" Overridable="yes">E€E½(&amp;C)...</String>
+    <String Id="InstallDirDlgTitle" Overridable="yes">{\WixUI_Font_Title}E€EEú«´EE/String>
+    <String Id="InstallDirDlgDescription" Overridable="yes">E°E¸ ú«´E”ì— E¤E˜í•˜E¤E´ "E¤EEEEú´E­ú±˜ê³ , E¤E¸ E¤EEú«´E”ë¥¼ E úŸí•˜E¤E´ "E¾EE³´E°"E¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="InstallDirDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="InstallDirDlgFolderLabel" Overridable="yes">[ProductName] E¤EEEE¹E</String>
+    
+    <String Id="InstallScopeDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="InstallScopeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="InstallScopeDlgDescription" Overridable="yes">E”êµ¬EEE€E¥ EEEžëŠ” E¤EEE ú´•ì„ E úŸí•˜E­Eœì˜¤.</String>
+    <String Id="InstallScopeDlgTitle" Overridable="yes">{\WixUI_Font_Title}E¤EEEE¥E/String>
+    <String Id="InstallScopeDlgPerUser" Overridable="yes">{\WixUI_Font_Emphasized}E¬E©EE([USERNAME]) E¤EE&amp;F)</String>
+    <String Id="InstallScopeDlgPerUserDescription" Overridable="yes">[ProductName] EEE€) ú´Ež¬ E¬E©EEE€EE— E€ú±´ E´E© E€E¥ú±©Eˆë‹¤. Administrator EŒí•œE´ ú±Eš”ú±˜ì§€ EŠìŠµEˆë‹¤.</String>
+    <String Id="InstallScopeDlgNoPerUserDescription" Overridable="yes">[ProductName] EEE€) EEE¬E©EEE€EE— E€ú±˜ì—¬ E¤E˜ë¥¼ E€Eí•˜E  Eˆì§€ EŠìŠµEˆë‹¤.</String>
+    <String Id="InstallScopeDlgPerMachine" Overridable="yes">{\WixUI_Font_Emphasized}ú´Ež¬ E´ú¯¨ú ° E¨E  E¬E©EEE€EE— E€ú±´ E¤EE&amp;C)</String>
+    <String Id="InstallScopeDlgPerMachineDescription" Overridable="yes">[ProductName] EEE€) EEE¬E©EEú«´E”ì— E¤E˜ë˜E´ E¨E  E¬E©Eê°€ E´E© E€E¥ú±©Eˆë‹¤.E¤EEú«´E”ë¥¼ E€E½ú±˜ë ¤E´ Administrator EŒí•œE´ ú±Eš”ú±©Eˆë‹¤.</String>
+    <String Id="InstallScopeDlgFolderLabel" Overridable="yes">E¤EEú«´EE&amp;F):</String>
+    <String Id="InstallScopeDlgChange" Overridable="yes">E€E½(&amp;C)...</String>
+    
+    <String Id="InvalidDirDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="InvalidDirDlgText" Overridable="yes">Installation directory must be on a local hard drive.</String>
+    <String Id="InvalidDirDlgIcon" Overridable="yes">WixUI_Ico_Info</String>
+    <String Id="InvalidDirDlgIconTooltip" Overridable="yes">Information icon</String>
+    
+    <String Id="LicenseAgreementDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="LicenseAgreementDlgLicenseAcceptedCheckBox" Overridable="yes">E™ì˜ú±¨(&amp;A)</String>
+    <String Id="LicenseAgreementDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="LicenseAgreementDlgDescription" Overridable="yes">E¤EEE¬E©EEEE•½EEEì„¸úºEE½E´ E¼E­Eœì˜¤.</String>
+    <String Id="LicenseAgreementDlgTitle" Overridable="yes">{\WixUI_Font_Title}Eœì¢EE¬E©EEE¬E©EEEE•½</String>
+    
+    <String Id="MaintenanceTypeDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="MaintenanceTypeDlgChangeButton" Overridable="yes">E€E½(&amp;C)</String>
+    <String Id="MaintenanceTypeDlgChangeButtonTooltip" Overridable="yes">E¤EEE€E½</String>
+    <String Id="MaintenanceTypeDlgRepairButton" Overridable="yes">EµE¬(&amp;P)</String>
+    <String Id="MaintenanceTypeDlgRepairButtonTooltip" Overridable="yes">E¤EEEµE¬</String>
+    <String Id="MaintenanceTypeDlgRemoveButton" Overridable="yes">Eœê±°(&amp;R)</String>
+    <String Id="MaintenanceTypeDlgRemoveButtonTooltip" Overridable="yes">E¤EEEœê±°</String>
+    <String Id="MaintenanceTypeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="MaintenanceTypeDlgDescription" Overridable="yes">Eí•˜EEE‘ì—…EEE úŸí•˜E­Eœì˜¤.</String>
+    <String Id="MaintenanceTypeDlgTitle" Overridable="yes">{\WixUI_Font_Title}E¤EEE€E½, EµE¬, Eœê±°</String>
+    <String Id="MaintenanceTypeDlgChangeText" Overridable="yes">E°E¥ E¤EEE©E•ì„ E€E½ú±  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="MaintenanceTypeDlgChangeDisabledText" Overridable="yes">[ProductName]EEEE¦½EEœ¼EEE úŸí•  EEEˆëŠ” E°E¥E´ EEŠµEˆë‹¤.</String>
+    <String Id="MaintenanceTypeDlgRemoveText" Overridable="yes">E´ú¯¨ú °EìE [ProductName]EEE¼) Eœê±°ú±©Eˆë‹¤.</String>
+    <String Id="MaintenanceTypeDlgRemoveDisabledText" Overridable="yes">[ProductName] EEE¼) Eœê±°ú±  EEEEŠµEˆë‹¤.</String>
+    <String Id="MaintenanceTypeDlgRepairText" Overridable="yes">E€E¥ Eœê·¼EEE¤EEEEEEìE E¤E˜ë¥¼ EµE¬ú±©Eˆë‹¤. EE±°EEEìƒEEú¨Œì¼, E”ë¡EE€E° EEEˆì§€E¤ú¦¸E¬ ú±­E©EEE E©Eˆë‹¤.</String>
+    
+    <String Id="MaintenanceTypeDlgRepairDisabledText" Overridable="yes">[ProductName] EEE¼) EµE¬ú±  EEEEŠµEˆë‹¤.</String>
+    <String Id="MaintenanceWelcomeDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="MaintenanceWelcomeDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="MaintenanceWelcomeDlgDescription" Overridable="yes">E¤EEEˆë²•ì‚¬E¼ E¬E©ú±˜ë©´ [ProductName] E°E¥E´ E´ú¯¨ú °EEE¤E˜ë˜EEE©E•ì„ E€E½ú±˜ê±°EEE°E¥EEEœê±°ú±  EEEˆìŠµEˆë‹¤. EEEú±˜ë ¤E´ "E¤EEEEú´E­ú±˜ê³ , E¤EEEˆë²•ì‚¬E¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±©Eˆë‹¤.</String>
+    <String Id="MaintenanceWelcomeDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] E¤EEEˆë²•ì‚¬ Eœìž‘</String>
+    
+    <String Id="MsiRMFilesInUse_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="MsiRMFilesInUseBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="MsiRMFilesInUseText" Overridable="yes">E¤EEE‘ìš© ú°E¡œê·¸E¨EìE E´ E¤EEú°E¡œê·¸E¨E´ EE°E´ú¦¸ú±´E¼ ú±  ú¨Œì¼EEE¬E©ú±˜ê³  EˆìŠµEˆë‹¤. E¤EEEˆë²•ì‚¬EìE E€E¨ ú°E¡œê·¸E¨EEE«E  E¤EEEœìž‘ú±˜ê±°EEE˜ì¤‘ì— E¤EEE€ú¨E•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="MsiRMFilesInUseDescription" Overridable="yes">EE°E´ú¦¸ú±  ú¨Œì¼ EEE¼E€E¼ E¬E©ú±˜ê³  EˆìŠµEˆë‹¤.</String>
+    <String Id="MsiRMFilesInUseTitle" Overridable="yes">{\WixUI_Font_Title}ú¨Œì¼ E¬E© EE/String>
+    <String Id="MsiRMFilesInUseUseRM" Overridable="yes">E‘ìš© ú°E¡œê·¸E¨EEE«E  E¤EEEœìž‘ú±©Eˆë‹¤(&amp;C).</String>
+    <String Id="MsiRMFilesInUseDontUseRM" Overridable="yes">E‘ìš© ú°E¡œê·¸E¨EEE«E€ EŠìŠµEˆë‹¤. E¤EEE€ú¨E•´E¼ ú±©Eˆë‹¤(&amp;D).</String>
+    
+    <String Id="OutOfDiskDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="OutOfDiskDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="OutOfDiskDlgText" Overridable="yes">E úŸëœ E¼E¨EëŠ” ú´Ež¬ E úŸí•œ E°E¥EEE¤E˜í•  EŒí¼ E©EE•œ EµEE´ EEŠµEˆë‹¤. ú±´E¹ E¼E¨EìE E¼E€ ú¨Œì¼EEEœê±°ú±˜ê±°EE E¤E˜í•  E°E¥EEEE´E°EE E¤E¸ E€EEEœë¼E´EŒë¥¼ E úŸí•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="OutOfDiskDlgDescription" Overridable="yes">E¤E˜ì— ú±Eš”ú±EE”ìŠ¤ú¬ EµEE´ E¬E© E€E¥ú±EE”ìŠ¤ú¬ EµEE„ Eˆê³¼ú±©Eˆë‹¤.</String>
+    <String Id="OutOfDiskDlgTitle" Overridable="yes">{\WixUI_Font_Title}E”ìŠ¤ú¬ EµEEE€E±</String>
+    <String Id="OutOfDiskDlgVolumeList" Overridable="yes">{120}{70}{70}{70}{70}</String>
+    
+    <String Id="OutOfRbDiskDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="OutOfRbDiskDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="OutOfRbDiskDlgText" Overridable="yes">E úŸëœ E¼E¨EëŠ” ú´Ež¬ E úŸí•œ E°E¥EEE¤E˜í•  EŒí¼ E©EE•œ EµEE´ EEŠµEˆë‹¤. ú±´E¹ E¼E¨EìE E¼E€ ú¨Œì¼EEEœê±°ú±˜ê±°EE E¤E˜í•  E°E¥EEEE´E°EE E¤E¸ E€EEEœë¼E´EŒë¥¼ E úŸí•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="OutOfRbDiskDlgDescription" Overridable="yes">E¤E˜ì— ú±Eš”ú±EE”ìŠ¤ú¬ EµEE´ E¬E© E€E¥ú±EE”ìŠ¤ú¬ EµEE„ Eˆê³¼ú±©Eˆë‹¤.</String>
+    <String Id="OutOfRbDiskDlgTitle" Overridable="yes">{\WixUI_Font_Title}E”ìŠ¤ú¬ EµEEE€E±</String>
+    <String Id="OutOfRbDiskDlgVolumeList" Overridable="yes">{120}{70}{70}{70}{70}</String>
+    <String Id="OutOfRbDiskDlgText2" Overridable="yes">EëŠ” E¤E± E°E¥EEE¬E©ú±˜ì§€ EŠë„EEE úŸí•  E˜ë„ EˆìŠµEˆë‹¤. E´EE²EE úŸí•˜E´, E¤E˜ê°€ E‘ë‹¨EEE½E° E´ú¯¨ú °E¼ Eëž˜EEEˆê¸° EEEEEEµEí•  EEEEŠµEˆë‹¤. E¤E±EEE¬E©ú±˜ì§€ EŠìœ¼E¤E´ "EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    
+    <String Id="PrepareDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="PrepareDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="PrepareDlgDescription" Overridable="yes">E¤EEEˆë²•ì‚¬E€ E¤EEEˆë‚´E¼ E€EE•˜EEE™ì•ˆ E°E¤E¤ E¼E­Eœì˜¤.</String>
+    <String Id="PrepareDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] E¤EEEˆë²•ì‚¬ Eœìž‘</String>
+    
+    <String Id="ProgressDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="ProgressDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="ProgressDlgTextInstalling" Overridable="yes">E¤EEEˆë²•ì‚¬EìE [ProductName]EEE¼) E¤E˜í•˜EEE™ì•ˆ E°E¤E¤ E¼E­Eœì˜¤.</String>
+    <String Id="ProgressDlgTitleInstalling" Overridable="yes">{\WixUI_Font_Title}[ProductName] E¤EEEE/String>
+    <String Id="ProgressDlgTextChanging" Overridable="yes">E¤EEEˆë²•ì‚¬EìE [ProductName]EEE¼) E€E½ú±˜ëŠ” E™ì•ˆ E°E¤E¤ E¼E­Eœì˜¤.</String>
+    <String Id="ProgressDlgTitleChanging" Overridable="yes">{\WixUI_Font_Title}[ProductName] E€E½ EE/String>
+    <String Id="ProgressDlgTextRepairing" Overridable="yes">E¤EEEˆë²•ì‚¬EìE [ProductName]EEE¼) EµE¬ú±˜ëŠ” E™ì•ˆ E°E¤E¤ E¼E­Eœì˜¤.</String>
+    <String Id="ProgressDlgTitleRepairing" Overridable="yes">{\WixUI_Font_Title}[ProductName] EµE¬ EE/String>
+    <String Id="ProgressDlgTextRemoving" Overridable="yes">E¤EEEˆë²•ì‚¬EìE [ProductName]EEE¼) Eœê±°ú±˜ëŠ” E™ì•ˆ E°E¤E¤ E¼E­Eœì˜¤.</String>
+    <String Id="ProgressDlgTitleRemoving" Overridable="yes">{\WixUI_Font_Title}[ProductName] Eœê±° EE/String>
+    <String Id="ProgressDlgProgressBar" Overridable="yes">EE–‰ EE£E/String>
+    <String Id="ProgressDlgStatusLabel" Overridable="yes">EEE:</String>
+    
+    <String Id="ResumeDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="ResumeDlgInstall" Overridable="yes">E¤EE&amp;I)</String>
+    <String Id="ResumeDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="ResumeDlgDescription" Overridable="yes">E¤EEEˆë²•ì‚¬E€ [ProductName]EEE¤E˜ë¥¼ EE£Œí•©Eˆë‹¤. EEEú±˜ë ¤E´ "E¤EEE¼ ú´E­ú±˜ê³ , E¤EEEˆë²•ì‚¬E¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="ResumeDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] E¤EEEˆë²•ì‚¬ E¤EEEœìž‘</String>
+    
+    <String Id="SetupTypeDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="SetupTypeDlgTypicalButton" Overridable="yes">ú­œì¤€(&amp;T)</String>
+    <String Id="SetupTypeDlgTypicalButtonTooltip" Overridable="yes">ú­œì¤€ E¤EE/String>
+    <String Id="SetupTypeDlgCustomButton" Overridable="yes">E¬E©EEE€EE&amp;U)</String>
+    <String Id="SetupTypeDlgCustomButtonTooltip" Overridable="yes">E¬E©EEE€EEE¤EE/String>
+    <String Id="SetupTypeDlgCompleteButton" Overridable="yes">EE²´(&amp;O)</String>
+    <String Id="SetupTypeDlgCompleteButtonTooltip" Overridable="yes">EE²´ E¤EE/String>
+    <String Id="SetupTypeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="SetupTypeDlgTitle" Overridable="yes">{\WixUI_Font_Title}E¤EEE ú´EE úŸE/String>
+    <String Id="SetupTypeDlgDescription" Overridable="yes">E”êµ¬EEE€E¥ EEEžëŠ” E¤EEE ú´•ì„ E úŸí•˜E­Eœì˜¤.</String>
+    <String Id="SetupTypeDlgTypicalText" Overridable="yes">E€E¥ E¼E˜ì E¸ ú°E¡œê·¸E¨ E°E¥EEE¤E˜í•©Eˆë‹¤. E€E€EE˜ E¬E©Eì—EEEŒìž¥ú±©Eˆë‹¤.</String>
+    <String Id="SetupTypeDlgCustomText" Overridable="yes">E¤E˜í•  ú°E¡œê·¸E¨ E°E¥E¼ EE¹˜ë¥¼ E úŸí•  EEEˆìŠµEˆë‹¤. E EEE¬E©Eì—EEEŒìž¥ú±©Eˆë‹¤.</String>
+    <String Id="SetupTypeDlgCompleteText" Overridable="yes">E¨E  ú°E¡œê·¸E¨ E°E¥EEE¤E˜í•©Eˆë‹¤. E€E¥ EŽì€ E”ìŠ¤ú¬ EµEE´ ú±Eš”ú±©Eˆë‹¤.</String>
+    
+    <String Id="UserExit_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="UserExitBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="UserExitTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] E¤EEEˆë²•ì‚¬E€ E‘ê°E— E‘ë‹¨E˜ì—ˆEµEˆë‹¤.</String>
+    <String Id="UserExitDescription1" Overridable="yes">[ProductName] E¤E˜ê°€ E‘ë‹¨E˜ì—ˆEµEˆë‹¤. EœìŠ¤ú¡œì´ E˜ì •ë˜E€ EŠì•˜EµEˆë‹¤. E˜ì¤‘ì— E´ ú°E¡œê·¸E¨EEE¤E˜í•˜E¤E´ E¤EEEˆë²•ì‚¬E¼ E¤EEE¤ú²‰í•˜E­Eœì˜¤.</String>
+    <String Id="UserExitDescription2" Overridable="yes">E¤EEEˆë²•ì‚¬E¼ Eë‚´E¤E´ "Eˆì¹¨" E¨E”ë¥¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    
+    <String Id="VerifyReadyDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="VerifyReadyDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+    <String Id="VerifyReadyDlgInstall" Overridable="yes">E¤EE&amp;I)</String>
+    <String Id="VerifyReadyDlgInstallText" Overridable="yes">E¤E˜ë¥¼ Eœìž‘ú±˜ë ¤E´ "E¤EEE¼ ú´E­ú±©Eˆë‹¤. E¤EEE¤E•ì„ E€ú¢ ú±˜ê±°EEE€E½ú±˜ë ¤E´ "E¤EEE¼ ú´E­ú±˜ê³ , Eˆë²•ì‚¬E¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="VerifyReadyDlgInstallTitle" Overridable="yes">{\WixUI_Font_Title}[ProductName]EEE¼) E¤E˜í•  E€EE°€ E˜ì—ˆEµEˆë‹¤.</String>
+    <String Id="VerifyReadyDlgChange" Overridable="yes">E€E½(&amp;C)</String>
+    <String Id="VerifyReadyDlgChangeText" Overridable="yes">E¤E˜ë¥¼ Eœìž‘ú±˜ë ¤E´ "E€E½"EEú´E­ú±©Eˆë‹¤. E¤EEE¤E•ì„ E€ú¢ ú±˜ê±°EEE€E½ú±˜ë ¤E´ "E¤EEE¼ ú´E­ú±˜ê³ , Eˆë²•ì‚¬E¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="VerifyReadyDlgChangeTitle" Overridable="yes">{\WixUI_Font_Title}[ProductName]EEE¼) E€E½ú±  E€EE°€ E˜ì—ˆEµEˆë‹¤.</String>
+    <String Id="VerifyReadyDlgRepair" Overridable="yes">EµE¬(&amp;P)</String>
+    <String Id="VerifyReadyDlgRepairText" Overridable="yes">[ProductName]EEE¤E˜ë¥¼ EµE¬ú±˜ë ¤E´ "EµE¬"E¼ ú´E­ú±©Eˆë‹¤. E¤EEE¤E•ì„ E€ú¢ ú±˜ê±°EEE€E½ú±˜ë ¤E´ "E¤EEE¼ ú´E­ú±˜ê³ , Eˆë²•ì‚¬E¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="VerifyReadyDlgRepairTitle" Overridable="yes">{\WixUI_Font_Title}[ProductName]EEE¼) EµE¬ú±  E€EE°€ E˜ì—ˆEµEˆë‹¤.</String>
+    <String Id="VerifyReadyDlgRemove" Overridable="yes">Eœê±°(&amp;R)</String>
+    <String Id="VerifyReadyDlgRemoveText" Overridable="yes">[ProductName]EEE¼) Eœê±°ú±˜ë ¤E´ "Eœê±°"E¼ ú´E­ú±©Eˆë‹¤. E¤EEE¤E•ì„ E€ú¢ ú±˜ê±°EEE€E½ú±˜ë ¤E´ "E¤EEE¼ ú´E­ú±˜ê³ , Eˆë²•ì‚¬E¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="VerifyReadyDlgRemoveTitle" Overridable="yes">{\WixUI_Font_Title}[ProductName]EEE¼) Eœê±°ú±  E€EE°€ E˜ì—ˆEµEˆë‹¤.</String>
+    
+    <String Id="WaitForCostingDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="WaitForCostingDlgReturn" Overridable="yes">EŒì•„E€E°(&amp;R)</String>
+    <String Id="WaitForCostingDlgText" Overridable="yes">ú±Eš”ú±EE”ìŠ¤ú¬ EµEE„ úµ•ì¸ú±˜ê³  EˆìŠµEˆë‹¤.</String>
+    <String Id="WaitForCostingDlgIcon" Overridable="yes">WixUI_Ico_Exclam</String>
+    <String Id="WaitForCostingDlgIconTooltip" Overridable="yes">E½E  EE´EE/String>
+    
+    <String Id="WelcomeDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="WelcomeDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="WelcomeDlgDescription" Overridable="yes">E´ú¯¨ú °EE[ProductName]EEE¼) E¤E˜í•©Eˆë‹¤. EEEú±˜ë ¤E´ "E¤EEEEú´E­ú±˜ê³  E¤EEEˆë²•ì‚¬E¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="WelcomeDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] E¤EEEˆë²•ì‚¬ Eœìž‘</String>
+    
+    <String Id="WelcomeEulaDlg_Title" Overridable="yes">[ProductName] E¤EE/String>
+    <String Id="WelcomeEulaDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+    <String Id="WelcomeEulaDlgLicenseAcceptedCheckBox" Overridable="yes">E™ì˜ú±¨(&amp;A)</String>
+    <String Id="WelcomeEulaDlgInstall" Overridable="yes">E¤EE&amp;I)</String>
+    <String Id="WelcomeEulaDlgTitle" Overridable="yes">{\WixUI_Font_Title}[ProductName] E¬E©EEEE•½EEE½E´ E¼E­Eœì˜¤.</String>
+    
+    <String Id="ProgressTextInstallValidate" Overridable="yes">E¤EEE ú¶¨E± úµ•ì¸ EE/String>
+    <String Id="ProgressTextInstallFiles" Overridable="yes">EEú¨Œì¼ EµE¬ EE/String>
+    <String Id="ProgressTextInstallFilesTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [9], ú¬E°: [6]</String>
+    <String Id="ProgressTextInstallAdminPackage" Overridable="yes">E¤ú¦¸EŒí¬ E¤EEú¨Œì¼EEEµE¬ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextInstallAdminPackageTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [9], ú¬E°: [6]</String>
+    <String Id="ProgressTextFileCost" Overridable="yes">ú±Eš”ú±EEµEE„ úµ•ì¸ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextCostInitialize" Overridable="yes">ú±Eš”ú±EEµEE„ úµ•ì¸ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextCostFinalize" Overridable="yes">ú±Eš”ú±EEµEE„ úµ•ì¸ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextCreateShortcuts" Overridable="yes">E”ë¡EE€E° EŒë“œEEEE/String>
+    <String Id="ProgressTextCreateShortcutsTemplate" Overridable="yes">E”ë¡EE€E°: [1]</String>
+    <String Id="ProgressTextPublishComponents" Overridable="yes">ú±´E¹ E¬E± E”ìEE¼ EŒì‹œú±˜ëŠ” EE/String>
+    <String Id="ProgressTextPublishComponentsTemplate" Overridable="yes">E¬E± E”ìE ID: [1], ú±œì •ìž: [2]</String>
+    <String Id="ProgressTextPublishFeatures" Overridable="yes">Eœí’ˆ E°E¥EEEŒì‹œú±˜ëŠ” EE/String>
+    <String Id="ProgressTextPublishFeaturesTemplate" Overridable="yes">E°E¥: [1]</String>
+    <String Id="ProgressTextPublishProduct" Overridable="yes">Eœí’ˆ E•ë³´E¼ EŒì‹œú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRegisterClassInfo" Overridable="yes">ú´E˜ìŠ¤ Eœë²E¥¼ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterClassInfoTemplate" Overridable="yes">ú´E˜ìŠ¤ ID: [1]</String>
+    <String Id="ProgressTextRegisterExtensionInfo" Overridable="yes">úµ•ìž¥ Eœë²E¥¼ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterExtensionInfoTemplate" Overridable="yes">úµ•ìž¥: [1]</String>
+    <String Id="ProgressTextRegisterMIMEInfo" Overridable="yes">MIME E•ë³´E¼ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterMIMEInfoTemplate" Overridable="yes">MIME E˜íEú¦¸ ú´•ì‹: [1], úµ•ìž¥: [2]</String>
+    <String Id="ProgressTextRegisterProgIdInfo" Overridable="yes">ú°E¡œê·¸E¨ IDE¼ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterProgIdInfoTemplate" Overridable="yes">ProgID: [1]</String>
+    <String Id="ProgressTextAllocateRegistrySpace" Overridable="yes">Eˆì§€E¤ú¦¸E¬ EµEE„ ú± E¹ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextAllocateRegistrySpaceTemplate" Overridable="yes">E¬E© E€E¥ú±EEµEE [1]</String>
+    <String Id="ProgressTextAppSearch" Overridable="yes">E¤E˜í•œ E‘ìš© ú°E¡œê·¸E¨EEE¾EEEE/String>
+    <String Id="ProgressTextAppSearchTemplate" Overridable="yes">Eì„±: [1], EœëªE [2]</String>
+    <String Id="ProgressTextBindImage" Overridable="yes">E¤ú²Eú¨Œì¼EEE°E°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextBindImageTemplate" Overridable="yes">ú¨Œì¼: [1]</String>
+    <String Id="ProgressTextCCPSearch" Overridable="yes">E•í’ˆEEE¾EEEE/String>
+    <String Id="ProgressTextCreateFolders" Overridable="yes">ú«´E”ë¥¼ EŒë“œEEEE/String>
+    <String Id="ProgressTextCreateFoldersTemplate" Overridable="yes">ú«´EE [1]</String>
+    <String Id="ProgressTextDeleteServices" Overridable="yes">Eœë¹EŠ¤E¼ E­Eœí•˜EEEE/String>
+    <String Id="ProgressTextDeleteServicesTemplate" Overridable="yes">Eœë¹EŠ¤: [1]</String>
+    <String Id="ProgressTextDuplicateFiles" Overridable="yes">E‘ë³µ ú¨Œì¼EEEŒë“œEEEE/String>
+    <String Id="ProgressTextDuplicateFilesTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [9], ú¬E°: [6]</String>
+    <String Id="ProgressTextFindRelatedProducts" Overridable="yes">E€E¨ E‘ìš© ú°E¡œê·¸E¨EEE¾EEEE/String>
+    <String Id="ProgressTextFindRelatedProductsTemplate" Overridable="yes">E¾E€ E‘ìš© ú°E¡œê·¸E¨: [1]</String>
+    <String Id="ProgressTextInstallODBC" Overridable="yes">ODBC E¬E± E”ìEE¼ E¤E˜í•˜EEEE/String>
+    <String Id="ProgressTextInstallServices" Overridable="yes">EEEœë¹EŠ¤E¼ E¤E˜í•˜EEEE/String>
+    <String Id="ProgressTextInstallServicesTemplate" Overridable="yes">Eœë¹EŠ¤: [2]</String>
+    <String Id="ProgressTextLaunchConditions" Overridable="yes">Eœìž‘ E°E´EEú«‰ê°€ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextMigrateFeatureStates" Overridable="yes">E€E¨ E‘ìš© ú°E¡œê·¸E¨EìE E°E¥ EEEE¼ Eˆì´E¸Eˆì´E˜í•˜EEEE/String>
+    <String Id="ProgressTextMigrateFeatureStatesTemplate" Overridable="yes">E‘ìš© ú°E¡œê·¸E¨: [1]</String>
+    <String Id="ProgressTextMoveFiles" Overridable="yes">ú¨Œì¼EEE®E°EEEE/String>
+    <String Id="ProgressTextMoveFilesTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [9], ú¬E°: [6]</String>
+    <String Id="ProgressTextPatchFiles" Overridable="yes">ú¨Œì¼EEú¨¨E˜í•˜EEEE/String>
+    <String Id="ProgressTextPatchFilesTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [2], ú¬E°: [3]</String>
+    <String Id="ProgressTextProcessComponents" Overridable="yes">E¬E± E”ìE E±Eì„ EE°E´ú¦¸ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRegisterComPlus" Overridable="yes">COM+ E‘ìš© ú°E¡œê·¸E¨ EEE¬E± E”ìEE¼ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterComPlusTemplate" Overridable="yes">AppId: [1]{{, AppType: [2], E¬E©EE [3], RSN: [4]}}</String>
+    <String Id="ProgressTextRegisterFonts" Overridable="yes">E€E´EEE±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterFontsTemplate" Overridable="yes">E€E´: [1]</String>
+    <String Id="ProgressTextRegisterProduct" Overridable="yes">Eœí’ˆEEE±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterProductTemplate" Overridable="yes">[1]</String>
+    <String Id="ProgressTextRegisterTypeLibraries" Overridable="yes">ú´•ì‹ E¼E´EŒëŸ¬E¬E¼ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterTypeLibrariesTemplate" Overridable="yes">LibID: [1]</String>
+    <String Id="ProgressTextRegisterUser" Overridable="yes">E¬E©Eë¥¼ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextRegisterUserTemplate" Overridable="yes">[1]</String>
+    <String Id="ProgressTextRemoveDuplicateFiles" Overridable="yes">E‘ë³µ ú¨Œì¼EEEœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveDuplicateFilesTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [9]</String>
+    <String Id="ProgressTextRemoveEnvironmentStrings" Overridable="yes">úµ˜ê²½ E¸Eì—´EEEE°E´ú¦¸ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveEnvironmentStringsTemplate" Overridable="yes">E´EE [1], EE [2], E‘ì—… [3]</String>
+    <String Id="ProgressTextRemoveExistingProducts" Overridable="yes">E‘ìš© ú°E¡œê·¸E¨EEEœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveExistingProductsTemplate" Overridable="yes">E‘ìš© ú°E¡œê·¸E¨: [1], EE ¹EE [2]</String>
+    <String Id="ProgressTextRemoveFiles" Overridable="yes">ú¨Œì¼EEEœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveFilesTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [9]</String>
+    <String Id="ProgressTextRemoveFolders" Overridable="yes">ú«´E”ë¥¼ Eœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveFoldersTemplate" Overridable="yes">ú«´EE [1]</String>
+    <String Id="ProgressTextRemoveIniValues" Overridable="yes">INI ú¨Œì¼ ú±­E©EEEœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveIniValuesTemplate" Overridable="yes">ú¨Œì¼: [1], E¹EE [2], úž¤: [3], EE [4]</String>
+    <String Id="ProgressTextRemoveODBC" Overridable="yes">ODBC E¬E± E”ìEE¼ Eœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveRegistryValues" Overridable="yes">EœìŠ¤ú¡EEˆì§€E¤ú¦¸E¬ E’ì„ Eœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveRegistryValuesTemplate" Overridable="yes">úž¤: [1], E´EE [2]</String>
+    <String Id="ProgressTextRemoveShortcuts" Overridable="yes">E”ë¡EE€E°E¼ Eœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRemoveShortcutsTemplate" Overridable="yes">E”ë¡EE€E°: [1]</String>
+    <String Id="ProgressTextRMCCPSearch" Overridable="yes">E•í’ˆEEE¾EEEE/String>
+    <String Id="ProgressTextSelfRegModules" Overridable="yes">E¨Eˆì„ E±Eí•˜EEEE/String>
+    <String Id="ProgressTextSelfRegModulesTemplate" Overridable="yes">ú¨Œì¼: [1], ú«´EE [2]</String>
+    <String Id="ProgressTextSelfUnregModules" Overridable="yes">E¨Eˆì˜ E±Eì„ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextSelfUnregModulesTemplate" Overridable="yes">ú¨Œì¼: [1], ú«´EE [2]</String>
+    <String Id="ProgressTextSetODBCFolders" Overridable="yes">ODBC E”ë ‰í„°E¬E¼ Eˆê¸°úµ”í•˜EEEE/String>
+    <String Id="ProgressTextStartServices" Overridable="yes">Eœë¹EŠ¤E¼ Eœìž‘ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextStartServicesTemplate" Overridable="yes">Eœë¹EŠ¤: [1]</String>
+    <String Id="ProgressTextStopServices" Overridable="yes">Eœë¹EŠ¤E¼ E‘ì§€ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextStopServicesTemplate" Overridable="yes">Eœë¹EŠ¤: [1]</String>
+    <String Id="ProgressTextUnpublishComponents" Overridable="yes">ú±´E¹ E¬E± E”ìEEEEŒì‹œE¼ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnpublishComponentsTemplate" Overridable="yes">E¬E± E”ìE ID: [1], ú±œì •ìž: [2]</String>
+    <String Id="ProgressTextUnpublishFeatures" Overridable="yes">Eœí’ˆ E°E¥EEEŒì‹œE¼ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnpublishFeaturesTemplate" Overridable="yes">E°E¥: [1]</String>
+    <String Id="ProgressTextUnregisterClassInfo" Overridable="yes">ú´E˜ìŠ¤ Eœë²EE±EEE¨EE/String>
+    <String Id="ProgressTextUnregisterClassInfoTemplate" Overridable="yes">ú´E˜ìŠ¤ ID: [1]</String>
+    <String Id="ProgressTextUnregisterComPlus" Overridable="yes">COM+ E‘ìš© ú°E¡œê·¸E¨ EEE¬E± E”ìEEEE±Eì„ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnregisterComPlusTemplate" Overridable="yes">AppId: [1]{{, AppType: [2]}}</String>
+    <String Id="ProgressTextUnregisterExtensionInfo" Overridable="yes">úµ•ìž¥ Eœë²E˜ E±Eì„ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnregisterExtensionInfoTemplate" Overridable="yes">úµ•ìž¥: [1]</String>
+    <String Id="ProgressTextUnregisterFonts" Overridable="yes">E€E´ E±Eì„ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnregisterFontsTemplate" Overridable="yes">E€E´: [1]</String>
+    <String Id="ProgressTextUnregisterMIMEInfo" Overridable="yes">MIME E•ë³´EEE±Eì„ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnregisterMIMEInfoTemplate" Overridable="yes">MIME E˜íEú¦¸ ú´•ì‹: [1], úµ•ìž¥: [2]</String>
+    <String Id="ProgressTextUnregisterProgIdInfo" Overridable="yes">ú°E¡œê·¸E¨ Eë³EžEEE±Eì„ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnregisterProgIdInfoTemplate" Overridable="yes">ProgID: [1]</String>
+    <String Id="ProgressTextUnregisterTypeLibraries" Overridable="yes">ú´•ì‹ E¼E´EŒëŸ¬E¬EEE±Eì„ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextUnregisterTypeLibrariesTemplate" Overridable="yes">LibID: [1]</String>
+    <String Id="ProgressTextWriteEnvironmentStrings" Overridable="yes">úµ˜ê²½ E¸Eì—´EEEE°E´ú¦¸ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextWriteEnvironmentStringsTemplate" Overridable="yes">E´EE [1], EE [2], E‘ì—… [3]</String>
+    <String Id="ProgressTextWriteIniValues" Overridable="yes">INI ú¨Œì¼ E’ì„ E°EEEE/String>
+    <String Id="ProgressTextWriteIniValuesTemplate" Overridable="yes">ú¨Œì¼: [1], E¹EE [2], úž¤: [3], EE [4]</String>
+    <String Id="ProgressTextWriteRegistryValues" Overridable="yes">EœìŠ¤ú¡EEˆì§€E¤ú¦¸E¬ E’ì„ E°EEEE/String>
+    <String Id="ProgressTextWriteRegistryValuesTemplate" Overridable="yes">úž¤: [1], E´EE [2], EE [3]</String>
+    <String Id="ProgressTextAdvertise" Overridable="yes">E˜ìŒ E¬E©ú±  EEE¤E˜í•˜EEE‘ìš© ú°E¡œê·¸E¨</String>
+    <String Id="ProgressTextGenerateScript" Overridable="yes">E¤ú²‰í•  E¤ú¬E½ú¦¸ E‘ì—…EEEì„±ú±˜ëŠ” EE</String>
+    <String Id="ProgressTextGenerateScriptTemplate" Overridable="yes">[1]</String>
+    <String Id="ProgressTextInstallSFPCatalogFile" Overridable="yes">EœìŠ¤ú¡EE´úŸˆë¡œê·¸E¼ E¤E˜í•˜EEEE/String>
+    <String Id="ProgressTextInstallSFPCatalogFileTemplate" Overridable="yes">ú¨Œì¼: [1], EEEE±: [2]</String>
+    <String Id="ProgressTextMsiPublishAssemblies" Overridable="yes">E´Eˆë¸”ë¦¬ E•ë³´E¼ EŒì‹œú±˜ëŠ” EE/String>
+    <String Id="ProgressTextMsiPublishAssembliesTemplate" Overridable="yes">E‘ìš© ú°E¡œê·¸E¨ E¨ú¡ìŠ¤ú¦¸:[1], E´Eˆë¸”ë¦¬ E´EE[2]</String>
+    <String Id="ProgressTextMsiUnpublishAssemblies" Overridable="yes">E´Eˆë¸”ë¦¬ E•ë³´EEEŒì‹œE¼ E¨EŒí•˜EEEE/String>
+    <String Id="ProgressTextMsiUnpublishAssembliesTemplate" Overridable="yes">E‘ìš© ú°E¡œê·¸E¨ E¨ú¡ìŠ¤ú¦¸:[1], E´Eˆë¸”ë¦¬ E´EE[2]</String>
+    <String Id="ProgressTextRollback" Overridable="yes">E‘ì—…EEE¤E±ú±˜ëŠ” EE</String>
+    <String Id="ProgressTextRollbackTemplate" Overridable="yes">[1]</String>
+    <String Id="ProgressTextRollbackCleanup" Overridable="yes">E±EEú¨Œì¼EEEœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextRollbackCleanupTemplate" Overridable="yes">ú¨Œì¼: [1]</String>
+    <String Id="ProgressTextUnmoveFiles" Overridable="yes">E´E™í•œ ú¨Œì¼EEEœê±°ú±˜ëŠ” EE/String>
+    <String Id="ProgressTextUnmoveFilesTemplate" Overridable="yes">ú¨Œì¼: [1], E”ë ‰í„°E¬: [9]</String>
+    <String Id="ProgressTextUnpublishProduct" Overridable="yes">Eœí’ˆ E•ë³´EEEŒì‹œE¼ E¨EŒí•˜EEEE/String>
+    
+    <String Id="Error0" Overridable="yes">{{E¬EE•œ E¤EE }}</String>
+    <String Id="Error1" Overridable="yes">{{E¤EE[1]. }}</String>
+    <String Id="Error2" Overridable="yes">E½E  [1]. </String>
+    <String Id="Error4" Overridable="yes">E•ë³´ [1]. </String>
+    <String Id="Error5" Overridable="yes">E´ ú¨¨úž¤E€E¼ E¤E˜í•˜EEE™ì•ˆ EˆìƒEEEŠì€ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. ú¨¨úž¤E€EEE¸Eœê°€ Eˆì„ EEEˆìŠµEˆë‹¤. E¤EEE”ë“œ: [1]. {{E¸EE [2], [3], [4]}}</String>
+    <String Id="Error7" Overridable="yes">{{E”ìŠ¤ú¬ EEE¸: }}</String>
+    <String Id="Error8" Overridable="yes">E‘ì—… [Time]: [1]. [2]</String>
+    <String Id="Error9" Overridable="yes">[ProductName]</String>
+    <String Id="Error10" Overridable="yes">{[2]}{, [3]}{, [4]}</String>
+    <String Id="Error11" Overridable="yes">E”ì‹œE€ E ú´E [1], E¸EE [2]</String>
+    <String Id="Error12" Overridable="yes">=== Eœê¹EEœìž‘: [Date] [Time] ===</String>
+    <String Id="Error13" Overridable="yes">=== Eœê¹EE‘ì§€: [Date] [Time] ===</String>
+    <String Id="Error14" Overridable="yes">E‘ì—… Eœìž‘ [Time]: [1].</String>
+    <String Id="Error15" Overridable="yes">E‘ì—… EE[Time]: [1]. E˜í™˜ EE[2].</String>
+    <String Id="Error16" Overridable="yes">E¨E€ Eœê°E {[1]EE}{[2]EE</String>
+    <String Id="Error17" Overridable="yes">E”ëª¨E¬E€ E€E±ú±©Eˆë‹¤. E¤E¸ E‘ìš© ú°E¡œê·¸E¨EEEE£Œí•œ ú·EE¤EEEœë„ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error18" Overridable="yes">E¤EEE€E¬Eê°€ EEE´EEE‘ë‹µú±˜ì§€ EŠìŠµEˆë‹¤.</String>
+    <String Id="Error19" Overridable="yes">E¤E˜ê°€ E‘ë‹¨E˜ì—ˆEµEˆë‹¤.</String>
+    <String Id="Error20" Overridable="yes">[ProductName]EEE¼) E¬E±ú±˜ëŠ” E™ì•ˆ E EEE°E¤E¤ E¼E­Eœì˜¤.</String>
+    <String Id="Error21" Overridable="yes">ú±Eš”ú±EE•ë³´E¼ E¨E¼EEEE..</String>
+    <String Id="Error22" Overridable="yes">E´ E‘ìš© ú°E¡œê·¸E¨EEE´EEEE E„ Eœê±°ú±˜ëŠ” EE..</String>
+    <String Id="Error23" Overridable="yes">E´ E‘ìš© ú°E¡œê·¸E¨EEE´EEEE E„ Eœê±°ú±˜ê¸° EE•´ E€EE•˜EEEE..</String>
+    <String Id="Error32" Overridable="yes">{[ProductName] }E¤E˜ê°€ E±EµEEœ¼EEEE£Œë˜EˆìŠµEˆë‹¤.</String>
+    <String Id="Error33" Overridable="yes">{[ProductName] }E¤E˜í•˜E€ E»ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1101" Overridable="yes">ú¨Œì¼ E½E° E¤EE [2]. {{ EœìŠ¤ú¡EE¤EE[3].}} ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1301" Overridable="yes">E™ì€ E´EE˜ E”ë ‰í„°E¬E€ E´E¸ Eˆìœ¼E€EEú¨Œì¼ '[2]'EEE¼) EŒë“¤ EEEEŠµEˆë‹¤. E¤E˜ë¥¼ E¨EŒí•˜E  E¤E¸ EE¹˜ì— E¤EEE¤E˜í•´ E´E­Eœì˜¤.</String>
+    <String Id="Error1302" Overridable="yes">E¤EEE”ìŠ¤ú¬E¼ E£E¼E­Eœì˜¤. [2]</String>
+    <String Id="Error1303" Overridable="yes">E´ E”ë ‰í„°E¬EEE¡E¸E¤ú±  EEEˆëŠ” EŒí•œE´ EEŠµEˆë‹¤: [2]. E¤E˜ë¥¼ EEEú±  EEEEŠµEˆë‹¤. AdministratorEEEœê·¸E¨ú±˜ê±°EEEœìŠ¤ú¡EE€E¬Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1304" Overridable="yes">ú¨Œì¼EEE°EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤: [2]. ú±´E¹ E”ë ‰í„°E¬EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1305" Overridable="yes">ú¨Œì¼ E½E° E¤EE [2]. {{ EœìŠ¤ú¡EE¤EE[3].}} ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1306" Overridable="yes">E¤E¸ E‘ìš© ú°E¡œê·¸E¨EìE ú¨Œì¼ '[2]'EEE¼) E¨EEœ¼EEE¬E©ú±˜ê³  EˆìŠµEˆë‹¤. E¤E¸ E‘ìš© ú°E¡œê·¸E¨EEE¨EEE«E€ ú·E"E¤EEEœë„"E¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1307" Overridable="yes">E”ìŠ¤ú¬ EµEE´ E€E±ú±´EEE´ ú¨Œì¼EEE¤E˜í•  EEEEŠµEˆë‹¤: [2]. E”ìŠ¤ú¬ EµEE„ E˜ë¦° ú·E"E¤EEEœë„"E¼ ú´E­ú±˜ê±°EE"E¨EEE¼ ú´E­ú±˜ì—¬ Eë‚´E­Eœì˜¤.</String>
+    <String Id="Error1308" Overridable="yes">Eë³¸ ú¨Œì¼E´ EEŠµEˆë‹¤: [2]. ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1309" Overridable="yes">ú¨Œì¼ E½E° E¤EE [3]. {{ EœìŠ¤ú¡EE¤EE[2].}} ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1310" Overridable="yes">ú¨Œì¼ E°E° E¤EE [3]. {{ EœìŠ¤ú¡EE¤EE[2].}} ú±´E¹ E”ë ‰í„°E¬EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1311" Overridable="yes">Eë³¸ ú¨Œì¼E´ EEŠµEˆë‹¤{{(cabinet)}}: [2]. ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1312" Overridable="yes">E™ì€ E´EE˜ ú¨Œì¼E´ E´E¸ Eˆìœ¼E€EEE”ë ‰í„°E¬ '[2]'EEE¼) EŒë“¤ EEEEŠµEˆë‹¤. ú¨Œì¼EEE´EE„ E”ê¾¸E°EEú¨Œì¼EEEœê±°ú±Eú·E"E¤EEEœë„"E¼ ú´E­ú±˜ê±°EE "E¨EEE¼ ú´E­ú±˜ì—¬ Eë‚´E­Eœì˜¤.</String>
+    <String Id="Error1313" Overridable="yes">E¼E¨ [2]EEE¼) ú´Ež¬ E¬E©ú±  EEEEŠµEˆë‹¤. E¤E¸ E¼E¨EEE úŸí•˜E­Eœì˜¤.</String>
+    <String Id="Error1314" Overridable="yes">E€E•í•œ E½EE'[2]'EEE¼) E¬E©ú±  EEEEŠµEˆë‹¤.</String>
+    <String Id="Error1315" Overridable="yes">E€E•í•œ ú«´EE[2]EEE¸ EEEEŠµEˆë‹¤.</String>
+    <String Id="Error1316" Overridable="yes">[2] ú¨Œì¼EEE½EEE™ì•ˆ E¤ú¦¸EŒí¬ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1317" Overridable="yes">[2] E”ë ‰í„°E¬E¼ EŒë“œEEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1318" Overridable="yes">[2] E”ë ‰í„°E¬E¼ EŒë“œEEE™ì•ˆ E¤ú¦¸EŒí¬ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1319" Overridable="yes">[2] Eë³¸ ú¨Œì¼ Eë¹E‹›EEE¬EEE™ì•ˆ E¤ú¦¸EŒí¬ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1320" Overridable="yes">E€E•í•œ E½EE[2]E´(E€) Eˆë¬´ EE‹ˆE¤.</String>
+    <String Id="Error1321" Overridable="yes">ú¨Œì¼ [2]EEE¼) E˜ì •í•  EEEˆëŠ” EŒí•œE´ EEŠµEˆë‹¤.</String>
+    <String Id="Error1322" Overridable="yes">ú«´EEE½EE'[2]'EEE¼E€E€ E¬E”ë¥´E€ EŠìŠµEˆë‹¤. EµE±E´E°EE EœìŠ¤ú¡œì—EEú³ˆìš©ú±˜ëŠ” E¸E´E¼ Eˆê³¼ú±©Eˆë‹¤.</String>
+    <String Id="Error1323" Overridable="yes">ú«´EEE½EE'[2]'EEú«´EEE½Eœì— E¬E©ú±  EEEEŠ” E¨E´E€ E¤E´ EˆìŠµEˆë‹¤.</String>
+    <String Id="Error1324" Overridable="yes">ú«´EEE½EE'[2]'EEE¬E©ú±  EEEEŠ” E¸Eê°€ E¤E´ EˆìŠµEˆë‹¤.</String>
+    <String Id="Error1325" Overridable="yes">'[2]'E€(EE E ú¶¨ú±EE½EEú¨Œì¼ E´EE´ EE‹™Eˆë‹¤.</String>
+    <String Id="Error1326" Overridable="yes">ú¨Œì¼ E´EEE¤EE [3] GetLastError: [2]</String>
+    <String Id="Error1327" Overridable="yes">E ú¶¨ú±˜ì§€ EŠì€ Eœë¼E´EE [2]</String>
+    <String Id="Error1328" Overridable="yes">ú¨Œì¼ [2]EEú¨¨E˜ë¥¼ EEš©ú±˜ëŠ” E™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. E¤E¸ E©E•ìœ¼EEEE°E´ú¦¸E˜ì–´, E´ ú¨¨E˜ë¥¼ ú¢µú±EE˜ì •ì´ Eˆê°€E¥ú±©Eˆë‹¤. EEEì„¸ú±EE•ë³´EEú¨¨EEEµE‰ì—…E´EEE¸E˜í•˜E­Eœì˜¤. {{EœìŠ¤ú¡EE¤EE [3]}}</String>
+    <String Id="Error1329" Overridable="yes">Eë¹E‹› ú¨Œì¼ [2]E´(E€) E”ì§€ú ¸ EœëªE˜E´ Eˆì§€ EŠê¸° EŒë¬¸EEú±Eš”ú±Eú¨Œì¼EEE¤E˜í•  EEEEŠµEˆë‹¤. Eë¹E‹› ú¨Œì¼E´ EìƒE˜ì—ˆEEEEEˆìŠµEˆë‹¤.</String>
+    <String Id="Error1330" Overridable="yes">Eë¹E‹› ú¨Œì¼ [2]EEE”ì§€ú ¸ EœëªE´ E¬E”ë¥´E€ EŠê¸° EŒë¬¸EEú±Eš”ú±Eú¨Œì¼EEE¤E˜í•  EEEEŠµEˆë‹¤. Eë¹E‹› ú¨Œì¼E´ EìƒE˜ì—ˆEEEEEˆìŠµEˆë‹¤.{{ WinVerifyTrustE€ E¤EE[3]EEE¼) E˜í™˜ú²ˆìŠµEˆë‹¤.}}</String>
+    <String Id="Error1331" Overridable="yes">[2] ú¨Œì¼EEE¬E”ë¡EEµE¬ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤. CRC E¤E˜ìž…Eˆë‹¤.</String>
+    <String Id="Error1332" Overridable="yes">[2] ú¨Œì¼EEE¬E”ë¡EE´E™í•˜E€ E»ú²ˆìŠµEˆë‹¤. CRC E¤E˜ìž…Eˆë‹¤.</String>
+    <String Id="Error1333" Overridable="yes">[2] ú¨Œì¼EEE¬E”ë¡Eú¨¨E˜í•˜E€ E»ú²ˆìŠµEˆë‹¤. CRC E¤E˜ìž…Eˆë‹¤.</String>
+    <String Id="Error1334" Overridable="yes">Eë¹E‹› ú¨Œì¼ '[3]'EìE E¾EEEEEE–´EE'[2]' ú¨Œì¼EEE¤E˜í•  EEEEŠµEˆë‹¤. E¤ú¦¸EŒí¬ E¤E˜ì´E°EE CD-ROMEìE E½E° E¤E˜ì´E°EE E´ ú¨¨úž¤E€EEE¸Eœê°€ Eˆì„ EEEˆìŠµEˆë‹¤.</String>
+    <String Id="Error1335" Overridable="yes">E¤E˜ì— ú±Eš”ú±EEë¹E‹› ú¨Œì¼ '[2]'E´(E€) EìƒE˜ì–´ E¬E©ú±  EEEEŠµEˆë‹¤. E¤ú¦¸EŒí¬ E¤E˜ì´E°EE CD-ROMEìE E½E° E¤E˜ì´E°EE E´ ú¨¨úž¤E€EEE¸Eœê°€ Eˆì„ EEEˆìŠµEˆë‹¤.</String>
+    <String Id="Error1336" Overridable="yes">E¤E˜ë¥¼ Eˆì¹˜ëŠ”E° ú±Eš”ú±EEE‹œ ú¨Œì¼EEEŒë“œEEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤.{{ ú«´EE [3]. EœìŠ¤ú¡EE¤EEE”ë“œ: [2]}}</String>
+    <String Id="Error1401" Overridable="yes">úž¤ [2]EEE¼) EŒë“¤E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[3].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EE E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤. </String>
+    <String Id="Error1402" Overridable="yes">úž¤ [2]EEE¼) E´E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[3].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤. </String>
+    <String Id="Error1403" Overridable="yes">úž¤ [3]EìE EE[2]EEE¼) E­Eœí•˜E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[4].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤. </String>
+    <String Id="Error1404" Overridable="yes">úž¤ [2]EEE¼) E­Eœí•˜E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[3].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤. </String>
+    <String Id="Error1405" Overridable="yes">úž¤ [3]EìE EE[2]EEE¼) E½E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[4].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤. </String>
+    <String Id="Error1406" Overridable="yes">úž¤ [3]EEEE[2]EEE¼) E°E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[4].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1407" Overridable="yes">úž¤ [2]EEEEE´EE„ E€E¸E¤E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[3].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1408" Overridable="yes">úž¤ [2]EEú±˜ìœ„ úž¤ E´EE„ E€E¸E¤E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[3].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1409" Overridable="yes">úž¤ [2]EEE´EEE•ë³´E¼ E½E€ E»ú²ˆìŠµEˆë‹¤. {{ EœìŠ¤ú¡EE¤EE[3].}} E¸ úž¤EEE€ú±EE¡E¸E¤ EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ê±°EEE EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1410" Overridable="yes">E¬E© E€E¥ú±EEˆì§€E¤ú¦¸E¬ EµEE„ E˜ë¦¬E€ E»ú²ˆìŠµEˆë‹¤. [2]KB E•ë„EEE¬E© E€E¥ú±EEˆì§€E¤ú¦¸E¬ EµEE´ Eˆì–´E¼ E‘ìš© ú°E¡œê·¸E¨EEE¤E˜í•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="Error1500" Overridable="yes">E¤E¸ ú°E¡œê·¸E¨EEE¤E˜í•˜E  EˆìŠµEˆë‹¤. E¸ ú°E¡œê·¸E¨EEE¤E˜ë¥¼ Eë‚¸ ú·EE´ E‘ì—…EEEEEú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1501" Overridable="yes">E´EEE°E´ú °EEE¡E¸E¤ú±˜ëŠ” E™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. Windows Installer E¬E±EEE¬E”ë¥´EEE¤E•í–ˆE”ì§€ úµ•ì¸ú±˜ê³  E¤EEE¤E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1502" Overridable="yes">E¬E©EE'[2]'E´(E€) Eœí’ˆ '[3]'EEE¤E˜ë¥¼ Eœìž‘ú±EEE´ EˆìŠµEˆë‹¤. E´ E¬E©Eê°€ ú±´E¹ Eœí’ˆEEE¬E©ú±˜ë ¤E´ E¤EEú°E¡œê·¸E¨EEE¤EEE¤ú²‰í•´E¼ ú±©Eˆë‹¤. E€ú±˜ì˜ ú´Ež¬ E¤E˜ëŠ” EEEE©Eˆë‹¤.</String>
+    <String Id="Error1503" Overridable="yes">E¬E©EE'[2]'E´(E€) Eœí’ˆ '[3]'EEE¤E˜ë¥¼ Eœìž‘ú±EEE´ EˆìŠµEˆë‹¤. E´ E¬E©Eê°€ ú±´E¹ Eœí’ˆEEE¬E©ú±˜ë ¤E´ E¤EEú°E¡œê·¸E¨EEE¤EEE¤ú²‰í•´E¼ ú±©Eˆë‹¤. E€ú±˜ì˜ ú´Ež¬ E¤E˜ëŠ” EEEE©Eˆë‹¤.</String>
+    <String Id="Error1601" Overridable="yes">E”ìŠ¤ú¬ EµEEE€E± -- E¼E¨: '[2]', ú±Eš”ú±EEµEE [3]KB, E¬E© E€E¥ú±EEµEE [4]KB. E”ìŠ¤ú¬ EµEE„ E˜ë¦° ú·EE¤EEEœë„ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1602" Overridable="yes">E¨EŒí•˜Eœê² EµEˆê¹E</String>
+    <String Id="Error1603" Overridable="yes">ú¨Œì¼ [2][3]EEE¼) E¤E¸ ú°E¡œì„¸E¤{E´EE [4], Id: [5], E½ Eœëª©: '[6]'}EìE E¬E© E‘ìž…Eˆë‹¤. E´ E‘ìš© ú°E¡œê·¸E¨EEE«E€ ú·EE¤EEEœë„ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1604" Overridable="yes">Eœí’ˆ '[2]'E´(E€) E´E¸ E¤E˜ë˜E´ Eˆì–´EEE´ Eœí’ˆEEE¤E˜í•˜E€ E»ú±©Eˆë‹¤. EEEœì˜ Eœí’ˆE€ ú´¸úµ˜ë˜E€ EŠìŠµEˆë‹¤.</String>
+    <String Id="Error1605" Overridable="yes">EµE¬E¼ E¬E©ú±˜ì—¬ E¤E˜ë¥¼ EEEú±˜ê¸°EëŠ” '[2]' E¼E¨EEE”ìŠ¤ú¬ EµEE´ E€E±ú±©Eˆë‹¤. [3]KBE€ ú±Eš”ú±˜ë‚˜, [4]KBEEE¬E© E€E¥ú±©Eˆë‹¤. EµE¬ E•ë³´E¼ E€E¥ú±˜ì§€ EŠê³  E¤E˜ë¥¼ EEEú±˜ë ¤E´ "E´EEE¼ ú´E­ú±˜ê³ , E¬E© E€E¥ú±EEµEE„ E¤EEúµ•ì¸ú±˜ë ¤E´ "E¤EEEœë„"E¼ ú´E­ú±˜ì‹­Eœì˜¤. E¤E˜ë¥¼ Eë‚´E¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1606" Overridable="yes">E¤ú¦¸EŒí¬ [2]EEE¡E¸E¤ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1607" Overridable="yes">E¤E˜ë¥¼ EEEú±˜ë ¤E´ E¤EEE‘ìš© ú°E¡œê·¸E¨EEE«EE•¼ ú±©Eˆë‹¤:</String>
+    <String Id="Error1608" Overridable="yes">E€EEE¤E˜í•˜E¤EEEœí’ˆEEE´EEEE E´ E´ EœìŠ¤ú¡œì— E¤E˜ë˜E´ Eˆì§€ EŠìŠµEˆë‹¤.</String>
+    <String Id="Error1609" Overridable="yes">E´EEE¤E•ì„ EEš©ú±˜ëŠ” E™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. [2]E€(EE E ú¶¨ú±EE¬E©EEEëŠ” E¸E¹E´ EE‹™Eˆë‹¤. ú¨¨úž¤E€EEE¸Eœê°€ Eˆê±°EE E¤ú¦¸EŒí¬EEEE©”ì¸ E¨ú¦¸E¤E¬EEE°E°ú±˜ëŠ”E° E¸Eœê°€ Eˆì„ EEEˆìŠµEˆë‹¤. E¤ú¦¸EŒí¬ E°E°EEúµ•ì¸ú±˜ê³  "E¤EEEœë„"E¼ ú´E­ú±˜ê±°EE E¤E˜ë¥¼ Eˆì¹˜ë ¤E´ "E¨EEE¼ ú´E­ú±˜ì‹­Eœì˜¤. {{E¬E©EESIDE¼ E¾EEEEEEŠµEˆë‹¤. EœìŠ¤ú¡EE¤EE[3]}}</String>
+    <String Id="Error1701" Overridable="yes">úž¤ [2]E´(E€) E ú¶¨ú±˜ì§€ EŠìŠµEˆë‹¤. E•í™•ú±Eúž¤E¼ EE ¥ú²ˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1702" Overridable="yes">[2]EEE¬E±EEEEEú±˜ë ¤E´ EœìŠ¤ú¡œì„ E¤EEEœìž‘ú±´E¼ ú±©Eˆë‹¤. E€EEE¤EEEœìž‘ú±˜ë ¤E´ "EEE¼ ú´E­ú±˜ê³ , E˜ì¤‘ì— E˜ë™E¼EEE¤EEEœìž‘ú±˜ë ¤E´ "EE‹ˆEEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1703" Overridable="yes">E€E½EEE¬E± E¤E•ì„ [2]EEEEš©ú±˜ë ¤E´ EœìŠ¤ú¡œì„ E¤EEEœìž‘ú±´E¼ ú±©Eˆë‹¤. E€EEE¤EEEœìž‘ú±˜ë ¤E´ "EEE¼ ú´E­ú±˜ê³ , E˜ì¤‘ì— E˜ë™E¼EEE¤EEEœìž‘ú±˜ë ¤E´ "EE‹ˆEEE¼ ú´E­ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1704" Overridable="yes">[2]EEE¤E˜ê°€ ú´Ež¬ E‘ì§€EEEEEEE‹ˆE¤. E‘ì—…EEEEEú±˜ë ¤E´ E¤E˜í•˜E´EEE€E½EEE´E©EEE¨EŒí•´E¼ ú±©Eˆë‹¤. E€E½EEE´E©EEE¨EŒí•˜Eœê² EµEˆê¹E</String>
+    <String Id="Error1705" Overridable="yes">E´EE— E¤ú²‰í•œ E´ Eœí’ˆEEE¤EEE‘ì—…E´ EEš©EEEEEEE‹ˆE¤. EEEú±˜ë ¤E´ E¸ EEE€E½EEE´E©EEE¨EŒí•´E¼ ú±©Eˆë‹¤. E€E½EEE´E©EEE¨EŒí•˜Eœê² EµEˆê¹E</String>
+    <String Id="Error1706" Overridable="yes">Eœí’ˆ [2]EEE¤EEú¨¨úž¤E€E€ EEŠµEˆë‹¤. E¤EEú¨¨úž¤E€ '[3]'EEE¬E”ë¥¸ E¤EEú¨¨úž¤E€ E¬E¸EEE¬E©ú±˜ì—¬ E¤E˜ë¥¼ E¤EEEœë„ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1707" Overridable="yes">E¤E˜ê°€ EE£Œë˜EˆìŠµEˆë‹¤.</String>
+    <String Id="Error1708" Overridable="yes">E¤E˜í•˜E€ E»ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1709" Overridable="yes">Eœí’ˆ: [2] -- [3]</String>
+    <String Id="Error1710" Overridable="yes">E´ú¯¨ú °E¼ E´EEEEEEEEµEí•˜E°EEE˜ì¤‘ì— E¤EEE¤E˜í•´E¼ ú±©Eˆë‹¤. EµEí•˜Eœê² EµEˆê¹E</String>
+    <String Id="Error1711" Overridable="yes">E¤EEE•ë³´E¼ E”ìŠ¤ú¬EEE°EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. E”ìŠ¤ú¬ EµEE´ E©EE•œE€ úµ•ì¸ú±˜ê³  "E¤EEEœë„"E¼ ú´E­ú±˜ê±°EE "E¨EEE¼ ú´E­ú±˜ì—¬ E¤E˜ë¥¼ Eë‚´E­Eœì˜¤.</String>
+    <String Id="Error1712" Overridable="yes">E´ú¯¨ú °E¼ E´EEEEEEEEµEí•˜EEE° ú±Eš”ú±EE¼E€ ú¨Œì¼EEE¾E€ E»ú²ˆìŠµEˆë‹¤. EµEí•  EEEEŠµEˆë‹¤.</String>
+    <String Id="Error1713" Overridable="yes">[2]E´(E€) ú±Eš”ú±EEœí’ˆ EEú±˜ë‚˜E¼ E¤E˜í•  EEEEŠµEˆë‹¤. E°E  E€EEE¸E¹EEE¸E˜í•˜E­Eœì˜¤. {{EœìŠ¤ú¡EE¤EE [3].}}</String>
+    <String Id="Error1714" Overridable="yes">[2]EEE´EEEE E„ Eœê±°ú±  EEEEŠµEˆë‹¤. E°E  E€EEE¸E¹EEE¸E˜í•˜E­Eœì˜¤. {{EœìŠ¤ú¡EE¤EE[3].}}</String>
+    <String Id="Error1715" Overridable="yes">[2] E¤E˜ë¨</String>
+    <String Id="Error1716" Overridable="yes">[2] E¬E±E¨</String>
+    <String Id="Error1717" Overridable="yes">[2] Eœê±°E¨</String>
+    <String Id="Error1718" Overridable="yes">E”ì§€ú ¸ EœëªEE•ì±E´ ú¨Œì¼ [2]EEE¼) E°E€ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1719" Overridable="yes">Windows Installer ServiceE¼ E¡E¸E¤ú±  EEEEŠµEˆë‹¤. WindowsE¼ Eˆì EE¨Eœì—EEE¤ú²EE‘ì´E°EE Windows InstallerE€ E¬E”ë¡EE¤E˜ë˜E€ EŠì€ E½E° EœìEú±  EEEˆìŠµEˆë‹¤. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1720" Overridable="yes">Windows Installer ú¨¨úž¤E€EEE¸Eœê°€ EˆìŠµEˆë‹¤. E¤E˜ë¥¼ EE£Œí•˜E° EE•´ ú±Eš”ú±EE¤ú¬E½ú¦¸E¼ E¤ú²‰í•  EEEEŠµEˆë‹¤. E EEE€EEE´E¹Eë‚˜ ú¨¨úž¤E€ EµE‰ì—…E´EEE¸E˜í•˜E­Eœì˜¤. {{E¬E©EEE€EEE‘ì—… [2] E¤ú¬E½ú¦¸ E¤EE[3], [4]: [5] [6]ú²E [7]E´, [8] }}</String>
+    <String Id="Error1721" Overridable="yes">Windows Installer ú¨¨úž¤E€EEE¸Eœê°€ EˆìŠµEˆë‹¤. E¤E˜ë¥¼ EE£Œí•˜E° EE•´ ú±Eš”ú±Eú°E¡œê·¸E¨EEE¤ú²‰í•  EEEEŠµEˆë‹¤. E EEE€EEE´E¹Eë‚˜ ú¨¨úž¤E€ EµE‰ì—…E´EEE¸E˜í•˜E­Eœì˜¤. {{E‘ì—…: [2], EE¹E [3], EE ¹: [4] }}</String>
+    <String Id="Error1722" Overridable="yes">Windows Installer ú¨¨úž¤E€EEE¸Eœê°€ EˆìŠµEˆë‹¤. E¤EEú°E¡œê·¸E¨EEE¼E€EEE¤ú²‰í•œ ú°E¡œê·¸E¨E´ EˆìƒE€EEEE£Œë˜E€ EŠì•˜EµEˆë‹¤. E EEE€EEE´E¹Eë‚˜ ú¨¨úž¤E€ EµE‰ì—…E´EEE¸E˜í•˜E­Eœì˜¤. {{E‘ì—…: [2], EE¹E [3], EE ¹: [4] }}</String>
+    <String Id="Error1723" Overridable="yes">Windows Installer ú¨¨úž¤E€EEE¸Eœê°€ EˆìŠµEˆë‹¤. E¤E˜ë¥¼ EE£Œí•˜E° EE•´ ú±Eš”ú±EDLLEEE¤ú²‰í•  EEEEŠµEˆë‹¤. E EEE€EEE´E¹Eë‚˜ ú¨¨úž¤E€ EµE‰ì—…E´EEE¸E˜í•˜E­Eœì˜¤. {{E‘ì—… [2], ú±­E©: [3], E¼E´EŒëŸ¬E¬: [4] }}</String>
+    <String Id="Error1724" Overridable="yes">Eœê±°E€ EE£Œë˜EˆìŠµEˆë‹¤.</String>
+    <String Id="Error1725" Overridable="yes">Eœê±°ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1726" Overridable="yes">E´EEEŒë¦¼E´ EE£Œë˜EˆìŠµEˆë‹¤.</String>
+    <String Id="Error1727" Overridable="yes">E´EEEŒë¦¼E´ E¤ú¨¨ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1728" Overridable="yes">E¬E±E´ EE£Œë˜EˆìŠµEˆë‹¤.</String>
+    <String Id="Error1729" Overridable="yes">E¬E±ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1730" Overridable="yes">AdministratorEŒì´ E´ E‘ìš© ú°E¡œê·¸E¨EEEœê±°ú±  EEEˆìŠµEˆë‹¤. E´ E‘ìš© ú°E¡œê·¸E¨EEEœê±°ú±˜ë ¤E´, AdministratorEEEœê·¸E¨ú±˜ê±°EE E°E  E€EEE¸E¹EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1731" Overridable="yes">Eœí’ˆ [2]EEEë³¸ E¤EEú¨¨úž¤E€E€ ú´E¼E´E¸ú¦¸ ú¨¨úž¤E€E€ E™ê¸°úµ”ë˜E€ EŠì•˜EµEˆë‹¤. E¤EEú¨¨úž¤E€ '[3]'EEE¬E”ë¥¸ E¤EEú¨¨úž¤E€ E¬E¸EEE¬E©ú±˜ì—¬ E¤EEE¤E˜í•´ E´E­Eœì˜¤.</String>
+    <String Id="Error1732" Overridable="yes">[2]EEE¤E˜ë¥¼ EE£Œí•˜E¤E´ E´ú¯¨ú °E¼ E¤EEEœìž‘ú±´E¼ ú±©Eˆë‹¤. ú´Ež¬ E¤E¸ E¬E©Eê°€ E´ E´ú¯¨ú °EEEœê·¸E¨ú±´ Eˆì„ E½E° E´ú¯¨ú °E¼ E¤EEEœìž‘ú±˜ë©´ E¤ú²EE‘ì¸ E‘ì—…EEEE²EE  EEEˆìŠµEˆë‹¤. E€EEE´ú¯¨ú °E¼ E¤EEEœìž‘ú±˜ì‹œE EµEˆê¹E</String>
+    <String Id="Error1801" Overridable="yes">E½EE[2]E´(E€) E¬E”ë¥´E€ EŠìŠµEˆë‹¤. E¬E”ë¥¸ E½Eœë¥¼ E€E•í•˜E­Eœì˜¤.</String>
+    <String Id="Error1802" Overridable="yes">E”ëª¨E¬E€ E€E±ú±©Eˆë‹¤. E¤E¸ E‘ìš© ú°E¡œê·¸E¨EEEE£Œí•œ ú·EE¤EEEœë„ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1803" Overridable="yes">Eœë¼E´EE[2]EEE”ìŠ¤ú¬E€ EEŠµEˆë‹¤. E”ìŠ¤ú¬E¼ E£E€ ú·E"E¤EEEœë„"E¼ ú´E­ú±˜ê±°EE "E¨EEE¼ ú´E­ú±˜ì—¬ E´EE— E úŸí•œ E¼E¨E¼EEE¤EEEŒì•„E€E­Eœì˜¤.</String>
+    <String Id="Error1804" Overridable="yes">Eœë¼E´EE[2]EEE”ìŠ¤ú¬E€ EEŠµEˆë‹¤. E”ìŠ¤ú¬E¼ E£E€ ú·E"E¤EEEœë„"E¼ ú´E­ú±˜ê±°EE "E¨EEE¼ ú´E­ú±˜ì—¬ "E¾EE³´E°" E€úµEEEžEEEEú·EE¤E¸ E¼E¨EEE úŸí•˜E­Eœì˜¤.</String>
+    <String Id="Error1805" Overridable="yes">ú«´EE[2]E´(E€) EEŠµEˆë‹¤. E´E¬ú±˜ëŠ” ú«´EEE½Eœë¥¼ EE ¥ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1806" Overridable="yes">E´ ú«´E”ë¥¼ E½EEEEEˆëŠ” EŒí•œE´ EEŠµEˆë‹¤.</String>
+    <String Id="Error1807" Overridable="yes">E¤E˜í•  E€EEú«´E”ë¥¼ E°E•í•˜E€ E»ú²ˆìŠµEˆë‹¤.</String>
+    <String Id="Error1901" Overridable="yes">Eë³¸ E¤EEE°E´ú °E E´E¤E¼ E½EEE‘ì— E¤EEEœìE: [2].</String>
+    <String Id="Error1902" Overridable="yes">E¤EEE€ú¨EE‘ì—…EEEˆì•½ú±˜ê³  EˆìŠµEˆë‹¤. [2] ú¨Œì¼EEE´EE„ [3](E¼)EEE”ê¿‰ë‹ˆE¤. E‘ì—…EEEE£Œí•˜E¤E´ E¤EEE€ú¨E•´E¼ ú±©Eˆë‹¤.</String>
+    <String Id="Error1903" Overridable="yes">E¤EEE€ú¨EE‘ì—…EEEˆì•½ú±˜ê³  EˆìŠµEˆë‹¤. [2] ú¨Œì¼EEE­Eœí•©Eˆë‹¤. E‘ì—…EEEE£Œí•˜E¤E´ E¤EEE€ú¨E•´E¼ ú±©Eˆë‹¤.</String>
+    <String Id="Error1904" Overridable="yes">E¨EE[2]EEE¼) E±Eí•˜E€ E»ú²ˆìŠµEˆë‹¤. HRESULT [3]. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1905" Overridable="yes">E¨EE[2]EEE±Eì„ E¨EŒí•˜E€ E»ú²ˆìŠµEˆë‹¤. HRESULT [3]. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1906" Overridable="yes">ú¨¨úž¤E€ [2]EEE¼) Eì‹œú±˜ì§€ E»ú²ˆìŠµEˆë‹¤. E¤EE [3]. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1907" Overridable="yes">E€E´ [2]EEE¼) E±Eí•˜E€ E»ú²ˆìŠµEˆë‹¤. E€E´EEE¤E˜í•  EEEˆëŠ” EŒí•œE´ E©EE•œE€, E¸E¬E  E´ E€E´EEEœìŠ¤ú¡œì—EEE€Eí•˜E”ì§€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1908" Overridable="yes">E€E´ [2]EEE±Eì„ E¨EŒí•˜E€ E»ú²ˆìŠµEˆë‹¤. E€E´EEEœê±°ú±  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1909" Overridable="yes">E”ë¡EE€E° [2]EEE¼) EŒë“¤E€ E»ú²ˆìŠµEˆë‹¤. E€EEú«´E”ê°€ EˆëŠ”E€, E¸E¬E  E¸ ú«´E”ì— E¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1910" Overridable="yes">E”ë¡EE€E° [2]EEE¼) Eœê±°ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤. E”ë¡EE€E° ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1911" Overridable="yes">ú¨Œì¼ [2]EEú´•ì‹ E¼E´EŒëŸ¬E¬E¼ E±Eí•˜E€ E»ú²ˆìŠµEˆë‹¤. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1912" Overridable="yes">ú¨Œì¼ [2]EEú´•ì‹ E¼E´EŒëŸ¬E¬ E±Eì„ E¨EŒí•˜E€ E»ú²ˆìŠµEˆë‹¤. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1913" Overridable="yes">ini ú¨Œì¼ [2][3]EEE¼) EE°E´ú¦¸ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤. ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1914" Overridable="yes">E¤EEE€ú¨E•  EEú¨Œì¼ [2]EEE¼) [3](E¼)EEE”ê¾¸EE¡EE€E•í•˜E€ E»ú²ˆìŠµEˆë‹¤. ú¨Œì¼ [3]EEE€ú±EE°E° EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1915" Overridable="yes">ODBC Eœë¼E´EEE€E¬Eë¥¼ Eœê±°ú±˜ëŠ” E™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. ODBC E¤EE[2]: [3]. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1916" Overridable="yes">ODBC Eœë¼E´EEE€E¬Eë¥¼ E¤E˜í•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. ODBC E¤EE[2]: [3]. E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1917" Overridable="yes">ODBC Eœë¼E´EE[4]EEE¼) Eœê±°ú±˜ëŠ” E™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. ODBC E¤EE[2]: [3]. ODBC Eœë¼E´EE¥¼ Eœê±°ú±  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1918" Overridable="yes">ODBC Eœë¼E´EE[4]EEE¼) E¤E˜í•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. ODBC E¤EE[2]: [3]. [4] ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1919" Overridable="yes">ODBC E°E´ú ° Eë³¸ [4]EEE¼) E¬E±ú±˜ëŠ” E™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. ODBC E¤EE[2]: [3]. [4] ú¨Œì¼E´ EˆëŠ”E€, E¸E¬E  E¸ ú¨Œì¼EEE¡E¸E¤ú±  EEEˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1920" Overridable="yes">Eœë¹EŠ¤ '[2]' ([3])EEE¼) Eœìž‘ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤. EœìŠ¤ú¡EEœë¹EŠ¤E¼ Eœìž‘ú±  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1921" Overridable="yes">Eœë¹EŠ¤ '[2]' ([3])EEE¼) E‘ì§€ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤. EœìŠ¤ú¡EEœë¹EŠ¤E¼ E‘ì§€ú±  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1922" Overridable="yes">Eœë¹EŠ¤ '[2]' ([3])EEE¼) E­Eœí•˜E€ E»ú²ˆìŠµEˆë‹¤. EœìŠ¤ú¡EEœë¹EŠ¤E¼ Eœê±°ú±  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1923" Overridable="yes">Eœë¹EŠ¤ '[2]' ([3])EEE¼) E¤E˜í•˜E€ E»ú²ˆìŠµEˆë‹¤. EœìŠ¤ú¡EEœë¹EŠ¤E¼ E¤E˜í•  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1924" Overridable="yes">úµ˜ê²½ E€EE'[2]'EEE¼) EE°E´ú¦¸ú±˜ì§€ E»ú²ˆìŠµEˆë‹¤. úµ˜ê²½ E€E˜ë¥¼ E˜ì •í•  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1925" Overridable="yes">E´ EœìŠ¤ú¡œì˜ E¨E  E¬E©Eê°€ E¬E©ú±˜ë„EEEœí’ˆEEE¤E˜í•  EŒí•œE´ EEŠµEˆë‹¤. AdministratorEEEœê·¸E¨ú±Eú·EE¤EEE¤E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1926" Overridable="yes">ú¨Œì¼ '[3]'EEE€ú±EE´Eˆì„ E¤E•í•  EEEEŠµEˆë‹¤. E¤EE [2]. E´ ú¨Œì¼ E´Eˆì„ E˜ì •í•  EEEˆëŠ” EŒí•œE´ EˆëŠ”E€ úµ•ì¸ú±˜ì‹­Eœì˜¤.</String>
+    <String Id="Error1927" Overridable="yes">E´ú¯¨ú °EEE¬E± E”ìE Eœë¹EŠ¤(COM+ 1.0)E€ E¤E˜ë˜E´ Eˆì§€ EŠìŠµEˆë‹¤. E¤E˜ë¥¼ EœëŒ€EEEˆì¹˜ë ¤E´ E¬E± E”ìE Eœë¹EŠ¤E€ ú±Eš”ú±©Eˆë‹¤. E¬E± E”ìE Eœë¹EŠ¤EEWindows 2000EEEˆìŠµEˆë‹¤.</String>
+    <String Id="Error1928" Overridable="yes">COM+ E‘ìš© ú°E¡œê·¸E¨EEE±Eí•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. Eì„¸ú±EE´E©E€ E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1929" Overridable="yes">COM+ E‘ìš© ú°E¡œê·¸E¨EEE±Eì„ E¨EŒí•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. Eì„¸ú±EE´E©E€ E EEE€EEE´E¹Eì—EEE¸E˜í•˜E­Eœì˜¤.</String>
+    <String Id="Error1930" Overridable="yes">Eœë¹EŠ¤ '[2]' ([3])EEE¤EE„ E€E½ú±  EEEEŠµEˆë‹¤.</String>
+    <String Id="Error1931" Overridable="yes">WindowsE€ ú¨Œì¼EEE´ú´¸ú±˜ê³  Eˆê¸° EŒë¬¸EEWindows Installer Eœë¹EŠ¤E€ EœìŠ¤ú¡Eú¨Œì¼ [2]EEE¼) EE°E´ú¦¸ú±  EEEEŠµEˆë‹¤. E´ ú°E¡œê·¸E¨EEE¬E”ë¥´EEE‘ë™Eœí‚¤E¤E´ E´EEE´Eœë¥¼ EE°E´ú¦¸ú±´E¼ ú±©Eˆë‹¤. {{ú¨¨úž¤E€ EE E [3], OS E´ú´¸EEEE E [4]}}</String>
+    <String Id="Error1932" Overridable="yes">Windows Installer Eœë¹EŠ¤E€ E´ú´¸EEWindows ú¨Œì¼ [2]EEE¼) EE°E´ú¦¸ú±  EEEEŠµEˆë‹¤. {{ú¨¨úž¤E€ EE E [3], OS E´ú´¸EEEE E [4], SFP E¤EE [5]}}</String>
+    <String Id="Error1933" Overridable="yes">Windows Installer Eœë¹EŠ¤E€ E´ú´¸EEE¼E€ Windows ú¨Œì¼EEEE°E´ú¦¸ú±  EEEEŠµEˆë‹¤. {{SFP E¤EE [2]. E´ú´¸EEú¨Œì¼ E©EE\r\n[3]}}</String>
+    <String Id="Error1934" Overridable="yes">E´ú¯¨ú °EEE•ì±E— E˜í•´ E¬E©EEE¤E˜ë¥¼ ú±  EEEEŠµEˆë‹¤ .</String>
+    <String Id="Error1935" Overridable="yes">E´Eˆë¸”ë¦¬'[6]'EEE¼) E¤E˜í•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. Eì„¸ú±EE´E©E€ EE›€EEEEE€Eì„ E¸E°ú±˜ì‹­Eœì˜¤. HRESULT: [3]. {{E´Eˆë¸”ë¦¬ E¸ú °úª˜ì´E¤: [4], ú±¨EE [5], E¬E± E”ìE: [2]}}</String>
+    <String Id="Error1936" Overridable="yes">E´Eˆë¸”ë¦¬'[6]'EEE¼) E¤E˜í•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. E•ë ¥ú±EE´EE˜ E´Eˆë¸”ë¦¬E€ EE‹ˆE°EEEœìE úž¤ E¸E´EEEœëªE˜E€ EŠì•˜EµEˆë‹¤. HRESULT: [3]. {{E´Eˆë¸”ë¦¬ E¸ú °úª˜ì´E¤: [4], ú±¨EE [5], E¬E± E”ìE: [2]}}</String>
+    <String Id="Error1937" Overridable="yes">E´Eˆë¸”ë¦¬'[6]'EEE¼) E¤E˜í•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. EœëªE´EEE´úŸˆë¡œê·¸E€ E¬E”ë¥´E€ EŠê±°EEúµ•ì¸ú±  EEEEŠµEˆë‹¤. HRESULT: [3]. {{E´Eˆë¸”ë¦¬ E¸ú °úª˜ì´E¤: [4], ú±¨EE [5], E¬E± E”ìE: [2]}}</String>
+    <String Id="Error1938" Overridable="yes">E´Eˆë¸”ë¦¬'[6]'EEE¼) E¤E˜í•˜EEE™ì•ˆ E¤E˜ê°€ EœìEú²ˆìŠµEˆë‹¤. ú±˜ë‚˜ E´EE˜ E´Eˆë¸”ë¦¬ E¨Eˆì„ E¾EEEEEEŠµEˆë‹¤. HRESULT: [3]. {{E´Eˆë¸”ë¦¬ E¸ú °úª˜ì´E¤: [4], ú±¨EE [5], E¬E± E”ìE: [2]}}</String>
+    
+    <String Id="UITextbytes" Overridable="yes">E”ì´ú¦¸</String>
+    <String Id="UITextGB" Overridable="yes">GB</String>
+    <String Id="UITextKB" Overridable="yes">KB</String>
+    <String Id="UITextMB" Overridable="yes">MB</String>
+    <String Id="UITextMenuAbsent" Overridable="yes">E¨E  E°E¥EEE¬E©ú±  EEEEŒ</String>
+    <String Id="UITextMenuAdvertise" Overridable="yes">ú±Eš”ú±  EEE°E¥EEE¤EE/String>
+    <String Id="UITextMenuAllCD" Overridable="yes">E¨E  E°E¥E´ CDEìE E¤ú²‰ë˜EE¡EE¤EE/String>
+    <String Id="UITextMenuAllLocal" Overridable="yes">E¨E  E°E¥E´ Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì— E¤EE/String>
+    <String Id="UITextMenuAllNetwork" Overridable="yes">E¨E  E°E¥E´ E¤ú¦¸EŒí¬EìE E¤ú²‰ë˜EE¡EE¤EE/String>
+    <String Id="UITextMenuCD" Overridable="yes">CDEìE E¤ú²‰ë˜EE¡EE¤EE/String>
+    <String Id="UITextMenuLocal" Overridable="yes">Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì— E¤EE/String>
+    <String Id="UITextMenuNetwork" Overridable="yes">E¤ú¦¸EŒí¬EìE E¤ú²‰ë˜EE¡EE¤EE/String>
+    <String Id="UITextNewFolder" Overridable="yes">Folder|ú±EE˜ì¤€ EE¡E/String>
+    <String Id="UITextScriptInProgress" Overridable="yes">ú±Eš”ú±EE•ë³´E¼ E¨E¼EEEE..</String>
+    <String Id="UITextSelAbsentAbsent" Overridable="yes">E´ E°E¥E€ E¤E˜ë˜E€ EŠìŠµEˆë‹¤.</String>
+    <String Id="UITextSelAbsentAdvertise" Overridable="yes">ú±Eš”ú±  EEE´ E°E¥EEE¤E˜í•˜EE¡EE¤E•í•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="UITextSelAbsentCD" Overridable="yes">E´ E°E¥E€ CDEìE E¤ú²‰ë˜EE¡EE¤E˜ë©Eˆë‹¤.</String>
+    <String Id="UITextSelAbsentLocal" Overridable="yes">E´ E°E¥E€ Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì— E¤E˜ë©Eˆë‹¤.</String>
+    <String Id="UITextSelAbsentNetwork" Overridable="yes">E´ E°E¥E€ E¤ú¦¸EŒí¬EìE E¤ú²‰ë˜EE¡EE¤E˜ë©Eˆë‹¤.</String>
+    <String Id="UITextSelAdvertiseAbsent" Overridable="yes">E´ E°E¥EEE¬E©ú±  EEEE²EE©Eˆë‹¤.</String>
+    <String Id="UITextSelAdvertiseAdvertise" Overridable="yes">ú±Eš”ú±  EEE¤EE/String>
+    <String Id="UITextSelAdvertiseCD" Overridable="yes">E´ E°E¥E€ CDEìE E¤ú²‰í•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="UITextSelAdvertiseLocal" Overridable="yes">E´ E°E¥E€ Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì— E¤E˜ë©Eˆë‹¤.</String>
+    <String Id="UITextSelAdvertiseNetwork" Overridable="yes">E´ E°E¥E€ E¤ú¦¸EŒí¬EìE E¤ú²‰í•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="UITextSelCDAbsent" Overridable="yes">E´ E°E¥E€ EE Ežˆ Eœê±°E©Eˆë‹¤. CDEìE E¤ú²‰í•  EEEEŠµEˆë‹¤.</String>
+    <String Id="UITextSelCDAdvertise" Overridable="yes">E´ E°E¥E€ CDEìE E¤ú²‰ë˜EEEEEEìE ú±Eš”ú±  EEE¤E˜ë˜EEEEœ¼EEE€E½E©Eˆë‹¤.</String>
+    <String Id="UITextSelCDCD" Overridable="yes">E´ E°E¥E€ E¸E€EECDEìE E¤ú²‰ë©Eˆë‹¤.</String>
+    <String Id="UITextSelCDLocal" Overridable="yes">E´ E°E¥E€ CDEìE E¤ú²‰ë˜EEEEEEìE Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì— E¤E˜ë˜EEEEœ¼EEE€E½E©Eˆë‹¤.</String>
+    <String Id="UITextSelChildCostNeg" Overridable="yes">E´ E°E¥E€ ú±˜ë“œ Eœë¼E´EŒì—EE[1]EEEµEE„ EŒë“­Eˆë‹¤.</String>
+    <String Id="UITextSelChildCostPos" Overridable="yes">E´ E°E¥EEE¤ú²‰í•˜E¤E´ ú±˜ë“œ Eœë¼E´EŒì— [1]E´(E€) Eˆì–´E¼ ú±©Eˆë‹¤.</String>
+    <String Id="UITextSelCostPending" Overridable="yes">E´ E°E¥EEE€ú±EEµEE„ E´ú¨Œì¼ú±˜ëŠ” EE..</String>
+    <String Id="UITextSelLocalAbsent" Overridable="yes">E´ E°E¥E€ EE Ežˆ Eœê±°E©Eˆë‹¤.</String>
+    <String Id="UITextSelLocalAdvertise" Overridable="yes">E´ E°E¥E€ Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì—EEEœê±°E˜ì§€EEú±Eš”ú±  EEE¤E˜í•˜EE¡EE¤E•í•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="UITextSelLocalCD" Overridable="yes">E´ E°E¥E€ Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì—EEEœê±°E˜ì§€EECDEìEEEE¤ú²‰í•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="UITextSelLocalLocal" Overridable="yes">E´ E°E¥E€ Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì— E¸E€EEE¨EEEˆê²EE©Eˆë‹¤.</String>
+    <String Id="UITextSelLocalNetwork" Overridable="yes">E´ E°E¥E€ Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì—EEEœê±°E˜ì§€EEE¤ú¦¸EŒí¬EìE E¤ú²‰í•  EEEˆìŠµEˆë‹¤.</String>
+    <String Id="UITextSelNetworkAbsent" Overridable="yes">E´ E°E¥E€ EE Ežˆ Eœê±°E©Eˆë‹¤. E¤ú¦¸EŒí¬EìE E¤ú²‰í•  EEEE²EE©Eˆë‹¤.</String>
+    <String Id="UITextSelNetworkAdvertise" Overridable="yes">E´ E°E¥E€ E¤ú¦¸EŒí¬EìE E¤ú²‰ë˜EEEEEEìE ú±Eš”ú±  EEE¤E˜ë˜EEEEœ¼EEE€E½E©Eˆë‹¤.</String>
+    <String Id="UITextSelNetworkLocal" Overridable="yes">E´ E°E¥E€ E¤ú¦¸EŒí¬EìE E¤ú²‰ë˜EEEEEEìE Eœì»¬ ú±˜ë“œ Eœë¼E´EŒì— E¤E˜ë˜EEEEœ¼EEE€E½E©Eˆë‹¤.</String>
+    <String Id="UITextSelNetworkNetwork" Overridable="yes">E´ E°E¥E€ E¸E€EEE¤ú¦¸EŒí¬EìE E¤ú²‰ë©Eˆë‹¤.</String>
+    <String Id="UITextSelParentCostNegNeg" Overridable="yes">E´ E°E¥E€ ú±˜ë“œ Eœë¼E´EŒì—EE[1]EEEµEE„ EŒë“­Eˆë‹¤. [3]Eœì˜ ú±˜ìœ„ E°E¥ EE[2]Eœê°€ E úŸë˜EˆìŠµEˆë‹¤. ú±˜ìœ„ E°E¥E€ ú±˜ë“œ Eœë¼E´EŒì—EE[4]EEEµEE„ EŒë“­Eˆë‹¤.</String>
+    <String Id="UITextSelParentCostNegPos" Overridable="yes">E´ E°E¥E€ ú±˜ë“œ Eœë¼E´EŒì—EE[1]EEEµEE„ EŒë“­Eˆë‹¤. [3]Eœì˜ ú±˜ìœ„ E°E¥ EE[2]Eœê°€ E úŸë˜EˆìŠµEˆë‹¤. ú±˜ìœ„ E°E¥EEE¬E©ú±˜ë ¤E´ ú±˜ë“œ Eœë¼E´EŒì— [4]E´(E€) Eˆì–´E¼ ú±©Eˆë‹¤.</String>
+    <String Id="UITextSelParentCostPosNeg" Overridable="yes">E´ E°E¥EEE¬E©ú±˜ë ¤E´ ú±˜ë“œ Eœë¼E´EŒì— [1]E´(E€) Eˆì–´E¼ ú±©Eˆë‹¤. [3]Eœì˜ ú±˜ìœ„ E°E¥ EE[2]Eœê°€ E úŸë˜EˆìŠµEˆë‹¤. ú±˜ìœ„ E°E¥E€ ú±˜ë“œ Eœë¼E´EŒì—EE[4]EEEµEE„ EŒë“­Eˆë‹¤.</String>
+    <String Id="UITextSelParentCostPosPos" Overridable="yes">E´ E°E¥EEE¬E©ú±˜ë ¤E´ ú±˜ë“œ Eœë¼E´EŒì— [1]E´(E€) Eˆì–´E¼ ú±©Eˆë‹¤. [3]Eœì˜ ú±˜ìœ„ E°E¥ EE[2]Eœê°€ E úŸë˜EˆìŠµEˆë‹¤. ú±˜ìœ„ E°E¥EEE¬E©ú±˜ë ¤E´ ú±˜ë“œ Eœë¼E´EŒì— [4]E´(E€) Eˆì–´E¼ ú±©Eˆë‹¤.</String>
+    <String Id="UITextTimeRemaining" Overridable="yes">E¨E€ Eœê°E {[1]EE}{[2]EE</String>
+    <String Id="UITextVolumeCostAvailable" Overridable="yes">E¬E© E€E¥</String>
+    <String Id="UITextVolumeCostDifference" Overridable="yes">E¨E´</String>
+    <String Id="UITextVolumeCostRequired" Overridable="yes">ú±Eš”</String>
+    <String Id="UITextVolumeCostSize" Overridable="yes">E”ìŠ¤ú¬ ú¬E°</String>
+    <String Id="UITextVolumeCostVolume" Overridable="yes">E¼E¨</String>
+</WixLocalization>

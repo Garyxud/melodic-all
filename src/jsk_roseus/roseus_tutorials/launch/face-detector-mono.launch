@@ -1,0 +1,19 @@
+<launch>
+  <node name="face_detection" pkg="opencv_apps" type="face_detection" output="screen" >
+    <remap from="image" to="image_raw" />
+  </node>
+  <node name="image_view" pkg="image_view2" type="image_view2" output="screen" >
+    <remap from="image" to="face_detection/image" />
+  </node>
+
+  <sphinxdoc><![CDATA[
+This script starts face detection demo
+
+.. code-block:: bash
+
+  rosrun roseus_tutorial face-detector-mono.l
+
+is sample client program.
+  ]]></sphinxdoc>
+
+</launch>

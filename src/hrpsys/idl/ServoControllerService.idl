@@ -1,0 +1,133 @@
+/**
+ * @file ServoControllerService.idl
+ * @brief Services for the robot hardware interface
+ */
+module OpenHRP
+{
+  interface ServoControllerService
+  {
+    typedef sequence<short> iSequence;
+    typedef sequence<double> dSequence;
+
+    /**
+     * @brief Interpolate just one joint angle specified by \em id using duration \em tm. Function returns without waiting for interpolation to finish
+     * @param id joint id
+     * @param jv joint angle
+     * @param tm duration
+     * @return true if set successuflly, false otherwise
+     */
+    boolean setJointAngle(in short id, in double jv, in double tm);
+
+    /**
+     * @brief Interpolate all joint angles on servo moters using duration specified by \em tm. Returns without waiting for whole sequence to be sent to robot.
+     * @param jvs sequence of joint angles
+     * @param tm duration
+     * @return true joint angles are set successfully, false otherwise
+     */
+    boolean setJointAngles(in dSequence jvs, in double tm);
+
+    /**
+     * @brief Obttain just one joint angle specified by \em id. Function returns without waiting for interpolation to finish
+     * @param id joint id
+     * @param jv joint angle
+     * @return true if get successuflly, false otherwise
+     */
+    boolean getJointAngle(in short id, out double jv);
+
+    /**
+     * @brief Interpolate all joint angles on servo moters. Returns without waiting for whole sequence to be sent to robot.
+     * @param jvs sequence of joint angles
+     * @return true joint angles are get successfully, false otherwise
+     */
+    boolean getJointAngles(out dSequence jvs);
+
+    /**
+     * @brief add a joint group
+     * @param gname name of the joint group
+     * @param ids list of joint ids
+     * @return true if the group is added successfully, false otherwise
+     */
+    boolean addJointGroup(in string gname, in iSequence ids);
+
+    /**
+     * @brief remove a joint group
+     * @param gname name of the joint group
+     * @return true if the group is removed successfully, false otherwise
+     */
+    boolean removeJointGroup(in string gname);
+
+    /**
+     * @brief Interpolate joint angles in a group  using duration specified by \em tm. Returns without waiting for whole sequence to be sent to robot.
+     * @param gname name of the joint group
+     * @param jvs sequence of joint angles
+     * @param tm duration
+     * @return true joint angles are set successfully, false otherwise
+     */
+    boolean setJointAnglesOfGroup(in string gname, in dSequence jvs, in double tm);
+
+    /**
+     * @brief Interpolate just one joint max torque specified by \em id. Function returns without waiting for interpolation to finish
+     * @param id joint id
+     * @param percentage servo maxTorque(1~100[%])
+     * @return true if set successuflly, false otherwise
+     */
+    boolean setMaxTorque(in short id, in short percentage);
+
+    /**
+     * @brief Reset servo settings
+     * @param id joint id
+     * @return true if set successuflly, false otherwise
+     */
+    boolean setReset(in short id);
+
+    /**
+     * @brief Get servo duration
+     * @param id joint id
+     * @param duration servo duration
+     * @return true if set successuflly, false otherwise
+     */
+    boolean getDuration(in short id, out double duration);
+
+    /**
+     * @brief Get servo speed
+     * @param id joint id
+     * @param speed servo speed
+     * @return true if set successuflly, false otherwise
+     */
+    boolean getSpeed(in short id, out double speed);
+
+    /**
+     * @brief Get servo maxTorque
+     * @param id joint id
+     * @param percentage servo maxTorque(1~100[%], per 1)
+     * @return true if set successuflly, false otherwise
+     */
+    boolean getMaxTorque(in short id, out short percentage);
+
+    /**
+     * @brief Get servo torque
+     * @param id joint id
+     * @param torque servo torque
+     * @return true if set successuflly, false otherwise
+     */
+    boolean getTorque(in short id, out double torque);
+
+    /**
+     * @brief Get servo temperature
+     * @param id joint id
+     * @param temperature servo temperature
+     * @return true if set successuflly, false otherwise
+     */
+    boolean getTemperature(in short id, out double temperature);
+
+    /**
+     * @brief Get servo voltage
+     * @param id joint id
+     * @param voltage servo voltage
+     * @return true if set successuflly, false otherwise
+     */
+    boolean getVoltage(in short id, out double voltage);
+    boolean servoOn();
+    boolean servoOff();
+  };
+};

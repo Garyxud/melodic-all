@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="nmea_comms" type="socket_node" name="socket_node">
+  </node>
+  <test pkg="nmea_comms" type="nmea_socket_node_test" name="test_socket_node" test-name="test_socket_node">
+  </test>
+</launch>

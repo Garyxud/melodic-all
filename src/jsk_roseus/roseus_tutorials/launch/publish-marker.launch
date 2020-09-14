@@ -1,0 +1,13 @@
+<launch>
+  <node name="publish_marker"
+	pkg="roseus_tutorials"
+	type="publish-marker.l"
+	output="screen">
+  </node>
+  <node name="rviz"
+	pkg="rviz"
+	type="rviz"
+	output="screen"
+	args="-d $(find roseus_tutorials)/config/publish-marker.rviz">
+  </node>
+</launch>

@@ -1,0 +1,35 @@
+site_name: PlotJuggler
+site_description: 'The time series visualization tool'
+site_author: 'Davide Faconti'
+
+repo_name: 'facontidavide/PlotJuggler'
+repo_url: https://github.com/facontidavide/PlotJuggler
+
+# Copyright
+copyright: 'Copyright &copy; 2016 - 2020 Davide Faconti'
+
+use_directory_urls: false
+theme: flatly
+
+extra:
+  palette:
+    primary: 'indigo'
+    accent: 'cyan'
+    logo: 'images/plotjuggler.svg'
+  feature:
+    tabs: false
+
+# Extensions
+markdown_extensions:
+  - admonition
+  
+pages:
+    - Introduction: index.md
+    - User Guide:
+        - 'Basics: how to visualize your data':      'visualization_howto.md'
+        - 'Data Sources: Static vs streamed data':   'data_sources.md'
+        - 'Time tracker and publishers':         'tracker.md'
+    - Plugins:
+        - 'ROS plugins': 'ros_plugins.md'
+
+ 

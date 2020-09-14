@@ -1,0 +1,2 @@
+string symbol
+string[] definition

@@ -1,0 +1,73 @@
+/*
+  Manipulator Common Interface (Middle Level Commands)
+    - This IDL is used as service port on RTC
+    - This command specification is provided by Intelligent RT Software
+  Project of JARA.
+  rev. 20140205
+*/
+
+#ifndef MANIPULATORCOMMONINTERFACE_MIDDLE_IDL
+#define MANIPULATORCOMMONINTERFACE_MIDDLE_IDL
+
+#include "ManipulatorCommonInterface_DataTypes.idl"
+
+module JARA_ARM {
+
+  typedef double HgMatrix [3][4];
+
+  struct CarPosWithElbow {
+    HgMatrix carPos;
+    double elbow;
+    ULONG structFlag;
+  };
+
+  struct CartesianSpeed {
+    double translation;
+    double rotation;
+  };
+
+  interface ManipulatorCommonInterface_Middle {
+    RETURN_ID closeGripper();
+    RETURN_ID getBaseOffset(out HgMatrix offset);
+    RETURN_ID getFeedbackPosCartesian(out CarPosWithElbow pos);
+    RETURN_ID getMaxSpeedCartesian(out CartesianSpeed speed);
+    RETURN_ID getMaxSpeedJoint(out DoubleSeq speed);
+    RETURN_ID getMinAccelTimeCartesian(out double aclTime);
+    RETURN_ID getMinAccelTimeJoint(out double aclTime);
+    RETURN_ID getSoftLimitCartesian(out LimitValue xLimit,
+                        out LimitValue yLimit, out LimitValue zLimit );
+    RETURN_ID moveGripper(in ULONG angleRatio);
+    RETURN_ID moveLinearCartesianAbs(in CarPosWithElbow carPoint);
+    RETURN_ID moveLinearCartesianRel(in CarPosWithElbow carPoint);
+    RETURN_ID movePTPCartesianAbs(in CarPosWithElbow carPoint);
+    RETURN_ID movePTPCartesianRel(in CarPosWithElbow carPoint);
+    RETURN_ID movePTPJointAbs(in JointPos jointPoints);
+    RETURN_ID movePTPJointRel(in JointPos jointPoints);
+    RETURN_ID openGripper();
+    RETURN_ID pause();
+    RETURN_ID resume();
+    RETURN_ID stop();
+    RETURN_ID setAccelTimeCartesian(in double aclTime);
+    RETURN_ID setAccelTimeJoint(in double aclTime);
+    RETURN_ID setBaseOffset(in HgMatrix offset);
+    RETURN_ID setControlPointOffset(in HgMatrix offset);
+    RETURN_ID setMaxSpeedCartesian(in CartesianSpeed speed);
+    RETURN_ID setMaxSpeedJoint(in DoubleSeq speed);
+    RETURN_ID setMinAccelTimeCartesian(in double aclTime);
+    RETURN_ID setMinAccelTimeJoint(in double aclTime);
+    RETURN_ID setSoftLimitCartesian(in LimitValue xLimit,
+    in LimitValue yLimit, in LimitValue zLimit);
+    RETURN_ID setSpeedCartesian(in ULONG spdRatio);
+    RETURN_ID setSpeedJoint(in ULONG spdRatio);
+    RETURN_ID moveCircularCartesianAbs(in CarPosWithElbow carPointR,
+    in CarPosWithElbow carPointT);
+    RETURN_ID moveCircularCartesianRel(in CarPosWithElbow carPointR,
+    in CarPosWithElbow carPointT);
+    RETURN_ID setHome(in JointPos jointPoint);
+    RETURN_ID getHome(out JointPos jointPoint);
+    RETURN_ID goHome();
+  };
+};
+
+#endif // MANIPULATORCOMMONINTERFACE_MIDDLE_IDL
+

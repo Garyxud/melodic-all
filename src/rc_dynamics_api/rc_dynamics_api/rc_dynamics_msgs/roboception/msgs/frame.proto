@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "FrameProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Frame
+/// \brief Message for coordinate frame with a pose
+
+import "roboception/msgs/pose_stamped.proto";
+
+message Frame
+{
+  optional PoseStamped pose  = 1;
+  optional string parent     = 2; // Name of the parent frame
+  optional string name       = 3; // Name of the frame
+  optional string producer   = 4; // Name of the producer of this data
+}

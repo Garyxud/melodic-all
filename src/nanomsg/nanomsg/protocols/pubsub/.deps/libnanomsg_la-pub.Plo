@@ -1,0 +1,78 @@
+src/protocols/pubsub/libnanomsg_la-pub.lo: src/protocols/pubsub/pub.c \
+ /usr/include/stdc-predef.h src/protocols/pubsub/pub.h \
+ src/protocols/pubsub/../../protocol.h \
+ src/protocols/pubsub/../../utils/msg.h \
+ src/protocols/pubsub/../../utils/chunkref.h \
+ src/protocols/pubsub/../../utils/chunk.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h \
+ src/protocols/pubsub/../../utils/int.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h /usr/include/stdint.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ src/protocols/pubsub/../../utils/list.h \
+ src/protocols/pubsub/../../utils/int.h src/protocols/pubsub/xpub.h \
+ src/protocols/pubsub/../../nn.h /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ src/protocols/pubsub/../../pubsub.h \
+ src/protocols/pubsub/../../utils/list.h
+
+/usr/include/stdc-predef.h:
+
+src/protocols/pubsub/pub.h:
+
+src/protocols/pubsub/../../protocol.h:
+
+src/protocols/pubsub/../../utils/msg.h:
+
+src/protocols/pubsub/../../utils/chunkref.h:
+
+src/protocols/pubsub/../../utils/chunk.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h:
+
+src/protocols/pubsub/../../utils/int.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/features.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+src/protocols/pubsub/../../utils/list.h:
+
+src/protocols/pubsub/../../utils/int.h:
+
+src/protocols/pubsub/xpub.h:
+
+src/protocols/pubsub/../../nn.h:
+
+/usr/include/errno.h:
+
+/usr/include/x86_64-linux-gnu/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+src/protocols/pubsub/../../pubsub.h:
+
+src/protocols/pubsub/../../utils/list.h:

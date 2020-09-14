@@ -1,0 +1,25 @@
+<launch>
+
+  <include file="$(find jsk_pcl_ros_utils)/sample/include/play_rosbag_shelf_bin.xml" />
+
+  <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
+
+  <node name="euclidean_clustering"
+        pkg="nodelet" type="nodelet"
+        args="standalone jsk_pcl/EuclideanClustering">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+  </node>
+
+  <test test-name="test_euclidean_segmentation"
+        name="test_euclidean_segmentation"
+        pkg="jsk_tools" type="test_topic_published.py"
+        time-limit="360" retry="3">
+    <rosparam>
+      topic_0: /euclidean_clustering/cluster_num
+      timeout_0: 30
+      topic_1: /euclidean_clustering/output
+      timeout_1: 30
+    </rosparam>
+  </test>
+
+</launch>

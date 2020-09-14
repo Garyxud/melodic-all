@@ -1,0 +1,17 @@
+<launch>
+
+  <include file="$(find jsk_perception)/sample/sample_mask_image_to_label.launch">
+    <arg name="gui" value="false" />
+  </include>
+
+  <test test-name="test_mask_image_to_label"
+        name="test_mask_image_to_label"
+        pkg="jsk_tools" type="test_topic_published.py"
+        time-limit="360">
+    <rosparam>
+      topic_0: /mask_image_to_label/output
+      timeout_0: 10
+    </rosparam>
+  </test>
+
+</launch>

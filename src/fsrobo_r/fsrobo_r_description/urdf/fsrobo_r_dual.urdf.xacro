@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="fsrobo_r">
+  <!-- fsrobo_r -->
+  <xacro:include filename="$(find fsrobo_r_description)/urdf/fsrobo_r.urdf.xacro" /> 
+  
+  <!-- arm -->
+  <xacro:fsrobo_r_robot prefix="arm1/"/>
+  <xacro:fsrobo_r_robot prefix="arm2/"/>
+
+  <link name="world" />
+
+  <joint name="arm1_world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "arm1/base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <joint name="arm2_world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "arm2/base_link" />
+    <origin xyz="-0.004 0.801 0.0" rpy="0.0 0.0 -3.14" />
+  </joint>
+
+  <link name="arm1/Tool1">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.11 0.02 0.03" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.8 0.9 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="arm1/Tool2">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.11 0.02 0.03" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.7 1 0.9 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="arm1/Camera">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.11 0.02 0.03" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.7 0.8 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint
+    name="arm1/ToolJoint1"
+    type="fixed">
+    <origin
+      xyz="0 0 0.1035"
+      rpy="0 0 0" />
+    <parent
+      link="arm1/Link6" />
+    <child
+      link="arm1/Tool1" />
+  </joint>
+  <joint
+    name="arm1/ToolJoint2"
+    type="fixed">
+    <origin
+      xyz="0 -0.08699 0.06631"
+      rpy="1.047198 0 0" />
+    <parent
+      link="arm1/Link6" />
+    <child
+      link="arm1/Tool2" />
+  </joint>
+  <joint
+    name="arm1/CameraJoint"
+    type="fixed">
+    <origin
+      xyz="0.01745 0.074  0.0482"
+      rpy="-1.570796 0 0" />
+    <parent
+      link="arm1/Link6" />
+    <child
+      link="arm1/Camera" />
+  </joint>
+
+  <link name="arm2/Tool1">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.11 0.02 0.03" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.8 0.9 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="arm2/Tool2">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.11 0.02 0.03" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.7 1 0.9 1" />
+      </material>
+    </visual>
+  </link>
+  <link name="arm2/Camera">
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.11 0.02 0.03" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.7 0.8 1 1" />
+      </material>
+    </visual>
+  </link>
+  <joint
+    name="arm2/ToolJoint1"
+    type="fixed">
+    <origin
+      xyz="0 0 0.1045"
+      rpy="0 0 0" />
+    <parent
+      link="arm2/Link6" />
+    <child
+      link="arm2/Tool1" />
+  </joint>
+  <joint
+    name="arm2/ToolJoint2"
+    type="fixed">
+    <origin
+      xyz="0 -0.08647 0.0601"
+      rpy="1.047198 0 0" />
+    <parent
+      link="arm2/Link6" />
+    <child
+      link="arm2/Tool2" />
+  </joint>
+  <joint
+    name="arm2/CameraJoint"
+    type="fixed">
+    <origin
+      xyz="0.01769 0.07403 0.0482"
+      rpy="-1.570796 0 0" />
+    <parent
+      link="arm2/Link6" />
+    <child
+      link="arm2/Camera" />
+  </joint>
+</robot>

@@ -1,0 +1,29 @@
+Running the CRL Calibration Check Utility
+
+  (1) Run Camera Calibration
+
+   Before the calibration check program can be run, the MultiSense-SL
+   ROS driver must be started.  The driver is normally started by
+   executing the command "roslaunch multisense_bringup multisense.launch"
+   after sourcing the appropriate setup.bash file.  For more information,
+   please refer to the MultiSense-SL ROS Driver Manual, which is available
+   from
+   http://docs.carnegierobotics.com
+
+   Next, navigate to the multisense_cal_check directory and execute the command
+
+      ./cal_check
+
+   Note: a process_bags.py file in the multisense_cal_check directory.
+
+   ./cal_check <options>
+   usage: ./cal_check <options>
+   Where <options> are
+       -b <bag_dir>         specifies the directory to save bag files. (default='.')
+       -o <out_dr>          specifies the directory to save the calibration results
+       -c                   do not remove temporary directory
+       -h                   get help
+
+If you have any difficulty running the calibration check utility, please contact
+the Carnegie Robotics support team at https://support.carnegierobotics.com
+

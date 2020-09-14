@@ -1,0 +1,6 @@
+// Send a command to change the mode
+package dataspeed_pds_lcm;
+struct mode_t
+{
+    int8_t mode;    // Auto = 0, Manual = 1, Valet = 2
+}

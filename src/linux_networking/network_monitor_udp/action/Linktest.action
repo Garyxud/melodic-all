@@ -1,0 +1,42 @@
+# Goal definition
+float32 DEFAULT_UPDATE_INTERVAL=0.15    # sec
+float32 DEFAULT_BW=5000000.0            # bps
+char DEFAULT_BWTYPE=99                  # default bw type: constant              
+char BW_CONSTANT=99                     # 'c'
+char BW_ADAPTIVE=97                     # 'a'
+float32 LIM1=-0.3                       # adaptive alg constants
+float32 LIM2=0.3
+float32 C1=-0.05
+float32 C2=0.2
+float32 DEFAULT_LATENCY_THRESHOLD=0.01  # sec
+float32 DEFAULT_PKTLOSS_THRESHOLD=0.5   # %
+int32 DEFAULT_PKTSIZE=1500              # bytes
+
+float32 duration                        # sec
+float32 update_interval                 # sec
+float32 bw                              # bps 
+char bw_type                            # BW_CONSTANT | BW_ADAPTIVE
+float32 latency_threshold               # sec
+float32 pktloss_threshold               # %
+uint8 tos
+int32 pktsize                           # bytes
+bool ros_returnpath                     # default: false == UDP
+bool roundtrip                          # default: false == oneway
+float32 max_return_time                 # sec
+string rostopic_prefix
+string sink_ip
+int32 sink_port
+float32[] latencybins
+---
+# Result definition
+float32 latency
+float32 loss
+float32 bandwidth 
+float32[] latency_histogram
+---
+# Feedback definition
+float32 latency
+float32 loss 
+float32 bandwidth
+float32[] latency_histogram
+time stamp

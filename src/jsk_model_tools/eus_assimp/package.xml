@@ -1,0 +1,29 @@
+<package>
+  <name>eus_assimp</name>
+  <version>0.4.3</version>
+  <description>eus_assimp</description>
+
+  <maintainer email="youhei@jsk.imi.i.u-tokyo.ac.jp">Yohei Kakiuchi</maintainer>
+
+  <license>BSD</license>
+
+  <!-- <url type="bugtracker"></url> -->
+
+  <author email="youhei@jsk.imi.i.u-tokyo.ac.jp">Yohei Kakiuchi</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend version_gte="9.25.0">euslisp</build_depend>
+  <build_depend>assimp_devel</build_depend>
+  <build_depend>pkg-config</build_depend>
+
+  <run_depend version_gte="1.7.1">roseus</run_depend>
+  <run_depend>assimp_devel</run_depend>
+
+  <!-- <test_depend>euslisp</test_depend> -->
+  <!-- <test_depend>roseus</test_depend> -->
+
+  <export>
+    <rosdoc config="rosdoc.yaml"/>
+  </export>
+</package>

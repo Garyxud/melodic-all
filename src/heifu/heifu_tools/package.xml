@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>heifu_tools</name>
+  <version>0.7.1</version>
+  <description>Heifu Tools</description>
+
+  <maintainer email="joao.m.carvalho@pdmfc.com">João Pedro Carvalho</maintainer>
+
+  <license>TODO</license>
+
+  <author email="joao.m.carvalho@pdmfc.com">João Pedro Carvalho</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>joy</run_depend>
+  <run_depend>joy_teleop</run_depend>
+  <run_depend>image_view</run_depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>

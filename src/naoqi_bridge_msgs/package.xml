@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+  <name>naoqi_bridge_msgs</name>
+  <version>0.0.8</version>
+  <description>The naoqi_bridge_msgs package provides custom messages for running Aldebaran's robot such as NAO and Pepper. See the packages nao_robot and pepper_robot for details.</description>
+
+  <author>Karsten Knese</author>
+  <maintainer email="karsten.knese@gmail.com">Karsten Knese</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>genmsg</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>genmsg</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
+
+  <replace>naoqi_msgs</replace>
+  <conflict>naoqi_msgs</conflict>
+  <export>
+  </export>
+</package>

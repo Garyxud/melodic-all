@@ -1,0 +1,30 @@
+<!-- 
+   A example that loads up a variety of interactions using either params or the
+   external ros api loader.
+
+   Usage:
+     - Launch
+     - Call 'rocon_interactions' to view the loaded interactions.
+-->
+<launch>
+  <!-- Publish master info for the remocon -->
+  <param name="name" value="Rocon Interactions"/>
+  <param name="description" value="A tutorial environment for interactions and remocons."/>
+  <param name="icon" value="rocon_icons/cybernetic_pirate.png"/>
+
+  <!-- Param binding demo. See rocon_interactions/binding.interactions -->
+  <param name="test" value="This is param to demo global param binding"/>
+  <param name="/namespace/test" value="This is param to demo namespaced param binding"/>
+
+  <node pkg="rocon_master_info" type="master.py" name="master"/>
+
+  <node pkg="rocon_interactions" type="interactions_manager.py" name="interactions">
+    <rosparam param="interactions">[rocon_interactions/android, rocon_interactions/pc, rocon_interactions/web_apps, rocon_interactions/binding]</rosparam>
+    <param name="test" value="This is param to demo internal param binding"/>
+  </node>
+  
+  <!-- instead of params, use the external loader and configure groups with default namespaces -->
+  <node pkg="rocon_interactions" type="load_interactions" name="load_interactions" args="-n '/web' rocon_interactions web">
+    <remap from="load_interactions/set_interactions" to="interactions/set_interactions"/>
+  </node>
+</launch>

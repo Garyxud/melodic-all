@@ -1,0 +1,15 @@
+<package format="2">
+  <name>cob_android_resource_server</name>
+  <version>0.1.7</version>
+  <description>cob_android_resource_server</description>
+  
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_android_resource_server</url>
+
+  <maintainer email="bnm@ipa.fhg.de">Benjamin Maidel</maintainer>
+  <author email="bnm@ipa.fhg.de">Benjamin Maidel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rospy</exec_depend>
+</package>

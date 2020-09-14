@@ -1,0 +1,27 @@
+<package format="2">
+  <name>robot_activity_msgs</name>
+  <version>0.1.1</version>
+  <description>
+    This package contains messages used by robot_activity, such as node's state
+    and error
+  </description>
+
+  <author email="maciej.zurad@gmail.com">Maciej ZURAD</author>
+  <maintainer email="maciej.zurad@gmail.com">Maciej ZURAD</maintainer>
+
+  <license>BSD</license>
+
+  <url>http://www.ros.org/wiki/robot_activity_msgs</url>
+  <url type="bugtracker">https://github.com/snt-robotics/robot_activity/issues</url>
+  <url type="repository">https://github.com/snt-robotics/robot_activity</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>std_msgs</depend>
+  <depend>message_generation</depend>
+  <depend>message_runtime</depend>
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

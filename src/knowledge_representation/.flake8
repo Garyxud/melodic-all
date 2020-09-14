@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 120
+exclude = tests/*, test/*
+max-complexity = 10
+# We import modules here to make the API cleaner
+per-file-ignores = **/knowledge_representation/__init__.py:F401

@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="137,83,215,112"/>
+<area shape="rect" id="node9" href="$canserial-esd_8cpp.html" title="Implementation of class SDH::cCANSerial_ESD, a class to access an ESD CAN interface on cygwin/linux a..." alt="" coords="239,83,388,112"/>
+<area shape="rect" id="node11" href="$canserial-peak_8cpp.html" title="Implementation of class SDH::cCANSerial_PEAK, a class to access a PEAK CAN interface on cygwin/linux ..." alt="" coords="412,83,567,112"/>
+<area shape="rect" id="node13" href="$rs232-cygwin_8cpp.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="591,83,737,112"/>
+<area shape="rect" id="node15" href="$rs232-vcc_8cpp.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port with VCC compiler on Windows..." alt="" coords="761,83,887,112"/>
+<area shape="rect" id="node17" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="911,83,1004,112"/>
+<area shape="rect" id="node19" href="$serialbase_8cpp.html" title="Implementation of class SDH::cSerialBase, a virtual base class to access serial interfaces like RS232..." alt="" coords="1028,83,1159,112"/>
+<area shape="rect" id="node21" href="$tcpserial_8cpp.html" title="Implementation of class SDH::cTCPSerial, a class to access a TCP port on cygwin/linux and Visual Stud..." alt="" coords="1183,83,1303,112"/>
+<area shape="rect" id="node5" href="$demo-benchmark_8cpp.html" title="Simple script to benchmark communication speed of the SDH. See __help__ and online help (&quot;&#45;h&amp;quo..." alt="" coords="5,160,187,189"/>
+<area shape="rect" id="node7" href="$dsa_8cpp.html" title="This file contains definition of SDH::cDSA, a class to communicate with the tactile sensors of the SD..." alt="" coords="211,160,304,189"/>
+</map>

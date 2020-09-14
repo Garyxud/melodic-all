@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package>
+  <name>rocon_tools</name>
+  <version>0.3.2</version>
+  <description>
+    Utilities and tools developed for rocon, but usable beyond the boundaries
+    of rocon.
+  </description>
+  <maintainer email="d.stonier@gmail.com">Daniel Stonier</maintainer>
+  <license>BSD</license>
+  <url type="website">http://www.ros.org/wiki/rocon_tools</url>
+  <url type="repository">https://github.com/robotics-in-concert/rocon_tools</url>
+  <url type="bugtracker">https://github.com/robotics-in-concert/rocon_tools/issues</url>
+  <author>Daniel Stonier</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rocon_master_info</run_depend>
+  <run_depend>rocon_console</run_depend>
+  <run_depend>rocon_ebnf</run_depend>
+  <run_depend>rocon_interactions</run_depend>
+  <run_depend>rocon_launch</run_depend>
+  <run_depend>rocon_python_comms</run_depend>
+  <run_depend>rocon_python_redis</run_depend>
+  <run_depend>rocon_python_utils</run_depend>
+  <run_depend>rocon_python_wifi</run_depend>
+  <run_depend>rocon_semantic_version</run_depend>
+  <run_depend>rocon_uri</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
+

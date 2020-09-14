@@ -1,0 +1,12 @@
+Header header
+bool i_0_EA1
+bool i_1_OSSDA1
+bool i_2_OSSDA2
+bool i_3_MELD
+bool i_4_A1
+bool i_5_A2
+bool i_6_A3
+bool i_7_A4
+bool i_8_EA2
+bool i_9_OSSDB1
+bool i_10_OSSDB2

@@ -1,0 +1,4 @@
+string bag_profile_name
+bool set
+---
+bool success

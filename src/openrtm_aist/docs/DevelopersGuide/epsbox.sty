@@ -1,0 +1,348 @@
+%
+% epsbox.sty
+%
+%   These are the macros to include EPS file, based on NTT's "epsf.sty".
+% Porting is made by Yuki Kusumi (Matsushita Electric Industrial Co., Ltd.),
+% and now the facility of "epsf.sty" is available on ASCII JTeX/jdvi2kps v.2.1
+% too.  Note that specification of these macros are not completely compatible 
+% with that of "epsf.sty". One reason of this incompatibility is difference 
+% between the specification of dvi2ps and that of jdvi2kps, and the other is 
+% that we need to keep the compatibility with Neil Hunt's "postscript.sty".
+%
+% 							Oct. 1990
+%
+%
+% EPSF macros by Kazuhiro Kazama and modified by Hideki ISOZAKI
+% based on Trevor J. Darrell's psfig.tex
+%
+% pstex/postscript.sty are Copyright(c) 1989 Teleos Research, Inc 1989.
+%
+% All software, documentation, and related files in this distribution of
+% psfig/tex are Copyright (c) 1987 Trevor J. Darrell
+%
+% Permission is granted for use and non-profit distribution of psfig/tex 
+% providing that this notice be clearly maintained, but the right to
+% distribute any portion of psfig/tex for profit or as part of any commercial
+% product is specifically reserved for the author.
+%
+
+\endlinechar=-1
+
+\typeout{EPSbox version 1.5 - Released May 5, 1992 (for LaTeX/jdvi2kps2.1-3.0)}
+\typeout{Based on EPSF macro package. version 1.2 - Released July 16, 1990}
+
+\newdimen\@darg
+
+\newdimen\eps@xdim
+\newdimen\eps@ydim
+
+\newdimen\eps@width
+\newdimen\eps@height
+
+\newdimen\eps@tempdima
+\newdimen\eps@tempdimb
+
+\newcount\eps@cnta
+\newcount\eps@cntb
+\newcount\eps@cntc
+\newcount\eps@cntd
+
+
+\newif\if@height
+\newif\if@width
+\newif\if@aspect
+\newif\ifno@bb
+\newif\ifno@psfile
+
+
+\def\@setpsfile#1{
+                \def\@psfile{#1}
+}
+\def\@setpsheight#1{
+                \@heighttrue
+                \eps@height=#1\relax
+}
+\def\@setpswidth#1{
+                \@widthtrue
+                \eps@width=#1\relax
+}
+\def\@setpsscale#1{
+                \edef\@pshscale{#1}
+                \edef\@psvscale{#1}
+}
+\def\@setpshscale#1{
+                \edef\@pshscale{#1}
+}
+
+\def\@setpsvscale#1{
+                \edef\@psvscale{#1}
+}
+
+\def\@setpsaspect#1{
+		\@aspecttrue
+		\edef\@psaspect{#1}
+}
+
+\def\@setparms#1=#2,{\@nameuse{@setps#1}{#2}}
+%
+% initialize
+%
+\def\ps@init@parms{
+                \@heightfalse
+		\@widthfalse
+		\@aspectfalse
+                \no@bbfalse
+                \def\@psbbllx{}\def\@psbblly{}
+                \def\@psbburx{}\def\@psbbury{}
+                \def\@psheight{}\def\@pswidth{}
+                \def\@pshscale{1}\def\@psvscale{1}
+                \def\@psfile{}
+                \def\@sc{}
+}
+
+%
+% Go through the options setting things up.
+%
+\def\parse@ps@parms#1{
+                \@for\@epsfile:=#1\do
+                   {\expandafter\@setparms\@epsfile,}}
+
+%
+% Compute %%BoundingBox height and width
+%
+\newif\ifnot@eof
+\newread\ps@stream
+\def\bb@search{
+        \openin\ps@stream=\@psfile
+        \no@bbtrue
+        \not@eoftrue
+        \catcode`\%=12\relax
+        \ifeof\ps@stream
+          \def\eps@errmsg{EPS File \@psfile\space not found}
+          \no@psfiletrue
+	\else
+          \no@psfilefalse
+          \loop
+             \read\ps@stream to \line@in
+             \global\toks200=\expandafter{\line@in}\relax
+             \ifeof\ps@stream \not@eoffalse \fi
+             \@bbtest{\toks200}\relax
+             \if@bbmatch\not@eoffalse\expandafter\bb@cull\the\toks200\fi
+          \ifnot@eof \repeat
+	\fi
+        \catcode`\%=14
+}       
+
+\catcode`\%=12
+\newif\if@bbmatch
+\def\@bbtest#1{\expandafter\@a@\the#1%%BoundingBox:\@bbtest\@a@}
+\long\def\@a@#1%%BoundingBox:#2#3\@a@{
+        \ifx\@bbtest#2\@bbmatchfalse\else\@bbmatchtrue\fi}
+\def\bb@cull %%BoundingBox:{
+        \@ifnextchar\space{\@latexbug}{\bb@extract}}
+\def\bb@extract #1 #2 #3 #4 {
+        \@darg=#1 bp\edef\@psbbllx{\number\@darg}
+        \@darg=#2 bp\edef\@psbblly{\number\@darg}
+        \@darg=#3 bp\edef\@psbburx{\number\@darg}
+        \@darg=#4 bp\edef\@psbbury{\number\@darg}
+        \no@bbfalse
+}
+
+\catcode`\%=14
+
+\def\compute@bb{
+		\edef\@conflicttexfile{\@psfile.tex}
+		\immediate\openin\ps@stream=\@conflicttexfile\relax
+		% Caution! never remove \relax on the above line.
+                \edef\@psfile@root{\@psfile}
+		\ifeof\ps@stream\else
+			\global\edef\@psfile{\@psfile@root.ps}
+		\fi
+                \bb@search
+		\ifno@bb% try .ps
+		    \global\edef\@psfile{\@psfile@root.ps}
+		    \bb@search
+	            \ifno@bb% try .eps
+                       	\global\edef\@psfile{\@psfile@root.eps}
+                       	\bb@search
+			\ifno@bb% try .epsf
+                       	    \global\edef\@psfile{\@psfile@root.epsf}
+       	                    \bb@search
+			\fi
+ 		    \fi
+                \fi
+                \ifno@bb
+			\ifno@psfile\else
+				\def\eps@errmsg{No BoundingBox on \@psfile}
+			\fi
+			\typeout{epsbox: \eps@errmsg}
+                \else
+  			\eps@xdim=\@psbburx sp
+		        \advance\eps@xdim by -\@psbbllx sp
+                	\eps@ydim=\@psbbury sp
+                	\advance\eps@ydim by -\@psbblly sp
+                \fi
+}
+
+
+
+\def\get@quotient#1#2{
+	\eps@cnta=#1\eps@cntb=#2\eps@cntc=\eps@cnta
+	\divide\eps@cntc by\eps@cntb
+	\edef\eps@quotient{\the\eps@cntc.}
+	\eps@cntd=5
+	\loop
+		\multiply\eps@cntc\eps@cntb
+		\advance\eps@cnta -\eps@cntc
+		\multiply\eps@cnta by 10
+		\eps@cntc\eps@cnta
+		\divide\eps@cntc by \eps@cntb
+		\edef\eps@quotient{\eps@quotient\the\eps@cntc}
+		\advance\eps@cntd by -1
+		\ifnum\eps@cntd>0
+	\repeat}
+
+\def\compute@wfromh{
+        % computing : width = height * (bbw / bbh)
+	\if@aspect
+		\eps@width=\@psaspect\eps@height
+		\@aspectfalse
+	\else
+		\get@quotient{\number\eps@xdim}{\number\eps@ydim}
+		\eps@width=\eps@quotient\eps@height
+	\fi
+}
+
+\def\compute@hfromw{
+	% computing : height = width * (bbh / bbw)
+	\if@aspect
+		\eps@tempdima=1pt
+		\eps@tempdimb=\@psaspect pt\relax
+		\get@quotient{\number\eps@tempdima}{\number\eps@tempdimb}
+		\@aspectfalse
+	\else
+		\get@quotient{\number\eps@ydim}{\number\eps@xdim}
+	\fi
+	\eps@height=\eps@quotient\eps@width
+}
+
+\def\compute@handw{
+        \if@height 
+                \if@width\else
+                        \compute@wfromh
+                \fi
+        \else 
+                \if@width
+                        \compute@hfromw
+		\else
+			\eps@width=\eps@xdim
+			\eps@height=\eps@ydim
+		\fi
+	\fi
+	\eps@width=\@pshscale\eps@width
+	\eps@height=\@psvscale\eps@height
+}
+
+{\catcode`\p=12\catcode`\t=12
+\gdef\remove@dim#1.#2pt{#1}}
+
+% Compute any missing values
+\def\compute@sizes{
+        \compute@bb
+	\ifno@bb\else
+	        \compute@handw
+	\fi
+}
+
+%
+%
+% \postscriptbox{width}{height}{filename}
+% \postscriptbox(width,height){filename}
+%
+
+\def\postscriptbox{\@ifnextchar ({\@postscriptpicbox}{\@postscriptbox}}
+
+\def\@postscriptpicbox(#1,#2)#3{%
+	\@postscriptbox{#1\unitlength}{#2\unitlength}{#3}}
+
+\def\@postscriptbox#1#2#3{%	<width> <height> <file>
+	\eps@tempdima=\mag sp\relax
+	\eps@tempdimb=1000sp
+	\get@quotient{\number\eps@tempdima}{\number\eps@tempdimb}
+	\eps@xdim=#1\eps@ydim=#2
+	\eps@width=\eps@quotient\eps@xdim
+	\eps@height=\eps@quotient\eps@ydim
+	\leavevmode
+	\if@psdraft
+		\xdef\@@psfname{#3}
+		\hbox{\offinterlineskip
+			\vrule
+			\vbox to \eps@ydim{\hrule
+				\vss
+				\hbox to \eps@xdim{\hss
+					\viiipt\tt
+					\expandafter\@psstringout
+						\meaning\@@psfname\relax
+					\hss}
+				\vss
+				\hrule}
+			\vrule}
+	\else
+		\vbox to \eps@ydim{\vss\hbox to \eps@xdim{%
+		  \special{postscriptbox{\the\eps@width}{\the\eps@height}{#3}}%
+        	  \hss}}
+	\fi}
+
+\def\@psstringout #1>#2\relax{#2}
+
+
+%
+% 
+%
+
+\newif\if@psdraft
+\let\psdraft=\@psdrafttrue
+\let\psfull=\@psdraftfalse
+\psfull
+
+%
+%
+% \epsfile{file=filename}
+%
+%
+
+\def\epsfile#1{
+        \ps@init@parms
+        \parse@ps@parms{#1}
+        \compute@sizes
+	\ifno@bb\@epserrbox\else
+        \message{<\@psfile(\the\eps@width,\the\eps@height)>}
+	\if@aspect
+		\typeout{epsbox: Option "aspect" ignored.}
+	\fi
+	\@postscriptbox{\eps@width}{\eps@height}{\@psfile}\fi
+}
+
+\def\@epserrbox{
+	\fbox{\vbox to 1in{
+		\hsize=2in
+		\vfil
+		\hbox to 2in{
+			\vbox {\leftskip\z@\rightskip\z@
+			       \centering\normalsize\sf\eps@errmsg}
+			}
+		\vfil}}
+}
+
+%
+%
+% \psbox[option list]{filename}
+%
+%
+
+\def\@psbox[#1]#2{\epsfile{file=#2,#1}}
+
+\def\psbox{\@ifnextchar[ {\@psbox}{\@psbox[scale=1]}}
+
+\endlinechar=13\relax
+\endinput

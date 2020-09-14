@@ -1,0 +1,32 @@
+<package>
+  <name>network_detector</name>
+  <version>1.0.16</version>
+  <description>A ROS node that watches a given network interface and publishes
+     whether it is both UP and RUNNING (indicating that a cable is
+     plugged into it and communication is happening, for instance) or
+     not.</description>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/detect_running_network_interface</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Dave Hershberger</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>roscpp</test_depend> -->
+  <!-- <test_depend>std_msgs</test_depend> -->
+
+</package>

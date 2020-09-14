@@ -1,0 +1,12 @@
+<!-- 
+   Launch rviz configured to especially view our markers launched by the tutorial. 
+   
+   This requires tutorial_markers.py to be launched. This is done via either
+    
+   - rocon_interactions/pc_demo.launch
+   - rocon_app_manager/pairing_demo.launch
+-->
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rocon_interactions)/rviz/markers.rviz"/>
+</launch>
+

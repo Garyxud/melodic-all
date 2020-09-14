@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="config_freq" default="5" />
+  <arg name="param_value" default="5" />
+
+  <!-- Node under test -->
+  <node pkg="dataspeed_ulc_can" type="ulc_node" name="ulc" output="screen" >
+    <param name="config_frequency" value="$(arg config_freq)" />
+  </node>
+
+  <!-- Test -->
+  <test pkg="rostest" type="paramtest" name="paramtest" test-name="param_config_freq_$(arg config_freq)">
+    <param name="param_name_target" value="ulc/config_frequency" />
+    <param name="param_value_expected" value="$(arg param_value)" />
+  </test>
+
+</launch>

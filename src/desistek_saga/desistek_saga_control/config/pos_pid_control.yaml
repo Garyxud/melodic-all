@@ -1,0 +1,9 @@
+position_control:
+  pos_p: 0.5
+  pos_i: 0.001
+  pos_d: 0.001
+  pos_sat: 5.0
+  rot_p: 0.5
+  rot_i: 0.001
+  rot_d: 0.001
+  rot_sat: 5.0

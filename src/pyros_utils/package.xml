@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>pyros_utils</name>
+  <version>0.1.4</version>
+  <description>
+  Miscellaneous tools for pyROS
+  </description>
+
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/asmodehn/pyros-utils</url>
+  <url type="bugtracker">https://github.com/asmodehn/pyros-utils/issues</url>
+
+  <author email="asmodehn@gmail.com">AlexV</author>
+  <maintainer email="asmodehn@gmail.com">AlexV</maintainer>
+
+  <buildtool_depend version_gte="0.6.18">catkin</buildtool_depend>
+  <build_depend version_gte="0.2.0">catkin_pip</build_depend>
+
+  <depend version_gte="1.11.19">rospy</depend>
+  <depend version_gte="1.11.19">rosgraph</depend>
+  <depend version_gte="1.11.19">roslaunch</depend>
+  <depend version_gte="1.11.19">rostest</depend>
+
+  <!-- These should be installed along with catkin and minimal ROS system -->
+  <build_depend version_gte="0.10.0">roslint</build_depend>
+
+  <!-- these dependencies are only for testing -->
+  <test_depend version_gte="1.11.12">rosunit</test_depend>
+  <test_depend version_gte="1.11.19">rosnode</test_depend>
+  <test_depend version_gte="0.0.3">pyros_test</test_depend>
+
+  <!-- documentation dependencies -->
+  <doc_depend version_gte="0.2.10">python-catkin-pkg</doc_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml" />
+  </export>
+
+</package>
+
+

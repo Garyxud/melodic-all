@@ -1,0 +1,20 @@
+<launch>
+
+<!--<machine name="sink_host" address="localhost" default="true" />-->
+<machine name="ap_host" address="raluca-laptop" user="root" ros-package-path="/root/WG/branches:/opt/ros/cturtle/stacks"/>
+<machine name="sta_host" address="localhost" user="root" default="true"/>
+
+<group ns="ap_atheros">
+<node name="ap_control" machine="ap_host" pkg="hostapd_access_point" type="ap_hostapd_node.py" args="wlan1 192.168.69.1"/>
+<node name="sink" machine="ap_host" pkg="network_monitor_udp" type="udpmonsink" args="12345" output="log"/>
+<node name="source" machine="ap_host" pkg="network_monitor_udp" type="udpmonsourcenode.py" output="log"/>
+</group>
+
+<group ns="sta">
+<node name="sink" machine="sta_host" pkg="network_monitor_udp" type="udpmonsink" args="12345"/>
+<node name="source" machine="sta_host" pkg="network_monitor_udp" type="udpmonsourcenode.py"/>
+</group>
+
+</launch> 
+
+

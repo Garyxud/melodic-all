@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>jsk_data</name>
+  <version>2.2.11</version>
+  <description>The jsk_data package</description>
+
+  <maintainer email="ueda@jsk.t.u-tokyo.ac.jp">Ryohei Ueda</maintainer>
+  <maintainer email="www.kentaro.wada@gmail.com">Kentaro Wada</maintainer>
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>message_generation</build_depend>
+  <!-- <exec_depend>baxter_description</exec_depend> -->
+  <exec_depend>depth_image_proc</exec_depend>
+  <exec_depend>dynamic_reconfigure</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>jsk_topic_tools</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>openni_launch</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-paramiko</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-paramiko</exec_depend>
+  <exec_depend>pr2_description</exec_depend>
+  <exec_depend>pr2_machine</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-click</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-click</exec_depend>
+  <exec_depend>python-gdown-pip</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-yaml</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-yaml</exec_depend>
+  <exec_depend>rosbag</exec_depend>
+  <exec_depend>rqt_bag</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <test_depend>python-freezegun-pip</test_depend>
+  <test_depend condition="$ROS_PYTHON_VERSION == 3">python3-imageio</test_depend>
+  <test_depend condition="$ROS_PYTHON_VERSION == 2">python-nose</test_depend>
+  <test_depend condition="$ROS_PYTHON_VERSION == 3">python3-nose</test_depend>
+  <test_depend>roslaunch</test_depend>
+  <test_depend>roslint</test_depend>
+  <test_depend>rostest</test_depend>
+  <export>
+  </export>
+</package>

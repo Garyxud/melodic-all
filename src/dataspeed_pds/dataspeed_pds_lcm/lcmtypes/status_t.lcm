@@ -1,0 +1,16 @@
+// The status is published at regular intervals
+package dataspeed_pds_lcm;
+struct status_t
+{
+    float  voltage;         // Power source (battery) voltage
+    float  ignition[3];     // Ignition voltages
+    float  board_temp;      // Board temperature in degrees C
+    float  thermocouple;    // External temperature in degrees C
+    float  total_current;   // Total current of the PDS
+    float  current[12];     // Individual channel currents
+    int8_t status[12];      // OFF = 0, ON = 1, NO_LOAD = 2, BAD_RELAY = 3,
+                            // BAD_FUSE = 4, OVER_CURRENT = 5, BLINK = 6
+    int8_t mode;            // Auto = 0, Manual = 1, Valet = 2
+    int8_t unit_id;         // Id of the unit that sent this message
+    int8_t inverter_status; // OFF = 0, ON = 1
+}

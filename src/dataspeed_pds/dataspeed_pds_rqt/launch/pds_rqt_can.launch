@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find dataspeed_pds_rqt)/launch/pds_rqt.launch" />
+  <include file="$(find dataspeed_pds_can)/launch/pds.launch" />
+</launch>

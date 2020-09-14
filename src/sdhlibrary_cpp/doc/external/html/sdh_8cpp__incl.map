@@ -1,0 +1,21 @@
+<map id="G" name="G">
+<area shape="rect" id="node5" href="$sdhlibrary__settings_8h.html" title="This file contains settings to make the SDHLibrary compile on differen systems:gcc/Cygwin/Windowsgcc/..." alt="" coords="1373,547,1515,576"/>
+<area shape="rect" id="node11" href="$sdh_8h.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="1365,83,1419,112"/>
+<area shape="rect" id="node93" href="$util_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="228,160,279,189"/>
+<area shape="rect" id="node102" href="$release_8h.html" title="This file contains nothing but C/C++ defines with the name of the project itself (PROJECT_NAME) and t..." alt="" coords="1776,83,1851,112"/>
+<area shape="rect" id="node104" href="$simpletime_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="2297,160,2393,189"/>
+<area shape="rect" id="node110" href="$rs232-cygwin_8h.html" title="Interface of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="2008,160,2117,189"/>
+<area shape="rect" id="node118" href="$tcpserial_8h.html" title="Interface of class SDH::cTCPSerial, class to access TCP port cygwin/linux." alt="" coords="1884,160,1967,189"/>
+<area shape="rect" id="node16" href="$basisdef_8h.html" title="This file contains some basic definitions (defines, macros, datatypes)" alt="" coords="1480,237,1560,267"/>
+<area shape="rect" id="node24" href="$sdhbase_8h.html" title="Interface of class SDH::cSDHBase." alt="" coords="1568,315,1651,344"/>
+<area shape="rect" id="node56" href="$sdhserial_8h.html" title="Interface of class SDH::cSDHSerial." alt="" coords="1197,160,1283,189"/>
+<area shape="rect" id="node72" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="1776,237,1867,267"/>
+<area shape="rect" id="node87" href="$unit__converter_8h.html" title="Interface of class SDH::cUnitConverter." alt="" coords="544,160,656,189"/>
+<area shape="rect" id="node29" href="$dbg_8h.html" title="This file contains interface and implementation of class SDH::cDBG, a class for colorfull debug messa..." alt="" coords="1349,392,1403,421"/>
+<area shape="rect" id="node44" href="$sdhexception_8h.html" title="Interface of the exception base class SDH::cSDHLibraryException and SDH::cMsg." alt="" coords="1888,469,1997,499"/>
+<area shape="rect" id="node52" href="$simplevector_8h.html" title="Interface of class SDH::cSimpleVector." alt="" coords="1196,392,1300,421"/>
+<area shape="rect" id="node65" href="$simplestringlist_8h.html" title="Interface of class SDH::cSimpleStringList." alt="" coords="939,315,1059,344"/>
+<area shape="rect" id="node80" href="$sdh__codes_8h.html" title="This file contains function to convert the binary command codes of the SDH. To use this from a non gc..." alt="" coords="713,237,809,267"/>
+<area shape="rect" id="node83" href="$sdh__command__codes_8h.html" title="This file contains the binary command codes of the SDH. To use this from a non gcc compiler you might..." alt="" coords="595,315,755,344"/>
+<area shape="rect" id="node85" href="$sdh__return__codes_8h.html" title="This file contains a typedef for a common Return Codes enum." alt="" coords="779,315,915,344"/>
+</map>

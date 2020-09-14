@@ -1,0 +1,4 @@
+structure:
+- name: arm1
+  type: fsrobo_r
+

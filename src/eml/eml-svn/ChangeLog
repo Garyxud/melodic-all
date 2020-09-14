@@ -1,0 +1,17 @@
+2007-02-21  Tom Panis  <firstlast at skynet dot be>
+
+	* Initial RTnet port
+
+2007-02-14  Klaas Gadeyne  <first dot last at fmtc dot be>
+
+	* Build EML with cmake, in order to be able to port it to other
+	RTOSes than eCos
+
+2005-06-14	Klaas Gadeyne <first dot last at fmtc dot be>
+
+	* Finished first implementation of DLL and AL protocol for
+	EtherCAT master.  Mailbox stuff is still untested.
+
+2005-03-17	Bob Koninckx <bob dot koninckx at fmtc dot be>
+	* New package
+

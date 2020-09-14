@@ -1,0 +1,29 @@
+<package>
+  <name>calibration_estimation</name>
+  <version>0.10.14</version>
+  <description>
+    Runs an optimization to estimate the a robot's kinematic parameters. This package is a
+    generic rewrite of pr2_calibration_estimation.
+  </description>
+  <author>Vijay Pradeep</author>
+  <author>Michael Ferguson</author>
+  <maintainer email="vincent.rabaud@gmail.com">Vincent Rabaud</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/calibration_estimation</url>
+  
+  <buildtool_depend version_gte="0.5.68">catkin</buildtool_depend>
+
+  <run_depend>calibration_msgs</run_depend>
+  <run_depend>python-matplotlib</run_depend>
+  <run_depend>python_orocos_kdl</run_depend>
+  <run_depend>python-scipy</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rostest</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>urdfdom_py</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

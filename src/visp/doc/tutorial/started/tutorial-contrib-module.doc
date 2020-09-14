@@ -1,0 +1,209 @@
+/**
+
+\page tutorial-contrib-module Tutorial: How to extend ViSP creating a new contrib module
+\tableofcontents
+
+\section contrib_intro Introduction
+
+ViSP implements a <a href="https://visp.inria.fr/software-architecture/">modular architecture</a> where each module:
+- corresponds to a library (.so, .a, .lib, .dll) prefixed with <b>\c visp_</b>
+- has headers that are grouped in a single folder
+- has dependencies with other modules and at least with the core module
+- may have dependencies with 3rd parties (OpenCV…)
+
+The following image illustrates this modular architecture, where for example the <b>\c tt_mi</b> (template tracker with mutual information) module depends on the <b>\c tt</b> (template tracker) module which depends on the <b>\c vision</b> (computer vision) module that depends at the end on the <b>\c core</b> module. Note that the <b>\c gui</b> (graphical user interface) module and the <b>\c io</b> (input/output) modules are optional.
+
+\image html img-contrib-visp-module.jpg ViSP modular architecture
+
+In this tutorial you will learn how to extend ViSP architecture introducing new contrib modules. 
+
+\note We assume here that you are familiar with an \ref tuto_install_src and that you succeed in creating a first project that uses ViSP by following \ref tutorial-getting-started.
+
+
+\section contrib_model Contribution model
+
+
+User may contribute to ViSP creating new modules. The following image shows the introduction of two new modules called <b> \c contrib_1</b> and <b>\c contrib_2</b>. They depend on ViSP existing modules.
+
+\image html img-contrib-module.jpg ViSP architecture extended with new \c contrib_1 and \c contrib_2 modules
+
+\subsection contrib_model_src What about the source tree
+
+Even if it is possible to introduce these new contrib modules in ViSP source code tree, we suggest to separate them in different folders. It will ease ViSP upgrade to future releases avoiding mixing all the source code. In that case, contributions are nothing more than new modules apart from ViSP.
+
+\image html img-contrib-module-tree.jpg Source tree organization; on the left a folder (\c visp) that contains ViSP source code, on the right one (\c visp_contrib) or more other separate folders for the contrib modules
+
+A typical source tree is the following:
+
+\code
+$ cd workspace
+$ ls
+visp	visp_contrib
+\endcode
+
+In our previous example, in \c visp_contrib folder we may have the following tree:
+\code
+└── visp_contrib
+    └── modules
+        ├── contrib_1
+        │   └── ...
+        └── contrib_2
+            └── ...
+\endcode
+
+\subsection contrib_model_build What about the build tree
+
+Even if the source code is located in separate folders, ViSP build mechanism allows to build ViSP and the contrib modules together in a single build tree.
+Once build contrib modules will be part of ViSP; two libraries named <b>\c visp_contrib_1</b> and <b>\c visp_contrib_2</b> will be created near ViSP libraries (<b>\c visp_core</b>, …)
+
+If we come back to our small example, building ViSP with our contrib modules is done with the following command:
+\code
+$ cd workspace
+$ mkdir visp_contrib-build; cd visp_contrib-build
+$ cmake -DVISP_CONTRIB_MODULES_PATH=../visp_contrib/modules ../visp
+\endcode
+
+
+\section contrib_create_module Creating a new contrib module
+
+In ViSP source code you will find a python script in \c script/create_module.py that allows to create a new module from scratch. The structure of the module created by the script is the following:
+
+\code
+<root directory>
+|-- <parent name>
+    |-- modules
+        |-- <module name>
+            |-- CMakeLists.txt
+            |-- include
+            |   |-- visp3
+            |       |-- <module name>
+            |           |-- <class name>.h
+            |-- src
+                |-- <class name>.cpp
+\endcode
+
+To know how to use this script, enter in ViSP source tree and run:
+\code
+$ python script/create_module.py --help
+\endcode
+
+The following instructions allow to create a new module named <b>\c contrib</b> from scratch in a parent folder named <b>\c visp_contrib</b>. In this module we will introduce <b>\c vpContrib.h</b> and <b>\c vpContrib.cpp</b> files that correspond to <b>\c vpContrib</b> class implementation and the file <b>\c test-vpContrib.cpp</b> corresponding to a test that calls \c vpContrib constructor. There is also a <b>\c CMakeLists.txt</b> file that allows to build the module and the test.
+
+- first we have to get ViSP source code
+\code
+$ cd workspace
+$ git clone https://github.com/lagadic/visp
+$ ls
+visp
+\endcode
+- then we can create the new module using the script
+\code
+$ python visp/script/create_module.py --parent-name=visp_contrib --module-name=contrib --class-name=vpContrib
+$ ls
+visp		visp_contrib
+\endcode
+
+The content of the \c visp_contrib folder is the following:
+
+\code
+visp_contrib
+└── modules
+    └── contrib
+        ├── CMakeLists.txt
+        ├── include
+        │   └── visp3
+        │       └── contrib
+        │           └── vpContrib.h
+        ├── src
+        │   └── vpContrib.cpp
+        └── test
+            └── test-vpContrib.cpp
+\endcode
+
+\section contrib_build_module Building a new contrib module
+
+Now we are ready to build this new module.
+
+\subsection contrib_build_module_unix On a unix-like platform
+
+- create a new folder to host the build and enter in it
+\code
+$ cd workspace
+$ mkdir visp_contrib-build
+$ ls
+visp			visp_contrib		visp_contrib-build
+$ cd visp_contrib-build
+\endcode
+- now configure the build
+\code
+$ cmake -DVISP_CONTRIB_MODULES_PATH=../visp_contrib/modules ../visp
+\endcode
+- finally build the module using
+\code
+$ make -j4 visp_contrib
+\endcode
+- you can also build all the modules, tests and examples as usual by
+\code
+$ make -j4
+\endcode
+- Run the test:
+\code
+$ ./modules/contrib/test-vpContrib 
+I’m in my first contrib module
+\endcode
+
+\subsection contrib_build_module_win On a windows-like platform
+
+We consider here that the workspace folder is \c C:/ViSP and that in this folder we have:
+\code
+$ dir C:\ViSP
+visp		visp_contrib
+\endcode
+
+- create a new folder to host the build and enter in it
+\code
+$ cd C:\ViSP
+$ mkdir visp_contrib-build
+$ dir
+visp			visp_contrib		visp_contrib-build
+$ cd visp_contrib-build
+\endcode
+
+- start \c cmake-gui
+\code
+$ cmake-gui ../visp
+\endcode
+\image html img-contrib-module-1.png
+
+- press "Configure" button and specify the generator for this project. Here we are using Visual Studio 14 2015 Win64
+\image html img-contrib-module-2.png
+
+- press "Finish" button
+\image html img-contrib-module-3.png
+
+- scroll CMake variables list until appearing \c VISP_CONTRIB_MODULES_PATH var
+\image html img-contrib-module-4.png
+
+- set this var to \c C:/ViSP/visp_contrib
+\image html img-contrib-module-5.png
+
+- press "Configure" button. A new module named \c visp_contrib is appearing
+\image html img-contrib-module-6.png
+
+- press "Generate" button. 
+\image html img-contrib-module-7.png
+
+- This ends the CMake configuration stage. Start now Visual Studio and open the \c C:/ViSP/visp_contrib-build/VISP.sln solution file. As described in \ref tutorial-install-win10-msvc14 you have now to build ViSP from source.
+
+
+\section contrib_advanced Advanced contrib module
+
+We provide here after the link to existing contrib modules that use advanced functionalities:
+- https://github.com/lagadic/visp_contrib : contains a module name <b>imgproc</b> that implements various image processing algorithms. In this module you will also find the way to introduce tests
+- https://github.com/lagadic/ustk : a ViSP extension for ultrasound images called UsTK for Ultrasound Toolkit. This extension contains multiple modules. The \c modules/CMakeLists.txt file allows here to detect optional 3rd parties. It allows also to generate a separate doxygen documentation that contains only the classes part or UsTK. Tutorials and tests are also considered in UsTK. 
+
+\section contrib_next Next tutorial
+
+You are now ready to see the \ref tutorial-image-display.
+
+*/

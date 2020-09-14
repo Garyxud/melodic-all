@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node5" href="$sdhlibrary__settings_8h.html" title="This file contains settings to make the SDHLibrary compile on differen systems:gcc/Cygwin/Windowsgcc/..." alt="" coords="1163,469,1304,499"/>
+<area shape="rect" id="node21" href="$canserial-esd_8h.html" title="Interface of class SDH::cCANSerial_ESD, class to access CAN bus via ESD card on cygwin/linux." alt="" coords="564,83,673,112"/>
+<area shape="rect" id="node68" href="$simpletime_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="1656,315,1752,344"/>
+<area shape="rect" id="node74" href="$util_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="1347,237,1397,267"/>
+<area shape="rect" id="node23" href="$sdhexception_8h.html" title="Interface of the exception base class SDH::cSDHLibraryException and SDH::cMsg." alt="" coords="631,392,740,421"/>
+<area shape="rect" id="node31" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="776,160,867,189"/>
+<area shape="rect" id="node61" href="$basisdef_8h.html" title="This file contains some basic definitions (defines, macros, datatypes)" alt="" coords="501,160,581,189"/>
+<area shape="rect" id="node37" href="$dbg_8h.html" title="This file contains interface and implementation of class SDH::cDBG, a class for colorfull debug messa..." alt="" coords="781,392,835,421"/>
+<area shape="rect" id="node51" href="$sdhbase_8h.html" title="Interface of class SDH::cSDHBase." alt="" coords="881,237,964,267"/>
+<area shape="rect" id="node57" href="$simplevector_8h.html" title="Interface of class SDH::cSimpleVector." alt="" coords="1011,315,1115,344"/>
+</map>

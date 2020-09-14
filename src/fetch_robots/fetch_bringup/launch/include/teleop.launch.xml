@@ -1,0 +1,35 @@
+<launch>
+
+  <arg name="joy_device" default="/dev/fetch_joy"/>
+  <arg name="ps4" default="false"/>
+
+  <node name="joy_node" pkg="joy" type="joy_node">
+    <param name="autorepeat_rate" value="1"/>
+    <param name="dev" value="$(arg joy_device)"/>
+    <remap from="joy" to="joy_orig" if="$(arg ps4)"/>
+  </node>
+
+  <!-- remap joy to emulate ps3joy mappings -->
+  <node name="joy_remap" pkg="joy" type="joy_remap.py" if="$(arg ps4)">
+    <remap from="joy_in" to="joy_orig"/>
+    <remap from="joy_out" to="joy"/>
+    <rosparam command="load" file="$(find joy)/config/ps4joy.yaml"/>
+  </node>
+
+  <node name="teleop" pkg="fetch_teleop" type="joystick_teleop">
+    <param name="use_torso" value="true" />
+    <param name="use_gripper" value="true" />
+    <param name="use_head" value="true" />
+    <param name="use_arm" value="true" />
+    <param name="use_base" value="true" />
+  </node>
+
+  <node name="cmd_vel_mux" pkg="topic_tools" type="mux" args="base_controller/command /cmd_vel /teleop/cmd_vel">
+    <remap from="mux" to="cmd_vel_mux" />
+  </node>
+
+  <node name="controller_reset" pkg="fetch_bringup" type="controller_reset.py" />
+
+  <node name="tuck_arm" pkg="fetch_teleop" type="tuck_arm.py" args="--joystick" />
+
+</launch>

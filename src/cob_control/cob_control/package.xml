@@ -1,0 +1,35 @@
+<package format="2">
+  <name>cob_control</name>
+  <version>0.8.11</version>
+  <description>cob_control meta-package</description>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_control</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>cob_base_controller_utils</exec_depend>
+  <exec_depend>cob_base_velocity_smoother</exec_depend>
+  <exec_depend>cob_cartesian_controller</exec_depend>
+  <exec_depend>cob_collision_velocity_filter</exec_depend>
+  <exec_depend>cob_control_mode_adapter</exec_depend>
+  <exec_depend>cob_control_msgs</exec_depend>
+  <exec_depend>cob_footprint_observer</exec_depend>
+  <exec_depend>cob_frame_tracker</exec_depend>
+  <exec_depend>cob_hardware_emulation</exec_depend>
+  <exec_depend>cob_mecanum_controller</exec_depend>
+  <exec_depend>cob_model_identifier</exec_depend>
+  <exec_depend>cob_obstacle_distance</exec_depend>
+  <exec_depend>cob_omni_drive_controller</exec_depend>
+  <exec_depend>cob_trajectory_controller</exec_depend>
+  <exec_depend>cob_tricycle_controller</exec_depend>
+  <exec_depend>cob_twist_controller</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

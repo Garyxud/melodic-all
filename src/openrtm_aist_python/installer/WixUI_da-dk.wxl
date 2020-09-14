@@ -1,0 +1,568 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    The use and distribution terms for this software are covered by the
+    Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
+    which can be found in the file CPL.TXT at the root of this distribution.
+    By using this software in any fashion, you are agreeing to be bound by
+    the terms of this license.
+
+    You must not remove this notice, or any other, from this software.
+-->
+<WixLocalization Culture="da-dk" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="WixUIBack" Overridable="yes">&amp;Tilbage</String>
+  <String Id="WixUINext" Overridable="yes">&amp;Næste</String>
+  <String Id="WixUICancel" Overridable="yes">Annuller</String>
+  <String Id="WixUIFinish" Overridable="yes">&amp;Afslut</String>
+  <String Id="WixUIRetry" Overridable="yes">&amp;Forsøg igen</String>
+  <String Id="WixUIIgnore" Overridable="yes">&amp;Ignorer</String>
+  <String Id="WixUIYes" Overridable="yes">&amp;Ja</String>
+  <String Id="WixUINo" Overridable="yes">&amp;Nej</String>
+  <String Id="WixUIOK" Overridable="yes">OK</String>
+  <String Id="WixUIPrint" Overridable="yes">&amp;Udskriv</String>
+  <String Id="AdvancedWelcomeEulaDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="AdvancedWelcomeEulaDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="AdvancedWelcomeEulaDlgTitle" Overridable="yes">{\WixUI_Font_Title}Læs venligst licensaftalen for [ProductName]</String>
+  <String Id="AdvancedWelcomeEulaDlgLicenseAcceptedCheckBox" Overridable="yes">Jeg &amp;accepterer betingelserne i licensaftalen</String>
+  <String Id="AdvancedWelcomeEulaDlgDescriptionPerMachine" Overridable="yes">Klik Installer for at installere produktet med standard indstillinger for alle brugere. Klik Avanceret for at skifte installations indstillinger.</String>
+  <String Id="AdvancedWelcomeEulaDlgDescriptionPerUser" Overridable="yes">Klik Installer for at installere produktet med standard indstillinger kun for dig. Klik Avanceret for at skifte installations indstillinger.</String>
+  <String Id="AdvancedWelcomeEulaDlgInstall" Overridable="yes">&amp;Installer</String>
+  <String Id="AdvancedWelcomeEulaDlgAdvanced" Overridable="yes">A&amp;vanceret</String>
+  <String Id="Advanced_Font_Normal_Size" Overridable="yes">8</String>
+  <String Id="Advanced_Font_Bigger_Size" Overridable="yes">12</String>
+  <String Id="Advanced_Font_Title_Size" Overridable="yes">9</String>
+  <String Id="Advanced_Font_Emphasized_Size" Overridable="yes">8</String>
+  <String Id="Advanced_Font_FaceName" Overridable="yes">Tahoma</String>
+  <String Id="BrowseDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="BrowseDlgComboLabel" Overridable="yes">&amp;Søg i:</String>
+  <String Id="BrowseDlgWixUI_Bmp_Up" Overridable="yes">WixUI_Bmp_Up</String>
+  <String Id="BrowseDlgWixUI_Bmp_UpTooltip" Overridable="yes">Et niveau op</String>
+  <String Id="BrowseDlgNewFolder" Overridable="yes">WixUI_Bmp_New</String>
+  <String Id="BrowseDlgNewFolderTooltip" Overridable="yes">Opret en ny mappe</String>
+  <String Id="BrowseDlgPathLabel" Overridable="yes">&amp;Mappenavn:</String>
+  <String Id="BrowseDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="BrowseDlgDescription" Overridable="yes">Gennemse for at finde destinationsmappen</String>
+  <String Id="BrowseDlgTitle" Overridable="yes">{\WixUI_Font_Title}Vælg en ny destinationsmappe</String>
+  <String Id="CancelDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="CancelDlgText" Overridable="yes">Vil du annullere installationen af [ProductName]?</String>
+  <String Id="CancelDlgIcon" Overridable="yes">WixUI_Ico_Info</String>
+  <String Id="CancelDlgIconTooltip" Overridable="yes">Informations ikon</String>
+  <String Id="CustomizeDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="CustomizeDlgTree" Overridable="yes">Træ med valgmuligheder</String>
+  <String Id="CustomizeDlgBrowse" Overridable="yes">&amp;Skift...</String>
+  <String Id="CustomizeDlgReset" Overridable="yes">N&amp;ulstil</String>
+  <String Id="CustomizeDlgDiskCost" Overridable="yes">Disk&amp;forbrug</String>
+  <String Id="CustomizeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="CustomizeDlgText" Overridable="yes">Klik på ikonerne i træet nedenunder, for at ændre på den måde programfunktionerne bliver installeret.</String>
+  <String Id="CustomizeDlgDescription" Overridable="yes">Vælg den måde du ønsker funktionerne installeret.</String>
+  <String Id="CustomizeDlgTitle" Overridable="yes">{\WixUI_Font_Title}Brugerdefineret installation</String>
+  <String Id="CustomizeDlgItemDescription" Overridable="yes">CustomizeDlgItemDescription-CustomizeDlgItemDescription</String>
+  <String Id="CustomizeDlgItemSize" Overridable="yes">CustomizeDlgItemSize-CustomizeDlgItemSize</String>
+  <String Id="CustomizeDlgLocation" Overridable="yes">CustomizeDlgLocation-CustomizeDlgLocation</String>
+  <String Id="CustomizeDlgLocationLabel" Overridable="yes">Installer i:</String>
+  <String Id="DiskCostDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="DiskCostDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="DiskCostDlgText" Overridable="yes">Der er ikke nok diskplads til rådighed til de markerede funktioner på det fremhævede drev. Du kan fjerne filer fra det fremhævede drev, installere færre funktioner eller vælge andre destinationsdrev.</String>
+  <String Id="DiskCostDlgDescription" Overridable="yes">Den krævede diskplads til installationen af de markerede funktioner.</String>
+  <String Id="DiskCostDlgTitle" Overridable="yes">{\WixUI_Font_Title}Krav til Diskforbrug</String>
+  <String Id="DiskCostDlgVolumeList" Overridable="yes">{120}{70}{70}{70}{70}</String>
+  <String Id="ErrorDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="ErrorDlgErrorText" Overridable="yes">Informationstekst</String>
+  <String Id="ErrorDlgErrorIcon" Overridable="yes">WixUI_Ico_Info</String>
+  <String Id="ErrorDlgErrorIconTooltip" Overridable="yes">Informationsikon</String>
+  <String Id="ExitDialog_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="ExitDialogBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="ExitDialogDescription" Overridable="yes">Klik Afslut, for at afslutte installationsprogrammet.</String>
+  <String Id="ExitDialogTitle" Overridable="yes">{\WixUI_Font_Bigger}Fuldfører [ProductName] installationen</String>
+  <String Id="FatalError_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="FatalErrorBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="FatalErrorTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] installationsprogrammet blev afsluttet før tiden</String>
+  <String Id="FatalErrorDescription1" Overridable="yes">[ProductName] installationsprogrammet blev afsluttet for tidligt på grund af en fejl. Dit system er ikke blevet modificeret. Kør installationsprogrammet igen, for at installere programmet på et senere tidspunkt.</String>
+  <String Id="FatalErrorDescription2" Overridable="yes">Klik Afslut, for at afslutte installationsprogrammet.</String>
+  <String Id="FeaturesDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="FeaturesDlgTree" Overridable="yes">Produktfunktioner</String>
+  <String Id="FeaturesDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="FeaturesDlgDescription" Overridable="yes">Vælg hvordan du ønsker funktionerne installeret.</String>
+  <String Id="FeaturesDlgTitle" Overridable="yes">{\WixUI_Font_Title}Produktfunktioner</String>
+  <String Id="FeaturesDlgItemDescription" Overridable="yes">FeaturesDlgItemDescription</String>
+  <String Id="FeaturesDlgItemSize" Overridable="yes">FeaturesDlgItemSize</String>
+  <String Id="FeaturesDlgInstall" Overridable="yes">&amp;Installer</String>
+  <String Id="FeaturesDlgChange" Overridable="yes">&amp;Skift</String>
+  <String Id="FilesInUse_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="FilesInUseExit" Overridable="yes">&amp;Afslut</String>
+  <String Id="FilesInUseBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="FilesInUseText" Overridable="yes">Nedenstående applikationer bruger filer som dette installationsprogram skal opdatere. Luk disse applikationer, og klik &amp;Gentag, for at fortsætte installationen, eller klik &amp;Annuller, for at afslutte installationsprogrammet.</String>
+  <String Id="FilesInUseDescription" Overridable="yes">Nogle filer der skal opdateres er i brug.</String>
+  <String Id="FilesInUseTitle" Overridable="yes">{\WixUI_Font_Title}Filer i brug</String>
+  <String Id="InstallDirDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="InstallDirDlgChange" Overridable="yes">&amp;Skift...</String>
+  <String Id="InstallDirDlgTitle" Overridable="yes">{\WixUI_Font_Title}Destinationsmappe</String>
+  <String Id="InstallDirDlgDescription" Overridable="yes">Klik Næste, for at installere i standardmappen eller klik Gennemse, for at skifte</String>
+  <String Id="InstallDirDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="InstallDirDlgFolderLabel" Overridable="yes">Installer [ProductName] i:</String>
+  <String Id="InstallScopeDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="InstallScopeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="InstallScopeDlgDescription" Overridable="yes">Vælg den installationstype, som passer bedst til dine behov.</String>
+  <String Id="InstallScopeDlgTitle" Overridable="yes">{\WixUI_Font_Title}Installationsområde</String>
+  <String Id="InstallScopeDlgPerUser" Overridable="yes">{\WixUI_Font_Emphasized}Installer &amp;kun for dig ([USERNAME])</String>
+  <String Id="InstallScopeDlgPerUserDescription" Overridable="yes">[ProductName] vil blive installeret i en folder der kun er tilgængelig for din brugerkonto. Du behøver ikke lokal-administrator rettigheder.</String>
+  <String Id="InstallScopeDlgNoPerUserDescription" Overridable="yes">[ProductName] understøtter ikke per-bruger installation.</String>
+  <String Id="InstallScopeDlgPerMachine" Overridable="yes">{\WixUI_Font_Emphasized}Installer for alle brugere af denne &amp;maskine</String>
+  <String Id="InstallScopeDlgPerMachineDescription" Overridable="yes">[ProductName] vil blive installeret i en folder der er tilgængelig for alle brugere på maskinen. Du har mulighed for at skifte installationsmappen. Du skal have lokal-administrator rettigheder.</String>
+  <String Id="InstallScopeDlgFolderLabel" Overridable="yes">Installations m&amp;appe:</String>
+  <String Id="InstallScopeDlgChange" Overridable="yes">&amp;Skift...</String>
+  <String Id="InvalidDirDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="InvalidDirDlgText" Overridable="yes">Installations mappen skal ligge på en lokal harddisk.</String>
+  <String Id="InvalidDirDlgIcon" Overridable="yes">WixUI_Ico_Info</String>
+  <String Id="InvalidDirDlgIconTooltip" Overridable="yes">Informationsikon</String>
+  <String Id="LicenseAgreementDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="LicenseAgreementDlgLicenseAcceptedCheckBox" Overridable="yes">Jeg &amp;accepterer betingelserne i licensaftalen</String>
+  <String Id="LicenseAgreementDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="LicenseAgreementDlgDescription" Overridable="yes">Læs venligst følgende licensaftale</String>
+  <String Id="LicenseAgreementDlgTitle" Overridable="yes">{\WixUI_Font_Title}Slutbruger licensaftale</String>
+  <String Id="MaintenanceTypeDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="MaintenanceTypeDlgChangeButton" Overridable="yes">&amp;Rediger</String>
+  <String Id="MaintenanceTypeDlgChangeButtonTooltip" Overridable="yes">Rediger Installation</String>
+  <String Id="MaintenanceTypeDlgRepairButton" Overridable="yes">Re&amp;parer</String>
+  <String Id="MaintenanceTypeDlgRepairButtonTooltip" Overridable="yes">Reparer Installation</String>
+  <String Id="MaintenanceTypeDlgRemoveButton" Overridable="yes">&amp;Fjern</String>
+  <String Id="MaintenanceTypeDlgRemoveButtonTooltip" Overridable="yes">Fjern Installation</String>
+  <String Id="MaintenanceTypeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="MaintenanceTypeDlgDescription" Overridable="yes">Vælg den funktion du ønsker at udføre.</String>
+  <String Id="MaintenanceTypeDlgTitle" Overridable="yes">{\WixUI_Font_Title}Rediger, reparer eller fjern installationen</String>
+  <String Id="MaintenanceTypeDlgChangeText" Overridable="yes">Giver dig mulighed for at ændre den måde programfunktioner bliver installeret.</String>
+  <String Id="MaintenanceTypeDlgChangeDisabledText" Overridable="yes">[ProductName] har ingen uafhængige valgbare funktioner.</String>
+  <String Id="MaintenanceTypeDlgRemoveText" Overridable="yes">Fjerner [ProductName] fra din computer.</String>
+  <String Id="MaintenanceTypeDlgRemoveDisabledText" Overridable="yes">[ProductName] kan ikke fjernes.</String>
+  <String Id="MaintenanceTypeDlgRepairText" Overridable="yes">Retter fejl i den nyeste installation ved at fixe manglende og ødelagte filer, genveje og registreringsnøgler.</String>
+  <String Id="MaintenanceTypeDlgRepairDisabledText" Overridable="yes">[ProductName] kan ikke repareres.</String>
+  <String Id="MaintenanceWelcomeDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="MaintenanceWelcomeDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="MaintenanceWelcomeDlgDescription" Overridable="yes">Installationsprogrammet giver dig mulighed for at redigere, reparere eller fjerne [ProductName]. Klik Næste, for at fortsætte eller klik Annuller, for at afslutte installationsprogrammet.</String>
+  <String Id="MaintenanceWelcomeDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}Velkommen til [ProductName] installationsprogrammet</String>
+  <String Id="MsiRMFilesInUse_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="MsiRMFilesInUseBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="MsiRMFilesInUseText" Overridable="yes">Følgende programmer benytter filer, som skal opdateres af denne installation. Du kan lade installationsprogrammet lukke dem og forsøge at genstarte dem eller genstarte maskinen senere</String>
+  <String Id="MsiRMFilesInUseDescription" Overridable="yes">Filer, der skal opdateres, er i brug.</String>
+  <String Id="MsiRMFilesInUseTitle" Overridable="yes">{\WixUI_Font_Title}Filer i brug</String>
+  <String Id="MsiRMFilesInUseUseRM" Overridable="yes">&amp;Luk programmerne og forsøg at genstart dem.</String>
+  <String Id="MsiRMFilesInUseDontUseRM" Overridable="yes">&amp;Luk ikke programmerne. En genstart vil være nødvendig.</String>
+  <String Id="OutOfDiskDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="OutOfDiskDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="OutOfDiskDlgText" Overridable="yes">Der er ikke nok diskplads til rådighed til de markerede funktioner på de fremhævede drev. Du kan fjerne filer fra de fremhævede drev, installere færre funktioner eller vælge et andet destinationsdrev.</String>
+  <String Id="OutOfDiskDlgDescription" Overridable="yes">Diskforbrug for installationen overstiger mængden af tilgængelig diskplads.</String>
+  <String Id="OutOfDiskDlgTitle" Overridable="yes">{\WixUI_Font_Title}Ikke mere diskplads</String>
+  <String Id="OutOfDiskDlgVolumeList" Overridable="yes">{120}{70}{70}{70}{70}</String>
+  <String Id="OutOfRbDiskDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="OutOfRbDiskDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="OutOfRbDiskDlgText" Overridable="yes">Der er ikke nok diskplads til rådighed på de markerede drev for de valgte funktioner. Du kan fjerne nogle filer fra det markerede drev, installere færre funktioner eller vælge et andet drev.</String>
+  <String Id="OutOfRbDiskDlgDescription" Overridable="yes">Diskforbrug for installationen overstiger mængden af tilgængelig diskplads.</String>
+  <String Id="OutOfRbDiskDlgTitle" Overridable="yes">{\WixUI_Font_Title}Ikke mere diskplads</String>
+  <String Id="OutOfRbDiskDlgVolumeList" Overridable="yes">{120}{70}{70}{70}{70}</String>
+  <String Id="OutOfRbDiskDlgText2" Overridable="yes">Alternativt kan du vælge at slå installationsprogrammets rollback funktionalitet fra. Ved at slå rollback fra, forhindrer du installationsprogrammet i at genskabecomputerens originale tilstand i tilfælde af, at installationen afbrydes. Klik Ja, hvis du ønsker at tage risikoen og installere uden rollback slået til.</String>
+  <String Id="PrepareDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="PrepareDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="PrepareDlgDescription" Overridable="yes">Vent venligst, mens installationsprogrammet forbereder sig på at guide dig gennem installationen.</String>
+  <String Id="PrepareDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}Velkommen til [ProductName] installationsprogrammet</String>
+  <String Id="ProgressDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="ProgressDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="ProgressDlgTextInstalling" Overridable="yes">Vent venligst, mens installationsprogrammet installerer [ProductName].</String>
+  <String Id="ProgressDlgTitleInstalling" Overridable="yes">{\WixUI_Font_Title}Installerer [ProductName]</String>
+  <String Id="ProgressDlgTextChanging" Overridable="yes">Vent venligst, mens installationsprogrammet ændrer [ProductName].</String>
+  <String Id="ProgressDlgTitleChanging" Overridable="yes">{\WixUI_Font_Title}Ændrer [ProductName]</String>
+  <String Id="ProgressDlgTextRepairing" Overridable="yes">Vent venligst, mens installationsprogrammet reparerer [ProductName].</String>
+  <String Id="ProgressDlgTitleRepairing" Overridable="yes">{\WixUI_Font_Title}Reparerer [ProductName]</String>
+  <String Id="ProgressDlgTextRemoving" Overridable="yes">Vent venligst, mens installationsprogrammet fjerner [ProductName].</String>
+  <String Id="ProgressDlgTitleRemoving" Overridable="yes">{\WixUI_Font_Title}Fjerner [ProductName]</String>
+  <String Id="ProgressDlgProgressBar" Overridable="yes">Færdig</String>
+  <String Id="ProgressDlgStatusLabel" Overridable="yes">Status:</String>
+  <String Id="ResumeDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="ResumeDlgInstall" Overridable="yes">&amp;Installer</String>
+  <String Id="ResumeDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="ResumeDlgDescription" Overridable="yes">Installationsprogrammet vil gennemføre installationen af [ProductName] på din computer. Klik Installer, for at fortsætte eller klik Annuller, for at afslutte installationsprogrammet.</String>
+  <String Id="ResumeDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}Genoptager installationsprogrammet for [ProductName]</String>
+  <String Id="SetupTypeDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="SetupTypeDlgTypicalButton" Overridable="yes">Ty&amp;pisk</String>
+  <String Id="SetupTypeDlgTypicalButtonTooltip" Overridable="yes">Typisk Installation</String>
+  <String Id="SetupTypeDlgCustomButton" Overridable="yes">&amp;Brugerdefineret</String>
+  <String Id="SetupTypeDlgCustomButtonTooltip" Overridable="yes">Brugerdefineret Installation</String>
+  <String Id="SetupTypeDlgCompleteButton" Overridable="yes">&amp;Fuldstændig</String>
+  <String Id="SetupTypeDlgCompleteButtonTooltip" Overridable="yes">Fuldstændig Installation</String>
+  <String Id="SetupTypeDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="SetupTypeDlgTitle" Overridable="yes">{\WixUI_Font_Title}Vælg en installationstype</String>
+  <String Id="SetupTypeDlgDescription" Overridable="yes">Vælg den installationstype, som passer bedst til dine behov</String>
+  <String Id="SetupTypeDlgTypicalText" Overridable="yes">Installerer de mest benyttede programfunktioner. Anbefales for almindelige brugere.</String>
+  <String Id="SetupTypeDlgCustomText" Overridable="yes">Vælg de programfunktioner, som skal installeres, og angiv, hvor de skal installeres. Anbefales til avancerede brugere.</String>
+  <String Id="SetupTypeDlgCompleteText" Overridable="yes">Alle programfunktioner installeres. Kræver mest diskplads.</String>
+  <String Id="UserExit_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="UserExitBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="UserExitTitle" Overridable="yes">{\WixUI_Font_Bigger}[ProductName] installationsprogrammet blev afbrudt</String>
+  <String Id="UserExitDescription1" Overridable="yes">[ProductName] installationen blev afbrudt. Dit system blev ikke modificeret. Du kan installere programmet på et senere tidspunkt ved at køre installationen igen.</String>
+  <String Id="UserExitDescription2" Overridable="yes">Klik Afslut, for at afslutte installationen.</String>
+  <String Id="VerifyReadyDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="VerifyReadyDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
+  <String Id="VerifyReadyDlgInstall" Overridable="yes">&amp;Installer</String>
+  <String Id="VerifyReadyDlgInstallText" Overridable="yes">Klik Installer, for at begynde installationen. Klik Tilbage, hvis du vil kontrollere eller ændre indstillingerne til installationen. Klik Annuller, for at afslutte installationsprogrammet.</String>
+  <String Id="VerifyReadyDlgInstallTitle" Overridable="yes">{\WixUI_Font_Title}Klar til at installere [ProductName]</String>
+  <String Id="VerifyReadyDlgChange" Overridable="yes">&amp;Skift</String>
+  <String Id="VerifyReadyDlgChangeText" Overridable="yes">Klik Skift, for at begynde installationen. Klik Tilbage, hvis du vil kontrollere eller ændre indstillingerne til installationen. Klik Annuller, for at afbryde installationsprogrammet.</String>
+  <String Id="VerifyReadyDlgChangeTitle" Overridable="yes">{\WixUI_Font_Title}Klar til at ændre [ProductName]</String>
+  <String Id="VerifyReadyDlgRepair" Overridable="yes">Re&amp;parer</String>
+  <String Id="VerifyReadyDlgRepairText" Overridable="yes">Klik Reparer, for at reparere installationen af [ProductName]. Klik Tilbage, hvis du vil kontrollere eller ændre indstillingerne til installationen. Klik Annuller, for at afslutte installationsprogrammet.</String>
+  <String Id="VerifyReadyDlgRepairTitle" Overridable="yes">{\WixUI_Font_Title}Klar til at reparere [ProductName]</String>
+  <String Id="VerifyReadyDlgRemove" Overridable="yes">&amp;Fjern</String>
+  <String Id="VerifyReadyDlgRemoveText" Overridable="yes">Klik Fjern, for at fjerne [ProductName] fra din computer. Klik Tilbage, hvis du vil kontrollere eller ændre indstillingerne til installationen. Klik Annuller, for at afslutte installationsprogrammet.</String>
+  <String Id="VerifyReadyDlgRemoveTitle" Overridable="yes">{\WixUI_Font_Title}Klar til at fjerne [ProductName]</String>
+  <String Id="WaitForCostingDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="WaitForCostingDlgReturn" Overridable="yes">&amp;Returner</String>
+  <String Id="WaitForCostingDlgText" Overridable="yes">Vent venligst, mens installationsprogrammet færdiggør beregningen af diskforbruget.</String>
+  <String Id="WaitForCostingDlgIcon" Overridable="yes">WixUI_Ico_Exclam</String>
+  <String Id="WaitForCostingDlgIconTooltip" Overridable="yes">Udråbstegnikkon</String>
+  <String Id="WelcomeDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="WelcomeDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="WelcomeDlgDescription" Overridable="yes">Installationsprogrammet vil installere [ProductName] på computeren. Klik Næste, for at fortsætte eller klik Annuller, for at afslutte installationsprogrammet.</String>
+  <String Id="WelcomeDlgTitle" Overridable="yes">{\WixUI_Font_Bigger}Velkommen til installationsprogrammet for [ProductName]</String>
+  <String Id="WelcomeEulaDlg_Title" Overridable="yes">[ProductName] Installation</String>
+  <String Id="WelcomeEulaDlgBitmap" Overridable="yes">WixUI_Bmp_Dialog</String>
+  <String Id="WelcomeEulaDlgLicenseAcceptedCheckBox" Overridable="yes">Jeg &amp;accepterer betingelserne i licensaftalen</String>
+  <String Id="WelcomeEulaDlgInstall" Overridable="yes">&amp;Installer</String>
+  <String Id="WelcomeEulaDlgTitle" Overridable="yes">{\WixUI_Font_Title}Læs venligst licensbetingelserne for [ProductName] </String>
+  <String Id="ProgressTextInstallValidate" Overridable="yes">Kontrollerer installationen</String>
+  <String Id="ProgressTextInstallFiles" Overridable="yes">Kopierer nye filer</String>
+  <String Id="ProgressTextInstallFilesTemplate" Overridable="yes">Fil: [1], Mappe: [9], Størrelse: [6]</String>
+  <String Id="ProgressTextInstallAdminPackage" Overridable="yes">Kopierer filer til netværksinstallation</String>
+  <String Id="ProgressTextInstallAdminPackageTemplate" Overridable="yes">Fil: [1], Mappe: [9], Størrelse: [6]</String>
+  <String Id="ProgressTextFileCost" Overridable="yes">Beregner pladskrav</String>
+  <String Id="ProgressTextCostInitialize" Overridable="yes">Beregner pladskrav</String>
+  <String Id="ProgressTextCostFinalize" Overridable="yes">Beregner pladskrav</String>
+  <String Id="ProgressTextCreateShortcuts" Overridable="yes">Opretter genveje</String>
+  <String Id="ProgressTextCreateShortcutsTemplate" Overridable="yes">Genvej: [1]</String>
+  <String Id="ProgressTextPublishComponents" Overridable="yes">Udgiver godkendte komponenter, der berettiger til opgradering</String>
+  <String Id="ProgressTextPublishComponentsTemplate" Overridable="yes">Komponent-id: [1], Operator: [2]</String>
+  <String Id="ProgressTextPublishFeatures" Overridable="yes">Udgiver produktfunktioner</String>
+  <String Id="ProgressTextPublishFeaturesTemplate" Overridable="yes">Funktion: [1]</String>
+  <String Id="ProgressTextPublishProduct" Overridable="yes">Udgiver produktoplysninger</String>
+  <String Id="ProgressTextRegisterClassInfo" Overridable="yes">Registrerer klasseservere</String>
+  <String Id="ProgressTextRegisterClassInfoTemplate" Overridable="yes">Klasse-id: [1]</String>
+  <String Id="ProgressTextRegisterExtensionInfo" Overridable="yes">Registrerer udvidelsesservere</String>
+  <String Id="ProgressTextRegisterExtensionInfoTemplate" Overridable="yes">Filtypenavn: [1]</String>
+  <String Id="ProgressTextRegisterMIMEInfo" Overridable="yes">Registrerer MIME-info</String>
+  <String Id="ProgressTextRegisterMIMEInfoTemplate" Overridable="yes">MIME-indholdstype: [1], Filtypenavn: [2]</String>
+  <String Id="ProgressTextRegisterProgIdInfo" Overridable="yes">Registrerer program-id'er.</String>
+  <String Id="ProgressTextRegisterProgIdInfoTemplate" Overridable="yes">Prog-id: [1]</String>
+  <String Id="ProgressTextAllocateRegistrySpace" Overridable="yes">Allokerer plads i registreringsdatabase</String>
+  <String Id="ProgressTextAllocateRegistrySpaceTemplate" Overridable="yes">Ledig plads: [1]</String>
+  <String Id="ProgressTextAppSearch" Overridable="yes">Søger efter allerede installerede programmer</String>
+  <String Id="ProgressTextAppSearchTemplate" Overridable="yes">Egenskab: [1], Signatur: [2]</String>
+  <String Id="ProgressTextBindImage" Overridable="yes">Binder eksekverbare filer</String>
+  <String Id="ProgressTextBindImageTemplate" Overridable="yes">Fil: [1]</String>
+  <String Id="ProgressTextCCPSearch" Overridable="yes">Søger efter godkendte produkter, der berettiger til opgradering</String>
+  <String Id="ProgressTextCreateFolders" Overridable="yes">Opretter mapper</String>
+  <String Id="ProgressTextCreateFoldersTemplate" Overridable="yes">Mappe: [1]</String>
+  <String Id="ProgressTextDeleteServices" Overridable="yes">Sletter serviceprogrammer</String>
+  <String Id="ProgressTextDeleteServicesTemplate" Overridable="yes">Serviceprogram: [1]</String>
+  <String Id="ProgressTextDuplicateFiles" Overridable="yes">Opretter kopier af filer</String>
+  <String Id="ProgressTextDuplicateFilesTemplate" Overridable="yes">Fil: [1], Mappe: [9], Størrelse: [6]</String>
+  <String Id="ProgressTextFindRelatedProducts" Overridable="yes">Søger efter relaterede programmer</String>
+  <String Id="ProgressTextFindRelatedProductsTemplate" Overridable="yes">Fundet program: [1]</String>
+  <String Id="ProgressTextInstallODBC" Overridable="yes">Installerer ODBC-komponenter</String>
+  <String Id="ProgressTextInstallServices" Overridable="yes">Installerer nye serviceprogrammer</String>
+  <String Id="ProgressTextInstallServicesTemplate" Overridable="yes">Serviceprogram: [2]</String>
+  <String Id="ProgressTextLaunchConditions" Overridable="yes">Evaluerer startbetingelser</String>
+  <String Id="ProgressTextMigrateFeatureStates" Overridable="yes">Overfører funktionsindstillinger fra relaterede programmer</String>
+  <String Id="ProgressTextMigrateFeatureStatesTemplate" Overridable="yes">Program: [1]</String>
+  <String Id="ProgressTextMoveFiles" Overridable="yes">Flytter filer</String>
+  <String Id="ProgressTextMoveFilesTemplate" Overridable="yes">Fil: [1], Mappe: [9], Størrelse: [6]</String>
+  <String Id="ProgressTextPatchFiles" Overridable="yes">Udfører rettelser på filer</String>
+  <String Id="ProgressTextPatchFilesTemplate" Overridable="yes">Fil: [1], Mappe: [2], Størrelse: [3]</String>
+  <String Id="ProgressTextProcessComponents" Overridable="yes">Opdaterer komponentregistrering</String>
+  <String Id="ProgressTextRegisterComPlus" Overridable="yes">Registrerer programmer og komponenter til COM+</String>
+  <String Id="ProgressTextRegisterComPlusTemplate" Overridable="yes">Program-id: [1]{{, Programtype: [2], Brugere: [3], RSN: [4]}}</String>
+  <String Id="ProgressTextRegisterFonts" Overridable="yes">Registrerer skrifttyper</String>
+  <String Id="ProgressTextRegisterFontsTemplate" Overridable="yes">Skrifttype: [1]</String>
+  <String Id="ProgressTextRegisterProduct" Overridable="yes">Registrerer produkt</String>
+  <String Id="ProgressTextRegisterProductTemplate" Overridable="yes">[1]</String>
+  <String Id="ProgressTextRegisterTypeLibraries" Overridable="yes">Registrerer type-DLL'er</String>
+  <String Id="ProgressTextRegisterTypeLibrariesTemplate" Overridable="yes">DLL-id: [1]</String>
+  <String Id="ProgressTextRegisterUser" Overridable="yes">Registrerer bruger</String>
+  <String Id="ProgressTextRegisterUserTemplate" Overridable="yes">[1]</String>
+  <String Id="ProgressTextRemoveDuplicateFiles" Overridable="yes">Fjerner identiske filer</String>
+  <String Id="ProgressTextRemoveDuplicateFilesTemplate" Overridable="yes">Fil: [1], Mappe: [9]</String>
+  <String Id="ProgressTextRemoveEnvironmentStrings" Overridable="yes">Opdaterer miljøstrenge</String>
+  <String Id="ProgressTextRemoveEnvironmentStringsTemplate" Overridable="yes">Navn: [1], Værdi: [2], Handling: [3]</String>
+  <String Id="ProgressTextRemoveExistingProducts" Overridable="yes">Fjerner programmer</String>
+  <String Id="ProgressTextRemoveExistingProductsTemplate" Overridable="yes">"Program: [1], Kommandolinje: [2]</String>
+  <String Id="ProgressTextRemoveFiles" Overridable="yes">Fjerner filer</String>
+  <String Id="ProgressTextRemoveFilesTemplate" Overridable="yes">Fil: [1], Mappe: [9]</String>
+  <String Id="ProgressTextRemoveFolders" Overridable="yes">Fjerner mapper</String>
+  <String Id="ProgressTextRemoveFoldersTemplate" Overridable="yes">Mappe: [1]</String>
+  <String Id="ProgressTextRemoveIniValues" Overridable="yes">Fjerner poster for INI-filer</String>
+  <String Id="ProgressTextRemoveIniValuesTemplate" Overridable="yes">Fil: [1], Sektion: [2], Nøgle: [3], Værdi: [4]</String>
+  <String Id="ProgressTextRemoveODBC" Overridable="yes">Fjerner ODBC-komponenter</String>
+  <String Id="ProgressTextRemoveRegistryValues" Overridable="yes">Fjerner værdier i systemets registreringsdatabase</String>
+  <String Id="ProgressTextRemoveRegistryValuesTemplate" Overridable="yes">Nøgle: [1], Navn: [2]</String>
+  <String Id="ProgressTextRemoveShortcuts" Overridable="yes">Fjerner genveje</String>
+  <String Id="ProgressTextRemoveShortcutsTemplate" Overridable="yes">Genvej: [1]</String>
+  <String Id="ProgressTextRMCCPSearch" Overridable="yes">Søger efter produkter, der berettiger til opgradering</String>
+  <String Id="ProgressTextSelfRegModules" Overridable="yes">Registrerer moduler</String>
+  <String Id="ProgressTextSelfRegModulesTemplate" Overridable="yes">Fil: [1], Mappe: [2]</String>
+  <String Id="ProgressTextSelfUnregModules" Overridable="yes">Fjerner registreringen af moduler</String>
+  <String Id="ProgressTextSelfUnregModulesTemplate" Overridable="yes">Fil: [1], Mappe: [2]</String>
+  <String Id="ProgressTextSetODBCFolders" Overridable="yes">Initialiserer ODBC-mapper</String>
+  <String Id="ProgressTextStartServices" Overridable="yes">Starter serviceprogrammer</String>
+  <String Id="ProgressTextStartServicesTemplate" Overridable="yes">Serviceprogram: [1]</String>
+  <String Id="ProgressTextStopServices" Overridable="yes">Stopper serviceprogrammer</String>
+  <String Id="ProgressTextStopServicesTemplate" Overridable="yes">Serviceprogram: [1]</String>
+  <String Id="ProgressTextUnpublishComponents" Overridable="yes">Annullerer udgivelsen af gyldige komponenter</String>
+  <String Id="ProgressTextUnpublishComponentsTemplate" Overridable="yes">Komponent-id: [1], Operator: [2]</String>
+  <String Id="ProgressTextUnpublishFeatures" Overridable="yes">Annullerer udgivelsen af produktfunktioner</String>
+  <String Id="ProgressTextUnpublishFeaturesTemplate" Overridable="yes">Funktion: [1]</String>
+  <String Id="ProgressTextUnregisterClassInfo" Overridable="yes">Fjerner registreringen af klasseservere</String>
+  <String Id="ProgressTextUnregisterClassInfoTemplate" Overridable="yes">Klasse-id: [1]</String>
+  <String Id="ProgressTextUnregisterComPlus" Overridable="yes">Fjerner registrering af programmer og komponenter til COM+</String>
+  <String Id="ProgressTextUnregisterComPlusTemplate" Overridable="yes">Program-id: [1]{{, Programtype: [2]}}</String>
+  <String Id="ProgressTextUnregisterExtensionInfo" Overridable="yes">Fjerner registreringen af udvidelsesservere</String>
+  <String Id="ProgressTextUnregisterExtensionInfoTemplate" Overridable="yes">Filtypenavn: [1]</String>
+  <String Id="ProgressTextUnregisterFonts" Overridable="yes">Fjerner registreringen af skrifttyper</String>
+  <String Id="ProgressTextUnregisterFontsTemplate" Overridable="yes">Skrifttype: [1]</String>
+  <String Id="ProgressTextUnregisterMIMEInfo" Overridable="yes">Fjerner registreringen af MIME-info</String>
+  <String Id="ProgressTextUnregisterMIMEInfoTemplate" Overridable="yes">MIME-indholdstype: [1], Filtypenavn: [2]</String>
+  <String Id="ProgressTextUnregisterProgIdInfo" Overridable="yes">Fjerner registreringen af program-id'er</String>
+  <String Id="ProgressTextUnregisterProgIdInfoTemplate" Overridable="yes">ProgId: [1]</String>
+  <String Id="ProgressTextUnregisterTypeLibraries" Overridable="yes">Fjerner registreringen af type-DLL'er</String>
+  <String Id="ProgressTextUnregisterTypeLibrariesTemplate" Overridable="yes">LibID: [1]</String>
+  <String Id="ProgressTextWriteEnvironmentStrings" Overridable="yes">Opdaterer miljøstrenge</String>
+  <String Id="ProgressTextWriteEnvironmentStringsTemplate" Overridable="yes">Navn: [1], Værdi: [2], Handling: [3]</String>
+  <String Id="ProgressTextWriteIniValues" Overridable="yes">Skriver værdier for INI-filer</String>
+  <String Id="ProgressTextWriteIniValuesTemplate" Overridable="yes">Fil: [1], Sektion: [2], Nøgle: [3], Værdi: [4]</String>
+  <String Id="ProgressTextWriteRegistryValues" Overridable="yes">Skriver værdier i systemets registreringsdatabase</String>
+  <String Id="ProgressTextWriteRegistryValuesTemplate" Overridable="yes">Nøgle: [1], Navn: [2], Værdi: [3]</String>
+  <String Id="ProgressTextAdvertise" Overridable="yes">Anmelder program</String>
+  <String Id="ProgressTextGenerateScript" Overridable="yes">Opretter script-funktioner til handlingen:</String>
+  <String Id="ProgressTextGenerateScriptTemplate" Overridable="yes">[1]</String>
+  <String Id="ProgressTextInstallSFPCatalogFile" Overridable="yes">Systemkataloget installeres</String>
+  <String Id="ProgressTextInstallSFPCatalogFileTemplate" Overridable="yes">Fil: [1], Afhængigheder: [2]</String>
+  <String Id="ProgressTextMsiPublishAssemblies" Overridable="yes">Udgiver samlingsoplysninger</String>
+  <String Id="ProgressTextMsiPublishAssembliesTemplate" Overridable="yes">Programkontekst:[1], samlingsnavn:[2]</String>
+  <String Id="ProgressTextMsiUnpublishAssemblies" Overridable="yes">Fortryder udgivelse af samlingsoplysninger</String>
+  <String Id="ProgressTextMsiUnpublishAssembliesTemplate" Overridable="yes">Programkontekst:[1], samlingsnavn:[2]</String>
+  <String Id="ProgressTextRollback" Overridable="yes">Fortrydelse:</String>
+  <String Id="ProgressTextRollbackTemplate" Overridable="yes">[1]</String>
+  <String Id="ProgressTextRollbackCleanup" Overridable="yes">Fjerner sikkerhedskopierede filer</String>
+  <String Id="ProgressTextRollbackCleanupTemplate" Overridable="yes">Fil: [1]</String>
+  <String Id="ProgressTextUnmoveFiles" Overridable="yes">Fjerner flyttede filer</String>
+  <String Id="ProgressTextUnmoveFilesTemplate" Overridable="yes">Fil: [1], Mappe: [9]</String>
+  <String Id="ProgressTextUnpublishProduct" Overridable="yes">Annullerer produktoplysninger</String>
+  <String Id="Error0" Overridable="yes">{{Alvorlig fejl: }}</String>
+  <String Id="Error1" Overridable="yes">{{Fejl [1]. }}</String>
+  <String Id="Error2" Overridable="yes">Advarsel [1]. </String>
+  <String Id="Error4" Overridable="yes">Info [1]. </String>
+  <String Id="Error5" Overridable="yes">Der er opstået en uventet fejl under installationen af denne pakke. Dette kan betyde, at der er et problem med denne pakke. Fejlkoden er [1]. {{Argumenterne er: [2], [3], [4]}}</String>
+  <String Id="Error7" Overridable="yes">{{Disken er fuld: }}</String>
+  <String Id="Error8" Overridable="yes">Handling [Time]: [1]. [2]</String>
+  <String Id="Error9" Overridable="yes">[ProductName]</String>
+  <String Id="Error10" Overridable="yes">{[2]}{, [3]}{, [4]}</String>
+  <String Id="Error11" Overridable="yes">Meddelelsestype: [1], Argument: [2]</String>
+  <String Id="Error12" Overridable="yes">=== Logføring påbegyndt: [Date] [Time] ===</String>
+  <String Id="Error13" Overridable="yes">=== Logføring stoppet: [Date] [Time] ===</String>
+  <String Id="Error14" Overridable="yes">Handling startet [Time]: [1].</String>
+  <String Id="Error15" Overridable="yes">Handling afsluttet [Time]: [1]. Returværdi [2].</String>
+  <String Id="Error16" Overridable="yes">Resterende tid: {[1] minutter }{[2] sekunder}</String>
+  <String Id="Error17" Overridable="yes">Der er ikke mere hukommelse. Luk de andre programmer, før du prøver igen.</String>
+  <String Id="Error18" Overridable="yes">Installationsprogrammet svarer ikke mere.</String>
+  <String Id="Error19" Overridable="yes">Installationsprogrammet stoppede før tid.</String>
+  <String Id="Error20" Overridable="yes">Vent, mens Windows konfigurerer [ProductName]</String>
+  <String Id="Error21" Overridable="yes">Indsamler nødvendige oplysninger...</String>
+  <String Id="Error22" Overridable="yes">Fjerner ældre versioner af programmet...</String>
+  <String Id="Error23" Overridable="yes">Forbereder afinstallationen af ældre versioner af programmet...</String>
+  <String Id="Error32" Overridable="yes">{[ProductName] }Installationen er gennemført.</String>
+  <String Id="Error33" Overridable="yes">{[ProductName] }Installationen mislykkedes.</String>
+  <String Id="Error1101" Overridable="yes">Fejl under læsning af filen: [2]. {{ Systemfejl [3].}} Kontroller, at filen findes, og at du har adgang til den.</String>
+  <String Id="Error1301" Overridable="yes">Filen '[2]' kan ikke oprettes. En mappe med dette navn findes allerede. Afbryd installationen, og prøv at installere på en anden placering.</String>
+  <String Id="Error1302" Overridable="yes">Indsæt cd [2]</String>
+  <String Id="Error1303" Overridable="yes">Installationsprogrammet har ikke de nødvendige rettigheder til at åbne denne mappe: [2]. Installationsprogrammet kan ikke fortsætte. Log på som administrator, eller kontakt systemadministratoren.</String>
+  <String Id="Error1304" Overridable="yes">Fejl under skrivning til filen: [2]. Kontroller, at du har adgang til mappen.</String>
+  <String Id="Error1305" Overridable="yes">Fejl under læsning fra filen [2]. {{ Systemfejl [3].}} Kontroller, at filen findes, og at du har adgang til den.</String>
+  <String Id="Error1306" Overridable="yes">Et andet program har udelt adgang til filen '[2]'. Afslut alle andre programmer, og klik Forsøg igen.</String>
+  <String Id="Error1307" Overridable="yes">Der er ikke tilstrækkelig diskplads til at installere filen: [2]. Frigør diskplads, og klik Forsøg igen, eller klik Annuller for at afslutte.</String>
+  <String Id="Error1308" Overridable="yes">Kildefilen blev ikke fundet: [2]. Kontroller, at filen findes, og at du har adgang til den.</String>
+  <String Id="Error1309" Overridable="yes">Fejl under læsning fra filen: [3]. {{ Systemfejl [2].}} Kontroller, at filen findes, og at du har adgang til den.</String>
+  <String Id="Error1310" Overridable="yes">Fejl under skrivning til filen: [3]. {{ Systemfejl [2].}} Kontroller, at du har adgang til mappen.</String>
+  <String Id="Error1311" Overridable="yes">Kildefilen blev ikke fundet{{(kabinet)}}: [2]. Kontroller, at filen findes, og du har adgang til den.</String>
+  <String Id="Error1312" Overridable="yes">Mappen '[2]' kan ikke oprettes. En fil med dette navn findes allerede. Omdøb eller fjern filen, og klik Forsøg igen, eller klik Annuller for at afslutte.</String>
+  <String Id="Error1313" Overridable="yes">Enheden [2] er ikke tilgængelig i øjeblikket. Vælg en anden.</String>
+  <String Id="Error1314" Overridable="yes">Den angivne sti '[2]' er ikke tilgængelig.</String>
+  <String Id="Error1315" Overridable="yes">Der kan ikke skrives til den angivne mappe [2].</String>
+  <String Id="Error1316" Overridable="yes">Der opstod en netværksfejl ved forsøg på at læse fra filen: [2]</String>
+  <String Id="Error1317" Overridable="yes">Der opstod en fejl ved forsøg på at oprette mappen: [2]</String>
+  <String Id="Error1318" Overridable="yes">Der opstod en netværksfejl ved forsøg på at oprette mappen: [2]</String>
+  <String Id="Error1319" Overridable="yes">Der opstod en netværksfejl ved forsøg på at åbne kildefilskabinet: [2]</String>
+  <String Id="Error1320" Overridable="yes">Den angivne sti er for lang: [2]</String>
+  <String Id="Error1321" Overridable="yes">Installationsprogrammet har ikke de nødvendige rettigheder til at ændre filen: [2].</String>
+  <String Id="Error1322" Overridable="yes">Mappestien '[2]' er ugyldig. Stien er enten for lang eller mangelfuld.</String>
+  <String Id="Error1323" Overridable="yes">Mappestien '[2]' indeholder ord, som ikke er gyldige i stier til mapper.</String>
+  <String Id="Error1324" Overridable="yes">Mappestien '[2]' indeholder et ugyldigt tegn.</String>
+  <String Id="Error1325" Overridable="yes">'[2]' er et ugyldigt kort filnavn.</String>
+  <String Id="Error1326" Overridable="yes">Fejl under hentning af filsikkerhed: [3] GetLastError: [2]</String>
+  <String Id="Error1327" Overridable="yes">Ugyldigt drev: [2]</String>
+  <String Id="Error1328" Overridable="yes">Fejl under opgradering af filen [2]. Filen er muligvis blevet opgraderet på en anden måde, så den kan ikke opgraderes med denne programrettelse. Du kan få yderligere oplysninger hos producenten af programrettelsen. {{Systemfejl: [3]}}</String>
+  <String Id="Error1329" Overridable="yes">En nødvendig fil kan ikke installeres, fordi kabinetfilen [2] ikke er digitalt signeret. Det betyder muligvis, at kabinetfilen er beskadiget.</String>
+  <String Id="Error1330" Overridable="yes">En nødvendig fil kan ikke installeres, fordi kabinetfilen [2] har en ugyldig digital signatur. Dette kan skyldes, at kabinetfilen er beskadiget.{{ Fejlen [3] blev returneret af WinVerifyTrust.}}</String>
+  <String Id="Error1331" Overridable="yes">Fejl ved kopiering af filen [2]: CRC-fejl.</String>
+  <String Id="Error1332" Overridable="yes">Fejl ved flytning af filen [2]: CRC-fejl.</String>
+  <String Id="Error1333" Overridable="yes">Fejl ved rettelse af filen [2]: CRC-fejl.</String>
+  <String Id="Error1334" Overridable="yes">Filen '[2]' kan ikke installeres, fordi filen ikke blev fundet i kabinetfilen '[3]'. Dette kan betyde, at der er opstået en netværksfejl, en fejl ved læsning fra cd-rom'en eller et problem med denne pakke.</String>
+  <String Id="Error1335" Overridable="yes">Kabinetfilen '[2]', der kræves til denne installation, er beskadiget og kan ikke bruges. Dette kan skyldes en netværksfejl, en fejl ved læsning af cd-rom'en eller et problem med denne pakke.</String>
+  <String Id="Error1336" Overridable="yes">Der opstod en fejl ved oprettelse af en midlertidig fil, der er nødvendig for at fuldføre installationen.{{ Mappe: [3]. Systemfejlkode: [2]}}</String>
+  <String Id="Error1401" Overridable="yes">Nøglen [2] kunne ikke oprettes. {{ Systemfejl [3].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1402" Overridable="yes">Nøglen [2] kunne ikke åbnes. {{ Systemfejl [3].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1403" Overridable="yes">Værdien [2] kunne ikke slettes fra nøglen [3]. {{ Systemfejl [4].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1404" Overridable="yes">Nøglen [2] kunne ikke slettes. {{ Systemfejl [3].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1405" Overridable="yes">Værdien [2] kunne ikke læses fra nøglen [3]. {{ Systemfejl [4].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1406" Overridable="yes">Værdien [2] kunne ikke skrives til nøglen [3]. {{ Systemfejl [4].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1407" Overridable="yes">Værdinavne på nøglen [2] kunne ikke hentes. {{ Systemfejl [3].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1408" Overridable="yes">Undernøglenavne på nøglen [2] kunne ikke hentes. {{ Systemfejl [3].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1409" Overridable="yes">Sikkerhedsoplysninger for nøglen [2] kunne ikke læses. {{ Systemfejl [3].}} Kontroller, at du har tilstrækkelig adgang til nøglen, eller kontakt supportteknikerne. </String>
+  <String Id="Error1410" Overridable="yes">Der kunne ikke skaffes mere plads i registreringsdatabasen. [2] KB ledig registreringsplads er nødvendig for installationen af programmet.</String>
+  <String Id="Error1500" Overridable="yes">En anden installation er i gang. Den skal færdiggøres, før du fortsætter med en ny.</String>
+  <String Id="Error1501" Overridable="yes">Fejl under adgang til sikret data. Kontroller, at Windows Installer er konfigureret korrekt, og prøv igen.</String>
+  <String Id="Error1502" Overridable="yes">Bruger '[2]' har tidligere startet en installation af produktet '[3]'. Brugeren skal køre installationen igen, før de kan bruge produktet. Det nuværende installationsprogram vil fortsætte nu.</String>
+  <String Id="Error1503" Overridable="yes">Bruger '[2]' har tidligere startet en installation for produktet '[3]'. Brugeren skal køre installationen igen, før de kan bruge produktet.</String>
+  <String Id="Error1601" Overridable="yes">Der er ikke mere diskplads -- Enhed: '[2]'; krævet plads: [3] KB; tilgængelig plads: [4] KB. Frigør diskplads, og prøv igen.</String>
+  <String Id="Error1602" Overridable="yes">Vil du annullere?</String>
+  <String Id="Error1603" Overridable="yes">Filen [2][3] holdes i brug{ af følgende proces: navn: [4], id: [5], vinduestitel: '[6]'}. Luk programmet, og prøv igen.</String>
+  <String Id="Error1604" Overridable="yes">Produktet '[2]' er allerede installeret og forhindrer installationen af dette produkt. De to produkter er ikke kompatible.</String>
+  <String Id="Error1605" Overridable="yes">Der er ikke nok plads på diskenheden '[2]' til at fortsætte installationen med genoprettelse aktiveret. [3] KB kræves, men der er kun [4] KB tilgængelig. Klik Ignorer, for at fortsætte installationen uden at gemme genoprettelsesoplysninger, klik Forsøg igen, for at kontrollere den ledige diskplads igen, eller klik Annuller, for at afslutte installationen.</String>
+  <String Id="Error1606" Overridable="yes">Der var ikke adgang til netværksplaceringen [2].</String>
+  <String Id="Error1607" Overridable="yes">Følgende programmer skal lukkes, før du fortsætter installationen:</String>
+  <String Id="Error1608" Overridable="yes">Der blev ikke fundet nogen tidligere installerede produkter på computeren, der berettiger til installation af dette produkt.</String>
+  <String Id="Error1609" Overridable="yes">Der opstod en fejl ved anvendelsen af sikkerhedsindstillingerne. [2] er ikke en gyldig bruger eller gruppe. Dette kan være et pakkeproblem, eller et problem med oprettelse af forbindelse til en domænecontroller på netværket. Kontroller netværksforbindelsen og klik Forsøg igen, eller klik Annuller, for at afslutte installatioen. {{Brugerens SID blev ikke fundet, systemfejl [3]}}</String>
+  <String Id="Error1701" Overridable="yes">Nøglen [2] er ugyldig. Kontroller, at du har angivet den korrekte nøgle.</String>
+  <String Id="Error1702" Overridable="yes">Installationsprogrammet skal genstarte dit system, før konfiguration af [2] kan fortsætte. Klik Ja, for at genstarte nu eller Nej, hvis du vil genstarte manuelt senere.</String>
+  <String Id="Error1703" Overridable="yes">Du skal genstarte dit system, for at konfigurationsændringerne i [2] kan træde i kraft. Klik Ja, for at genstarte nu eller Nej, hvis du vil genstarte manuelt senere.</String>
+  <String Id="Error1704" Overridable="yes">En installation for [2] er for øjeblikket sat ud af kraft. Du skal annullere ændringerne foretaget af installationsprogrammet for at fortsætte. Vil du annullere disse ændringer?</String>
+  <String Id="Error1705" Overridable="yes">En tidligere installation af dette produkt er i gang. Du skal annullere ændringerne foretaget af installationsprogrammet for at fortsætte. Vil du annullere disse ændringer?</String>
+  <String Id="Error1706" Overridable="yes">Installationspakken til produktet [2] kunne ikke findes. Prøv at starte installationsprogrammet igen ved hjælp af et gyldigt eksemplar af installationspakken '[3]'.</String>
+  <String Id="Error1707" Overridable="yes">Installationen er fuldført.</String>
+  <String Id="Error1708" Overridable="yes">Installationen mislykkedes.</String>
+  <String Id="Error1709" Overridable="yes">Produkt: [2] -- [3]</String>
+  <String Id="Error1710" Overridable="yes">Du skal enten gendanne computeren til den forrige tilstand eller fortsætte installationen senere. Vil du gendanne?</String>
+  <String Id="Error1711" Overridable="yes">Der opstod en fejl ved skrivning af installationsoplysninger til disken. Kontroller, at der er tilstrækkelig diskplads til rådighed, og klik Forsøg igen, eller klik Annuller, for at afbryde installationsprogrammet.</String>
+  <String Id="Error1712" Overridable="yes">En eller flere af de filer, der kræves for at gendanne din computer til den forrige tilstand, kunne ikke findes. Gendannelse vil ikke være mulig.</String>
+  <String Id="Error1713" Overridable="yes">[2] kan ikke installere et af de nødvendige produkter. Kontakt teknisk support. {{Systemfejl: [3].}}</String>
+  <String Id="Error1714" Overridable="yes">Den ældre version af [2] kan ikke fjernes. Kontakt teknisk support. {{Systemfejl [3].}}</String>
+  <String Id="Error1715" Overridable="yes">Installerede [2]</String>
+  <String Id="Error1716" Overridable="yes">Konfigurerede [2]</String>
+  <String Id="Error1717" Overridable="yes">Fjernede [2]</String>
+  <String Id="Error1718" Overridable="yes">Filen [2] blev afvist af politikken for digital signatur.</String>
+  <String Id="Error1719" Overridable="yes">Der kunne ikke opnås adgang til Windows Installer. Dette problem kan opstå, hvis du kører Windows i fejlsikret tilstand, eller hvis Windows Installer ikke er korrekt installeret. Kontakt supportpersonen for at få hjælp.</String>
+  <String Id="Error1720" Overridable="yes">Der er opstået et problem med denne Windows Installer-pakke. Et script, der kræves til denne installation, kunne ikke køres. Kontakt supportpersonen eller pakkeproducenten. {{Tilpasset handling [2] scriptfejl [3], [4]: [5] Linje [6], Kolonne [7], [8] }}</String>
+  <String Id="Error1721" Overridable="yes">Der er opstået et problem med denne Windows Installer-pakke. Et program, der er nødvendigt for denne installation, kunne ikke køres. Kontakt supportpersonen eller pakkeproducenten. {{Handling: [2], placering: [3], kommando: [4] }}</String>
+  <String Id="Error1722" Overridable="yes">Der er opstået et problem med denne Windows Installer-pakke. Et program, der blev kørt som en del af installationen, blev ikke udført som forventet. Kontakt supportpersonen eller pakkeproducenten. {{Handling [2], placering: [3], kommando: [4] }}</String>
+  <String Id="Error1723" Overridable="yes">Der er et problem med denne Windows Installer-pakke. En DLL-fil, der kræves for at installationen kan fuldføres, kunne ikke køres. Kontakt supportpersonen eller pakkeproducent. {{Handling [2], post: [3], bibliotek: [4] }}</String>
+  <String Id="Error1724" Overridable="yes">Fjernelsen blev fuldført.</String>
+  <String Id="Error1725" Overridable="yes">Fjernelsen mislykkedes.</String>
+  <String Id="Error1726" Overridable="yes">Annonceringen blev fuldført.</String>
+  <String Id="Error1727" Overridable="yes">Annonceringen mislykkedes.</String>
+  <String Id="Error1728" Overridable="yes">Konfigurationen blev fuldført.</String>
+  <String Id="Error1729" Overridable="yes">Konfigurationen mislykkedes.</String>
+  <String Id="Error1730" Overridable="yes">Du skal være Administrator for at kunne fjerne dette program. Du kan logge på som Administrator, eller kontakte den tekniske supportgruppe for at få hjælp.</String>
+  <String Id="Error1731" Overridable="yes">Kilde installationspakken for produktet [2] er ude af sync med klient pakken. Prøv installationen igen, med en gyldig kopi af installationspakken '[3]'.</String>
+  <String Id="Error1732" Overridable="yes">Du skal genstarte computeren for at gennemføre installationen af [2]. Andre brugere er logget på maskinen, en genstart kan foresage, at de mister deres arbejde. Vil du genstarte nu?</String>
+  <String Id="Error1801" Overridable="yes">Stien [2] er ugyldig. Angiv en gyldig sti.</String>
+  <String Id="Error1802" Overridable="yes">Der er ikke mere hukommelse. Luk de andre programmer, før du prøver igen.</String>
+  <String Id="Error1803" Overridable="yes">Der er ingen CD i drev [2]. Indsæt en CD og klik Forsøg igen, eller klik Annuller, for at gå tilbage til den enhed, som tidligere blev brugt.</String>
+  <String Id="Error1804" Overridable="yes">Der er ingen CD i drev [2]. Indsæt en CD og klik Forsøg igen, eller klik Annuller, for at gå tilbage til dialogboksen Gennemse og vælge en anden enhed.</String>
+  <String Id="Error1805" Overridable="yes">Mappen [2] findes ikke. Angiv en sti til en eksisterende mappe.</String>
+  <String Id="Error1806" Overridable="yes">Du har ikke de nødvendige rettigheder til at læse denne mappe.</String>
+  <String Id="Error1807" Overridable="yes">En gyldig destinationsmappe for installationen kunne ikke påvises.</String>
+  <String Id="Error1901" Overridable="yes">Fejl ved forsøg på at læse fra databasen til kildeinstallation: [2].</String>
+  <String Id="Error1902" Overridable="yes">Planlægger genstart: Omdøber filen [2] til [3]. Computeren skal genstartes for at fuldføre handlingen.</String>
+  <String Id="Error1903" Overridable="yes">Planlægger genstart: Sletter filen [2]. Computeren skal genstartes for at fuldføre handlingen.</String>
+  <String Id="Error1904" Overridable="yes">Modulet [2] kunne ikke registreres. HRESULT [3]. Kontakt supportteknikerne.</String>
+  <String Id="Error1905" Overridable="yes">Modulet [2] kunne ikke få fjernet registreringen. HRESULT [3]. Kontakt supportteknikerne.</String>
+  <String Id="Error1906" Overridable="yes">Pakken [2] kunne ikke gemmes i cachen. Fejl: [3]. Kontakt supportteknikerne.</String>
+  <String Id="Error1907" Overridable="yes">Skrifttypen [2] kunne ikke registreres. Kontroller, at du har den rette tilladelse til at installere skrifttyper, og at systemet understøtter disse skrifttyper.</String>
+  <String Id="Error1908" Overridable="yes">Registreringen af skrifttypen [2] kunne ikke fjernes. Kontroller, at du har de nødvendige tilladelser til at fjerne skrifttyper.</String>
+  <String Id="Error1909" Overridable="yes">Genvejen [2] kunne ikke oprettes. Kontroller, at destinationsmappen findes, og at du har adgang til den.</String>
+  <String Id="Error1910" Overridable="yes">Genvejen [2] kunne ikke fjernes. Kontroller, at genvejsfilen findes, og at du har adgang til den.</String>
+  <String Id="Error1911" Overridable="yes">Typebiblioteket for filen [2] kunne ikke registreres. Kontakt supportteknikerne.</String>
+  <String Id="Error1912" Overridable="yes">Registreringen af typebiblioteket for filen [2] kunne ikke fjernes. Kontakt supportteknikerne.</String>
+  <String Id="Error1913" Overridable="yes">ini-filen [2][3] kunne ikke opdateres. Kontroller, at filen findes, og at du har adgang til den.</String>
+  <String Id="Error1914" Overridable="yes">Det kunne ikke planlægges at erstatte filen [3] med filen [2] ved genstart. Kontroller, at du har skriveadgang til filen [3].</String>
+  <String Id="Error1915" Overridable="yes">Fejl ved fjernelse af ODBC-driverstyring, ODBC-fejl [2]: [3]. Kontakt supportteknikerne.</String>
+  <String Id="Error1916" Overridable="yes">Fejl ved installation af ODBC-driverstyring, ODBC-fejl [2]: [3]. Kontakt supportteknikerne.</String>
+  <String Id="Error1917" Overridable="yes">Fejl ved fjernelse af ODBC-driver: [4], ODBC-fejl [2]: [3]. Kontroller, at du har de nødvendige rettigheder til at fjerne ODBC-drivere.</String>
+  <String Id="Error1918" Overridable="yes">Fejl ved installation af ODBC-driver: [4], ODBC-fejl [2]: [3]. Kontroller, at filen [4] findes, og at du har adgang til den.</String>
+  <String Id="Error1919" Overridable="yes">Fejl under konfiguration af ODBC-datakilde: [4], ODBC-fejl [2]: [3]. Kontroller, at filen [4] findes, og at du har adgang til den.</String>
+  <String Id="Error1920" Overridable="yes">Serviceprogrammet '[2]' ([3]) kunne ikke starte. Kontroller, at du har de nødvendige rettigheder til at starte systemserviceprogrammer.</String>
+  <String Id="Error1921" Overridable="yes">Serviceprogrammet '[2]' ([3]) kunne ikke afsluttes. Kontroller, at du har de nødvendige rettigheder til at afslutte systemserviceprogrammer.</String>
+  <String Id="Error1922" Overridable="yes">Serviceprogrammet '[2]' ([3]) kunne ikke slettes. Kontroller, at du har de nødvendige rettigheder til at fjerne systemserviceprogrammer.</String>
+  <String Id="Error1923" Overridable="yes">Serviceprogrammet '[2]' ([3]) kunne ikke installeres. Kontroller, at du har de nødvendige rettigheder til at installere systemserviceprogrammer.</String>
+  <String Id="Error1924" Overridable="yes">Miljøvariablen '[2]' kunne ikke opdateres. Kontroller, at du har de nødvendige rettigheder til at ændre miljøvariabler.</String>
+  <String Id="Error1925" Overridable="yes">Du har ikke de nødvendige rettigheder til at færdiggøre installationen for alle brugere af denne maskine. Log på som administrator, og forsøg igen.</String>
+  <String Id="Error1926" Overridable="yes">Filsikkerhed for filen '[3]' kunne ikke angives. Fejl: [2]. Kontroller, at du har de nødvendige rettigheder til at ændre sikkerhedstilladelserne for denne fil.</String>
+  <String Id="Error1927" Overridable="yes">COM+ 1.0 (Component Services) er ikke installeret på denne computer. COM+ skal være installeret for at fuldføre installationen. COM+ findes i Windows 2000.</String>
+  <String Id="Error1928" Overridable="yes">Der opstod en fejl under registreringen af programmet til COM+. Kontakt supportteknikerne.</String>
+  <String Id="Error1929" Overridable="yes">Der opstod en fejl under fjernelsen af registreringsoplysninger om programmet til COM+. Kontakt supportteknikerne.</String>
+  <String Id="Error1930" Overridable="yes">Beskrivelsen af serviceprogrammet '[2]' ([3]) kunne ikke ændres.</String>
+  <String Id="Error1931" Overridable="yes">Windows Installer kan ikke opgradere systemfilen [2], fordi filen er beskyttet af Windows. Det er muligvis nødvendigt at opdatere operativsystemet. {{Pakkeversion: [3], Version beskyttet af operativsystemet: [4]}}</String>
+  <String Id="Error1932" Overridable="yes">Windows Installer kan ikke opgradere filen [2], fordi den er beskyttet af Windows. {{Pakkeversion: [3], Version beskyttet af operativsystemet: [4], SFP-fejl: [5]}}</String>
+  <String Id="Error1933" Overridable="yes">Windows Installer kan ikke opdatere en eller flere beskyttede Windows-filer. {{SFP-fejl: [2]. Liste over beskyttede filer:\r\n[3]}}</String>
+  <String Id="Error1934" Overridable="yes">Brugerinstallationer er deaktiveret ved hjælp af en politik på denne computer.</String>
+  <String Id="Error1935" Overridable="yes">Der opstod en fejl under installationen af samlingskomponenten [2]. HRESULT: [3]. {{samlingsgrænseflade: [4], funktion: [5], samlingsnavn: [6]}}</String>
+  <String Id="Error1936" Overridable="yes">En fejl opstod under installationen af assembly '[6]'. Dette assembly er ikke stærkt navngivet eller er ikke signeret med den minimale nøglelængde. HRESULT: [3]. {{assembly interface: [4], function: [5], component: [2]}}</String>
+  <String Id="Error1937" Overridable="yes">En fejl opstod under installationen af assembly '[6]'. Signaturen af kataloget kunne ikke verificeres eller er ikke gyldig. HRESULT: [3]. {{assembly interface: [4], function: [5], component: [2]}}</String>
+  <String Id="Error1938" Overridable="yes">En fejl opstod under installationen af assembly '[6]'. En eller flere moduler i assembly'et blev ikke fundet. HRESULT: [3]. {{assembly interface: [4], function: [5], component: [2]}}</String>
+  <String Id="UITextbytes" Overridable="yes">bytes</String>
+  <String Id="UITextGB" Overridable="yes">GB</String>
+  <String Id="UITextKB" Overridable="yes">KB</String>
+  <String Id="UITextMB" Overridable="yes">MB</String>
+  <String Id="UITextMenuAbsent" Overridable="yes">Denne funktion vil ikke være tilgængelig</String>
+  <String Id="UITextMenuAdvertise" Overridable="yes">Denne funktion bliver installeret, når den kræves</String>
+  <String Id="UITextMenuAllCD" Overridable="yes">Denne funktion og alle underfunktioner installeres til at køre fra CD</String>
+  <String Id="UITextMenuAllLocal" Overridable="yes">Denne funktion og alle underfunktioner installeres på en lokal harddisk</String>
+  <String Id="UITextMenuAllNetwork" Overridable="yes">Denne funktion og alle underfunktioner installeres til at køre fra netværket</String>
+  <String Id="UITextMenuCD" Overridable="yes">Denne funktion installeres til at køre fra CD</String>
+  <String Id="UITextMenuLocal" Overridable="yes">Denne funktion installeres på en lokal harddisk</String>
+  <String Id="UITextMenuNetwork" Overridable="yes">Denne funktion installeres til at køre fra netværk</String>
+  <String Id="UITextNewFolder" Overridable="yes">Mappe|Ny mappe</String>
+  <String Id="UITextScriptInProgress" Overridable="yes">Samler information...</String>
+  <String Id="UITextSelAbsentAbsent" Overridable="yes">Denne funktion installeres ikke</String>
+  <String Id="UITextSelAbsentAdvertise" Overridable="yes">Denne funktion indstilles til at blive installeret, når den kræves</String>
+  <String Id="UITextSelAbsentCD" Overridable="yes">Denne funktion installeres til at køre fra CD</String>
+  <String Id="UITextSelAbsentLocal" Overridable="yes">Denne funktion installeres på den lokale harddisk</String>
+  <String Id="UITextSelAbsentNetwork" Overridable="yes">Denne funktion installeres til at køre fra netværket</String>
+  <String Id="UITextSelAdvertiseAbsent" Overridable="yes">Denne funktion bliver ikke tilgængelig</String>
+  <String Id="UITextSelAdvertiseAdvertise" Overridable="yes">Installeres, når den kræves</String>
+  <String Id="UITextSelAdvertiseCD" Overridable="yes">Denne funktion kan køres fra CD</String>
+  <String Id="UITextSelAdvertiseLocal" Overridable="yes">Denne funktion installeres på den lokale harddisk</String>
+  <String Id="UITextSelAdvertiseNetwork" Overridable="yes">Denne funktion kan køres fra netværket</String>
+  <String Id="UITextSelCDAbsent" Overridable="yes">Installationen af denne funktion fjernes helt, og du kan ikke køre den fra CD</String>
+  <String Id="UITextSelCDAdvertise" Overridable="yes">Denne funktion blev kørt fra CD, men den indstilles til at installeres, når den kræves</String>
+  <String Id="UITextSelCDCD" Overridable="yes">Denne funktion vil fortsat blive kørt fra CD</String>
+  <String Id="UITextSelCDLocal" Overridable="yes">Denne funktion blev kørt fra cd, men den installeres på den lokale harddisk</String>
+  <String Id="UITextSelChildCostNeg" Overridable="yes">Denne funktion frigør [1] på harddisken</String>
+  <String Id="UITextSelChildCostPos" Overridable="yes">Denne funktion kræver [1] på harddisken</String>
+  <String Id="UITextSelCostPending" Overridable="yes">Beregner omkostning for denne funktion...</String>
+  <String Id="UITextSelLocalAbsent" Overridable="yes">Denne funktion fjernes fuldstændigt</String>
+  <String Id="UITextSelLocalAdvertise" Overridable="yes">Denne funktion fjernes fra den lokale harddisk, men den indstilles til at installeres, når den kræves.</String>
+  <String Id="UITextSelLocalCD" Overridable="yes">Denne funktion fjernes fra den lokale harddisk, men den kan stadig køres fra CD.</String>
+  <String Id="UITextSelLocalLocal" Overridable="yes">Denne funktion bliver på den lokale harddisk.</String>
+  <String Id="UITextSelLocalNetwork" Overridable="yes">Denne funktion fjernes fra den lokale harddisk, men den kan stadig køres fra netværket.</String>
+  <String Id="UITextSelNetworkAbsent" Overridable="yes">Installationen af denne funktion fjernes helt, og du kan ikke køre den fra netværket.</String>
+  <String Id="UITextSelNetworkAdvertise" Overridable="yes">Denne funktion blev kørt fra netværket, men den installeres, når den kræves.</String>
+  <String Id="UITextSelNetworkLocal" Overridable="yes">Denne funktion blev kørt fra netværket, men den installeres på den lokale harddisk</String>
+  <String Id="UITextSelNetworkNetwork" Overridable="yes">Denne funktion vil fortsat blive kørt fra netværket</String>
+  <String Id="UITextSelParentCostNegNeg" Overridable="yes">Denne funktion frigør [1] på harddisken. [2] af [3] underfunktioner er markeret. Underfunktionerne frigør [4] på harddisken.</String>
+  <String Id="UITextSelParentCostNegPos" Overridable="yes">Denne funktion frigør [1] på harddisken. [2] af [3] underfunktioner er markeret. Underfunktionerne kræver[4] på harddisken.</String>
+  <String Id="UITextSelParentCostPosNeg" Overridable="yes">Denne funktion kræver [1] på harddisken. [2] af [3] underfunktioner er markeret. Underfunktionerne frigør [4] på harddisken.</String>
+  <String Id="UITextSelParentCostPosPos" Overridable="yes">Denne funktion kræver [1] på harddisken. [2] af [3] underfunktioner er markeret. Underfunktionerne kræver [4] på harddisken.</String>
+  <String Id="UITextTimeRemaining" Overridable="yes">Tid tilbage: {[1] minutter }{[2] sekunder}</String>
+  <String Id="UITextVolumeCostAvailable" Overridable="yes">Tilgængelig</String>
+  <String Id="UITextVolumeCostDifference" Overridable="yes">Forskelle</String>
+  <String Id="UITextVolumeCostRequired" Overridable="yes">Krævet</String>
+  <String Id="UITextVolumeCostSize" Overridable="yes">Diskstørrelse</String>
+  <String Id="UITextVolumeCostVolume" Overridable="yes">Enhed</String>
+</WixLocalization>

@@ -1,0 +1,26 @@
+<package format="2">
+  <name>cob_dashboard</name>
+  <version>0.6.16</version>
+  <description>cob_dashboard is a modified version of [[pr2_dashboard]].</description>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_dashboard</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <author email="aub@ipa.fhg.de">Alexander Bubeck</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>cob_msgs</exec_depend>
+  <exec_depend>roslib</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rqt_gui</exec_depend>
+  <exec_depend>rqt_robot_dashboard</exec_depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
+  </export>
+</package>

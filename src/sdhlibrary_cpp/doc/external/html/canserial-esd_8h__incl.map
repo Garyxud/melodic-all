@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdhexception_8h.html" title="Interface of the exception base class SDH::cSDHLibraryException and SDH::cMsg." alt="" coords="501,315,611,344"/>
+<area shape="rect" id="node13" href="$sdhlibrary__settings_8h.html" title="This file contains settings to make the SDHLibrary compile on differen systems:gcc/Cygwin/Windowsgcc/..." alt="" coords="717,392,859,421"/>
+<area shape="rect" id="node15" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="637,83,728,112"/>
+<area shape="rect" id="node45" href="$basisdef_8h.html" title="This file contains some basic definitions (defines, macros, datatypes)" alt="" coords="905,83,985,112"/>
+<area shape="rect" id="node21" href="$dbg_8h.html" title="This file contains interface and implementation of class SDH::cDBG, a class for colorfull debug messa..." alt="" coords="311,315,364,344"/>
+<area shape="rect" id="node35" href="$sdhbase_8h.html" title="Interface of class SDH::cSDHBase." alt="" coords="587,160,669,189"/>
+<area shape="rect" id="node41" href="$simplevector_8h.html" title="Interface of class SDH::cSimpleVector." alt="" coords="552,237,656,267"/>
+</map>

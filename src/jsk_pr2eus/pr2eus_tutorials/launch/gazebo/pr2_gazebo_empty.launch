@@ -1,0 +1,31 @@
+<launch>
+  <arg name="RUN_RVIZ" default="true" />
+  <arg name="LAUNCH_NAVI" default="true" />
+  <arg name="LAUNCH_BASE_CONTROLLER" default="true" />
+
+  <include file="$(find pr2_gazebo)/launch/pr2_empty_world.launch" />
+
+  <node if="$(arg RUN_RVIZ)"
+        pkg="rviz" name="pr2_rviz" type="rviz"
+        args="-d $(find pr2eus_tutorials)/config/pr2_planning.rviz" />
+
+  <include if="$(arg LAUNCH_NAVI)"
+           file="$(find pr2_2dnav)/pr2_2dnav.launch" />
+
+  <node if="$(arg LAUNCH_BASE_CONTROLLER)"
+        pkg="pr2_base_trajectory_action" type="pr2_base_trajectory_action"
+        name="joint_trajectory_action" ns="base_controller"
+        respawn="True" output="screen">
+    <rosparam command="load" file="$(find pr2_base_trajectory_action)/config/pr2_base_link.yaml"/>
+    <param name="goal_threshold" value="10.0" /> <!-- ignore goal error-->
+    <remap from="command" to="/navigation/cmd_vel"/>
+    <remap from="odom" to="/base_odometry/odom"/>
+  </node>
+
+  <node name="$(anon map_server00)" pkg="map_server" type="map_server"
+        args="$(find jsk_maps)/raw_maps/eng2-7f-0.05.yaml" >
+    <param name="frame_id" value="/eng2/7f"/>
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="$(anon map_tf01)"
+        args="  0.000   0.000   0.000 0 0 0 /eng2/7f /map 100" />
+</launch>

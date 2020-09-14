@@ -1,0 +1,20 @@
+<package>
+  <name>safe_teleop_base</name>
+  <version>0.0.3</version>
+  <description>
+     This package provides automatic collision avoidance and is intended to be used for safer teleoperation of a robot base.
+  </description>
+  <maintainer email="foo@foo.com">Charles DuHadway (maintained by Benjamin Pitzer)</maintainer>
+  <maintainer email="ros-orphaned-packages@googlegroups.com">ROS Orphaned Package Maintainers</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/safe_teleop_base</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>base_local_planner</build_depend>
+  <build_depend>costmap_2d</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>base_local_planner</run_depend>
+  <run_depend>costmap_2d</run_depend>
+</package>
+
+

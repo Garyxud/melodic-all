@@ -1,0 +1,35 @@
+<launch>
+
+  <!-- load log -->
+  <include file="$(find jsk_pcl_ros_utils)/sample/include/play_rosbag_shelf_bin.xml" />
+
+  <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
+
+  <node name="resize_points_publisher"
+        pkg="nodelet" type="nodelet"
+        args="standalone jsk_pcl/ResizePointsPublisher">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+    <remap from="~output" to="$(arg INPUT_CLOUD)/quarter" />
+    <rosparam>
+      step_x: 4
+      step_y: 4
+    </rosparam>
+  </node>
+
+  <node name="color_based_region_growing_segmentation_nodelet"
+        pkg="nodelet" type="nodelet"
+        args="standalone jsk_pcl/ColorBasedRegionGrowingSegmentation">
+    <remap from="~input" to="$(arg INPUT_CLOUD)/quarter" />
+  </node>
+
+  <test test-name="test_color_based_region_growing_segmentation"
+        name="test_color_based_region_growing_segmentation"
+        pkg="jsk_tools" type="test_topic_published.py"
+        time-limit="30" retry="6">
+    <rosparam>
+      topic_0: /color_based_region_growing_segmentation_nodelet/output
+      timeout_0: 30
+    </rosparam>
+  </test>
+
+</launch>

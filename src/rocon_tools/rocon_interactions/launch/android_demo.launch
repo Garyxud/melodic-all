@@ -1,0 +1,54 @@
+<!-- 
+   An example that loads up android interactions and lets you interact with
+   talker instances using the rocon remocon and an android app.
+
+   Usage:
+     - Install roscpp_tutorials(talker)
+     - Launch this launcher
+     - Call 'rocon_interactions' to view the loaded interactions.
+     - Install rocon remocon on your android
+     - Run 'rocon_remocon' to interact with the tutorial.
+-->
+<launch>
+  <!-- ****************************** Arguments ****************************** -->
+  <arg name="ros_master_name" default="Rocon Android Interactions"/>
+  <arg name="ros_master_description" default="A tutorial environment for android interactions and remocons."/>
+  <arg name="ros_master_icon" default="rocon_icons/cybernetic_pirate.png"/>
+  <arg name="rosbridge_port" default="8080"/>
+  <arg name="webserver_address" default="robotics-in-concert.github.io"/>
+
+  <!-- ****************************** Zeroconf ******************************* -->
+  <node ns="zeroconf" pkg="zeroconf_avahi" type="zeroconf" name="zeroconf">
+    <rosparam param="services" subst_value="true">
+        [ { name: "$(arg ros_master_name)", type: _ros-master._tcp, port: 11311, domain: local, description: "$(arg ros_master_description)" } ] 
+    </rosparam>
+  </node>
+
+  <!-- ****************************** Rosbridge ******************************* -->
+
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
+     <arg name="port" value="$(arg rosbridge_port)"/>
+  </include>
+
+  <!-- ***************************** Interactions ***************************** -->
+  <param name="name" value="$(arg ros_master_name)"/>
+  <param name="description" value="$(arg ros_master_description)"/>
+  <param name="icon" value="$(arg ros_master_icon)"/>
+  <node pkg="rocon_master_info" type="master.py" name="master"/>
+
+  <node pkg="rocon_interactions" type="interactions_manager.py" name="interactions">
+    <rosparam param="interactions">[rocon_interactions/android, rocon_interactions/web_apps, rocon_interactions/web]</rosparam>
+    <param name="rosbridge_port" value="$(arg rosbridge_port)"/>
+    <param name="webserver_address" value="$(arg webserver_address)"/>
+  </node>
+
+  <!-- ******************************* Programs ******************************* -->
+  <node pkg="roscpp_tutorials" type="talker" name="pc_talker">
+    <remap from="chatter" to="babbler"/>
+  </node>
+  <node pkg="roscpp_tutorials" type="listener" name="pc_listener">
+    <remap from="chatter" to="natter"/>
+  </node>
+
+</launch>
+

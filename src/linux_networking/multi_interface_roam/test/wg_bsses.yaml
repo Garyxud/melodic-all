@@ -1,0 +1,7 @@
+bsses:
+  - { name: btA,    ssid: blaise-test, freq: 5260, bssid: '00:25:9C:C4:D7:7F' }
+  - { name: btG,    ssid: blaise-test, freq: 2452, bssid: '00:25:9C:C4:D7:7E' }
+  - { name: wgA,    ssid: willow,      freq: 5805, bssid: '00:24:6C:81:D5:E8' }
+#  - { name: wgB,    ssid: willow,      freq: 2462, bssid: '00:24:6C:81:D5:E0' }
+#  - { name: wgAwpa, ssid: willow-wpa2, freq: 5805, bssid: '00:24:6C:81:D5:EA' }
+#  - { name: wgA2,   ssid: willow,      freq: 5745, bssid: '00:24:6C:82:24:88' }

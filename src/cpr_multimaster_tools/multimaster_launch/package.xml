@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>multimaster_launch</name>
+  <version>0.0.2</version>
+  <description>Multi-master bringup launch files for CPR platforms</description>
+
+  <maintainer email="pbovbel@clearpath.ai">Paul Bovbel</maintainer>
+  <maintainer email="tbaltovski@clearpathrobotics.com">Tony Baltovski</maintainer>
+
+  <license>BSD</license>
+
+  <author email="jcerruti@creativa77.com">Julian Cerruti</author>
+  <author email="gary@creativa77.com">Gary Servin</author>
+  <author email="pbovbel@clearpath.ai">Paul Bovbel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>clock_relay</exec_depend>
+  <exec_depend>master_discovery_fkie</exec_depend>
+  <exec_depend>master_sync_fkie</exec_depend>
+  <exec_depend>message_relay</exec_depend>
+  <exec_depend>tf2_relay</exec_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+  <export>
+  </export>
+</package>

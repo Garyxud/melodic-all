@@ -1,0 +1,4 @@
+- git:
+    local-name: quaternion_operation
+    uri: https://github.com/OUXT-Polaris/quaternion_operation.git
+    version: master

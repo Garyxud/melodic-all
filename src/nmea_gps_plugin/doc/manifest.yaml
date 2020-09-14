@@ -1,0 +1,24 @@
+actions: []
+authors: ''
+brief: ''
+bugtracker: ''
+depends:
+- geographic_msgs
+- catkin
+- roscpp
+- quaternion_operation
+- nmea_msgs
+- hector_gazebo_plugins
+- rosdoc_lite
+- geodesy
+- gazebo
+- gazebo_ros
+- eigen
+description: The nmea_gps_plugin package
+license: Apache 2
+maintainers: Masaya Kataoka <ms.kataoka@gmail.com>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''

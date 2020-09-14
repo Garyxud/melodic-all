@@ -1,0 +1,18 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$cancat_8cpp.html" title="Yet incomplete tool to send and receive data via CAN. See __help__ and online help (&quot;&#45;h&quot; or..." alt="" coords="5,83,128,112"/>
+<area shape="rect" id="node5" href="$demo-benchmark_8cpp.html" title="Simple script to benchmark communication speed of the SDH. See __help__ and online help (&quot;&#45;h&amp;quo..." alt="" coords="152,83,333,112"/>
+<area shape="rect" id="node7" href="$demo-contact-grasping_8cpp.html" title="Simple script to do grasping using tactile sensor info feedback. See __help__ and online help (&quot;..." alt="" coords="357,83,571,112"/>
+<area shape="rect" id="node9" href="$demo-dsa_8cpp.html" title="Simple program to test class cDSA. See __help__ and online help (&quot;&#45;h&quot; or &quot;&#45;&#45;help&quot;..." alt="" coords="595,83,733,112"/>
+<area shape="rect" id="node11" href="$demo-_get_axis_actual_angle_8cpp.html" title="Print measured actual axis angles of an attached SDH. (C++ demo application using the SDHLibrary&#45;CPP ..." alt="" coords="757,83,992,112"/>
+<area shape="rect" id="node13" href="$demo-_get_finger_x_y_z_8cpp.html" title="Print measured actual axis angles of an attached SDH. (C++ demo application using the SDHLibrary&#45;CPP ..." alt="" coords="1016,83,1213,112"/>
+<area shape="rect" id="node15" href="$demo-griphand_8cpp.html" title="Very simple demonstration program using the SDHLibrary&#45;CPP: Demonstrate the use of the GripHand comma..." alt="" coords="1237,83,1405,112"/>
+<area shape="rect" id="node17" href="$demo-mimic_8cpp.html" title="Print measured actual axis angles of an attached SDH. (C++ demo application using the SDHLibrary&#45;CPP ..." alt="" coords="1429,83,1584,112"/>
+<area shape="rect" id="node19" href="$demo-radians_8cpp.html" title="Very simple demonstration program using the SDHLibrary&#45;CPP: Make an attached SDH move one finger with..." alt="" coords="1608,83,1768,112"/>
+<area shape="rect" id="node21" href="$demo-simple-withtiming_8cpp.html" title="Very simple C++ programm to make an attached SDH move." alt="" coords="1792,83,2011,112"/>
+<area shape="rect" id="node23" href="$demo-simple_8cpp.html" title="Very simple demonstration program using the SDHLibrary&#45;CPP: Make an attached SDH move one finger with..." alt="" coords="2035,83,2192,112"/>
+<area shape="rect" id="node25" href="$demo-simple2_8cpp.html" title="Very simple C++ programm to make an attached SDH move. With non&#45;sequential call of move and Stop..." alt="" coords="2216,83,2379,112"/>
+<area shape="rect" id="node27" href="$demo-simple3_8cpp.html" title="Very simple C++ programm to make an attached SDH move. With non&#45;sequential call of move and WaitAxis..." alt="" coords="2403,83,2565,112"/>
+<area shape="rect" id="node29" href="$demo-temperature_8cpp.html" title="Print measured temperatures of an attached SDH. (C++ demo application using the SDHLibrary&#45;CPP librar..." alt="" coords="2589,83,2776,112"/>
+<area shape="rect" id="node31" href="$demo-velocity-acceleration_8cpp.html" title="Very simple demonstration program using the SDHLibrary&#45;CPP: Make an attached SDH move one finger in &amp;..." alt="" coords="2800,83,3035,112"/>
+<area shape="rect" id="node33" href="$sdhoptions_8cpp.html" title="Implementation of a class to parse common SDH related command line options." alt="" coords="3059,83,3205,112"/>
+</map>

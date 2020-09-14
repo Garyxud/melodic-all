@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>odva_ethernetip</name>
+  <version>0.1.4</version>
+  <description>Library implementing ODVA EtherNet/IP (Industrial Protocol).</description>
+
+  <license>BSD</license>
+  <maintainer email="mpurvis@clearpathrobotics.com">Mike Purvis</maintainer>
+  <author email="kareem@shehata.ca">Kareem Shehata</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>boost</depend>
+  <depend>libconsole-bridge-dev</depend>
+
+  <test_depend>rosunit</test_depend>
+</package>

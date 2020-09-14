@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fetch_drivers</name>
+  <version>0.8.8</version>
+  <description>
+    The public fetch_drivers package is a binary only release.
+
+    fetch_drivers contains both the drivers and firmware for the fetch and freight research robots.
+    There should be no reason to use these drivers unless you're running on a fetch or a freight research robot.
+    This package, is a cmake/make only package which installs the binaries for the drivers and firmware.
+  </description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag -->
+  <maintainer email="amoriarty@fetchrobotics.com">Alexander Moriarty</maintainer>
+  <maintainer email="opensource@fetchrobotics.com">Fetch Robotics Open Source Team</maintainer>
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <license>Proprietary</license>
+
+
+  <!-- Url tags are optional, but multiple are allowed, one per tag -->
+  <url type="website">https://wiki.ros.org/fetch_drivers</url>
+  <url type="docs">https://docs.fetchrobotics.com</url>
+  <url type="info">https://fetchrobotics.com/robotics-platforms/</url>
+
+
+  <!-- Author tags are optional, multiple are allowed, one per tag -->
+  <author email="amoriarty@fetchrobotics.com">Alexander Moriarty</author>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- mk and rospack are the only build time depend; it just pulls down a the compiled objects. -->
+  <build_depend>mk</build_depend>
+  <build_depend>rospack</build_depend>
+
+  <!-- system dependencies which the drivers dyanmically link against -->
+  <depend>boost</depend>
+  <depend>curl</depend>
+  <depend>python</depend>
+  <depend>yaml-cpp</depend>
+
+  <!-- ros msgs which the drivers depend on -->
+  <depend>actionlib_msgs</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>fetch_driver_msgs</depend>
+  <depend>fetch_auto_dock_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>power_msgs</depend>
+  <depend>robot_calibration_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+  <!-- ros dependencies which the drivers dynamically link against -->
+  <depend>actionlib</depend>
+  <depend>robot_controllers</depend>
+  <depend>robot_controllers_interface</depend>
+  <depend>rosconsole</depend>
+  <depend>roscpp_serialization</depend>
+  <depend>roscpp</depend>
+  <depend>rostime</depend>
+  <depend>urdf</depend>
+  <depend>liburdfdom-dev</depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>

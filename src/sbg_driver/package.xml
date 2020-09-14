@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>sbg_driver</name>
+  <version>2.0.2</version>
+  <description>The SBG ROS Driver package</description>
+  <maintainer email="erwan.cabon@sbg-systems.com">Erwan Cabon</maintainer>
+  <url>http://wiki.ros.org/sbg_driver</url>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  
+</package>

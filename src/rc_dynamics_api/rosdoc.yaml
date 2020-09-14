@@ -1,0 +1,6 @@
+- builder: doxygen
+  file_patterns: '*.c *.cpp *.h *.cc *.hh *.dox *.md'
+  exclude_patterns: '*/rc_dynamics_api/opt/* */rc_dynamics_api/rc_dynamics_msgs/*'
+  javadoc_autobrief: YES
+  tab_size: 2
+  use_mdfile_as_mainpage: README.md

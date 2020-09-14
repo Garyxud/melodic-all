@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ubnt_airos_tools</name>
+  <version>1.0.1</version>
+  <description>Ubiquiti AirOS tools for extracting AP information to ROS</description>
+
+  <author email="peckama2@fel.cvut.cz">Martin Pecka</author>
+  <maintainer email="peckama2@fel.cvut.cz">Martin Pecka</maintainer>
+
+  <license>BSD</license>
+
+  <url>https://github.com/peci1/ubnt_airos_tools</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_export_depend>message_runtime</build_export_depend>
+  <build_depend>message_runtime</build_depend>
+
+  <exec_depend>python-requests</exec_depend>
+  <exec_depend>rospy</exec_depend>
+
+  <depend>std_msgs</depend>
+</package>

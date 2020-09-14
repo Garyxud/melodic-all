@@ -1,0 +1,6 @@
+<launch>
+    <arg name="spin_freq" default="0.1"/>
+    <node pkg="rocon_python_comms" type="connection_cache.py" name="connection_cache">
+        <param name="spin_freq" value="$(arg spin_freq)"/>
+    </node>
+</launch>

@@ -1,0 +1,28 @@
+<package>
+  <name>rqt_runtime_monitor</name>
+  <version>0.5.7</version>
+  <description>rqt_runtime_monitor provides a GUI plugin viewing DiagnosticsArray messages.</description>
+  <maintainer email="ablasdel@gmail.com">Aaron Blasdel</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/rqt_runtime_monitor</url>
+  <url type="repository">https://github.com/ros-visualization/rqt_runtime_monitor</url>
+  <url type="bugtracker">https://github.com/ros-visualization/rqt_runtime_monitor/issues</url>
+
+  <author>Aaron Blasdel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>diagnostic_msgs</run_depend>
+  <run_depend version_gte="0.2.19">python_qt_binding</run_depend>
+  <run_depend>python-rospkg</run_depend>
+  <run_depend>qt_gui</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rqt_gui</run_depend>
+  <run_depend>rqt_gui_py</run_depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
+  </export>
+</package>

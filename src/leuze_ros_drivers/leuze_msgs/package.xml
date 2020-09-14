@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>leuze_msgs</name>
+  <version>1.0.1</version>
+  <description>Contains the specific leuze messages. </description>
+
+  <author email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</author>
+  <author email="harshavardhan.deshpande@ipa.fraunhofer.de">Harshavardhan Deshpande</author>
+  <author email="tejas.kumar.shastha@ipa.fraunhofer.de">Tejas Kumar Shastha</author>
+  <maintainer email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</maintainer>
+
+  <license>APACHE2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <export>
+
+  </export>
+</package>

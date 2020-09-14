@@ -1,0 +1,26 @@
+<package format="2">
+  <name>robot_activity_tutorials</name>
+  <version>0.1.1</version>
+  <description>The robot_activity_tutorials package</description>
+
+  <author email="maciej.zurad@gmail.com">Maciej ZURAD</author>
+  <maintainer email="maciej.zurad@gmail.com">Maciej ZURAD</maintainer>
+
+  <license>BSD</license>
+
+  <url>http://www.ros.org/wiki/robot_activity_tutorials</url>
+  <url type="bugtracker">https://github.com/snt-robotics/robot_activity/issues</url>
+  <url type="repository">https://github.com/snt-robotics/robot_activity</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roslint</build_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_srvs</depend>
+  <depend>robot_activity</depend>
+
+  <export>
+  </export>
+
+</package>

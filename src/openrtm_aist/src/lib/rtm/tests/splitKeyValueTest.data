@@ -1,0 +1,44 @@
+test:C:\TEST\test
+test
+C:\TEST\test
+
+
+--------------------テスト済みデータ-------------
+(1) key":"valueのテスト  ---> OK.
+test:C:\TEST\test
+test
+C:\TEST\test
+
+(2) strに"test	"を使用  ---> OK.
+test	
+test
+
+
+(3) keyだけを与えた場合 ---> OK.
+test
+test
+
+
+(4) key"="valueのテスト ---> OK. 
+test = C:\Test\test
+test 
+ C:\Test\test
+
+(5) key,valueを与えない場合。 ---> OK? エラーはでない。
+
+
+
+
+
+------------- usage ------------------------------------
+#splitKeyValue()テストのためのデータセット
+
+splitKeyValue(str, key, value)
+
+1行目: str
+2行目: key
+3行目: value
+がそれぞれ、代入される。
+
+4行目以降の文字列は使用されない。
+--------------------------------------------------------

@@ -1,0 +1,367 @@
+============================================================
+ OpenRTM-aist-0.4.0 のソースからのインストール
+============================================================
+
+このドキュメントでは、OpenRTM-aist-0.4.0 をソースからビルドしインストールする
+手順を説明します。この手順に従ってインストールを行ってください。
+
+
+------------------------------------------------------------
+ UNIX系システムでのビルドとインストール
+------------------------------------------------------------
+
+1. 対応OSおよびディストリビューション
+OpenRTM-aist-0.4.0 は下記の OS および Linux ディストリビューションで動作
+することが確認されています。
+
+- FreeBSD-5.2
+- FreeBSD-6.0
+- FreeBSD-6.2
+- Vine Linux 3.2
+- Vine Linux 4.0
+- Fedora Core 4
+- Fedora Core 5
+- Fedora Core 6
+- Debian3.1(Sarge)
+- Ubuntu Linux 7
+
+2. 動作条件
+OpenRTM-aist-0.4.0 のインストールには下記のパッケージが必要です。
+
+[1] The ADAPTIVE Communication Environment (ACE) 5.4 以上
+[2] ORB
+    現在のところ対応ORB実装は omniORB-4.0 以上のみとなっています。
+[3] gcc は version3 以降が望ましい。gcc2.95.x でもコンパイル可能ですが、
+    オプションを指定する必要があります。(下記参照)
+
+
+なお、下記の OS 及び Linux ディストリビューションについては、これらのパッケージ
+をインストールするためのスクリプトが build ディレクトリの下にあります。
+
+- FreeBSD 5.2: pkg_install_freebsd52.sh
+- FreeBSD 6.x: pkg_install_freebsd6.sh
+- Vine Linux 3.2: pkg_install_vl32.sh
+- Vine Linux 4.0: pkg_install_vl4.sh
+- Fedora Core 4: pkg_install_fc4.sh
+- Fedora Core 5: pkg_install_fc5.sh
+- Fedora Core 6: pkg_install_fc6.sh
+- Debian3.1(Sarge): pkg_install_debianSarge.sh
+
+※ FreeBSD, Debian, Ubuntu Linux は、ACE および omniORB が OS 標準のパッケージ
+   として提供されていますので、各 OS 付属のパッケージインストールツールを用いて
+   手動でインストールすることもできます。
+
+上記以外のOSにおいては、それぞれのパッケージのドキュメントに従いインストールを
+行ってください。これらのパッケージが、標準のディレクトリ (/usr, /usr/local 等)
+ 下にインストールされていると、以降の OpenRTM-aist のコンパイル作業を比較的
+簡単に行うことができます。
+
+3. ソースコードの展開
+まずソースコード OpenRTM-aist-0.4.0.tar.gz を適当なディレクトリに展開します。
+
+> tar xvzf OpenRTM-aist-0.4.0.tar.gz
+> cd OpenRTM-aist-0.4.0
+
+4. ビルド
+OpenRTM-aist はパッケージのビルドに autoconf, automake を使用しています。
+ビルドの仕方は、他の autoconf, automake を使用したパッケージと同様に行います。
+
+> ./configure [options]
+
+./configureに与えることのできるオプションの一部を以下に示します。
+
+<<使用するORB>>
+※現在はomniORBしかサポートされていません。他のオプションは将来のために予約され
+ています。
+
+  --with-omniorb=dir
+  --with-tao=dir
+  --with-mico=dir
+  --with-orbix=dir
+  --with-orbacus=dir
+
+
+<<生成するラッパーモジュールの種類の指定>>
+OpenRTM-aist-0.4.0 でサポートされていたPython用のラッパーモジュールは、
+OpenRTM-aist-0.4.0 ではサポートされなくなりました。
+
+<<gcc3.x以前のコンパイラ（gcc2.95.x等）を使用する場合>>
+バージョン3未満のgccではテンプレートのコンパイルで不具合が生じますので、
+gcc2.95.xなどのコンパイラを使用する場合は、以下のオプションを指定してください。
+
+  --with-gcc2
+
+<<ACEinclude パス, lib パス>>
+ACE が標準的なディレクトリにインスト一ルされていない場合以下のオプションでへッダ
+とライブラリのディレクトリを指定して下さい。
+
+  --with-ace-includes=dir
+  --with-ace-lib=dir
+
+ACE_wrppersが仮に "/tmp/src/ACE_wrappers" 以下にインストールされている場合
+
+  --with-ace-include=/tmp/src/ACE_wrappers
+  --with-ace-libs=/tmp/src/ACE_wrappers/ace
+
+のように指定します。
+
+<<その他>>
+その他使用可能なオプションは
+
+> ./configure --help
+
+で参照して下さい。
+
+5. make
+configure が正常に終了したことを確認して下さい。正常に終了したらmakeします。
+
+> make
+
+インストールするためには少なくとも
+
+  OpenRTM-aist-0.4.0/rtm
+  OpenRTM-aist-0.4.0/rtm/idl
+  OpenRTM-aist-0.4.0/util/rtm-config
+  OpenRTM-aist-0.4.0/util/rtm-naming
+  OpenRTM-aist-0.4.0/util/rtc-template
+
+以下のディレクトリが正常にビルドされている必要があります。ビルドが正常に終了し
+たら、ヘッダファイル、ライブラリ、ユーティリティコマンド群をインストールします。
+
+------------------------------------------------------------
+> su
+# make install
+------------------------------------------------------------
+
+6. サンプルのテスト
+インストールが正常に終了したら、example/SimpleIO 以下のサンプルでテストします。
+
+------------------------------------------------------------
+> cd examples/SimpleIO/
+> run.sh
+------------------------------------------------------------
+
+はじめにターミナル画面が2つ開き、数秒後にもうひとつ開きます。
+3つ目のターミナル画面が開くまで、必ず待ってください。
+ウインドウタイトルに ConsoleIn とある方で数字を打ち込みます。入力する数字は、
+short int に収まる範囲の数値を入力してください。数字を打ち込むと、ConsoleOut
+とウインドウタイトルのある方から、入力したのと同じ数字と時刻 (sec:nsecのフォー
+マットになっている)が現れます。
+ここまでできれば、ライブラリ (libRTC.so) が正しくビルドされていることがわかりま
+す。
+
+7. コンポーネントテンプレートのテスト
+次に、コンポーネントのテンプレートジェネレータを使用して、簡単なコンポーネント
+を作成するテストを行います。テンプレートジェネレータ (rtc-template) を使用しま
+す。コンポーネントを作成するデイレクトリ(任意のディレクトリで結構です。)
+を作成して、そこでコンポーネントを作成しコンパイルしてみます。
+
+------------------------------------------------------------
+> cd 
+> mkdir SampleComponent
+> cd SampleComponent
+------------------------------------------------------------
+
+まずはhelpを見てみます。
+
+------------------------------------------------------------
+> rtc-template --help
+
+Usage: rtc-template [OPTIONS]
+
+Options:
+
+    [-h]                                  Print short help.
+    [--help]                              Print details help.
+    [--backend[=backend] or -b]           Specify template code generator.
+    [--module-name[=name]]                Your module name.
+    [--module-desc[=description]]         Module description.
+    [--module-version[=version]]          Module version.
+    [--module-vendor[=vendor]]            Module vendor.
+    [--module-category[=category]]        Module category.
+    [--module-comp-type[=component_type]] Component type.
+    [--module-act-type[=activity_type]]   Component's activity type.
+    [--module-max-inst[=max_instance]]    Number of maximum instance.
+    [--module-lang[=language]]            Language.
+    [--config[=ParamName:Type:Default]]   Configuration variable.
+    [--inport[=PortName:Type]]            InPort's name and type.
+    [--outport[=PortName:Type]]           OutPort's name and type
+    [--service[=PortName:Name:Type]]      Service Provider Port
+    [--service-idl[=IDL_file]]            IDL file name for service
+    [--consumer[=PortName:Name:Type]]     Service Consumer Port
+    [--consumer-idl[=IDL_file]]           IDL file name for consumer
+    [--idl-include=[path]]                Search path for IDL compile
+       :
+     中略
+       :
+Example:
+    rtc-template -bcxx \
+    --module-name=Sample --module-desc='Sample component' \
+    --module-version=0.1 --module-vendor=AIST --module-category=Generic \
+    --module-comp-type=DataFlowComponent --module-act-type=SPORADIC \
+    --module-max-inst=10  \
+    --config=int_param0:int:0 --config=int_param1:int:1 \
+    --config=double_param0:double:3.14 --config=double_param1:double:9.99 \
+    --config="str_param0:std::string:hoge" \
+    --config="str_param1:std::string:foo" \
+    --inport=Ref:TimedFloat --inport=Sens:TimedFloat \
+    --outport=Ctrl:TimedDouble --outport=Monitor:TimedShort \
+    --service=MySvcPort:myservice0:MyService \
+    --consumer=YourSvcPort:yourservice0:YourService \
+    --service-idl=MyService.idl --consumer-idl=YourService.idl
+------------------------------------------------------------
+
+rtc-template に対して作成したいコンポーネントの設定を引数として渡すと、
+コンポーネントの雛形を作成します。ここでは、help の表示の最後に表示された
+ "Example:" 以下をコピーして試してみます。
+
+"Example" の例では、サービスプロバイダとして MyService、サービスコンシューマ
+として YourService を利用するオプションが与えられており、そのためのIDL
+ファイルをカレントディレクトリにおいておく必要があります。
+ここでは、簡単なIDLファイルを以下のように作成しておきます。
+
+MyService.idl
+------------------------------------------------------------
+interface MyService
+{
+  void echo();
+};
+------------------------------------------------------------
+
+YourService.idl
+------------------------------------------------------------
+interface YourService
+{
+   void echo();
+};
+------------------------------------------------------------
+
+これらのファイルを作成したら、"Example" の例をコピー＆ペーストするなどして、
+コマンドとして入力します。
+
+------------------------------------------------------------
+> rtc-template -bcxx \
+    --module-name=Sample --module-desc='Sample component' \
+    --module-version=0.1 --module-vendor=AIST --module-category=Generic \
+    --module-comp-type=DataFlowComponent --module-act-type=SPORADIC \
+    --module-max-inst=10  \
+    --config=int_param0:int:0 --config=int_param1:int:1 \
+    --config=double_param0:double:3.14 --config=double_param1:double:9.99 \
+    --config="str_param0:std::string:hoge" \
+    --config="str_param1:std::string:foo" \
+    --inport=Ref:TimedFloat --inport=Sens:TimedFloat \
+    --outport=Ctrl:TimedDouble --outport=Monitor:TimedShort \
+    --service=MySvcPort:myservice0:MyService \
+    --consumer=YourSvcPort:yourservice0:YourService \
+    --service-idl=MyService.idl --consumer-idl=YourService.idl
+  File "MyServiceSVC_impl.h" was generated.
+  File "MyServiceSVC_impl.cpp" was generated.
+  File "Sample.h" was generated.
+  File "Sample.cpp" was generated.
+  File "SampleComp.cpp" was generated.
+  File "Makefile.Sample" was generated.
+  File "README.Sample" was generated.
+> ls
+Makefile.Sample         MyServiceSVC_impl.h     Sample.h
+MyService.idl           README.Sample           SampleComp.cpp
+MyServiceSVC_impl.cpp   Sample.cpp              YourService.idl
+------------------------------------------------------------
+
+このように、コンポーネントのC++のコード、サービスの実装コード、およびMakefile
+が作成されます。ここで、
+
+> make -f Makefile.Sample
+もしくは
+> mv Makefile.Sample Makefile
+> make
+
+として make します。
+
+------------------------------------------------------------
+> make -f Makefile.Sample
+     :
+    中略
+     :
+c++ -o SampleComp Sample.o MyServiceSkel.o      YourServiceStub.o
+ MyServiceSVC_impl.o SampleComp.o `rtm-config --libs`
+> ls
+Makefile.Sample         MyServiceSkel.o         SampleComp.o
+MyService.hh            MyServiceStub.cpp       YourService.hh
+MyService.idl           MyServiceStub.h         YourService.idl
+MyServiceDynSK.cc       README.Sample           YourServiceDynSK.cc
+MyServiceSK.cc          Sample.cpp              YourServiceSK.cc
+MyServiceSVC_impl.cpp   Sample.h                YourServiceSkel.cpp
+MyServiceSVC_impl.h     Sample.o                YourServiceSkel.h
+MyServiceSVC_impl.o     Sample.so*              YourServiceStub.cpp
+MyServiceSkel.cpp       SampleComp*             YourServiceStub.h
+MyServiceSkel.h         SampleComp.cpp          YourServiceStub.o
+------------------------------------------------------------
+これで、ローダブルモジュール版のコンポーネント(Sample.so)と実行形式のコンポーネ
+ント(SampleComp)が作成されました。
+ここで、実行形式のコンポーネントを実行してみます。
+コンポーネントの実行にはコンフィギュレーションファイル(通常は rtc.conf という
+名前)が必要です。
+ここでは、簡易版のものをカレントディレクトリに作成します。
+
+rtc.conf
+------------------------------------------------------------
+corba.nameservers: ネームサーバ名:ポート番号
+naming_formats: %n.rtc
+logger.log_level: PARANOID
+------------------------------------------------------------
+ここで、仮にホスト名：rtm.or.jp ポート番号はデフォルトとします。
+
+rtc.conf
+------------------------------------------------------------
+corba.nameservers: rtm.or.jp
+naming_formats: %n.rtc
+logger.log_level: PARANOID
+------------------------------------------------------------
+次に、CORBA のネーミングサービスを起動します。CORBAのネーミングサービスは、
+
+> rtm-naming [ポート番号]
+
+で起動できますので、先ほどrtc.conf で指定したポート番号を指定して起動して
+ください。何も指定しなければデフォルトポートを使用します。
+
+------------------------------------------------------------
+> rtm-naming
+Starting omniORB omniNames: rtm:2809
+n-ando@rtm:/tmp/SampleComponent> 
+Fri Apr 27 03:53:09 2007:
+
+Starting omniNames for the first time.
+Wrote initial log file.
+Read log file successfully.
+Root context is IOR:010000002b00000049444c3a6f6d672e6f72672f436f734e616d696e672
+f4e616d696e67436f6e746578744578743a312e300000010000000000000060000000010102000e
+0000003135302e32392e39362e31363900611e0b0000004e616d655365727669636500020000000
+0000000080000000100000000545441010000001c00000001000000010001000100000001000105
+090101000100000009010100
+Checkpointing Phase 1: Prepare.
+Checkpointing Phase 2: Commit.
+Checkpointing completed.
+
+------------------------------------------------------------
+次に、コンポーネントを起動します。
+
+------------------------------------------------------------
+> SampleComp -f rtc.conf
+もしくは
+> SampleComp (デフォルトでカレントディレクトリのrtc.confを読み込む)
+------------------------------------------------------------
+これで、コンポーネントが起動でき、RtcLinkで
+- InPortを2つ
+- OutPortを2つ
+- サービスポートを2つ
+- コンフィギュレーションを6個
+持つコンポーネントが表示されれば、OpenRTM-aist-0.2.0が正常にインストール
+されたことになります。
+
+具体的なコンポーネントの作成の仕方は、マニュアルを参照してください。
+
+------------------------------------------------------------
+ Windows系システムでのビルドとインストール
+------------------------------------------------------------
+今後リリースされる予定。
+

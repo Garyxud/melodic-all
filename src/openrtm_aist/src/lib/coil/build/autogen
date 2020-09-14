@@ -1,0 +1,203 @@
+#!/bin/sh
+#
+# @file autogen
+# @brief script for setingup build environment
+# @date $Date: 2007-01-06 18:08:52 $
+# @author Noriaki Ando <n-ando@aist.go.jp>
+#
+# Copyright (C) 2003-2006
+#     Noriaki Ando
+#     Task-intelligence Research Group,
+#     Intelligent Systems Research Institute,
+#     National Institute of
+#         Advanced Industrial Science and Technology (AIST), Japan
+#     All rights reserved.
+#
+# $Id: autogen 775 2008-07-28 16:14:45Z n-ando $
+#
+
+#
+# autogen [--clean] [--prepare]
+#
+# --clean  : delete all automatically generated file
+# --prepare: copy necessary files to build
+#
+
+prefix="/usr/local/bin/"
+am_ver="19"
+am_ver2="-1.9"
+
+ac_ver="259"
+ac_ver2="-2.59"
+
+lt_ver="15"
+lt_ver2="-1.5"
+
+am_autogen="aclocal.m4 config.guess config.sub missing install-sh" 
+#lt_autogen="ltmain.sh"
+other_gen="autom4te.cache configure libtool.m4 *.log configure.scan config.status libtool depcomp configure.lineno"
+
+#------------------------------------------------------------
+# find_cmd(): find command by "which"
+#
+# @param  $1          file names
+# @return ${cmd_path} full path of the command
+find_cmd()
+{
+    for cmd in $1 ; do
+	cmd_path=`which ${cmd} 2> /dev/null`
+	if [ "x$cmd_path" != "x" ] ; then
+	    break
+	fi
+    done
+    if [ "x$cmd_path" = "x" ] ; then
+	echo "commands were not found: $1"
+	exit
+    fi
+}
+#------------------------------------------------------------
+# find_file(): find file by given path list and given file names
+#
+# @param $1            path list
+# @param $2            file name list
+# @return ${file_path} full path of the found file 
+find_file()
+{
+    for path in $1 ; do
+	for cmd in $2 ; do
+	    if [ -f ${path}/${cmd} ] ; then
+		file_path=${path}/${cmd}
+		echo "file was found: ${file_path}"
+		return
+	    fi
+	done
+    done
+    if [ "x$file_path" = "x" ] ; then
+	echo "file was not found."
+	exit
+    fi
+}
+
+delete_autogen_files()
+{
+# Delete automatically generated files
+    rm -rf ${am_autogen} ${lt_autogen} ${other_gen}
+}
+
+find_autotools()
+{
+    echo "------------------------------------------------------------"
+    echo " Searching Autotools"
+    echo "------------------------------------------------------------"
+    #============================================================
+    # find autoconf family commands
+
+    # autoconf
+    find_cmd "autoconf${ac_ver} autoconf${ac_ver2} autoconf"
+    ac_cmd=${cmd_path}
+
+    # autoheader
+    find_cmd "autoheader${ac_ver} autoheader${ac_ver2} autoheader"
+    ah_cmd=${cmd_path}
+
+    # autom4te
+    find_cmd "autom4te${ac_ver} autom4te${ac_ver2} autom4te"
+    am4_cmd=${cmd_path}
+
+    # autoreconf
+    find_cmd "autoreconf${ac_ver} autoreconf${ac_ver2} autoreconf"
+    ar_cmd=${cmd_path}
+
+    # autoupdate
+    find_cmd "autoupdate${ac_ver} autoupdate${ac_ver2} autoupdate autoupdates"
+    aup_cmd=${cmd_path}
+
+    #============================================================
+    # find automake
+    find_cmd "automake${am_ver} automake${am_ver2} automake"
+    am_cmd=${cmd_path}
+
+    # aclocal
+    find_cmd "aclocal${am_ver} aclocal${am_ver2} aclocal"
+    al_cmd=${cmd_path}
+
+    #============================================================
+    # find libtool
+    find_cmd "libtool${lt_ver} libtool${lt_ver2} libtool"
+    lt_cmd=${cmd_path}
+    # libtoolize
+    find_cmd "libtoolize${lt_ver} libtoolize${lt_ver2} libtoolize"
+    ltz_cmd=${cmd_path}
+
+    echo "autoconf   was found in ${ac_cmd}."
+    echo "autoheader was found in ${ah_cmd}."
+    echo "autom4te   was found in ${am4_cmd}."
+    echo "autoreconf was found in ${ar_cmd}."
+    echo "autoupdate was found in ${aup_cmd}."
+    echo "automake   was found in ${am_cmd}."
+    echo "aclocal    was found in ${al_cmd}."
+    echo "libtool    was found in ${lt_cmd}."
+    echo "libtoolize was found in ${ltz_cmd}."
+    echo ""
+    export AUTOCONF=${ac_cmd}
+    export AUTOHEADER=${ah_cmd}
+    export AUTOM4TE=${am4_cmd}
+    export AUTORECONF=${ar_cmd}
+    export AUTOUPDATE=${aup_cmd}
+    export AUTOMAKE=${am_cmd}
+    export ACLOCAL=${al_cmd}
+    export LIBTOOL=${lt_cmd}
+    export LIBTOOLIZE=${ltz_cmd}
+    echo ""
+}
+
+do_prepare()
+{
+    echo "------------------------------------------------------------"
+    echo " Searching libtool.m4"
+    echo "------------------------------------------------------------"
+    find_file "/usr/local/share/aclocal /usr/local/share/aclocal${ac_ver} 
+               /usr/local/share/aclocal${ac_ver2}
+               /usr/share/aclocal /usr/share/aclocal${ac_ver} 
+               /usr/share/aclocal${ac_ver2}" \
+	"libtool.m4 libtool${lt_ver}.m4 libtool${lt_ver2}.m4 
+         libtool${ac_ver}.m4 libtool${ac_ver2}.m4"
+    libtool_m4=${file_path}
+    echo ""
+
+    echo " Copying libtool.m4 from ${libtool_m4}"
+    cp -f ${libtool_m4} libtool.m4
+    echo ""
+}
+
+
+do_autoreconf()
+{
+    echo "------------------------------------------------------------"
+    echo " Doing autoreconf"
+    echo "------------------------------------------------------------"
+    ${ar_cmd} --install --force -v
+    echo "done"
+    echo ""
+}
+
+
+if [ "x$1" = "x--clean" ]; then
+    delete_autogen_files
+    exit
+fi
+
+if [ "x$1" = "x--prepare" ]; then
+    do_prepare
+    exit
+fi
+
+echo ""
+echo "Setting up environment to generate configure script."
+echo ""
+
+
+find_autotools
+delete_autogen_files
+do_prepare
+do_autoreconf

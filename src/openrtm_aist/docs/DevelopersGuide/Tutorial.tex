@@ -1,0 +1,608 @@
+% -*- LaTeX -*-
+%
+% @file Tutorial.tex
+% @brief OpenRTM-aist developers guide [Tutorial]
+% @date $Date: 2005-05-12 09:06:21 $
+% @author Noriaki Ando <n-ando@aist.go.jp>
+%
+% Copyright (C) 2003-2005
+%     Task-intelligence Research Group,
+%     Intelligent Systems Research Institute,
+%     National Institute of
+%         Advanced Industrial Science and Technology (AIST), Japan
+%     All rights reserved.
+%
+% $Id$
+%
+
+\chapter{RTコンポーネント入門}
+
+\section{OpenRTM\--aist のインストール}
+ここからは、OpenRTM\--aist をソースからビルドしインストールする手順を説明します。
+自分でソースからビルドしてインストールする場合には、以下の手順に従ってインストールを行ってください。
+パッケージを利用する場合には読み飛ばしても構いません。
+
+
+
+\section{UNIX系システムでのビルドとインストール}
+
+\subsection{動作条件}
+OpenRTM\--aist のインストールには下記のパッケージが必要です。各パッケージのインストールは、それぞれのドキュメントに従って行ってください。
+なお、簡単なインストール方法については巻末の付録~\ref{chap:pkg_install} 「依存パッケージ類のビルドについて」にて説明していますので参照してください。
+
+\begin{tab}{● 依存パッケージ一覧}
+\begin{tabular}{lp{120mm}}
+\bf ACE & The ADAPTIVE Communication Environment (ACE) 5.4 以上 \\
+    &  URL: \verb|http://www.cs.wustl.edu/~schmidt/ACE.html| \\
+\bf boost & boost C++ ライブラリ 1.30 以上 \\
+    &  URL: \verb|http://www.boost.org/| \\
+\bf ORB & 現在のところ対応ORB実装は omniORB-4.0 以上のみとなっています。\\
+    & omniORB -- URL: \verb|http://omniorb.sourceforge.net/|\\
+\bf Python & Python 2.2 以上。Pythonでコンポーネントを開発する場合には、Pythonの開発環境も必要になります。\\
+    & URL: \verb|http://www.python.org/| \\
+\bf gcc & gcc は version3 以降が望ましい。gcc2.95.x でもコンパイル可能ですが、
+    オプションを指定する必要があります。(下記参照) \\
+    & URL: \verb|http://gcc.gnu.org/| \\
+\end{tabular}
+\end{tab}
+
+これらのパッケージが、システムの標準的なディレクトリ (\verb|/usr, /usr/local| 等) 下に正しくインストールされていると、OpenRTM\--aist のコンパイルおよびインストール作業がよりスムーズにできるでしょう。
+標準のディレクトリとは、コマンド、ヘッダ、ライブラリそれぞれのインストールが下記のディレクトリにされているということです。
+
+\newpage
+
+\begin{tab}{● 標準インストールディレクトリ}
+\begin{tabular}{lp{120mm}}
+\bf コマンド & \verb|/usr/bin, /usr/local/bin| \\
+\bf ヘッダ & \verb|/usr/include/|{\it package\_name}, \verb|/usr/local/include/|{\it package\_name} \\
+\bf ライブラリ & \verb|/usr/lib|, \verb|/usr/local/lib| \\
+\end{tabular}
+\end{tab}
+%
+
+最近の Linux では各ディストリビューションの標準パッケージ類が、\verb+/usr/+ 以下の \verb+[bin|include|lib]+ に、それ以外の UNIX 系 OS では \verb+/usr/local/+ あるいは \verb+/opt+ 以下の \verb+[bin|include|lib]+ の下にインストールされていることが多いとおもいます。
+OpenRTM\--aist は autoconf, automake を使用してビルドされるので、上記以外の場所に依存しているパッケージがインストールされている場合でもビルド可能ですが、あまり推奨されません。
+後々の面倒を避けるためにも、標準的なディレクトリに各種パッケージをインストールしておくことをお勧めします。
+
+また、debian GNU Linux や RedHat/Fedora などのディストリビューションでは、上記の依存パッケージ類はすでに deb パッケージや、rpm パッケージ化されているので、それらをインストールするほうがよいでしょう。
+
+\begin{tab}{● 依存パッケージの入手先}
+\begin{tabular}{lp{120mm}}
+debian GNU Linux & \verb|http://www.debian.org/distrib/packages| を参照 \\
+&ace -- ○, boost -- ○, omniORB -- ○, Python -- ○ \\
+RedHat/Fedora 系 & \verb|http://rpmfind.net/| を参照 \\
+&ace -- ○, boost -- ○, omniORB -- ○, Python -- ○ \\
+Vine Linux & \verb|http://vinelinux.org/| を参照 \\
+&ace -- ×, boost -- ×, omniORB -- ×, Python -- ○ \\
+FreeBSD & \verb|http://www.freebsd.org| を参照 \\
+&ace -- ○, boost -- ○, omniORB -- ○, Python -- ○ \\
+\end{tabular}
+\end{tab}
+
+Vine Linux 用 ace, boost, omniORB ( + omniORBpy)  については、産総研で用意していますので、OpenRTM\--aist の Web ページ (\verb|http://www.is.aist.go.jp/rt/|) を参照して下さい。
+
+\subsection{ソースコードの展開}
+まずソースコード OpenRTM-aist-0.2.0.tar.gz を適当なディレクトリに展開します。
+自分のホームディレクトリでも構いませんし、ソースビルド用ディレクトリがあればそこで行っても構いません。
+
+ただし、一般的にこれ以後の作業はインストール作業を除いて、一般ユーザ (root以外) として行ったほうがよいでしょう。
+
+\newpage
+
+\begin{cmd}
+\begin{verbatim}
+> tar xvzf OpenRTM-aist-0.2.0.tar.gz
+> cd OpenRTM-aist-0.2.0
+\end{verbatim}
+\end{cmd}
+
+
+\subsection{ビルド}
+OpenRTM\--aist はパッケージのビルドに autoconf, automake を使用していますので、ビルドは、他の autoconf, automake を使用したパッケージと同様に行うことができます。
+ただし、ORBを指定するオプションは必須ですので必ず指定してください。
+
+\begin{cmd}
+\begin{verbatim}
+> ./configure [options]
+\end{verbatim}
+\end{cmd}
+
+\verb|./configure| に与えることのできるオプションの一部を以下に示します。
+
+\subsubsection{使用する ORB の指定}
+※現在はomniORBしかサポートされていません。他のオプションは将来のために予約され
+ています。
+追加オプションとしてORBがインストールされているディレクトリを \verb|=dir| の部分に指定することができます。
+\begin{tab}{● ORBの選択オプション}
+\begin{tabular}{lp{100mm}}
+\verb|--with-omniorb=dir| & ORB に omniORB を使用します。\\
+\verb|--with-tao=dir|     & ORB に TAO を使用します。\\
+\verb|--with-mico=dir|    & ORB に MICO を使用します。\\
+\verb|--with-orbix=dir|   & ORB に Orbix/E を使用します。\\
+\verb|--with-orbacus=dir| & ORB に ORBacus を使用します。
+\end{tabular}
+\end{tab}
+
+
+%\subsubsection{生成するラッパーモジュールの種類の指定}
+\subsubsection{サポートする言語の指定}
+OpenRTM\--aist でのコンポーネント開発は、C++言語での開発を前提としています。
+現在のところ、他にサポートする言語は、スクリプト言語である Python のみサポートしています。
+Python での開発を行う場合は、オプションを指定する必要があります。
+%スクリプト言語用のラッパーモジュールの生成するかどうかを指定します。
+%現在のところ、生成できるスクリプト言語用のラッパーモジュールは Python 用のみサポートしています。
+これを指定した場合は Python の開発環境がシステムにインストールされていなければなりません。
+また、Python のバージョンは2.2以上である必要があります。
+
+Python が標準的なディレクトリ以外にインストールされている場合は \verb|=dir| にインストール先のディレクトリを指定してください。
+ディレクトリの指定の仕方は \verb|Python.h| が {\it python\_dir}\verb|/python2.x/Python.h| にある場合、\verb|--with-python=|{\it python\_dir} のように指定します。
+\begin{tab}{● サポートする言語の選択オプション}
+\begin{tabular}{lp{100mm}}
+\verb|--with-python=dir| & Python言語のインターフェースを提供します。
+\end{tabular}\vspace{-5mm}
+\end{tab}
+
+
+
+\subsubsection{gcc3.x以前のコンパイラ（gcc2.95.x等）を使用する場合}
+最近まで使用されていた gcc-2.95.x など、バージョン 3 未満の gcc ではテンプレート・クラスのインスタンス生成の深さが深すぎる場合にコンパイルエラーになる場合があります。
+このため、これを回避するオプション (\verb|-ftemplate-depth-n|)を指定してこれを回避しなければなりません。
+gcc-2.95.x などのコンパイラを使用する場合は、以下のオプションを指定することでこのコンパイラオプションを自動的についかします。
+
+\begin{tab}{● コンパイラの選択オプション}
+\begin{tabular}{lp{100mm}}
+\verb|--with-gcc2| & コンパイラに gcc-2.x を使用する。
+\end{tabular}
+\end{tab}
+
+\subsubsection{ACE include パス, lib パス}
+ACE が標準的なディレクトリにインスト一ルされていない場合以下のオプションでへッダ
+とライブラリのディレクトリを指定して下さい。
+
+\begin{tab}{● ACEヘッダライブラリディレクトリ指定オプション}
+\begin{tabular}{lp{100mm}}
+\verb|--with-ace-includes=dir| & ACE のヘッダディレクトリを指定します。\\
+\verb|--with-ace-lib=dir|      & ACE のライブリディレクトリを指定します。\\
+\end{tabular}
+\end{tab}
+
+ACEはソースコードのアーカイブを展開すると \verb|ACE_wrappers| というディレクトリを作成します。
+ヘッダ及びライブラリはどちらもは \verb|ACE_wrappers/ace| 以下に展開、または作成されます。
+\verb|ACE_wrppers| が仮に \verb|/tmp/src/ACE_wrappers| にある場合、以下のように指定します。
+
+\begin{cmd}
+\begin{verbatim}
+./configure ... --with-ace-include=/tmp/src/ACE_wrappers \
+                --with-ace-libs=/tmp/src/ACE_wrappers/ace ...
+\end{verbatim}
+\end{cmd}
+
+ここで、注意が必要なのは、ACEのヘッダ群は \verb|#include "ace/ACE.h"| というようにサブディレクトリ\verb|ace| を仮定して参照するため、\verb|/tmp/src/ACE_wrappers| を指定しなければならないということです。
+これに対して、ライブラリディレクトリはライブラリがあるディレクトリを直接指定、つまり \verb|/tmp/src/ACE_wrappers/ace|を指定する必要があるということです。
+
+\subsubsection{その他}
+その他使用可能なオプションは\verb|--help|オプションで参照して下さい。
+
+\begin{cmd}
+\begin{verbatim}
+> ./configure --help
+\end{verbatim}
+\end{cmd}
+
+
+\subsection{configure, make}
+システムの環境に適したオプションを指定して、\verb|configure| を下のように実行します。
+最後に、どのようなコンパイルオプションが指定されるかが表示され、Makefile, ヘッダ、依存関係のファイルを生成して終了します。
+\verb|configure| を行った後は \verb|configure| が正常に終了したことを確認して下さい。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> ./configure --with-omniorb --with-python
+        :(中略)
+------------------------------------------------------------
+
+  OpenRTM-aist will be compiled with the following environment. 
+
+------------------------------------------------------------
+CXX: g++
+CPPFLAGS: -I/usr/local/include -I/usr/local/include \
+          -I/usr/local/include -I/usr/local/include
+CXXFLAGS: -I/usr/local/include -O
+BUILD_CFLAGS: 
+BUILD_CPPFLAGS: 
+
+LD: /usr/bin/ld
+LIBS: -lpthread -lACE -lboost_regex -lomniORB4 -lomnithread -lomniDynamic4
+LDFLAGS:  -L/usr/local/lib -L/usr/local/lib -L/usr/local/lib
+LDSOLIBS:  -lACE -lboost_regex -lomniORB4 -lomnithread -lomniDynamic4
+
+ORB: omniORB
+IDLC: /usr/local/bin/../bin/omniidl
+IDL_FLAGS: -bcxx -Wba -nf
+
+WRAPPERS: 
+------------------------------------------------------------
+
+configure: creating ./config.status
+config.status: creating Makefile
+        :(中略)
+config.status: creating rtm/config_rtc.h
+config.status: executing depfiles commands
+\end{verbatim}
+\end{cmd}
+
+\verb|config.status: executing depfiles commands| が最後に実行されていなければ、configure に失敗しています。
+もし、エラーやWarningが出ている場合は \verb|config.log|を見て原因を特定して対処してください。
+たいていは、依存パッケージがインストールされていない、インストールされているがヘッダやライブラリが見つからないなどの理由が多いようですので、オプションをよく調べてみてください。
+
+\verb|configure| が正常に終了した事を確認したら \verb|make| を行います。
+数分から十数分程度でビルドが完了します。
+
+\begin{cmd}
+\begin{verbatim}
+> make
+\end{verbatim}
+\end{cmd}
+
+再帰的に全てのディレクトリをビルドします。
+インストールするためには少なくとも下記のディレクトリが正常にビルドされている必要があります。
+
+\begin{tab}{● OpenRTMディレクトリ構成}
+\begin{tabular}{lp{100mm}}
+\verb|OpenRTM-aist-0.2.0/rtm|               & RTコンポーネントフレームワーク \\
+\verb|OpenRTM-aist-0.2.0/rtm/idl|           & RTコンポーネントIDL\\
+\verb|OpenRTM-aist-0.2.0/util/rtm-config|   & RTM コンフィギュレーションツール \\
+\verb|OpenRTM-aist-0.2.0/util/rtm-naming|   & RTM ネーミングサービスラッパ \\
+\verb|OpenRTM-aist-0.2.0/util/rtc-template| & RTCテンプレートツール \\
+\verb|OpenRTM-aist-0.2.0/util/rtc-link|     & コンポーネント操作GUI \\
+\end{tabular}
+\end{tab}
+
+ビルドが正常に終了したら、ヘッダファイル、ライブラリ、ユーティリティコマンド群、ドキュメントをインストールします。
+システムディレクトリ(\verb|/usr や /usr/local|)へインストールするにはrootになる必要があります。
+
+\begin{cmd}
+\begin{verbatim}
+> su
+# make install
+\end{verbatim}
+\end{cmd}
+
+root になって \verb|make install| とすると、ヘッダ類やライブラリがシステムのディレクトリにインストールされます。
+
+\subsection{サンプルのテスト}
+インストールが正常に終了したら、example/SimpleIO 以下のサンプルでテストを行っておくとよいでしょう。
+このサンプルは、コンソールから入力された数値を出力するコンポーネントと受け取った数値をコンソールに表示するコンポーネントを実行し、接続するだけの簡単なサンプルです。
+
+\begin{cmd}
+\begin{verbatim}
+> cd examples/SimpleIO/
+> run.sh
+\end{verbatim}
+\end{cmd}
+
+\verb|run.sh| ではターミナルウインドウとして kterm を仮定しています。
+もし、kterm ではなく他のターミナルウインドウを使用している場合には、実行シェルスクリプト\verb|run.sh| を適宜書き換えて実行してください。
+
+はじめに画面 kterm が2つ開き、数秒後にもうひとつ開きます。
+3つ目のktermが開くまで、必ず待ってください。
+ウインドウタイトルに ConsoleIn とある方で数字を打ち込みます。
+入力する数字は、\verb|long int| に収まる範囲の数値を入力してください。
+数字を打ち込むと、ConsoleOut とウインドウタイトルのある方から、入力したのと同じ数字と時刻 (sec:nsecのフォーマットになっている) が現れます。
+ここまでできれば、OpenRTM\--aist のメインのライブラリ \verb|libRTC.so| が正しくビルドされていることがわかります。
+
+\subsection{コンポーネントテンプレートのテスト}
+次に、コンポーネントのテンプレートジェネレータを使用して、簡単なコンポーネントを作成するテストを行います。
+テンプレートジェネレータ \verb|rtc-template| を使用します。
+コンポーネントを作成するデイレクトリ(任意のディレクトリで結構です。)を作成して、そこでコンポーネントを作成しコンパイルしてみます。
+
+\begin{cmd}
+\begin{verbatim}
+> cd [コンポーネントを作成するディレクトリ]
+> mkdir SampleComponent
+> cd SampleComponent
+\end{verbatim}
+\end{cmd}
+
+
+まずは、\verb|rtc-template| のヘルプを見てみます。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> rtc-template --help
+
+Usage: rtc-template [OPTIONS]
+Options:
+    [--help]                              Print this help.
+    [--c++]                               Generate C++ template code.
+    [--python]                            Generate Python tempalte code.
+    [--output[=output\_file]]              Output base file name.
+    [--module-name[=name]]                Your module name.
+    [--module-desc[=description]]         Module description.
+    [--module-version[=version]]          Module version.
+    [--module-author[=author]]            Module author.
+    [--module-category[=category]]        Module category.
+    [--module-comp-type[=component\_type]] Component type.
+    [--module-act-type[=activity\_type]]   Component's activity type.
+    [--module-max-inst[=max\_instance]]    Number of maximum instance.
+    [--module-lang[=language]]            Language.
+    [--module-inport[=PortName:Type]]     InPort's name and tyoe.
+    [--module-outport[=PortName:Type]]    OutPort's name and type
+       :
+     中略
+       :
+Example:
+    rtc-template --c++ --module-name=Sample --module-desc='Sample component' \
+    --module-version=0.1 --module-author=DrSample --module-category=Generic \
+    --module-comp-type=COMMUTATIVE --module-act-type=SPORADIC \
+    --module-max-inst=10  \
+    --module-inport=Ref:TimedFloat --module-inport=Sens:TimedFloat \
+    --module-outport=Ctrl:TimedDouble --module-outport=Monitor:TimedShort
+\end{verbatim}
+\end{cmd}
+
+\verb|rtc-template| に作成したいコンポーネントの設定を引数として渡すと、コンポーネントの雛形のコードを作成します。
+ここでは、help の表示の最後に現れた "Example:" 以下をコピーして試してみます。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> rtc-template --c++ --module-name=Sample --module-desc='Sample component' \
+    --module-version=0.1 --module-author=DrSample --module-category=Generic \
+    --module-comp-type=COMMUTATIVE --module-act-type=SPORADIC \
+    --module-max-inst=10  \
+    --module-inport=Ref:TimedFloat --module-inport=Sens:TimedFloat \
+    --module-outport=Ctrl:TimedDouble --module-outport=Monitor:TimedShort
+Sample.h was generated.
+Sample.cpp was generated.
+SampleComp.cpp was generated.
+Makefile.Sample was generated.
+> ls
+Makefile.Sample         Sample.h
+Sample.cpp              SampleComp.cpp
+\end{verbatim}
+\end{cmd}
+
+
+このように、コンポーネントのC++のソースコードと Makefile (\verb|Makefile.Sample|) が作成されます。
+作成されたソースコードはこの Makefile をそのままでビルドできます。
+
+\begin{cmd}
+\begin{verbatim}
+> make -f Makefile.Sample
+もしくは
+> mv Makefile.Sample Makefile
+> make
+\end{verbatim}
+\end{cmd}
+
+のように、\verb|make| の \verb|-f| オプションを使用し \verb|Makefile.Sample| を直接していするか、\verb|Makefile.Sample| を \verb|Makefile| にリネームして make します。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> make -f Makefile.Sample
+rm -f Sample.o
+g++ `rtm-config --cflags` -c -o Sample.o Sample.cpp
+     :
+    中略
+     :
+g++ `rtm-config --libs` -o SampleComp Sample.o SampleComp.o
+rm -f Sample.so
+g++ -shared `rtm-config --libs` -o Sample.so Sample.o
+> ls
+Makefile.Sample  Sample.h  Sample.so*   SampleComp.cpp
+Sample.cpp       Sample.o  SampleComp*  SampleComp.o
+\end{verbatim}
+\end{cmd}
+
+これで、ローダブルモジュール版のコンポーネント(\verb|Sample.so|)と実行形式のコンポーネント(\verb|SampleComp|)が作成されました。
+ここで、実行形式のコンポーネントを実行してみます。
+コンポーネントの実行にはコンフィギュレーションファイル(通常は \verb|rtc.conf| という名前)が必要です。
+ここでは、簡易版のものをカレントディレクトリに作成します。
+
+\begin{cmd}
+\begin{verbatim}
+> cat > rtc.conf
+NameServer      現在のPCのホスト名:ポート番号
+^D (Ctrl+D)
+\end{verbatim}
+\end{cmd}
+
+ここでは、仮にホスト名：rtm.or.jp、 ポート番号:6789 とします。
+rtm.or.jp は今作業しているホスト名に読み替えてください。
+
+\begin{cmd}
+\begin{verbatim}
+> cat > rtc.conf
+NameServer      rtm.or.jp:6789 (このように入力する)
+^D (Ctrl+D)
+> cat rtc.conf (確認)
+NameServer      rtm.or.jp:6789
+\end{verbatim}
+\end{cmd}
+
+次に、CORBA のネーミングサービスを起動します。
+CORBAのネーミングサービスは、
+
+\begin{cmd}
+\begin{verbatim}
+> rtm-naming ポート番号
+\end{verbatim}
+\end{cmd}
+
+で起動できますので、先ほど \verb|rtc.conf| で指定したポート番号を指定して起動します。
+
+\begin{cmd}\footnotesize
+\begin{verbatim}
+> rtm-naming 6789
+Starting omniORB omniNames: ichi:9999
+n-ando@ichi:/tmp/SampleComponent> 
+Fri Oct 29 17:12:51 2004:
+
+Starting omniNames for the first time.
+Wrote initial log file.
+Read log file successfully.
+Root context is IOR:010000002b00000049444c3a6f6d672e6f72672f436f734e616d696e672f
+4e616d696e67436f6e746578744578743a312e300000010000000000000060000000010102000e00
+00003135302e32392e39362e313638000f270b0000004e616d655365727669636500020000000000
+0000080000000100000000545441010000001c000000010000000100010001000000010001050901
+01000100000009010100
+Checkpointing Phase 1: Prepare.
+Checkpointing Phase 2: Commit.
+Checkpointing completed.
+\end{verbatim}
+\end{cmd}
+
+次に、コンポーネントを起動します。
+
+\begin{cmd}
+\begin{verbatim}
+> SampleComp -f rtc.conf
+\end{verbatim}
+\end{cmd}
+
+これで、コンポーネントが起動できました。この段階までできれば、OpenRTM\--aist が正常にインストールされたことになります。
+
+\section{RTCLink による動作確認}
+前述の SimpleIO サンプルでは、コンポーネントの起動・接続を接続専用の別プログラムで行いました。
+しかしながら、開発段階で様々なコンポーネントを色々と組み合わせてテストするには、プログラムで接続などを行うのは非常に煩雑になり、RTコンポーネントのメリットを生かせません。
+OpenRTM\--aist には、コンポーネントの起動・接続などを行うためのGUIツール (RTCLink) が用意されています。
+
+ここでは、RTCLink を使用して、前述の ConsoleIn, ConsoleOut コンポーネントを接続しテストする方法を説明します。
+RTCLink の詳しい使用方法については後述する「\ref{sec:RTCLink} RTCLink」を参照してください。
+
+
+\subsection{操作手順}
+まず、RTCLink を起動します。
+起動方法は、コンソール上で「rtc-link」と入力するだけです。
+
+SimpleIO のディレクトリの中の、\verb|ConsoleInComp| と \verb|ConsoleOutComp| をそれぞれ別のウインドウで起動します(図~\ref{fig:ConsoleIn_Test1}、図\ref{fig:ConsoleOut_Test1})。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConsoleIn_Test1.eps,width=75mm}}
+\caption{{\tt ConsoleInComp} の起動}
+\label{fig:ConsoleIn_Test1}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConsoleOut_Test1.eps,width=75mm}}
+\caption{{\tt ConsoleOutComp} の起動}
+\label{fig:ConsoleOut_Test1}
+\end{minipage}
+\end{center}
+\end{figure}
+
+次に、RTCLink の左側のツリーウインドウをクリックしてツリーを展開します。
+ツリーの中に、ConsoleIn コンポーネントと、ConsoleOut コンポーネントがあることを確認してください(図~\ref{fig:SimpleIO_Test0})。
+コンポーネントは\epsfile{file=icon/Component.eps,width=5mm} のアイコンで表示されています。
+
+さらに、ツールバー上の \epsfile{file=icon/NewRTSystem.eps,width=5mm} ボタンを押してシステムドローウインドウを中央の部分に表示させます(図~\ref{fig:SimpleIO_Test1})。
+このウインドウの中でシステムを構築してゆきます。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/SimpleIO_Test0.eps,width=0.9\columnwidth}}
+\caption{ツリーの展開}
+\label{fig:SimpleIO_Test0}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/SimpleIO_Test1.eps,width=0.9\columnwidth}}
+\caption{システムドローウインドウの表示}
+\label{fig:SimpleIO_Test1}
+\end{minipage}
+\end{center}
+\end{figure}
+
+ツリーウインドウの中で \epsfile{file=icon/Component.eps,width=5mm} のアイコンで表示されて ConsoleIn と ConsoleOut のコンポーネントをシステムドローウインドウへドラッグアンドドロップします。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/SimpleIO_Test2.eps,width=0.9\columnwidth}}
+\caption{ConsoleIn コンポーネントの配置}
+\label{fig:SimpleIO_Test2}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/SimpleIO_Test3.eps,width=0.9\columnwidth}}
+\caption{ConsoleOut コンポーネントの配置}
+\label{fig:SimpleIO_Test3}
+\end{minipage}
+\end{center}
+\end{figure}
+
+図~\ref{fig:SimpleIO_Test4} のように ConsoleOut コンポーネントの OutPort をクリックし、ConsoleIn コンポーネントのInPortへドラッグします。
+これで、ConsoleOut コンポーネントの OutPort と ConsoleIn コンポーネントの InPort が接続されます。
+
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/SimpleIO_Test4.eps,width=0.5\columnwidth}}
+\caption{InPort と OutPort の接続}
+\label{fig:SimpleIO_Test4}
+\end{figure}
+
+
+次に、システムドローウインドウ上のConsoleIn コンポーネントを右クリックしコンテキストメニューを出します。
+「Start」を選択するとConsoleInコンポーネントがスタートします(図~\ref{fig:SimpleIO_Test5})。
+同様に ConsoleOut コンポーネントコンポーネントもスタートさせます(図~\ref{fig:SimpleIO_Test6})。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/SimpleIO_Test5.eps,width=0.9\columnwidth}}
+\caption{ConsoleIn のスタート}
+\label{fig:SimpleIO_Test5}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/SimpleIO_Test6.eps,width=0.9\columnwidth}}
+\caption{ConsoleOut のスタート}
+\label{fig:SimpleIO_Test6}
+\end{minipage}
+\end{center}
+\end{figure}
+
+ConsoleIn コンポーネントをスタートさせると図~\ref{fig:ConsoleIn_Test2} のように数値の入力を求めてきます。
+適当な数値を入力します。入力する数値は long int 型に入力範囲の数値にしてください。
+ここで入力した数値が、ConsoleOut コンポーネントへ送られて表示されます。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConsoleIn_Test2.eps,width=0.9\columnwidth}}
+\caption{ConsoleIn のスタート直後}
+\label{fig:ConsoleIn_Test2}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConsoleIn_Test3.eps,width=0.9\columnwidth}}
+\caption{ConsoleIn に数値を与える}
+\label{fig:ConsoleIn_Test3}
+\end{minipage}
+\end{center}
+\end{figure}
+
+ConsoleOut コンポーネントのほうでは、図~\ref{fig:ConsoleOut_Test2} のようにスタート直後から数値と時刻が出力されますが、ConsoleInへの入力がない間は0を表示し続けます。
+ConsoleInへ数値を入力すると、その数値が図~\ref{fig:ConsoleOut_Test3} のように表示されます。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConsoleOut_Test2.eps,width=0.9\columnwidth}}
+\caption{ConsoleOut のスタート直後}
+\label{fig:ConsoleOut_Test2}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConsoleOut_Test3.eps,width=0.9\columnwidth}}
+\caption{ConsoleOutで数値が表示される}
+\label{fig:ConsoleOut_Test3}
+\end{minipage}
+\end{center}
+\end{figure}
+
+これらが正常に動作すれば、OpenRTM\--aist は正常に動作していることになります。
+
+\section{Windows系システムでのビルドとインストール}
+
+将来的には対応する予定ですが、現在は未対応です。
+
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tf2_urdf</name>
+  <version>0.1.1</version>
+  <description>tf2_urdf</description>
+  <maintainer email="standmit@zabstrannik.ru">Andrey Stepanov</maintainer>
+  <license>BSD</license>
+  <author email="standmit@zabstrannik.ru">Andrey Stepanov</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>liburdfdom-headers-dev</build_depend>
+  <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <export>
+  </export>
+</package>

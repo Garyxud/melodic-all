@@ -1,0 +1,28 @@
+<package format="3">
+  <name>virtual_force_publisher</name>
+  <version>2.2.11</version>
+  <description>
+    publish end effector's force, which is estmated from joint torque value
+  </description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/virtual_force_publisher</url>
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>kdl_parser</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>tf_conversions</build_depend>
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>kdl_parser</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>tf_conversions</exec_depend>
+
+</package>
+
+

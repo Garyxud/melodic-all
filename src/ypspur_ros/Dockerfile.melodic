@@ -1,0 +1,21 @@
+FROM ros:melodic
+
+RUN apt-get -qq update \
+  && apt-get install -y --no-install-recommends \
+    curl \
+    python-pip \
+    sudo \
+    wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN rosdep update \
+  && mkdir -p /catkin_ws/src \
+  && cd /catkin_ws/src \
+  && bash -c ". /opt/ros/${ROS_DISTRO}/setup.bash && catkin_init_workspace && cd .. && catkin_make"
+
+COPY ./.travis /catkin_ws/src/ypspur_ros/.travis
+COPY ./package.xml /catkin_ws/src/ypspur_ros/package.xml
+RUN /catkin_ws/src/ypspur_ros/.travis/install_deps.sh
+
+COPY ./ /catkin_ws/src/ypspur_ros

@@ -1,0 +1,9 @@
+/**
+ * @mainpage
+ * @htmlinclude "manifest.html"
+ *
+ * This is the API documentation for the version of libfranka available from the ROS repositories.
+ * API documentation for the latest development version of libfranka is available at https://frankaemika.github.io/libfranka
+ *
+ * Overview page for Franka Emika research robots: https://frankaemika.github.io
+ */

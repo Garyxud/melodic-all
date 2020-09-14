@@ -1,0 +1,22 @@
+<launch>
+
+  <include file="$(find jsk_pcl_ros_utils)/sample/include/play_rosbag_shelf_bin.xml" />
+
+  <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
+
+  <node name="organized_pointcloud_to_point_indices"
+        pkg="jsk_pcl_ros" type="organized_pointcloud_to_point_indices">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+  </node>
+
+  <test test-name="test_organized_pointcloud_to_point_indices"
+        name="test_organized_pointcloud_to_point_indices"
+        pkg="jsk_tools" type="test_topic_published.py"
+        time-limit="360" retry="3">
+    <rosparam>
+      topic_0: /organized_pointcloud_to_point_indices/output
+      timeout_0: 30
+    </rosparam>
+  </test>
+
+</launch>

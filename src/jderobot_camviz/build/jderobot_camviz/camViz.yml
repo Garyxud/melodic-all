@@ -1,0 +1,7 @@
+Server: 1 # Deactivate, ROS , ROS2
+Proxy: "cameraA:tcp -h localhost -p 9999"
+Format: RGB8
+Topic: "/usb_cam/image_raw"
+Name: cameraA
+Fps: 30
+NodeName: camViz

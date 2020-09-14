@@ -1,0 +1,25 @@
+<launch>
+
+  <include file="$(find jsk_perception)/sample/sample_image_publisher.launch">
+    <arg name="gui" value="false" />
+  </include>
+
+  <node name="split_fore_background"
+        pkg="jsk_perception" type="split_fore_background.py">
+    <remap from="~input" to="depth_image_16uc1/image_depth" />
+  </node>
+
+  <!-- test output message come -->
+  <test test-name="test_split_fore_background"
+        name="test_split_fore_background"
+        pkg="jsk_tools" type="test_topic_published.py"
+        retry="3">
+    <rosparam>
+      topic_0: /split_fore_background/output/fg_mask
+      timeout_0: 30
+      topic_1: /split_fore_background/output/bg_mask
+      timeout_1: 30
+    </rosparam>
+  </test>
+
+</launch>

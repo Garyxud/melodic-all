@@ -1,0 +1,9 @@
+<launch>
+  <arg name="DISPLAY" default="" />
+  <env name="DISPLAY" value="$(arg DISPLAY)" />
+
+  <node name="rosbag" pkg="rosbag" type="play" args="--clock -l --topics /joint_states --bags=$(find pr2eus)/test/pr1012_sensors.bag" />
+  <param name="use_sim_time" value="true" />
+  <test test-name="pr2_no_clock_test" pkg="roseus" type="roseus"
+	args="$(find pr2eus)/test/robot-no-clock-test.l" />
+</launch>

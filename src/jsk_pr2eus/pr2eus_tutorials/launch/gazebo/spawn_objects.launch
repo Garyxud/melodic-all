@@ -1,0 +1,21 @@
+<launch>
+  <include file="$(find pr2eus_tutorials)/launch/gazebo/spawn_model_in_database.launch" >
+    <arg name="model_name" value="table_model" />
+    <arg name="type_name" value="table" />
+    <arg name="pos_x" value="1.1" />
+    <arg name="pos_z" value="-0.4" />
+    <arg name="rot_y" value="1.57" />
+  </include>
+  <include file="$(find pr2eus_tutorials)/launch/gazebo/spawn_model_in_database.launch" >
+    <arg name="model_name" value="beer_model" />
+    <arg name="type_name" value="beer" />
+    <arg name="pos_x" value="1.0" />
+    <arg name="pos_z" value="0.8" />
+  </include>
+  
+  <include file="$(find pr2eus_tutorials)/launch/gazebo/spawn_cylinder.launch" >
+    <arg name="pos_x" value="1.0" />
+    <arg name="pos_y" value="0.2" />"
+    <arg name="pos_z" value="0.8" />
+  </include>
+</launch>

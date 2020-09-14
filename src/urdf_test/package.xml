@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>urdf_test</name>
+  <version>1.0.4</version>
+  <description>The urdf_test package</description>
+
+  <maintainer email="david.fernandez@pal-robotics.com">davidfernandez</maintainer>
+
+  <license>Proprietary</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>rospy</depend>
+  <exec_depend>xacro</exec_depend>
+
+  <export>
+  </export>
+</package>

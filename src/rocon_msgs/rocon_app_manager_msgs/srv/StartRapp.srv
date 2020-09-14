@@ -1,0 +1,17 @@
+# Name of the rapp to launch
+string name
+rocon_std_msgs/Remapping[] remappings
+
+# Key value pairs representing rapp parameters
+rocon_std_msgs/KeyValue[] parameters
+---
+bool started
+
+# classifying start success/failure, see ErrorCodes.msg
+int32 error_code
+
+# human friendly string for debugging (usually upon error)
+string message
+
+# Namespace where the rapp interface can be found
+string application_namespace

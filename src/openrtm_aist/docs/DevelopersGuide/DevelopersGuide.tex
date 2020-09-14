@@ -1,0 +1,113 @@
+\documentclass[a4j,11pt]{jbook}
+% -*- LaTeX -*-
+%
+% @file DevelopersGuid.tex
+% @brief OpenRTM-aist developers guide
+% @date $Date: 2005-05-12 09:06:21 $
+% @author Noriaki Ando <n-ando@aist.go.jp>
+%
+% Copyright (C) 2003-2005
+%     Task-intelligence Research Group,
+%     Intelligent Systems Research Institute,
+%     National Institute of
+%         Advanced Industrial Science and Technology (AIST), Japan
+%     All rights reserved.
+%
+% $Id$
+%
+
+\usepackage{a4wide}
+\usepackage{makeidx}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+%\usepackage{multicol}
+\usepackage{float}
+\usepackage{alltt}
+%\usepackage{eclbkbox}
+%\usepackage{doxygen}
+\usepackage{epsbox}
+\usepackage{fancybox}
+\usepackage{rtcmac}
+
+
+% for header
+\lhead[\fancyplain{}{\bfseries\thepage}]
+        {\fancyplain{}{\bfseries\rightmark}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]
+        {\fancyplain{}{\bfseries\thepage}}
+\rfoot{} %[\fancyplain{}{\bfseries\scriptsize Open\-RTM ver 0.2.0 }]{}
+\lfoot{} %[]{\fancyplain{}{\bfseries\scriptsize Open\-RTM ver 0.2.0}}
+\cfoot{}
+\pagestyle{fancyplain}
+
+\renewcommand{\chaptermark}[1]{\markboth{\prechaptername\ \thechapter\ \postchaptername\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\setlength{\itemsep}{-4pt}
+
+\topmargin=-10mm
+\oddsidemargin=10mm
+\evensidemargin=-5mm
+\makeindex
+\begin{document}
+
+\input{TitlePage}
+\newpage
+\clearpage
+%\baselineskip=12pt
+\setcounter{tocdepth}{1}
+%\setcounter{totalnumber}{0}
+\pagenumbering{roman}
+\tableofcontents
+\cleardoublepage
+
+\parindent=11pt
+\pagenumbering{arabic}
+
+%\part{ユーザーズガイド}
+%本書の構成
+\input{Structure}
+
+% RTミドルウエアとは
+\input{Overview}
+
+% RTコンポーネント入門
+\input{Tutorial}
+
+% RTコンポーネントプログラミング
+\input{Programming}
+
+% OpenRTM\--aist ツール
+\input{Tools}
+
+% RTコンポーネント with Python
+%\input{RTC_with_Python}
+
+% RTコンポーネントシステム設計
+%\input{RTC_System_Design}
+
+% RTコンポーネント実践
+%\input{Practical_RTC_System}
+
+% Inside RTコンポーネント
+%\input{Inside_RTComponent}
+
+\input{Specification}
+% 付録A RTコンポーネントのインストール
+
+%\part{リファレンスマニュアル}
+\input{ClassReference}
+\input{IDLReference}
+%\part{付録}
+\appendix
+\input{Appendix}
+
+% 付録B ACE/boostインストール
+%\input{furokuB}
+
+% 付録C ORBインストール
+%\input{furokuC}
+
+% 付録D ORBインストール
+%\input{furokuD}
+\printindex
+\end{document}

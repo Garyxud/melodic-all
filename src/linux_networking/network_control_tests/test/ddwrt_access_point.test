@@ -1,0 +1,16 @@
+<launch>
+    <node name="linksys_2_4" pkg="ddwrt_access_point" type="ddwrt_apcontrol_node.py" output="screen">
+          <param name="interface" value="wl0"/>
+	  <param name="ip" value="192.168.1.1"/>
+	  <param name="user" value="root"/>
+	  <param name="password" value="admin"/>
+    </node>
+    <node name="linksys_5" pkg="ddwrt_access_point" type="ddwrt_apcontrol_node.py" output="screen">
+          <param name="interface" value="wl1"/>
+	  <param name="ip" value="192.168.1.1"/>
+	  <param name="user" value="root"/>
+	  <param name="password" value="admin"/>
+    </node> 
+    
+    <test test-name="ddwrt_test" pkg="network_control_tests" type="linksys_test.py" name="ddwrt_access_point_test" time-limit="240"/>
+</launch>

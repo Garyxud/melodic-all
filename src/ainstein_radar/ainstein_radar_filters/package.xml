@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ainstein_radar_filters</name>
+  <version>2.0.2</version>
+  <description>
+    Filtering and data conversion utilities for radar data.
+  </description>
+  <maintainer email="nick.rotella@ainstein.ai">Nick Rotella</maintainer>
+  <author>Nick Rotella</author>
+  <license>BSD</license>
+  <url type="website">https://wiki.ros.org/ainstein_radar_filters</url>
+  <url type="repository">https://github.com/AinsteinAI/ainstein_radar</url>
+  <url type="bugtracker">https://github.com/AinsteinAI/ainstein_radar/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>ainstein_radar_msgs</depend>
+  <depend>pcl_ros</depend>
+  <depend>nodelet</depend>
+  <depend>jsk_recognition_msgs</depend>
+  <depend>tf2_eigen</depend>
+
+  <export>
+    <nodelet plugin="${prefix}/plugins/nodelet_radardata_to_pointcloud.xml" />
+    <nodelet plugin="${prefix}/plugins/nodelet_radardata_range_filter.xml" />
+  </export>
+
+</package>

@@ -1,0 +1,6 @@
+version: '2'
+services:
+  ypspur-ros-shadow-fixed:
+    image: "ypspur-ros-shadow-fixed:${ROS_DISTRO}"
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"

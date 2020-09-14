@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cob_docker_control</name>
+  <version>0.6.9</version>
+  <description>Autonomous docking</description>
+
+  <license>Apache 2.0</license>
+
+  <maintainer email="jba@ipa.fraunhofer.de">Jannik Abbenseth</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

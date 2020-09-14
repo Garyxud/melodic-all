@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--
+    As you add to this URDF, please be aware that both the robot and
+    simulation include it. You must retain compatibility with all of
+    the following launch files:
+
+    dingo_viz/launch/view_model.launch
+    dingo_gazebo/launch/dingo_world.launch
+    dingo_base/launch/base.launch
+  -->
+
+  <!-- If enabled, generate the LASER payload (by default, a SICK LMS111). -->
+  <xacro:if value="$(optenv DINGO_LASER 0)">
+    <xacro:if value="$(optenv DINGO_LASER_HOKUYO 0)">
+      <xacro:include filename="$(find dingo_description)/urdf/accessories/hokuyo_ust10.urdf.xacro" />
+      <xacro:hokuyo_ust10_mount prefix="$(optenv DINGO_LASER_MOUNT front)"
+                          topic="$(optenv DINGO_LASER_TOPIC front/scan)" />
+
+      <joint name="$(optenv DINGO_LASER_MOUNT front)_laser_mount_joint" type="fixed">
+        <origin xyz="$(optenv DINGO_LASER_OFFSET 0.11 0 0)"
+                rpy="$(optenv DINGO_LASER_RPY 0 0 0)" />
+        <parent link="$(optenv DINGO_LASER_MOUNT front)_mount" />
+        <child link="$(optenv DINGO_LASER_MOUNT front)_laser_mount" />
+      </joint>
+    </xacro:if>
+
+    <xacro:unless value="$(optenv DINGO_LASER_HOKUYO 0)">
+      <xacro:include filename="$(find dingo_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro" />
+      <xacro:sick_lms1xx_mount prefix="$(optenv DINGO_LASER_MOUNT front)"
+                         topic="$(optenv DINGO_LASER_TOPIC front/scan)"/>
+
+      <joint name="$(optenv DINGO_LASER_MOUNT front)_laser_mount_joint" type="fixed">
+        <origin xyz="$(optenv DINGO_LASER_OFFSET 0 0 0)"
+                rpy="$(optenv DINGO_LASER_RPY 0 0 0)" />
+        <parent link="$(optenv DINGO_LASER_MOUNT front)_mount" />
+        <child link="$(optenv DINGO_LASER_MOUNT front)_laser_mount" />
+      </joint>
+    </xacro:unless>
+  </xacro:if>
+
+</robot>

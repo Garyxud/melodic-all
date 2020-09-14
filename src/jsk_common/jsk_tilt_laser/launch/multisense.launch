@@ -1,0 +1,103 @@
+<launch>
+  <arg name="ip_address" default="10.66.171.21" />
+  <arg name="namespace"  default="multisense" />
+  <arg name="mtu"        default="7200" />
+  <arg name="use_robot_description" default="true" />
+  <arg name="not_use_robot_state_publisher" default="false" />
+  <arg name="sensor_tf_prefix" default="$(arg namespace)" />
+  <arg name="not_use_sensor_tf_prefix" default="false" />
+  <arg name="run_driver" default="true" />
+  <arg name="fixed_frame_id" default="head_root" />
+  <arg name="assemble_cloud" default="/multisense/lidar_scan_filtered"/>
+  <arg name="run_laser_pipeline" default="true" />
+  <arg name="run_distance_filters" default="true" />
+  <!-- if 'use_resize' is true, run nodelets to publish resized stereo pointcloud-->
+  <arg name="use_resize" default="true" />
+  <!-- 
+       If 'local' argument is true, remapping stereo pointcloud 
+       from multisense/foo to multisense_local/foo.
+       If you use with local true, we recommend to set use_resize false.
+  -->
+  <arg name="local" default="false" />
+  <group>
+    <!-- Remapping for 'local:=true' -->
+    <remap from="/multisense/left/image_rect_color" to="/multisense_local/left/image_rect_color" if="$(arg local)"/>
+    <remap from="/multisense/left/image_rect" to="/multisense_local/left/image_rect" if="$(arg local)"/>    
+    <remap from="/multisense/right/image_rect" to="/multisense_local/right/image_rect" if="$(arg local)"/>
+    <remap from="/multisense/image_points2_color" to="/multisense_local/image_points2_color" if="$(arg local)"/>
+    <remap from="/multisense/organized_image_points2" to="/multisense_local/organized_image_points2" if="$(arg local)"/>
+    <remap from="/multisense/organized_image_points2_color" to="/multisense_local/organized_image_points2_color" if="$(arg local)"/>
+    <remap from="joint_states" to="/multisense_local/joint_states" if="$(arg local)"/>
+    <include file="$(find multisense_bringup)/multisense.launch" if="$(arg run_driver)">
+      <arg name="ip_address" value="$(arg ip_address)" />
+      <arg name="namespace" value="$(arg namespace)" />
+      <arg name="mtu" value="$(arg mtu)" />
+      <arg name="launch_robot_state_publisher" value="$(arg use_robot_description)" />
+    </include>
+    <group if="$(arg local)">
+      <node pkg="jsk_topic_tools" type="relay" name="multisense_joint_states_relay">
+        <remap from="~input" to="/multisense_local/joint_states" />
+        <remap from="~output" to="/joint_states" />
+      </node>
+    </group>
+  </group>
+  <!--
+      Overwrite multisense/multisense_driver/tf_prefix parameter.
+      Because this parameter affects frame_id of images, lasers.
+  -->
+  <group ns="multisense">
+    <group ns="multisense_driver">
+      <param name="tf_prefix" value="/$(arg sensor_tf_prefix)" unless="$(arg not_use_sensor_tf_prefix)"/>
+      <param name="tf_prefix" value="" if="$(arg not_use_sensor_tf_prefix)"/>
+    </group>
+  </group>
+  
+  <group unless="$(arg not_use_robot_state_publisher)">
+    <group unless="$(arg use_robot_description)" ns="$(arg namespace)">
+      <!-- using robot description under name space -->
+      <param name="robot_description"
+             textfile="$(find multisense_description)/urdf/multisenseSL.urdf"/>
+      <!-- Robot state publisher -->
+      <node pkg="robot_state_publisher" type="state_publisher" name="state_publisher">
+        <param name="publish_frequency" type="double" value="50.0" />
+        <param name="tf_prefix" value="/$(arg namespace)" />
+      </node>
+    </group>
+  </group>
+
+   <!-- pointcloud pipeline -->
+   <!-- run spindle -->
+   <include file="$(find jsk_tilt_laser)/launch/multisense_laser_pipeline.launch" if="$(arg run_laser_pipeline)">
+     <arg name="not_use_sensor_tf_prefix" value="$(arg not_use_sensor_tf_prefix)" />
+     <arg name="namespace"  value="$(arg namespace)" />
+     <arg name="fixed_frame_id" value="$(arg fixed_frame_id)" />
+     <arg name="assemble_cloud" value="$(arg assemble_cloud)"/>
+     <arg name="run_distance_filters" value="$(arg run_distance_filters)" />
+     <arg name="local" value="$(arg local)" />
+   </include>
+   <!-- modify multisense parameters -->
+   <node pkg="dynamic_reconfigure" type="dynparam" args="set /multisense motor_speed 1.0" name="set_multisense_spindle_speed" />
+   <node pkg="dynamic_reconfigure" type="dynparam" args="set /multisense fps 30.0" name="set_multisense_fps" />
+
+   <group>
+     <!-- Remapping for local usage -->
+     <include file="$(find jsk_pcl_ros)/launch/multi_resolution_organized_pointcloud.launch" if="$(arg use_resize)">
+       <arg name="NAMESPACE" value="multisense_local" if="$(arg local)"/>
+       <arg name="NAMESPACE" value="multisense" unless="$(arg local)"/>
+       <arg name="INPUT" value="/multisense/organized_image_points2_color" unless="$(arg local)"/>
+       <arg name="INPUT" value="/multisense_local/organized_image_points2_color" if="$(arg local)"/>
+       <arg name="INPUT_DEPTH" value="/multisense/depth" />
+       <arg name="NODELET_INDEX" value="0" />
+     </include>
+     <include file="$(find jsk_pcl_ros)/launch/multi_resolution_organized_stereo.launch" if="$(arg use_resize)">
+       <arg name="NAMESPACE" value="multisense_local" if="$(arg local)"/>
+       <arg name="NAMESPACE" value="multisense" unless="$(arg local)"/>
+       <arg name="INPUT_LR" value="left" />
+       <arg name="INPUT_IMAGE" value="/multisense_local/left/image_rect_color" />
+       <arg name="INPUT_CAMERA_INFO" value="/multisense_local/left/camera_info" />
+       <arg name="OUTPUT_IMAGE" value="image_rect_color" />
+       <arg name="NODELET_INDEX" value="1" />
+       <arg name="RUN_MANAGER" value="false" />
+     </include>
+   </group>
+</launch>

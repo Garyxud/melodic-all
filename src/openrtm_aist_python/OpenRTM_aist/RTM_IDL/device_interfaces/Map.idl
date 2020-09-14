@@ -1,0 +1,37 @@
+// -*- IDL -*-
+/*!
+ * @file Map.idl
+ * @brief Services for the Map interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef Map_idl
+#define Map_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface OGMap
+{
+    /// Get the map configuration parameters.
+    OGMapConfig GetConfig ();
+
+    /// Get a tile from the map.
+    /// @param tile The dimensions of the tile to retrieve. Leave the cells member empty.
+    /// @return The map tile.
+    OGMapTile GetTile (in OGMapTile tile);
+};
+};
+
+#endif // Map_idl
+

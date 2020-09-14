@@ -1,0 +1,35 @@
+<package>
+  <name>nextage_moveit_config</name>
+  <version>0.8.6</version>
+  <description>An automatically generated package with all the configuration and launch files for using the NextageOpen with the MoveIt Motion Planning Framework.
+  </description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
+  <author>Kei Okada</author>
+  <author>Isaac Isao Saito</author>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/nextage_moveit_config</url>
+  <url type="bugtracker">https://github.com/tork-a/rtmros_nextage/issues</url>
+  <url type="repository">https://github.com/tork-a/rtmros_nextage</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>hironx_moveit_config</build_depend>
+  <build_depend>nextage_ros_bridge</build_depend>
+
+  <run_depend>hironx_moveit_config</run_depend>
+  <run_depend>moveit_planners</run_depend>
+  <run_depend>moveit_ros</run_depend>
+  <run_depend>moveit_ros_move_group</run_depend>
+  <run_depend>moveit_ros_planning_interface</run_depend>
+  <run_depend>moveit_ros_visualization</run_depend>
+  <run_depend>nextage_ros_bridge</run_depend>
+  <run_depend>moveit_simple_controller_manager</run_depend>
+  <run_depend>trac_ik_kinematics_plugin</run_depend>
+
+  <test_depend>rostest</test_depend>
+  <test_depend>joint_state_publisher</test_depend>
+  <test_depend>robot_state_publisher</test_depend>
+
+</package>

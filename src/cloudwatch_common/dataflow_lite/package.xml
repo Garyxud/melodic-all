@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>dataflow_lite</name>
+  <version>1.1.3</version>
+  <description>Light version of dataflow libraries</description>
+
+  <author email="ros-contributions@amazon.com">AWS RoboMaker</author>
+  <maintainer email="ros-contributions@amazon.com">AWS RoboMaker</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <depend>aws_common</depend>
+  <buildtool_depend>cmake</buildtool_depend>
+  
+  <test_depend condition="$ROS_VERSION == 1">gtest</test_depend>
+  <test_depend condition="$ROS_VERSION == 1">google-mock</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_gtest</test_depend>
+  <test_depend condition="$ROS_VERSION == 2">ament_cmake_gmock</test_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

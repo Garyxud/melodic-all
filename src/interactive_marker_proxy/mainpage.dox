@@ -1,0 +1,6 @@
+/**
+\mainpage
+
+\b A Proxy Server for Interactive Markers
+This package is typically used to interface with interactive markers in a web browser for use in ros3djs.
+*/

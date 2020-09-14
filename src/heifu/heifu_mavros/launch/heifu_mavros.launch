@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Input arguments -->
+    <arg name="argID"               default="1"/>
+    <arg name="argSafety"           default="false"/>
+    <arg name="argTakeOffAltitude"  default="5.0"/>
+    <arg name="argTakeOffThreshold" default="0.3"/>
+    <arg name="argTargetFrame"      default="base_link"/>
+    <arg name="argSourceFrame"      default="odom"/>
+    <arg name="argNodeRate"         default="100.0"/>
+    <arg name="argNamespace"        default="heifu"/>
+    <arg name="argSimulation"       default="false"/>
+    <arg name="argJoyConfig"	    default="xbox360"/>
+    <arg name="yi"                  default= "0"/>
+    <arg name="xi"                  default= "0"/>
+    <arg name="Y"                   default= "0"/>
+    <arg name="argVehicle"          default="$(arg argNamespace)"/>
+
+    <!-- Launch mavros node -->
+    <node name="heifu_mavros_node$(arg argID)" type="heifu_mavros_node" pkg="heifu_mavros" output="screen" ns="$(arg argNamespace)" respawn="true">
+        <param name="paramTakeOffAltitude"  type="double" value="$(arg argTakeOffAltitude)"   />
+        <param name="paramTakeOffThreshold" type="double" value="$(arg argTakeOffThreshold)"  />
+        <param name="paramTargetFrame"      type="string" value="$(arg argNamespace)/$(arg argTargetFrame)" />
+        <param name="paramSourceFrame"      type="string" value="$(arg argNamespace)/$(arg argSourceFrame)" />
+        <param name="paramNodeRate"         type="double" value="$(arg argNodeRate)"          />
+    </node>
+
+    <!-- Launch Robot simulation -->
+    <include file="$(find heifu_description)/launch/heifu.launch" if="$(arg argSimulation)">
+        <arg name="argNamespace" value="$(arg argNamespace)"/>
+        <arg name="argID" value="$(arg argID)"/>
+        <arg name="xi" value= "$(arg xi)"/>
+        <arg name="yi" value= "$(arg yi)"/>
+        <arg name="Y"  value="$(arg Y)"/>
+        <arg name="argVehicle" value="$(arg argVehicle)"/>
+    </include>
+
+    <!-- Launch GPS STATUS -->
+    <include file="$(find heifu_diagnostic)/launch/heifu_diagnostic.launch">
+        <arg name="argNamespace" value="$(arg argNamespace)"/>
+        <arg name="argID" value="$(arg argID)"/>
+    </include>
+
+    <!-- Launch Simple Waypoint -->
+    <include file="$(find heifu_simple_waypoint)/launch/heifu_simple_waypoint.launch">
+        <arg name="argNamespace" value="$(arg argNamespace)"/>
+        <arg name="argID" value="$(arg argID)"/>
+    </include>
+
+    <!-- MAVROS --><!-- ttyTHS1 is the serial port in JETSON nano  -->
+    <include file="$(find mavros)/launch/apm.launch" unless="$(arg argSimulation)">
+        <arg name="argNamespace" value="$(arg argNamespace)"/>
+	    <!-- <arg name="fcu_url" default="/dev/ttyTHS1:921600" /> -->
+		<arg name="fcu_url" default="/dev/ttyACM0:57600" />
+	    <arg name="respawn_mavros" default="true" />
+    </include>
+
+    <!-- Initialize RaspCam -->
+    <node name="raspberry" pkg="raspberry" type="streamRecorder.py" output="screen" unless="$(arg argSimulation)" respawn="true"/>
+
+    <!--tf publisher-->
+    <node pkg="tf" type="static_transform_publisher" name="$(arg argNamespace)_camera_link" args="0 0 0 1.57079633 3.14159265 1.57079633 /base_link /camera_link 100" />
+
+</launch>

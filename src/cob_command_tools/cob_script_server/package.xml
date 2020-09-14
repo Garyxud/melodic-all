@@ -1,0 +1,41 @@
+<package format="2">
+  <name>cob_script_server</name>
+  <version>0.6.16</version>
+  <description>The cob_script_server package provides a simple interface to operate Care-O-bot. It can be used via the python API or the actionlib interface.</description>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_script_server</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer>
+  <author email="fmw@ipa.fhg.de">Florian Weisshardt</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <depend>actionlib</depend>
+  <depend>actionlib_msgs</depend>
+  <depend>rostest</depend>
+  <depend>trajectory_msgs</depend>
+
+  <exec_depend>cob_actions</exec_depend>
+  <exec_depend>cob_light</exec_depend>
+  <exec_depend>cob_mimic</exec_depend>
+  <exec_depend>cob_sound</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>ipython</exec_depend>
+  <exec_depend>move_base_msgs</exec_depend>
+  <exec_depend>python-pygraphviz</exec_depend>
+  <exec_depend>python-six</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>urdfdom_py</exec_depend>
+
+</package>

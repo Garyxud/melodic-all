@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package>
+  <name>openrtm_aist</name>
+  <version>1.1.2</version>
+  <description>
+   <p>This package represents <a href = "http://openrtm.org/">OpenRTM-aist</a> that's built within ROS eco system. Although being ROS-agnostic by itself, you can use this via ROS together with the packages in <a href = "http://www.ros.org/wiki/rtmros_common">rtmros_common</a> that bridge between two framework.</p>
+   <p><i>OpenRTM-aist is an <a href = "http://ieeexplore.ieee.org/xpl/login.jsp?tp=&amp;arnumber=1545521&amp;url=http%3A%2F%2Fieeexplore.ieee.org%2Fiel5%2F10375%2F32977%2F01545521.pdf%3Farnumber%3D1545521">RT-Middleware</a>-baseed, component-oriented software platform to robotics development that is made and maintained in AIST (National Institute of Advanced Industrial Science and Technology) in Japan </i> (<a href = "http://openrtm.org/openrtm/en/content/introduction-0">excerpts from here</a>)</p>
+
+   <p>Its development is happening at <a href = "http://www.openrtm.org/pub/OpenRTM-aist/">openrtm.org/pub/OpenRTM-aist</a>. The repository listed below is where the development of its ROS wrapper happening.</p>
+  </description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="iisaito@kinugarage.com">Isao Isaac Saito</maintainer>
+  <author email="n-ando@aist.go.jp">Noriaki Ando</author>
+  <license>EPL</license>
+  <url type="website">http://ros.org/wiki/openrtm_aist</url>
+  <url type="repository">https://github.com/start-jsk/openrtm_aist_core</url>
+  <url type="bugtracker">https://github.com/start-jsk/openrtm_aist_core/issues</url>
+
+  <buildtool_depend>automake</buildtool_depend>
+  <buildtool_depend>libtool</buildtool_depend>
+  <buildtool_depend>cmake</buildtool_depend>
+  <buildtool_depend>pkg-config</buildtool_depend>
+
+  <build_depend>uuid</build_depend>
+  <build_depend>omniorb</build_depend>
+  <build_depend>doxygen</build_depend>
+  <build_depend>python</build_depend>
+
+  <run_depend>catkin</run_depend>
+  <run_depend>uuid</run_depend>
+  <run_depend>omniorb</run_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

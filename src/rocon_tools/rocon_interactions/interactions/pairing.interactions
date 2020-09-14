@@ -1,0 +1,63 @@
+###############################################################################
+# Pairings
+###############################################################################
+
+pairings:
+    - name: Talker
+      rapp: rocon_apps/talker
+      remappings:
+          - remap_from: chatter
+            remap_to: /conversation/chatter
+      parameters:
+          - key: message
+            value: "gday dude"
+    - name: Babbler
+      rapp: rocon_apps/talker
+      description: Talker remapped to a babbler.
+      remappings:
+          - remap_from: chatter
+            remap_to: /conversation/babbler
+
+###############################################################################
+# Interactions
+###############################################################################
+
+interactions:
+    - name: Listener
+      command: rocon_qt_listener/qt_listener.py
+      group: Pairing
+      compatibility: rocon:/pc/*/hydro|indigo/precise|quantal|raring|saucy|trusty
+      description: A pyqt listener for testing pairing.
+      max: 1
+      remappings:
+          - remap_from: chatter
+            remap_to: /conversation/chatter
+      bringup_pairing: true
+      teardown_pairing: true
+      required_pairings:
+          - Talker
+
+    - name: Rostopic Listener
+      command: "terminal/rostopic echo /conversation/chatter"
+      group: Pairing
+      compatibility: rocon:/pc/*/hydro|indigo/precise|quantal|raring|saucy|trusty
+      description: A rostopic echo listener for testing pairing.
+      max: 1
+      bringup_pairing: true
+      teardown_pairing: true
+      required_pairings:
+          - Talker
+    
+    - name: Babbler Listener
+      command: rocon_qt_listener/qt_listener.py
+      group: Pairing
+      compatibility: rocon:/pc/*/hydro|indigo/precise|quantal|raring|saucy|trusty
+      description: A pyqt listener for testing pairing.
+      max: -1
+      remappings:
+          - remap_from: chatter
+            remap_to: /conversation/babbler
+      required_pairings:
+          - Babbler
+
+    

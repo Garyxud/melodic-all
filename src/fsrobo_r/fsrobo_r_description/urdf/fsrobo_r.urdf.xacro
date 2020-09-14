@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="fsrobo_r_robot" params="prefix">
+    <link
+      name="${prefix}base_link">
+      <inertial>
+        <origin
+          xyz="6.20129635789006E-06 0.00135671010372665 0.00692741827175326"
+          rpy="0 0 0" />
+        <mass
+          value="0.224918104064038" />
+        <inertia
+          ixx="0.000389773121010351"
+          ixy="5.34979023842647E-08"
+          ixz="2.00299715681034E-09"
+          iyy="0.000393784206533644"
+          iyz="1.8618345474573E-06"
+          izz="0.000763322543979528" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/base_link.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/base_link.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <link
+      name="${prefix}Link1">
+      <inertial>
+        <origin
+          xyz="-0.00449037408423813 5.42440907528791E-06 0.0715874027691071"
+          rpy="0 0 0" />
+        <mass
+          value="1.1964979585014" />
+        <inertia
+          ixx="0.00235325407469509"
+          ixy="-1.48424194830244E-07"
+          ixz="0.00016645431594179"
+          iyy="0.00238080305757056"
+          iyz="-3.71645517568927E-07"
+          izz="0.00214862307498412" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link1.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link1.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="${prefix}Joint1"
+      type="revolute">
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}base_link" />
+      <child
+        link="${prefix}Link1" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-4.1888"
+        upper="4.1888"
+        effort="0"
+        velocity="3.11049" />
+    </joint>
+    <link
+      name="${prefix}Link2">
+      <inertial>
+        <origin
+          xyz="-0.126463562505262 -3.03757464646919E-14 0.189799410965193"
+          rpy="0 0 0" />
+        <mass
+          value="3.71491032829736" />
+        <inertia
+          ixx="0.0996449226656911"
+          ixy="-4.07081213433656E-15"
+          ixz="0.000531355089159735"
+          iyy="0.100320218055197"
+          iyz="-2.73732399977317E-06"
+          izz="0.00607078426291308" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link2.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link2.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="${prefix}Joint2"
+      type="revolute">
+      <origin
+        xyz="0 0 0.0875"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}Link1" />
+      <child
+        link="${prefix}Link2" />
+      <axis
+        xyz="1 0 0" />
+      <limit
+        lower="-4.1888"
+        upper="4.1888"
+        effort="0"
+        velocity="3.11049" />
+    </joint>
+    <link
+      name="${prefix}Link3">
+      <inertial>
+        <origin
+          xyz="-0.0181715886077434 -8.39942636869206E-06 0.00361736607529833"
+          rpy="0 0 0" />
+        <mass
+          value="0.503493344111679" />
+        <inertia
+          ixx="0.000606835380422718"
+          ixy="2.96258447607099E-07"
+          ixz="-6.8421095589689E-05"
+          iyy="0.000746558385545657"
+          iyz="-2.34699770879584E-08"
+          izz="0.000681452998524084" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link3.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link3.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="${prefix}Joint3"
+      type="revolute">
+      <origin
+        xyz="0 0 0.385"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}Link2" />
+      <child
+        link="${prefix}Link3" />
+      <axis
+        xyz="1 0 0" />
+      <limit
+        lower="-4.1888"
+        upper="4.1888"
+        effort="0"
+        velocity="3.11049" />
+    </joint>
+    <link
+      name="${prefix}Link4">
+      <inertial>
+        <origin
+          xyz="0.00290243681192058 4.92118154597773E-06 -0.0738374738187304"
+          rpy="0 0 0" />
+        <mass
+          value="0.835817436377135" />
+        <inertia
+          ixx="0.0051838603413169"
+          ixy="4.30855334856876E-08"
+          ixz="-0.000214303665531665"
+          iyy="0.00526559628549006"
+          iyz="-4.86165136068341E-07"
+          izz="0.000590028561985229" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link4.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link4.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="${prefix}Joint4"
+      type="revolute">
+      <origin
+        xyz="0 0 0.275"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}Link3" />
+      <child
+        link="${prefix}Link4" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-4.1888"
+        upper="4.1888"
+        effort="0"
+        velocity="3.11049" />
+    </joint>
+    <link
+      name="${prefix}Link5">
+      <inertial>
+        <origin
+          xyz="-0.00762763949469519 -1.06459091140225E-05 0.00458167547641364"
+          rpy="0 0 0" />
+        <mass
+          value="0.397519557815901" />
+        <inertia
+          ixx="0.00038454224185"
+          ixy="2.51938979759281E-07"
+          ixz="-4.92173834393031E-05"
+          iyy="0.000421678593966681"
+          iyz="-2.77663008675825E-08"
+          izz="0.000358331267792745" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link5.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link5.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="${prefix}Joint5"
+      type="revolute">
+      <origin
+        xyz="0.100 0 0"
+        rpy="0 0 0" />
+      <parent
+        link="${prefix}Link4" />
+      <child
+        link="${prefix}Link5" />
+      <axis
+        xyz="1 0 0" />
+      <limit
+        lower="-4.1888"
+        upper="4.1888"
+        effort="0"
+        velocity="3.11049" />
+    </joint>
+    <link
+      name="${prefix}Link6">
+      <inertial>
+        <origin
+          xyz="0.001824741161344 -1.2714577393637E-05 -0.0183104466551915"
+          rpy="0 0 0" />
+        <mass
+          value="0.0659925254230773" />
+        <inertia
+          ixx="3.46638767440248E-05"
+          ixy="-3.0599679783686E-08"
+          ixz="-5.91110846528508E-07"
+          iyy="4.40852639111946E-05"
+          iyz="4.19435440614541E-09"
+          izz="6.53486052794694E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link6.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://fsrobo_r_description/meshes/Link6.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="${prefix}Joint6"
+      type="revolute">
+      <origin
+        xyz="0 0 0.085"
+        rpy="0 0 -1.5707" />
+      <parent
+        link="${prefix}Link5" />
+      <child
+        link="${prefix}Link6" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-6.2832"
+        upper="6.2832"
+        effort="0"
+        velocity="3.11049" />
+    </joint>
+  </xacro:macro>
+</robot>

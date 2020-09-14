@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<package format="2">
+  <name>libqt_core</name>
+  <version>1.0.1</version>
+  <description>
+
+     libqt-core metapackage supporting qt4 and qt5
+
+  </description>
+  <maintainer email="mbries@swri.org">Matthew Bries</maintainer>
+  <license>United States Government Purpose</license>
+  <license>SwRI Proprietary</license>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!--<depend>libqt4</depend>-->
+  <depend>libqt5-core</depend>
+
+  <export>
+  </export>
+</package>
+

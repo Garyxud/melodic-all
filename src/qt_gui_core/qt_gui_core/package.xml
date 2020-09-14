@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="http://download.ros.org/schema/package_format3.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>qt_gui_core</name>
+  <version>0.4.2</version>
+  <description>
+    Integration of the ROS package system and ROS-specific plugins for a Qt-based GUI.
+  </description>
+  <maintainer email="dthomas@osrfoundation.org">Dirk Thomas</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/qt_gui_core</url>
+  <url type="repository">https://github.com/ros-visualization/qt_gui_core</url>
+  <url type="bugtracker">https://github.com/ros-visualization/qt_gui_core/issues</url>
+  <author>Dirk Thomas</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend version_gte="0.3.0">qt_dotgraph</exec_depend>
+  <exec_depend version_gte="0.3.0">qt_gui</exec_depend>
+  <exec_depend version_gte="0.3.0">qt_gui_app</exec_depend>
+  <exec_depend version_gte="0.3.0">qt_gui_cpp</exec_depend>
+  <exec_depend version_gte="0.3.0">qt_gui_py_common</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

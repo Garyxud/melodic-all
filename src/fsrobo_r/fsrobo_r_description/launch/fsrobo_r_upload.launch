@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+  <param
+    name="robot_description"
+    textfile="$(find fsrobo_r_description)/urdf/fsrobo_r.urdf" />
+</launch>
+

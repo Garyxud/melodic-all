@@ -1,0 +1,12 @@
+# if cancel is set, removes the list from the public interface
+bool cancel
+Rule[] rules
+
+---
+
+# Return a verbose error string to help with debugging if success fails.
+# Strings defined in gateway_comms.msg.Result
+int8 result
+string error_message
+
+Rule[] watchlist

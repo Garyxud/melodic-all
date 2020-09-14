@@ -1,0 +1,19 @@
+<launch>
+  <arg name="DISPLAY" default="" />
+  <env name="DISPLAY" value="$(arg DISPLAY)" />
+
+  <!--
+  $ rosparam dump /tmp/pr1012_urdf.yaml  robot_description
+  $ rosbag record - -duration 16 -e '.*/camera_info' -O /tmp/pr1012_camera_info.bag
+  $ rosbag record /base_odometry/odom /joint_states /pressure/l_gripper_motor /pressure/r_gripper_motor /tf  - -duration 16 -O /tmp/pr1012_sensors.bag
+  -->
+  <rosparam command="load" file="$(find pr2eus)/test/pr1012_urdf.yaml" param="robot_description"/>
+  <node name="pr2_camera_info" pkg="rosbag" type="play"
+	args="-k -r 0.1 $(find pr2eus)/test/pr1012_camera_info.bag" />
+  <node name="pr2_sensor_data" pkg="rosbag" type="play"
+	args="-k -r 0.1 $(find pr2eus)/test/pr1012_sensors.bag" />
+  <test test-name="pr2_read_state_test" pkg="roseus" type="roseus"
+	args="$(find pr2eus)/test/pr2-read-state-test.l" />
+  <test test-name="pr2_ik_test" pkg="roseus" type="roseus"
+	args="$(find pr2eus)/test/pr2-ik-test.l" />
+</launch>

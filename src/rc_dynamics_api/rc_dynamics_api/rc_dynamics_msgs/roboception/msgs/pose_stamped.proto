@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "PoseStampedProtos";
+
+/// \ingroup roboception.msgs
+/// \interface PoseStamped
+/// \brief Message for a timestamped pose
+
+import "roboception/msgs/time.proto";
+import "roboception/msgs/pose.proto";
+
+message PoseStamped
+{
+  optional Time timestamp  = 1; // Time when the data was captured
+  optional Pose pose       = 2;
+}

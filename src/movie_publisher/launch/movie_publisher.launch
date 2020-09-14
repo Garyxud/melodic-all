@@ -1,0 +1,45 @@
+<launch>
+    <arg name="movie_file" />
+    <arg name="transport" default="raw" />
+    <arg name="republished_topic_basename" default="movie_$(arg transport)" />
+
+    <arg name="fps" default="" />
+    <arg name="loop" default="false" />
+    <arg name="start" default="" />
+    <arg name="end" default="" />
+    <arg name="duration" default="" />
+    <arg name="frame_id" default="" />
+    <arg name="immediate" default="false" />
+    <arg name="playback_rate" default="" />
+    <arg name="fake_time_start" default="0.0" />
+    <arg name="spin_after_end" default="false" />
+    <arg name="verbose" default="false" />
+    <arg name="wait_after_publisher_created" default="1.0" />
+    <arg name="backend" default="moviepy" />
+    <arg name="ffmpeg" default="" />
+    <arg name="publisher_queue_size" default="10" unless="$(arg immediate)" />
+    <arg name="publisher_queue_size" default="1000" if="$(arg immediate)" />
+    <arg name="required" default="true" />
+
+    <node name="$(anon movie_publisher)" pkg="movie_publisher" type="movie_publisher_node" required="$(arg required)">
+        <param name="movie_file" value="$(arg movie_file)" />
+        <param name="fps" value="$(arg fps)" />
+        <param name="loop" value="$(arg loop)" />
+        <param name="start" value="$(arg start)" />
+        <param name="end" value="$(arg end)" />
+        <param name="duration" value="$(arg duration)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="immediate" value="$(arg immediate)" />
+        <param name="playback_rate" value="$(arg playback_rate)" />
+        <param name="fake_time_start" value="$(arg fake_time_start)" />
+        <param name="spin_after_end" value="$(arg spin_after_end)" />
+        <param name="verbose" value="$(arg verbose)" />
+        <param name="wait_after_publisher_created" value="$(arg wait_after_publisher_created)" />
+        <param name="publisher_queue_size" value="$(arg publisher_queue_size)" />
+        <param name="backend" value="$(arg backend)" />
+        <param name="ffmpeg" value="$(arg ffmpeg)" />
+    </node>
+
+    <node name="$(anon movie_publisher_republish)" pkg="image_transport" type="republish"
+          args="raw in:=movie $(arg transport) out:=$(arg republished_topic_basename)" />
+</launch>

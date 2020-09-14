@@ -1,0 +1,8 @@
+ <concert>
+  <launch title="babbler:11311" package="rocon_launch" name="talker.xml" port="11311">
+    <arg name="topic_name" value="babbler"/>
+  </launch>
+  <launch title="chatter:11312" package="rocon_launch" name="talker.xml" port="11312">
+    <arg name="topic_name" value="chatter"/>
+  </launch>
+</concert>

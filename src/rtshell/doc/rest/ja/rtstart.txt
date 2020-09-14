@@ -1,0 +1,69 @@
+=======
+rtstart
+=======
+
+--------------------
+RTシステムを起動する
+--------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtstart [options] [RTSProfile file]
+
+概要
+====
+
+すべてのコンポーネントを activate することによってRTSProfileに保存され
+たRTシステムを起動します。コンポーネントはRTSProfileが指定された順番に
+activate されます。RTSProfileに「必要」と
+指定されておらず実行中ではないコンポーネントは無視します。
+
+ファイル名を指定しない場合、RTSProfileをstdinから読みます。
+
+オプション
+==========
+
+--dry-run
+  実行する内容を表示する（実際には起動は行われない）
+
+-x, --xml
+  XMLフォーマットを使う
+
+-y, --yaml
+  YAMLフォーマットを使う
+
+.. include:: ../../common/ja/common_opts.txt
+
+ステート変更のプラン
+====================
+
+.. include:: ../../common/ja/start_stop_plans.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtstart sys.rtsys
+
+``sys.rtsys`` というファイルに保存されたRTシステムを起動します。
+
+::
+
+  $ rtstart sys.rtsys --dry-run
+
+``sys.rtsys`` というファイルに保存されたRTシステムを起動するために何を
+するかを表示します。（実際には起動されません。）
+
+参照
+====
+
+  ``rtcheck`` (1),
+  ``rtresurrect`` (1),
+  ``rtstop`` (1)
+

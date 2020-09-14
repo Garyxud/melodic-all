@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="config_freq" value="8.0" />
+
+  <!-- Node under test -->
+  <node pkg="nodelet" type="nodelet" name="nodelet" args="manager" output="screen" />
+  <node pkg="nodelet" type="nodelet" name="ulc" args="load dataspeed_ulc_can/UlcNodelet /nodelet">
+    <param name="config_frequency" value="$(arg config_freq)" />
+  </node>
+
+  <!-- Test script -->
+  <test pkg="dataspeed_ulc_can" type="dataspeed_ulc_can_test_nodelet" test-name="dataspeed_ulc_can_nodelet" time-limit="60.0" >
+    <param name="config_frequency" value="$(arg config_freq)" />
+  </test>
+
+</launch>

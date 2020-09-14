@@ -1,0 +1,3 @@
+[submodule "slime-repl-ansi-color"]
+	path = slime-repl-ansi-color
+	url = https://github.com/deadtrickster/slime-repl-ansi-color

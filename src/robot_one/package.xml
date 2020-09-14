@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robot_one</name>
+  <version>0.1.1</version>
+  <description>This package allows to use the Robot One Framework with ROS. The supported features of the framework includes the simulator and connection with the physical robots</description>
+
+  <maintainer email="alexander.ti.ufv@gmail.com">Alexander S. Barbosa</maintainer>
+
+  <url>https://github.com/AlexanderSilvaB/Robot-One-ROS</url>
+  <author>Alexander S. Barbosa</author>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <build_export_depend>tf</build_export_depend>
+  
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+</package>

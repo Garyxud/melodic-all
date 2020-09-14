@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CMainWindow</class>
+ <widget class="QMainWindow" name="CMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>902</width>
+    <height>615</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Main Window</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="CViewerContainer" name="m_viewer" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>902</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="m_menuRecentFiles">
+     <property name="title">
+      <string>Recent files</string>
+     </property>
+    </widget>
+    <widget class="QMenu" name="m_saveMetricMapRepresentation">
+     <property name="title">
+      <string>Save metric map representation</string>
+     </property>
+    </widget>
+    <widget class="QMenu" name="m_saveMetricmapInBinaryFormat">
+     <property name="title">
+      <string>Save metric map in binary format</string>
+     </property>
+    </widget>
+    <addaction name="m_actionOpen"/>
+    <addaction name="m_menuRecentFiles"/>
+    <addaction name="m_actionSave"/>
+    <addaction name="m_actionSaveAsText"/>
+    <addaction name="m_actionSaveAsPNG"/>
+    <addaction name="m_saveMetricMapRepresentation"/>
+    <addaction name="m_saveMetricmapInBinaryFormat"/>
+    <addaction name="separator"/>
+    <addaction name="m_actionLoadConfig"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+    <addaction name="m_actionGraphSlam"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="m_actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="m_actionShowObs"/>
+    <addaction name="m_actionShowConfig"/>
+    <addaction name="m_actionShowAllObs"/>
+    <addaction name="separator"/>
+    <addaction name="m_actionMapConfiguration"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="m_undoAction"/>
+    <addaction name="m_redoAction"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QDockWidget" name="m_dockWidgetObs">
+   <property name="windowTitle">
+    <string>Observations</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="m_expandAll">
+         <property name="toolTip">
+          <string>Expand all</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/resources.qrc">
+           <normaloff>:/expand.png</normaloff>:/expand.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="m_collapseAll">
+         <property name="toolTip">
+          <string>Collapse all</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/resources.qrc">
+           <normaloff>:/collapse.png</normaloff>:/collapse.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="CObservationTree" name="m_observationsTree">
+       <attribute name="headerVisible">
+        <bool>false</bool>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="m_dockWidgetNodeViewer">
+   <property name="windowTitle">
+    <string>Observations viewer</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="m_contentsNodeViewer">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="m_dockWidgetConfig">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Configuration</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="CConfigWidget" name="m_configWidget">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="m_toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="m_actionOpen"/>
+   <addaction name="m_actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="m_undoAction"/>
+   <addaction name="m_redoAction"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionShowObs"/>
+   <addaction name="m_actionShowAllObs"/>
+   <addaction name="separator"/>
+   <addaction name="m_actionLoadConfig"/>
+   <addaction name="m_actionShowConfig"/>
+   <addaction name="m_actionMapConfiguration"/>
+  </widget>
+  <widget class="QDockWidget" name="m_dockWidgetDirection">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Pose direction</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="CPoseDirection" name="m_poseDirection"/>
+  </widget>
+  <action name="m_actionOpen">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/openSimplemap.png</normaloff>:/openSimplemap.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open simplemap</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="m_actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="m_actionShowObs">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/showObservationsTree.png</normaloff>:/showObservationsTree.png</iconset>
+   </property>
+   <property name="text">
+    <string>Show observations tree</string>
+   </property>
+  </action>
+  <action name="m_actionShowConfig">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/showConfig.png</normaloff>:/showConfig.png</iconset>
+   </property>
+   <property name="text">
+    <string>Show configuration</string>
+   </property>
+  </action>
+  <action name="m_actionShowAllObs">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/showObservations.png</normaloff>:/showObservations.png</iconset>
+   </property>
+   <property name="text">
+    <string>Show all observation</string>
+   </property>
+  </action>
+  <action name="m_actionLoadConfig">
+   <property name="text">
+    <string>Load config</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="m_actionMapConfiguration">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/showConfigInWindow.png</normaloff>:/showConfigInWindow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Map configuration</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="m_undoAction">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/undo.png</normaloff>:/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="m_redoAction">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/redo.png</normaloff>:/redo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
+  <action name="m_actionSave">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/save.png</normaloff>:/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save as simplemap</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="m_actionSaveAsText">
+   <property name="text">
+    <string>Save points map as text</string>
+   </property>
+  </action>
+  <action name="m_actionSaveAsPNG">
+   <property name="text">
+    <string>Save gridmap as PNG</string>
+   </property>
+  </action>
+  <action name="m_actionGraphSlam">
+   <property name="text">
+    <string>graph-slam</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CConfigWidget</class>
+   <extends>QWidget</extends>
+   <header>gui/configWidget/CConfigWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CObservationTree</class>
+   <extends>QTreeView</extends>
+   <header>gui/observationTree/CObservationTree.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CViewerContainer</class>
+   <extends>QWidget</extends>
+   <header>gui/glWidget/CViewerContainer.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CPoseDirection</class>
+   <extends>QWidget</extends>
+   <header location="global">gui/glWidget/CPoseDirection.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>m_dockWidgetConfig</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>m_actionShowConfig</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>687</x>
+     <y>674</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_actionShowObs</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>m_dockWidgetObs</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>375</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_dockWidgetObs</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>m_actionShowObs</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>375</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_actionShowConfig</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>m_dockWidgetConfig</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>687</x>
+     <y>674</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_dockWidgetConfig</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>m_actionMapConfiguration</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>690</x>
+     <y>674</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>CMainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>413</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

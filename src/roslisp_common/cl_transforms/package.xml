@@ -1,0 +1,26 @@
+<package>
+  <name>cl_transforms</name>
+  <version>0.2.13</version>
+  <description>
+    Homogeneous transform library for Common Lisp.
+  </description>
+
+  <author>Bhaskara Marthi</author>
+  <author>Lorenz Moesenlechner</author>
+
+  <maintainer email="kazhoyan@cs.uni-bremen.de">Gayane Kazhoyan</maintainer>
+  <maintainer email="georg.bartels@cs.uni-bremen.de">Georg Bartels</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/cl_transforms</url>
+  <url type="bugtracker">https://github.com/ros/roslisp_common/issues</url>
+  <url type="repository">https://github.com/ros/roslisp_common</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>sbcl</run_depend> 
+  <run_depend>cl_utils</run_depend> 
+</package>
+
+

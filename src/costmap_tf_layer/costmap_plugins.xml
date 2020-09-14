@@ -1,0 +1,5 @@
+<library path="lib/libcostmap_tf_layer">
+  <class type="costmap_tf_layer::CostmapTfLayer" base_class_type="costmap_2d::Layer">
+    <description>ROS-package that implements a costmap layer populated by observing tf frames.</description>
+  </class>
+</library>

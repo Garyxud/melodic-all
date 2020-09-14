@@ -1,0 +1,36 @@
+<launch>
+  <!-- for HRP2 -->
+  <arg name="save_dir" default="/tmp/hrp2_rosbag"/>
+  <arg name="bagfile_prefix" default="data" />
+  <arg name="camera_namespace" default="camera" />
+  <arg name="save_openni" default="true" />
+  <arg name="save_robot_model" default="true" />
+  <arg name="save_all_image" default="false" />
+  <arg name="save_multisense" default="false" />
+  <arg name="other_topics" default=""/>
+  <arg name="machine" default="localhost" />
+
+  <include file="$(find jsk_data)/launch/common_record.launch">
+    <arg name="camera_namespace" value="$(arg camera_namespace)" />
+    <arg name="save_openni2" value="$(arg save_openni)" />
+    <arg name="save_openni" value="false" />
+    <arg name="save_robot_model" value="$(arg save_robot_model)" />
+    <arg name="save_all_image" value="$(arg save_all_image)" />
+    <arg name="save_multisense" value="$(arg save_multisense)" />
+    <arg name="other_topics" value="$(arg other_topics)
+                                    /imu
+                                    /odom
+                                    /lfsensor
+                                    /rfsensor
+                                    /lhsensor
+                                    /rhsensor
+                                    /off_lfsensor
+                                    /off_rfsensor
+                                    /off_lhsensor
+                                    /off_rhsensor
+                                    /zmp" />
+    <arg name="save_dir" value="$(arg save_dir)" />
+    <arg name="bagfile_prefix" value="$(arg bagfile_prefix)" />
+    <arg name="machine" value="$(arg machine)" />
+  </include>
+</launch>

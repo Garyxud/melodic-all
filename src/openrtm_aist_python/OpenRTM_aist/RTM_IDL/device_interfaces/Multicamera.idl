@@ -1,0 +1,35 @@
+// -*- IDL -*-
+/*!
+ * @file Multicamera.idl
+ * @brief Services for the Multicamera interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef Multicamera_idl
+#define Multicamera_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface Multicamera
+{
+    /// Get the geometry of the whole camera system.
+    MulticameraGeometry GetGeometry ();
+
+    /// Get the parameters of the cameras.
+    MulticameraInfoList GetCameraInfos ();
+};
+};
+
+#endif // Multicamera_idl
+

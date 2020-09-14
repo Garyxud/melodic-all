@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cob_reflector_referencing</name>
+  <version>0.6.9</version>
+  <description>
+    This package provides a node broadcasting a tf frame based on reflector markers detected within sensor_msgs::LaserScan messages.
+    It can be used to position/reference a robot wrt to the reflektor markers.
+  </description>
+
+  <license>Apache 2.0</license>
+
+  <maintainer email="jba@ipa.fraunhofer.de">Jannik Abbenseth</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

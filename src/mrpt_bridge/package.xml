@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mrpt_bridge</name>
+  <version>0.1.25</version>
+  <description>C++ library to convert between ROS messages and MRPT classes</description>
+
+  <maintainer email="jlblanco@ual.es">Jose-Luis Blanco-Claraco</maintainer>
+  <author email="markus.bader@tuwien.ac.at">Markus Bader</author>
+  <author email="raffi.z@gmail.com">Raphael Zack</author>
+
+  <license>BSD</license>
+  <url type="website">http://wiki.ros.org/mrpt_bridge</url>
+
+  <depend>mrpt1</depend> <!-- Depend on mrpt1 ROS pkgs -->
+  <depend>roscpp</depend>
+  <depend>tf</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>mrpt_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>message_generation</depend>
+  <depend>marker_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>stereo_msgs</depend>
+  <exec_depend>message_runtime</exec_depend>
+  <build_depend>pcl_conversions</build_depend> <!-- Only during BUILD: for unit tests -->
+  <build_depend>libpcl-all-dev</build_depend> <!-- Only during BUILD: for unit tests -->
+  <!-- Workaround for Debian Stretch not importing qtbase5-dev by itself;
+       only necessary during binary BUILD for the unit tests. -->
+  <build_depend>qtbase5-dev</build_depend>
+
+  <!-- Use buildtool_depend for build tool packages: -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <!-- Use test_depend for packages you need only for testing: -->
+  <test_depend>rosunit</test_depend>
+  <test_depend>gtest</test_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>

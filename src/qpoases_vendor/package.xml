@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="http://download.ros.org/schema/package_format3.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>qpoases_vendor</name>
+  <version>3.2.1</version>
+  <description>
+    Wrapper around qpOASES to make it available to the ROS ecosystem.
+  </description>
+  <maintainer email="geoff.biggs@tier4.jp">Geoffrey Biggs</maintainer>
+  <license>Apache License 2.0</license>  <!-- This package is Apache 2.0 -->
+  <license>LGPL</license>  <!-- qpOASES is LGPL 2.1 -->
+
+  <url type="website">https://projects.coin-or.org/qpOASES</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>subversion</depend>
+
+  <export>
+    <build_type>catkin</build_type>
+  </export>
+</package>

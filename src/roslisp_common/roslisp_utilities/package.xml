@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>roslisp_utilities</name>
+  <version>0.2.13</version>
+  <description>
+    Some utility functionality to interact with ROS using roslisp.
+  </description>
+
+  <author>Lorenz Moesenlechner</author>
+
+  <maintainer email="kazhoyan@cs.uni-bremen.de">Gayane Kazhoyan</maintainer>
+  <maintainer email="georg.bartels@cs.uni-bremen.de">Georg Bartels</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/roslisp_utilities</url>
+  <url type="bugtracker">https://github.com/ros/roslisp_common/issues</url>
+  <url type="repository">https://github.com/ros/roslisp_common</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>roslisp</run_depend>
+
+</package>

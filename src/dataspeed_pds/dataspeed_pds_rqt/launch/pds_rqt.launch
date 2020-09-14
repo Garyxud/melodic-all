@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="pds_rqt" pkg="dataspeed_pds_rqt" type="dataspeed_pds_rqt" output="screen" />
+</launch>

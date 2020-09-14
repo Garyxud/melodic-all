@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$class_s_d_h_1_1c_s_d_h_base.html" title="The base class to control the SCHUNK Dexterous Hand." alt="" coords="197,365,485,936"/>
+<area shape="rect" id="node4" href="$class_s_d_h_1_1c_d_b_g.html" title="A class to print colored debug messages." alt="" coords="115,5,221,264"/>
+<area shape="rect" id="node10" href="$class_s_d_h_1_1c_serial_base.html" title="Low&#45;level communication class to access a serial port." alt="" coords="5,469,173,832"/>
+<area shape="rect" id="node6" href="$class_s_d_h_1_1c_simple_vector.html" title="A simple vector implementation." alt="" coords="271,5,412,264"/>
+<area shape="rect" id="node8" href="$class_s_d_h_1_1c_simple_string_list.html" title="A simple string list. (Fixed maximum number of strings of fixed maximum length)" alt="" coords="509,547,667,754"/>
+</map>

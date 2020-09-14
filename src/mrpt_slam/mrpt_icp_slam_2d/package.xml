@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mrpt_icp_slam_2d</name>
+  <version>0.1.10</version>
+  <description>mrpt_icp_slam_2d contains a wrapper on MRPT's 2D ICP-SLAM algorithms.</description>
+  <maintainer email="jlblanco@ual.es">Jose Luis Blanco Claraco</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/mrpt_icp_slam_2d</url>
+  <url type="bugtracker">https://github.com/mrpt-ros-pkg/mrpt_slam/issues</url>
+
+  <author>Jose Luis Blanco Claraco</author>
+  <author>Vladislav Tananaev</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roslaunch</depend>
+  <depend>roscpp</depend>
+  <depend>roslib</depend>
+  <depend>tf</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>mrpt_bridge</depend>
+  <depend>dynamic_reconfigure</depend>
+  <depend>mrpt1</depend>
+
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>mrpt_rawlog</exec_depend>
+
+</package>

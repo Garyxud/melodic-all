@@ -1,0 +1,53 @@
+language: cpp
+
+matrix:
+  include:
+  - os: linux
+    dist: xenial
+    sudo: required
+    compiler: gcc
+    addons:
+      apt:
+        packages:
+        - libboost-serialization-dev
+        - libboost-filesystem-dev
+        - libboost-system-dev
+        - libboost-program-options-dev
+        - libboost-test-dev
+        - libode-dev
+        - libeigen3-dev
+  - os: osx
+    osx_image: xcode10.1
+    compiler: clang
+    addons:
+      homebrew:
+        packages:
+        - eigen
+        - flann
+        update: true
+  - os: linux
+    sudo: required
+    services:
+      - docker
+    env: DOCKERFILE="debian-stretch" PYTHON=/usr/bin/python
+  - os: linux
+    sudo: required
+    services:
+      - docker
+    env: DOCKERFILE="ubuntu-bionic" PYTHON=/usr/bin/python3
+
+before_install:
+  - if [ -n "$DOCKERFILE" ]; then
+      docker build -t "$DOCKERFILE" -f "scripts/docker/$DOCKERFILE" .;
+    fi
+
+script:
+  - if [ -n "$DOCKERFILE" ]; then
+      docker run "$DOCKERFILE"  /bin/sh -c "mkdir /root/ompl/build && cd /root/ompl/build && cmake -DPYTHON_EXEC=$PYTHON -DOMPL_REGISTRATION=OFF -DCMAKE_INSTALL_PREFIX=tmp .. && make -j `nproc` && ctest";
+    else
+      mkdir -p build &&
+      cd build &&
+      cmake -DOMPL_REGISTRATION=OFF -DCMAKE_INSTALL_PREFIX=tmp .. &&
+      make -j `nproc 2>/dev/null || sysctl -n hw.ncpu` &&
+      ctest;
+    fi

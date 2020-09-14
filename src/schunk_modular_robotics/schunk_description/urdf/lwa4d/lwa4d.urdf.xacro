@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="safety_offset" value="0.02"/>
+
+  <xacro:include filename="$(find schunk_description)/urdf/common.xacro" />
+  <xacro:include filename="$(find schunk_description)/urdf/lwa4d/lwa4d.gazebo.xacro"/>
+  <xacro:include filename="$(find schunk_description)/urdf/lwa4d/lwa4d.transmission.xacro"/>
+
+  <xacro:macro name="axis_config" params="invert">
+    <xacro:if value="${invert}">
+      <axis xyz="0 0 1" />
+    </xacro:if>
+    <xacro:unless value="${invert}">
+      <axis xyz="0 0 -1" />
+    </xacro:unless>
+  </xacro:macro>
+
+  <!-- invert_* is a xacro parameter to be used to adapt the urdf according to your hardware setup.
+       use invert_*:=true if  motors are inverted in the firmware.
+       use invert_*:=false if motors are not inverted in the firmware.
+  -->
+  <xacro:macro name="schunk_lwa4d_custom" params="parent name *origin has_podest invert_j1 invert_j2 invert_j3 invert_j4 invert_j5 invert_j6 invert_j7">
+
+    <xacro:if value="${has_podest}">
+      <!-- joint between base_link and lwa4p_extended_connector_link -->
+      <joint name="${name}_podest_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_podest_link"/>
+      </joint>
+      <link name="${name}_podest_link">
+        <xacro:default_inertial/>
+        <visual>
+          <geometry>
+            <mesh filename="package://schunk_description/meshes/lwa4d/arm_podest_link.stl"/>
+          </geometry>
+          <material name="Schunk/LightGrey"/>
+        </visual>
+
+        <collision>
+          <geometry>
+            <mesh filename="package://schunk_description/meshes/lwa4d/arm_podest_link.stl"/>
+          </geometry>
+        </collision>
+      </link>
+
+      <joint name="${name}_base_joint" type="fixed">
+        <origin xyz="0 0 0.140" rpy="0 0 0" />
+        <parent link="${name}_podest_link"/>
+        <child link="${name}_base_link"/>
+      </joint>
+    </xacro:if>
+
+    <xacro:unless value="${has_podest}">
+      <!-- joint between base_link and lwa4p_extended_connector_link -->
+      <joint name="${name}_base_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_base_link"/>
+      </joint>
+    </xacro:unless>
+
+    <link name="${name}_base_link">
+      <xacro:default_inertial/>
+    </link>
+
+    <!-- joint between arm_base_link and arm_1_link -->
+    <joint name="${name}_1_joint" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${name}_base_link"/>
+      <child link="${name}_1_link"/>
+      <xacro:axis_config invert="${invert_j1}"/>
+      <limit effort="216" velocity="0.43633" lower="${-M_PI+safety_offset}" upper="${M_PI-safety_offset}"/>
+    </joint>
+
+    <link name="${name}_1_link">
+      <xacro:default_inertial/>
+<!--
+      <xacro:cylinder_inertial radius="0.06" length="0.150" mass="3.6">
+          <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      </xacro:cylinder_inertial>
+-->
+      <visual>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_1_link.stl"/>
+        </geometry>
+        <material name="Schunk/LightGrey"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_1_link.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between arm_1_link and arm_2_link -->
+    <joint name="${name}_2_joint" type="revolute">
+      <origin xyz="0 0 0.240" rpy="-${M_PI/2} -${M_PI/2} 0"/>
+      <parent link="${name}_1_link"/>
+      <child link="${name}_2_link"/>
+      <xacro:axis_config invert="${invert_j2}"/>
+      <limit effort="216" velocity="0.43633" lower="${-2.14 + safety_offset}" upper="${2.14 - safety_offset}"/>
+    </joint>
+
+    <link name="${name}_2_link">
+      <xacro:default_inertial/>
+<!--
+      <xacro:cylinder_inertial radius="0.06" length="0.150" mass="2.0">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:cylinder_inertial>
+-->
+      <visual>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_2_link.stl"/>
+        </geometry>
+        <material name="Schunk/Black"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_2_link_collision.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between arm_2_link and arm_3_link -->
+    <joint name="${name}_3_joint" type="revolute">
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+      <parent link="${name}_2_link"/>
+      <child link="${name}_3_link"/>
+      <xacro:axis_config invert="${invert_j3}"/>
+      <limit effort="81.5" velocity="0.4189" lower="${-M_PI + safety_offset}" upper="${M_PI - safety_offset}"/>
+    </joint>
+
+    <link name="${name}_3_link">
+      <xacro:default_inertial/>
+<!--
+      <xacro:cylinder_inertial radius="0.06" length="0.2" mass="2.0">
+        <origin xyz="0.0 0 -0.2" rpy="0 0 0"/>
+      </xacro:cylinder_inertial>
+-->
+      <visual>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_3_link.stl"/>
+        </geometry>
+        <material name="Schunk/LightGrey"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_3_link_collision.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between arm_3_link and arm_4_link -->
+    <joint name="${name}_4_joint" type="revolute">
+      <origin xyz="0 0 0.328" rpy="-${M_PI/2} -${M_PI/2} 0"/>
+      <parent link="${name}_3_link"/>
+      <child link="${name}_4_link"/>
+      <xacro:axis_config invert="${invert_j4}"/>
+      <limit effort="81.5" velocity="0.4189" lower="${-2.18 + safety_offset}" upper="${2.18 - safety_offset}"/>
+    </joint>
+
+    <link name="${name}_4_link">
+      <xacro:default_inertial/>
+<!--
+      <xacro:cylinder_inertial radius="0.06" length="0.150" mass="1.2">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:cylinder_inertial>
+-->
+      <visual>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_4_link.stl"/>
+        </geometry>
+        <material name="Schunk/Black"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_4_link_collision.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between arm_4_link and arm_5_link -->
+    <joint name="${name}_5_joint" type="revolute">
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+      <parent link="${name}_4_link"/>
+      <child link="${name}_5_link"/>
+      <xacro:axis_config invert="${invert_j5}"/>
+      <limit effort="20.7" velocity="0.43633" lower="${-M_PI + safety_offset}" upper="${M_PI - safety_offset}"/>
+    </joint>
+
+    <link name="${name}_5_link">
+      <xacro:default_inertial/>
+<!--
+      <xacro:cylinder_inertial radius="0.06" length="0.15" mass="1.2">
+        <origin xyz="0 0 -0.18" rpy="0 0 0"/>
+      </xacro:cylinder_inertial>
+-->
+      <visual>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_5_link.stl"/>
+        </geometry>
+        <material name="Schunk/LightGrey"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_5_link_collision.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between arm_5_link and arm_6_link -->
+    <joint name="${name}_6_joint" type="revolute">
+      <origin xyz="0 0 0.323" rpy="-${M_PI/2} -${M_PI/2} 0"/>
+      <parent link="${name}_5_link"/>
+      <child link="${name}_6_link"/>
+      <xacro:axis_config invert="${invert_j6}"/>
+      <limit effort="15" velocity="1.2566" lower="${-2.09 + safety_offset}" upper="${2.09 - safety_offset}"/>
+    </joint>
+
+    <link name="${name}_6_link">
+      <xacro:default_inertial/>
+<!--
+      <xacro:sphere_inertial radius="0.05" mass="1.9">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:sphere_inertial>
+-->
+      <visual>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_6_link.stl"/>
+        </geometry>
+        <material name="Schunk/Black"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_6_link_collision.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between arm_6_link and arm_7_link -->
+    <joint name="${name}_7_joint" type="revolute">
+      <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+      <parent link="${name}_6_link"/>
+      <child link="${name}_7_link"/>
+      <xacro:axis_config invert="${invert_j7}"/>
+      <limit effort="15" velocity="1.2566" lower="${-2.96 + safety_offset}" upper="${2.96 - safety_offset}"/>
+    </joint>
+
+    <link name="${name}_7_link">
+      <xacro:default_inertial/>
+<!--
+      <xacro:cylinder_inertial radius="0.03" length="0.035" mass="0.05">
+        <origin xyz="0 0 0.06" rpy="0 0 0"/>
+      </xacro:cylinder_inertial>
+-->
+      <visual>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_7_link.stl"/>
+        </geometry>
+        <material name="Schunk/LightGrey"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4d/arm_7_link.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${name}_ee_joint" type="fixed">
+      <origin xyz="0 0 0.0824" rpy="0 0 0"/>
+      <parent link="${name}_7_link"/>
+      <child link="${name}_ee_link"/>
+    </joint>
+
+    <link name="${name}_ee_link">
+      <xacro:default_inertial/>
+    </link>
+
+    <!-- extensions -->
+    <xacro:schunk_lwa4d_gazebo name="${name}"/>
+    <xacro:schunk_lwa4d_transmission name="${name}"/>
+
+    <!-- ros_control plugin -->
+    <gazebo>
+      <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+        <robotNamespace>${name}</robotNamespace>
+        <filterJointsParam>joint_names</filterJointsParam>
+      </plugin>
+    </gazebo>
+
+  </xacro:macro>
+
+  <!-- use_factory_setings is a xacro parameter to be used to adapt the urdf according to your hardware setup.
+       use_factory_settings:=true if you have not modified the schunk firmware.
+       use_factory_settings:=false if you have modified the schunk firmware to follow DH parameters (you have inverted the PRL+ motors j1-j5)
+       if you are using custom firmware settings, use schunk_lwa4d_custom
+  -->
+  <xacro:macro name="schunk_lwa4d" params="parent name *origin has_podest use_factory_settings:=false">
+    <xacro:if value="${use_factory_settings}">
+      <xacro:schunk_lwa4d_custom parent="${parent}" name="${name}" has_podest="${has_podest}" invert_j1="false" invert_j2="false" invert_j3="false" invert_j4="false" invert_j5="false" invert_j6="true" invert_j7="true">
+        <xacro:insert_block name="origin" />
+      </xacro:schunk_lwa4d_custom>
+    </xacro:if>
+    <xacro:unless value="${use_factory_settings}">
+      <xacro:schunk_lwa4d_custom parent="${parent}" name="${name}" has_podest="${has_podest}" invert_j1="true" invert_j2="true" invert_j3="true" invert_j4="true" invert_j5="true" invert_j6="true" invert_j7="true">
+        <xacro:insert_block name="origin" />
+      </xacro:schunk_lwa4d_custom>
+    </xacro:unless>
+  </xacro:macro>
+
+</robot>

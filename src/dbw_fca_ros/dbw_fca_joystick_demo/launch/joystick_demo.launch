@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- DBW system -->
+  <arg name="sys" default="false"/>
+  <group if="$(arg sys)">
+    <include file="$(find dbw_fca_can)/launch/dbw.launch" />
+  </group>
+
+  <!-- Rviz -->
+  <arg name="rviz" default="false"/>
+  <group if="$(arg rviz)">
+    <include file="$(find dbw_fca_description)/launch/rviz.launch" />
+  </group>
+
+  <!-- Joystick demo -->
+  <arg name="brake" default="true"/>
+  <arg name="throttle" default="true"/>
+  <arg name="steer" default="true"/>
+  <arg name="shift" default="true"/>
+  <arg name="signal" default="true"/>
+  <arg name="brake_gain" default="1.0"/>
+  <arg name="throttle_gain" default="1.0"/>
+  <arg name="ignore" default="false"/>
+  <arg name="enable" default="true"/>
+  <arg name="count" default="false"/>
+  <arg name="strq" default="false"/>
+  <arg name="svel" default="0.0"/>
+  <node ns="vehicle" pkg="dbw_fca_joystick_demo" type="joystick_demo" name="joystick_demo" output="screen" >
+    <param name="brake" value="$(arg brake)" /> <!-- Send brake commands -->
+    <param name="throttle" value="$(arg throttle)" /> <!-- Send throttle commands -->
+    <param name="steer" value="$(arg steer)" /> <!-- Send steering commands -->
+    <param name="shift" value="$(arg shift)" /> <!-- Send shift commands -->
+    <param name="signal" value="$(arg signal)" /> <!-- Send turn signal commands -->
+    <param name="brake_gain" value="$(arg brake_gain)" /> <!-- Adjust brake value -->
+    <param name="throttle_gain" value="$(arg throttle_gain)" /> <!-- Adjust throttle value -->
+    <param name="ignore" value="$(arg ignore)" /> <!-- Ignore driver overrides -->
+    <param name="enable" value="$(arg enable)" /> <!-- Enable buttons -->
+    <param name="count" value="$(arg count)" /> <!-- Watchdog counter -->
+    <param name="strq" value="$(arg strq)" /> <!-- Steering torque command (otherwise angle) -->
+    <param name="svel" value="$(arg svel)" /> <!-- Steering velocity limit -->
+  </node>
+
+  <!-- Joystick driver -->
+  <arg name="dev" default="/dev/input/js0"/>
+  <node pkg="joy" type="joy_node" name="joy_node" output="screen" >
+    <param name="dev" value="$(arg dev)" />
+    <param name="deadzone" value="0.0" />
+    <param name="autorepeat_rate" value="50.0" />
+  </node>
+
+</launch>

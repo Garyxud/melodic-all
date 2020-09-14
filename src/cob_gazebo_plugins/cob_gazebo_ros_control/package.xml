@@ -1,0 +1,34 @@
+<package format="2">
+  <name>cob_gazebo_ros_control</name>
+  <version>0.7.4</version>
+  <description>
+    This package contains a specialization of the gazebo_ros_control plugin.
+    The cob_gazebo_ros_control plugin allows Multi-HardwareInterface-Support.
+  </description>
+
+  <maintainer email="fxm@ipa.fhg.de">Felix Messmer</maintainer>
+  <author email="fxm@ipa.fhg.de">Felix Messmer</author>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_gazebo_ros_control</url>
+  <url type="bugtracker">https://github.com/ipa320/cob_gazebo_plugins/issues</url>
+  <url type="repository">https://github.com/ipa320/cob_gazebo_plugins</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>controller_manager</depend>
+  <depend>gazebo</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_control</depend>
+  <depend>hardware_interface</depend>
+  <depend>joint_limits_interface</depend>
+  <depend>pluginlib</depend>
+  <depend>roscpp</depend>
+  <depend>transmission_interface</depend>
+  <depend>urdf</depend>
+
+  <export>
+    <gazebo_ros_control plugin="${prefix}/cob_gazebo_ros_control_plugins.xml"/>
+  </export>
+</package>

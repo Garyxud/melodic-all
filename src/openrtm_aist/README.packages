@@ -1,0 +1,28 @@
+1. Pacakge build system
+This source package includes some kind of package build scripts.  Now
+deb (Debian package) and rpm (RPM package) are supported.  Script
+automatically detects distribution and package maangement system, you
+just enter "packages" directory and run make in the directory.
+
+1) configure
+$ ./configure <options>
+
+2) enter package directory
+$ cd packages
+
+3) make
+$ make
+
+
+2. Supported OS and Distribution
+
+- Debian (deb package)
+- Ubuntu (deb package)
+- Fedora (rpm package)
+- Vine   (rpm package)
+
+will be supported soon
+
+- Mac OS X (macports)
+- FreeBSD (ports)
+

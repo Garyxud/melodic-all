@@ -1,0 +1,61 @@
+========
+rtstodot
+========
+
+------------------------------------
+起動中のRTシステムをグラフで表示する
+------------------------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtstodot [options] [RTSProfile file]
+
+概要
+====
+
+GraphvizのdotフォーマットでRTシステムをグラフとして表示します。
+RTSProfileが指定されていない場合、stdinから読みます。
+
+オプション
+==========
+
+-x, --xml
+  XMLフォーマットを使う
+
+-y, --yaml
+  YAMLフォーマットを使う
+
+.. include:: ../../common/ja/common_opts.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtstodot sys.rtsys | dot -T xlib
+
+``sys.rtsys`` というファイルに保存されたRTシステムを表示します。
+
+::
+
+  $ rtstodot sys.rtsys | dot -T eps > sys.eps
+
+``sys.rtsys`` というファイルに保存されたRTシステムを表示してEncapsulated
+PostScriptフォーマットに保存します。
+
+::
+
+  $ rtcryo | rtstodot | dot -T xlib
+
+現在実行中のRTシステムを表示します。
+
+参照
+====
+
+  ``rtcryo`` (1)
+

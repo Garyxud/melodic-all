@@ -1,0 +1,8 @@
+$NetBSD$
+
+SHA1 (omniORB-4.1.6.tar.bz2) = 383e3b3b605188fe6358316917576e0297c4e1a6
+RMD160 (omniORB-4.1.6.tar.bz2) = a0ba42721a1932d29abeb37dff0dc3ea7a9ddce6
+Size (omniORB-4.1.6.tar.bz2) = 2622026 bytes
+SHA1 (patch-aa) = f27ac35d4fe73d284f3a23dd045083f4c467813e
+SHA1 (patch-ab) = b7f00a156ea605a59add22cb25519e20eb1446c5
+SHA1 (patch-ac) = 04fd0a271d8723b1cba29fbef0c9fd3270b23ed2

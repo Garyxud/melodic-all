@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>heifu_bringup</name>
+  <version>0.7.1</version>
+  <description>Heifu is a ROS driver for PDMFC and BEV drone</description>
+
+  <maintainer email="joao.m.carvalho@pdmfc.com">João Pedro Carvalho</maintainer>
+
+  <license>BSD</license>
+
+  <author email="joao.m.carvalho@pdmfc.com">João Pedro Carvalho</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>heifu_mavros</run_depend>
+  <run_depend>heifu_tools</run_depend>
+  <run_depend>heifu_description</run_depend>
+  <run_depend>heifu_msgs</run_depend>
+  <run_depend>heifu_safety</run_depend>
+
+
+</package>
+

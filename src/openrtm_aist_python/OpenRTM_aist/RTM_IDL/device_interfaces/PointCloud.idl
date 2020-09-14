@@ -1,0 +1,32 @@
+// -*- IDL -*-
+/*!
+ * @file PointCloud.idl
+ * @brief Services for the PointCloud interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef PointCloud_idl
+#define PointCloud_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface PointCloudServices
+{
+    /// Get the geometry of the sensor.
+    Geometry3D GetGeometry ();
+};
+};
+
+#endif // PointCloud_idl
+

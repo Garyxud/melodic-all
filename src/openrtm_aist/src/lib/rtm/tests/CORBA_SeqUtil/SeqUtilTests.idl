@@ -1,0 +1,12 @@
+
+typedef sequence<short>  SList;
+typedef sequence<long>   LList;
+typedef sequence<float>  FList;
+typedef sequence<string> StringList;
+
+struct NameValue {
+  string name;
+  any    value;
+};
+
+typedef sequence<NameValue> NVList;

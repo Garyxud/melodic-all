@@ -1,0 +1,50 @@
+<launch>
+  <!-- we assume test code is invoked in alphabet order of test-name -->
+  <sphinxdoc><![CDATA[
+Convert collada robot to euslisp robot model
+
+PR2 example
+
+.. code-block:: bash
+
+  rosrun euscollada pr2.sh
+
+.. video:: build/pr2_test
+  :width: 400
+
+.. code-block:: bash
+
+  rosrun euscollada collada2eus <collada model file name> <euslisp model file name>
+
+Mitsubishi PA10
+https://openrave.svn.sourceforge.net/svnroot/openrave/data/robots/mitsubishi-pa10.zae
+
+.. image:: test/mitsubishi-pa10.png
+  :width: 400
+
+Unimate PUMA Arm
+https://openrave.svn.sourceforge.net/svnroot/openrave/data/robots/unimation-pumaarm.zae
+
+.. image:: test/unimation-pumaarm.png
+  :width: 400
+
+Care-O-Bot
+https://openrave.svn.sourceforge.net/svnroot/openrave/data/robots/care-o-bot3.zae
+
+.. image:: test/care-o-bot3.png
+  :width: 400
+
+Darpa ARM
+https://openrave.svn.sourceforge.net/svnroot/openrave/data/robots/darpa-arm.zae
+
+.. image:: test/darpa-arm.png
+  :width: 400
+
+  ]]></sphinxdoc>
+  <test test-name="euscollada_pr2_test" pkg="roseus" type="roseus"
+	args="$(find euscollada)/test/euscollada-pr2-test.l"
+        __launch-prefix="glc-capture --start --out=$(find euscollada)/build/pr2_test.glc"
+        />
+  <!-- test type="glc_encode.sh" pkg="jsk_tools" test-name="z_pr2_test" args="$(find euscollada)/build/pr2_test.glc" time-limit="1000"/ -->
+
+</launch>

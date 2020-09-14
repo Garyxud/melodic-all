@@ -1,0 +1,37 @@
+<package>
+  <name>ddwrt_access_point</name>
+  <version>1.0.16</version>
+  <description>A ROS node that controls a Linksys WRT610Nv2 access point with
+    a dd-wrt firmware. Other access points models/dd-wrt versions
+    may be compatible as long as the web interface is identical.</description>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/ddwrt_access_point</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Personal Networks</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>rospy</build_depend>
+  <build_depend>access_point_control</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>ieee80211_channels</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>rospy</run_depend>
+  <run_depend>access_point_control</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>ieee80211_channels</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>rospy</test_depend> -->
+  <!-- <test_depend>access_point_control</test_depend> -->
+  <!-- <test_depend>dynamic_reconfigure</test_depend> -->
+  <!-- <test_depend>ieee80211_channels</test_depend> -->
+
+</package>

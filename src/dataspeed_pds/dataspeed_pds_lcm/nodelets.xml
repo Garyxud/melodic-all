@@ -1,0 +1,9 @@
+<library path="lib/libdataspeed_pds_lcm">
+  <class name="dataspeed_pds_lcm/PdsNodelet"
+         type="dataspeed_pds_lcm::PdsNodelet"
+         base_class_type="nodelet::Nodelet">
+    <description> 
+      Dataspeed Power Distribution System (PDS) nodelet using LCM
+    </description>
+  </class>
+</library>

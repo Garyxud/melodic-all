@@ -1,0 +1,15 @@
+<package>
+  <name>uos_maps</name>
+  <version>1.0.0</version>
+  <description>Navigation maps of the Osnabrueck University</description>
+  <maintainer email="mguenthe@uni-osnabrueck.de">Martin Guenther</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/uos_maps</url>
+
+  <author>Martin Guenther</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

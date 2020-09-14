@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!-- root directory -->		
+  <Directory Id="OpenCVRTC" Name="opencv-rtcs">
+    <Component Id="OpenCVRTCBin" Guid="{% OpenCVRTCBin.GUID %}">
+      {% for file in OpenCVRTCBin.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+	          DiskId="1" Source="{% file.Source %}">
+		  {% if-any file.Shortcut %}{% if file.Shortcut is True %}
+		    <Shortcut Id="{% file.Id %}" Directory="OpenCVRtcMenuFolder"
+			          Name="{% file.Name %}"
+			          Show="normal"
+			          WorkingDirectory="OpenCVRTC"
+			          Icon="RTC.ico" IconIndex="0"
+			  {% if-any file.Arguments %}
+			    Arguments='{% file.Arguments %}'{% endif %}> 
+		    </Shortcut>
+		  {% endif %}{% endif %}
+	    </File>
+	  {% endfor %}
+    </Component>
+  </Directory>
+</Include>
+

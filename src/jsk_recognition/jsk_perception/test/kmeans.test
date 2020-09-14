@@ -1,0 +1,27 @@
+<launch>
+
+  <node name="image_publisher"
+        pkg="jsk_perception" type="image_publisher.py">
+    <param name="file_name" value="$(find jsk_perception)/sample/oreo_mega_stuf.jpg" />
+    <rosparam>
+      publish_info: false
+    </rosparam>
+  </node>
+
+  <node name="kmeans"
+        pkg="nodelet" type="nodelet"
+        args="standalone jsk_perception/KMeans">
+    <remap from="~input" to="image_publisher/output" />
+  </node>
+
+  <test test-name="test_kmeans"
+        name="test_kmeans"
+        pkg="jsk_tools" type="test_topic_published.py"
+        retry="3">
+    <rosparam>
+      topic_0: /kmeans/output
+      timeout_0: 30
+    </rosparam>
+  </test>
+
+</launch>

@@ -1,0 +1,9 @@
+<launch>
+
+  <test test-name="test_quick_call"
+        pkg="rocon_python_comms" type="test_quick_call_client.py"
+        name="test_quick_call_pairs" time-limit="30.0" />
+
+  <node pkg="rocon_python_comms" type="quick_call_server.py" name="quick_call_server" />
+
+</launch>

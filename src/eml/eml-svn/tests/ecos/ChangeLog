@@ -1,0 +1,7 @@
+2005-04-25  Klaas Gadeyne  <first dot last at fmtc dot be>
+	* Obfuscate Bob's email address :-)
+	* Implemented framing and added test to run the lights demo
+	* CVS tag FMVB_0_4_0
+	
+2004-11-17  Bob Koninckx <bob dot koninckx at fmtc dot be>
+	* Create new module 

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>safety_limiter_msgs</name>
+  <version>0.8.0</version>
+  <description>Message definitions for safety_limiter_msgs package</description>
+
+  <maintainer email="atushi.w@ieee.org">Atsushi Watanabe</maintainer>
+  <license>BSD</license>
+  <author email="daikimaekawa29@gmail.com">Daiki Maekawa</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <build_export_depend>message_runtime</build_export_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <depend>std_msgs</depend>
+
+</package>

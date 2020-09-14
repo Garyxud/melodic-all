@@ -1,0 +1,19 @@
+                        === network_traffic_control tests ===
+
+dynreconf_test
+--------------
+
+Description: 
+  * tests the traffic control functionality using the dynamic_reconfigure interface
+
+Tests:
+  * test_latency: tests that latency (delay) works, both on egress and ingress
+  * test_bandwidth: tests that bandwidth limits work, both on egress and ingres
+  * test_bandwidth_latency: tests that a simultaneous bandwidth limit on egress and 
+latency emulation on ingress work as expected
+  * test_ingress_egress_loss: tests that simultaneous loss emulation on ingress and
+egress works as expected
+  * test_packet_size: tests that the packet_size parameters works as intended
+  * test_bandwidth_latency_loss: performs many tests of all three parameters together, 
+using the values projected by projected_link_metrics.py as reference
+

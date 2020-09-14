@@ -1,0 +1,48 @@
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changelog for package swri_profiler
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+0.2.2 (2019-11-11)
+------------------
+* Update catkin dependencies for swri_profiler_tools
+* Enable c++11 support
+* Contributors: P. J. Reed
+
+0.2.1 (2019-11-11)
+------------------
+* Add repository url to package.xml
+* Correct license tag in package.xml.
+* Clean up CMakeLists
+* Contributors: Isaac I.Y. Saito, Matthew Bries, P. J. Reed
+
+0.2.0 (2019-04-18)
+------------------
+* Update maintainers
+* Make master build on both Indigo and Kinetic
+* Install Python scripts & HTML files
+* Contributors: P. J. Reed
+
+0.1.0 (2017-12-14)
+------------------
+
+0.0.3 (2016-11-23)
+------------------
+* Add Travis CI support
+* Contributors: P. J. Reed
+
+0.0.2 (2016-11-23)
+------------------
+* Add missing runtime dependency on rosbridge_server
+* profiler_server no longer requires python 3
+* Update to profiler to handle unexpected case.
+* Working on database backend.
+* Modify profiler data message to include current ros time.
+* Add script to record profiler data to a bag file.
+* Fix timestamp on profiler index messages.
+* Adding an arg for the HTTP server port; doing a little cleanup.
+* Add preprocessor option to disable profiler.
+* Major update to both profiler backend and JS viewer.
+* Add basic_profiler_example_node.
+* Change profiler backend to use a thread instead of timers.
+* Initial commit
+* Contributors: Edward Venator, Elliot Johnson, P. J. Reed

@@ -1,0 +1,6 @@
+moose_velocity_controller:
+  # Wheel separation and radius multipliers
+  wheel_separation: 1.3468  # m
+  wheel_radius: 0.3556 # m
+  wheel_separation_multiplier: 1.0 # default: 1.0
+  wheel_radius_multiplier    : 1.0 # default: 1.0

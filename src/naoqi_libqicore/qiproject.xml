@@ -1,0 +1,8 @@
+<project version="3">
+  <maintainer email="jlamotte@aldebaran.com">Joel Lamotte</maintainer>
+  <qibuild name="libqicore">
+    <depends names="libqi" buildtime="true" runtime="true" />
+    <depends names="gtest" testtime="true" />
+  </qibuild>
+  <project src="dox" />
+</project>

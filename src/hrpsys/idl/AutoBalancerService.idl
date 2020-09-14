@@ -1,0 +1,472 @@
+/**
+ * @file AutoBalancerService.idl
+ * @brief Services for the autobalancer interface
+ */
+//#include "OpenHRPCommon.idl"
+module OpenHRP
+{
+  
+  interface AutoBalancerService
+  {
+    typedef sequence<double, 3> DblSequence3;
+    //typedef sequence<double, 4> DblSequence4;
+    typedef double DblArray2[2];
+    typedef double DblArray3[3];
+    typedef double DblArray4[4];
+    typedef double DblArray5[5];
+
+    /**
+     * @struct Footstep
+     * @brief Foot step for one leg.
+     */
+    struct Footstep
+    {
+      /// Foot position [m]
+      DblArray3 pos;
+      /// Foot orientation by quaternion (w,x,y,z)
+      DblArray4 rot;
+      /// Leg name (rleg or lleg)
+      string leg;
+    };
+
+    /**
+     * @struct Footsteps
+     * @brief Foot step for multi legs.
+     */
+    struct Footsteps
+    {
+      sequence<Footstep> fs;
+    };
+
+    /**
+     * @struct StepParam
+     * @brief Step parameter for one step
+     */
+    struct StepParam
+    {
+      /// Step height [m]
+      double step_height;
+      /// Step time [s]
+      double step_time;
+      /// Maximum toe angle [deg] for toe-off motion
+      double toe_angle;
+      /// Maximum heel angle [deg] for heel-contact motion
+      double heel_angle;
+    };
+
+    /**
+     * @struct StepParams
+     * @brief Step parameters for multi step
+     */
+    struct StepParams
+    {
+      sequence<StepParam> sps;
+    };
+
+    /**
+     * @struct FootstepSequence
+     * @brief Sequence of foot step.
+     */
+    typedef sequence<Footstep> FootstepSequence;
+    typedef sequence<StepParam> StepParamSequence;
+
+    /**
+     * @struct FootstepsSequence
+     * @brief Sequence of foot steps.
+     */
+    typedef sequence<Footsteps> FootstepsSequence;
+    typedef sequence<StepParams> StepParamsSequence;
+
+    /**
+     * @enum SupportLegState
+     * @brief State of support leg.
+     */
+    enum SupportLegState {
+      RLEG,
+      LLEG,
+      BOTH
+    };
+
+    /**
+     * @enum OrbitType
+     * @brief Orbit type of swing foot.
+     */
+    enum OrbitType {
+      SHUFFLING,
+      CYCLOID,
+      RECTANGLE,
+      STAIR,
+      CYCLOIDDELAY,
+      CYCLOIDDELAYKICK,
+      CROSS
+    };
+
+    /**
+     * @enum GaitType
+     * @brief Gait type
+     */
+    enum GaitType {
+      BIPED,
+      TROT,
+      PACE,
+      CRAWL,
+      GALLOP
+    };
+
+    /**
+     * @enum ControllerMode
+     * @brief Mode of controller
+     */
+    enum ControllerMode {
+      MODE_IDLE,
+      MODE_ABC,
+      MODE_SYNC_TO_IDLE,
+      MODE_SYNC_TO_ABC
+    };
+
+    /**
+     * @enum UseForceMode
+     * @brief Mode of use_force
+     */
+    enum UseForceMode {
+      /// Mode in which robot's COG is not changed according to force/moment values
+      MODE_NO_FORCE,
+      /// Mode in which robot's COG is changed according to sensors' force/moment values
+      MODE_REF_FORCE,
+      /// Mode in which robot's COG is changed according to sensors' force/moment values for hands and feet (and root-link)
+      MODE_REF_FORCE_WITH_FOOT,
+      /// Mode in which robot's COG is changed according to sensors' force/moment values using ReferenceForceUpdater's ext moment
+      MODE_REF_FORCE_RFU_EXT_MOMENT
+    };
+
+    /**
+     * @enum StrideLimitationType
+     * @brief Type of stride limitation
+     */
+    enum StrideLimitationType {
+      SQUARE,
+      CIRCLE
+    };
+
+    /**
+     * @struct FootstepParam
+     * @brief Foot step parameters.
+     */
+    struct FootstepParam
+    {
+      /// Support foot coords
+      Footstep support_leg_coords;
+      /// Swing foot coords, which is interpolation betwee swing_leg_src_coords and swing_leg_dst_coords
+      Footstep swing_leg_coords;
+      /// Source coords for swing foot
+      Footstep swing_leg_src_coords;
+      /// Destination coords for swing foot
+      Footstep swing_leg_dst_coords;
+      /// Destination foot midcoords
+      Footstep dst_foot_midcoords;
+      /// RLEG or LLEG
+      SupportLegState support_leg;
+      /// RLEG, LLEG, or BOTH
+      SupportLegState support_leg_with_both;
+    };
+
+    typedef sequence<string> StrSequence;
+
+    /**
+     * @struct GaitGeneratorParam
+     * @brief Parameters for GaitGenerator.
+     */
+    struct GaitGeneratorParam
+    {
+      /// Step time [s]
+      double default_step_time;
+      /// Step height [m]
+      double default_step_height;
+      /// Ratio of double support period. Ratio is included in (0, 1). Double support period time is default_double_support_ratio*default_step_time.
+      double default_double_support_ratio;
+      /// Ratio of first double support period. Ratio is included in (0, 1). First double support period time is default_double_support_ratio_before*default_step_time.
+      double default_double_support_ratio_before;
+      /// Ratio of last double support period. Ratio is included in (0, 1). Last double support period time is default_double_support_ratio_after*default_step_time.
+      double default_double_support_ratio_after;
+      /// Ratio of double support static period in which reference ZMP does not move. Ratio is included in (0, 1). default_double_support_ratio >= default_double_support_static_ratio..
+      double default_double_support_static_ratio;
+      /// Ratio of first double support static period in which reference ZMP does not move. Ratio is included in (0, 1). default_double_support_ratio_before >= default_double_support_static_ratio_before..
+      double default_double_support_static_ratio_before;
+      /// Ratio of last double support static period in which reference ZMP does not move. Ratio is included in (0, 1). default_double_support_ratio_after >= default_double_support_static_ratio_after..
+      double default_double_support_static_ratio_after;
+      /// Ratio of double support period before swing. Ratio is included in (0, 1).
+      double default_double_support_ratio_swing_before;
+      /// Ratio of double support period after swing. Ratio is included in (0, 1).
+      double default_double_support_ratio_swing_after;
+      /// Stride limitation of forward x[m], outside y[m], outside theta[deg], backward x[m], inside y[m], inside theta[deg] for goPos and goVelocity
+      sequence<double, 6> stride_parameter;
+      /// Stride limitation when generating footsteps with stride limitation type CIRCLE (forward, outside, theta, backward, inside) [m]
+      DblArray5 stride_limitation_for_circle_type;
+      /// Default OrbitType
+      OrbitType default_orbit_type;
+      /// Time offset [s] for swing trajectory by delay_hoffarbib_trajectory_generator.
+      double swing_trajectory_delay_time_offset;
+      /// Weight parameter for distance of final path of delay_hoffarbib_trajectory_generator (1.0 by default).
+      double swing_trajectory_final_distance_weight;
+      /// Way point offset 3D vector [m] for stair_delay_hoffarbib_trajectory_generator.
+      DblArray3 stair_trajectory_way_point_offset;
+      /// Kick point offset 3D vector [m] for cycloid_delay_kick_hoffarbib_trajectory_generator.
+      DblArray3 cycloid_delay_kick_point_offset;
+      /// Time offset between Z convergence to antecedent path and XY convergence. [swing time]=[Z convergence time]=[XY convergence time]-[swing_trajectory_xy_time_offset]. 0 by default, this means Z convergence time and XY convergence time are same.
+      double swing_trajectory_time_offset_xy2z;
+      /// Gravitational acceleration [m/s^2]
+      double gravitational_acceleration;
+      /// Toe position offset [m] in end-effector frame x axis
+      double toe_pos_offset_x;
+      /// Heel position offset [m] in end-effector frame x axis
+      double heel_pos_offset_x;
+      /// Toe ZMP offset [m] in end-effector frame x axis
+      double toe_zmp_offset_x;
+      /// Heel ZMP offset [m] in end-effector frame x axis
+      double heel_zmp_offset_x;
+      /// Maximum toe angle [deg] for toe-off motion
+      double toe_angle;
+      /// Maximum heel angle [deg] for heel-contact motion
+      double heel_angle;
+      /// Threshould [m] (>=0) whether toe is used or not. This is used only if use_toe_heel_auto_set == true.
+      double toe_check_thre;
+      /// Threshould [m] (>=0) whether heel is used or not. This is used only if use_toe_heel_auto_set == true.
+      double heel_check_thre;
+      /// Sequence of phase ratio of toe-off and heel-contact. Sum of toe_heel_phase_ratio should be 1.0.
+      sequence<double> toe_heel_phase_ratio;
+      /// Use toe joint or not in toe-off heel-contact motion.
+      boolean use_toe_joint;
+      /// Use toe heel zmp transition. If true, zmp moves among default position, toe position (described by toe_zmp_offset_x), and heel position (described by heel_zmp_offset_x).
+      boolean use_toe_heel_transition;
+      /// Use toe heel auto setting. If true, gait generator autonomously determine whether toe and heel are used.
+      boolean use_toe_heel_auto_set;
+      /// ZMP weight of RLEG, LLEG, RARM and LARM
+      sequence<double, 4> zmp_weight_map;
+      /// Foot position offset[m] (rleg and lleg)
+      sequence<DblSequence3> leg_default_translate_pos;
+      /// Number of optional finalize footsteps in goPos
+      long optional_go_pos_finalize_footstep_num;
+      /// Offset for overwritable footstep index. Offset from current footstep index. Used in emergency_stop and velocity_mode.
+      long overwritable_footstep_index_offset;
+      /// Stride limitation when overwriting footsteps (forward, outside, theta, backward, inside) [m]
+      DblArray5 overwritable_stride_limitation;
+      /// Use stride limitation or not
+      boolean use_stride_limitation;
+      /// Stride limitation type
+      StrideLimitationType stride_limitation_type;
+      /// Leg margin between foot end effector position and foot edge (front, rear, outside, inside) [m]
+      DblArray4 leg_margin;
+      /// Feedback gain when modifying footsteps based on Capture Point
+      double footstep_modification_gain;
+      /// Whether modify footsteps based on Capture Point
+      boolean modify_footsteps;
+      /// CP check margin when modifying footsteps (x, y) [m]
+      DblArray2 cp_check_margin;
+      /// Margin time ratio for footstep modification before landing [s]
+      double margin_time_ratio;
+    };
+
+    /**
+     * @enum IKLimbParameters
+     * @brief IKLimbParameters
+     */
+    struct IKLimbParameters {
+        /// Joint weight for Inverse Kinematics calculation.
+        sequence<double> ik_optional_weight_vector;
+        /// SR-inverse gain for inverse kinematics.
+        double sr_gain;
+        /// Avoid joint limit gain for inverse kinematics.
+        double avoid_gain;
+        /// Reference joint angles tracking gain for inverse kinematics.
+        double reference_gain;
+        /// Manipulability limit for inverse kinematics.
+        double manipulability_limit;
+    };
+
+    /**
+     * @struct AutoBalancerParam
+     * @brief Parameters for AutoBalancer
+     */
+    struct AutoBalancerParam
+    {
+      /// ZMP offset vectors[m] for rleg and lleg (<-please set by this order)
+      sequence<DblSequence3> default_zmp_offsets;
+      double move_base_gain;
+      ControllerMode controller_mode;
+      UseForceMode use_force_mode;
+      boolean graspless_manip_mode;
+      string graspless_manip_arm;
+      DblArray3 graspless_manip_p_gain;
+      DblArray3 graspless_manip_reference_trans_pos;
+      DblArray4 graspless_manip_reference_trans_rot;
+      /// Transition time [s] for start and stop AutoBalancer
+      double transition_time;
+      /// Transition time [s] for default_zmp_offsets
+      double zmp_transition_time;
+      /// Transition time [s] for adjust foot step
+      double adjust_footstep_transition_time;
+      StrSequence leg_names;
+      /// Flag for inverse kinematics (IK). If true, IK has failed before.
+      boolean has_ik_failed;
+      /// IK position threshold [m]
+      double pos_ik_thre;
+      /// IK rotation threshold [rad]
+      double rot_ik_thre;
+      /// Flag for fix hand while walking.
+      boolean is_hand_fix_mode;
+      sequence<Footstep> end_effector_list;
+      /// Default GaitType
+      GaitType default_gait_type;
+      /// Sequence for all end-effectors' ik limb parameters
+      sequence<IKLimbParameters> ik_limb_parameters;
+      /// Whether change root link height for avoiding limb stretch
+      boolean use_limb_stretch_avoidance;
+      /// Limb stretch avoidance time constant [s]
+      double limb_stretch_avoidance_time_const;
+      /// Root link height change limitation for avoiding limb stretch [m/s] (lower, upper)
+      DblArray2 limb_stretch_avoidance_vlimit;
+      /// Sequence of limb length margin from max limb length [m]
+      sequence<double> limb_length_margin;
+      /// Name of additional force applied link for MODE_REF_FORCE_WITH_FOOT for MODE_REF_FORCE_RFU_EXT_MOMENT. Additional force is applied to the point without force sensors, such as torso.
+      string additional_force_applied_link_name;
+      /// Link local offset[m] of force applied point for MODE_REF_FORCE_WITH_FOOT. This is local value in the link frame specified by "additional_force_applied_link_name". Zero by default.
+      DblArray3 additional_force_applied_point_offset;
+    };
+
+    /**
+     * @brief Walk to the goal position and orientation. Returns without waiting for whole steps to be executed.
+     * @param i_x[m], i_y[m], and i_th[deg] are goal x-y-position and z-orientation from the current mid-coords of right foot and left foot.
+     * @return true if set successfully, false otherwise
+     */
+    boolean goPos(in double x, in double y, in double th);
+
+    /**
+     * @brief Walk at the desired velocity. If the robot is stopping, the robot starts stepping. Returns without waiting for whole steps to be executed.
+     * @param i_vx[m/s], i_vy[m/s], and i_vth[deg/s] are velocity in the current mid-coords of right foot and left foot.
+     * @return true if set successfully, false otherwise
+     */
+    boolean goVelocity(in double vx, in double vy, in double vth);
+
+    /**
+     * @brief Stop stepping.
+     * @param
+     * @return true if set successfully, false otherwise
+     */
+    boolean goStop();
+
+    /**
+     * @brief Stop stepping immediately.
+     * @param
+     * @return true if set successfully, false otherwise
+     */
+    boolean emergencyStop();
+
+    /**
+     * @brief Set footsteps. Returns without waiting for whole steps to be executed.
+     * @param fss is sequence of FootStep structure.
+              overwrite_fs_idx is index to be overwritten. overwrite_fs_idx is used only in walking.
+     * @return true if set successfully, false otherwise
+     */
+    boolean setFootSteps(in FootstepsSequence fss, in long overwrite_fs_idx);
+
+    /**
+     * @brief Set footsteps. Returns without waiting for whole steps to be executed.
+     * @param fss is sequence of FootStepWithParam structure.
+              overwrite_fs_idx is index to be overwritten. overwrite_fs_idx is used only in walking.
+     * @return true if set successfully, false otherwise
+     */
+    boolean setFootStepsWithParam(in FootstepsSequence fss, in StepParamsSequence spss, in long overwrite_fs_idx);
+
+    /**
+     * @brief Wait for whole footsteps are executed.
+     * @param
+     * @return true if set successfully, false otherwise
+     */
+    void waitFootSteps();
+
+    /**
+     * @brief Wait for whole footsteps are executed.
+     * @param tm is early time from stepping finish
+     * @return true if set successfully, false otherwise
+     */
+    void waitFootStepsEarly(in double tm);
+
+    /**
+     * @brief Start AutoBalancer mode in which the robot controls the COM.
+     * @param limbs is sequence of limbs to fix. limbs are :rleg, :lleg, :rarm, and :larm
+     * @return true if set successfully, false otherwise
+     */
+    boolean startAutoBalancer(in StrSequence limbs);
+
+    /**
+     * @brief Stop AutoBalancer mode.
+     * @param
+     * @return true if set successfully, false otherwise
+     */
+    boolean stopAutoBalancer();
+
+    /**
+     * @brief Set GaitGenerator parameters
+     * @param i_param is input parameter
+     * @return true if set successfully, false otherwise
+     */
+    boolean setGaitGeneratorParam(in GaitGeneratorParam i_param);
+
+    /**
+     * @brief Get GaitGenerator parameters.
+     * @param i_param is output parameters
+     * @return true if set successfully, false otherwise
+     */
+    boolean getGaitGeneratorParam(out GaitGeneratorParam i_param);
+
+    /**
+     * @brief Set AutoBalancer parameters
+     * @param i_param is input parameter
+     * @return true if set successfully, false otherwise
+     */
+    boolean setAutoBalancerParam(in AutoBalancerParam i_param);
+
+    /**
+     * @brief Get AutoBalancer parameters.
+     * @param i_param is output parameters
+     * @return true if set successfully, false otherwise
+     */
+    boolean getAutoBalancerParam(out AutoBalancerParam i_param);
+
+    /**
+     * @brief Get footstep parameters.
+     * @param i_param is output parameters
+     * @return true if set successfully, false otherwise
+     */
+    boolean getFootstepParam(out FootstepParam i_param);
+
+    /**
+     * @brief Adjust Footsteps.
+     * @param 
+     * @return true if set successfully, false otherwise
+     */
+    boolean adjustFootSteps(in Footstep rfootstep, in Footstep lfootstep);
+
+    /**
+     * @brief Get remaining footstep list.
+     * @param o_footstep is remaining footstep sequence. For example, if initial footsteps are [rfoot(0), lfoot(1), ..., rfoot(N-1)] (rfoot(0) is initial support foot and lfoot(1) is initial swing destination foot) and current support foot is lfoot(X-1), o_footstep is [rfoot(X), lfoot(X+1), ..., rfoot(N)].
+              o_current_fs_idx is current footstep index X.
+     * @return true if set successfully, false otherwise
+     */
+    boolean getRemainingFootstepSequence(out FootstepSequence o_footstep, out long o_current_fs_idx);
+
+    /**
+     * @brief Get GoPos Footstep list.
+     * @param i_x[m], i_y[m], and i_th[deg] are goal x-y-position and z-orientation from the current mid-coords of right foot and left foot. o_footstep is footstep sequence.
+     * @return true if set successfully, false otherwise
+     */
+    boolean getGoPosFootstepsSequence(in double x, in double y, in double th, out FootstepsSequence o_footstep);
+
+    /**
+     * @brief Release emergency stop mode.
+     * @param
+     * @return true if set successfully, false otherwise
+     */
+    boolean releaseEmergencyStop();
+  };
+};

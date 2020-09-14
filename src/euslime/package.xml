@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>euslime</name>
+  <version>1.0.2</version>
+  <description>EusLisp meets SLIME</description>
+
+  <maintainer email="affonso@jsk.imi.i.u-tokyo.ac.jp">Guilherme de Campos Affonso</maintainer>
+  <author>Yuki Furuta</author>
+  <license>BSD</license>
+  <url type="repository">https://github.com/jsk-ros-pkg/euslime</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>catkin_virtualenv</build_depend>
+  <run_depend>slime_ros</run_depend>
+  <run_depend>roseus</run_depend>
+  <export>
+    <pip_requirements>requirements.txt</pip_requirements>
+  </export>
+
+</package>

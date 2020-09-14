@@ -1,0 +1,7 @@
+bool enable
+float64 distance
+---
+bool success
+geometry_msgs/Point start_pos
+geometry_msgs/Point max_pos
+geometry_msgs/Point min_pos

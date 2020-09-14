@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dbw_fca_joystick_demo</name>
+  <version>1.0.10</version>
+  <description>
+    Demonstration of drive-by-wire with joystick
+  </description>
+
+  <license>BSD</license>
+  <author email="mradovnikovich@dataspeedinc.com">Micho Radovnikovich</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/dbw_fca_ros</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/dbw_fca_ros/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>dbw_fca_msgs</depend>
+
+  <exec_depend>roslaunch</exec_depend>
+  <exec_depend>joy</exec_depend>
+  <exec_depend>dbw_fca_can</exec_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>roslib</test_depend> <!-- Needed for ROS_DISTRO environment variable -->
+
+</package>

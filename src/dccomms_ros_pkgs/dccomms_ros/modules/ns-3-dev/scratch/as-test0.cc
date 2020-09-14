@@ -1,0 +1,242 @@
+/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
+/*
+ * Copyright (c) 2017 University of Connecticut
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation;
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Author: Robert Martin <robert.martin@engr.uconn.edu>
+ */
+
+#include "ns3/applications-module.h"
+#include "ns3/aqua-sim-ng-module.h"
+#include "ns3/callback.h"
+#include "ns3/core-module.h"
+#include "ns3/energy-module.h" //may not be needed here...
+#include "ns3/log.h"
+#include "ns3/mobility-module.h"
+#include "ns3/netanim-module.h"
+#include "ns3/network-module.h"
+
+#include <fstream>
+#include <thread>
+/*
+ * BroadCastMAC
+ *
+ * N ---->  N  -----> N -----> N* -----> S
+ *
+ */
+
+using namespace ns3;
+
+NS_LOG_COMPONENT_DEFINE("BMac");
+
+class Test {
+public:
+  void RunTest();
+  void ReceivedPkt(Ptr<Socket> socket);
+  void RoutingPacketTx(std::string context, Ptr<const Packet>, AquaSimAddress nextHop,
+                       AquaSimAddress dest);
+  void RoutingPacketRx(std::string context, Ptr<const Packet>);
+};
+
+void Test::ReceivedPkt(Ptr<Socket> socket) {
+  std::cout << "Received a packet\n";
+}
+
+void Test::RoutingPacketRx(std::string context, Ptr<const Packet> pkt) {
+  AquaSimHeader ash;
+  pkt->PeekHeader(ash);
+  auto saddr = ash.GetSAddr().GetAsInt();
+  auto daddr = ash.GetDAddr().GetAsInt();
+  std::cout << context << ": received packet from "<< saddr << " Dest: " << daddr << std::endl;
+}
+void Test::RoutingPacketTx(std::string context, Ptr<const Packet> pkt,
+                           AquaSimAddress nextHop, AquaSimAddress dest) {
+  uint16_t nextHopId = nextHop.GetAsInt();
+  uint16_t destId = dest.GetAsInt();
+  std::cout << context << ": transmit packet to '" << destId
+            << "' ; Next hop: '" << nextHopId << "'" << std::endl;
+}
+
+void Test::RunTest() {
+  double simStop = 500; // seconds
+  int nodes = 4;
+  int sinks = 1;
+  uint32_t m_dataRate = 180;   // 120;
+  uint32_t m_packetSize = 320; // 32;
+  double range = 25;
+
+  std::string asciiTraceFile = "bMAC-trace.asc";
+
+  /*
+   * **********
+   * Node -> NetDevice -> AquaSimNetDeive -> etc.
+   * Note: Nodelist keeps track of all nodes created.
+   * ---Also need to look into id of nodes and assignment of this
+   * ---need to look at assignment of address and making it unique per node.
+   *
+   *
+   *  Ensure to use NS_LOG when testing in terminal. ie. ./waf --run
+   * broadcastMAC_example NS_LOG=Node=level_all or export
+   * 'NS_LOG=*=level_all|prefix_func'
+   *  *********
+   */
+
+  LogComponentEnable("BMac", LOG_LEVEL_INFO);
+
+  std::cout << "-----------Initializing simulation-----------\n";
+
+  NodeContainer nodesCon;
+  NodeContainer sinksCon;
+  nodesCon.Create(nodes);
+  sinksCon.Create(sinks);
+
+  PacketSocketHelper socketHelper;
+  socketHelper.Install(nodesCon);
+  socketHelper.Install(sinksCon);
+
+  // establish layers using helper's pre-build settings
+  AquaSimChannelHelper channel = AquaSimChannelHelper::Default();
+  channel.SetPropagation("ns3::AquaSimRangePropagation");
+  AquaSimHelper asHelper = AquaSimHelper::Default();
+  // AquaSimEnergyHelper energy;	//******this could instead be handled by
+  // node
+  // helper. ****/
+  asHelper.SetChannel(channel.Create());
+  asHelper.SetMac("ns3::AquaSimBroadcastMac");
+  asHelper.SetRouting("ns3::AquaSimRoutingDummy"); // XXX
+
+  /*
+   * Preset up mobility model for nodes and sinks here
+   */
+  MobilityHelper mobility;
+  NetDeviceContainer devices;
+  Ptr<ListPositionAllocator> position = CreateObject<ListPositionAllocator>();
+
+  // Static Y and Z dimension for now
+  Vector boundry = Vector(0, 0, 0);
+
+  std::cout << "Creating Nodes\n";
+
+  for (NodeContainer::Iterator i = nodesCon.Begin(); i != nodesCon.End(); i++) {
+    Ptr<AquaSimNetDevice> newDevice = CreateObject<AquaSimNetDevice>();
+    position->Add(boundry);
+
+    devices.Add(asHelper.Create(*i, newDevice));
+
+    /*  NS_LOG_DEBUG("Node: " << *i << " newDevice: " << newDevice << " Position: " <<
+                     boundry.x << "," << boundry.y << "," << boundry.z <<
+                     " freq:" << newDevice->GetPhy()->GetFrequency() << " addr:" <<
+         AquaSimAddress::ConvertFrom(newDevice->GetAddress()).GetAsInt() );
+                  */ //<<
+    //" NDtypeid:" << newDevice->GetTypeId() <<
+    //" Ptypeid:" << newDevice->GetPhy()->GetTypeId());
+
+    boundry.x += 20;
+    newDevice->GetPhy()->SetTransRange(range);
+  }
+
+  for (NodeContainer::Iterator i = sinksCon.Begin(); i != sinksCon.End(); i++) {
+    Ptr<AquaSimNetDevice> newDevice = CreateObject<AquaSimNetDevice>();
+    position->Add(boundry);
+
+    devices.Add(asHelper.Create(*i, newDevice));
+
+    /*  NS_LOG_DEBUG("Sink: " << *i << " newDevice: " << newDevice << "
+       Position: " <<
+                     boundry.x << "," << boundry.y << "," << boundry.z<< "
+       addr:" <<
+         AquaSimAddress::ConvertFrom(newDevice->GetAddress()).GetAsInt() );
+         */
+    boundry.x += 20;
+    newDevice->GetPhy()->SetTransRange(range);
+  }
+
+  mobility.SetPositionAllocator(position);
+  mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+  mobility.Install(nodesCon);
+  mobility.Install(sinksCon);
+
+  PacketSocketAddress socket;
+  socket.SetAllDevices();
+  // socket.SetSingleDevice (devices.Get(0)->GetIfIndex());
+  socket.SetPhysicalAddress(
+      devices.Get(nodes)->GetAddress()); // for &dest on Recv()
+  socket.SetProtocol(0);
+
+  OnOffHelper app("ns3::PacketSocketFactory", Address(socket));
+  app.SetAttribute("OnTime",
+                   StringValue("ns3::ConstantRandomVariable[Constant=1]"));
+  app.SetAttribute("OffTime",
+                   StringValue("ns3::ConstantRandomVariable[Constant=0]"));
+  app.SetAttribute("DataRate", DataRateValue(m_dataRate));
+  app.SetAttribute("PacketSize", UintegerValue(m_packetSize));
+
+  ApplicationContainer apps = app.Install(nodesCon.Get(0));
+  apps.Start(Seconds(0.5));
+  apps.Stop(Seconds(simStop + 1));
+  ApplicationContainer apps2 = app.Install(nodesCon.Get(1));
+  apps2.Start(Seconds(0.6));
+  apps2.Stop(Seconds(simStop + 1.1));
+
+  Ptr<Node> sinkNode = sinksCon.Get(0);
+  TypeId psfid = TypeId::LookupByName("ns3::PacketSocketFactory");
+
+  Ptr<Socket> sinkSocket = Socket::CreateSocket(sinkNode, psfid);
+  sinkSocket->Bind(socket);
+  sinkSocket->SetRecvCallback(MakeCallback(&Test::ReceivedPkt, this));
+
+  Packet::EnablePrinting(); // for debugging purposes
+  Simulator::Stop(Seconds(simStop));
+  // AnimationInterface anim ("bmac-anim.xml"); /* Animiation is very buggy with
+  // Aqua-Sim NG */
+  std::ofstream ascii(asciiTraceFile.c_str());
+  if (!ascii.is_open()) {
+    NS_FATAL_ERROR("Could not open trace file.");
+  }
+  asHelper.EnableAsciiAll(ascii);
+
+  std::cout << "-----------Running Simulation-----------\n";
+
+  auto node0 = nodesCon.Get(0);
+  bool cont = true;
+  std::thread mobilityWorker([node0, &cont]() {
+    auto mobility = node0->GetObject<MobilityModel>();
+    while (cont) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+      // auto x = mobility->GetPosition().x;
+      // mobility->SetPosition(Vector3D(x + 5, 0, 0));
+      // std::cout << "I'm the worker" << std::endl;
+    }
+    std::cout << "worker ends" << std::endl;
+  });
+
+  Config::Connect ("/NodeList/*/DeviceList/*/Routing/PacketReceived",
+    MakeCallback (&Test::RoutingPacketRx, this));
+  Config::Connect ("/NodeList/*/DeviceList/*/Routing/PacketTransmitting",
+    MakeCallback (&Test::RoutingPacketTx, this));
+
+  Simulator::Run();
+  cont = false;
+  std::cout << "end sim. Wait for worker..." << std::endl;
+  mobilityWorker.join();
+  Simulator::Destroy();
+  std::cout << "fin.\n";
+}
+
+int main(int argc, char *argv[]) {
+  Test test;
+  test.RunTest();
+  return 0;
+}

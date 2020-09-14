@@ -1,0 +1,43 @@
+#                                               -*- cmake -*-
+#
+#  LibEPOS2Config.cmake(.in)
+#
+#  Copyright (C) 2013 Jochen Sprickerhof <jochen@sprickerhof.de>
+#
+#  This file is part of LibEPOS2.
+#
+#  LibEPOS2 is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU Lesser General Public License
+#  version 2.1 as published by the Free Software Foundation;
+#
+
+# Use the following variables to compile and link against LibEPOS2:
+#  LIBEPOS2_FOUND              - True if LibEPOS2 was found on your system
+#  LIBEPOS2_USE_FILE           - The file making LibEPOS2 usable
+#  LIBEPOS2_DEFINITIONS        - Definitions needed to build with LibEPOS2
+#  LIBEPOS2_INCLUDE_DIRS       - Directory where OT.hxx can be found
+#  LIBEPOS2_INCLUDE_DIRS       - List of directories of LibEPOS2 and it's dependencies
+#  LIBEPOS2_LIBRARY            - LibEPOS2 library location
+#  LIBEPOS2_LIBRARIES          - List of libraries to link against LibEPOS2 library
+#  LIBEPOS2_LIBRARY_DIRS       - List of directories containing LibEPOS2' libraries
+#  LIBEPOS2_ROOT_DIR           - The base directory of LibEPOS2
+#  LIBEPOS2_VERSION_STRING     - A human-readable string containing the version
+#  LIBEPOS2_VERSION_MAJOR      - The major version of LibEPOS2
+#  LIBEPOS2_VERSION_MINOR      - The minor version of LibEPOS2
+#  LIBEPOS2_VERSION_PATCH      - The patch version of LibEPOS2
+
+set ( LIBEPOS2_FOUND 1 )
+set ( LIBEPOS2_USE_FILE     "@LIBEPOS2_USE_FILE@" )
+
+set ( LIBEPOS2_DEFINITIONS  "@LIBEPOS2_DEFINITIONS@" )
+set ( LIBEPOS2_INCLUDE_DIR  "@LIBEPOS2_INCLUDE_DIR@" )
+set ( LIBEPOS2_INCLUDE_DIRS "@LIBEPOS2_INCLUDE_DIRS@" )
+set ( LIBEPOS2_LIBRARY      "@LIBEPOS2_LIBRARY@" )
+set ( LIBEPOS2_LIBRARIES    "@LIBEPOS2_LIBRARIES@" )
+set ( LIBEPOS2_LIBRARY_DIRS "@LIBEPOS2_LIBRARY_DIRS@" )
+set ( LIBEPOS2_ROOT_DIR     "@LIBEPOS2_ROOT_DIR@" )
+
+set ( LIBEPOS2_VERSION_STRING "@LIBEPOS2_VERSION_STRING@" )
+set ( LIBEPOS2_VERSION_MAJOR  "@LIBEPOS2_VERSION_MAJOR@" )
+set ( LIBEPOS2_VERSION_MINOR  "@LIBEPOS2_VERSION_MINOR@" )
+set ( LIBEPOS2_VERSION_PATCH  "@LIBEPOS2_VERSION_PATCH@" )

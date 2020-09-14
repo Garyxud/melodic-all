@@ -1,0 +1,113 @@
+Examples:
+  GUID: C41EB819-D5E6-11DC-A98E-0090CC74407B
+  Files:
+    - Id: rtc.conf
+      ShortName: rtc.cnf
+      Name: rtc.conf
+      Source: ..\\examples\\ConfigSample\\rtc.conf
+    - Id: rtc_composite.conf
+      ShortName: rtccompo.cnf
+      Name: rtc_composite.conf
+      Source: ..\\examples\\Composite\\rtc_win32.conf
+    - Id: configsample.conf
+      ShortName: cnfgsmpl.cnf
+      Name: configsample.conf
+      Source: ..\\examples\\ConfigSample\\configsample.conf
+    - Id: composite.conf
+      ShortName: compos.cnf
+      Name: composite.conf
+      Source: ..\\examples\\Composite\\composite.conf
+    - Id: ConsoleInComp.exe
+      ShortName: ConsIn.exe
+      Name: ConsoleInComp.exe
+      Source: ..\\examples\\SimpleIO\\ConsoleInComp\\Release\\ConsoleInComp.exe
+      Shortcut: true
+    - Id: ConsoleOutComp.exe
+      ShortName: ConsOut.exe
+      Name: ConsoleOutComp.exe
+      Source: ..\\examples\\SimpleIO\\ConsoleOutComp\\Release\\ConsoleOutComp.exe
+      Shortcut: true
+    - Id: SeqInComp.exe
+      ShortName: SeqIn.exe
+      Name: SeqInComp.exe
+      Source: ..\\examples\\SeqIO\\SeqInComp\\Release\\SeqInComp.exe
+      Shortcut: true
+    - Id: SeqOutComp.exe
+      ShortName: ConsOut.exe
+      Name: SeqOutComp.exe
+      Source: ..\\examples\\SeqIO\\SeqOutComp\\Release\\SeqOutComp.exe
+      Shortcut: true
+    - Id: MyServiceProviderComp.exe
+      ShortName: SvcProv.exe
+      Name: MyServiceProviderComp.exe
+      Source: ..\\examples\\SimpleService\\MyServiceProviderComp\\Release\\MyServiceProviderComp.exe
+      Shortcut: true
+    - Id: MyServiceConsumerComp.exe
+      ShortName: SvcCons.exe
+      Name: MyServiceConsumerComp.exe
+      Source: ..\\examples\\SimpleService\\MyServiceConsumerComp\\Release\\MyServiceConsumerComp.exe
+      Shortcut: true
+    - Id: ConfigSampleComp.exe
+      ShortName: ConfSamp.exe
+      Name: ConfigSampleComp.exe
+      Source: ..\\examples\\ConfigSample\\ConfigSampleComp\\Release\\ConfigSampleComp.exe
+      Shortcut: true
+    - Id: ControllerComp.exe
+      ShortName: Ctrl.exe
+      Name: ControllerComp.exe
+      Source: ..\\examples\\Composite\\ControllerComp\\Release\\ControllerComp.exe
+    - Id: MotorComp.exe
+      ShortName: Mot.exe
+      Name: MotorComp.exe
+      Source: ..\\examples\\Composite\\MotorComp\\Release\\MotorComp.exe
+    - Id: SensorComp.exe
+      ShortName: Sens.exe
+      Name: SensorComp.exe
+      Source: ..\\examples\\Composite\\SensorComp\\Release\\SensorComp.exe
+    - Id: Composite.exe
+      ShortName: Compos.exe
+      Name: Compsite.exe
+      Source: ..\\examples\\Composite\\Composite\\Release\\Composite.exe
+      Shortcut: true
+      Arguments: -f "[#rtc_composite.conf]"
+    - Id: ConsoleIn.dll
+      ShortName: ConsIn.dll
+      Name: ConsoleIn.dll
+      Source: ..\\examples\\SimpleIO\\ConsoleIn\\Release\\ConsoleIn.dll
+    - Id: ConsoleOut.dll
+      ShortName: ConsOut.dll
+      Name: ConsoleOut.dll
+      Source: ..\\examples\\SimpleIO\\ConsoleOut\\Release\\ConsoleOut.dll
+    - Id: SeqIn.dll
+      ShortName: SeqIn.dll
+      Name: SeqIn.dll
+      Source: ..\\examples\\SeqIO\\SeqIn\\Release\\SeqIn.dll
+    - Id: SeqOut.dll
+      ShortName: ConsOut.dll
+      Name: SeqOut.dll
+      Source: ..\\examples\\SeqIO\\SeqOut\\Release\\SeqOut.dll
+    - Id: MyServiceProvider.dll
+      ShortName: SvcProv.dll
+      Name: MyServiceProvider.dll
+      Source: ..\\examples\\SimpleService\\MyServiceProvider\\Release\\MyServiceProvider.dll
+    - Id: MyServiceConsumer.dll
+      ShortName: SvcCons.dll
+      Name: MyServiceConsumer.dll
+      Source: ..\\examples\\SimpleService\\MyServiceConsumer\\Release\\MyServiceConsumer.dll
+    - Id: ConfigSample.dll
+      ShortName: ConfSamp.dll
+      Name: ConfigSample.dll
+      Source: ..\\examples\\ConfigSample\\ConfigSample\\Release\\ConfigSample.dll
+    - Id: Controller.dll
+      ShortName: Ctrl.dll
+      Name: Controller.dll
+      Source: ..\\examples\\Composite\\Controller\\Release\\Controller.dll
+    - Id: Motor.dll
+      ShortName: Mot.dll
+      Name: Motor.dll
+      Source: ..\\examples\\Composite\\Motor\\Release\\Motor.dll
+    - Id: Sensor.dll
+      ShortName: Sens.dll
+      Name: Sensor.dll
+      Source: ..\\examples\\Composite\\Sensor\\Release\\Sensor.dll
+

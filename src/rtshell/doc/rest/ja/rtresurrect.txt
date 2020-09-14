@@ -1,0 +1,66 @@
+===========
+rtresurrect
+===========
+
+--------------------------------------------------
+RTSProfileファイルに保存されたRTシステムを復元する
+--------------------------------------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtresurrect [options] [RTSProfile file]
+
+概要
+====
+
+RTSProfileファイルをロードして実行中のコンポーネントを使ってRTシステム
+を復元します。コンポーネントの間の接続とコンポーネントのコンフィグレー
+ションパラメータはRTSProfileのものがを反映されます。
+RTSProfileに「必要」と指定されておらず実行中ではないコンポーネントは
+無視します。
+
+ファイル名を指定しない場合、RTSProfileをstdinから読みます。
+
+オプション
+==========
+
+--dry-run
+  復元するために何をするかを表示して終了する（実際には復元しない）
+
+-x, --xml
+  XMLフォーマットを使う
+
+-y, --yaml
+  YAMLフォーマットを使う
+
+.. include:: ../../common/ja/common_opts.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtresurrect sys.rtsys
+
+``sys.rtsys`` というファイルに保存されたRTシステムを復元します。
+
+::
+
+  $ rtresurrect sys.rtsys --dry-run
+
+``sys.rtsys`` というファイルに保存されたRTシステムを復元するために何を
+するかを表示します。（実際には復元されません。）
+
+参照
+====
+
+  ``rtcheck`` (1),
+  ``rtcon`` (1),
+  ``rtconf`` (1),
+  ``rtstart`` (1)
+

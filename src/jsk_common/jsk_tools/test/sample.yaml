@@ -1,0 +1,6 @@
+- hostname: hrp2007v
+  ip: 192.168.96.207
+- hostname: hrp2007c
+  ip: 192.168.96.107
+- hostname: hrp2007caaa
+  ip: 192.168.96.107

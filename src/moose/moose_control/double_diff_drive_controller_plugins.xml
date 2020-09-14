@@ -1,0 +1,9 @@
+<library path="lib/libdouble_diff_drive_controller">
+
+  <class name="double_diff_drive_controller/DoubleDiffDriveController" type="double_diff_drive_controller::DoubleDiffDriveController" base_class_type="controller_interface::ControllerBase">
+    <description>
+      The DoubleDiffDriveController tracks velocity commands. It 2 joints should have a VelocityJointInterface hardware interface.
+    </description>
+  </class>
+
+</library>

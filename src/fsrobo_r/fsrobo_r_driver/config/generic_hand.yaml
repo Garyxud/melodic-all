@@ -1,0 +1,5 @@
+tool:
+  offset: [0,0,180,0,0,60]
+  action_ns: 'ezgripper/main'
+  open_param: [100, 100]
+  close_param: [0, 100]

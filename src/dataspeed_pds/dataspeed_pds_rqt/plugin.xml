@@ -1,0 +1,12 @@
+<library path="src">
+  <class name="Power Distribution GUI" type="dataspeed_pds_rqt.pds_gui.PowerDistributionGui" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      An rqt plugin to interface with the Dataspeed Inc. Power Distribution System
+    </description>
+    <qtgui>
+      <label>Power Distribution GUI</label>
+      <icon>images/icon.png</icon>
+      <statustip>Dataspeed Inc.</statustip>
+    </qtgui>
+  </class>
+</library>

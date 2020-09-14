@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rosbag_pandas</name>
+  <version>0.5.3</version>
+  <description>Create a Pandas data frame from a ros bag file.</description>
+
+  <maintainer email="rein@eurotec.nu">Rein Appeldoorn</maintainer>
+  <author email="aktaylor08@gmail.com">Adam Taylor</author>
+
+  <license>Apache-2.0</license>
+
+  <exec_depend>python-matplotlib</exec_depend>
+  <exec_depend>python-numpy</exec_depend>
+  <exec_depend>python-pandas</exec_depend>
+  <exec_depend>rosbag</exec_depend>
+  <exec_depend>rospy_message_converter</exec_depend>
+  <exec_depend>roslib</exec_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

@@ -1,0 +1,6 @@
+std_msgs/Header header
+
+bool brake_lights_on
+bool brake_lights_on_is_valid
+bool reverse_lights_on
+bool reverse_lights_on_is_valid

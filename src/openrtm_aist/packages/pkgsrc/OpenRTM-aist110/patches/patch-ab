@@ -1,0 +1,200 @@
+diff -ur src/lib/coil/posix/coil/UUID.h.orig src/lib/coil/posix/coil/UUID.h
+--- src/lib/coil/posix/coil/UUID.h.orig	2012-05-24 23:18:14.000000000 +0900
++++ src/lib/coil/posix/coil/UUID.h	2012-07-17 19:24:49.000000000 +0900
+@@ -1,77 +1,119 @@
+-// -*- C++ -*-
+-/*!
+- * @file  MutexPosix.h
+- * @brief RT-Middleware Service interface
+- * @date  $Date$
+- * @author Noriaki Ando <n-ando@aist.go.jp>
+- *
+- * Copyright (C) 2008
+- *     Noriaki Ando
+- *     Task-intelligence Research Group,
+- *     Intelligent Systems Research Institute,
+- *     National Institute of
+- *         Advanced Industrial Science and Technology (AIST), Japan
+- *     All rights reserved.
+- *
+- * $Id$
+- *
+- */
+-
+-#ifndef COIL_UUID_H
+-#define COIL_UUID_H
+-
+-#include <coil/config_coil.h>
+-#ifdef COIL_OS_FREEBSD
+-#include <uuid.h>
+-
+-namespace coil
+-{
+-  class UUID
+-  {
+-  public:
+-    UUID();
+-    UUID(const uuid_t& uuid);
+-    ~UUID();
+-    const char* to_string();
+-  private:
+-    uuid_t m_uuid;
+-    char* m_uuidstr;
+-  };
+-
+-
+-  class UUID_Generator
+-  {
+-  public:
+-    UUID_Generator();
+-    ~UUID_Generator();
+-    void init();
+-    coil::UUID* generateUUID(int n, int h);
+-  };
+-};
+-#endif
+-#if defined(COIL_OS_LINUX) || defined(COIL_OS_DARWIN) || defined(COIL_OS_CYGWIN)
+-#include <uuid/uuid.h>
+-namespace coil
+-{
+-  class UUID
+-  {
+-    uuid_t _uuid;
+-    char buf[37];
+-  public:
+-    UUID();
+-    UUID(uuid_t*);
+-    const char* to_string();
+-  };
+-
+-  class UUID_Generator
+-  {
+-  public:
+-    UUID_Generator();
+-    
+-    void init();
+-    UUID* generateUUID(int n, int h);
+-  };
+-};
+-#endif
+-
+-#endif // COIL_UUID_H
++// -*- C++ -*-
++/*
++ * Copyright (C) 1996, 1997 Theodore Ts'o.
++ *
++ * %Begin-Header%
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, and the entire permission notice in its entirety,
++ *    including the disclaimer of warranties.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ * 3. The name of the author may not be used to endorse or promote
++ *    products derived from this software without specific prior
++ *    written permission.
++ *
++ * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED
++ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
++ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, ALL OF
++ * WHICH ARE HEREBY DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
++ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
++ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
++ * USE OF THIS SOFTWARE, EVEN IF NOT ADVISED OF THE POSSIBILITY OF SUCH
++ * DAMAGE.
++ * %End-Header%
++ */
++/*!
++ * @file  MutexPosix.h
++ * @brief RT-Middleware Service interface
++ * @date  $Date$
++ * @author Noriaki Ando <n-ando@aist.go.jp>
++ *
++ * Copyright (C) 2008
++ *     Noriaki Ando
++ *     Task-intelligence Research Group,
++ *     Intelligent Systems Research Institute,
++ *     National Institute of
++ *         Advanced Industrial Science and Technology (AIST), Japan
++ *     All rights reserved.
++ *
++ * $Id$
++ *
++ */
++
++#ifndef COIL_UUID_H
++#define COIL_UUID_H
++
++#include <coil/config_coil.h>
++#include <stdint.h>
++
++typedef unsigned char uuid_t[17];
++struct uuid {
++	uint32_t	time_low;
++	uint16_t	time_mid;
++	uint16_t	time_hi_and_version;
++	uint16_t	clock_seq;
++	uint8_t	node[6];
++};
++
++static const char *fmt_upper =
++	"%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X";
++#define	FMT_DEFAULT					fmt_upper
++#define	UUIDD_OP_GETPID				0
++#define	UUIDD_OP_GET_MAXOP			1
++#define	UUIDD_OP_TIME_UUID			2
++#define	UUIDD_OP_RANDOM_UUID		3
++#define	UUIDD_OP_BULK_TIME_UUID		4
++#define	UUIDD_OP_BULK_RANDOM_UUID	5
++#define	UUIDD_MAX_OP				UUIDD_OP_BULK_RANDOM_UUID
++#define	THREAD_LOCAL				static
++
++#define MAX_ADJUSTMENT 10
++
++namespace coil
++{
++  class UUID
++  {
++    uuid_t _uuid;
++    char buf[37];
++  public:
++    UUID();
++    UUID(uuid_t*);
++    const char* to_string();
++
++    void uuid_clear(uuid_t uu);
++
++  private:
++    void uuid_unparse_x(const uuid_t uu, char *out, const char *fmt);
++    void uuid_unparse(const uuid_t uu, char *out);
++
++  };
++
++  class UUID_Generator
++  {
++  public:
++    UUID_Generator();
++    
++    void init();
++    UUID* generateUUID(int n, int h);
++
++  private:
++    void uuid_generate(uuid_t out);
++    void uuid_generate_time(uuid_t out, int *num);
++    /**
++    * Assume that the gettimeofday() has microsecond granularity
++    **/
++    static int get_clock(uint32_t *clock_high, uint32_t *clock_low, uint16_t *ret_clock_seq, int *num);
++    static void get_random_bytes(void *buf, int nbytes);
++
++  };
++};
++
++#endif // COIL_UUID_H

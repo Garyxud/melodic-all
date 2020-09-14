@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BehaviorSequence fps="25" start_frame="1" end_frame="-1" size="300" format_version="4" >
+    <BehaviorLayer name="behavior_layer1" >
+        <BehaviorKeyframe name="FaceLeds" index="1" path="B_0_0_B1_0_FaceLeds0.fld" />
+    </BehaviorLayer>
+</BehaviorSequence>

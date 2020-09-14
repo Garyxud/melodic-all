@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rc_visard_description</name>
+  <version>3.0.2</version>
+  <description>Visualization package for rc_visard </description>
+
+  <maintainer email="monika.florek-jasinska@roboception.de">Monika Florek-Jasinska</maintainer>
+  <author email="monika.florek-jasinska@roboception.de">Monika Florek-Jasinska</author>
+
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/rc_visard_description</url>
+  <url type="repository">https://github.com/roboception/rc_visard_ros</url>
+  <url type="bugtracker">https://github.com/roboception/rc_visard_ros/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <test_depend>roslaunch</test_depend>
+
+  <exec_depend>xacro</exec_depend>
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

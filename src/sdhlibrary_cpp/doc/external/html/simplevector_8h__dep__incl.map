@@ -1,0 +1,30 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdhbase_8h.html" title="Interface of class SDH::cSDHBase." alt="" coords="1012,83,1119,112"/>
+<area shape="rect" id="node11" href="$sdhserial_8h.html" title="Interface of class SDH::cSDHSerial." alt="" coords="1353,237,1463,267"/>
+<area shape="rect" id="node55" href="$unit__converter_8h.html" title="Interface of class SDH::cUnitConverter." alt="" coords="1588,83,1727,112"/>
+<area shape="rect" id="node60" href="$util_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="1204,237,1279,267"/>
+<area shape="rect" id="node74" href="$simplevector_8cpp.html" title="Implementation of class SDH::cSimpleVector." alt="" coords="1751,83,1895,112"/>
+<area shape="rect" id="node5" href="$sdh_8h.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="1727,315,1804,344"/>
+<area shape="rect" id="node16" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="908,160,1025,189"/>
+<area shape="rect" id="node26" href="$dsa_8cpp.html" title="This file contains definition of SDH::cDSA, a class to communicate with the tactile sensors of the SD..." alt="" coords="211,392,304,421"/>
+<area shape="rect" id="node52" href="$sdhbase_8cpp.html" title="Implementation of class SDH::cSDHBase." alt="" coords="513,315,633,344"/>
+<area shape="rect" id="node7" href="$cancat_8cpp.html" title="Yet incomplete tool to send and receive data via CAN. See __help__ and online help (&quot;&#45;h&quot; or..." alt="" coords="1592,392,1715,421"/>
+<area shape="rect" id="node9" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="825,392,919,421"/>
+<area shape="rect" id="node14" href="$sdhserial_8cpp.html" title="Interface of class SDH::cSDHSerial." alt="" coords="1580,315,1703,344"/>
+<area shape="rect" id="node20" href="$rs232-cygwin_8h.html" title="Interface of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="220,237,353,267"/>
+<area shape="rect" id="node31" href="$canserial-esd_8h.html" title="Interface of class SDH::cCANSerial_ESD, class to access CAN bus via ESD card on cygwin/linux." alt="" coords="1047,237,1180,267"/>
+<area shape="rect" id="node35" href="$canserial-peak_8h.html" title="Interface of class SDH::cCANSerial_PEAK, class to access CAN bus via PEAK card on cygwin/linux..." alt="" coords="591,237,732,267"/>
+<area shape="rect" id="node39" href="$tcpserial_8h.html" title="Interface of class SDH::cTCPSerial, class to access TCP port cygwin/linux." alt="" coords="332,315,439,344"/>
+<area shape="rect" id="node45" href="$rs232-vcc_8h.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port with VCC compiler on Windows..." alt="" coords="911,237,1023,267"/>
+<area shape="rect" id="node49" href="$serialbase_8cpp.html" title="Implementation of class SDH::cSerialBase, a virtual base class to access serial interfaces like RS232..." alt="" coords="756,237,887,267"/>
+<area shape="rect" id="node22" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="60,315,137,344"/>
+<area shape="rect" id="node28" href="$rs232-cygwin_8cpp.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="161,315,308,344"/>
+<area shape="rect" id="node24" href="$demo-benchmark_8cpp.html" title="Simple script to benchmark communication speed of the SDH. See __help__ and online help (&quot;&#45;h&amp;quo..." alt="" coords="5,392,187,421"/>
+<area shape="rect" id="node33" href="$canserial-esd_8cpp.html" title="Implementation of class SDH::cCANSerial_ESD, a class to access an ESD CAN interface on cygwin/linux a..." alt="" coords="985,315,1135,344"/>
+<area shape="rect" id="node37" href="$canserial-peak_8cpp.html" title="Implementation of class SDH::cCANSerial_PEAK, a class to access a PEAK CAN interface on cygwin/linux ..." alt="" coords="657,315,812,344"/>
+<area shape="rect" id="node43" href="$tcpserial_8cpp.html" title="Implementation of class SDH::cTCPSerial, a class to access a TCP port on cygwin/linux and Visual Stud..." alt="" coords="328,392,448,421"/>
+<area shape="rect" id="node47" href="$rs232-vcc_8cpp.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port with VCC compiler on Windows..." alt="" coords="836,315,961,344"/>
+<area shape="rect" id="node58" href="$unit__converter_8cpp.html" title="Implementation of class SDH::cUnitConverter." alt="" coords="1695,160,1847,189"/>
+<area shape="rect" id="node68" href="$sdh__codes_8cpp.html" title="This file contains function to convert the binary command and return codes of the SDH to strings..." alt="" coords="1260,315,1393,344"/>
+<area shape="rect" id="node72" href="$util_8cpp.html" title="Implementation of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="1417,315,1505,344"/>
+</map>

@@ -1,0 +1,7 @@
+Topic: "camserver/rgb" 
+cameraNum: "/dev/video0"
+fps: 25
+Format: RGB8
+Name: Camera_Server
+ImageWidth: 640
+ImageHeight: 480

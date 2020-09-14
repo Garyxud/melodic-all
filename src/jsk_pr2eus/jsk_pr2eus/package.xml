@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>jsk_pr2eus</name>
+  <version>0.3.14</version>
+  <description>
+   <p>Metapackage that contains robot eus client package for jsk-ros-pkg</p>
+  </description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+  <author email="youhei@jsk.imi.i.u-tokyo.ac.jp">Youhei Kakiuchi</author>
+
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/jsk_pr2eus</url>
+  <url type="repository">https://github.com/jsk-ros-pkg/jsk_pr2eus</url>
+  <url type="bugtracker">https://github.com/jsk-ros-pkg/jsk_pr2eus/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>pr2eus</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

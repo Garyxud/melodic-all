@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<package>
+  <name>visualstates</name>
+  <version>0.2.4</version>
+  <description>The VisualStates is reactive hierarchical visual robot planning tool.</description>
+  <maintainer email="asik.okan@gmail.com">Okan Aşık</maintainer>
+  <maintainer email="katarapushkal@gmail.com">Pushkal Katara</maintainer>
+  <maintainer email="jmplaza@gsyc.es">Jose Maria Canas Plaza</maintainer>  
+  <license>GPLv3</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>python-rospkg</run_depend>
+  <run_depend>python-qt5-bindings</run_depend>
+  <run_depend>python-qt5-bindings-qsci</run_depend>
+  <export/>
+</package>

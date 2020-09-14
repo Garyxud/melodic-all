@@ -1,0 +1,17 @@
+Product:
+  Name: OpenRTM-aist
+  ShortName: OpenRTM
+  Id: __GUID__
+  Language: "1041"
+  Codepage: "932"
+  Version: __VERSION__
+  ShortVersion: __SHORT_VERSION__
+  Manufacturer: AIST
+  UpgradeCode: 44461E5D-84EF-11E0-9AC9-000C290BB873
+Package:
+  Description: OpenRTM-aist Installer
+  InstallerVersion: "300"
+  Languages: "1041"
+  Compressed: 'yes'
+  SummaryCodepage: "932"
+

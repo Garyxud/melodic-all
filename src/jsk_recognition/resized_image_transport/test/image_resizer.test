@@ -1,0 +1,20 @@
+<launch>
+
+  <include file="$(find resized_image_transport)/launch/sample_image_resizer.launch">
+    <arg name="gui" value="false" />
+  </include>
+
+  <test test-name="test_image_resizer"
+        name="test_image_resizer"
+        pkg="jsk_tools" type="test_topic_published.py">
+    <rosparam>
+      topic_0: /image_resizer_w_camera_info/output/image
+      timeout_0: 10
+      topic_1: /image_resizer_w_camera_info/output/camera_info
+      timeout_1: 10
+      topic_2: /image_resizer_wo_camera_info/output/image
+      timeout_2: 10
+    </rosparam>
+  </test>
+
+</launch>

@@ -1,0 +1,53 @@
+<package format="3">
+  <name>image_view2</name>
+  <version>2.2.11</version>
+  <description>A simple viewer for ROS image topics with draw-on features</description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/image_view2</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>image_geometry</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>image_view</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>image_geometry</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>image_view</exec_depend>
+  <exec_depend>message_filters</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>tf</exec_depend>
+
+  <test_depend condition="$ROS_PYTHON_VERSION == 2">python-numpy</test_depend>
+  <test_depend condition="$ROS_PYTHON_VERSION == 3">python3-numpy</test_depend>
+  <test_depend condition="$ROS_PYTHON_VERSION == 2">python-scipy</test_depend>
+  <test_depend condition="$ROS_PYTHON_VERSION == 3">python3-scipy</test_depend>
+
+  <export>
+
+  </export>
+</package>

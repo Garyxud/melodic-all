@@ -1,0 +1,24 @@
+<launch>
+  <node name="ar_pose" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen">
+    <param name="marker_size" type="double" value="4.4"/>
+    <param name="maker_new_marker_error" type="double" value="0.08"/>
+    <param name="maker_track_error" type="double" value="0.2"/>
+    <param name="output_frame" type="string" value="camera" />
+
+    <remap from="camera_image" to="image_rect_color" />
+  </node>
+  <sphinxdoc><![CDATA[
+to execute sample euslisp client program
+
+.. code-block: bash
+  rosrun roseus_tutorials ar-pose.l
+
+or include
+
+.. code-block: bash
+  <node name="ar_pose_client" pkg="roseus_tutorials" type="ar-pose.l" />
+
+in the launch file
+
+  ]]></sphinxdoc>
+</launch>

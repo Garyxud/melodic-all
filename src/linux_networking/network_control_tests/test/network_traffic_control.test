@@ -1,0 +1,11 @@
+<launch>
+    <node name="sink" pkg="network_monitor_udp" type="udpmonsink" args="12345" output="screen"/>
+    <node name="source" pkg="network_monitor_udp" type="udpmonsourcenode.py" output="screen"/>
+    <node name="tc_lo" pkg="network_traffic_control" type="traffic_control_node.py" output="screen">
+    	  <param name="interface" value="lo"/>
+	  <param name="filter_egress" value="u32 match ip dport 12345 0xffff"/> 
+	  <param name="filter_ingress" value="u32 match ip dport 12345 0xffff"/> 
+    </node>
+
+    <test test-name="dynreconf_test" pkg="network_control_tests" type="dynreconf_test.py" name="network_traffic_control_test" time-limit="180"/> 
+</launch>

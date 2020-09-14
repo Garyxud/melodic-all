@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- HEBI A-2084-01 4-DoF Robot SCARA Style Arm Kit -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="A-2084-01">
+
+  <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
+
+  <!-- world -->
+  <link name="world" />
+  <joint name="world_joint"  type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="world"/>
+    <child link="HEBI/base/INPUT_INTERFACE"/>
+  </joint>
+
+  <!-- robot -->
+  <xacro:actuator name="HEBI/base" child="shoulder_bracket" type="X5_4"/>
+  <xacro:bracket name="shoulder_bracket" child="HEBI/shoulder" type="X5HeavyRightOutside"/>
+  <xacro:actuator name="HEBI/shoulder" child="shoulder_elbow" type="X5_9"/>
+  <xacro:link name="shoulder_elbow" child="HEBI/elbow" extension="0.325" twist="${pi/2}"/>
+  <xacro:actuator name="HEBI/elbow" child="elbow_wrist1" type="X5_4"/>
+  <xacro:link name="elbow_wrist1" child="HEBI/wrist1" extension="0.325" twist="0"/>
+  <xacro:actuator name="HEBI/wrist1" child="end_effector" type="X5_1"/>
+
+  <!-- parallel gripper end effector -->
+  <xacro:gripper name="end_effector" type="parallel"/>
+
+</robot>

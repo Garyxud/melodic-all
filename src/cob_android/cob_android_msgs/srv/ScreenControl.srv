@@ -1,0 +1,11 @@
+#goal definition
+uint8 SCREEN_STANDBY = 0
+uint8 SCREEN_ORDER = 1
+uint8 SCREEN_MOVE = 2
+uint8 SCREEN_DRAGDROP = 3
+
+uint8 screen_mode
+---
+#result definition
+uint8 active_screen
+uint8 last_screen

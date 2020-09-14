@@ -1,0 +1,14 @@
+# Extend or delete the rocon interactions database with this list. 
+
+Pairing[] pairings
+Interaction[] interactions
+
+# If true, load, else attempt to unload them.
+bool load
+
+---
+
+bool result
+
+# Could use better error handling here - provide a list of what got
+# got manipulated and what did not.

@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "Vector3dProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Vector3d
+/// \brief Message for a vector3 double
+
+message Vector3d
+{
+  optional double x = 1;
+  optional double y = 2;
+  optional double z = 3;
+}

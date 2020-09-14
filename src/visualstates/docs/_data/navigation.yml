@@ -1,0 +1,41 @@
+# main links
+main:
+  - title: "Installation"
+    url: /installation
+  - title: "Features"
+    url: /features/usage
+  - title: "Examples"
+    url: /examples/prius_in_the_city
+  - title: "About"
+    url: /about
+
+# left side bar
+docs:
+  - title: Features 
+    children:
+      - title: "Usage Guide"
+        url: /features/usage
+      - title: "Import Automata"
+        url: /features/import
+      - title: "Namespaces"
+        url: /features/namespace
+
+docs_examples:
+  - title: Examples
+    children:
+      - title: "Kobuki Bump And Go"
+        url: /examples/kobuki-bumpAndGo
+      - title: "Prius in the City"
+        url: /examples/prius_in_the_city
+      - title: "Robotic Arm"
+        url: /examples/robot_arm
+      - title: "Kobuki Obstacle Avoidance"
+        url: /examples/kobuki-obstacle-avoidance
+      - title: "Prius Obstacle Avoidance"
+        url: /examples/prius_obstacle_avoidance
+      - title: "Prius Crossing"
+        url: /examples/prius_crossing
+      - title: "Prius Overtake"
+        url: /examples/prius_overtake
+ 
+

@@ -1,0 +1,212 @@
+#!/bin/bash
+. `dirname $0`/common.sh
+
+# Set debug mode
+set -x
+set -v
+
+##############################
+#  --  Helper functions  --  #
+##############################
+
+clone_wiki()
+{
+  # wiki_dir is set here if this build is meant to update the wiki
+  export CI_UPDATE_WIKI=${CI_UPDATE_WIKI:-false}
+  export CI_UPDATE_WIKI_BRANCH=${CI_UPDATE_WIKI_BRANCH:-master}
+  if [[ ${CI_WIKI} != "" && ${CI_UPDATE_WIKI} = true && ${CI_UPDATE_WIKI_BRANCH} = ${CI_BRANCH} ]]; then
+    export wiki_dir="/tmp/_ci_wiki"
+    git clone --depth 1 "$CI_WIKI" "$wiki_dir"
+  else
+    export wiki_dir=""
+  fi
+}
+
+upload_to_ppa()
+{
+  if `test x${DIST} = x`; then
+    echo "distribution is not set, skipping this build"
+    exit 0
+  fi
+  echo "Target distribution: ${DIST}"
+
+  export GNUPGHOME="`dirname $0`/.gnupg"
+  # If the build is a success, upload the source package to Launchpad.
+  if `test x${DIST} = xunstable`; then
+    echo "Debian Sid package. Skipping Launchpad upload..."
+  else
+    if `! test ${CI_PULL_REQUEST} = false`; then
+      echo "skipping launchpad upload in pull request"
+    else
+      dput ppa:${PPA_URI} "$build_dir"/export/*_source.changes
+    fi
+  fi
+}
+
+make_coverage()
+{
+  cd $build_dir
+  # If tests failed, coveralls data may not have been written
+  lcov --directory $build_dir --base-directory $root_dir --capture --output-file coverage.info || true
+  # Note: ignore rules are given by a string such as "*test* *foo*"
+  # lcov expects: '*test*' '*foo*'
+  # We use -f to prevent expansion of *
+  set -f
+  lcov --remove coverage.info '/usr*' "$install_dir*" ${LCOV_IGNORE_RULES} -o coverage.info || true
+  set +f
+}
+
+make_coverage_report()
+{
+  cd $root_dir
+  HEAD=`git rev-parse HEAD`
+  genhtml --prefix "$root_dir" --ignore-errors source "$build_dir/coverage.info" --legend --title "Coverage report for $CI_REPO_SLUG (rev: $HEAD)" --output-directory="$wiki_dir/coverage_$HEAD"
+  cd $wiki_dir
+  if [[ ! -f coverage.markdown ]]; then
+    touch coverage.markdown
+  fi
+  # TODO Add more information on this page?
+  touch coverage.markdown.tmp
+  echo -e "Coverage information for commit [$HEAD](coverage_$HEAD/index.html)\n\n$(cat coverage.markdown)" > coverage.markdown
+  git add coverage_$HEAD coverage.markdown
+}
+
+upload_coverage_to_coveralls()
+{
+  cd $root_dir
+  coveralls-lcov "$build_dir/coverage.info" || true
+  cd -
+}
+
+generate_coverage_data()
+{
+  if [[ ${CI_SUPPORT_COVERALLS} = true ]]; then
+    # Upload coveralls data.
+    if [ x${CC} = xgcc ]; then
+      make_coverage
+      upload_coverage_to_coveralls
+    else
+      echo "skipping coveralls upload in non-gcc builds"
+    fi
+  else
+    # Always generate coverage data to get the information on GitLab build page
+    make_coverage
+    if [[ -d $wiki_dir ]]; then
+      make_coverage_report
+    fi
+  fi
+}
+
+set_push_uri()
+{
+  # If GH_PUSH_URI has already been provided
+  if `test x${GH_PUSH_URI} != x`; then
+    export GH_PUSH_URI=${GH_PUSH_URI}
+  # If encrypted username/tokens were not provided
+  elif `test x${GH_TOKEN} = x -o x${GH_USERNAME} = x`; then
+      echo "missing username and/or token for GitHub push"
+      export GH_PUSH_URI=""
+  else
+    export GH_PUSH_URI=https://${GH_USERNAME}:${GH_TOKEN}@github.com/${GH_REPO}
+  fi
+  if `test x${GH_PUSH_URI} != x`; then
+    cd $root_dir
+    git remote set-url origin "${GH_PUSH_URI}"
+  fi
+  return 0
+}
+
+update_wiki_documentation()
+{
+  # Replace svg iframe inclusion by img
+  cd $wiki_dir
+  git rm -rf $wiki_dir/doxygen-html
+  cp -r $build_dir/doc/doxygen-html $wiki_dir
+  cd $wiki_dir/doxygen-html
+  sed -i -e's@<iframe .* src="\(.*\).svg" width="\(.*\)" height="\(.*\)"><p><b>\(.*\)</b></p></iframe>@<img src="\1.svg" width="\2" height="\3" alt="\4" />@' *.html
+  cd $wiki_dir
+  git add doxygen-html
+  if [[ ! -f doxygen.markdown ]]; then
+    echo "Doxygen documentation can be accessed [here](doxygen-html/index.html)" > doxygen.markdown
+    git add doxygen.markdown
+  fi
+}
+
+update_documentation()
+{
+  # If we are on the master branch:
+  if [[ ${CI_BRANCH} = master ]]; then
+    # Update the documentation.
+    # Retrieve last commit of the gh-pages branch.
+    if `git fetch --depth=1 origin gh-pages:gh-pages`; then
+      cd $build_dir/doc && $root_dir/cmake/github/update-doxygen-doc.sh \
+        -r $root_dir -b $build_dir
+    fi
+  fi
+}
+
+push_note()
+{
+  # Push git note indicating success
+  cd $root_dir
+  HEAD=`git rev-parse HEAD`
+  notes_msg="Successful build.\n----\n\nDependencies commit id:"
+  for package in ${GIT_DEPENDENCIES}; do
+    git_dependency_parsing $package
+    cd $build_dir/$git_dep
+    commitid=`git rev-parse HEAD || echo unknown`
+    notes_msg="${notes_msg} $git_dep : $commitid\n"
+  done
+  cd $root_dir
+  git fetch --quiet --force origin refs/notes/jrl-ci:refs/notes/jrl-ci || true
+  git notes --ref=jrl-ci add -f -m "$(echo "${notes_msg}")" $HEAD
+  git push origin refs/notes/jrl-ci --force
+}
+
+update_wiki()
+{
+  if [[ -d $wiki_dir ]];
+  then
+    cd $wiki_dir
+    git commit -a -m "[CI] Update wiki documentation and coverage reports"
+    git push
+  fi
+}
+
+#########################
+#  --  Main script  --  #
+#########################
+
+if [ -d debian ]; then
+  upload_to_ppa
+elif [[ ${CI_OS_NAME} = linux ]]; then
+    if [ ! x${DIST} = x ]; then
+      echo "skipping this build"
+      exit 0
+    fi
+
+    clone_wiki
+
+    if [[ ";${DO_COVERAGE_ON_BRANCH};" == *";${CI_BRANCH};"* ]]; then
+      generate_coverage_data
+    fi
+
+    # If it's not a fork or a pull request
+    if `test x${CI_REPO_SLUG} = x${GH_REPO} -a ${CI_PULL_REQUEST} = false -a $DO_DOC_UPDATE = true`; then
+      set_push_uri
+      if `test x${GH_PUSH_URI} != x`; then
+        update_documentation
+        push_note
+      fi
+    elif [[ -d $wiki_dir ]]; then
+      update_wiki_documentation
+    else
+      echo "skipping doc/build result upload on forks and for pull requests"
+    fi
+
+    update_wiki
+fi
+
+# End debug mode
+set +v
+set +x

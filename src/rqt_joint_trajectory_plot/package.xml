@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+  <name>rqt_joint_trajectory_plot</name>
+
+  <version>0.0.5</version>
+
+  <description>The rqt_joint_trajectory_plot package</description>
+
+  <maintainer email="dev@opensource-robotics.tokyo.jp">Tokyo Opensource Robotics Kyokai (TORK) Developer Team</maintainer>
+
+  <author email="ryosuke.tajima@gmail.com">Ryosuke Tajima</author>
+
+  <license>MIT</license>
+  <!-- <url type="website">http://wiki.ros.org/rqt_joint_trajectory_plot</url> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>rqt_gui</build_depend>
+  <build_depend>rqt_gui_py</build_depend>
+  <build_depend>roslint</build_depend>
+  <build_depend>roslaunch</build_depend>
+  <build_depend>rostest</build_depend>
+
+  <run_depend>control_msgs</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rqt_gui</run_depend>
+  <run_depend>rqt_gui_py</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
+  </export>
+</package>

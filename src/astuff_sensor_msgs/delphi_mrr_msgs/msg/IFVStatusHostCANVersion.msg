@@ -1,0 +1,4 @@
+std_msgs/Header header
+
+uint8 can_pcan_minor_ifv_host
+uint8 can_pcan_major_ifv_host

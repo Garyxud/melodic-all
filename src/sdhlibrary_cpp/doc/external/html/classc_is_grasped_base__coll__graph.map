@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$class_s_d_h_1_1c_d_s_a.html" title="SDH::cDSA is the end user interface class to access the DSACON32m, the tactile sensor controller of t..." alt="" coords="447,776,660,1936"/>
+<area shape="rect" id="node4" href="$struct_s_d_h_1_1c_d_s_a_1_1s_controller_info.html" title="A data structure describing the controller info about the remote DSACON32m controller." alt="" coords="5,391,187,633"/>
+<area shape="rect" id="node6" href="$struct_s_d_h_1_1c_d_s_a_1_1s_sensor_info.html" title="A data structure describing the sensor info about the remote DSACON32m controller." alt="" coords="211,426,376,598"/>
+<area shape="rect" id="node8" href="$class_s_d_h_1_1c_d_b_g.html" title="A class to print colored debug messages." alt="" coords="413,5,520,264"/>
+<area shape="rect" id="node10" href="$class_s_d_h_1_1c_serial_base.html" title="Low&#45;level communication class to access a serial port." alt="" coords="469,331,637,693"/>
+<area shape="rect" id="node13" href="$struct_s_d_h_1_1c_d_s_a_1_1s_tactile_sensor_frame.html" title="A data structure describing a full tactile sensor frame read from the remote DSACON32m controller..." alt="" coords="661,452,883,572"/>
+<area shape="rect" id="node15" href="$class_s_d_h_1_1c_simple_time.html" title="Very simple class to measure elapsed time." alt="" coords="907,417,1037,607"/>
+<area shape="rect" id="node17" href="$struct_s_d_h_1_1c_d_s_a_1_1s_matrix_info.html" title="A data structure describing a single sensor matrix connected to the remote DSACON32m controller..." alt="" coords="1061,339,1224,685"/>
+</map>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="coil-1.0"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(ace_includes);$(coil_includes)"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="$(ace_libdir);$(coil_libdir)"
+	/>
+	<!-- ACE macros -->
+	<UserMacro
+		Name="ace_root"
+		Value="%ACE_ROOT%"
+	/>
+	<UserMacro
+		Name="ace_includes"
+		Value="&quot;$(ace_root)&quot;"
+	/>
+	<UserMacro
+		Name="ace_libdir"
+		Value="$(ace_root)\lib"
+	/>
+	<UserMacro
+		Name="coil_root"
+		Value="%COIL_ROOT%"
+	/>
+	<UserMacro
+		Name="coil_dllver"
+		Value=""
+	/>
+	<UserMacro
+		Name="coil_version"
+		Value="1.0.0"
+	/>
+	<!-- coil macros -->
+	<UserMacro
+		Name="coil_includes"
+		Value="&quot;$(coil_root)&quot;;&quot;..&quot;"
+	/>
+	<UserMacro
+		Name="coil_libdir"
+		Value="&quot;$(coil_root)\bin&quot;"
+	/>
+	<UserMacro
+		Name="coil_bin"
+		Value="&quot;$(coil_root)\bin&quot;;&quot;$(coil_root)\build&quot;"
+	/>
+	<UserMacro
+		Name="coil_path"
+		Value="$(coil_bin)"
+	/>
+	<UserMacro
+		Name="coil_libd"
+		Value="ACEd.lib coild.lib advapi32.lib ws2_32.lib mswsock.lib $(user_libd)"
+	/>
+	<UserMacro
+		Name="coil_lib"
+		Value="ACE.lib coil.lib advapi32.lib ws2_32.lib mswsock.lib $(user_lib)"
+	/>
+</VisualStudioPropertySheet>

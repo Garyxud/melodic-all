@@ -1,0 +1,82 @@
+                        === network_monitor_udp tests ===
+
+basic_test
+----------
+
+Description: 
+  * tests of the basic functionality of the actionlib interface
+
+Tests:
+  * finite_duration: verifies that a link test ends in the finite, specified amount of time
+  * feedback_period: verifies that feedback is periodic with the specified period
+  * stop_test: verifies that a test can be preemptively stopped 
+
+metriclog_test
+--------------
+
+Description: 
+  * tests the functionality of the MetricLog class which aggregates measured network
+metrics and calculates statistics
+
+Tests:
+  * basic_stats: tests basic statistics like min, max, average, count, standard deviation
+  * moving_stats: tests the moving statistics
+  * time_and_duration: tests the time recording functionality
+
+constant_bw_test
+----------------
+
+Description:
+  * tests various functionality for constant (i.e. not adaptive) bandwidth tests using the loopback
+interface and direct invocations of "tc" for emulating various network conditions
+
+Tests:
+  * basic: simple test with 1Mbit/s send rate which is well within the capabilites of the lo interface so
+loss should be null, latency should be very small and bandwidth should be close to the send rate
+  * bw_measurement: sends at 3Mbit/s while imposing a 1Mbit/s limit using tc, checks that the measured 
+bandwidth is close to 1Mbit/s
+  * bw_measurement_variable_bw: starts a test with a send rate of 5Mbit/s and then changes the bandwidth
+limit several times during the test: 1Mbit/s, 4Mbit/s and finally 0.25Mbit/s, each time verifying that the
+measured bandwidth corresponds to the new limit
+  * loss_measurement: same as previous test, but this time it's packet loss that is varied
+  * latency_measurement: same as previous test, but latency is varied 
+  * latency_loss: sets latency and loss simulataneously and checks the measured values 
+
+adaptive_bw_test
+----------------
+
+Description:
+  * test of the adaptive bandwidth measurement algorithm
+
+Tests:
+  * ramp_up: starts from a send rate (1Mbit/s) below the set limit (5Mbit/s), checks that the algorithm
+ramps up to the target rate
+  * ramp_down: starts from a send rate equal to the set limit (5Mbit/s) and then drops the limit, emulating
+a link whose capacity suddenly drops, checks that the measured bandwidth corresponds to the new capacity
+  * varying_capacity: varies capacity of the link up and down and checks that the adaptive bandwidth algorithm
+responds accordingly
+  * get_capacity: tests the UdpmonsourceHandle.get_link_capacity() function
+
+multiple_ends_test
+------------------
+
+Description:
+  * tests that include more than one source or sink
+
+Tests:
+  * multiple_sources_single_sink: test with three sources and a single sink
+  * test_multiple_sinks: test with two sinks
+
+parameter_test
+--------------
+
+Description:
+  * tests that the various parameters in the action file work as intended
+
+Tests:
+  * test_tos: tests that the TOS field gets properly set on packets
+  * test_latencybins: tests that the latencybins list parameter is properly used
+  * test_max_return_time: tests the max_return_time parameter
+  * test_udp_return: tests that UDP return (what was previously used with udpmoncli.py
+and udpmonsink) instead of ROS works
+  * test_roundtrip: tests that roundtrip instead of the default one-way measurement works

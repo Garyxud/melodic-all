@@ -1,0 +1,28 @@
+<package format="2">
+  <name>pilz_industrial_motion</name>
+  <version>0.4.11</version>
+  <description>The pilz_industrial_motion package</description>
+
+  <maintainer email="a.gutenkunst@pilz.de">Alexander Gutenkunst</maintainer>
+  <maintainer email="c.henkel@pilz.de">Christian Henkel</maintainer>
+  <maintainer email="h.slusarek@pilz.de">Hagen Slusarek</maintainer>
+  <maintainer email="i.martini@pilz.de">Immanuel Martini</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">https://wiki.ros.org/pilz_industrial_motion</url>
+  <url type="bugtracker">https://github.com/PilzDE/pilz_industrial_motion/issues</url>
+  <url type="repository">https://github.com/PilzDE/pilz_industrial_motion</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>pilz_extensions</exec_depend>
+  <exec_depend>pilz_msgs</exec_depend>
+  <exec_depend>pilz_trajectory_generation</exec_depend>
+  <exec_depend>pilz_robot_programming</exec_depend>
+
+  <export>
+    <metapackage/>
+    <architecture_independent/>
+  </export>
+</package>

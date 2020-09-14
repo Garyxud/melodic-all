@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<launch>
+    <node pkg="jointstick" type="jointstick.py" respawn="false" name="jointstick" output="screen">
+        <rosparam file="$(find jointstick)/config/config.yaml" command="load" />
+    </node>
+</launch>

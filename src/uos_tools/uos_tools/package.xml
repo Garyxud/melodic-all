@@ -1,0 +1,26 @@
+<package>
+  <name> uos_tools </name>
+  <version>1.0.0</version>
+
+  <description>
+   Various helper utilities not associated with a particular stack
+  </description>
+
+  <maintainer email="spuetz@uos.de">Sebastian Pütz</maintainer>
+
+  <license>BSD, GPL</license>
+
+  <url>http://ros.org/wiki/uos_tools</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>uos_common_urdf</run_depend>
+  <run_depend>uos_diffdrive_teleop</run_depend>
+  <run_depend>uos_freespace</run_depend>
+  <run_depend>uos_gazebo_worlds</run_depend>
+  <run_depend>uos_maps</run_depend>
+  
+  <export>
+    <metapackage/>
+  </export>
+</package>

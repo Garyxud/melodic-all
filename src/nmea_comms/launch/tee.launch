@@ -1,0 +1,17 @@
+<launch>
+  <arg name="port" default="/dev/ttyUSB0" />
+  <arg name="baud" default="115200" />
+
+  <group ns="navsat">
+    <node pkg="nmea_comms" type="serial_node" name="nmea_serial">
+      <param name="port" value="$(arg port)" />
+      <param name="baud" value="$(arg baud)" />
+    </node>
+    <node pkg="nmea_comms" type="socket_node" name="nmea_socket">
+      <!-- Transmit sentences received from the serial port to clients connected
+           to the socket connection. -->
+      <remap from="nmea_sentence" to="socket_in" />
+      <remap from="nmea_sentence_out" to="nmea_sentence" />
+    </node>
+  </group>
+</launch>

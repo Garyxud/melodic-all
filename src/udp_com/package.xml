@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>udp_com</name>
+  <version>1.1.1</version>
+
+  <description>The udp_com package</description>
+
+  <maintainer email="evan.flynn@continental.com">Evan Flynn</maintainer>
+  <maintainer email="gerardo.bravo@continental.com">Gerardo Bravo</maintainer>
+  
+  <license>BSD</license>
+
+  <url type="website">https://continental.github.io/udp_com</url>
+  
+  <author email="hunterlaux@gmail.com">Hunter Laux</author>
+  <author email="maxtong9@gmail.com">Max Ginier</author>
+  <author email="evanflynn.msu@gmail.com">Evan Flynn</author>
+  <author email="conilo@gmail.com">Gerardo Bravo</author>
+  <author email="moises.diazm@outlook.com">Moises Diaz</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>message_generation</exec_depend>
+
+  <test_depend>roslint</test_depend>
+  <test_depend>rostest</test_depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+    <nodelet plugin="${prefix}/nodelets.xml"/>
+  </export>
+</package>

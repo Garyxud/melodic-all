@@ -1,0 +1,48 @@
+/**
+
+\page CameraImageViewer
+
+\section introduction Overview
+
+This component visualizes Img::TimedCameraImage
+
+<table>
+<tr><th>implementation_id</th><td>CameraImageViewer</td></tr>
+<tr><th>category</th><td>example</td></tr>
+</table>
+
+\section dataports Data Ports
+
+\subsection inports Input Ports
+
+<table>
+<tr><th>port name</th><th>data type</th><th>unit</th><th>description</th></tr>
+<tr><td>imageIn</td><td>Img::TimedCameraImage</td><td></td><td>camera image</td></tr>
+</table>
+
+\subsection outports Output Ports
+
+N/A
+
+\section serviceports Service Ports
+
+\subsection provider Service Providers
+
+N/A
+
+\subsection consumer Service Consumers
+
+N/A
+
+\section configuration Configuration Variables
+
+<table>
+<tr><th>name</th><th>type</th><th>unit</th><th>default value</th><th>description</th></tr>
+<tr><td>depthBits</td><td>int</td><td>[bit]</td><td>11</td><td>resolution of depth image</td></tr>
+</table>
+
+\section conf Configuration File
+
+N/A
+
+ */

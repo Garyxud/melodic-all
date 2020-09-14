@@ -1,0 +1,55 @@
+<package>
+  <name>checkerboard_detector</name>
+  <version>1.2.10</version>
+  <description>Uses opencv to find checkboards and compute their 6D poses with respect to the image. Requires the image to be calibrated.<br />
+    Parameters:<br />
+    <ul>
+     <li>display - show the checkerboard detection</li>
+     <li>rect%d_size_x - size of checker in x direction</li>
+     <li>rect%d_size_y - size of checker in y direction</li>
+     <li>grid%d_size_x - number of checkers in x direction</li>
+     <li>grid%d_size_y - number of checkers in y direction</li>
+    </ul><br />    
+    There can be more than one grid%d declared, the numbers should grow consecutively starting at 0.</description>
+
+  <license>BSD</license>
+
+  <url type="repository">http://github.com/jsk-ros-pkg/jsk_recognition</url>
+  <url type="bugtracker">http://github.com/jsk-ros-pkg/jsk_recognition/issues</url>
+  <url type="website">http://jsk-docs.readthedocs.io/en/latest/jsk_recognition/doc/checkerboard_detector</url>
+
+  <author>Rosen Diankov (rdiankov@cs.cmu.edu)</author>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>rosconsole</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>posedetection_msgs</build_depend>
+  <build_depend>image_geometry</build_depend>
+  <build_depend>jsk_recognition_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>dynamic_tf_publisher</run_depend>
+  <run_depend>rosconsole</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>posedetection_msgs</run_depend>
+  <run_depend>image_geometry</run_depend>
+  <run_depend>jsk_recognition_msgs</run_depend>
+  <build_depend>eigen_conversions</build_depend>
+  <run_depend>eigen_conversions</run_depend>
+  <build_depend>message_filters</build_depend>
+  <run_depend>message_filters</run_depend>
+
+  <build_depend>tf</build_depend>
+  <run_depend>tf</run_depend>
+  <build_depend>tf2</build_depend>
+  <run_depend>tf2</run_depend>
+  <export>
+
+  </export>
+</package>

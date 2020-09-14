@@ -1,0 +1,7 @@
+order_heading_first: ROB@WORK 3
+order_heading_second: Please choose a Object
+order_wait: Please wait, getting Object
+move_heading_first: ROB@WORK 3
+move_heading_second: Press the Button to move the manipulator
+move_wait: Please wait, arm is in motion
+move_button: Moveit Demo

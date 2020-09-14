@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package>
+  <name>capabilities</name>
+  <version>0.2.0</version>
+  <description>
+    Package which implements capabilities, including code to parse capability interface specs, to parse capability provider specs, and implement the capability server.
+  </description>
+
+  <maintainer email="william@osrfoundation.org">William Woodall</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/capabilities</url>
+  <url type="repository">https://github.com/osrf/capabilities</url>
+  <url type="bugtracker">https://github.com/osrf/capabilities/issues</url>
+
+  <author email="william@osrfoundation.org">William Woodall</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>roslaunch</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+
+  <run_depend>bondpy</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>python-yaml</run_depend>
+  <run_depend>roslaunch</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+
+  <test_depend>geometry_msgs</test_depend>
+  <test_depend>python-coverage</test_depend>
+  <test_depend>python-mock</test_depend>
+  <test_depend>python-pep8</test_depend>
+  <test_depend>rosservice</test_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml"/>
+  </export>
+
+</package>

@@ -1,0 +1,15 @@
+redirect_console: True
+wireless_namespace: 'ddwrt'
+wpa_config: "/etc/ros/wifi/networks.conf" 
+base_station: "gate1"
+ping_port: 6868
+tunnel_interface: 'tun9'
+local_networks: [ '10.68.0.0/24', '10.69.0.0/24' ]
+reliability_threshold: 85
+
+interfaces:
+  wlan1: { type: wireless }
+  wlan2: { type: wireless }
+#  wan0: { type: wired,  priority: 20 }
+#  "basestation-local2@lan1": { type: static, name: bs@lan1, priority: 30 }
+#  "wifi-router@lan0": { type: static, name: ddwrt }

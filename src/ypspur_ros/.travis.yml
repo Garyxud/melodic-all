@@ -1,0 +1,28 @@
+sudo: required
+services: docker
+
+cache:
+  directories:
+    - /home/travis/docker/
+env:
+  global:
+    - PACKAGE_NAME=ypspur_ros
+    - DOCKER_CACHE_TARGET=ypspurros
+    - DOCKER_CACHE_REGISTRY=atwat/ros-ypspurros-cache
+    - secure: "KvHYpBbMshvDsQ+k2l15cXSWUzdPcMrUec6y7g84nABfAya+HNjOgCbOT4AUkbFIMo9cZIGqP8qKjcbJ7g1AYox1PFrfWV1D8Rc0Kn681XhlfKurMRCIwBrhTmscpObL7ztFgkNXW5oyIVC6Am8akYYx1mO608OKbhDbOE1koll2hBBta9ufSyhhPtzMpFxx07S1QYZkZxa7TwUaM30fUY7OEwU6Qut4uolpc9NiPlfW8l9vl55cVw63znVuJV5Rjo442VG7FmBncE46PgyF7xFJy97L34eZIM1ThgYV9zPG/Xg3A9O+Qch6/76W7WtLm3zSNLSoD4QPTp4BSKwI/U2MskDybLRcG3zJse+vmhPZVHZkY6aplP9ArBFQzLJBq1h7er2DzeQUufmzdDr7bgOnwvJD7lZgKPwEdtcbETR5LXGQEf+yW13dmVlkjwYcrcQVLANGDPOrt9B8VFp8fjeiEcSIEOexaSpt5cZ9tgield9RQugdL7tBVa4xJxk7pU7krNgQQszDP8HWWcBfNJY4TmVTkxUkpGWwxhkyopfAXG9JaRlIplB9Kf+/E/YWjjJQGy1Zh0rolV31Ag8XyTzLSAqBrahgU2I6gK8Z/bJw6vjDMluWxvnDbfD0iq5EGEFXSWCqF/VXo9F2KRtsL+xZQe8MNaX/hi2hjnA0fWk="
+  matrix:
+    - ROS_DISTRO_TARGET=kinetic
+    - ROS_DISTRO_TARGET=melodic
+branches:
+  only:
+    - master
+
+before_install:
+  - .travis/load_cache.sh
+
+install: true
+
+script:
+  - docker build --cache-from ${DOCKER_CACHE_REGISTRY}:${ROS_DISTRO_TARGET} -t ${DOCKER_CACHE_TARGET}:${ROS_DISTRO_TARGET} -f Dockerfile.${ROS_DISTRO_TARGET} --pull=true ${TRAVIS_BUILD_DIR}
+  - docker run --rm -it  -e TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST} -e TRAVIS_PULL_REQUEST_SLUG=${TRAVIS_PULL_REQUEST_SLUG} -e TRAVIS_BOT_GITHUB_TOKEN=${TRAVIS_BOT_GITHUB_TOKEN} -e PACKAGE_NAME=${PACKAGE_NAME} ${DOCKER_CACHE_TARGET}:${ROS_DISTRO_TARGET} /catkin_ws/src/${PACKAGE_NAME}/.travis/test.sh
+  - .travis/save_cache.sh

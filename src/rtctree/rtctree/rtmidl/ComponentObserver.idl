@@ -1,0 +1,496 @@
+// -*- IDL -*-
+/*!
+ * @file ComponentObserver.idl
+ * @brief Component observer SDO service
+ * @date $Date$
+ * @author Noriaki Ando <n-ando@aist.go.jp>
+ *
+ * Copyright (C) 2011
+ *     Noriaki Ando
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ * $Id$
+ *
+ */
+
+#include "SDOPackage.idl"
+#include "RTC.idl"
+
+/*!
+ * @if jp
+ * @brief コンポーネント状態オブザーバインターフェース
+ *
+ * コンポーネントの状態を監視するためのオブザーバインターフェース。オブ
+ * ザーバパターンに従い、外部ツールがコンポーネントにオブザーバオブジェ
+ * クトをセットし、コンポーネントは各種内部状態変更時にをオブザーバオブ
+ * ジェクトをコールし、オブザーバに対して変更を通知する。
+ *
+ * @since 1.1
+ *
+ * @else
+ * @brief Component state observer interface
+ *
+ * This interface defines observer interface for component states.
+ * According to the observer pattern, tools which want to observe
+ * component state set observer objects to the RT-Component, and weh
+ * RT-Component changes its status, the observer object is called and
+ * notice the changes to tools.
+ *
+ *
+ * @since 1.1
+ * @endif
+ */
+module OpenRTM
+{
+  /*!
+   * @if jp
+   *
+   * @brief 更新された状態の種類
+   * 
+   * ターゲットRTCで更新された状態の種類を分類する列挙型。
+   * 
+   * @else
+   *
+   * @brief A kind of updated status
+   * 
+   * This is a enumeration type to classify updated status in target RTC.
+   *
+   * @endif
+   */
+  enum StatusKind
+  {
+    /*!
+     * @if jp
+     *
+     * @brief コンポーネントプロファイル
+     * 
+     * コンポーネントプロファイル RTC::ComponentProfile が更新されたこ
+     * とを示す列挙型。
+     *
+     * RTC::ComponentProfile のメンバーのうち、instance_name,
+     * type_name, description, version, vendor, category はRTC動作中に
+     * 変更されることはない。これらが変更された場合には、
+     * ComponentObserver::updatestatus() の hint には、それぞれのメンバー
+     * 名が文字列で指定される。また、parent に対する変更は通知されない。
+     * さらに、properties に対する変更は、hint に "<key0>, <key1>,
+     * ..." の形で通知される。
+     *
+     * port_profiles に対する変更は、後述の PORT_PROFILE によって通知さ
+     * れるため、COMPONENT_PROFILE では通知されない。
+     *
+     * @else
+     *
+     * @brief Component profile
+     * 
+     * This is enumeration member to specify that the target
+     * component's RTC::componentProfile has been changed.
+     *
+     * In the member of RTC::ComponentProfile, instance_name,
+     * type_name, description, version, vendor, category are not
+     * modified during RTC running. If these members are changed, each
+     * member's name is specified in the
+     * ComponentObserver::updateStatus() 's hint argument. And,
+     * modification to parent is not notified. In the properties, the
+     * modification is notified as "<key0>, <key1>, ..." in the hint
+     * argument.
+     * 
+     * The modification to port_profiles is not notified as
+     * COMPONENT_PROFILE becauase it is notified as PORT_PROFILE.
+     *
+     * @endif
+     */
+    COMPONENT_PROFILE,
+    /*!
+     * @if jp
+     *
+     * @brief コンポーネントの状態
+     * 
+     * コンポーネントの状態が変化したことを示す列挙子。
+     *
+     * RTCにはECの状態として、INACTIVE_STATE, ACTIVE_STATE,
+     * ERROR_STATE があるが、この状態が変化したことを通知するための列挙
+     * 子。
+     *
+     * ComponentObserver::updatestatus() の hint には、状態と、どの実行
+     * コンテキストで変化があったかを知らせる以下の文字列が hint に引数
+     * として与えられる。
+     *
+     * hint: (INACTIVE, ACTIVE, ERROR):<Execution Context ID>
+     * 例:
+     *   ACTIVE:0 (デフォルトコンテキストでRTCがアクティブになった)
+     *   ERROR:1002 (実行コンテキスト1002でRTCがエラーになった)
+     *
+     * @else
+     *
+     * @brief Component status
+     * 
+     * This is INACTIVE_STATE, ACTIVE_STATE,
+     * ERROR_STATE status, and this enumerator specify a status of RTC changed.
+     *
+     * A status and ExecutionContext's id is specified in the argument of 
+     * ComponentObserver::updateStatus() 's hint.
+     *
+     * hint: (INACTIVE, ACTIVE, ERROR):<Execution Context ID>
+     * Example:
+     *   ACTIVE:0 (RTC is activated in the default ExecuionContext)
+     *   ERROR:1002 (RTC go to ERROR state in the EC of id 1002)
+     *
+     * @endif
+     */
+    RTC_STATUS,
+    /*!
+     * @if jp
+     *
+     * @brief ExecutionContextの状態
+     * 
+     * ExecutionContextの状態が変化したことを示す列挙子。
+     *
+     * RTCにECが attach/detach/rate_change/startup/shutdown されたことを
+     * 示す列挙子。
+     *
+     * ComponentObserver::updatestatus() の hint には、
+     * attach/detach/rate_change/startup/shutdow のいずれが行われたかと、
+     * 対象となるECのidが与えられる。
+     *
+     * hint: (ATTACHED, DETACHED, RATE_CHANGED, STARTUP,
+     *        SHUTDOWN):<Execution Context ID>
+     *
+     * 例:
+     *   ATTACHED:1002 (ECがアタッチされ、そのIDは1002)
+     *
+     * @else
+     *
+     * @brief The stauts of ExecutionContext
+     * 
+     * This is enumerator notifies that ExecutionContext is
+     * attach/detach/rate_change/startup/shutdown.  Attach or detach
+     * operation and target ExecutionContext's id is given in the
+     * argument of ComponentObserver::updateStatus() 's hint.
+     *
+     * hint: (ATTACHED, DETACHED, RATE_CHANGED, STARTUP,
+     *        SHUTDOWN):<Execution Context ID>
+     *
+     * Example:
+     *   ATTACHED:1002 (EC is attached and its ID is 1002)
+     *
+     * @endif
+     */
+    EC_STATUS,
+    /*!
+     * @if jp
+     *
+     * @brief Portの状態
+     * 
+     * Portの状態が変化したことを示す列挙子。Portの追加、削除、接続、切
+     * 断が行われたことを示す。ComponentObserver::updatestatus() の
+     * hint には、いずれかのアクションが行われたかと、対象となるポート
+     * の名前が与えられる。
+     *
+     * hint: (ADD, REMOVE, CONNECT, DISCONNECT):<port name>
+     * 例:
+     *   CONNECT:velocity (velocity ポートで接続が確立された)
+     *
+     * @else
+     *
+     * @brief The stauts of ports
+     * 
+     * This is enumerator which notifies that port is added, removed,
+     * connected and/or disconnected.  Which action is performed and
+     * target port's name is given to the hint argument in
+     * ComponentObserver::updateStatus() operation.
+     *
+     * hint: (ADD, REMOVE, CONNECT, DISCONNECT):<port name>
+     * Example:
+     *   CONNECT:velocity (A connection established in the velocity port)
+     *
+     * @endif
+     */
+    PORT_PROFILE,
+    /*!
+     * @if jp
+     *
+     * @brief Configurationの状態
+     * 
+     * Configurationの状態が変化したことを示す列挙子。Configurationに対
+     * して、コンフィギュレーションが更新された (UPDATE)、コンフィギュ
+     * レーションパラメータが更新された (UPDATEPARAM)、アクティブコンフィ
+     * ギュレーションが変更された (SET_ACTIVE_CONFIG_SET)、コンフィギュ
+     * レーションセットが追加された (ADD_CONFIG_SET)、コンフィギュレー
+     * ションセットが削除された (REMOVE_CONFIG_SET)、コンフィギュレーショ
+     * ンセットがアクティブにされた (ACTIVATE_CONFIG_SET) といったアク
+     * ションがあったことが通知される。
+     *
+     * - UPDATE_CONFIGSET:<configuration set's name>
+     * - UPDATE_PARAMETER:<config set's name>.<config param's key>
+     * - SET_CONFIG_SET: <config set's name>
+     * - ADD_CONFIG_SET <config set's name>
+     * - REMOVE_CONFIG_SET: <config set's name>
+     * - ACTIVATE_CONFIG_SET: <config set's name>
+     * 
+     * @else
+     *
+     * @brief The stauts of ports
+     * 
+     * This is enumerator which notifies that configuration is
+     * changed.  To the configuration a configuration set has been
+     * updated, a configuration parameter has been updated, the active
+     * configuration set has been changed, a configuration set has
+     * been added or removed, these actions would be notified.
+     *
+     * - UPDATE_CONFIGSET:<configuration set's name>
+     * - UPDATE_PARAMETER:<config set's name>.<config param's key>
+     * - SET_CONFIG_SET: <config set's name>
+     * - ADD_CONFIG_SET <config set's name>
+     * - REMOVE_CONFIG_SET: <config set's name>
+     * - ACTIVATE_CONFIG_SET: <config set's name>
+     *
+     * @endif
+     */
+    CONFIGURATION,
+    /*!
+     * @if jp
+     *
+     * @brief ハートビートイベント
+     * 
+     * 当該RTCが生存していることをオブザーバー側に通知する列挙子。
+     *
+     * ハートビートを利用するかどうか、およびハートビートの周期は、
+     * ServiceProfile::properties の以下のプロパティによって与えられる。
+     *
+     * heartbeat.enable: YES/NO
+     * heartbeat.interval: x [s]
+     * 
+     * @else
+     *
+     * @brief The stauts of ports
+     * 
+     * This enumerator is heart beat notification.
+     *
+     * Whether if the heart-beat function is used is specified in the
+     * ServiceProfile::properties as the following properties.
+     *
+     * heartbeat.enable: YES/NO
+     * heartbeat.interval: x [s]
+     *
+     * @endif
+     */
+    HEARTBEAT,
+
+    STATUS_KIND_NUM
+  };
+
+  /*!
+   * @if jp
+   *
+   * @interface ComponentObserver
+   * 
+   * RTCの各種状態の更新を知らせるためのオブザーバーオブジェクトのため
+   * のインターフェース。SDO Service として、対象となるRTC/SDOに対して
+   * アタッチされ、RTC/SDO内の状態が変更された場合に、変更された状態の
+   * 種類とヒントを同時に通知する。ツールなどで、ポーリングによらずRTC
+   * の状態の変化を知りたい場合などに利用する。
+   *
+   * 想定している利用方法は以下のとおりである。
+   *
+   * -# SDO::get_configuration() により Configuration オブジェクトを取得
+   * -# Configuration::add_service_profile() によりTool側の
+   *     ComponentObserver を ServiceProfile により RTC に与える。
+   *     ServiceProfile のメンバーは以下のように設定すること
+   *   - id: UUID など一意なIDを設定する。削除時にも必要になるので、Tool
+   *     側ではIDを保持しておかなければならない。
+   *   - interface_type: 当該サービスのIFRのIDを文字列として指定。RTC側で
+   *     はこの文字列により当該サービスオブジェクトを受け入れるか決定す
+   *     るため指定は必須となる。
+   *   - properties: RTC側のサービスの受け入れ側に通知するプロパティを設
+   *     定する。このサービスでは、下記の heartbeat 関連のプロパティを
+   *     指定する。
+   *    - service: SDOService オブジェクトの参照を指定する。
+   * -# RTC側で状態の変化があった場合に update_status() オペレーション
+   *     が StatusKind および hint の文字列とともに呼び出される。Tool側
+   *     では、StatusKind と hint に基づき RTC のある部分の状態が変化し
+   *     たことを知り、必要な処理を行う。
+   * -# 最終的にComponentObserverオブジェクトが不要になった場合には、
+   *     Configuration::remove_service_profile() を id とともに呼び出し
+   *     RTC から削除する。
+   *
+   * <pre>
+   * 
+   *   [RTC]    [Configuration]           [Observer]    [Tool]
+   *     |            |                       |            |
+   *     |            | get_configuration()   |            |
+   *     |<------------------------------------------------|
+   *     |            |                       |            |
+   *     |            | add_service_profile(prof)          |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            | update_status(kind, hint)          |
+   *     |----------------------------------->|            |
+   *     |            | update_status(kind, hint)          |
+   *     |----------------------------------->|            |
+   *     |            |       :               |            |
+   *     |            |                       |            |
+   *     |            | remove_service_profile(id)         |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            |                       x            x
+   *
+   * </pre>
+   *
+   * なお、ServiceProfile::properties に指定するプロパティとしては、
+   *
+   * - observed_status: ALL or kind of status
+   * - heartbeat.enable: YES/NO
+   * - heartbeat.interval: x [s]
+   * 
+   * がある。
+   * 
+   * - observed_staus: ALL または状態の種類をカンマ区切りで指定
+   *   監視する状態を指定する。指定可能な状態を表す文字列は、
+   *   COMPONENT_PROFILE, RTC_STATUS, EC_STATUS, PORT_PROFILE,
+   *   CONFIGURATION 5種類である。監視したい対象をカンマで区切り複数指
+   *   定することができる。また、すべての状態を監視する場合、ALL を指定
+   *   することができる。指定文字列は大文字、小文字を問わない。
+   *
+   * - heartbeat.interval: 秒単位で数値で指定
+   *   ハートビートを送信する周期を秒単位で指定する。なお、指定した秒数
+   *   でハートビートが必ず送信される保証はない。したがって、RTCが死ん
+   *   だかどうかを確認するには、heartbeat.interval 数回分の時間を待つ
+   *   必要がある。
+   *
+   * - heartbeat.enable: YES または NOで指定
+   *   Tool側では、状態に変化があるまで RTC が生存しているかどうか知る
+   *   ことはできないため、突然RTCが死んだ場合には、これを知ることがで
+   *   きない。そこで、HEART_BEAT イベントを周期的にRTC側から送らせるこ
+   *   とができる。ハートビートを有効にするか否かをこのオプションで指定
+   *   する。
+   * 
+   * 
+   * @else
+   *
+   * @interface ComponentObserver
+   * 
+   * This is an interface to notify various status changed in RTC to
+   * others.  This is attached into a target RTC/SDO as a SDO service,
+   * and if an RTC/SDO's status change, a kind of changed status and
+   * its hints are notified to observers.  For example, it can be used
+   * to notify RTC's status changed without polling in certain tools.
+   *
+   * An assumed usage is as follows.
+   *
+   * -# SDO::get_configuration() is called to get a Configuration object
+   *
+   * -# Configuration::add_service_profile() is called by Tool.
+   *     A ComponentObserver in a ServiceProfile is given to RTC.
+   *     ServiceProfile members should be set as follows.
+   *
+   *    - id: UUID and other unique ID should be specified. Since this ID
+   *      is used when the service is removed, tools should remember
+   *      this ID.
+   *
+   *    - interface_type: IFR ID should be specified here. Since the RTC
+   *      decides if the given SDO service object can be accepted by
+   *      using the interface_type string, this member is mandatory.
+   * 
+   *    - properties: This member specifies properties to be notified to
+   *      RTC side. In this service, the following heartbeat related
+   *      properties should be specified.
+   *
+   *    - service: SDOService object reference should be specified.
+   * 
+   * -# If some changes happen in RTC, the update_status() operation
+   *    is called with StatusKind and hint string. RTC's status change
+   *    is notified to tool and some processes would be performed by
+   *    the tool according to the StatusKind and hint.
+   *
+   * -# Finally, When the ComponentObserver object becomes
+   *     unnecessary, Configuration::remove_service_profile() is called
+   *     with id and it is removed from RTC.
+   *
+   * <pre>
+   * 
+   *   [RTC]    [Configuration]           [Observer]    [Tool]
+   *     |            |                       |            |
+   *     |            | get_configuration()   |            |
+   *     |<------------------------------------------------|
+   *     |            |                       |            |
+   *     |            | add_service_profile(prof)          |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            | update_status(kind, hint)          |
+   *     |----------------------------------->|            |
+   *     |            | update_status(kind, hint)          |
+   *     |----------------------------------->|            |
+   *     |            |       :               |            |
+   *     |            |                       |            |
+   *     |            | remove_service_profile(id)         |
+   *     |            |<-----------------------------------|
+   *     |            |                       |            |
+   *     |            |                       x            x
+   *
+   * </pre>
+   *
+   * Properties which is specified in ServiceProfile::properties is as follows.
+   *
+   * - observed_status: ALL or kind of status
+   * - heartbeat.enable: YES/NO
+   * - heartbeat.interval: x [s]
+   * 
+   *
+   * - observed_staus: ALL or comma separated status kinds This
+   *   property specifies kind of status to be observed. Available
+   *   kind of statuses are COMPONENT_PROFILE, RTC_STATUS, EC_STATUS,
+   *   PORT_PROFILE, CONFIGURATION. You can specify comma-separated
+   *   status list to be observed. And if you want to observe all the
+   *   status, you just specify ALL instead of all the status kind
+   *   list. Uppercase, lowercase and mixture are allowed in the
+   *   specified status kind.
+   *
+   * - heartbeat.enable: YES or NO
+   *
+   *   Since tools cannot know whether the RTC is alive or not until
+   *   status change happens, if the RTC suddenly died, the tools
+   *   cannot know it forever. To eliminate this problems, Observer
+   *   object can send periodic heartbeat signals to observers. The
+   *   heartbeat.enable option specifies whether the functionality is
+   *   activated or not.
+   *
+   * - heartbeat.interval: Heartbeat interval should be specified in
+   *   seconds.  This specification does not guarantee that heartbeat
+   *   signals precisely send back to observer. Therefore if you need
+   *   to decide whether an RTC died or not, you have to wait for
+   *   several heartbeat signals.
+   *
+   * @endif
+   */
+  interface ComponentObserver
+    : SDOPackage::SDOService
+  {
+    /*!
+     * @if jp
+     *
+     * @brief 状態が更新されたことを知らせる
+     * 
+     * 状態が更新されたことを知らせるオペレーション。status_kind によっ
+     * て更新された状態の種類、hint によってどのような状態が変更された
+     * かに関するヒントが与えられる。
+     *
+     * @param status_kind: StatusKind 型の状態の種類
+     * @param hint; StatusKind 毎に決まる状態変更に関するヒント
+     *
+     * @else
+     *
+     * @brief Notifies the status updated
+     *
+     * This operation notifies the updated status. The status_kind
+     * notifies kind of updated status, and the hint give some hint
+     * about updated status.
+     *
+     * @endif
+     */
+    oneway void update_status(in StatusKind status_kind, in string hint);
+  };
+
+};

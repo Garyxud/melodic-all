@@ -1,0 +1,58 @@
+/*
+  Manipulator Common Interface (Common Commands)
+    - This IDL is used as service port on RTC
+    - This command specification is provided by Intelligent RT Software
+  Project of JARA.
+  rev. 20140205
+*/
+
+#ifndef MANIPULATORCOMMONINTERFACE_COMMON_IDL
+#define MANIPULATORCOMMONINTERFACE_COMMON_IDL
+
+#include "ManipulatorCommonInterface_DataTypes.idl"
+
+module JARA_ARM {
+
+  enum AlarmType {
+    FAULT,
+    WARNING,
+    UNKNOWN
+  };
+
+  struct Alarm {
+    unsigned long code;
+    AlarmType type;
+    string description;
+  };
+
+  typedef sequence<Alarm> AlarmSeq;
+  typedef sequence<LimitValue> LimitSeq;
+
+  struct ManipInfo {
+    string manufactur;
+    string type;
+    ULONG axisNum;
+    ULONG cmdCycle;
+    boolean isGripper;
+  };
+
+  const ULONG CONST_BINARY_00000001 = 0x01; //isServoOn
+  const ULONG CONST_BINARY_00000010 = 0x02; //isMoving
+  const ULONG CONST_BINARY_00000100 = 0x04; //isAlarmed
+  const ULONG CONST_BINARY_00001000 = 0x08; //isBufferFull
+
+  interface ManipulatorCommonInterface_Common {
+    RETURN_ID clearAlarms();
+    RETURN_ID getActiveAlarm(out AlarmSeq alarms);
+    RETURN_ID getFeedbackPosJoint(out JointPos pos);
+    RETURN_ID getManipInfo(out ManipInfo mInfo);
+    RETURN_ID getSoftLimitJoint(out LimitSeq softLimit);
+    RETURN_ID getState(out ULONG state);
+    RETURN_ID servoOFF();
+    RETURN_ID servoON();
+    RETURN_ID setSoftLimitJoint(in LimitSeq softLimit);
+  };
+};
+
+#endif // MANIPULATORCOMMONINTERFACE_COMMON_IDL
+

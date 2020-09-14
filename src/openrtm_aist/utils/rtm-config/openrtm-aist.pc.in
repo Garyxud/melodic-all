@@ -1,0 +1,37 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+datarootdir=@datarootdir@
+data_prefix=@datarootdir@
+rtm_prefix=@prefix@
+rtm_exec_prefix=@exec_prefix@
+rtm_data_prefix=@datarootdir@
+
+libdir=@libdir@
+includedir=@includedir@
+
+rtm_cxx=@CXX@
+rtm_cflags=@CXXFLAGS@ -I@prefix@/include -I@coil_includedir@ -I@rtm_includedir@ -I@rtm_idldir@
+rtm_libs=@LDFLAGS@ -L@libdir@ @LIBS@ -lRTC -lcoil
+rtm_version=@RTM_VERSION@
+rtm_orb=@ORB@
+rtm_idlc=@IDLC@
+rtm_idlflags=@IDL_FLAGS@ -I@rtm_idldir@
+# other variables
+rtm_includedir=@rtm_includedir@
+rtm_idldir=@rtm_idldir@
+rtm_libdir=@rtm_libdir@
+rtm_datadir=@rtm_datadir@
+rtm_rtcdir=@rtm_rtcdir@
+rtm_ecdir=@rtm_ecdir@
+rtm_rtmdir=@rtm_rtmdir@
+rtm_svcdir=@rtm_svcdir@
+rtm_docdir=@rtm_docdir@
+rtm_exampledir=@rtm_exampledir@
+coil_includedir=@coil_includedir@
+
+Name: @PACKAGE@
+Description: @RTM_DESCRIPTION@
+Version: @RTM_VERSION@
+Requires: 
+Libs: ${rtm_libs}
+Cflags: ${rtm_cflags}

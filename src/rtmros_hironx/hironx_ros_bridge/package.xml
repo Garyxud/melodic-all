@@ -1,0 +1,49 @@
+<package>
+  <name>hironx_ros_bridge</name>
+  <version>2.2.0</version>
+  <description>ROS-OpenRTM interfacing package for the opensource version of Kawada's Hiro/NEXTAGE dual-arm robot.
+
+  NOTE: This package is multi-license -- pay attention to file header in each file where license is declared. For Creative Commons nc 4.0 applied, see <a href = "http://creativecommons.org/licenses/by-nc/4.0">here</a>.
+
+  <p>This package also contains some sensor driver software (as of April 2016 they are the following force sensors such as <a href = "http://www.wacoh-tech.com/products/dynpick/wdf-6m200-3.html">Dynpick</a> and <a href = "http://www.jr3.com/products.html">JR3</a>) for QNX. These drivers are stored in this robot-specific package for not many reasons than they are slightly customized for the robot. So if you can separate those as a standalone, generic package that'll be appreciated (please just let us know if you will).</p>
+  </description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+  <author email="iiysaito@opensource-robotics.tokyo.jp">Isaac I.Y. Saito</author>
+
+  <license>BSD</license>
+  <license>CreativeCommons-by-nc-4.0</license>
+
+  <url type="website">http://ros.org/wiki/hironx_ros_bridge</url>
+  <url type="repository">https://github.com/start-jsk/rtmros_hironx</url>
+  <url type="bugtracker">https://github.com/start-jsk/rtmros_hironx/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>hrpsys_ros_bridge</build_depend> <!-- Needed to transitively depend on openhrp3. See https://github.com/start-jsk/rtmros_hironx/pull/30#commitcomment-5535604 -->
+  <build_depend>mk</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>roslint</build_depend>
+  <build_depend>rosbash</build_depend>
+  <build_depend>rosbuild</build_depend>
+  <build_depend>roslang</build_depend>
+  <build_depend>unzip</build_depend>
+  <build_depend>gnuplot</build_depend>
+
+  <run_depend>gnuplot</run_depend>
+  <run_depend>moveit_commander</run_depend>
+  <run_depend>hrpsys_ros_bridge</run_depend>
+  <run_depend>openni2_launch</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>rosbash</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>roslang</run_depend>
+  <run_depend>tf</run_depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/rqt_plugin.xml"/>
+  </export>
+</package>

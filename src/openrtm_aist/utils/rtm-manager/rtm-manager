@@ -1,0 +1,215 @@
+#!/usr/bin/env python
+
+from Tkinter import *
+from tkFont import *
+import tkMessageBox, os.path, string
+import tkSimpleDialog
+import tkCommonDialog
+import time
+import re
+import thread
+import sys
+
+import NSHelper
+import sys
+import omniORB.CORBA as CORBA
+import CosNaming
+import RTM
+import RTC
+import omniORB.any
+
+
+class EditableOptionMenu(Tkinter.OptionMenu):
+    """OptionMenu which allows editing of menu items
+    
+    Differences between this and Tkinter.OptionMenu:
+    1) insert_option() and delete_option() methods
+    2) self.menu, self.variable, self.callback exposed (as we need them to add
+    menu items later) (last 3 lines in __init__ )
+    3) some names changed from foo to Tkinter.foo, in __init__
+    as we do "import Tkinter"
+    
+    By Abel Daniel, under the same licence as Tkinter. (As code was
+    copyed from there.)
+    """
+    def __init__(self, master, variable, value, *values, **kwargs):
+        """copy-paste-modified from Tkinter.OptionMenu, works the same way"""
+        kw = {"borderwidth": 2, "textvariable": variable,
+              "indicatoron": 1, "relief": Tkinter.RAISED, "anchor": "c",
+              "highlightthickness": 2}
+        Tkinter.Widget.__init__(self, master, "menubutton", kw)
+        self.widgetName = 'tk_optionMenu'
+        menu = self.__menu = Tkinter.Menu(self, name="menu", tearoff=0)
+        self.menuname = menu._w
+        # 'command' is the only supported keyword
+        callback = kwargs.get('command')
+        if kwargs.has_key('command'):
+            del kwargs['command']
+        if kwargs:
+            raise TclError, 'unknown option -'+kwargs.keys()[0]
+        menu.add_command(label=value,
+                         command=Tkinter._setit(variable, value, callback))
+        for v in values:
+            menu.add_command(label=v,
+                             command=Tkinter._setit(variable, v, callback))
+        self["menu"] = menu
+        
+        self.menu=menu
+        self.variable=variable
+        self.callback=callback
+        
+    def insert_option(self, index, text):
+        """Insert an option to the menu.
+        Handling of index is the same as in Tkinter.Menu.insert_command()
+        """
+        self.menu.insert_command(index, label=text,
+                                 command=Tkinter._setit(self.variable,
+                                                        text, self.callback))
+
+    def delete_option(self, index1, index2=None):
+        """Delete options the same way as Tkinter.Menu.delete()"""
+        self.menu.delete(index1, index2)
+
+    def change_option(self, index, new_text):
+        """Change to new_text
+        Bug: doesn't change the selection if the currently selected option
+        is changed, fixing this is left as an exercise to the reader"""
+        self.menu.entryconfigure(index, label=new_text,
+                                 command=Tkinter._setit(self.variable,
+                                                        new_text,
+                                                        self.callback))
+
+
+def flatten(nsdict, flatdict, curr_name):
+    for k in nsdict.keys():
+        name = curr_name + '/' + \
+            nsdict[k][0]['id'] + '.' + \
+            nsdict[k][0]['kind']
+        if nsdict[k][1] == None:
+            objref  = nsdict[k][0]['objref']
+            flatdict[name] = objref
+        else:
+            tmptuple = nsdict[k][1:]
+            for t in tmptuple:
+                for k in t.keys():
+                    d = t[k][0]
+                    flatten(t, flatdict, name)
+
+
+def mgr_list(dict):
+        flatdict = {}
+        flatten(dict, flatdict, "")
+        managers = {}
+        for k in flatdict.keys():
+            print k
+            if k.rfind(".mgr") + 4 == len(k):
+                managers[k] = flatdict[k]
+        return managers
+
+
+class App(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.pack()
+        self.init()
+        
+    def init(self):
+        f = Frame()
+        f.pack(side=TOP, anchor=E, pady=5)
+        self.create_nsselecter(f)
+        self.create_managerlist(f)
+        self.create_mgrprofile(f)
+        self.create_mgrctrl(f)
+
+    def create_nsselecter(self, frame):
+        f = Frame(frame, width=640, relief=GROOVE)
+        f.pack(side=TOP, anchor=E, pady=5)
+        l = Label(f, text="NS: ")
+        l.pack(side=LEFT)
+        self.nsentry = StringVar()
+        self.nsentry.set("localhost")
+        e = Entry(f, width=20, textvariable=self.nsentry)
+        e.pack(side=LEFT)
+        b = Button(f, text="Connect", command=self.on_connect_ns)
+        b.pack(side=LEFT)
+
+    def on_connect_ns(self):
+        print self.nsentry.get()
+        ns = NSHelper.NSHelper()
+        ns.Connect(self.nsentry.get())
+        dict = ns.GetNSDict()
+        self.managers = mgr_list(dict)
+
+        self.mgrlistbox.delete(0, END)
+        for mgr in self.managers.keys():
+            self.mgrlistbox.insert(END, mgr)
+
+    def create_managerlist(self, frame):
+        f = Frame(frame, width=200, height=200)
+        f.pack(side=LEFT, anchor=W, fill=BOTH, expand=1)
+        ys = Scrollbar(f, orient = VERTICAL, width=12)
+        ys.grid(row = 0, column=1, sticky = N+S)
+        xs = Scrollbar(f, orient = HORIZONTAL, width=12)
+        xs.grid(row = 1, column=0, sticky = E+W)
+        
+        self.mgrlistbox = Listbox(f,
+                                  xscrollcommand = xs.set,
+                                  yscrollcommand = ys.set,
+                                  selectmode = 'single',
+                                  setgrid = TRUE,
+                                  width=20, height=20)
+        self.mgrlistbox.grid(row = 0, column = 0, sticky = N+S+E+W,)
+        xs['command']=self.mgrlistbox.xview
+        ys['command']=self.mgrlistbox.yview
+        self.mgrlistbox.bind("<ButtonRelease-1>", self.on_clickmgrlistbox)
+
+    def on_clickmgrlistbox(self, event):
+        index = self.mgrlistbox.curselection()
+        if len(index) > 0:
+            mgrname = self.mgrlistbox.get(index[0])
+            self.mgr = self.managers[mgrname]
+            prop = self.mgr.get_profile().properties
+            self.mgrprofile.delete(1.0, END)
+            for p in prop:
+                text = p.name + ': ' +  omniORB.any.from_any(p.value) + "\n"
+                self.mgrprofile.insert(END, text)
+
+            fact = self.mgr.get_factory_profiles()
+
+            self.rtcfactory.delete_option(0)
+            factnames = []
+            for f in fact:
+                for nv in f.properties:
+                    if nv.name == "implementation_id":
+                        factnames.append(omniORB.any.from_any(nv.value))
+            for i, f in enumerate(factnames):
+                self.rtcfactory.insert_option(i, f)
+            self.rtctype_var.set(factnames[0])
+
+    def create_mgrprofile(self, frame):
+        f = Frame(frame)
+        f.pack()
+        self.mgrprofile = Text(f, width=40, height=30)
+        self.mgrprofile.pack(side=LEFT)
+
+    def create_mgrctrl(self, frame):
+        f = Frame(frame)
+        f.pack()
+
+        # create_component
+        self.rtctype_var = StringVar()
+        self.rtctype_var.set("None")
+        self.rtcfactory = EditableOptionMenu(f, self.rtctype_var, "None", )
+        self.rtcfactory.pack()
+
+        b = Button(f, text="Create", command=self.create_component)
+        b.pack(side=LEFT)
+
+    def create_component(self):
+        self.mgr.create_component(self.rtctype_var.get())
+
+
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()

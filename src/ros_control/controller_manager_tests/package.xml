@@ -1,0 +1,41 @@
+<package format="2">
+  <name>controller_manager_tests</name>
+  <version>0.18.2</version>
+  <description>Tests for the controller manager.</description>
+
+  <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
+  <maintainer email="enrique.fernandez.perdomo@gmail.com">Enrique Fernandez</maintainer>
+  <maintainer email="mathias.luedtke@ipa.fraunhofer.de">Mathias Lüdtke</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/controller_manager_tests</url>
+  <url type="bugtracker">https://github.com/ros-controls/ros_control/issues</url>
+  <url type="repository">https://github.com/ros-controls/ros_control</url>
+
+  <author>Vijay Pradeep</author>
+  <author>Adolfo Rodriguez Tsouroukdissian</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>controller_interface</depend> <!-- exec_depend required for plugin -->
+  <depend>controller_manager</depend>
+  <depend>roscpp</depend>
+
+  <build_depend>hardware_interface</build_depend>
+  <build_depend>pluginlib</build_depend>
+
+  <build_export_depend>hardware_interface</build_export_depend>
+  <build_export_depend>pluginlib</build_export_depend>
+
+  <exec_depend>controller_manager_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+
+  <test_depend>rosbash</test_depend>
+  <test_depend>rosnode</test_depend>
+  <test_depend>rostest</test_depend>
+
+  <export>
+    <controller_interface plugin="${prefix}/test_controllers_plugin.xml"/>
+  </export>
+</package>

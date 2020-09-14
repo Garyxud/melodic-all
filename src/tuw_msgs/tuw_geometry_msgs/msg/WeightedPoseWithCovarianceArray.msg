@@ -1,0 +1,3 @@
+Header header
+
+WeightedPoseWithCovariance[] poses

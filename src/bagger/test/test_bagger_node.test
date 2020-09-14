@@ -1,0 +1,6 @@
+<launch>
+  <node name="bagger" pkg="bagger" type="bagger" output="screen" respawn="true">
+    <rosparam command="load" file="$(find bagger)/config/test_profiles.yaml" />
+  </node>
+  <test test-name="test_bagger_node" pkg="bagger" type="test_bagger_node.py" />
+</launch>

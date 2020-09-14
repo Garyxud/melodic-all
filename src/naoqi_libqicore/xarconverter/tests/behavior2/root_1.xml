@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BoxInterface uuid="" box_version="1.0.0.0" name="root" localization="8" tooltip="Root box of Choregraphe&apos;s project. Highest level possible."  format_version="4" >
+    <Bitmap path="media/images/box/root.png" />
+    <Input name="onLoad" signature="()" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+    <Input name="onStart" signature="()" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+    <Input name="onStop" signature="()" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+    <Output name="onStopped" signature="()" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+    <Contents>
+        <Content type="0" path="root_1.py" checksum="" />
+        <Content type="2" path="root_1.fld" checksum="" />
+    </Contents>
+</BoxInterface>

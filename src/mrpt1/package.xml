@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!-- This is a ROS package file, intended to allow MRPT 1.5.x to be built
+     side-by-side to real ROS packages in a catkin environment.
+     Real MRPT ROS packages are found elsewhere: https://github.com/mrpt-ros-pkg
+-->
+<package format="2">
+  <name>mrpt1</name>
+  <version>1.5.9</version>
+  <description>Mobile Robot Programming Toolkit (MRPT) version 1.5.x</description>
+
+  <author     email="joseluisblancoc@gmail.com">Jose-Luis Blanco-Claraco</author>
+  <maintainer email="joseluisblancoc@gmail.com">Jose-Luis Blanco-Claraco</maintainer>
+
+  <url type="website">https://www.mrpt.org/</url>
+  <url type="bugtracker">https://github.com/MRPT/mrpt/issues</url>
+
+  <license>BSD</license>
+
+  <depend>assimp-dev</depend>
+  <depend>boost</depend>  <!-- for pymrpt -->
+  <depend>eigen</depend>
+  <depend>ffmpeg</depend>
+  <depend>glut</depend>
+  <depend>libjpeg</depend>
+  <depend>libopencv-dev</depend>
+  <depend>libpcap</depend>
+  <depend>libudev-dev</depend>
+  <depend>libusb-1.0-dev</depend>
+  <depend>octomap</depend>
+  <depend>python</depend>  <!-- for pymrpt -->
+  <depend>python-numpy</depend>  <!-- for pymrpt -->
+  <depend>suitesparse</depend>
+  <depend>wx-common</depend>
+  <depend>wxwidgets</depend>
+  <depend>zlib</depend>
+
+  <doc_depend>doxygen</doc_depend>
+
+  <!-- Minimum entries to release non-catkin pkgs: -->
+  <buildtool_depend>cmake</buildtool_depend>
+  <exec_depend>catkin</exec_depend>
+  <export>
+    <build_type>cmake</build_type>
+    <rosdoc config="doc/rosdoc.yaml" />
+  </export>
+  <!-- End -->
+
+</package>

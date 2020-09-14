@@ -1,0 +1,113 @@
+/**
+
+\page Stabilizer
+
+\section introduction Overview
+
+This component is maintain full-body balance based on sensor feedback.
+
+\subsection feature Feature
+
+This component modifies input joint angles to control COG, ZMP, and so on. 
+This component receives reference joint angles from "qRef" inport. 
+Then it solves Inverse Kinematics (or something) based on sensor feedback, 
+obtains jonint angles, and outputs the joint angles as "q" outport. 
+
+\subsection mode Mode
+
+This component has modes and behaves as Finite State Machine. 
+By default, this component is idle mode ("MODE_IDLE"), in which it do not modify input joint angles. 
+When OpenHRP::StabilizerService::startStabilizer() are called in idle mode,
+it switches to controlling mode ("MODE_ST"), in which it modifies joint angles. 
+When OpenHRP::StabilizerService::stopStabilizer() are called in controlling mode, it switches to idle mode. 
+When this component is controlling mode and the robot is put off to
+the air, it switches to air mode ("MODE_AIR"), which is similar to idle mode. 
+When this component was air mode and the robot is put on the ground,
+it switches to controlling mode. 
+
+\subsection zdexample ZMPDistributor Example
+ZMPDistributor example, in which distributed force and moment are displayed on graphs 
+(COP, Ref-force, Ref-moment, ... etc).
+
+@code
+testZMPDistributor # Non ROS environment
+rosrun hrpsys testZMPDistributor # ROS environment
+@endcode
+
+<table>
+<tr><th>implementation_id</th><td>Stabilizer</td></tr>
+<tr><th>category</th><td>example</td></tr>
+</table>
+
+\subsection stalgo Stabilizer algorithm
+Stabilizer algorithm is based on the following papers:
+<br>
+<ul>
+<li> EEFM (partially, EEFMQP, EEFMQPCOP):<br>
+    [1] Shuuji Kajita, Mitsuharu Morisawa, Kanako Miura, Shin’ichiro Nakaoka,Kensuke Harada, Kenji Kaneko, Fumio Kanehiro and Kazuhito Yokoi "Biped Walking Stabilization Based on Linear Inverted Pendulum Tracking", The 2010 IEEE/RSJ International Conference on Intelligent Robots and Systems, p. 4489-4496, 2010
+<li> TPCC:<br>
+    [2] 長坂,稲葉,井上:"体幹位置コンプライアンスを用いた人間型ロボットの歩行安定化",第 17 回日本ロボット学会学術講演会予稿集, pp.1193–1194, 1999.<br>
+    [3] Y. Choi, D. Kim and B.-J. You: "On the Walking Control for Humanoid Robot based on the Kinematic Resolution of CoM Jacobian with Embedded Motion," Proc. of 2006 IEEE Inter. Conf. on Robotics and Automation, pp.2655–2660, 2006.
+</ul>
+
+\section dataports Data Ports
+
+\subsection inports Input Ports
+
+<table>
+<tr><th>port name</th><th>data type</th><th>unit</th><th>description</th></tr>
+<tr><td>qCurrent</td><td>RTC::TimedDoubleSeq</td><td>[rad]</td><td>Actual joint angles</td></tr>
+<tr><td>qRef</td><td>RTC::TimedDoubleSeq</td><td>[rad]</td><td>Reference joint angles</td></tr>
+<tr><td>rpy</td><td>RTC::TimedOrientation3D</td><td>[rad]</td><td>Actual attitude sensor's Roll-Pitch-Yaw angle </td></tr>
+<tr><td>forceL</td><td>RTC::TimedDoubleSeq</td><td>[N],[Nm]</td><td>6D
+wrench vector for actual force and moment for left leg</td></tr>
+<tr><td>forceR</td><td>RTC::TimedDoubleSeq</td><td>[N],[Nm]</td><td>6D
+wrench vector for actual force and moment for right leg</td></tr>
+<tr><td>zmpRef</td><td>RTC::TimedPoint3D</td><td>[m]</td><td>Reference
+ZMP in base frame</td></tr>
+<tr><td>basePosIn</td><td>RTC::TimedPoint3D</td><td>[m]</td><td>Reference
+base position</td></tr>
+<tr><td>baseRpyIn</td><td>RTC::TimedOrientation3D</td><td>[rad]</td><td>Reference
+base orientation (Roll-Pitch-Yaw)</td></tr>
+<tr><td>contactStates</td><td>RTC::TimedBooleanSeq</td><td>NA</td><td>
+Reference end-effector contact states (True=contact, False=no-contact)</td></tr>
+<tr><td>controlSwingSupportTime</td><td>RTC::TimedDouble</td><td>[s]</td><td>
+Time of swing phase</td></tr>
+</table>
+
+\subsection outports Output Ports
+
+<table>
+<tr><th>port name</th><th>data type</th><th>unit</th><th>description</th></tr>
+<tr><td>q</td><td>RTC::TimedDoubleSeq</td><td>[rad]</td><td>Output
+reference joint angles</td></tr>
+<tr><td>zmp</td><td>RTC::TimedPoint3D</td><td>[m]</td><td>Estimated
+actual ZMP in base frame</td></tr>
+</table>
+
+\section serviceports Service Ports
+
+\subsection provider Service Providers
+
+<table>
+<tr><th>port name</th><th>interface name</th><th>service type</th><th>IDL</th><th>description</th></tr>
+<tr><td>StabilizerService</td><td>service0</td><td>StabilizerService</td><td>\ref OpenHRP::StabilizerService</td><td>StabilizerService</td></tr>
+</table>
+
+\subsection consumer Service Consumers
+
+N/A
+
+\section configuration Configuration Variables
+
+<table>
+<tr><th>name</th><th>type</th><th>unit</th><th>default
+value</th><th>description</th></tr>
+<tr><td>debugLevel</td><td>int</td><td></td><td>0</td><td>debug level</td></tr>
+</table>
+
+\section conf Configuration File
+
+N/A
+
+ */

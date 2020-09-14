@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="config" default="base" />
+
+  <param name="robot_description"
+         command="$(find moose_description)/scripts/env_run
+                    $(find moose_description)/urdf/configs/$(arg config)
+                  $(find xacro)/xacro $(find moose_description)/urdf/moose.urdf.xacro  --inorder" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+</launch>

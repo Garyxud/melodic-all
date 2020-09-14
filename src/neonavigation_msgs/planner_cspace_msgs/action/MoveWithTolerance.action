@@ -1,0 +1,7 @@
+geometry_msgs/PoseStamped target_pose
+float64 goal_tolerance_lin
+float64 goal_tolerance_ang         # An angle tolerance to the goal point from the robot.
+float64 goal_tolerance_ang_finish  # An angle tolerance that the robot on the goal point should direct to a certain angle.
+---
+---
+geometry_msgs/PoseStamped base_position

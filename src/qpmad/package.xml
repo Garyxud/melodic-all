@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>qpmad</name>
+  <version>1.0.2</version>
+  <description>qpmad QP solver</description>
+
+  <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
+  <license>Apache 2.0</license>
+
+  <url type="website">https://github.com/asherikov/qpmad</url>
+
+  <buildtool_depend>cmake</buildtool_depend>
+  <depend>eigen</depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,8 @@
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Geometric Function">
+  <Param type="RichString" value="0.001*x" name="x"/>
+  <Param type="RichString" value="0.001*y" name="y"/>
+  <Param type="RichString" value="0.001*z" name="z"/>
+ </filter>
+</FilterScript>

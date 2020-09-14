@@ -1,0 +1,20 @@
+#
+# PremptiveRTEC を使用する場合のrtc.confのサンプル
+#
+# PreemptiveRTEC.so をカレントディレクトリに置き
+# 以下の行をrtc.confに追加する。 
+#
+
+# 実行コンテキストのタイプ (固定)
+exec_cxt.periodic.type: RTPreemptEC
+# 周期 (Hz)
+exec_cxt.periodic.rate: 1000
+# プライオリティ (Preemptive RT kernel のルールに従う)
+# sched_setscheduler(0, SCHED_FIFO, &param) の param に渡される
+exec_cxt.priority: 50
+
+# モジュールロードパス、PreemptiveRTEC.so がある場所
+manager.modules.load_path: ./
+# PreemptiveRTEC.so をあらかじめロードしておく
+manager.modules.preload: RTPreemptEC.so			
+manager.modules.abs_path_allowed: yes

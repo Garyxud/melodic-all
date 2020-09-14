@@ -1,0 +1,61 @@
+/**
+ * @file ExecutionProfileService.idl
+ * @brief Services for the execution profile interface
+ */
+#include <OpenRTM.idl>
+
+module OpenHRP
+{
+  interface ExecutionProfileService : OpenRTM::ExtTrigExecutionContextService
+  {
+    /**
+     * @brief execution profile of a component
+     */
+    struct ComponentProfile
+    {
+      long count;
+      double max_process;
+      double avg_process;
+    };
+    
+    /**
+     * @brief execution profile
+     */
+    struct Profile
+    {
+      double max_period;              ///< maximum of execution period
+      double min_period;              ///< minimum of execution period
+      double avg_period;              ///< average of execution period
+      double max_process;             ///< maximum of processing period
+      sequence<ComponentProfile> profiles; ///< array of profiles of components
+      long count;                     ///< the number of execution
+      long timeover;                  ///< the number of execution periods which were longer than expected execution period
+    };
+
+    /**
+     *  @brief exception raised by ExecutionProfileService
+     */
+    exception ExecutionProfileServiceException
+    {
+      string  description; ///< description of exception
+    };
+
+    /**
+     * @brief get execution profile
+     * @return execution profile
+     */
+    Profile getProfile();
+
+    /**
+     * @brief get execution profile
+     * @param obj object driven by this execution context
+     * @return execution profile
+     */
+    ComponentProfile getComponentProfile(in RTC::LightweightRTObject obj) raises(ExecutionProfileServiceException);
+
+    /**
+     * @brief reset execution profile
+     */
+    void resetProfile();
+  };
+};

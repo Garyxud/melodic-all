@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+  name="sick_tim">
+
+  <xacro:include filename="$(find sick_tim)/urdf/sick_tim.urdf.xacro" />
+
+  <xacro:sick_tim310 name="laser" ros_topic="scan" />
+</robot>

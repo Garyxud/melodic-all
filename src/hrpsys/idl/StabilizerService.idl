@@ -1,0 +1,272 @@
+/**
+ * @file StabilizerService.idl
+ * @brief Services for the stabilizer interface
+ */
+#include "AutoBalancerService.idl"
+
+module OpenHRP
+{
+  interface StabilizerService
+  {
+    typedef double DblArray2[2];
+    typedef double DblArray3[3];
+    typedef double DblArray4[4];
+    typedef sequence<boolean> BoolSequence;
+
+    /**
+     * @enum STAlgorithm
+     * @brief Algorithm of Stabilizer
+     */
+    enum STAlgorithm {
+      TPCC,
+      EEFM,
+      EEFMQP,
+      EEFMQPCOP,
+      EEFMQPCOP2
+    };
+
+    /**
+     * @enum ControllerMode
+     * @brief Mode of controller
+     */
+    enum ControllerMode {
+      MODE_IDLE,
+      MODE_AIR,
+      MODE_ST,
+      MODE_SYNC_TO_IDLE,
+      MODE_SYNC_TO_AIR
+    };
+
+    /**
+     * @enum EmergencyCheckMode
+     * @brief Mode of emergency checking
+     */
+    enum EmergencyCheckMode {
+      NO_CHECK,
+      COP,
+      CP,
+      TILT
+    };
+
+    /**
+     * @enum TwoDimensionVertex
+     * @brief 2D vertex of a support polygon [m]
+     */
+    struct TwoDimensionVertex {
+        DblArray2 pos;
+    };
+
+    /**
+     * @enum SupportPolygonVertices
+     * @brief Vertices of a support polygon at the end effector
+     */
+    struct SupportPolygonVertices {
+        sequence<TwoDimensionVertex> vertices;
+    };
+
+    /**
+     * @enum IKLimbParameters
+     * @brief IKLimbParameters
+     */
+    struct IKLimbParameters {
+        /// Joint weight for Inverse Kinematics calculation.
+        sequence<double> ik_optional_weight_vector;
+        /// SR-inverse gain for inverse kinematics.
+        double sr_gain;
+        /// Avoid joint limit gain for inverse kinematics.
+        double avoid_gain;
+        /// Reference joint angles tracking gain for inverse kinematics.
+        double reference_gain;
+        /// Manipulability limit for inverse kinematics.
+        double manipulability_limit;
+        /// IK loop count
+        unsigned short ik_loop_count;
+    };
+
+    /**
+     * @struct stParam
+     * @brief Stabilizer Parameters.
+     */
+    struct stParam {
+      // for TPCC
+      /// Feedback gain for ZMP tracking error (x,y)
+      DblArray2 k_tpcc_p;
+      /// Feedback gain for COG position tracking error (x,y)
+      DblArray2 k_tpcc_x;
+      /// Body posture control gain [rad/s] (roll, pitch).
+      DblArray2 k_brot_p;
+      /// Time constant for body posture control [s] (roll, pitch).
+      DblArray2 k_brot_tc;
+      // // for RUNST
+      // DblArray2 k_run_b;
+      // DblArray2 d_run_b;
+      // DblArray2 tdfke;
+      // DblArray2 tdftc;
+      // double k_run_x;
+      // double k_run_y;
+      // double d_run_x;
+      // double d_run_y;
+      // for EEFM ST
+      /// Feedback gain for COG position tracking error (x,y)
+      DblArray2 eefm_k1;
+      /// Feedback gain for COG velocity tracking error (x,y)
+      DblArray2 eefm_k2;
+      /// Feedback gain for ZMP tracking error (x,y)
+      DblArray2 eefm_k3;
+      /// Time constant for stabilizer ZMP delay [s] (x,y)
+      DblArray2 eefm_zmp_delay_time_const;
+      /// Auxiliary input for ZMP position [m] (x,y). This is used for delay model identification
+      DblArray2 eefm_ref_zmp_aux;
+      /// Sequence of all end-effector rotation damping gain [Nm/(rad/s)] (r,p,y).
+      sequence<sequence<double, 3> > eefm_rot_damping_gain;
+      /// Sequence of all end-effector rotation damping time constant [s] (r,p,y).
+      sequence<sequence<double, 3> > eefm_rot_time_const;
+      /// Sequence of all end-effector position damping gain [N/(m/s)] (x,y,z).
+      sequence<sequence<double, 3> > eefm_pos_damping_gain;
+      /// Sequence of all end-effector position damping time constant for double support phase [s] (x,y,z).
+      sequence<sequence<double, 3> > eefm_pos_time_const_support;
+      /// Sequence of all swing leg end-effector rotation spring gain (r,p,y).
+      sequence<sequence<double, 3> > eefm_swing_rot_spring_gain;
+      /// Sequence of all swing leg end-effector rotation spring time constant [s] (r,p,y).
+      sequence<sequence<double, 3> > eefm_swing_rot_time_const;
+      /// Sequence of all swing leg end-effector position spring gain (x,y,z).
+      sequence<sequence<double, 3> > eefm_swing_pos_spring_gain;
+      /// Sequence of all swing leg end-effector position spring time constant [s] (x,y,z).
+      sequence<sequence<double, 3> > eefm_swing_pos_time_const;
+      /// Sequence of all end-effector end-effector-frame moment limit [Nm]
+      sequence<sequence<double, 3> > eefm_ee_moment_limit;
+      /// Sequence of all end-effector position compensation limit [m]
+      sequence<double> eefm_pos_compensation_limit;
+      /// Sequence of all end-effector rot compensation limit [rad]
+      sequence<double> eefm_rot_compensation_limit;
+      /// End-effector position damping time constant for single support phase [s].
+      double eefm_pos_time_const_swing;
+      /// Transition time for single=>double support phase gain interpolation [s].
+      double eefm_pos_transition_time;
+      /// Margin for transition time for single=>double support phase gain interpolation [s].
+      double eefm_pos_margin_time;
+      /// Inside foot margine [m]. Distance between foot end effector position and foot inside edge.
+      double eefm_leg_inside_margin;
+      /// Outside foot margine [m]. Distance between foot end effector position and foot outside edge.
+      double eefm_leg_outside_margin;
+      /// Front foot margine [m]. Distance between foot end effector position and foot front edge.
+      double eefm_leg_front_margin;
+      /// Rear foot margine [m]. Distance between foot end effector position and foot rear edge.
+      double eefm_leg_rear_margin;
+      /// Body attitude control gain [rad/s] (roll, pitch) for EEFM.
+      DblArray2 eefm_body_attitude_control_gain;
+      /// Time constant for body attitude control [s] (roll, pitch) for EEFM.
+      DblArray2 eefm_body_attitude_control_time_const;
+      /// Cutoff frequency of LPF in calculation of COG velocity [Hz]
+      double eefm_cogvel_cutoff_freq;
+      /// Blending parameter [0, 1] for wrench distribution
+      double eefm_wrench_alpha_blending;
+      /// Cutoff frequency of LPF in calculation of force moment distribution alpha ratio parameter [Hz]
+      double eefm_alpha_cutoff_freq;
+      /// Gravitational acceleration [m/s^2] used in ST calculation
+      double eefm_gravitational_acceleration;
+      /// Pos error gain
+      double eefm_ee_pos_error_p_gain;
+      /// Rot error gain
+      double eefm_ee_rot_error_p_gain;
+      /// Pos rot error cutoff freq [Hz]
+      double eefm_ee_error_cutoff_freq;
+      /// Sequence of vertices for all end effectors assuming that the order is (rleg, lleg, rarm, larm)
+      sequence< SupportPolygonVertices > eefm_support_polygon_vertices_sequence;
+      /// Use force difference control or each limb force control. True by default.
+      boolean eefm_use_force_difference_control;
+      /// Use damping control for swing leg.
+      boolean eefm_use_swing_damping;
+      /// Swing damping control force threshold [N]
+      DblArray3 eefm_swing_damping_force_thre;
+      /// Swing damping control moment threshold [Nm]
+      DblArray3 eefm_swing_damping_moment_thre;
+      /// Rotation damping gain for swing leg [Nm/(rad/s)] (r,p,y)
+      DblArray3 eefm_swing_rot_damping_gain;
+      /// Position damping gain for swing leg [N/(m/s)] (x,y,z)
+      DblArray3 eefm_swing_pos_damping_gain;
+      /// Sequence of all end-effector force/moment distribution weight
+      sequence<sequence<double, 6> > eefm_ee_forcemoment_distribution_weight;
+      // common
+      /// Current Stabilizer algorithm
+      STAlgorithm st_algorithm;
+      /// Current ControllerMode
+      ControllerMode controller_mode;
+      /// Transition time [s] for start and stop Stabilizer
+      double transition_time;
+      /// Bool sequence for all end effectors whether the end effector is used for limb IK.
+      BoolSequence is_ik_enable;
+      /// Bool sequence for all end effectors whether the end effector is used for feedback control (currently damping control).
+      BoolSequence is_feedback_control_enable;
+      /// Bool sequence for all end effectors whether the end effector is used for zmp calculation.
+      BoolSequence is_zmp_calc_enable;
+      /// COP margin [m] from edges for COP checking
+      double cop_check_margin;
+      /// CP margin [m] (front, rear, inside, outside)
+      DblArray4 cp_check_margin;
+      /// tilt margin [rad] (single support phase, double support phase) from reference floor
+      DblArray2 tilt_margin;
+      /// ref_CP [m] (x,y) (foot_origin relative coordinate)
+      DblArray2 ref_capture_point;
+      /// act_CP [m] (x,y) (foot_origin relative coordinate)
+      DblArray2 act_capture_point;
+      /// CP_offset [m] (x,y) (foot_origin relative coordinate)
+      DblArray2 cp_offset;
+      /// contact decision threshold [N]
+      double contact_decision_threshold;
+      /// Foot origin position offset
+      sequence< sequence<double, 3> > foot_origin_offset;
+      /// Emergency signal checking mode
+      EmergencyCheckMode emergency_check_mode;
+      sequence<AutoBalancerService::Footstep> end_effector_list;
+      /// whether an emergency stop is used while walking
+      boolean is_estop_while_walking;
+      /// Sequence for all end-effectors' ik limb parameters
+      sequence<IKLimbParameters> ik_limb_parameters;
+      /// Whether change root link height for avoiding limb stretch
+      boolean use_limb_stretch_avoidance;
+      /// Limb stretch avoidance time constant [s]
+      double limb_stretch_avoidance_time_const;
+      /// Root link height change limitation for avoiding limb stretch [m/s] (lower, upper)
+      DblArray2 limb_stretch_avoidance_vlimit;
+      /// Sequence of limb length margin from max limb length [m]
+      sequence<double> limb_length_margin;
+      /// Detection time whether is in air [s]
+      double detection_time_to_air;
+      /// Limit of compensation for difference between ref-act root rot [rad].
+      DblArray2 root_rot_compensation_limit;
+      /// Whether truncate zmp according to foot support polygon or not
+      boolean use_zmp_truncation;
+    };
+
+    /**
+     * @brief Get Stabilizer parameters.
+     * @param i_param is output parameters
+     * @return true if set successfully, false otherwise
+     */
+    void getParameter(out stParam i_param);
+
+    /**
+     * @brief Set Stabilizer parameters.
+     * @param i_param is input parameters
+     * @return true if set successfully, false otherwise
+     */
+    void setParameter(in stParam i_param);
+
+    /**
+     * @brief Start Stabilizer mode.
+     * @param
+     * @return
+     */
+    void startStabilizer();
+
+    /**
+     * @brief Sop Stabilizer mode.
+     * @param
+     * @return
+     */
+    void stopStabilizer();
+    boolean dummy();
+  };
+};
+

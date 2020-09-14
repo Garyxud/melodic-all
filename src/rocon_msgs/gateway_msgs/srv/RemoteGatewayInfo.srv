@@ -1,0 +1,5 @@
+# optional list of gateway names to filter the returned list
+# supplying this list empty returns information for all the gateways
+string[] gateways
+---
+RemoteGateway[] gateways

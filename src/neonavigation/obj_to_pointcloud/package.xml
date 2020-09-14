@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>obj_to_pointcloud</name>
+  <version>0.10.1</version>
+  <description>OBJ file to pointcloud message converter package</description>
+
+  <maintainer email="atsushi.w@ieee.org">Atsushi Watanabe</maintainer>
+  <license>BSD</license>
+  <author email="atsushi.w@ieee.org">Atsushi Watanabe</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <test_depend>rostest</test_depend>
+  <test_depend>roslint</test_depend>
+
+  <depend>geometry_msgs</depend>
+  <depend>pcl_conversions</depend>
+  <depend>sensor_msgs</depend>
+
+  <depend>neonavigation_common</depend>
+
+  <depend>eigen</depend>
+
+  <build_depend>libpcl-all-dev</build_depend>
+  <exec_depend>libpcl-all</exec_depend>
+</package>

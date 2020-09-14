@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dingo_desktop</name>
+  <version>0.1.0</version>
+  <description>Packages for working with Dingo from a ROS desktop.</description>
+
+  <maintainer email="tbaltovski@clearpathrobotics.com">Tony Baltovksi</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>dingo_msgs</exec_depend>
+  <exec_depend>dingo_viz</exec_depend>
+
+  <export><metapackage/></export>
+</package>

@@ -1,0 +1,5 @@
+#the following name will be used as the name for the executable
+SET(ECOS_PROJECT_NAME ethercat-evaluationboard-test)
+
+#list the source files for the application
+SET(PROJECT_SRCS ethercat.cxx)

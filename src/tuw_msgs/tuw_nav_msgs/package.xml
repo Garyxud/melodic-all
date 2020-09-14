@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tuw_nav_msgs</name>
+  <version>0.0.13</version>
+  <description>The tuw_nav_msgs package</description>
+
+  <maintainer email="george.todoran@tuwien.ac.at">George Todoran</maintainer>
+  <maintainer email="markus.bader@tuwien.ac.at">Markus Bader</maintainer>
+
+  <license>BSD</license>
+
+
+  <author email="markus.bader@tuwien.ac.at">Markus Bader</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>tuw_geometry_msgs</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>tuw_geometry_msgs</exec_depend>
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

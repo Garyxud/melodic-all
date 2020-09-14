@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot name="ir_sensor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Sensor Properties -->
+  <!-- <xacro:property name="ir_sensor_length" value="0.0295"/> -->
+  <!-- <xacro:property name="ir_sensor_width" value="0.0135"/> -->
+  <xacro:property name="ir_sensor_length" value="0.0135"/>
+  <!-- m -->
+  <xacro:property name="ir_sensor_width" value="0.0295"/>
+  <xacro:property name="ir_sensor_height" value="0.0189"/>
+  <xacro:property name="ir_sensor_mass" value="0.003"/>
+  <!-- kg -->
+
+  <!-- Inertial MACRO -->
+  <xacro:macro name="sensor_inertia" params="l w h">
+    <inertia ixx="${(ir_sensor_mass*(h*h + l*l))/12}" ixy="0" ixz="0" iyy="${(ir_sensor_mass*(w*w + l*l))/12}" iyz="0" izz="${(ir_sensor_mass*(w*w + h*h))/12}"/>
+  </xacro:macro>
+
+  <!-- IR Sensor MACRO -->
+  <xacro:macro name="ir_sensor" params="pos x y z roll pitch yaw">
+    <link name="ir_sensor_${pos}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${ir_sensor_length} ${ir_sensor_width} ${ir_sensor_height}"/>
+        </geometry>
+        <material name="Black"/>
+      </visual>
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+              <box size="${ir_sensor_length} ${ir_sensor_width} ${ir_sensor_height}"/>
+          </geometry>
+      </collision>
+      <inertial>
+          <mass value="${ir_sensor_mass}"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <sensor_inertia l="${ir_sensor_length}" w="${ir_sensor_width}" h="${ir_sensor_height}"/>
+      </inertial>
+    </link>
+
+    <!-- Connecting joint on PCB -->
+    <joint name="ir_sensor_${pos}_joint" type="fixed">
+      <parent link="pcb_plate_link"/>
+      <child link="ir_sensor_${pos}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+    <!-- IR Sensor Gazebo Reference -->
+    <gazebo reference="ir_sensor_${pos}_link">
+      <material>Gazebo/Black</material>
+      <turnGravityOff>false</turnGravityOff>
+      <sensor type="ray" name="ir_sensor_${pos}">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>${-PI/20}</min_angle>
+              <!-- -1.570796 -->
+              <max_angle>${PI/20}</max_angle>
+              <!-- 1.570796 -->
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.04</min>
+            <max>0.30</max>
+            <resolution>0.001</resolution>
+          </range>
+        </ray>
+        <plugin name="gazebo_ros_ir_sensor_${pos}_controller" filename="libgazebo_ros_ir_sensor.so">
+          <topicName>scan_${pos}</topicName>
+          <frameName>ir_sensor_${pos}_link</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

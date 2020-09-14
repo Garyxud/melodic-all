@@ -1,0 +1,15 @@
+dash==0.43.0
+dash-core-components==0.48.0
+dash-html-components==0.16.0
+dash-renderer==0.24.0
+dash-table==3.7.0
+Flask==1.0.3
+Flask-Caching==1.7.2
+Flask-Compress==1.4.0
+numpy==1.16.4
+plotly==3.10.0
+requests==2.22.0
+ruamel.yaml==0.15.96
+scikit-learn==0.20.3
+scipy==1.2.1
+virtualenv==16.6.0

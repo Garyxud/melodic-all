@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>leuze_phidget_driver</name>
+  <version>1.0.1</version>
+  <description>The phidget interface kit driver package for leuze lasers</description>
+
+  <author email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</author>
+  <author email="harshavardhan.deshpande@ipa.fraunhofer.de">Harshavardhan Deshpande</author>
+  <author email="tejas.kumar.shastha@ipa.fraunhofer.de">Tejas Kumar Shastha</author>
+  <maintainer email="ludovic.delval@ipa.fraunhofer.de">Ludovic Delval</maintainer>
+
+  <license>Apache 2.0</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <depend>roscpp</depend>
+  <depend>leuze_msgs</depend>
+
+  <export>
+
+  </export>
+</package>

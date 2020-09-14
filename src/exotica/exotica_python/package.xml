@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>exotica_python</name>
+  <version>5.1.3</version>
+  <description>Python bindings for EXOTica</description>
+  <maintainer email="wolfgang.merkt@ed.ac.uk">Wolfgang Merkt</maintainer>
+  <maintainer email="v.ivan@ed.ac.uk">Vladimir Ivan</maintainer>
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>exotica_core</depend>
+  <depend>pybind11_catkin</depend>
+  <depend>moveit_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>shape_msgs</depend>
+  <depend>python-matplotlib</depend>
+  <depend>python-pyassimp</depend>
+  <depend>python-tk</depend>
+  <depend>python-rospkg</depend>
+</package>

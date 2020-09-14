@@ -1,0 +1,52 @@
+<launch>
+
+    <param name="teleop_menu_description" textfile="$(find radial_menu_example)/config/teleop_menu.xml" />
+
+    <param name="reboot_menu_description" textfile="$(find radial_menu_example)/config/reboot_menu.xml" />
+
+    <node name="joy_node" pkg="joy" type="joy_node">
+        <param name="dev" value="/dev/input/by-id/usb-Sony_Interactive_Entertainment_Wireless_Controller-if03-joystick" />
+    </node>
+
+    <node name="teleop_menu_backend" pkg="nodelet" type="nodelet"
+          args="standalone radial_menu_backend/Backend" output="screen">
+        <remap from="menu_description" to="teleop_menu_description" />
+        <remap from="menu_state" to="teleop_menu_state" />
+        <rosparam>
+            allow_multi_selection: false
+            reset_on_enabling: false
+            reset_on_disabling: false
+            auto_select: false
+            enable_button: 1    # PS4's circle
+            select_button: 5    # PS4's R1
+            ascend_button: 4    # PS4's L1
+            pointing_axis_v: 1  # PS4's LEFT Y
+            pointing_axis_h: 0  # PS4's LEFT X
+            pointing_axis_threshold: 0.5
+        </rosparam>
+    </node>
+
+    <node name="reboot_menu_backend" pkg="nodelet" type="nodelet"
+          args="standalone radial_menu_backend/Backend" output="screen">
+        <remap from="menu_description" to="reboot_menu_description" />
+        <remap from="menu_state" to="reboot_menu_state" />
+        <rosparam>
+            allow_multi_selection: true
+            reset_on_enabling: false
+            reset_on_disabling: true
+            auto_select: true
+            enable_button: 0    # PS4's cross
+            select_button: -1   # disabled
+            ascend_button: 4    # PS4's L1
+            pointing_axis_v: 1  # PS4's LEFT Y
+            pointing_axis_h: 0  # PS4's LEFT X
+            pointing_axis_threshold: 0.5
+        </rosparam>
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" 
+          args="--display-config $(find radial_menu_example)/rviz/two_menus.rviz" />
+
+    <node name="teleop_node" pkg="radial_menu_example" type="example_teleop_node" output="screen" />
+
+</launch>

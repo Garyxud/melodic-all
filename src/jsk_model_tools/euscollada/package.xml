@@ -1,0 +1,58 @@
+<package>
+  <name>euscollada</name>
+  <version>0.4.3</version>
+  <description>euscollada</description>
+
+  <maintainer email="youhei@jsk.t.u-tokyo.ac.jp">Yohei Kakiuchi</maintainer>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/euscollada</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+  <author email="youhei@jsk.t.u-tokyo.ac.jp">Yohei Kakiuchi</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospack</build_depend>
+  <build_depend>yaml-cpp</build_depend>
+  <build_depend>assimp_devel</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>resource_retriever</build_depend>
+  <build_depend>collada-dom</build_depend>
+  <build_depend>collada_parser</build_depend>
+  <build_depend>liburdfdom-dev</build_depend> <!-- for indigo -->
+  <build_depend>libqhull</build_depend>
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>rosbuild</build_depend>
+  <build_depend>rosboost_cfg</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>mk</build_depend>
+  <build_depend>collada_urdf</build_depend>
+  <build_depend>rostest</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospack</run_depend>
+  <run_depend>yaml-cpp</run_depend>
+  <run_depend>assimp_devel</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>liburdfdom-dev</run_depend> <!-- for indigo -->
+  <run_depend>resource_retriever</run_depend>
+  <run_depend>collada-dom</run_depend>
+  <run_depend>collada_parser</run_depend>
+  <run_depend>libqhull</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>collada_urdf</run_depend>
+  <run_depend>rostest</run_depend>
+
+  <test_depend>roseus</test_depend>
+  <test_depend>openhrp3</test_depend>
+  <test_depend>pr2_description</test_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml"/>
+  </export>
+</package>

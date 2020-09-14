@@ -1,0 +1,8 @@
+<launch>
+  <env name="PATH" value="$(env PATH):$(find roseus)/bin" />
+  <node name="pr2_send_jointse"
+	pkg="pr2eus"
+	type="pr2-send-joints.l"
+	output="screen"/>
+</launch>
+

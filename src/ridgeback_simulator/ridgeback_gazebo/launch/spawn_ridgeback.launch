@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="config" default="base" />
+  <arg name="x" default="0" />
+  <arg name="y" default="0" />
+  <arg name="z" default="1" />
+  <arg name="yaw" default="0" />
+  <arg name="joystick" default="true" />
+
+  <!-- Load Ridgeback's description, controllers, and teleop nodes. -->
+  <include file="$(find ridgeback_description)/launch/description.launch">
+    <arg name="config" value="$(arg config)" />
+  </include>
+  <include file="$(find ridgeback_control)/launch/control.launch" />
+  <include file="$(find ridgeback_control)/launch/teleop.launch">
+    <arg name="joystick" value="$(arg joystick)"/>
+  </include>
+
+  <rosparam param="/gazebo_ros_control/pid_gains">
+    front_left_wheel:
+      p: 1
+      i: 0.1
+      d: 0
+    front_right_wheel:
+      p: 1
+      i: 0.1
+      d: 0
+    rear_left_wheel:
+      p: 1
+      i: 0.1
+      d: 0
+    rear_right_wheel:
+      p: 1
+      i: 0.1
+      d: 0
+  </rosparam>
+
+  <!-- Spawn Ridgeback -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-urdf -model ridgeback -param robot_description -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw)" />
+  <!--<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -model ridgeback -file /Users/mikepurvis/ridgeback_ws/ridgeback.sdf -x 0 -y 0 -z 0.1" /> -->
+</launch>

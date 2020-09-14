@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>depthcloud_encoder</name>
+  <version>0.1.1</version>
+  <description>Point Cloud Encoder for Web-Based Streaming</description>
+
+  <maintainer email="rctoris@wpi.edu">Russell Toris</maintainer>
+  <author email="jkammerl@willowgarage.com">Julius Kammer</author>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/depthcloud_encoder</url>
+  <url type="bugtracker">https://github.com/RobotWebTools/depthcloud_encoder/issues</url>
+  <url type="repository">https://github.com/RobotWebTools/depthcloud_encoder</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>cv_bridge</depend>
+  <depend>dynamic_reconfigure</depend>
+  <depend>image_transport</depend>
+  <depend>message_filters</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>pcl_ros</depend>
+  <depend>pcl_conversions</depend>
+  <depend>tf_conversions</depend>
+
+</package>

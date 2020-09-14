@@ -1,0 +1,20 @@
+<package format="2">
+  <name>imagezero_ros</name>
+  <version>0.2.4</version>
+  <description>
+    A library that provides convenient methods for manipulating ROS images with ImageZero
+  </description>
+  <maintainer email="preed@swri.org">P. J. Reed</maintainer>
+  <license>BSD</license>
+
+  <author>P. J. Reed</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+
+  <depend>cv_bridge</depend>
+  <depend>imagezero</depend>
+  <depend>message_runtime</depend>
+  <depend>sensor_msgs</depend>
+</package>

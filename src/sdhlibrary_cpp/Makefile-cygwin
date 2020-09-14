@@ -1,0 +1,260 @@
+#=======================================================================
+#//! \file
+#//! \section common_makefile_cygwin_general General file information
+#//!   \author    Dirk Osswald 
+#//!   \date      2006-12-18
+#//!  
+#//! \brief  
+#//!   Makefile with common stuff specific for cygwin target platform.
+#//!   (Works also on linux platforms)
+#//!
+#//!   This Makefile is intended to be included by other makefiles and
+#//!   contains common variable, function and target settings specific for the
+#//!   cygwin platform on x86 PC 
+#//!
+#//! \section common_makefile_cygwin_variables Makefile variables
+#//!   This makefile relies on the following variables beeing set:
+#//!   - SRCDIR                - directory for source files like e.g. \c "." or \c "src"
+#//!   - OBJDIR                - directory for object files like e.g. \c "obj"
+#//!   - BINDIR                - directory for binary files (.elf, .hex, .srec, .lst, .map) like e.g. \c "bin"
+#//!   - DEPDIR                - directory for dependency files like e.g. \c ".dep"
+#//!   - OPT                   - Optimization level like e.g. \c "0".."3" or \c "s" 
+#//!   - EXTRAINCDIRS          - List of include directories for compiler (without "-I") like e.g \c "some_path"
+#//!   - EXTRACDEFS            - Extra defines for preprocessor / C compiler
+#//!   - EXTRACFLAGS           - Extra options for c compiler, like e.g. additional defines
+#//!   - EXTRACPPDEFS          - Extra defines for preprocessor / C++ compiler
+#//!   - EXTRACPPFLAGS         - Extra options for c++ compiler
+#//!   - EXTRALDFLAGS          - Extra options for linker like section commands or Library directories
+#//!   - EXTRALIBS             - List of libraries for linker (without -l prefix and .a/.lib suffix)
+#//!   - EXTRALINTARGS         - Extra arguments for lint
+#//!
+#//!   Other variables are set to usefull default values here but could be
+#//!   redefined after including this Makefile-avr:
+#//!   - DBG_FMT               - debug info format like e.g. \c "dwarf-2"
+#//!   - CSTANDARD             - Compiler flag to set the C Standard level like e.g. \c "-std=gnu99"
+#//!   - GENDEPFLAGS           - Options that make gcc generate dependencies in DEPDIR
+#//!   - CFLAGS, CPPFLAGS, ASFLAGS, LDFLAGS, ALL_CFLAGS, ALL_CPPFLAGS, ALL_ASFLAGS
+#//!   
+#//! \section common_makefile_cygwin_targets Makefile targets
+#//!   - \b \c cygwin_clean  : clean up generated program files in ${OBJDIR}, ${DEPDIR} and ${BINDIR}
+#//!   
+#//! \section common_makefile_cygwin_links Links
+#//!   - The online documentation for \c gnu \c make can be found at
+#//!     <a href="http://www.gnu.org/software/make/manual/make.html">
+#//!     http://www.gnu.org/software/make/manual/make.html</a>
+#//!  
+#//! \section common_makefile_cygwin_copyright Copyright
+#//!
+#//!  Copyright (c) 2006 SCHUNK GmbH & Co. KG
+#//!
+#//!  <HR>
+#//!  \internal
+#//!
+#//!    \subsection common_makefile_cygwin_details SVN related, detailed file specific information:
+#//!      $LastChangedBy: Osswald2 $
+#//!      $LastChangedDate: 2009-08-31 09:21:03 +0200 (Mo, 31 Aug 2009) $
+#//!      \par SVN file revision:
+#//!        $Id: Makefile-cygwin 4762 2009-08-31 07:21:03Z Osswald2 $
+#//!
+#//!  \subsection common_makefile_cygwin_changelog Changelog of this file:
+#//!      \include Makefile-cygwin.log
+#//!
+#=======================================================================
+#//! \cond ignore_me   doxygen cannot parse Makefiles, so just ignore it
+
+
+########################################################################
+# first some variables
+
+## define the C compiler, if not set by the environment
+ifndef CC
+export CC      = gcc
+endif
+
+
+## define the C++ compiler, if not set by the environment
+ifndef CPPC
+export CPPC    = g++
+endif
+
+#----------------------------
+# common settings 
+
+# Debugging format.
+ifeq (${OSNAME},linux) 
+# FIXed: On real Linux DBG_FMT should be empty since the normal debug flag is just -g
+DBG_FMT = 
+else
+DBG_FMT = gdb
+endif
+
+# Compiler flag to set the C Standard level.
+#     c89   = "ANSI" C
+#     gnu89 = c89 plus GCC extensions
+#     c99   = ISO C99 standard (not yet fully implemented)
+#     gnu99 = c99 plus GCC extensions
+CSTANDARD = -std=gnu99
+
+# Place -D or -U options here for C sources
+CDEFS = ${EXTRACDEFS}
+
+
+# Place -D or -U options here for C++ sources
+CPPDEFS = ${EXTRACPPDEFS}
+#CPPDEFS += -D__STDC_LIMIT_MACROS
+#CPPDEFS += -D__STDC_CONSTANT_MACROS
+
+
+# Compiler flags to generate dependency files.
+GENDEPFLAGS = -MD -MP -MF ${DEPDIR}/$(@F).d
+
+#---------------- Compiler Options C ----------------
+#  -g*:          generate debugging information
+#  -O*:          optimization level
+#  -f...:        tuning, see GCC manual and avr-libc documentation
+#  -Wall...:     warning level
+#  -Wa,...:      tell GCC to pass this to the assembler.
+#    -adhlns...: create assembler listing
+CFLAGS  = -g$(DBG_FMT)
+CFLAGS += $(CDEFS)
+CFLAGS += -O$(OPT)
+#CFLAGS += -mint8
+#CFLAGS += -mshort-calls
+#CFLAGS += -funsigned-char
+CFLAGS += -funsigned-bitfields
+CFLAGS += -fpack-struct
+CFLAGS += -fshort-enums
+#CFLAGS += -fno-unit-at-a-time
+CFLAGS += -Wall
+CFLAGS += -Wstrict-prototypes
+CFLAGS += -Wundef
+#CFLAGS += -Wunreachable-code
+#CFLAGS += -Wsign-compare
+#CFLAGS += -Wa,-adhlns=$(<:%.c=$(BINDIR)/%.lst)
+CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
+CFLAGS += $(CSTANDARD)
+CFLAGS += ${EXTRACFLAGS}
+
+
+#---------------- Compiler Options C++ ----------------
+CPPFLAGS  = -g$(DBG_FMT)
+CPPFLAGS += $(CPPDEFS)
+CPPFLAGS += -O$(OPT)
+#CPPFLAGS += -mint8
+#CPPFLAGS += -mshort-calls
+#CPPFLAGS += -funsigned-char
+#CPPFLAGS += -funsigned-bitfields
+#CPPFLAGS += -fpack-struct
+#CPPFLAGS += -fshort-enums
+#CPPFLAGS += -fno-exceptions
+#CPPFLAGS += -fno-unit-at-a-time
+CPPFLAGS += -Wall 
+#CPPFLAGS += -Wstrict-prototypes
+CFLAGS += -Wundef
+#CPPFLAGS += -Wunreachable-code
+#CPPFLAGS += -Wsign-compare
+#CPPFLAGS += -Wa,-adhlns=$(<:%.cpp=$(BINDIR)/%.lst)
+CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
+#CPPFLAGS += $(CSTANDARD)
+CPPFLAGS += ${EXTRACPPFLAGS}
+
+
+#---------------- Assembler Options ----------------
+#  -Wa,...:   tell GCC to pass this to the assembler.
+#  -ahlms:    create listing
+#  -gstabs:   have the assembler create line number information; note that
+#             for use in COFF files, additional information about filenames
+#             and function names needs to be present in the assembler source
+#             files -- see avr-libc docs [FIXME: not yet described there]
+ASFLAGS = -Wa,-adhlns=$(<:%.S=$(BINDIR)/%.lst),-gstabs 
+
+
+#---------------- Linker Options ----------------
+#  -Wl,...:     tell GCC to pass this to linker.
+#    -Map:      create map file
+#    --cref:    add cross reference to  map file
+#LDFLAGS = -Wl,-Map=${BINDIR}/$(@F).map,--cref 
+LDFLAGS += ${EXTRALDFLAGS}
+LDFLAGS += $(patsubst %,-l%,$(EXTRALIBS))
+
+# Combine all necessary flags and optional flags.
+# Add target processor to flags.
+ALL_CFLAGS   = -I. $(CFLAGS) $(GENDEPFLAGS)
+ifeq (${OSNAME},linux) 
+# FIXed: On real Linux this settings seems to work better: 
+ALL_CPPFLAGS = -I. $(CPPFLAGS) $(GENDEPFLAGS)
+else
+ALL_CPPFLAGS = -I. -x c++ $(CPPFLAGS) $(GENDEPFLAGS)
+endif
+ALL_ASFLAGS  = -I. -x assembler-with-cpp $(ASFLAGS)
+ALL_IFLAGS   = -I. $(CFLAGS) 
+#
+########################################################################
+
+
+########################################################################
+# functions
+
+#
+########################################################################
+
+
+########################################################################
+# Generic rules:
+
+include ${COMMON_DIR}/Makefile-rules
+
+# Linking: 
+${BINDIR}/%:
+	${CC} ${ALL_CFLAGS}  $^  -o $@ $(LDFLAGS)
+
+
+.PHONY: cygwin_clean
+cygwin_clean: rules_clean
+ifeq (${OSNAME},linux) 
+	rm -f `find ${BINDIR}/ -type f -executable`
+else
+	rm -f ${BINDIR}/*.exe
+endif
+
+## lint (static C checking)
+#  (this does not work very well (yet), but you gotta start somewhere...)
+.PHONY: lint
+lint:
+#	# -unrecogcomments  : since splint gets confused by @{ doxygen comments in winavr include files
+	splint -I/usr/include/w32api ${patsubst %,-I%,${EXTRAINCDIRS}} ${CDEFS} ${EXTRALINTARGS} ${SRCDIR}/*.c
+
+#
+########################################################################
+
+
+########################################################################
+#
+
+# Create binary files directory
+$(shell mkdir $(BINDIR) 2>/dev/null)
+#
+########################################################################
+
+
+########################################################################
+# Handling of automatically generated dependency files.
+
+# Create dependency files directory
+$(shell mkdir -p ${DEPDIR})
+
+# now we include the dependencies
+-include $(wildcard ${DEPDIR}/*.d)
+
+#
+########################################################################
+
+
+#-----------------------------------------------------------------------
+# emacs settings:
+# Local Variables:
+# mode: Makefile
+# End:
+#-----------------------------------------------------------------------
+#//! \endcond
+########################################################################

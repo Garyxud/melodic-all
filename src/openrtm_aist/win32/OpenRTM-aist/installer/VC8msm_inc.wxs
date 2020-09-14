@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Merge Id="VCCRTx86.msm" Language="0" DiskId="1"
+         SourceFile="$(env.CommonProgramFiles)\Merge Modules\Microsoft_VC80_CRT_x86.msm"/>
+  <Merge Id="POLVCCRTx86.msm" Language="0" DiskId="1"
+         SourceFile="$(env.CommonProgramFiles)\Merge Modules\policy_8_0_Microsoft_VC80_CRT_x86.msm"/>	
+</Include>

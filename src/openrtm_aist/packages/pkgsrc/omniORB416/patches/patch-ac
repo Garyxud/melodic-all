@@ -1,0 +1,18 @@
+diff --exclude=.hg -ur mk/beforeauto.mk.in.orig mk/beforeauto.mk.in
+--- mk/beforeauto.mk.in.orig	2008-08-08 22:45:05.000000000 +0900
++++ mk/beforeauto.mk.in	2009-05-12 19:15:46.000000000 +0900
+@@ -1077,6 +1077,15 @@
+ endif
+ 
+ ###################
++ifdef QNX6
++IMPORT_CPPFLAGS += -D__qnx6__
++
++OMNITHREAD_CPPFLAGS = -D_REENTRANT
++OMNITHREAD_POSIX_CPPFLAGS = -DUsePthread -DPthreadDraftVersion=10
++SOCKET_LIB = -lsocket
++endif
++
++###################
+ ifdef OpenBSD
+ IMPORT_CPPFLAGS += -D__openbsd__

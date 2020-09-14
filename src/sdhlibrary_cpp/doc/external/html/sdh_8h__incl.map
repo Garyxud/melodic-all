@@ -1,0 +1,15 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdhlibrary__settings_8h.html" title="This file contains settings to make the SDHLibrary compile on differen systems:gcc/Cygwin/Windowsgcc/..." alt="" coords="491,469,632,499"/>
+<area shape="rect" id="node7" href="$basisdef_8h.html" title="This file contains some basic definitions (defines, macros, datatypes)" alt="" coords="71,83,151,112"/>
+<area shape="rect" id="node17" href="$sdhbase_8h.html" title="Interface of class SDH::cSDHBase." alt="" coords="1279,237,1361,267"/>
+<area shape="rect" id="node49" href="$sdhserial_8h.html" title="Interface of class SDH::cSDHSerial." alt="" coords="860,83,945,112"/>
+<area shape="rect" id="node65" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="1081,160,1172,189"/>
+<area shape="rect" id="node80" href="$unit__converter_8h.html" title="Interface of class SDH::cUnitConverter." alt="" coords="587,83,699,112"/>
+<area shape="rect" id="node22" href="$dbg_8h.html" title="This file contains interface and implementation of class SDH::cDBG, a class for colorfull debug messa..." alt="" coords="887,315,940,344"/>
+<area shape="rect" id="node37" href="$sdhexception_8h.html" title="Interface of the exception base class SDH::cSDHLibraryException and SDH::cMsg." alt="" coords="1244,392,1353,421"/>
+<area shape="rect" id="node45" href="$simplevector_8h.html" title="Interface of class SDH::cSimpleVector." alt="" coords="964,315,1068,344"/>
+<area shape="rect" id="node58" href="$simplestringlist_8h.html" title="Interface of class SDH::cSimpleStringList." alt="" coords="695,237,815,267"/>
+<area shape="rect" id="node73" href="$sdh__codes_8h.html" title="This file contains function to convert the binary command codes of the SDH. To use this from a non gc..." alt="" coords="469,160,565,189"/>
+<area shape="rect" id="node76" href="$sdh__command__codes_8h.html" title="This file contains the binary command codes of the SDH. To use this from a non gcc compiler you might..." alt="" coords="511,237,671,267"/>
+<area shape="rect" id="node78" href="$sdh__return__codes_8h.html" title="This file contains a typedef for a common Return Codes enum." alt="" coords="351,237,487,267"/>
+</map>

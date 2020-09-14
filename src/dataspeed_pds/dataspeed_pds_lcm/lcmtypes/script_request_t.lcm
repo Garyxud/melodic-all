@@ -1,0 +1,8 @@
+// Execute or stop execution of a script
+package dataspeed_pds_lcm;
+struct script_request_t
+{
+    int8_t script;  // Stop     = 0 (stop any running script)
+                    // Startup  = 1 (run startup script)
+                    // Shutdown = 2 (run shutdown script)
+}

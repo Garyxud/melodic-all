@@ -1,0 +1,26 @@
+redirect_console: True
+wireless_namespace: 'ddwrt'
+wpa_config: "/etc/ros/wifi/networks.conf" 
+#base_station: "10.0.128.10"
+#ping_port: 6868
+#base_station: "prbase6"
+#ping_port: 1194
+base_station: "gate5.texai.com"
+ping_port: 500
+tunnel_interface: 'tun9'
+#local_networks: []
+local_networks: [ '10.0.2.95/32', '10.0.2.93/32' ]
+reliability_threshold: 50
+scan_period_cold: 10
+scan_period_warm: 5
+scan_period_hot: 2
+ssid: willow
+ping_weighting: 0.1
+interfaces:
+#  eth0: { type: wired, priority: 100 }
+  wlan0: { type: wireless }
+  wlan1: { type: wireless }
+#  10.0.0.1@eth0: { type: static, priority: 200, name: WGDirect }
+#  wan0: { type: wired,  priority: 20 }
+#  "basestation-local2@lan1": { type: static, name: bs@lan1, priority: 30 }
+#  "wifi-router@lan0": { type: static, name: ddwrt }

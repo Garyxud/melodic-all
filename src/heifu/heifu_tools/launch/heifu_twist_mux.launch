@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Input arguments -->
+    <arg name="argCommandVelOutput" default="cmd_vel"/>
+    <arg name="argConfigLocks"      default="$(find twist_mux)/config/twist_mux_locks.yaml"/>
+    <arg name="argConfigTopics"     default="$(find heifu_tools)/config/twist_mux_topics.yaml"/>
+    <arg name="argNamespace"        default=""/>
+
+    <!-- Launch controller input mux node -->
+    <node pkg="twist_mux" type="twist_mux" name="twist_mux" output="screen" ns="$(arg argNamespace)">
+        <remap from="cmd_vel_out" to="$(arg argCommandVelOutput)"/>
+
+        <rosparam file="$(arg argConfigLocks)"  command="load"/>
+        <rosparam file="$(arg argConfigTopics)" command="load"/>
+    </node>
+
+    <!-- Setup a dummy_vel to give commands when no input is read -->
+    <arg  if="$(eval argNamespace == '')" name="hasNamespace" value="" />
+    <arg  if="$(eval argNamespace != '')" name="hasNamespace" value="/"/>
+    <node ns="$(arg argNamespace)" pkg="rostopic" type="rostopic" name="dummy_vel_node" args="pub $(arg hasNamespace)$(arg argNamespace)/dummy_vel geometry_msgs/Twist '{linear: {x: 0.0, y: 0.0, z: 0.}, angular: {x: 0.0, y: 0.0, z: 0.0}}' -r 10" output="screen"/>
+
+</launch>

@@ -1,0 +1,94 @@
+<launch>
+
+  <!-- PYTHONPATH must contains path for rtshell  -->
+  <env name="PYTHONPATH" value="$(env PYTHONPATH)" />
+  <arg name="nameserver" default="localhost" />
+  <env name="RTCTREE_NAMESERVERS" value="$(arg nameserver)" />
+  <arg name="openrtm_args" value='-o "corba.nameservers:$(arg nameserver):2809" -o "naming.formats:%n.rtc" -o "logger.file_name:/tmp/rtc%p.log"' />
+
+  <!-- Dataport bridge node -->
+  <node pkg="rosnode_rtc" type="rtmros-data-bridge.py" name="bridge"
+	clear_params="true" output="screen" args="$(arg openrtm_args)">
+    <param name="~output_topic" value="/cmd_vel" />
+    <param name="~wrap_node" value="/move_base_node" />
+    <param name="~ignore_unbound" value="True" />
+  </node>
+
+  <!-- RTM sample -->
+  <node pkg="rosnode_rtc" type="dataport_rtprint.sh" name="rtprint"
+	args="/localhost/move_base_node0.rtc:move_base_feedback"
+	launch-prefix="xterm -e" />
+
+  <!-- BEGIN:openrtm connection -->
+  <node name="rtmlaunch_data_bridge" pkg="openrtm_tools" type="rtmlaunch.py"
+	args="$(find rosnode_rtc)/sample/stage_sample.launch"/>
+  <rtactivate component="move_base_node0.rtc" />
+  <!-- END:openrtm connection -->
+
+  <sphinxdoc><![CDATA[
+
+
+ROSのノードが送受信するトピックをRTMのデータポートとしての利用を実現するRTコンポーネントです。
+
+.. image:: sample/image/rosnode_rtc_ros.png
+  :width: 400
+
+.. image:: sample/image/rosnode_rtc_rtm.png
+  :width: 400
+
+上記の図の様に本RTCのデータポートがROSトピックと１対１対応します。
+
+To use this RTC, run the below command each bash terminal.
+
+  source \`rospack find openrtm\`/scripts/rtshell-setup.sh
+
+Usage:
+
+1. roslaunch move_base_stage_tutorial robot.launch
+
+   (rosrun rviz rviz -d \`rospack find move_base_stage_tutorial\`/config/rviz.vcg )
+
+2. roslaunch rosnode_rtc stage_sample.launch
+
+Launch this configuration file and confirm the bridge node is Activated
+
+.. image:: sample/image/rosnode-rtc-sysedit.png
+  :width: 600
+
+3a. rosrun rosnode_rtc stage_sample_send_goal.sh
+
+Send navigation target pose to /move_base_simple/goal topic from RT-Component
+台車が動けば成功です。
+
+.. image:: sample/image/navigation.png
+  :width: 600
+
+目的地に到達するとxtermの画面にROSの動作経過トピックがrtprintで表示されます。
+
+3b. TkJoyStickコンポーネントを使う(http://www.openrtm.org/openrtm/ja/node/819)
+・rosnode_rtc/samples内のTimedFloatSeq2Twist.pyを実行します。
+これが実質的なデータの変換（単位、符号など）を行う部分になっています。
+・TkJoyStickを実行します。
+roscd openrtm/build/OpenRTM-aist-Python-1.0.1/OpenRTM_aist/examples/TkJoyStickで移動して、python TkJoyStickComp.py
+
+TkJoyStick0:posとTimedFloatSeq2Twist0:in、
+TimedFloatSeq2Twist0:outとmove_base_node0.rtc:cmd_velをつないでから、
+３つのコンポーネント全てをActivateします。
+台車が動けば成功です。
+
+.. image:: sample/image/joy-controll.png
+  :width: 600
+
+<仕様メモ>
+wrap_nodeでノード名を指定した場合には全てのトピックをデータポート化します。
+この場合にはinput_topicとoutput_topicで指定したトピックが優先されます。
+
+可変長のデータを含むメッセージ型を無視するように設定されています。
+全てのトピックを出したいときはignore_unboundパラメタでFalseに指定する。
+
+また、InPortとOutPortで同じ名前を指定できないため、
+ROSノードが送受信をする場合には対応するOutPortを作りません。
+
+  ]]></sphinxdoc>
+
+</launch>

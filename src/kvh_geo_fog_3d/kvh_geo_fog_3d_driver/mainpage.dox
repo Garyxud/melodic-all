@@ -1,0 +1,200 @@
+/**
+@mainpage
+@htmlinclude manifest.html
+
+\b kvh_geo_fog_3d_driver is a ROS-compatible hardware driver for the KVH
+GEO FOG 3D family of localization systems. 
+
+\b Copyright 2019 The MITRE Corporation. All rights reserved.
+
+This driver connects to the KVH sensor using the RS232 serial library. It
+then uses the an_packet_protocol library to encode/decode packets to the
+sensor, and creates a request packet specifying the device configuration.
+Finally, it runs at a synchronous rate defined by a ros::Rate object
+and reads the serial buffer at that rate, stores the data in member
+objects, and then walks through each object to fill out and send the
+corresponding ROS data.
+
+The driver itself has no ROS dependencies. It follows the
+Construct/Init/Once/Cleanup paradigm, and is extensible through a
+list of packet types it expects to receive and a templated GetPacket()
+fuction in the driver. The ROS node wraps this driver and performs the
+ROS interpretation of the data.
+
+All data is published at least as custom ROS messages which perform no
+interpretation. This allows for checking of the data for validity after
+the fact. Data may additionally be published as standard types, such
+as nav_msgs/Odometry or sensor_msgs/Imu.
+
+Sections of this project contains content developed by The MITRE Corporation.
+If this code is used in a deployment or embedded within another project,
+it is requested that you send an email to opensource@mitre.org in order to
+let us know where this software is being used.
+
+@section rosapi ROS API
+
+List of nodes:
+- \b kvh_geo_fog_3d_driver_node
+- \b determine_baud_node
+
+<hr>
+
+@subsection kvh_geo_fog_3d_driver_node kvh_geo_fog_3d_driver_node
+
+kvh_geo_fog_3d_driver_node connects to the device via a serial connection,
+reads data using the AN packet protocol, re-publishes the data as
+pass-through KVH messages (present in the kvh_geo_fog_3d_msgs package),
+and interprets the data into ROS-compatible data, published as standard
+ROS types. This interpretation takes into consideration ROS REP-103
+(standard units of measure), ROS REP-105 (coordinate frames for
+mobile robots), and ROS REP-145 (conventions for IMU sensor data).
+
+@subsubsection kvh_geo_fog_3d_driver_node_usage Usage
+@verbatim
+$ kvh_geo_fog_3d_driver_node port:=<serial port> baud:=<baud>
+@endverbatim
+
+@par Example
+
+@verbatim
+$ kvh_geo_fog_3d_driver_node port:=/dev/ttyUSB0 baud:=115200
+@endverbatim
+
+
+@subsubsection kvh_geo_fog_3d_driver_node_topics ROS topics
+
+Publishes to:
+- \b "kvh_system_state": [kvh_geo_fog_3d_msgs/KvhGeoFog3DSystemState]                    KVH System State packet
+- \b "kvh_satellites": [kvh_geo_fog_3d_msgs/KvhGeoFog3DSatellites]                       KVH satellite information
+- \b "kvh_detailed_satellites": [kvh_geo_fog_3d_msgs/KvhGeoFog3DDetailSatellites]        KVH detailed satellite information
+- \b "kvh_local_magnetics": [kvh_geo_fog_3d_msgs/KvhGeoFog3DLocalMagneticField]          KVH local magnetics packet
+- \b "kvh_utm_position": [kvh_geo_fog_3d_msgs/KvhGeoFog3DUTMPosition]                    KVH UTM position packet
+- \b "kvh_ecef_pos": [kvh_geo_fog_3d_msgs/KvhGeoFog3DECEFPos]                            KVH ECEF position packet
+- \b "kvh_north_seeking_status": [kvh_geo_fog_3d_msgs/KvhGeoFog3DNorthSeekingInitStatus] KVH north-seeking status
+- \b "kvh_odometer_state": [kvh_geo_fog_3d_msgs/KvhGeoFog3DOdometerState]                KVH odometer state packet (from an external sensor)
+- \b "kvh_raw_sensors": [kvh_geo_fog_3d_msgs/KvhGeoFog3DRawSensors]                      KVH raw sensor information (accels, velocities, and other internal sensors)
+- \b "kvh_raw_gnss": [kvh_geo_fog_3d_msgs/KvhGeoFog3DRawGNSS]                            KVH unfiltered GNSS solution
+- \b "imu/data_raw_frd": [sensor_msgs/Imu]              Raw IMU data, in FRD convention
+- \b "imu/data_raw_flu": [sensor_msgs/Imu]              Raw IMU data, in FLU convention (REP-105)
+- \b "imu/data_ned": [sensor_msgs/Imu]                  IMU data with orientation, in NED convention
+- \b "imu/data_enu": [sensor_msgs/Imu]                  IMU data with orientation, in ENU convention (REP-105)
+- \b "imu/rpy_ned":  [geometry_msgs/Vector3Stamped]     IMU roll/pitch/yaw, in NED convention (radians)
+- \b "imu/rpy_ned_deg": [geometry_msgs/Vector3Stamped]  IMU roll/pitch/yaw, in NED convention (degrees)
+- \b "imu/rpy_enu":  [geometry_msgs/Vector3Stamped]     IMU roll/pitch/yaw, in ENU convention (radians)
+- \b "imu/rpy_enu_deg": [geometry_msgs/Vector3Stamped]  IMU roll/pitch/yaw, in ENU convention (degrees)
+- \b "gps/fix": [sensor_msgs/NavSatFix]                 Filtered GPS location (degrees/meters), as NavSatFix message
+- \b "gps/raw_fix": [sensor_msgs/NavSatFix]             Raw GPS location (degrees/meters), as NavSatFix message
+- \b "gps/mag": [sensor_msgs/MagneticField]             Magnetic field measurement around the sensor
+- \b "gps/utm_ned": [nav_msgs/Odometry]                 UTM position, formatted as ROS Odometry, in NED convention
+- \b "gps/utm_enu": [nav_msgs/Odometry]                 UTM position, formatted as ROS Odometry, in ENU convention (REP-105)
+- \b "odom/wheel_encoder": [nav_msgs/Odometry]          Wheel encoder distance and speed
+- \b "imu/raw_sensor_frd": [nav_msgs/Odometry]          Raw sensor (unfiltered) outputs, in FRD convention
+- \b "odom/raw_sensor_flu": [nav_msgs/Odometry]         Raw sensor (unfiltered) outputs, in FLU convention (REP-105)
+
+\subsubsection kvh_geo_fog_3d_driver_node_parameters ROS parameters
+
+Reads the following parameters from the parameter server. For detailed information regarding these configuration
+options, see the KVH technical reference manual.
+
+@todo What are the defaults?
+
+- \b "~port"  : \b [string] The serial port to use to connect to the KVH
+- \b "~baud"  : \b [int] Baud rate to use
+- \b "~debug" : \b [bool] Enable/disable debugging
+- \b "~filterVehicleType" : \b [int] Vehicle filter setting, used to constrain filters. From spatial_packets.h (part of geo_fog_sdk, unlimited is 0, bicycle is 1, etc).
+- \b "~atmosphericAltitudeEnabled" : \b [bool] Enable/disable atmospheric altitude
+- \b "~velocityHeadingEnabled" : \b [bool] Enable/disable velocity-based (i.e. course-over-ground) heading
+- \b "~reversingDetectionEnabled" : \b [bool] Enable/disable automatic reverse detection
+- \b "~motionAnalysisEnabled" : \b [bool] Enable/disable KVH's motion analysis filters.
+- \b "~odomPulseToMeters" : \b [double] The distance per odometer tick
+
+<hr>
+
+@subsection determine_baud_node determine_baud_node
+
+determine_baud_node attempts to auto-baud to the device over the specified
+serial port. It listens for messages and, if none come in, it tries the
+next baud rate.
+
+The only baud rates attempted are the ones supported by the device by
+default. To learn more about supported baud rates, consult the KVH
+technical reference.
+
+Once a baud rate is determined, the software offers the opportunity to
+reconfigure the baud rate.
+
+@subsubsection determine_baud_node_usage Usage
+@verbatim
+$ determine_baud_node port:=<port>
+@endverbatim
+
+@par Example
+
+@verbatim
+$ determine_baud_node port:=/dev/ttyUSB0
+@endverbatim
+
+@subsubsection determine_baud_node_parameters ROS parameters
+
+Reads the following parameters from the parameter server.
+
+- \b "~port"  : \b [string] The serial port to use to connect to the KVH. Default: /dev/ttyUSB0
+
+@section commandline Command-line tools
+
+This section is a catch-all for any additional tools that your package
+provides or uses that may be of use to the reader. For example:
+
+- tools/scripts (e.g. rospack, roscd)
+- roslaunch .launch files
+- xmlparam files
+
+@subsection node_launch_file kvh_geo_fog_3d_node.launch
+
+Default launch file for the kvh_geo_fog_3d_driver node, which
+will attach to the USB port with the default baud rate and
+some sane default configurations for a bicycle-model
+ground vehicle.
+
+@subsection node_launch_file_usage Usage
+@verbatim
+$ roslaunch kvh_geo_fog_3d_driver kvh_geo_fog_3d_node.launch
+@endverbatim
+
+@subsection enable_debug enable_debug.sh
+
+Enables debugging logging of the ROS KVH driver, using ROS
+service calls.
+
+@subsubsection enable_debug_usage Usage
+@verbatim
+$ ./enable_debug.sh
+@endverbatim
+
+@subsection disable_debug disable_debug.sh
+
+Disables debugging logging of the ROS KVH driver, using ROS
+service calls.
+
+@subsubsection disable_debug_usage Usage
+@verbatim
+$ ./disable_debug.sh
+@endverbatim
+
+@subsection run_tests run_tests.sh
+
+Use the ROS build system to run the unit tests for the
+driver.
+
+@subsubsection run_tests_usage Usage
+@verbatim
+$ ./run_tests.sh {-v,-b}
+@endverbatim
+
+@par run_tests_example Example
+
+@verbatim
+$ ./run_tests.sh -v
+@endverbatim
+
+*/

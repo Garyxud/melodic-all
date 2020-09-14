@@ -1,0 +1,14 @@
+<launch>
+  <arg name="run_rviz" default="true" />
+  <arg name="table_x_pos" default="0.0" />
+
+  <include file="$(find pr2_gazebo)/launch/pr2_empty_world.launch" />
+
+  <node if="$(arg run_rviz)"
+        pkg="rviz" name="pr2_rviz" type="rviz"
+        args="-d $(find pr2eus_tutorials)/config/pr2_planning.vcg" />
+
+  <include file="$(find pr2eus_tutorials)/launch/gazebo/spawn_objects.launch" />
+
+  <node pkg="pr2eus_tutorials" name="start_tilt_laser" type="start_laser.py" />
+</launch>

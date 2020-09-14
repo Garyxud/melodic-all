@@ -1,0 +1,18 @@
+<package format="2">
+  <name>cob_moveit_config</name>
+  <version>0.7.4</version>
+  <description>
+     MoveIt config files for all cob and raw
+  </description>
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <author email="mdl@ipa.fhg.de">Mathias Luedtke</author>
+  <author email="fxm@ipa.fhg.de">Felix Messmer</author>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>xacro</exec_depend>
+
+</package>

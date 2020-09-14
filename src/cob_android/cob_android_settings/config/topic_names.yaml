@@ -1,0 +1,23 @@
+cam_image_compressed: /stereo/left/image_color/compressed
+cam_image_rgb: /cam3d/rgb/image_raw/compressed
+cam_image_depth: /cam3d/depth/image
+
+base: /base_link
+
+base_controller_state: /base_controller/state
+base_controller_command: /base_controller/command
+base_controller_current_goal: move_base/current_goal
+base_controller_goal: move_base_simple/goal
+
+navigation_plan: move_base/NavfnROS/plan
+navigation_plan_dynamic: move_base_dynamic/NavfnROS/plan
+
+arm_controller_state: arm_controller/state
+arm_controller_command: arm_controller/command
+
+laser_front: scan_front
+laser_rear: scan_rear
+
+em_state: /emergency_stop_state
+
+light_controller: /light_controller/command

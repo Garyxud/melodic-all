@@ -1,0 +1,9 @@
+<launch>
+  <env name="PATH" value="$(env PATH):$(find roseus)/bin" />
+  <node name="pr2_read_state"
+	pkg="pr2eus"
+	type="pr2-read-state.l"
+	output="screen"
+	/>
+</launch>
+

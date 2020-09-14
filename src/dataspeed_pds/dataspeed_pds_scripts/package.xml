@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dataspeed_pds_scripts</name>
+  <version>1.0.5</version>
+  <description>
+    Test scripts to interface to the Dataspeed Inc. Power Distribution System (PDS)
+  </description>
+
+  <license>BSD</license>
+  <author email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</author>
+  <author email="emyllyoja@dataspeedinc.com">Eric Myllyoja</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</maintainer>
+  <maintainer email="emyllyoja@dataspeedinc.com">Eric Myllyoja</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/dataspeed_pds</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/dataspeed_pds/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>dataspeed_pds_msgs</exec_depend>
+
+</package>

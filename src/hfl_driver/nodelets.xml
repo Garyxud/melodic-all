@@ -1,0 +1,11 @@
+<library path="lib/libhfl_driver">
+
+	<class name="hfl_driver/CameraCommander"
+				 type="hfl::CameraCommander"
+         base_class_type="nodelet::Nodelet">
+    	<description>
+				HFL Commander class to control registers/settings on sensors
+			</description>
+  	</class>
+	  
+</library>

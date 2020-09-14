@@ -1,0 +1,185 @@
+control points:
+  - id: cp 10
+    location: [-11.34324264526367, 1.37647020816803]
+    transition: []
+  - id: cp 11
+    location: [-15.88572120666504, -2.262303471565247]
+    transition: []
+  - id: cp 12
+    location: [-11.27617740631104, 5.622783660888672]
+    transition: []
+  - id: cp 13
+    location: [-10.44820413589478, 14.34649755239487]
+    transition: []
+  - id: cp 16
+    location: [-11.67798709869385, -7.271073818206787]
+    transition: []
+  - id: cp 17
+    location: [-12.84913063049316, -7.077083110809326]
+    transition: []
+  - id: cp 18
+    location: [-16.1639232635498, -3.178675651550293]
+    transition: []
+  - id: cp 20
+    location: [-7.413027286529541, -3.048420429229736]
+    transition: []
+  - id: cp 21
+    location: [-7.943904399871826, -4.242012023925781]
+    transition: []
+  - id: cp 23
+    location: [-6.1944580078125, -3.524389743804932]
+    transition: []
+  - id: cp 24
+    location: [-0.04126471281051636, -0.006592839956283569]
+    transition: []
+  - id: cp 25
+    location: [3.338441848754883, -0.1840417981147766]
+    transition: []
+  - id: cp 26
+    location: [3.088068008422852, -4.05320930480957]
+    transition: []
+  - id: cp 27
+    location: [5.324481964111328, -4.306166172027588]
+    transition: []
+  - id: cp 28
+    location: [2.718484163284302, -6.40144157409668]
+    transition: []
+  - id: cp 29
+    location: [2.607450723648071, -8.197271347045898]
+    transition: []
+  - id: cp 30
+    location: [4.660332679748535, -8.324094772338867]
+    transition: []
+  - id: cp 7
+    location: [-0.4850718379020691, -3.5346839427948]
+    transition: []
+  - id: cp 8
+    location: [-3.36182689666748, -3.716673374176025]
+    transition: []
+path segments:
+  - id: ps 12
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 10, cp 11]
+    users: [human, robot]
+  - id: ps 17
+    type: bezier
+    width: 1.8
+    directed: false
+    control points: [cp 12, cp 13]
+    users: [human, robot]
+  - id: ps 18
+    type: bezier
+    width: 1.5
+    directed: false
+    control points: [cp 12, cp 10]
+    users: [human, robot]
+  - id: ps 20
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 16, cp 21]
+    users: [human, robot]
+  - id: ps 22
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 16, cp 17]
+    users: [human, robot]
+  - id: ps 23
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 17, cp 18]
+    users: [human, robot]
+  - id: ps 24
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 18, cp 11]
+    users: [human, robot]
+  - id: ps 25
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 10, cp 20]
+    users: [human, robot]
+  - id: ps 26
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 20, cp 21]
+    users: [human, robot]
+  - id: ps 28
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 8, cp 23]
+    users: [human, robot]
+  - id: ps 29
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 23, cp 20]
+    users: [human, robot]
+  - id: ps 30
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 7, cp 24]
+    users: [human, robot]
+  - id: ps 31
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 24, cp 25]
+    users: [human, robot]
+  - id: ps 32
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 25, cp 26]
+    users: [human, robot]
+  - id: ps 33
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 7, cp 26]
+    users: [human, robot]
+  - id: ps 34
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 26, cp 27]
+    users: [human, robot]
+  - id: ps 35
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 26, cp 28]
+    users: [human, robot]
+  - id: ps 36
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 28, cp 29]
+    users: [human, robot]
+  - id: ps 37
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 29, cp 30]
+    users: [human, robot]
+  - id: ps 38
+    type: bezier
+    width: 1
+    directed: false
+    control points: [cp 25, cp 7]
+    users: [human, robot]
+  - id: ps 9
+    type: bezier
+    width: 1.5
+    directed: false
+    control points: [cp 7, cp 8]
+    users: [human, robot]

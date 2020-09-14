@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.1" rtc:id="RTC:AIST.Hardware interface.Power:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtc:updateDate="2009-08-25T16:10:13.819+09:00" rtc:creationDate="2009-08-25T16:10:13.819+09:00" rtc:version="1.0.0" rtc:vendor="AIST" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1.0" rtc:description="Interface to a power supply." rtc:category="Hardware interface" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="Power"/>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="voltage" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedFloat" rtc:name="Voltage" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="Volts" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedFloat" rtcDoc:description="Voltage level of the power supply."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="percent" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedFloat" rtc:name="Percent" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedFloat" rtcDoc:description="Percentage of full capacity remaining."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="current" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedFloat" rtc:name="Current" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="Amps" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedFloat" rtcDoc:description="Current energy consumption (if negative) or aquisition (if positive)."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="timeLeft" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedFloat" rtc:name="TimeLeft" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="Seconds" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedFloat" rtcDoc:description="Estimated time of power remaining."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="charging" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedBoolean" rtc:name="Charging" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="True if charging, false otherwise." rtcDoc:number="" rtcDoc:type="TimedBoolean" rtcDoc:description="If the device is receiving energy."/>
+    </rtc:DataPorts>
+</rtc:RtcProfile>

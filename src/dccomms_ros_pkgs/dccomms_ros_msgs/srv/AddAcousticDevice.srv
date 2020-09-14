@@ -1,0 +1,60 @@
+string dccommsId
+uint32 type
+uint32 mac
+string frameId
+uint32 maxTxFifoSize
+
+#Battery energy (J)
+float64 batteryEnergy
+
+#Symbols per second
+uint32 symbolsPerSecond
+
+#The coding efficiency: number of symbols per bit.
+float64 codingEff
+
+#The bit error rate.
+float64 bitErrorRate
+
+#Maximum transmission range in m (W).
+float64 range
+
+#Transmitted signal power (W).
+float64 PT
+
+#The frequency, default is 25(khz).
+float64 frequency
+
+#System loss default factor
+float64 L
+
+#Energy spread factor, spherical spreading
+float64 K
+
+#Energy consumption for turning on the modem (J)
+float64 turnOnEnergy
+
+#Energy consumption for turning off the modem (J)
+float64 turnOffEnergy
+
+#Duration of preamble
+float64 preamble
+
+#Power consumption for transmission (W). Default is 0.660 (1.6W).
+float64 PTConsume
+
+#Power consumption for reception (W). Default is 0.395 (1.2W).
+float64 PRConsume
+
+#Idle power consumption (W). Default is 0.0 (0W).
+float64 PIdle
+
+#Mac protocol: broadcast MAC ; T-MAC ; FAMA ; Slotted-FAMA ; UWAN-MAC ; COPE-MAC ; ALOHA ; R-MAC ; GOAL
+string macProtocol
+float64 macDistance
+
+#Logging
+string logLevel
+
+---
+bool res

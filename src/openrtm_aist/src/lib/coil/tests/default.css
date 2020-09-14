@@ -1,0 +1,43 @@
+/* -*- CSS -*-
+ * @file default.css
+ * @brief CSS for CppUnit test result page
+ * @date $Date: 2006-11-27 07:33:47 $
+ * @author Noriaki Ando <n-ando@aist.go.jp>
+ *
+ * Copyright (C) 2006 Noriaki Ando
+ *
+ * $Id: default.css 826 2008-08-26 08:13:39Z n-ando $
+ */
+H1 {
+	font-family: arial,"MS UI Gothic",sans-serif;
+	font-size: 18pt; color: #222222;
+	 background-color: #C3D9FF
+}
+H2 {
+	font-size: 16pt;
+	color: #222222;
+	background-color: #C3D9FF
+	padding: 10px;
+        border-bottom: #C3D9FF 1px solid;
+        border-left: #C3D9FF 15px solid;
+
+}
+TABLE {
+	background-color: #D8DEF7;
+}
+TH {
+	background-color: #C3D9FF;
+	border-width: 0px 0px 1px 0px; /* top right bottom left */
+	border-style: none none none none; /* top right bottom left */
+	border-color: #E8EEF7 #E8EEF7 #AAAAAA #E8EEF7;
+	padding: 3px;
+	text-align: center;
+}
+TD {
+	background-color: #FFFFFF;
+	border-width: 0px 0px 1px 0px; /* top right bottom left */
+	border-style: none none none none; /* top right bottom left */
+	border-color: #E8EEF7 #E8EEF7 #AAAAAA #E8EEF7;
+	padding: 3px;
+	text-align: left;
+ }

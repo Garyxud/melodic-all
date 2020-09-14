@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+PortSystem        1.0
+name              OpenRTM-aist
+version           1.0.0
+revision          2
+
+categories        devel
+platforms         darwin
+maintainers       Noriaki Ando
+description       OpenRTM-aist: RT-Middleware distributed by AIST
+
+long_description  OpenRTM-aist is a reference implementation of RTC \
+                  (Robotic Technology Component) specification which \
+                  is OMG standard. OpenRTM-aist includes RT-Middleware \
+                  runtime environment and RTC framework. The OMG \
+                  standard defines a component model and certain \
+                  important infrastructure services applicable to the \
+                  domain of robotics software development. \
+                  OpenRTM-aist is being developed and distributed by \
+                  Task Intelligence Research Group, Intelligent \
+                  Systems Research Institute, National Institute of \
+                  Advanced Industrial Science and Technology (AIST), \
+                  Japan.
+
+distname          OpenRTM-aist-${version}
+distfiles         OpenRTM-aist-${version}-RELEASE.tar.gz
+homepage          http://www.openrtm.org/
+master_sites      http://www.openrtm.org/pub/OpenRTM-aist/cxx/1.0.0/
+checksums         md5 dc399aa818fa57f5d24fd752a3a2257b
+
+depends_lib       port:omniORB
+patchfiles        patch-examples-Composite-Makefile.in      \
+                  patch-examples-ConfigSample-Makefile.in   \
+                  patch-examples-SeqIO-Makefile.in          \
+                  patch-examples-SimpleIO-Makefile.in       \
+                  patch-examples-SimpleService-Makefile.in  \
+                  patch-src-lib-coil-posix-coil-Routing.cpp \
+                  patch-src-lib-coil-posix-coil-UUID.cpp    \
+                  patch-src-lib-rtm-InPortConsumer.h        \
+                  patch-src-lib-rtm-idl-Makefile.in

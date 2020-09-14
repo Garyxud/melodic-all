@@ -1,0 +1,7 @@
+// Send a command to change the state of an individual relay
+package dataspeed_pds_lcm;
+struct relay_request_t
+{
+    int8_t channel; // (0-11) * unit_id
+    int8_t request; // Off = 0, On = 1, Toggle = 2
+}

@@ -1,0 +1,82 @@
+#! /bin/bash
+
+HOME=/root
+rospack profile > /dev/null
+
+############### EDIT ME ##################
+
+#APP_PATH=""
+
+# path to daemon
+DAEMON=`which roslaunch`
+
+# startup args (ignored)
+DAEMON_OPTS=`rospack find multi_interface_roam`/configs/pr2-node2.launch
+
+# script name
+NAME=multi_interface_roam
+
+# app name
+DESC='multi interface roaming'
+
+RUN_AS=root
+
+PID_FILE=/var/run/multi_interface_roam.pid
+
+if [ -e /etc/slave ]; then
+  ENABLED=0
+else
+  ENABLED=1
+fi
+
+############### END EDIT ME ##################
+
+test "$ENABLED" = 1 || exit 0
+
+test -x "$DAEMON" || exit 0
+
+set -e
+
+case "$1" in
+  start)
+        echo -n "Starting $DESC: "
+
+        start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE  --make-pidfile -a $DAEMON -- $DAEMON_OPTS
+
+        if [ $? ]; then
+            echo "[OK]"
+        else
+            echo "[FAILED]"
+        fi
+        ;;
+  stop)
+        echo -n "Stopping $DESC: "
+        start-stop-daemon --signal INT --retry 5 --stop --pidfile $PID_FILE
+        if [ $? ]; then
+            echo "[OK]"
+        else
+            echo "[FAILED]"
+        fi
+        ;;
+
+  restart|force-reload)
+        echo -n "Restarting $DESC: "
+        start-stop-daemon --stop --signal INT --retry 5 --oknodo --pidfile $PID_FILE
+        sleep 1
+        start-stop-daemon -c $RUN_AS --start --background --pidfile $PID_FILE  --make-pidfile -a $DAEMON -- $DAEMON_OPTS
+        if [ $? ]; then
+            echo "[OK]"
+        else
+            echo "[FAILED]"
+        fi
+
+        ;;
+  *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload}" >&2
+        exit 1
+        ;;
+esac
+
+exit 0
+

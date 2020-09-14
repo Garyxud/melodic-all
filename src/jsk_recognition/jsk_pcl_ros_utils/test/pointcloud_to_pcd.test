@@ -1,0 +1,8 @@
+<launch>
+
+  <include file="$(find jsk_pcl_ros_utils)/sample/sample_pointcloud_to_pcd.launch">
+  </include>
+  <test test-name="pointcloud_to_pcd_test"
+        name="test_pointcloud_to_pcd"
+        pkg="jsk_pcl_ros_utils" type="test_pointcloud_to_pcd.py"/>
+</launch>

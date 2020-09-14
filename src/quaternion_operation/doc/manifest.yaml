@@ -1,0 +1,18 @@
+actions: []
+authors: ''
+brief: ''
+bugtracker: ''
+depends:
+- catkin
+- rostest
+- geometry_msgs
+- roscpp
+- eigen
+description: The quaternion_operation package
+license: Apache License 2.0
+maintainers: Masaya Kataoka <ms.kataoka@gmail.com>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''

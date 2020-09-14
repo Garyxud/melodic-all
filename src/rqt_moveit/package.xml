@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package>
+  <name>rqt_moveit</name>
+  <version>0.5.7</version>
+  <description>
+   An rqt-based tool that assists monitoring tasks
+   for <a href = "http://ros.org/wiki/moveit">MoveIt!</a> motion planner
+   developers and users. Currently the following items are monitored if they
+   are either running, existing or published:
+   <ul>
+   <li>Node: /move_group</li>
+   <li>Parameter: [/robot_description, /robot_description_semantic]</li>
+   <li>Topic: Following types are monitored. Published "names" are ignored.<br />
+       [sensor_msgs/PointCloud, sensor_msgs/PointCloud2,
+        sensor_msgs/Image, sensor_msgs/CameraInfo]</li>
+   </ul>
+   Since this package is not made by the MoveIt! development team (although with
+   assistance from the them), please post issue reports to the designated
+   tracker (not MoveIt!'s main tracker).
+  </description>
+
+  <maintainer email="iisaito@kinugarage.com">Isaac I.Y. Saito</maintainer>
+  <maintainer email="arne.hitzmann@gmail.com">Arne Hitzmann</maintainer>
+  <author>Isaac Saito</author>
+
+  <license>BSD</license>
+  <url type="website">http://wiki.ros.org/rqt_moveit</url>
+  <url type="repository">https://github.com/ros-visualization/rqt_moveit</url>
+  <url type="bugtracker">https://github.com/ros-visualization/rqt_moveit/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend version_gte="0.2.19">python_qt_binding</run_depend>
+  <run_depend>rosnode</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rostopic</run_depend>
+  <run_depend>rqt_gui</run_depend>
+  <run_depend>rqt_gui_py</run_depend>
+  <run_depend>rqt_py_common</run_depend>
+  <run_depend>rqt_topic</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin.xml" />
+  </export>
+</package>

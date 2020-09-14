@@ -1,0 +1,12 @@
+string dccommsId
+uint32 channelId
+
+#Notes about linkType attribute:
+# - Only used with custom comms device.
+# - Values:
+#   0 : link to both tx and rx
+#   1 : link to tx
+#   2 : link to rx
+uint8 linkType
+---
+bool res

@@ -1,0 +1,31 @@
+# This config file for Travis CI utilizes ros-industrial/industrial_ci package.
+# For more info for the package, see https://github.com/ros-industrial/industrial_ci/blob/master/README.rst
+sudo: required
+dist: trusty
+services:
+  - docker
+language: generic
+compiler:
+  - gcc
+notifications:
+  email:
+    recipients:
+      - gm130s@gmail.com
+env:
+  global:
+    - ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu
+    # install geckodriver for testing
+    - ADDITIONAL_DEBS="firefox"
+    - BEFORE_SCRIPT="wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz -O /tmp/geckodriver.tar.gz && cd /tmp && tar xf geckodriver.tar.gz && cp -f geckodriver /usr/bin && geckodriver --version"
+  matrix:
+    - ROS_DISTRO="indigo"
+    - ROS_DISTRO="jade"
+    - ROS_DISTRO="kinetic"
+    - ROS_DISTRO="lunar"
+matrix:
+  fast_finish: true
+install:
+  - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
+script:
+  - .ci_config/travis.sh
+#  - source ./travis.sh  # Enable this when you have a package-local script 

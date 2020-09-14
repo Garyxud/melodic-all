@@ -1,0 +1,30 @@
+
+For building using the eCos OS:
+
+Make sure your $PATH variable contains the path to the ecos cross compiler
+# export ECOS_REPOSITORY=/path/to/ecos/packages
+# mkdir build-ecos
+# ccmake ..
+
+Configure to your wishes, and generate the makefiles if everything
+is fine
+# make
+
+
+
+For building using RTNet/Xenomai:
+
+Requirements:	Xenomai 2.2 or higher
+					RTNet 0.96 or higher
+					ccmake 2.4
+
+The actual build:
+ 
+# mkdir build-rtnet
+# cd build-rtnet
+# ccmake ..
+
+Configure to your wishes, and generate the makefiles if everything
+is fine
+# make
+# make install

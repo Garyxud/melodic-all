@@ -1,0 +1,36 @@
+<launch>
+  <param name="/use_sim_time" value="true"/>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find stage_ros)/world/willow-full.pgm 0.1" />
+  <node pkg="stage_ros" type="stageros" name="stage" args="$(find stage_ros)/world/willow-erratic.world" respawn="false" output="screen" >
+    <remap from="cmd_vel" to="base_controller/command" />
+    <param name="base_watchdog_timeout" value="0.2"/>
+  </node>
+
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard"
+        launch-prefix="xterm -e" >
+    <remap from="cmd_vel" to="base_velocity" />
+  </node>
+
+  <include file="$(find safe_teleop_stage)/config/move_base.xml"/>
+  <include file="$(find safe_teleop_stage)/config/amcl_node.xml"/>
+
+  <node pkg="safe_teleop_base" type="safe_teleop_base" respawn="false" name="safe_teleop_base" output="screen">
+
+    <rosparam>
+      footprint: [[-0.125, -0.175], [-0.125, 0.175], [0.225, 0.175], [0.30, 0.0], [0.225, -0.175]]
+    </rosparam>
+    <param name="footprint_padding" value="0.05" />
+
+    <rosparam file="$(find safe_teleop_stage)/config/local_costmap.yaml" command="load" />
+    <rosparam file="$(find safe_teleop_stage)/config/safe_teleop_stage_params.yaml" command="load" />
+  </node>
+
+  <node name="cmd_vel_mux" pkg="topic_tools" type="mux" respawn="true"
+        args="base_controller/command /cmd_vel /safe_teleop_base/safe_vel">
+    <remap from="mux" to="cmd_vel_mux" />
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find safe_teleop_stage)/launch/safe_teleop_stage.rviz" />
+</launch>
+

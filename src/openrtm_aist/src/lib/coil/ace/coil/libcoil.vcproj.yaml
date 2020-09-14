@@ -1,0 +1,121 @@
+#
+# @brief VCProject configuration file for libcoil
+# @date $Date$
+# @author Norkai Ando <n-ando@aist.go.jp>
+#
+ProjectType: "Visual C++"
+Version: "__VCVERSION__"
+Name: libcoil
+ProjectGUID: __GUID__
+RootNamespace: libcoil
+Keyword: "Win32Proj"
+Configurations:
+#------------------------------------------------------------
+# Debug Configuration
+#------------------------------------------------------------
+  - Name: "Debug|Win32"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "2"
+    InheritedPropertySheets: "$(SolutionDir)coil_config.vsprops;$(SolutionDir)coil_distbuild.vsprops"
+    CharacterSet: "0"
+    VCCLCompilerTool:
+      - Key: Optimization
+        Value: "0"
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;_DEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0500;_CRT_SECURE_NO_DEPRECATE"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "3"
+      - Key: RuntimeLibrary
+        Value: "3"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "4"
+    VCPreLinkEventTool:
+      - Key: CommandLine
+        Value: |
+          lib -out:"$(TargetDir)coil_static.lib" "$(TargetDir)*.obj"
+          set PATH=%PATH%;$(coil_path)
+          cd "$(TargetDir)"
+          start /wait cmd /c makedeffile.py coil_static.lib coil$(coil_dllver)d $(coil_version) coil$(coil_dllver)d.def
+          move coil$(coil_dllver)d.def ..\
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(coil_depend_libd)"
+      - Key: OutputFile
+        Value: "$(OutDir)\\coil$(coil_dllver)d.dll"
+      - Key: Version
+        Value: __VERSION__
+      - Key: LinkIncremental
+        Value: "2"
+      - Key: ModuleDefinitionFile
+        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "true"
+      - Key: SubSystem
+        Value: "2"
+      - Key: TargetMachine
+        Value: "1"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          copy "$(OutDir)\\$(TargetName).lib" "$(SolutionDir)bin\\"
+          copy "$(OutDir)\\$(TargetName).dll" "$(SolutionDir)bin\\"
+#------------------------------------------------------------
+# Release Configuration
+#------------------------------------------------------------
+  - Name: "Release|Win32"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "2"
+    InheritedPropertySheets: "$(SolutionDir)coil_config.vsprops;$(SolutionDir)coil_distbuild.vsprops"
+    CharacterSet: "0"
+    WholeProgramOptimization: "0"
+    VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;NDEBUG;_WINDOWS;_USRDLL;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0500;_CRT_SECURE_NO_DEPRECATE"
+      - Key:         RuntimeLibrary
+        Value: "2"
+      - Key:         UsePrecompiledHeader
+        Value: "0"
+      - Key:         WarningLevel
+        Value: "3"
+      - Key:         DebugInformationFormat
+        Value: "3"
+    VCPreLinkEventTool:
+      - Key: CommandLine
+        Value: |
+          lib -out:"$(TargetDir)coil_static.lib" "$(TargetDir)*.obj"
+          set PATH=%PATH%;$(coil_path)
+          cd "$(OutDir)"
+          start /wait cmd /c makedeffile.py coil_static.lib $(TargetName) $(coil_version) $(TargetName).def
+          move coil$(coil_dllver).def ..\\
+    VCLinkerTool:
+      - Key: AdditionalDependencies
+        Value: "$(coil_depend_lib)"
+      - Key: OutputFile
+        Value: "$(OutDir)\\coil$(coil_dllver).dll"
+      - Key: LinkIncremental
+        Value: "1"
+      - Key: ModuleDefinitionFile
+        Value: "$(TargetName).def"
+      - Key: GenerateDebugInformation
+        Value: "false"
+      - Key: SubSystem
+        Value: "2"
+      - Key: OptimizeReferences
+        Value: "2"
+      - Key: EnableCOMDATFolding
+        Value: "2"
+      - Key: TargetMachine
+        Value: "1"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          copy "$(OutDir)\\$(TargetName).lib" "$(SolutionDir)bin\\"
+          copy "$(OutDir)\\$(TargetName).dll" "$(SolutionDir)bin\\"

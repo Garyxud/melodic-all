@@ -1,0 +1,11 @@
+<launch>
+  <arg name="config" default="robot" />
+  <arg name="rviz_file" default="$(find leo_viz)/rviz/$(arg config).rviz"/>
+
+  <node name="$(anon rviz)" 
+        pkg="rviz"
+        type="rviz"
+        args="-d $(arg rviz_file)"
+        required="true"
+        output="screen"/>
+</launch>

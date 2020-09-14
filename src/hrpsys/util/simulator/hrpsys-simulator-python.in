@@ -1,0 +1,59 @@
+#!/usr/bin/ipython -i
+
+import sys
+import os
+
+sys.path.append("@python_dist_pkg_dir@/hrpsys")
+import hrpsysext
+
+execfile("@python_dist_pkg_dir@/hrpsys/waitInput.py")
+
+sys.path.append(os.getcwd())
+
+argc = len(sys.argv)
+
+if argc < 2:
+    print "Usage: hrpsys-simulator project.xml [script.py]"
+else:    
+    project = sys.argv[1]
+
+    if argc >= 3 and sys.argv[2][(len(sys.argv[2])-3):] == ".py":
+	script = sys.argv[2]
+    else:
+	script = None
+
+    sim = hrpsysext.Simulator()
+    realtime = False
+    nodisplay = False
+    usebbox = False
+    endless = False
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == "realtime":
+	    realtime = True
+        elif sys.argv[i] == "endless":
+            endless = True
+        elif sys.argv[i] == "nodisplay":
+            nodisplay = True
+        elif sys.argv[i] == "showsensors":
+            sim.showSensors = True
+        elif sys.argv[i] == "max-log-length":
+            sim.maxLogLength = float(sys.argv[i+1])
+        elif sys.argv[i] == "usebbox":
+            sim.useBBox(True)
+	elif sys.argv[i] == "size":
+	    sim.windowSize(int(sys.argv[i+1]))
+	    i = i+1
+    if sim.loadProject(project):
+        if realtime:
+            sim.realTime(True)
+        if endless:
+            sim.endless(True)
+        if not nodisplay:
+            sim.initViewer()
+        sim.start(sim.totalTime)
+
+        if script != None:
+            execfile(script)
+
+
+

@@ -1,0 +1,67 @@
+<package>
+  <name>robot_calibration</name>
+  <version>0.6.3</version>
+  <description>
+    Calibrate a Robot
+  </description>
+  <author>Michael Ferguson</author>
+  <maintainer email="mike@vanadiumlabs.com">Michael Ferguson</maintainer>
+  <license>Apache2</license>
+  <url>http://ros.org/wiki/robot_calibration</url>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>actionlib</build_depend>
+  <build_depend>camera_calibration_parsers</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>kdl_parser</build_depend>
+  <build_depend>moveit_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>orocos_kdl</build_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>robot_calibration_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rosbag</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>libceres-dev</build_depend>
+  <build_depend>libgflags-dev</build_depend>
+  <build_depend>suitesparse</build_depend>
+  <build_depend>protobuf-dev</build_depend>
+
+  <run_depend>actionlib</run_depend>
+  <run_depend>camera_calibration_parsers</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>kdl_parser</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>orocos_kdl</run_depend>
+  <run_depend>pluginlib</run_depend>
+  <run_depend>robot_calibration_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rosbag</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>tf2_geometry_msgs</run_depend>
+  <run_depend>tf2_ros</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>libceres-dev</run_depend>
+  <run_depend>suitesparse</run_depend>
+  <run_depend>protobuf-dev</run_depend>
+
+  <test_depend>code_coverage</test_depend>
+
+  <export>
+    <robot_calibration plugin="${prefix}/robot_calibration.xml"/>
+  </export>
+
+</package>

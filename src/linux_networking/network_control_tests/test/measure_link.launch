@@ -1,0 +1,33 @@
+<launch>
+    <node name="sink" pkg="network_monitor_udp" type="udpmonsink" args="12345" output="screen"/>
+    <node name="source" pkg="network_monitor_udp" type="udpmonsourcenode.py" output="screen"/>
+    <node name="tc" pkg="network_traffic_control" type="traffic_control_node.py" output="screen">
+    	  <param name="interface" value="lo"/>
+	  <param name="filter_egress" value="u32 match ip dport 12345 0xffff"/> 
+	  <param name="filter_ingress" value="u32 match ip dport 12345 0xffff"/> 
+    </node>
+
+    <arg name="tx_bandwidth"/>
+    <arg name="bandwidth_limit" default="0.0"/>
+    <arg name="latency" default="0.0"/>
+    <arg name="loss" default="0.0"/>
+    <arg name="packet_size" default="1500"/>
+    <arg name="max_allowed_latency" default="0.1"/>
+    <arg name="max_return_time" default="0.0"/>
+    <arg name="sink_ip" default="127.0.0.1"/>
+    <arg name="direction" default="egress"/>
+    <arg name="duration" default="10.0"/>
+
+    <node name="measure_link_node" pkg="network_control_tests" type="measure_link_node.py" required="true" output="screen">
+          <param name="tx_bandwidth" value="$(arg tx_bandwidth)"/>
+	  <param name="bandwidth_limit" value="$(arg bandwidth_limit)"/>
+          <param name="latency" value="$(arg latency)"/>
+          <param name="loss" value="$(arg loss)"/>
+	  <param name="packet_size" value="$(arg packet_size)"/>
+          <param name="max_allowed_latency" value="$(arg max_allowed_latency)"/>
+          <param name="max_return_time" value="$(arg max_return_time)"/>
+          <param name="sink_ip" value="$(arg sink_ip)"/>
+          <param name="direction" value="$(arg direction)"/>
+          <param name="duration" value="$(arg duration)"/>
+    </node>
+</launch>

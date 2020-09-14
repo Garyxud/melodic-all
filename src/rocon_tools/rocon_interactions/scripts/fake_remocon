@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_concert/license/LICENSE
+#
+
+##############################################################################
+# Imports
+##############################################################################
+
+import uuid
+import sys
+import argparse
+
+import rospy
+import rocon_interaction_msgs.msg as interaction_msgs
+import rocon_std_msgs.msg as rocon_std_msgs
+import rocon_python_utils
+
+##############################################################################
+# Globals
+##############################################################################
+
+# random 16 byte string, alternatively uuid.getnode() returns a hash based on
+# the mac address, uuid.uid1() based on localhost and time
+key = uuid.uuid4()
+remocon_name = 'dude'
+topic_name = '/remocons/' + remocon_name + '_' + key.hex
+
+##############################################################################
+# Functions
+##############################################################################
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Attach a fake remocon.')
+    myargs = rospy.myargv(argv=sys.argv)
+    args = parser.parse_args(args=myargs[1:])
+    return args
+
+
+def remocon_platform_info():
+    platform_info = rocon_std_msgs.PlatformInfo(uri="rocon:/*/" + remocon_name + "/" +
+                                                    rocon_python_utils.ros.get_rosdistro() +
+                                                    "/" + rocon_std_msgs.Strings.OS_JELLYBEAN,
+                                                icon=rocon_std_msgs.Icon(),
+                                                version=rocon_std_msgs.Strings.ROCON_VERSION
+                                                )
+    return platform_info
+
+
+##############################################################################
+# Main
+##############################################################################
+
+if __name__ == '__main__':
+
+    rospy.init_node('attach_test_remocon')
+    args = parse_arguments()
+    publisher = rospy.Publisher(topic_name, interaction_msgs.RemoconStatus, latch=True)
+    status = interaction_msgs.RemoconStatus()
+    status.platform_info = remocon_platform_info()
+    status.running_interactions = []
+    status.uuid = key.hex
+    publisher.publish(status)
+    rospy.spin()

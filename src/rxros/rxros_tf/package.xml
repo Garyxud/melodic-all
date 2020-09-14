@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rxros_tf</name>
+  <version>0.1.0</version>
+  <description>Extensions to RxROS for working with TF.</description>
+
+  <author>Henrik Larsen</author>
+  <maintainer email="wasowski@itu.dk">Andrzej Wasowski</maintainer>
+  <maintainer email="g.a.vanderhoorn@tudelft.nl">G.A. vd. Hoorn</maintainer>
+  <maintainer email="henrik7264@outlook.com">Henrik Larsen</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rxros</build_depend>
+
+  <build_export_depend>rxros</build_export_depend>
+
+  <depend>tf</depend>
+</package>

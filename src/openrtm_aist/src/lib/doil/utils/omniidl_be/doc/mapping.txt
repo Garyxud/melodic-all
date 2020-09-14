@@ -1,0 +1,187 @@
+Mappings:
+- Mapping: IDL to doil C++
+  Primitive:
+    in:     primitive
+    out:    primitive&
+    inout:  primitive&
+    return: primitive
+  Enum:
+    in:     Enum
+    out:    Enum&
+    inout:  Enum&
+    return: Enum
+  String:
+    in:     const std::string&
+    out:    std::string&
+    inout:  std::string&
+    return: std::string
+  Struct(bounded):
+    in:     Struct
+    out:    Struct&
+    inout:  Struct&
+    return: Struct
+  Struct(unbounded):
+    in:     Struct
+    out:    Struct&
+    inout:  Struct&
+    return: Struct
+  Srquence:
+    in:     const Sequence&
+    out:    Sequence&
+    inout:  Sequence&
+    return: Sequence
+  Union:
+    in:     Union
+    out:    Union&
+    inout:  Union&
+    return: Union
+  Object:
+    in:     const Object*
+    out:    Object*
+    inout:  Object*
+    return: Object*
+  Any:
+    in:     const std::string&
+    out:    std::string&
+    inout:  std::string&
+    return: std::string
+- Mapping: IDL to CORBA C++
+  Primitive:
+    in:     CORBA::Primitive
+    out:    CORBA::Primitive&
+    inout:  CORBA::Primitive&
+    return: CORBA::Primitive
+  Enum:
+    in:     CORBA::Enum
+    out:    CORBA::Enum&
+    inout:  CORBA::Enum&
+    return: CORBA::Enum
+  String:
+    in:     const char*
+    out:    CORBA::String_out
+    inout:  char*&
+    return: char*
+  Struct(bounded):
+    in:     const Struct&
+    out:    Struct&
+    inout:  Struct&
+    return: Struct
+  Struct(unbounded):
+    in:     const Struct&
+    out:    Struct*& (Struct_out)
+    inout:  Struct&
+    return: Struct*
+  Srquence:
+    in:     const Sequence&
+    out:    Sequence_out
+    inout:  Sequence&
+    return: Sequence*
+  Union:
+    in:     const Union&
+    out:    Union&
+    inout:  Union&
+    return: Union
+  Object:
+    in:     Object_ptr
+    out:    Object_ptr& (_CORBA_ObjRef_OUT_arg< RTC::_objref_Object, RTC::Object_Helper >)
+    inout:  Object_ptr&
+    return: Object_ptr
+  Any:
+    in:     const CORBA::Any&
+    out:    CORBA::Any_out (CORBA::Any_OUT_arg)
+    inout:  CORBA::Any&
+    return: CORBA::Any*
+- Mapping: IDL to Ice C++
+  Primitive:
+    in:     ::Ice::Primitive
+    out:    ::Ice::Primitive&
+    inout:  -
+    return: ::Ice::Primitive
+  Enum:
+    in:     Enum
+    out:    Enum&
+    inout:  -
+    return: Enum
+  String:
+    in:     const std::string&
+    out:    std::string&
+    inout:  -
+    return: std::string
+  Struct(bounded):
+    in:     Struct
+    out:    Struct&
+    inout:  -
+    return: Struct
+  Struct(unbounded):
+    in:     Struct
+    out:    Struct&
+    inout:  -
+    return: Struct
+  Srquence:
+    in:     const Sequence&
+    out:    Sequence&
+    inout:  -
+    return: Sequence
+  Union:
+    in:     -
+    out:    -
+    inout:  -
+    return: -
+  Object:
+    in:     const ObjectPtr&
+    out:    ObjectPtr&
+    inout:  -
+    return: ObjectPtr
+  Any:
+    in:     -
+    out:    -
+    inout:  -
+    return: -
+- Mapping: IDL to Ice Slice
+  Primitive:
+    in:     primitive
+    out:    out primitive
+    inout:  -
+    return: primitive
+  Enum:
+    in:     Enum
+    out:    out Enum
+    inout:  -
+    return: Enum
+  String:
+    in:     string
+    out:    out string
+    inout:  -
+    return: string
+  Struct(bounded):
+    in:     Struct
+    out:    out Struct
+    inout:  -
+    return: Struct
+  Struct(unbounded):
+    in:     Struct
+    out:    out Struct
+    inout:  -
+    return: Struct
+  Srquence:
+    in:     Sequence
+    out:    out Sequence
+    inout:  -
+    return: Sequence
+  Union:
+    in:     -
+    out:    -
+    inout:  -
+    return: -
+  Object:
+    in:     Object
+    out:    out Object
+    inout:  -
+    return: Object
+  Any:
+    in:     -
+    out:    -
+    inout:  -
+    return: -
+
+  

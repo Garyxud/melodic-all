@@ -1,0 +1,1056 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//JP">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Object Oriented Programming</TITLE>
+<META NAME="description" CONTENT="Object Oriented Programming">
+<META NAME="keywords" CONTENT="manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="manual.css">
+
+<LINK REL="next" HREF="manual-node8.html">
+<LINK REL="previous" HREF="manual-node6.html">
+<LINK REL="up" HREF="manual-node2.html">
+<LINK REL="next" HREF="manual-node8.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<BR>
+<B> Next:</B> <A NAME="tex2html521"
+  HREF="manual-node8.html">Arithmetic Functions</A>
+<B>Up:</B> <A NAME="tex2html515"
+  HREF="manual-node2.html">EusLisp Basics</A>
+<B> Previous:</B> <A NAME="tex2html509"
+  HREF="manual-node6.html">Control Structures</A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html522"
+  HREF="manual-node7.html#SECTION02051000000000000000">Classes and Methods</A>
+<LI><A NAME="tex2html523"
+  HREF="manual-node7.html#SECTION02052000000000000000">Message Sending</A>
+<LI><A NAME="tex2html524"
+  HREF="manual-node7.html#SECTION02053000000000000000">Instance Management</A>
+<LI><A NAME="tex2html525"
+  HREF="manual-node7.html#SECTION02054000000000000000">Basic Classes</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION02050000000000000000">
+Object Oriented Programming</A>
+</H1>
+
+<P>
+The structures and behaviors of objects are described in
+classes, which are defined by
+<B>defclass</B> macro and <B>defmethod</B> special form.
+<B>defclass</B> defines the name of the class, its super class, and
+slot variable names, optionally with their types and message forwarding.
+<B>defmethod</B> defines methods which will invoked when
+corresponding messages are sent.
+Class definition is assigned to the symbol's special value.
+You may think of <B>class</B> as 
+the counter part of Common Lisp's <B>structure</B>.
+Slot accessing functions and <B>setf</B> methods are automatically defined
+for each slot by <B>defclass</B>.
+
+<P>
+Most classes are instantiated from the built-in class <B>metaclass</B>.
+Class <B>vector-class</B>, which is a subclass of <B>metaclass</B>,
+is a metaclass for vectors.
+If you need to use class-variables and class-methods,
+you may make your own metaclass by subclassing <B>metaclass</B>,
+and the metaclass name should be given to <B>defclass</B> with
+<TT>:metaclass</TT> keyword.
+
+<P>
+Vectors are different from other record-like objects
+because an instance of the vector can have arbitrary number of elements,
+while record-like objects have fixed number of slots.
+EusLisp's object is either a record-like object or a vector, not both
+at the same time.
+
+<P>
+Vectors whose elements are typed or the number of elements are
+unchangeable can also be defined by <B>defclass</B>.
+In the following example,
+class <TT>intvec5</TT> which has five integer elements is defined.
+Automatic type check and conversion are performed when the elements are
+accessed by the interpreter.
+When compiled with proper declaration, faster accessing code is produced.
+
+<P>
+<PRE>
+(defclass intvec5 :super vector :element-type :integer :size 5)
+(setq x (instantiate intvec5))  --&gt; #i(0 0 0 0 0)
+</PRE>
+
+<P>
+When a message is sent to an object, 
+the corresponding method is searched for, first in its class,
+and next in its superclasses toward <B>object</B>,
+until all superclasses are exhausted.
+If the method is undefined, forward list is searched.
+This forwarding mechanism is introduced to simulate multiple inheritance.
+If the search fails again, a method named <TT>:nomethod</TT> is searched,
+and the method is invoked with a list of all the arguments.
+In the following example, the messages <TT>:telephone</TT> and <TT>:mail</TT> are
+sent to <TT>secretary</TT> slot object which is typed <TT>person</TT>,
+and <TT>:go-home</TT> message is sent to <TT>chauffeur</TT> slot.
+
+<P>
+<PRE>
+(defclass president :super object
+                    :slots ((name :type string)
+                            (age  :type :integer)
+                            (secretary  :type person
+                                        :forward (:telephone :mail))
+                            (chauffeur  :forward (:go-home))))
+</PRE>
+
+<P>
+In a method, two more local variables,
+<B>class</B> and <B>self</B>, become accessible.
+You should not change either of these variables.
+If you do that, the ones supplied by the system are hidden,
+and <B>send-super</B> and <B>send self</B> are confused.
+
+<P>
+
+<H2><A NAME="SECTION02051000000000000000">
+Classes and Methods</A>
+</H2>
+
+<P>
+
+ <BR>
+<BR> <P>
+
+<A NAME="3864"></A>
+<PRE><TT>
+<B>defclass</B> <I>classname &amp;key :super object [macro] 
+<BR>:slots ({var <SPAN CLASS="MATH"><IMG
+ WIDTH="9" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="manual-img5.png"
+ ALT="$ \vert$"></SPAN> (var [:type type] [:forward selectors])}*) 
+<BR>:metaclass metaclass 
+<BR>:element-type t 
+<BR>:size -1
+<BR></I>
+</TT></PRE>
+
+<DL COMPACT>
+<DT> 
+<DD>creates or redefine a class.
+When a class is redefined to have different superclass or slot variables,
+old objects instantiated from the previous class definition will 
+behave unexpectedly, since method definitions assume the new slots
+disposition.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3875"></A>
+<B>defmethod</B> <EM>classname {(selector lambda-list . body)}* </EM>[special]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+defines one or more methods of <EM>classname</EM>. Each <EM>selector</EM>
+must be a keyword symbol.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3887"></A>
+<B>defclassmethod</B> <EM>classname {(selector lambda-list . body)}* </EM>[macro]
+
+<DL COMPACT>
+<DT> 
+<DD>  
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3898"></A>
+<B>classp</B> <EM>object </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> T if <EM>object</EM> is a class object, that is,
+an instance of class <B>metaclass</B> or its subclasses.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3910"></A>
+<B>subclassp</B> <EM>class super </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+Checks <EM>class</EM> is a subclass of <EM>super</EM>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3922"></A>
+<B>vector-class-p</B> <EM>x </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> T if <EM>x</EM> is an instance of <B>vector-class</B>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3934"></A>
+<B>delete-method</B> <EM>class method-name </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+The method definition is removed from the specified class.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3944"></A>
+<B>class-hierarchy</B> <EM>class </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+prints inheritance hierarchy below <EM>class</EM>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3955"></A>
+<B>system:list-all-classes</B> [function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+lists up all the classes defined so far.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3965"></A>
+<B>system:find-method</B> <EM>object selector </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+tries to find a method specified by <EM>selector</EM> in the class of <EM>object</EM>
+and in its superclass.
+This is used to know whether <EM>object</EM> can respond to <EM>selector</EM>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="3979"></A>
+<B>system:method-cache</B> <EM>[flag] </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+Interrogates the hit ratio of the method cache,
+and returns a list of two numbers, hit and miss.
+If <EM>flag</EM> is NIL, method caching is disabled.
+If non-nil flag is given, method cache is purged and caching is enabled.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+             <P>
+
+<H2><A NAME="SECTION02052000000000000000">
+Message Sending</A>
+</H2>
+
+ <BR>
+<BR> <P>
+
+<A NAME="3990"></A>
+<B>send</B> <EM>object selector {arg}* </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+send a message consisting of <EM>selector</EM> and <EM>arg</EM> to <EM>object</EM>.
+<EM>object</EM> can be anything but number.
+<EM>selector</EM> must be evaluated to be a keyword.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4005"></A>
+<B>send-message</B> <EM>target search selector {arg}* </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+Low level primitive to implement <B>send-super</B>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4016"></A>
+<B>send*</B> <EM>object selector &amp;rest msg-list </EM>[macro]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+<B>send*</B> applies <B>send-message</B> to a list of arguments.
+The relation between <B>send</B> and <B>send*</B> is like the one
+between <B>funcall</B> and <B>apply</B>, or <B>list</B> and <B>list*</B>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4034"></A>
+<B>send-all</B> <EM>receivers selector &amp;rest mesg </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+sends the same message to all the receivers, and collects the result
+in a list.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4044"></A>
+<B>send-super</B> <EM>selector &amp;rest msgs </EM>[macro]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+sends <EM>msgs</EM> to self, but
+begins method searching at the superclass of the class
+where the method currently being executed is defined.
+It is an error to <EM>send-super</EM> outside a method (i.e. in a function).
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4056"></A>
+<B>send-super*</B> <EM>selector &amp;rest msg-list </EM>[macro]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+<B>send-super*</B> is apply version of send-super.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+             <P>
+
+<H2><A NAME="SECTION02053000000000000000">
+Instance Management</A>
+</H2>
+
+<P>
+
+ <BR>
+<BR> <P>
+
+<A NAME="4067"></A>
+<B>instantiate</B> <EM>class &amp;optional size </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+the lowest primitive to create a new object from a class.
+If the class is a vector-class, <EM>size</EM> should be supplied.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4078"></A>
+<B>instance</B> <EM>class &amp;rest message </EM>[macro]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+An instance is created, and the message is sent to it.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4088"></A>
+<B>make-instance</B> <EM>class &amp;rest var-val-pairs </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+creates an instance of <EM>class</EM> and sets its slot variables
+according to <EM>var-val-pairs</EM>.
+For example, <TT>(make-instance cons :car 1 :cdr 2)</TT>
+is equivalent to <TT>(cons 1 2)</TT>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4102"></A>
+<B>copy-object</B> <EM>object </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+<B>copy-object</B> function is used to copy objects keeping the referencing
+topologies even they have recursive references.
+<B>Copy-object</B> copies any objects accessible from <EM>object</EM>
+except symbols and packages, which are untouched to keep the uniqueness
+of symbols.
+<B>copy-object</B> traverses all the references in an object twice:
+once to create new objects and to mark original objects that they have
+already copied, and again to remove marks.
+This two-step process makes copy-object work slower than copy-seq.
+If what you wish to copy is definitely a sequence,
+use of <B>copy-seq</B> or <B>copy-tree</B> is recommended.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4118"></A>
+<B>become</B> <EM>object class </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+changes the class of <EM>object</EM> to <EM>class</EM>.
+The slot structure of both the old class and the new class must be
+consistent. Usually, this can be safely used only for changing
+class between binary vectors, for example from an integer-vector
+to a bit-vector.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4130"></A>
+<B>replace-object</B> <EM>dest src </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+dest must be an instance of the subclass of src.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4140"></A>
+<B>class</B> <EM>object </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns the class object of <EM>object</EM>.
+To get the name of the class, send :name message to the class object.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4151"></A>
+<B>derivedp</B> <EM>object class </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+<B>derivedp</B> checks if an object is instantiated from <EM>class</EM>
+or <EM>class</EM>'s subclasses.
+<B>subclassp</B> and <B>derivedp</B> functions do not search in class hierarchy:
+type check always finishes within a constant time.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4166"></A>
+<B>slot</B> <EM>object class (index <SPAN CLASS="MATH"><IMG
+ WIDTH="9" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="manual-img5.png"
+ ALT="$ \vert$"></SPAN> slot-name) </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+Returns the named or indexed slot value.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4176"></A>
+<B>setslot</B> <EM>object class (index <SPAN CLASS="MATH"><IMG
+ WIDTH="9" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="manual-img5.png"
+ ALT="$ \vert$"></SPAN> slot-name) value </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+<B>Setslot</B> is a internal function and users should not use it.
+Use, instead, combination of <B>setf</B> and <B>slot</B>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+             <P>
+
+<H2><A NAME="SECTION02054000000000000000">
+Basic Classes</A>
+</H2>
+
+<P>
+
+ <BR>
+<BR> <BR> 
+<A NAME="4190"></A>
+<BIG CLASS="XLARGE"><B>object </B></BIG> [class]  <PRE><TT>
+  :super    
+<BR>  :slots 		 
+</TT></PRE>
+<BR>
+<BR>
+
+<DL COMPACT>
+<DT> 
+<DD>Object is the most basic class that is located at the top of class hierarchy.
+Since it defines no slot variables, it is no use to make an instance of
+<B>object</B>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4208"></A>
+<B>:prin1</B> <EM>&amp;optional stream &amp;rest mesg </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+prints the object in the standard re-readable object format,
+that is, the class name and the address, enclosed by angle brackets and
+preceded by a pound sign.
+Any subclasses of <B>object</B> can use this method to print itself with
+more comprehensive information  by using
+<B>send-super</B> macro specifying <EM>mesg</EM> string.
+An object is re-readable if it begins with #<SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="manual-img6.png"
+ ALT="$ &lt;$"></SPAN>,
+followed by its class name, correct address, any lisp-readable information,
+and <code>&gt;</code>.
+Since every data object except numbers inherits <B>object</B>,
+you can get print forms in this notation, even for symbols or strings.
+Specifying this notation, you can catch data objects that you forgot
+to <B>setq</B> to a symbol, as long as there happened no garbage collection
+after it is printed.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4223"></A>
+<B>:slots</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns the list of variable-name and value pair of all the slots of the
+object.
+You can get the value of a specific slot by applying <B>assoc</B> to this
+list, although you cannot alter them.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+	<BR> 
+<A NAME="4235"></A>
+<BIG CLASS="XLARGE"><B>propertied-object </B></BIG> [class]  <PRE><TT>
+  :super   <B>object</B> 
+<BR>  :slots 		 plist 
+</TT></PRE>
+<BR>
+<BR>
+
+<DL COMPACT>
+<DT> 
+<DD>defines objects that have property list.
+Unlike other Common Lisp, 
+EusLisp allows any objects that inherit propertied-object to have property
+lists, even if they are not symbols.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4252"></A>
+<B>:plist</B> <EM>&amp;optional plist </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+if <EM>plist</EM> is specified, it is set to the plist slot of this object.
+Previous plist, if there had been one, is lost.
+Legal plist should be of the form of
+<code>((indicator1 . value1) (indicator2 . value2) ...)</code>.
+Each <code>indicator</code> can be any lisp form that are tested its equality
+with the <B>eq</B> function.
+When a symbol is used for an indicator, use of keyword is recommended
+to ensure the equality check will be performed interpacakge-widely.
+<B>:plist</B> returns the current plist.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4265"></A>
+<B>:get</B> <EM>indicator </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns the value associated with <EM>indicator</EM> in the property list.
+<code>(send x :get :y) == (cdr (assoc :y (send x :plist)))</code>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4276"></A>
+<B>:put</B> <EM>indicator value </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+associates <EM>value</EM> to <EM>indicator</EM> in the plist.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4288"></A>
+<B>:remprop</B> <EM>indicator </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+removes <EM>indicator</EM> and value pair from the plist.
+Further attempt to <EM>:get</EM> the value returns nil.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4300"></A>
+<B>:name</B> <EM>&amp;optional name </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+defines and retrieves the <TT>:name</TT> property in the plist.
+This property is used for printing.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4311"></A>
+<B>:prin1</B> <EM>&amp;optional stream &amp;rest mesg </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+prints the object in the re-readable form.
+If the object has <B>:name</B> property, it is printed after
+the address of the object.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4322"></A>
+<B>:slots</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of variable and value pairs of this object.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4332"></A>
+<B>:methods</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of all method names defined for this object.
+In other words, this object can accept method calls listed by :methods. 
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4342"></A>
+<B>:get-val</B> <EM>variable-name </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns the value of the slot designated by <I>variable-name</I>.
+If the object does not have the variable-name slot, an error is reported.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="4353"></A>
+<B>:set-val</B> <EM>variable-name value </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+sets <I>value</I> in the variable-name slot of this object.
+If the object does not have the variable-name slot, an error is reported.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+	<BR> 
+<A NAME="4365"></A>
+<BIG CLASS="XLARGE"><B>metaclass </B></BIG> [class]  <PRE><TT>
+  :super   <B>propertied-object</B> 
+<BR>  :slots 		 name super cix vars types forwards methods 
+</TT></PRE>
+<BR>
+<BR>
+
+<DL COMPACT>
+<DT> 
+<DD>Metaclass defines classes. Classes that have own class variables
+should be defined with <B>metaclass</B> as their superclass.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4383"></A>
+<B>:new</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> creates an instance of this class and returns it
+after filling all the slots with NIL.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4393"></A>
+<B>:super</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns the super class object of this class.
+You cannot alter superclass once defclassed.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4403"></A>
+<B>:methods</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of all the methods defined in this class.
+The list is composed of lists each of which describes the name of
+the method, parameters, and body.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4413"></A>
+<B>:method</B> <EM>name </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns the method definition associated with <EM>name</EM>.
+If not found, NIL is returned.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4424"></A>
+<B>:method-names</B> <EM>subname </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of all the method names each of which contains
+<EM>subname</EM> in its method name.
+Methods are searched only in this class.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4435"></A>
+<B>:all-methods</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of all methods that are defined in this class and
+its all the super classes.
+In other words, an instance of this class can execute each of these
+methods.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4445"></A>
+<B>:all-method-names</B> <EM>subname </EM>[method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of all the method names each of which matches with
+<EM>subname</EM>.
+The search is made from  this class up to <B>object</B>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4457"></A>
+<B>:slots</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns the slot-name vector.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4467"></A>
+<B>:name</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> returns the name symbol of this class.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4477"></A>
+<B>:cid</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns an integer that is assigned to every
+instance of this class to identify its class.
+This is an index to the system-internal class table, and is changed
+when a new subclass is defined under this class.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4487"></A>
+<B>:subclasses</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of the direct subclass of this class.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4497"></A>
+<B>:hierarchy</B> [method]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+returns a list of all the subclasses defined under this class.
+You can also call the <B>class-hierarchy</B> function to get a comprehensive
+listing of all the class hierarchy.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<A NAME="4508"></A>
+<B>find-method</B> <EM>object selector </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+searches for the method identified by <EM>selector</EM> in <EM>object</EM>'s
+class and its super classes. This function is useful when object's
+class is uncertain and you want to know whether the object can handle
+the message without causing nomethod error.
+</DD>
+</DL>
+<BR>
+<BR>
+
+
+<DIV CLASS="navigation"><HR>
+<BR>
+<B> Next:</B> <A NAME="tex2html521"
+  HREF="manual-node8.html">Arithmetic Functions</A>
+<B>Up:</B> <A NAME="tex2html515"
+  HREF="manual-node2.html">EusLisp Basics</A>
+<B> Previous:</B> <A NAME="tex2html509"
+  HREF="manual-node6.html">Control Structures</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Travis CI User
+2017-03-07
+</ADDRESS>
+</BODY>
+</HTML>

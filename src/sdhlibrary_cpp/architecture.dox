@@ -1,0 +1,103 @@
+//======================================================================
+/*!
+  \file
+  \brief  
+    Short overview of the SDHLibrary-CPP and SDH architecture
+
+    \section sdhlibrary_cpp_architecture_dox_sdhpackage_overview Overview
+    \par Naming convention:
+      As a convention \b "SDH" (capital letters) is used to refer to
+      the physical device, the three fingered SCHUNK Dexterous Hand,
+      while \b "sdh" (small letters) refers to the PC-software that
+      communicates with the physical SDH device. Within the "sdh"
+      PC-software further entities can be distinguished: The C++
+      library \b SDHLibrary-CPP.so (on Linux) or \b SDHLibrary-CPP.dll
+      (on Windows/cygwin) that contains the complete sdh library
+      including the user interface class \b #SDH::cSDH. This #SDH::cSDH class
+      will be described in detail below.
+
+    \par Basic structure:
+      The basic structure of the components looks like this:
+
+      \dot
+        digraph sdhlibrary_cpp {
+          node [fontsize=9, shape=box];
+          edge [fontsize=9];
+          subgraph cluster_pc {
+            label = "PC"; labeljust="l";
+            user_app_cpp          [label="User application executable,\limplemented in C++\l(USERAPP, e.g. demo-simple)"];
+            SDHLibrary_CPP        [label="sdh C++ library\l(SDHLibrary-CPP)"];
+            user_app_cpp -> SDHLibrary_CPP [ label="object instantiation,\lfunction/method calls" dir="both"];
+          }
+        
+          subgraph cluster_sdh {
+            label = "SDH"; labeljust="l";
+            sdh_firmware          [label="SDH firmware"];
+            sdh_hardware          [label="SDH hardware"];
+            sdh_firmware -> sdh_hardware [label="device access" dir="both"];
+          }
+          SDHLibrary_CPP -> sdh_firmware [label="RS232 serial communication\l(for now, later: CAN, Ethernet)" dir="both"];
+        }
+      \enddot
+
+    \par Basic architecture:
+      There are several classes defined in SDHLibrary-CPP:
+      
+      - #SDH::cSDH the class used to communicate with the SDH. This class
+        provides the functional interface of the SDH. It should be used
+        by end users, as its interface is considered more stable.
+      - Other classes, like cSDHBase and cSDHSerial, are used by #SDH::cSDH
+        and provide more low level services and should \b NOT be used directly, as
+        their interfaces are subject to change in future releases. 
+      - cSDHLibraryException and derivatives: these are used when an exception is raised
+
+    \par Example use:
+      An exemplary use of the sdh module in a user application in C++
+      might look like this:
+      \code
+        ...
+        // Include the cSDH interface
+        include <sdh.h>
+
+        // Create an instance "hand" of the class cSDH:
+        cSDH hand;
+
+        // Open communication to the SDH device via default serial port 0 == "COM1"
+        hand.OpenRS232();
+
+        // Perform some action:
+        //   get the current actual axis angles of finger 0
+        std::vector<double> faa = hand.GetFingerActualAngle( 0 );
+
+        //   modify these by decreasing the proximal and the distal axis angles:
+        std::vector<double> fta = faa;
+        fta[1] -= 10;
+        fta[2] -= 10;
+
+        //   set modified angles as new target angles:
+        hand.SetFingerTargetAngle( 0, fta );
+
+        //   now make the finger move there:
+        hand.MoveFinger( 0 );
+  
+        // Finally close connection to SDH again (This automatically
+	// switches off the axis controllers to prevent overheating):
+        hand.Close();
+      \endcode
+
+      Real example code is available in the demo-*.cpp code files, see e.g.
+      - demo-simple.cpp
+      - demo-temperature.cpp
+      - demo-GetAxisActualAngle.cpp
+*/
+
+//======================================================================
+/*
+  Here are some settings for the emacs/xemacs editor (and can be safely ignored)
+  (e.g. to explicitely set C++ mode for *.h header files)
+ 
+  Local Variables: 
+  mode:C++
+  End: 
+*/
+//======================================================================]

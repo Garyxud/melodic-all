@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Input arguments -->
+    <arg name="argID"               default="1"/>
+    <arg name="argNodeRate"         default="5.0"/>
+    <arg name="argNamespace"        default="heifu"/>
+    <arg name="argVehicle"          default="$(arg argNamespace)"/>
+
+    <!-- Launch Diagnostic node -->
+    <node name="heifu_diagnostic_node$(arg argID)" type="heifu_diagnostic_node" pkg="heifu_diagnostic" output="screen" ns="$(arg argNamespace)" respawn="true">
+        <param name="paramNodeRate"         type="double" value="$(arg argNodeRate)"          />
+    </node>
+</launch>

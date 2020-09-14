@@ -1,0 +1,4 @@
+string name
+---
+# The name the spawning actually used (sometimes a modification of your name).
+string name

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Input arguments -->
+    <arg name="argNamespace"        default="heifu"/>
+
+    <!-- Launch safety fence node -->
+    <node name="heifu_safety_node" type="heifu_safety_node" pkg="heifu_safety" output="screen" required="true"  ns="$(arg argNamespace)">
+    </node>
+</launch>

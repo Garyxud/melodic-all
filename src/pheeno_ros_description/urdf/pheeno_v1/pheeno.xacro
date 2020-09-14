@@ -1,0 +1,511 @@
+<?xml version="1.0"?>
+<robot name="pheeno" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Include other parts. -->
+  <xacro:include filename="wheel.urdf.xacro"/>
+  <xacro:include filename="pillar.urdf.xacro"/>
+  <xacro:include filename="ir_sensor.urdf.xacro"/>
+
+  <!-- Colors used in this robot -->
+  <material name="Black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="Red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="White">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <material name="Green">
+    <color rgba="0.0 1.0 0.0 1.0"/>
+  </material>
+
+  <!-- Universal Values -->
+  <xacro:property name="PI" value="3.14159265358979"/>
+
+  <!-- Property List (ff = fixed frame) -->
+  <xacro:property name="base_plate_height" value="0.003"/>
+  <!-- m -->
+  <xacro:property name="base_plate_radius" value="0.0635"/>
+  <!-- m -->
+  <xacro:property name="base_plate_mass" value=".035"/>
+  <!-- kg -->
+  <xacro:property name="base_plate_ff_x" value="0"/>
+  <!-- m -->
+  <xacro:property name="base_plate_ff_y" value="0"/>
+  <!-- m -->
+  <xacro:property name="base_plate_ff_z" value="0"/>
+  <!-- m -->
+  <xacro:property name="base_plate_ff_roll" value="0"/>
+  <!-- rad -->
+  <xacro:property name="base_plate_ff_pitch" value="0"/>
+  <!-- rad -->
+  <xacro:property name="base_plate_ff_yaw" value="0"/>
+  <!-- rad -->
+
+  <xacro:property name="pcb_plate_height" value="0.003"/>
+  <xacro:property name="pcb_plate_radius" value="0.0635"/>
+  <xacro:property name="pcb_plate_mass" value="0.085"/>
+  <xacro:property name="pcb_plate_ff_x" value="0"/>
+  <xacro:property name="pcb_plate_ff_y" value="0"/>
+  <xacro:property name="pcb_plate_ff_z" value="0.041"/>
+  <xacro:property name="pcb_plate_ff_roll" value="0"/>
+  <xacro:property name="pcb_plate_ff_pitch" value="0"/>
+  <xacro:property name="pcb_plate_ff_yaw" value="0"/>
+
+  <xacro:property name="top_plate_height" value="0.003"/>
+  <xacro:property name="top_plate_radius" value="0.0635"/>
+  <xacro:property name="top_plate_mass" value="0.035"/>
+  <xacro:property name="top_plate_ff_x" value="0"/>
+  <xacro:property name="top_plate_ff_y" value="0"/>
+  <xacro:property name="top_plate_ff_z" value="0.0840"/>
+  <xacro:property name="top_plate_ff_roll" value="0"/>
+  <xacro:property name="top_plate_ff_pitch" value="0"/>
+  <xacro:property name="top_plate_ff_yaw" value="0"/>
+
+  <!-- Pillar Bottom -->
+  <xacro:property name="bottom_pillar_x" value="0"/>
+  <xacro:property name="bottom_pillar_y" value="0"/>
+  <xacro:property name="bottom_pillar_z" value="0.02"/>
+  <xacro:property name="bottom_pillar_roll" value="0"/>
+  <xacro:property name="bottom_pillar_pitch" value="0"/>
+  <xacro:property name="bottom_pillar_yaw" value="0"/>
+
+  <!-- Pillar Top -->
+  <xacro:property name="top_pillar_x" value="0"/>
+  <xacro:property name="top_pillar_y" value="0"/>
+  <xacro:property name="top_pillar_z" value="0.0625"/>
+  <xacro:property name="top_pillar_roll" value="0"/>
+  <xacro:property name="top_pillar_pitch" value="0"/>
+  <xacro:property name="top_pillar_yaw" value="0"/>
+
+  <xacro:property name="motor_plank_length" value="0.12"/>
+  <xacro:property name="motor_plank_width" value="0.025"/>
+  <xacro:property name="motor_plank_height" value="0.003"/>
+  <xacro:property name="motor_plank_ff_x" value="-0.045"/>
+  <xacro:property name="motor_plank_ff_y" value="0"/>
+  <xacro:property name="motor_plank_ff_z" value="-0.003"/>
+  <xacro:property name="motor_plank_ff_roll" value="0"/>
+  <xacro:property name="motor_plank_ff_pitch" value="0"/>
+  <xacro:property name="motor_plank_ff_yaw" value="${PI / 2}"/>
+
+  <xacro:property name="caster_plank_length" value="0.095"/>
+  <xacro:property name="caster_plank_width" value="0.032"/>
+  <xacro:property name="caster_plank_height" value="0.003"/>
+  <xacro:property name="caster_plank_ff_x" value="0.0151"/>
+  <xacro:property name="caster_plank_ff_y" value="0"/>
+  <xacro:property name="caster_plank_ff_z" value="-0.003"/>
+  <xacro:property name="caster_plank_ff_roll" value="0"/>
+  <xacro:property name="caster_plank_ff_pitch" value="0"/>
+  <xacro:property name="caster_plank_ff_yaw" value="0"/>
+
+  <xacro:property name="motor_base_R_length" value="0.025"/>
+  <xacro:property name="motor_base_R_width" value="0.03"/>
+  <xacro:property name="motor_base_R_height" value="0.015"/>
+  <xacro:property name="motor_base_R_ff_x" value="-0.045"/>
+  <xacro:property name="motor_base_R_ff_y" value="0.045"/>
+  <xacro:property name="motor_base_R_ff_z" value="-0.0105"/>
+  <xacro:property name="motor_base_R_ff_roll" value="0"/>
+  <xacro:property name="motor_base_R_ff_pitch" value="0"/>
+  <xacro:property name="motor_base_R_ff_yaw" value="0"/>
+
+  <xacro:property name="motor_base_L_length" value="0.025"/>
+  <xacro:property name="motor_base_L_width" value="0.03"/>
+  <xacro:property name="motor_base_L_height" value="0.015"/>
+  <xacro:property name="motor_base_L_ff_x" value="-0.045"/>
+  <xacro:property name="motor_base_L_ff_y" value="-0.045"/>
+  <xacro:property name="motor_base_L_ff_z" value="-0.0105"/>
+  <xacro:property name="motor_base_L_ff_roll" value="0"/>
+  <xacro:property name="motor_base_L_ff_pitch" value="0"/>
+  <xacro:property name="motor_base_L_ff_yaw" value="0"/>
+
+  <xacro:property name="caster_base_length" value="0.012"/>
+  <xacro:property name="caster_base_width" value="0.012"/>
+  <xacro:property name="caster_base_height" value="0.010"/>
+  <xacro:property name="caster_base_ff_x" value="0.055"/>
+  <xacro:property name="caster_base_ff_y" value="0"/>
+  <xacro:property name="caster_base_ff_z" value="-0.0095"/>
+  <!-- -0.0105 -->
+  <xacro:property name="caster_base_ff_roll" value="0"/>
+  <xacro:property name="caster_base_ff_pitch" value="0"/>
+  <xacro:property name="caster_base_ff_yaw" value="0"/>
+
+  <xacro:property name="caster_mass" value=".004"/>
+  <xacro:property name="caster_radius" value="0.006"/>
+  <xacro:property name="caster_ff_x" value="0"/>
+  <xacro:property name="caster_ff_y" value="0"/>
+  <xacro:property name="caster_ff_z" value="-0.005"/>
+  <xacro:property name="caster_ff_roll" value="${-PI/2}"/>
+  <xacro:property name="caster_ff_pitch" value="0"/>
+  <xacro:property name="caster_ff_yaw" value="0"/>
+
+  <xacro:property name="ir_sensor_center_x" value="0.05"/>
+  <xacro:property name="ir_sensor_center_y" value="0"/>
+  <xacro:property name="ir_sensor_center_z" value="0.053"/>
+  <xacro:property name="ir_sensor_center_roll" value="0"/>
+  <xacro:property name="ir_sensor_center_pitch" value="0"/>
+  <xacro:property name="ir_sensor_center_yaw" value="0"/>
+  <!-- PI/2 -->
+
+  <xacro:property name="ir_sensor_back_x" value="-0.05"/>
+  <xacro:property name="ir_sensor_back_y" value="0"/>
+  <xacro:property name="ir_sensor_back_z" value="0.053"/>
+  <xacro:property name="ir_sensor_back_roll" value="0"/>
+  <xacro:property name="ir_sensor_back_pitch" value="0"/>
+  <xacro:property name="ir_sensor_back_yaw" value="${PI}"/>
+  <!-- 3PI/2 -->
+
+  <xacro:property name="ir_sensor_cr_x" value="0.0354"/>
+  <xacro:property name="ir_sensor_cr_y" value="-0.0354"/>
+  <xacro:property name="ir_sensor_cr_z" value="0.053"/>
+  <xacro:property name="ir_sensor_cr_roll" value="0"/>
+  <xacro:property name="ir_sensor_cr_pitch" value="0"/>
+  <xacro:property name="ir_sensor_cr_yaw" value="${-1 * PI / 4}"/>
+
+  <xacro:property name="ir_sensor_cl_x" value="0.0354"/>
+  <xacro:property name="ir_sensor_cl_y" value="0.0354"/>
+  <xacro:property name="ir_sensor_cl_z" value="0.053"/>
+  <xacro:property name="ir_sensor_cl_roll" value="0"/>
+  <xacro:property name="ir_sensor_cl_pitch" value="0"/>
+  <xacro:property name="ir_sensor_cl_yaw" value="${PI / 4}"/>
+
+  <xacro:property name="ir_sensor_right_x" value="0"/>
+  <xacro:property name="ir_sensor_right_y" value="-0.05"/>
+  <xacro:property name="ir_sensor_right_z" value="0.053"/>
+  <xacro:property name="ir_sensor_right_roll" value="0"/>
+  <xacro:property name="ir_sensor_right_pitch" value="0"/>
+  <xacro:property name="ir_sensor_right_yaw" value="${-PI / 2}"/>
+
+  <xacro:property name="ir_sensor_left_x" value="0"/>
+  <xacro:property name="ir_sensor_left_y" value="0.05"/>
+  <xacro:property name="ir_sensor_left_z" value="0.053"/>
+  <xacro:property name="ir_sensor_left_roll" value="0"/>
+  <xacro:property name="ir_sensor_left_pitch" value="0"/>
+  <xacro:property name="ir_sensor_left_yaw" value="${PI / 2}"/>
+
+  <!-- ########################## LINKS ################################ -->
+
+  <!-- BASE FOOTPRINT -->
+  <!-- This is a fictitious link (frame) that is on the ground right below base_link origin -->
+  <link name="base_footprint">
+    <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <gazebo reference="base_footprint">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 ${wheel_radius + .0055}" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_plate_link"/>
+  </joint>
+
+  <!-- BASE PLATE -->
+  <link name="base_plate_link">
+    <visual>
+      <material name="Red"/>
+      <origin xyz="${base_plate_ff_x} ${base_plate_ff_y} ${base_plate_ff_z}" rpy="${base_plate_ff_roll} ${base_plate_ff_pitch} ${base_plate_ff_yaw}"/>
+      <geometry>
+        <cylinder length="${base_plate_height}" radius="${base_plate_radius}"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="${base_plate_mass}"/>
+      <origin xyz="${base_plate_ff_x} ${base_plate_ff_y} ${base_plate_ff_z}" rpy="${base_plate_ff_roll} ${base_plate_ff_pitch} ${base_plate_ff_yaw}"/>
+      <cylinder_inertia m="${base_plate_mass}" r="${base_plate_radius}" h="${base_plate_height}"/>
+    </inertial>
+    <collision>
+      <origin xyz="${base_plate_ff_x} ${base_plate_ff_y} ${base_plate_ff_z}" rpy="${base_plate_ff_roll} ${base_plate_ff_pitch} ${base_plate_ff_yaw}"/>
+      <geometry>
+        <cylinder length="${base_plate_height}" radius="${base_plate_radius}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="base_plate_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <joint name="base_link_to_caster_plank_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_plate_link"/>
+    <child link="caster_plank_link"/>
+  </joint>
+
+  <!-- PCB PLATE -->
+  <link name="pcb_plate_link">
+    <visual>
+      <material name="Green"/>
+      <origin xyz="${pcb_plate_ff_x} ${pcb_plate_ff_y} ${pcb_plate_ff_z}" rpy="${pcb_plate_ff_roll} ${pcb_plate_ff_pitch} ${pcb_plate_ff_yaw}"/>
+      <geometry>
+        <cylinder length="${pcb_plate_height}" radius="${pcb_plate_radius}"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="${pcb_plate_mass}"/>
+      <origin xyz="${pcb_plate_ff_x} ${pcb_plate_ff_y} ${pcb_plate_ff_z}" rpy="${pcb_plate_ff_roll} ${pcb_plate_ff_pitch} ${pcb_plate_ff_yaw}"/>
+      <cylinder_inertia m="${pcb_plate_mass}" r="${pcb_plate_radius}" h="${pcb_plate_height}"/>
+    </inertial>
+    <collision>
+      <origin xyz="${pcb_plate_ff_x} ${pcb_plate_ff_y} ${pcb_plate_ff_z}" rpy="${pcb_plate_ff_roll} ${pcb_plate_ff_pitch} ${pcb_plate_ff_yaw}"/>
+      <geometry>
+        <cylinder length="${pcb_plate_height}" radius="${pcb_plate_radius}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="pcb_plate_link">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <!-- TOP PLATE -->
+  <link name="top_plate_link">
+    <visual>
+      <material name="Red"/>
+      <origin xyz="${top_plate_ff_x} ${top_plate_ff_y} ${top_plate_ff_z}" rpy="${top_plate_ff_roll} ${top_plate_ff_pitch} ${top_plate_ff_yaw}"/>
+      <geometry>
+        <cylinder length="${top_plate_height}" radius="${top_plate_radius}"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="${top_plate_mass}"/>
+      <origin xyz="${top_plate_ff_x} ${top_plate_ff_y} ${top_plate_ff_z}" rpy="${top_plate_ff_roll} ${top_plate_ff_pitch} ${top_plate_ff_yaw}"/>
+      <cylinder_inertia m="${top_plate_mass}" r="${top_plate_radius}" h="${top_plate_height}"/>
+    </inertial>
+    <collision>
+      <origin xyz="${top_plate_ff_x} ${top_plate_ff_y} ${top_plate_ff_z}" rpy="${top_plate_ff_roll} ${top_plate_ff_pitch} ${top_plate_ff_yaw}"/>
+      <geometry>
+        <cylinder length="${top_plate_height}" radius="${top_plate_radius}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="top_plate_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <!-- CASTER PLANK -->
+  <link name="caster_plank_link">
+    <visual>
+      <material name="Red"/>
+      <origin xyz="${caster_plank_ff_x} ${caster_plank_ff_y} ${caster_plank_ff_z}" rpy="${caster_plank_ff_roll} ${caster_plank_ff_pitch} ${caster_plank_ff_yaw}"/>
+      <geometry>
+        <box size="${caster_plank_length} ${caster_plank_width} ${caster_plank_height}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="${caster_plank_ff_x} ${caster_plank_ff_y} ${caster_plank_ff_z}" rpy="${caster_plank_ff_roll} ${caster_plank_ff_pitch} ${caster_plank_ff_yaw}"/>
+      <geometry>
+        <box size="${caster_plank_length} ${caster_plank_width} ${caster_plank_height}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="caster_plank_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <!-- MOTOR PLANK -->
+  <link name="motor_plank_link">
+    <visual>
+      <material name="Red"/>
+      <origin xyz="${motor_plank_ff_x} ${motor_plank_ff_y} ${motor_plank_ff_z}" rpy="${motor_plank_ff_roll} ${motor_plank_ff_pitch} ${motor_plank_ff_yaw}"/>
+      <geometry>
+        <box size="${motor_plank_length} ${motor_plank_width} ${motor_plank_height}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="${motor_plank_ff_x} ${motor_plank_ff_y} ${motor_plank_ff_z}" rpy="${motor_plank_ff_roll} ${motor_plank_ff_pitch} ${motor_plank_ff_yaw}"/>
+      <geometry>
+        <box size="${motor_plank_length} ${motor_plank_width} ${motor_plank_height}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="motor_plank_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <joint name="base_link_to_motor_plank_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_plate_link"/>
+    <child link="motor_plank_link"/>
+  </joint>
+
+  <!-- MOTOR BASE R -->
+  <link name="motor_base_R_link">
+    <visual>
+      <material name="Red"/>
+      <origin xyz="${motor_base_R_ff_x} ${motor_base_R_ff_y} ${motor_base_R_ff_z}" rpy="${motor_base_R_ff_roll} ${motor_base_R_ff_pitch} ${motor_base_R_ff_yaw}"/>
+      <geometry>
+        <box size="${motor_base_R_length} ${motor_base_R_width} ${motor_base_R_height}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="${motor_base_R_ff_x} ${motor_base_R_ff_y} ${motor_base_R_ff_z}" rpy="${motor_base_R_ff_roll} ${motor_base_R_ff_pitch} ${motor_base_R_ff_yaw}"/>
+      <geometry>
+        <box size="${motor_base_R_length} ${motor_base_R_width} ${motor_base_R_height}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="motor_base_R_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <joint name="motor_base_R_to_motor_plank_joint" type="fixed">
+    <parent link="motor_plank_link"/>
+    <child link="motor_base_R_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- MOTOR BASE L -->
+  <link name="motor_base_L_link">
+    <visual>
+      <material name="Red"/>
+      <origin xyz="${motor_base_L_ff_x} ${motor_base_L_ff_y} ${motor_base_L_ff_z}" rpy="${motor_base_L_ff_roll} ${motor_base_L_ff_pitch} ${motor_base_L_ff_yaw}"/>
+      <geometry>
+        <box size="${motor_base_L_length} ${motor_base_L_width} ${motor_base_L_height}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="${motor_base_L_ff_x} ${motor_base_L_ff_y} ${motor_base_L_ff_z}" rpy="${motor_base_L_ff_roll} ${motor_base_L_ff_pitch} ${motor_base_L_ff_yaw}"/>
+      <geometry>
+        <box size="${motor_base_L_length} ${motor_base_L_width} ${motor_base_L_height}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="motor_base_L_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <joint name="motor_base_L_to_motor_plank_joint" type="fixed">
+    <parent link="motor_plank_link"/>
+    <child link="motor_base_L_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- WHEELS -->
+  <wheel lr="right" parent="base_plate_link" translateX="-0.72" translateY="-1" translateZ="-0.5" flipY="1"/>
+  <wheel lr="left" parent="base_plate_link" translateX="-0.72" translateY="1" translateZ="-0.5" flipY="1"/>
+
+  <!-- CASTER BASE -->
+  <link name="caster_base_link">
+    <visual>
+      <material name="Red"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${caster_base_length} ${caster_base_width} ${caster_base_height}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${caster_base_length} ${caster_base_width} ${caster_base_height}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="caster_base_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <joint name="caster_base_to_caster_plank_joint" type="fixed">
+    <parent link="caster_plank_link"/>
+    <child link="caster_base_link"/>
+    <origin xyz="${caster_base_ff_x} ${caster_base_ff_y} ${caster_base_ff_z}" rpy="${caster_base_ff_roll} ${caster_base_ff_pitch} ${caster_base_ff_yaw}"/>
+  </joint>
+
+  <!-- CASTER -->
+  <link name="caster_link">
+    <visual>
+      <material name="Black"/>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+      <geometry>
+        <sphere radius="0.006"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="${caster_mass}"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+      <geometry>
+        <sphere radius="${caster_radius}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="caster_link">
+    <turnGravityOff>false</turnGravityOff>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint name="caster_to_caster_base_joint" type="fixed">
+    <parent link="caster_base_link"/>
+    <child link="caster_link"/>
+    <origin xyz="${caster_ff_x} ${caster_ff_y} ${caster_ff_z}" rpy="${caster_ff_roll} ${caster_ff_pitch} ${caster_ff_yaw}"/>
+  </joint>
+
+  <!-- PILLARS -->
+  <pillar pos="bottom" x="${bottom_pillar_x}" y="${bottom_pillar_y}" z="${bottom_pillar_z}" roll="${bottom_pillar_roll}" pitch="${bottom_pillar_pitch}" yaw="${bottom_pillar_yaw}" par="base_plate_link" chi="pcb_plate_link"/>
+
+  <pillar pos="top" x="${top_pillar_x}" y="${top_pillar_y}" z="${top_pillar_z}" roll="${top_pillar_roll}" pitch="${top_pillar_pitch}" yaw="${top_pillar_yaw}" par="pcb_plate_link" chi="top_plate_link"/>
+
+  <!-- IR SENSOR -->
+  <ir_sensor pos="center" x="${ir_sensor_center_x}" y="${ir_sensor_center_y}" z="${ir_sensor_center_z}" roll="${ir_sensor_center_roll}" pitch="${ir_sensor_center_pitch}" yaw="${ir_sensor_center_yaw}"/>
+
+  <ir_sensor pos="back" x="${ir_sensor_back_x}" y="${ir_sensor_back_y}" z="${ir_sensor_back_z}" roll="${ir_sensor_back_roll}" pitch="${ir_sensor_back_pitch}" yaw="${ir_sensor_back_yaw}"/>
+
+  <ir_sensor pos="cr" x="${ir_sensor_cr_x}" y="${ir_sensor_cr_y}" z="${ir_sensor_cr_z}" roll="${ir_sensor_cr_roll}" pitch="${ir_sensor_cr_pitch}" yaw="${ir_sensor_cr_yaw}"/>
+
+  <ir_sensor pos="cl" x="${ir_sensor_cl_x}" y="${ir_sensor_cl_y}" z="${ir_sensor_cl_z}" roll="${ir_sensor_cl_roll}" pitch="${ir_sensor_cl_pitch}" yaw="${ir_sensor_cl_yaw}"/>
+
+  <ir_sensor pos="right" x="${ir_sensor_right_x}" y="${ir_sensor_right_y}" z="${ir_sensor_right_z}" roll="${ir_sensor_right_roll}" pitch="${ir_sensor_right_pitch}" yaw="${ir_sensor_right_yaw}"/>
+
+  <ir_sensor pos="left" x="${ir_sensor_left_x}" y="${ir_sensor_left_y}" z="${ir_sensor_left_z}" roll="${ir_sensor_left_roll}" pitch="${ir_sensor_left_pitch}" yaw="${ir_sensor_left_yaw}"/>
+
+  <!-- DIFFERENTIAL DRIVE CONTROLLER -->
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <rosDebugLevel>Debug</rosDebugLevel>
+      <publishWheelTF>false</publishWheelTF>
+      <!-- <robotNamespace>/</robotNamespace> -->
+      <publishTF>1</publishTF>
+      <publishWheelJointState>false</publishWheelJointState>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100.0</updateRate>
+      <leftJoint>left_wheel_joint</leftJoint>
+      <rightJoint>right_wheel_joint</rightJoint>
+      <wheelSeparation>${motor_plank_length}</wheelSeparation>
+      <wheelDiameter>${2*wheel_radius}</wheelDiameter>
+      <broadcastTF>1</broadcastTF>
+      <wheelTorque>30</wheelTorque>
+      <wheelAcceleration>1.8</wheelAcceleration>
+      <!-- <commandTopic>pheeno/cmd_vel</commandTopic> -->
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometryTopic>odom</odometryTopic>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <legacyMode>true</legacyMode>
+    </plugin>
+  </gazebo>
+
+</robot>

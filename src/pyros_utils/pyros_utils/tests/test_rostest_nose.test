@@ -1,0 +1,7 @@
+<launch>
+  <node name="string_pub_node" pkg="pyros_test" type="string_pub_node.py">
+    <param name="topic_name" value="test_str_topic"/>
+    <param name="test_message" value="testing topic discovery"/>
+  </node>
+  <test test-name="test_rostest_nose" pkg="pyros_utils" type="test_rostest_nose.py"/>
+</launch>

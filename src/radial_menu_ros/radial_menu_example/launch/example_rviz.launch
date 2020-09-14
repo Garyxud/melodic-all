@@ -1,0 +1,10 @@
+<launch>
+
+    <param name="menu_description" textfile="$(find radial_menu_example)/config/camera_menu.xml" />
+
+    <node name="random_model_controller" pkg="radial_menu_example" type="random_model_controller" output="screen" /> 
+
+    <node name="rviz" pkg="rviz" type="rviz" 
+          args="--display-config $(find radial_menu_example)/rviz/one_menu.rviz" />
+
+</launch>

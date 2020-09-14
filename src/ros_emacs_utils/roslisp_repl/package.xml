@@ -1,0 +1,21 @@
+<package>
+  <name>roslisp_repl</name>
+  <version>0.4.16</version>
+  <description>
+    This package provides a script that launches Emacs with Slime (the
+    Superior Lisp Interaction Mode) ready for Lisp development and
+    roslisp.
+  </description>
+
+  <maintainer email="kazhoyan@cs.uni-bremen.de">Gayane Kazhoyan</maintainer>
+  <author>Lorenz Moesenlechner</author>
+  <license>Public domain</license>
+  <url type="repository">https://github.com/code-iai/ros_emacs_utils</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>slime_wrapper</run_depend>
+  <run_depend>slime_ros</run_depend>
+  <run_depend>sbcl</run_depend>
+  <run_depend>roslisp</run_depend>
+  <run_depend>rosemacs</run_depend>
+</package>

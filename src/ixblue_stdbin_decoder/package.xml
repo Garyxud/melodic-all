@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ixblue_stdbin_decoder</name>
+  <version>0.1.2</version>
+  <description>iXblue parsing library for protocol iXblue stdbin</description>
+
+  <maintainer email="romain.reignier@ixblue.com">Romain Reignier</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">http://wiki.ros.org/ixblue_stdbin_decoder</url>
+
+  <author email="adrien.barral@ixblue.com">Adrien BARRAL</author> 
+  <author email="laure.le-breton@ixblue.com">Laure LEBROTON</author>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <build_depend>libboost-dev</build_depend>
+  <build_export_depend>libboost-dev</build_export_depend>
+  <depend>libboost-system-dev</depend>
+  <exec_depend>catkin</exec_depend>
+
+  <test_depend>git</test_depend>
+  <test_depend>gtest</test_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

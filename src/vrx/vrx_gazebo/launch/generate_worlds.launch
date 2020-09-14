@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="requested"/>
+  <param name="requested" value="$(arg requested)"/>
+
+  <arg name="world_xacro_target"/>
+  <param name="world_xacro_target" value="$(arg world_xacro_target)"/>
+
+  <arg name="world_target"/>
+  <param name="world_target" value="$(arg world_target)"/>
+
+  <node name = "world_gen" pkg="vrx_gazebo" type="generate_worlds" required="true" output = "screen"/>
+</launch>

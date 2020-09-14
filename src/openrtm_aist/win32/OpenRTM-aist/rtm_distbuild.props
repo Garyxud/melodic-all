@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <rtm_root>$(SolutionDir)</rtm_root>
+    <rtm_depend_libd>$(coil_libd);libRTCSkeld.lib;$(omni_libd);advapi32.lib;ws2_32.lib;mswsock.lib</rtm_depend_libd>
+    <rtm_depend_lib>$(coil_lib);libRTCSkel.lib;$(omni_lib);advapi32.lib;ws2_32.lib;mswsock.lib</rtm_depend_lib>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>OpenRTM-aist-%RTM_SHORTVER%</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="rtm_root">
+      <Value>$(rtm_root)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_depend_libd">
+      <Value>$(rtm_depend_libd)</Value>
+    </BuildMacro>
+    <BuildMacro Include="rtm_depend_lib">
+      <Value>$(rtm_depend_lib)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

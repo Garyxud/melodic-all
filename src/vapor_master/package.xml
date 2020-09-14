@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>vapor_master</name>
+  <version>0.3.0</version>
+  <description>high availability ros master</description>
+
+  <maintainer email="nick@roshub.io">Nicholas Zatkovich</maintainer>
+  <maintainer email="alanm@roshub.io">Alan Meekins</maintainer>
+  <maintainer email="code@roshub.io">RosHub Inc.</maintainer>
+
+  <license>Apache-2.0</license>
+
+  <url type="website">http://github.com/roshub/vapor_master</url>
+  <url type="blog">https://medium.com/roshub/introducing-vapor-a-high-availability-ros-1-x-master-19d66506cb7a</url>
+  <url type="wiki">http://wiki.ros.org/vapor_master</url>
+
+  <author email="code@roshub.io">RosHub Inc.</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>nodejs</buildtool_depend>
+  <buildtool_depend>npm</buildtool_depend>
+  <exec_depend>rospack</exec_depend>
+  <exec_depend>nodejs</exec_depend>
+
+  <export></export>
+</package>

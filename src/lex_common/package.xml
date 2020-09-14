@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="3">
+    <name>lex_common</name>
+    <version>1.0.0</version>
+    <description>Lex Common utilities, intended for use by Lex clients</description>
+    <url>http://wiki.ros.org/aws_common</url>
+
+    <author email="ros-contributions@amazon.com">AWS RoboMaker</author>
+    <maintainer email="ros-contributions@amazon.com">AWS RoboMaker</maintainer>
+
+    <license>Apache 2.0</license>
+
+    <buildtool_depend>cmake</buildtool_depend>
+
+    <build_depend condition="$ROS_VERSION == 1">catkin</build_depend>
+    <build_depend condition="$ROS_VERSION == 2">ament_cmake</build_depend>
+    <build_depend>ros_environment</build_depend>
+
+    <depend version_gte="2.0.0">aws_common</depend>
+
+    <test_depend condition="$ROS_VERSION == 1">gtest</test_depend>
+    <test_depend condition="$ROS_VERSION == 1">google-mock</test_depend>
+    <test_depend condition="$ROS_VERSION == 2">ament_cmake_gtest</test_depend>
+    <test_depend condition="$ROS_VERSION == 2">ament_cmake_gmock</test_depend>
+    <export>
+        <build_type>cmake</build_type>
+    </export>
+</package>

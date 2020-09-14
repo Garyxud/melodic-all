@@ -1,0 +1,10 @@
+# Specify a list of variables to watch on the blackboard. These
+# can be nested variables (e.g. get only the position in an odom
+# message). Typically this is not used directly, but by the
+# blackboard watcher utility
+
+# list of variables to watch
+string[] variables
+---
+# topic name that is dynamically created for watching
+string topic

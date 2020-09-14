@@ -1,0 +1,8 @@
+student   exam1 exam2 exam3 exam4
+--------- ----- ----- ----- -----
+Carolyn      78    87   100    95
+Evelyn       85    84    82    89
+Jack        100    89    89   100
+Ken          88    79    79    93
+Karen        90   100   100    95
+Michael      87   100    99   100

@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!-- omniORBpy3.4 supports -->
+  <!-- Python26 directory -->
+      <Component Id="Py26BinX86_win32" Guid="{% Py26BinX86_win32.GUID %}">
+        {% for file in Py26BinX86_win32.Files %}
+        <File Id="{% file.Id %}" Name="{% file.Name %}"
+              DiskId="1" Source="{% file.Source %}">
+        </File>
+        {% endfor %}
+      </Component>
+
+      <!-- Lib -->
+      <Directory Id="py26_lib" Name="Lib">
+
+        <!-- site-packages -->
+        <Directory Id="py26_lib_python" Name="site-packages">
+          <Component Id="Py26LibX86_win32" Guid="{% Py26LibX86_win32.GUID %}">
+            {% for file in Py26LibX86_win32.Files %}
+            <File Id="{% file.Id %}" Name="{% file.Name %}"
+                  DiskId="1" Source="{% file.Source %}">
+            </File>
+            {% endfor %}
+          </Component>
+          <Component Id="Py26LibPython" Guid="{% Py26LibPython.GUID %}">
+            {% for file in Py26LibPython.Files %}
+            <File Id="{% file.Id %}" Name="{% file.Name %}"
+                  DiskId="1" Source="{% file.Source %}">
+            </File>
+            {% endfor %}
+          </Component>
+
+          <!-- choice of dll -->
+          <Component Id="Py26BinDll" Guid="{% Py26BinDll.GUID %}">
+            {% for file in Py26BinDll.Files %}
+            <File Id="{% file.Id %}" Name="{% file.Name %}"
+                  DiskId="1" Source="{% file.Source %}">
+            </File>
+            {% endfor %}
+          </Component>
+
+          <!-- CosNaming -->
+          <Directory Id="py26_lib_python_CosNaming" Name="CosNaming">
+            <Component Id="Py26LibPythonCosnaming" 
+                       Guid="{% Py26LibPythonCosnaming.GUID %}">
+              <RemoveFile Id='Py26LibPythonCosnaming' On='uninstall' Name='*.pyc' />
+              <RemoveFolder Id='Py26LibPythonCosnaming_f' On='uninstall' />
+              {% for file in Py26LibPythonCosnaming.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+          </Directory>
+
+          <!-- CosNaming__POA -->
+          <Directory Id="py26_lib_python_CosNaming__POA" Name="CosNaming__POA">
+            <Component Id="Py26LibPythonCosnaming__poa" 
+                       Guid="{% Py26LibPythonCosnaming__poa.GUID %}">
+              <RemoveFile Id='Py26LibPythonCosnaming__poa' On='uninstall' Name='*.pyc' />
+              <RemoveFolder Id='Py26LibPythonCosnaming__poa_f' On='uninstall' />
+              {% for file in Py26LibPythonCosnaming__poa.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+          </Directory>
+
+          <!-- omniidl -->
+          <Directory Id="py26_lib_python_omniidl" Name="omniidl">
+            <Component Id="Py26LibPythonOmniidl" 
+                       Guid="{% Py26LibPythonOmniidl.GUID %}">
+              <RemoveFile Id='Py26LibPythonOmniidl' On='uninstall' Name='*.pyc' />
+              <RemoveFolder Id='Py26LibPythonOmniidl_f' On='uninstall' />
+              {% for file in Py26LibPythonOmniidl.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+          </Directory>
+
+          <!-- omniidl_be -->
+          <Directory Id="py26_lib_python_omniidl_be" Name="omniidl_be">
+            <Component Id="Py26LibPythonOmniidl_be" 
+                       Guid="{% Py26LibPythonOmniidl_be.GUID %}">
+              <RemoveFile Id='Py26LibPythonOmniidl_be' On='uninstall' Name='*.pyc' />
+              <RemoveFolder Id='Py26LibPythonOmniidl_be_f' On='uninstall' />
+              {% for file in Py26LibPythonOmniidl_be.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+          </Directory>
+
+          <!-- omniORB -->
+          <Directory Id="py26_lib_python_omniORB" Name="omniORB">
+            <Component Id="Py26LibPythonOmniorb" 
+                       Guid="{% Py26LibPythonOmniorb.GUID %}">
+              <RemoveFile Id='Py26LibPythonOmniorb' On='uninstall' Name='*.pyc' />
+              <RemoveFolder Id='Py26LibPythonOmniorb_f' On='uninstall' />
+              {% for file in Py26LibPythonOmniorb.Files %}
+              <File Id="{% file.Id %}" Name="{% file.Name %}"
+                    DiskId="1" Source="{% file.Source %}">
+              </File>
+              {% endfor %}
+            </Component>
+
+            <!-- COS -->
+            <Directory Id="py26_lib_python_omniORB_COS" Name="COS">
+              <Component Id="Py26LibPythonOmniorbCos" 
+                         Guid="{% Py26LibPythonOmniorbCos.GUID %}">
+                <RemoveFile Id='Py26LibPythonOmniorbCos' On='uninstall' Name='*.pyc' />
+                <RemoveFolder Id='Py26LibPythonOmniorbCos_f' On='uninstall' />
+                {% for file in Py26LibPythonOmniorbCos.Files %}
+                <File Id="{% file.Id %}" Name="{% file.Name %}"
+                      DiskId="1" Source="{% file.Source %}">
+                </File>
+                {% endfor %}
+              </Component>
+
+              <!-- CosCollection -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosCollection" 
+                         Name="CosCollection">
+                <Component Id="Py26LibPythonOmniorbCosCoscollection" 
+                           Guid="{% Py26LibPythonOmniorbCosCoscollection.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoscollection' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoscollection_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoscollection.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosCollection__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosCollection__POA" 
+                         Name="CosCollection__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoscollection__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoscollection__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoscollection__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoscollection__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoscollection__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosCompoundLifeCycle -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosCompoundLifeCycle" 
+                         Name="CosCompoundLifeCycle">
+                <Component Id="Py26LibPythonOmniorbCosCoscompoundlifecycle" 
+                           Guid="{% Py26LibPythonOmniorbCosCoscompoundlifecycle.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoscompoundlifecycle' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoscompoundlifecycle_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoscompoundlifecycle.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosCompoundLifeCycle__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosCompoundLifeCycle__POA" 
+                         Name="CosCompoundLifeCycle__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoscompoundlifecycle__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoscompoundlifecycle__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoscompoundlifecycle__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoscompoundlifecycle__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoscompoundlifecycle__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosContainment -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosContainment" 
+                         Name="CosContainment">
+                <Component Id="Py26LibPythonOmniorbCosCoscontainment" 
+                           Guid="{% Py26LibPythonOmniorbCosCoscontainment.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoscontainment' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoscontainment_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoscontainment.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosContainment__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosContainment__POA" 
+                         Name="CosContainment__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoscontainment__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoscontainment__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoscontainment__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoscontainment__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoscontainment__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosEventChannelAdmin -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosEventChannelAdmin" 
+                         Name="CosEventChannelAdmin">
+                <Component Id="Py26LibPythonOmniorbCosCoseventchanneladmin" 
+                           Guid="{% Py26LibPythonOmniorbCosCoseventchanneladmin.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoseventchanneladmin' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoseventchanneladmin_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoseventchanneladmin.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosEventChannelAdmin__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosEventChannelAdmin__POA" 
+                         Name="CosEventChannelAdmin__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoseventchanneladmin__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoseventchanneladmin__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoseventchanneladmin__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoseventchanneladmin__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoseventchanneladmin__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosEventComm -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosEventComm" 
+                         Name="CosEventComm">
+                <Component Id="Py26LibPythonOmniorbCosCoseventcomm" 
+                           Guid="{% Py26LibPythonOmniorbCosCoseventcomm.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoseventcomm' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoseventcomm_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoseventcomm.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosEventComm__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosEventComm__POA" 
+                         Name="CosEventComm__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoseventcomm__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoseventcomm__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoseventcomm__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoseventcomm__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoseventcomm__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosExternalization -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosExternalization" 
+                         Name="CosExternalization">
+                <Component Id="Py26LibPythonOmniorbCosCosexternalization" 
+                           Guid="{% Py26LibPythonOmniorbCosCosexternalization.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosexternalization' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosexternalization_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosexternalization.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosExternalizationContainment -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosExternalizationContainment" 
+                         Name="CosExternalizationContainment">
+                <Component Id="Py26LibPythonOmniorbCosCosexternalizationcontainment" 
+                           Guid="{% Py26LibPythonOmniorbCosCosexternalizationcontainment.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosexternalizationcontainment' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosexternalizationcontainment_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosexternalizationcontainment.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosExternalizationContainment__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosExternalizationContainment__POA" 
+                         Name="CosExternalizationContainment__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosexternalizationcontainment__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosexternalizationcontainment__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosexternalizationcontainment__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosexternalizationcontainment__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosexternalizationcontainment__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosExternalizationReference -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosExternalizationReference" 
+                         Name="CosExternalizationReference">
+                <Component Id="Py26LibPythonOmniorbCosCosexternalizationreference" 
+                           Guid="{% Py26LibPythonOmniorbCosCosexternalizationreference.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosexternalizationreference' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosexternalizationreference_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosexternalizationreference.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosExternalizationReference__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosExternalizationReference__POA" 
+                         Name="CosExternalizationReference__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosexternalizationreference__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosexternalizationreference__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosexternalizationreference__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosexternalizationreference__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosexternalizationreference__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosExternalization__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosExternalization__POA" 
+                         Name="CosExternalization__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosexternalization__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosexternalization__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosexternalization__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosexternalization__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosexternalization__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosGraphs -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosGraphs" 
+                         Name="CosGraphs">
+                <Component Id="Py26LibPythonOmniorbCosCosgraphs" 
+                           Guid="{% Py26LibPythonOmniorbCosCosgraphs.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosgraphs' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosgraphs_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosgraphs.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosGraphs__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosGraphs__POA" 
+                         Name="CosGraphs__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosgraphs__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosgraphs__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosgraphs__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosgraphs__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosgraphs__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosLifeCycle -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosLifeCycle" 
+                         Name="CosLifeCycle">
+                <Component Id="Py26LibPythonOmniorbCosCoslifecycle" 
+                           Guid="{% Py26LibPythonOmniorbCosCoslifecycle.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoslifecycle' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoslifecycle_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoslifecycle.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosLifeCycleContainment -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosLifeCycleContainment" 
+                         Name="CosLifeCycleContainment">
+                <Component Id="Py26LibPythonOmniorbCosCoslifecyclecontainment" 
+                           Guid="{% Py26LibPythonOmniorbCosCoslifecyclecontainment.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoslifecyclecontainment' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoslifecyclecontainment_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoslifecyclecontainment.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosLifeCycleContainment__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosLifeCycleContainment__POA" 
+                         Name="CosLifeCycleContainment__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoslifecyclecontainment__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoslifecyclecontainment__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoslifecyclecontainment__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoslifecyclecontainment__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoslifecyclecontainment__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosLifeCycleReference -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosLifeCycleReference" 
+                         Name="CosLifeCycleReference">
+                <Component Id="Py26LibPythonOmniorbCosCoslifecyclereference" 
+                           Guid="{% Py26LibPythonOmniorbCosCoslifecyclereference.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoslifecyclereference' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoslifecyclereference_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoslifecyclereference.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosLifeCycleReference__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosLifeCycleReference__POA" 
+                         Name="CosLifeCycleReference__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoslifecyclereference__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoslifecyclereference__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoslifecyclereference__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoslifecyclereference__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoslifecyclereference__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosLifeCycle__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosLifeCycle__POA" 
+                         Name="CosLifeCycle__POA">
+                <Component Id="Py26LibPythonOmniorbCosCoslifecycle__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCoslifecycle__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCoslifecycle__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCoslifecycle__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCoslifecycle__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNaming -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNaming" 
+                         Name="CosNaming">
+                <Component Id="Py26LibPythonOmniorbCosCosnaming" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnaming.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnaming' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnaming_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnaming.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNaming__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNaming__POA" 
+                         Name="CosNaming__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosnaming__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnaming__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnaming__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnaming__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnaming__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotification -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotification" 
+                         Name="CosNotification">
+                <Component Id="Py26LibPythonOmniorbCosCosnotification" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotification.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotification' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotification_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotification.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotification__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotification__POA" 
+                         Name="CosNotification__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosnotification__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotification__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotification__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotification__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotification__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotifyChannelAdmin -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotifyChannelAdmin" 
+                         Name="CosNotifyChannelAdmin">
+                <Component Id="Py26LibPythonOmniorbCosCosnotifychanneladmin" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotifychanneladmin.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotifychanneladmin' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotifychanneladmin_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotifychanneladmin.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotifyChannelAdmin__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotifyChannelAdmin__POA" 
+                         Name="CosNotifyChannelAdmin__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosnotifychanneladmin__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotifychanneladmin__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotifychanneladmin__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotifychanneladmin__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotifychanneladmin__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotifyComm -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotifyComm" 
+                         Name="CosNotifyComm">
+                <Component Id="Py26LibPythonOmniorbCosCosnotifycomm" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotifycomm.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotifycomm' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotifycomm_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotifycomm.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotifyComm__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotifyComm__POA" 
+                         Name="CosNotifyComm__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosnotifycomm__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotifycomm__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotifycomm__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotifycomm__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotifycomm__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotifyFilter -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotifyFilter" 
+                         Name="CosNotifyFilter">
+                <Component Id="Py26LibPythonOmniorbCosCosnotifyfilter" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotifyfilter.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotifyfilter' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotifyfilter_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotifyfilter.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosNotifyFilter__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosNotifyFilter__POA" 
+                         Name="CosNotifyFilter__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosnotifyfilter__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosnotifyfilter__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosnotifyfilter__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosnotifyfilter__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosnotifyfilter__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosObjectIdentity -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosObjectIdentity" 
+                         Name="CosObjectIdentity">
+                <Component Id="Py26LibPythonOmniorbCosCosobjectidentity" 
+                           Guid="{% Py26LibPythonOmniorbCosCosobjectidentity.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosobjectidentity' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosobjectidentity_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosobjectidentity.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosObjectIdentity__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosObjectIdentity__POA" 
+                         Name="CosObjectIdentity__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosobjectidentity__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosobjectidentity__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosobjectidentity__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosobjectidentity__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosobjectidentity__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistenceDDO -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistenceDDO" 
+                         Name="CosPersistenceDDO">
+                <Component Id="Py26LibPythonOmniorbCosCospersistenceddo" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistenceddo.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistenceddo' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistenceddo_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistenceddo.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistenceDDO__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistenceDDO__POA" 
+                         Name="CosPersistenceDDO__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistenceddo__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistenceddo__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistenceddo__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistenceddo__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistenceddo__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistenceDS_CLI -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistenceDS_CLI" 
+                         Name="CosPersistenceDS_CLI">
+                <Component Id="Py26LibPythonOmniorbCosCospersistenceds_cli" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistenceds_cli.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistenceds_cli' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistenceds_cli_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistenceds_cli.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistenceDS_CLI__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistenceDS_CLI__POA" 
+                         Name="CosPersistenceDS_CLI__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistenceds_cli__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistenceds_cli__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistenceds_cli__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistenceds_cli__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistenceds_cli__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePDS -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePDS" 
+                         Name="CosPersistencePDS">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepds" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepds.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepds' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepds_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepds.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePDS_DA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePDS_DA" 
+                         Name="CosPersistencePDS_DA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepds_da" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepds_da.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepds_da' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepds_da_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepds_da.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePDS_DA__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePDS_DA__POA" 
+                         Name="CosPersistencePDS_DA__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepds_da__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepds_da__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepds_da__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepds_da__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepds_da__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePDS__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePDS__POA" 
+                         Name="CosPersistencePDS__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepds__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepds__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepds__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepds__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepds__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePID -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePID" 
+                         Name="CosPersistencePID">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepid" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepid.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepid' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepid_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepid.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePID__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePID__POA" 
+                         Name="CosPersistencePID__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepid__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepid__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepid__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepid__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepid__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePO -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePO" 
+                         Name="CosPersistencePO">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepo" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepo.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepo' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepo_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepo.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePOM -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePOM" 
+                         Name="CosPersistencePOM">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepom" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepom.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepom' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepom_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepom.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePOM__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePOM__POA" 
+                         Name="CosPersistencePOM__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepom__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepom__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepom__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepom__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepom__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPersistencePO__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPersistencePO__POA" 
+                         Name="CosPersistencePO__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospersistencepo__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospersistencepo__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospersistencepo__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospersistencepo__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospersistencepo__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPropertyService -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPropertyService" 
+                         Name="CosPropertyService">
+                <Component Id="Py26LibPythonOmniorbCosCospropertyservice" 
+                           Guid="{% Py26LibPythonOmniorbCosCospropertyservice.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospropertyservice' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospropertyservice_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospropertyservice.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosPropertyService__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosPropertyService__POA" 
+                         Name="CosPropertyService__POA">
+                <Component Id="Py26LibPythonOmniorbCosCospropertyservice__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCospropertyservice__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCospropertyservice__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCospropertyservice__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCospropertyservice__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosQuery -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosQuery" 
+                         Name="CosQuery">
+                <Component Id="Py26LibPythonOmniorbCosCosquery" 
+                           Guid="{% Py26LibPythonOmniorbCosCosquery.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosquery' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosquery_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosquery.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosQueryCollection -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosQueryCollection" 
+                         Name="CosQueryCollection">
+                <Component Id="Py26LibPythonOmniorbCosCosquerycollection" 
+                           Guid="{% Py26LibPythonOmniorbCosCosquerycollection.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosquerycollection' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosquerycollection_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosquerycollection.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosQueryCollection__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosQueryCollection__POA" 
+                         Name="CosQueryCollection__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosquerycollection__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosquerycollection__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosquerycollection__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosquerycollection__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosquerycollection__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosQuery__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosQuery__POA" 
+                         Name="CosQuery__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosquery__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosquery__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosquery__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosquery__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosquery__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosReference -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosReference" 
+                         Name="CosReference">
+                <Component Id="Py26LibPythonOmniorbCosCosreference" 
+                           Guid="{% Py26LibPythonOmniorbCosCosreference.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosreference' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosreference_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosreference.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosReference__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosReference__POA" 
+                         Name="CosReference__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosreference__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosreference__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosreference__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosreference__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosreference__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosRelationships -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosRelationships" 
+                         Name="CosRelationships">
+                <Component Id="Py26LibPythonOmniorbCosCosrelationships" 
+                           Guid="{% Py26LibPythonOmniorbCosCosrelationships.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosrelationships' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosrelationships_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosrelationships.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosRelationships__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosRelationships__POA" 
+                         Name="CosRelationships__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosrelationships__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosrelationships__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosrelationships__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosrelationships__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosrelationships__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosStream -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosStream" 
+                         Name="CosStream">
+                <Component Id="Py26LibPythonOmniorbCosCosstream" 
+                           Guid="{% Py26LibPythonOmniorbCosCosstream.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosstream' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosstream_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosstream.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosStream__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosStream__POA" 
+                         Name="CosStream__POA">
+                <Component Id="Py26LibPythonOmniorbCosCosstream__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCosstream__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCosstream__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCosstream__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCosstream__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTime -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTime" 
+                         Name="CosTime">
+                <Component Id="Py26LibPythonOmniorbCosCostime" 
+                           Guid="{% Py26LibPythonOmniorbCosCostime.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostime' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostime_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostime.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTimerEvent -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTimerEvent" 
+                         Name="CosTimerEvent">
+                <Component Id="Py26LibPythonOmniorbCosCostimerevent" 
+                           Guid="{% Py26LibPythonOmniorbCosCostimerevent.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostimerevent' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostimerevent_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostimerevent.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTimerEvent__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTimerEvent__POA" 
+                         Name="CosTimerEvent__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostimerevent__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostimerevent__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostimerevent__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostimerevent__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostimerevent__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTime__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTime__POA" 
+                         Name="CosTime__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostime__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostime__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostime__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostime__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostime__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTrading -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTrading" 
+                         Name="CosTrading">
+                <Component Id="Py26LibPythonOmniorbCosCostrading" 
+                           Guid="{% Py26LibPythonOmniorbCosCostrading.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostrading' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostrading_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostrading.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTradingDynamic -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTradingDynamic" 
+                         Name="CosTradingDynamic">
+                <Component Id="Py26LibPythonOmniorbCosCostradingdynamic" 
+                           Guid="{% Py26LibPythonOmniorbCosCostradingdynamic.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostradingdynamic' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostradingdynamic_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostradingdynamic.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTradingDynamic__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTradingDynamic__POA" 
+                         Name="CosTradingDynamic__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostradingdynamic__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostradingdynamic__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostradingdynamic__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostradingdynamic__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostradingdynamic__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTradingRepos -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTradingRepos" 
+                         Name="CosTradingRepos">
+                <Component Id="Py26LibPythonOmniorbCosCostradingrepos" 
+                           Guid="{% Py26LibPythonOmniorbCosCostradingrepos.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostradingrepos' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostradingrepos_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostradingrepos.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTradingRepos__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTradingRepos__POA" 
+                         Name="CosTradingRepos__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostradingrepos__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostradingrepos__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostradingrepos__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostradingrepos__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostradingrepos__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTrading__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTrading__POA" 
+                         Name="CosTrading__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostrading__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostrading__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostrading__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostrading__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostrading__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedEventChannelAdmin -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedEventChannelAdmin" 
+                         Name="CosTypedEventChannelAdmin">
+                <Component Id="Py26LibPythonOmniorbCosCostypedeventchanneladmin" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypedeventchanneladmin.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypedeventchanneladmin' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypedeventchanneladmin_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypedeventchanneladmin.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedEventChannelAdmin__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedEventChannelAdmin__POA" 
+                         Name="CosTypedEventChannelAdmin__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostypedeventchanneladmin__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypedeventchanneladmin__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypedeventchanneladmin__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypedeventchanneladmin__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypedeventchanneladmin__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedEventComm -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedEventComm" 
+                         Name="CosTypedEventComm">
+                <Component Id="Py26LibPythonOmniorbCosCostypedeventcomm" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypedeventcomm.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypedeventcomm' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypedeventcomm_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypedeventcomm.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedEventComm__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedEventComm__POA" 
+                         Name="CosTypedEventComm__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostypedeventcomm__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypedeventcomm__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypedeventcomm__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypedeventcomm__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypedeventcomm__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedNotifyChannelAdmin -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedNotifyChannelAdmin" 
+                         Name="CosTypedNotifyChannelAdmin">
+                <Component Id="Py26LibPythonOmniorbCosCostypednotifychanneladmin" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypednotifychanneladmin.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypednotifychanneladmin' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypednotifychanneladmin_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypednotifychanneladmin.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedNotifyChannelAdmin__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedNotifyChannelAdmin__POA" 
+                         Name="CosTypedNotifyChannelAdmin__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostypednotifychanneladmin__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypednotifychanneladmin__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypednotifychanneladmin__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypednotifychanneladmin__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypednotifychanneladmin__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedNotifyComm -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedNotifyComm" 
+                         Name="CosTypedNotifyComm">
+                <Component Id="Py26LibPythonOmniorbCosCostypednotifycomm" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypednotifycomm.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypednotifycomm' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypednotifycomm_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypednotifycomm.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- CosTypedNotifyComm__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_CosTypedNotifyComm__POA" 
+                         Name="CosTypedNotifyComm__POA">
+                <Component Id="Py26LibPythonOmniorbCosCostypednotifycomm__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosCostypednotifycomm__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosCostypednotifycomm__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosCostypednotifycomm__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosCostypednotifycomm__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- LifeCycleService -->
+              <Directory Id="py26_lib_python_omniORB_COS_LifeCycleService" 
+                         Name="LifeCycleService">
+                <Component Id="Py26LibPythonOmniorbCosLifecycleservice" 
+                           Guid="{% Py26LibPythonOmniorbCosLifecycleservice.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosLifecycleservice' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosLifecycleservice_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosLifecycleservice.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- LifeCycleService__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_LifeCycleService__POA" 
+                         Name="LifeCycleService__POA">
+                <Component Id="Py26LibPythonOmniorbCosLifecycleservice__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosLifecycleservice__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosLifecycleservice__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosLifecycleservice__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosLifecycleservice__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- RDITestTypes -->
+              <Directory Id="py26_lib_python_omniORB_COS_RDITestTypes" 
+                         Name="RDITestTypes">
+                <Component Id="Py26LibPythonOmniorbCosRditesttypes" 
+                           Guid="{% Py26LibPythonOmniorbCosRditesttypes.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosRditesttypes' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosRditesttypes_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosRditesttypes.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- RDITestTypes__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_RDITestTypes__POA" 
+                         Name="RDITestTypes__POA">
+                <Component Id="Py26LibPythonOmniorbCosRditesttypes__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosRditesttypes__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosRditesttypes__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosRditesttypes__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosRditesttypes__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- TimeBase -->
+              <Directory Id="py26_lib_python_omniORB_COS_TimeBase" 
+                         Name="TimeBase">
+                <Component Id="Py26LibPythonOmniorbCosTimebase" 
+                           Guid="{% Py26LibPythonOmniorbCosTimebase.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosTimebase' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosTimebase_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosTimebase.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+              <!-- TimeBase__POA -->
+              <Directory Id="py26_lib_python_omniORB_COS_TimeBase__POA" 
+                         Name="TimeBase__POA">
+                <Component Id="Py26LibPythonOmniorbCosTimebase__poa" 
+                           Guid="{% Py26LibPythonOmniorbCosTimebase__poa.GUID %}">
+                  <RemoveFile Id='Py26LibPythonOmniorbCosTimebase__poa' On='uninstall' Name='*.pyc' />
+                  <RemoveFolder Id='Py26LibPythonOmniorbCosTimebase__poa_f' On='uninstall' />
+                  {% for file in Py26LibPythonOmniorbCosTimebase__poa.Files %}
+                  <File Id="{% file.Id %}" Name="{% file.Name %}"
+                        DiskId="1" Source="{% file.Source %}">
+                  </File>
+                  {% endfor %}
+                </Component>
+              </Directory>
+
+            </Directory>
+            <!-- end of COS -->
+
+          </Directory>
+          <!-- end of omniORB -->
+
+        </Directory>
+        <!-- end of site-packages -->
+
+      </Directory>
+      <!-- end of Lib -->
+      
+</Include>
+

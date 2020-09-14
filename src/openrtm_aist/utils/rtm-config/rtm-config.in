@@ -1,0 +1,274 @@
+#!/bin/sh
+# -*- shell-script -*-
+#
+#  @file rtm-config
+#  @brief OpenRTM-aist configuration access utility
+#  @date $Date: 2005-05-12 09:06:18 $
+#  @author Noriaki Ando <n-ando@aist.go.jp>
+#
+#  Copyright (C) 2003-2005, 2012
+#      Intelligent Systems Research Institute,
+#      National Institute of
+#          Advanced Industrial Science and Technology (AIST), Japan
+#      All rights reserved.
+#
+#  $Id$
+#
+
+rtm_prefix="@prefix@"
+rtm_exec_prefix="@exec_prefix@"
+rtm_data_prefix="@datarootdir@"
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+datarootdir="@datarootdir@"
+
+init_variables()
+{
+# basic options
+rtm_cxx="@CXX@"
+rtm_cflags=`echo @CXXFLAGS@ -I@prefix@/include -I@coil_includedir@ -I@rtm_includedir@ -I@rtm_idldir@ | sed -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_cflags_I=`echo $rtm_cflags | sed -e 's/-[^I][^ ]*//g' -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_cflags_o=`echo $rtm_cflags | sed -e 's/-I[^ ]*//g' -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_libs=`echo @LDFLAGS@ -L@libdir@ @LIBS@ -lRTC -lcoil | sed -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_libs_l=`echo $rtm_libs | sed -e 's/-[^l][^ ]*//g' -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_libs_L=`echo $rtm_libs | sed -e 's/-[^L][^ ]*//g' -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_libs_o=`echo $rtm_libs | sed -e 's/-[lL][^ ]*//g' -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_version="@RTM_VERSION@"
+rtm_orb="@ORB@"
+rtm_idlc="@IDLC@"
+rtm_idlflags=` echo @IDL_FLAGS@ -I@rtm_idldir@ | sed -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_idlflags_I=` echo $rtm_idlflags | sed -e 's/-[^I][^ ]*//g' -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+rtm_idlflags_o=` echo $rtm_idlflags | sed -e 's/-I[^ ]*//g' -e 's/^[ ]*//g' -e 's/ \{2,\}/ /g'`
+# other variables
+rtm_includedir="@rtm_includedir@"
+rtm_idldir="@rtm_idldir@"
+rtm_libdir="@rtm_libdir@"
+rtm_datadir="@rtm_datadir@"
+rtm_rtcdir="@rtm_rtcdir@"
+rtm_ecdir="@rtm_ecdir@"
+rtm_rtmdir="@rtm_rtmdir@"
+rtm_svcdir="@rtm_svcdir@"
+rtm_docdir="@rtm_docdir@"
+rtm_exampledir="@rtm_exampledir@"
+coil_includedir="@coil_includedir@"
+}
+
+usage()
+{
+        cat <<EOF
+Usage: rtm-config [OPTIONS]
+Options:
+    [--prefix[=DIR]]         ${prefix}
+    [--exec-prefix[=DIR]]    ${exec_prefix}
+    [--data-prefix[=DIR]]    ${datarootdir}
+    [--version]              ${rtm_version}
+    [--cxx]                  ${rtm_cxx}
+    [--cflags]               ${rtm_cflags}
+    [--cflags-only-I]        ${rtm_cflags_I}
+    [--cflags-only-other]    ${rtm_cflags_o}
+    [--libs]                 ${rtm_libs}
+    [--libs-only-l]          ${rtm_libs_l}
+    [--libs-only-L]          ${rtm_libs_L}
+    [--libs-only-other]      ${rtm_libs_o}
+    [--libdir]               ${rtm_libdir}
+    [--orb]                  ${rtm_orb}
+    [--idlc]                 ${rtm_idlc}
+    [--idlflags]             ${rtm_idlflags}
+    [--idlflags-only-I]      ${rtm_idlflags_I}
+    [--idlflags-only-other]  ${rtm_idlflags_o}
+Advanced Options:
+    [--rtm-includedir]       ${rtm_includedir}
+    [--rtm-idldir]           ${rtm_idldir}
+    [--rtm-libdir]           ${rtm_libdir}
+    [--rtm-datadir]          ${rtm_datadir}
+    [--rtm-rtcdir]           ${rtm_rtcdir}
+    [--rtm-ecdir]            ${rtm_ecdir}
+    [--rtm-rtmdir]           ${rtm_rtmdir}
+    [--rtm-svcdir]           ${rtm_svcdir}
+    [--rtm-docdir]           ${rtm_docdir}
+    [--rtm-exampledir]       ${rtm_exampledir}
+    [--coil-includedir]      ${coil_includedir}
+EOF
+        exit $1
+}
+
+if test $# -eq 0; then
+        usage 1 1>&2
+fi
+
+
+while test $# -gt 0; do
+  case "$1" in
+  --*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+  *) optarg= ;;
+  esac
+  case $1 in
+    --help|-h)
+      init_variables
+      usage 1 1>&2
+      ;;
+    --prefix=*)
+      prefix=$optarg
+      if test "x$exec_prefix_set" = "x" ; then
+        exec_prefix=$optarg
+      fi
+      if test "x$data_prefix_set" = "x" ; then
+        data_prefix=$optarg
+      fi
+      ;;
+    --prefix)
+      echo_prefix=yes
+      ;;
+    --exec-prefix=*)
+      exec_prefix=$optarg
+      exec_prefix_set=yes
+      ;;
+    --exec-prefix)
+      echo_exec_prefix=yes
+      ;;
+    --data-prefix=*)
+      datarootdir=$optarg
+      data_prefix_set=yes
+      ;;
+    --data-prefix)
+      echo_data_prefix=yes
+      ;;
+    --version)
+      echo_rtm_version=yes
+      ;;
+    --cxx)
+      echo_cxx=yes
+      ;;
+    --cflags)
+      echo_cflags=yes
+      ;;
+    --cflags-only-I)
+      echo_cflags_I=yes
+      ;;
+    --cflags-only-other)
+      echo_cflags_o=yes
+      ;;
+    --libs)
+      echo_libs=yes
+      ;;
+    --libs-only-l)
+      echo_libs_l=yes
+      ;;
+    --libs-only-L)
+      echo_libs_L=yes
+      ;;
+    --libs-only-other)
+      echo_libs_o=yes
+      ;;
+    --libdir)
+      echo_libdir=yes
+	  ;;
+    --orb)
+      echo_orb=yes
+      ;;
+    --idlc)
+      echo_idlc=yes
+      ;;
+    --idlflags)
+      echo_idlflags=yes
+      ;;
+    --idlflags-only-I)
+      echo_idlflags_I=yes
+      ;;
+    --idlflags-only-other)
+      echo_idlflags_o=yes
+      ;;
+    *)
+      init_variables
+      optstr0=`echo $1 | sed -e 's/^\-\-//'`
+      optstr=`echo $optstr0 | sed -e 's/-/_/g'`
+      variable=`eval echo \$"$optstr"`
+      if test "x$variable" = "x"; then
+          echo "Unknown option: " $1
+          usage 1 1>&2
+      else
+          variable_exists=yes
+          variables="$variables \$$optstr"
+      fi
+      ;;
+  esac
+  shift
+done
+
+init_variables
+
+if test "$echo_prefix" = "yes"; then
+    echo $prefix
+fi
+
+if test "$echo_exec_prefix" = "yes"; then
+    echo $exec_prefix
+fi
+
+if test "$echo_data_prefix" = "yes"; then
+    echo $datarootdir
+fi
+
+if test "$echo_rtm_version" = "yes"; then
+    echo $rtm_version
+fi
+
+if test "$echo_cxx" = "yes"; then
+    echo $rtm_cxx
+fi
+
+if test "$echo_cflags" = "yes"; then
+    echo $rtm_cflags
+fi
+
+if test "$echo_cflags_I" = "yes"; then
+    echo $rtm_cflags_I
+fi
+
+if test "$echo_cflags_o" = "yes"; then
+    echo $rtm_cflags_o
+fi
+
+if test "$echo_libs" = "yes"; then
+    echo $rtm_libs
+fi
+
+if test "$echo_libs_l" = "yes"; then
+    echo $rtm_libs_l
+fi
+
+if test "$echo_libs_L" = "yes"; then
+    echo $rtm_libs_L
+fi
+
+if test "$echo_libs_o" = "yes"; then
+    echo $rtm_libs_o
+fi
+
+if test "$echo_libdir" = "yes"; then
+    echo $rtm_libdir
+fi
+
+if test "$echo_orb" = "yes"; then
+    echo $rtm_orb
+fi
+
+if test "$echo_idlc" = "yes"; then
+    echo $rtm_idlc
+fi
+
+if test "$echo_idlflags" = "yes"; then
+    echo $rtm_idlflags
+fi
+
+if test "$echo_idlflags_I" = "yes"; then
+    echo $rtm_idlflags_I
+fi
+
+if test "$echo_idlflags_o" = "yes"; then
+    echo $rtm_idlflags_o
+fi
+
+if test "$variable_exists" = "yes"; then
+    eval echo $variables
+fi

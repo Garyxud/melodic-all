@@ -1,0 +1,13 @@
+これは OpenRTM-aist のリリースバージョンです。
+OpenRTM-aist はデュアルライセンスのオープンソースのRTミドルウエアです。
+
+OpenRTM の設定、ビルド、インストールおよび RTコンポーネントの作成を行う前に、
+以下の文書をよくお読みください。
+
+files:
+README      - このファイルの英語版
+README.jp   - このファイル
+COPYRIGHT   - 著作権表示およびライセンスについて
+COPYING.LIB - LGPL (GNU劣等一般公衆利用許諾契約書)
+INSTALL     - インストール手順(英語版)
+INSTALL.jp  - インストール手順

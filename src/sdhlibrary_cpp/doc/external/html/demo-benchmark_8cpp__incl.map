@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="node17" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="1384,83,1461,112"/>
+<area shape="rect" id="node86" href="$sdhoptions_8h.html" title="Implementation of a class to parse common SDH related command line options." alt="" coords="505,237,601,267"/>
+<area shape="rect" id="node19" href="$sdhlibrary__settings_8h.html" title="This file contains settings to make the SDHLibrary compile on differen systems:gcc/Cygwin/Windowsgcc/..." alt="" coords="1288,547,1429,576"/>
+<area shape="rect" id="node23" href="$sdhexception_8h.html" title="Interface of the exception base class SDH::cSDHLibraryException and SDH::cMsg." alt="" coords="1085,469,1195,499"/>
+<area shape="rect" id="node33" href="$dbg_8h.html" title="This file contains interface and implementation of class SDH::cDBG, a class for colorfull debug messa..." alt="" coords="767,392,820,421"/>
+<area shape="rect" id="node47" href="$rs232-cygwin_8h.html" title="Interface of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="1204,160,1313,189"/>
+<area shape="rect" id="node71" href="$simpletime_8h.html" title="Interface of auxilliary utility functions for SDHLibrary&#45;CPP." alt="" coords="1435,392,1531,421"/>
+<area shape="rect" id="node77" href="$crc_8h.html" title="This file contains interface to cCRC, a class to handle CRC calculation." alt="" coords="1567,160,1617,189"/>
+<area shape="rect" id="node53" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="951,237,1041,267"/>
+<area shape="rect" id="node60" href="$sdhbase_8h.html" title="Interface of class SDH::cSDHBase." alt="" coords="916,315,999,344"/>
+<area shape="rect" id="node66" href="$simplevector_8h.html" title="Interface of class SDH::cSimpleVector." alt="" coords="1053,392,1157,421"/>
+<area shape="rect" id="node80" href="$basisdef_8h.html" title="This file contains some basic definitions (defines, macros, datatypes)" alt="" coords="1629,237,1709,267"/>
+</map>

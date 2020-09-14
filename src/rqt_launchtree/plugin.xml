@@ -1,0 +1,18 @@
+<library path="src">
+  <class name="Launch Tree" type="rqt_launchtree.launchtree_plugin.LaunchtreePlugin" 
+         base_class_type="rqt_gui_py::Plugin">
+    <description>
+      An RQT plugin for hierarchical launchfile configuration introspection.
+    </description>
+    <qtgui>
+      <group>
+        <label>Configuration</label>
+        <icon type="theme">folder</icon>
+        <statustip>Plugins related to configuration.</statustip>
+      </group>
+      <label>Launch Tree</label>
+      <icon type="theme">format-indent-more</icon>
+      <statustip>An RQT plugin for hierarchical launchfile configuration introspection.</statustip>
+    </qtgui>
+  </class>
+</library>

@@ -1,0 +1,53 @@
+testTestTEST
+test
+TEST
+TESTTestTEST
+
+
+--------------------テスト済みデータ-------------
+(1) tabを文字列"tab"に変換 
+	test	TEST
+	
+tab
+tabtesttabTEST
+
+(2) spaceを文字列"SPACE"に変換 
+ test TEST
+ 
+SPACE
+SPACEtestSPACETEST
+
+(3) tabを文字列の"TAB"に変換 (space,tabが複数ある場合)
+   	test   	TEST
+	
+TAB
+   TABtest   TABTEST
+
+(4) 文字列"test"を"TEST"に変換
+testTestTEST
+test
+TEST
+TESTTestTEST
+
+
+
+
+
+------------- usage ------------------------------------
+replaceStr()テストのためのデータセット
+
+replaceStr(str, from, to)
+
+1行目: str
+2行目: from
+3行目: to
+4行目: ret
+がそれぞれ、代入される。
+
+5行目以降の文字列は使用されない。
+
+replaceStr()により、str文字列のfrom文字列がto文字列に変換
+される。
+retはreplaceStr()が呼ばれた後のstrの期待される文字列。
+CPPUNIT_ASSERT()でretとstrの比較を行っている。
+--------------------------------------------------------

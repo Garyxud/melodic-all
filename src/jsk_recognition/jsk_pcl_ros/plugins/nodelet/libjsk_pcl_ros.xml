@@ -1,0 +1,513 @@
+<library path="libjsk_pcl_ros">
+  <class name="jsk_pcl/FuseDepthImages"
+         type="jsk_pcl_ros::FuseDepthImages"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/FuseRGBImages"
+         type="jsk_pcl_ros::FuseRGBImages"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/InteractiveCuboidLikelihood"
+         type="jsk_pcl_ros::InteractiveCuboidLikelihood"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/PlaneSupportedCuboidEstimator"
+         type="jsk_pcl_ros::PlaneSupportedCuboidEstimator"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/ExtractCuboidParticlesTopN"
+         type="jsk_pcl_ros::ExtractCuboidParticlesTopN"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/PointCloudLocalization"
+         type="jsk_pcl_ros::PointCloudLocalization"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/FeatureRegistration"
+         type="jsk_pcl_ros::FeatureRegistration"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/FindObjectOnPlane"
+         type="jsk_pcl_ros::FindObjectOnPlane"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/HintedStickFinder"
+         type="jsk_pcl_ros::HintedStickFinder"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/MaskImageFilter"
+         type="jsk_pcl_ros::MaskImageFilter"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/MaskImageClusterFilter"
+         type="jsk_pcl_ros::MaskImageClusterFilter"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/HintedHandleEstimator"
+         type="jsk_pcl_ros::HintedHandleEstimator"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/TorusFinder"
+         type="jsk_pcl_ros::TorusFinder"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/AddColorFromImageToOrganized"
+         type="jsk_pcl_ros::AddColorFromImageToOrganized"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/AddColorFromImage"
+         type="jsk_pcl_ros::AddColorFromImage"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/SupervoxelSegmentation"
+         type="jsk_pcl_ros::SupervoxelSegmentation"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/IncrementalModelRegistration"
+         type="jsk_pcl_ros::IncrementalModelRegistration"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/IntermittentImageAnnotator"
+         type="jsk_pcl_ros::IntermittentImageAnnotator"
+         base_class_type="nodelet::Nodelet">
+    intermittent image annotator
+  </class>
+  <class name="jsk_pcl/LINEMODDetector"
+         type="jsk_pcl_ros::LINEMODDetector"
+         base_class_type="nodelet::Nodelet">
+    LINEMOD detector
+  </class>
+  <class name="jsk_pcl/LINEMODTrainer"
+         type="jsk_pcl_ros::LINEMODTrainer"
+         base_class_type="nodelet::Nodelet">
+    LINEMOD trainer
+  </class>
+  <class name="jsk_pcl/CaptureStereoSynchronizer"
+         type="jsk_pcl_ros::CaptureStereoSynchronizer"
+         base_class_type="nodelet::Nodelet">
+    Synchronize stereo messages for capture training data
+  </class>
+  <class name="jsk_pcl/ExtractIndices"
+         type="jsk_pcl_ros::ExtractIndices"
+         base_class_type="nodelet::Nodelet">
+    Extract point cloud with point indices
+  </class>  
+  <class name="jsk_pcl/ROIClipper"
+         type="jsk_pcl_ros::ROIClipper"
+         base_class_type="nodelet::Nodelet">
+    Clip image based on camera_info.roi
+  </class>
+  <class name="jsk_pcl/AttentionClipper"
+         type="jsk_pcl_ros::AttentionClipper"
+         base_class_type="nodelet::Nodelet">
+    Publish ROI of attention reagion
+  </class>
+  <class name="jsk_pcl/PeopleDetection"
+         type="jsk_pcl_ros::PeopleDetection"
+         base_class_type="nodelet::Nodelet">
+    People Detection
+  </class>
+  <class name="jsk_pcl/BoundingBoxOcclusionRejector"
+         type="jsk_pcl_ros::BoundingBoxOcclusionRejector"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/NormalDirectionFilter"
+         type="jsk_pcl_ros::NormalDirectionFilter"
+         base_class_type="nodelet::Nodelet">
+    Normal direction filter
+  </class>
+  <class name="jsk_pcl/RegionGrowingMultiplePlaneSegmentation"
+         type="jsk_pcl_ros::RegionGrowingMultiplePlaneSegmentation"
+         base_class_type="nodelet::Nodelet">
+    Region growing based multiple plane segmentation
+  </class>
+  <class name="jsk_pcl/TiltLaserListener" type="jsk_pcl_ros::TiltLaserListener"
+         base_class_type="nodelet::Nodelet">
+    listen joint state and publish TimeRange to assemble pointcloud
+  </class>
+  <class name="jsk_pcl/DepthCalibration" type="jsk_pcl_ros::DepthCalibration"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      depth calibration
+    </description>
+  </class>
+  <class name="jsk_pcl/LineSegmentCollector" type="jsk_pcl_ros::LineSegmentCollector"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      collect segmented lines and compose polygons
+    </description>
+  </class>
+  <class name="jsk_pcl/LineSegmentDetector" type="jsk_pcl_ros::LineSegmentDetector"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      segment lines outof clustered pointclouds
+    </description>
+  </class>
+  <class name="jsk_pcl/BilateralFilter" type="jsk_pcl_ros::BilateralFilter"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      bilateral filer class
+    </description>
+  </class>
+  <class name="jsk_pcl/PointcloudDatabaseServer" type="jsk_pcl_ros::PointcloudDatabaseServer"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      database server storing pointcloud data
+    </description>
+  </class>
+  <class name="jsk_pcl/JointStateStaticFilter" type="jsk_pcl_ros::JointStateStaticFilter"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      relay pointcloud if the joint state look static
+    </description>
+  </class>
+  <class name="jsk_pcl/ICPRegistration" type="jsk_pcl_ros::ICPRegistration"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      register pointclouds using ICP algorithm
+    </description>
+  </class>
+  <class name="jsk_pcl/OrganizedPassThrough" type="jsk_pcl_ros::OrganizedPassThrough"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      filter organized pointcloud based on the index range of x or y field.
+    </description>
+  </class>
+  <class name="jsk_pcl/BoundingBoxFilter" type="jsk_pcl_ros::BoundingBoxFilter"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      filter BoundingBoxArray and ClusterPointIndices based on the size
+      of the bounding boxes.
+    </description>
+  </class>
+  <class name="jsk_pcl/MultiPlaneSACSegmentation" type="jsk_pcl_ros::MultiPlaneSACSegmentation"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      segment multi planes by applying SACSegmentation recursively
+    </description>
+  </class>
+  <class name="jsk_pcl/EdgebasedCubeFinder" type="jsk_pcl_ros::EdgebasedCubeFinder"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      a nodelet to find cube from parallel edge groups
+    </description>
+  </class>
+  <class name="jsk_pcl/ParallelEdgeFinder" type="jsk_pcl_ros::ParallelEdgeFinder"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      a nodelet to find parallel straight edges
+    </description>
+  </class>
+  <class name="jsk_pcl/EdgeDepthRefinement" type="jsk_pcl_ros::EdgeDepthRefinement"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      refine edges based on depth information
+    </description>
+  </class>
+  <class name="jsk_pcl/OrganizedEdgeDetector" type="jsk_pcl_ros::OrganizedEdgeDetector"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      edge detector for organized pointcloud
+    </description>
+  </class>
+  <class name="jsk_pcl/BorderEstimator" type="jsk_pcl_ros::BorderEstimator"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      border estimator for organized pointcloud
+    </description>
+  </class>
+  <class name="jsk_pcl/HandleEstimator" type="jsk_pcl_ros::HandleEstimator"
+         base_class_type="nodelet::Nodelet">
+    <description>estimate handle from pointcloud</description>
+  </class>
+  <class name="jsk_pcl/GridSampler" type="jsk_pcl_ros::GridSampler"
+         base_class_type="nodelet::Nodelet">
+    <description>grid based sampling of pointcloud</description>
+  </class>
+  <class name="jsk_pcl/EnvironmentPlaneModeling" type="jsk_pcl_ros::EnvironmentPlaneModeling"
+         base_class_type="nodelet::Nodelet">
+    <description>modeling the environment</description>
+  </class>
+  <class name="jsk_pcl/ColorHistogram" type="jsk_pcl_ros::ColorHistogram"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Compute histogram for each point indices
+    </description>
+  </class>
+  <class name="jsk_pcl/ColorHistogramClassifier" type="jsk_pcl_ros::ColorHistogramClassifier"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Classify point indices using color histogram
+    </description>
+  </class>
+  <class name="jsk_pcl/ColorHistogramFilter" type="jsk_pcl_ros::ColorHistogramFilter"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Filter point indices using color histogram
+    </description>
+  </class>
+  <class name="jsk_pcl/ColorHistogramMatcher" type="jsk_pcl_ros::ColorHistogramMatcher"
+         base_class_type="nodelet::Nodelet">
+    <description>find object based on h-s-v histogram</description>
+  </class>
+  <class name="jsk_pcl/NormalEstimationIntegralImage" type="jsk_pcl_ros::NormalEstimationIntegralImage"
+         base_class_type="nodelet::Nodelet">
+    <description>estimates normals based on integral image</description>
+  </class>
+  <class name="jsk_pcl/SelectedClusterPublisher" type="jsk_pcl_ros::SelectedClusterPublisher"
+         base_class_type="nodelet::Nodelet">
+    <description>publish the points of the clusters according to the selected index</description>
+  </class>
+  <class name="jsk_pcl/MultiPlaneExtraction" type="jsk_pcl_ros::MultiPlaneExtraction"
+         base_class_type="nodelet::Nodelet">
+    <description>extracts the points which does not belongs to the planes</description>
+  </class>
+  <class name="jsk_pcl/OrganizedMultiPlaneSegmentation" type="jsk_pcl_ros::OrganizedMultiPlaneSegmentation"
+         base_class_type="nodelet::Nodelet">
+    <description>segment pointcloud by organized multi plane segmentation</description>
+  </class>
+  <class name="jsk_pcl/RegionGrowingSegmentation" type="jsk_pcl_ros::RegionGrowingSegmentation"
+         base_class_type="nodelet::Nodelet">
+    <description>segment pointcloud by region growing</description>
+  </class>
+  <class name="jsk_pcl/ColorBasedRegionGrowingSegmentation" type="jsk_pcl_ros::ColorBasedRegionGrowingSegmentation"
+         base_class_type="nodelet::Nodelet">
+    <description>segment pointcloud by color-based region growing</description>
+  </class>
+
+  <class name="jsk_pcl/ImageRotateNodelet" type="jsk_pcl_ros::ImageRotateNodelet"
+         base_class_type="nodelet::Nodelet">
+    <description>Nodelet to rotate sensor_msgs/Image</description>
+  </class>
+    <class name="jsk_pcl/ConvexConnectedVoxels"
+         type="jsk_pcl_ros::ConvexConnectedVoxels"
+         base_class_type="nodelet::Nodelet">
+      <description>
+	Nodelet to auto segment using supervoxel and integer label the unknown voxel using convexity
+      </description>
+  </class>
+  
+  <!-- <class name="jsk_pcl/NodeletPointCloudThrottle" type="NodeletPointCloudThrottle" -->
+  <!--        base_class_type="nodelet::Nodelet"> -->
+  <!--   <description> -->
+  <!--   </description> -->
+  <!-- </class> -->
+  <!-- <class name="jsk_pcl/NodeletImageThrottle" type="NodeletImageThrottle" -->
+  <!--        base_class_type="nodelet::Nodelet"> -->
+  <!--   <description> -->
+  <!--   </description> -->
+  <!-- </class> -->
+  <!-- <class name="jsk_pcl/NodeletImageMUX" type="NodeletImageMUX" -->
+  <!--        base_class_type="nodelet::Nodelet"> -->
+  <!--   <description> -->
+  <!--   </description> -->
+  <!-- </class> -->
+  <!-- <class name="jsk_pcl/NodeletImageDEMUX" type="NodeletImageDEMUX" -->
+  <!--        base_class_type="nodelet::Nodelet"> -->
+  <!--   <description> -->
+  <!--   </description> -->
+  <!-- </class> -->
+
+  <class name="jsk_pcl/ParticleFilterTracking" type="jsk_pcl_ros::ParticleFilterTracking"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      particle filter based tracker using KLDAdaptiveParticleFilterOMPTracker
+    </description>
+  </class>
+
+  <class name="jsk_pcl/RGBColorFilter" type="jsk_pcl_ros::RGBColorFilter"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      filter using RGB color scale
+    </description>
+  </class>
+
+  <class name="jsk_pcl/HSIColorFilter" type="jsk_pcl_ros::HSIColorFilter"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      filter using HSI color scale
+    </description>
+  </class>
+
+  <class name="jsk_pcl/ResizePointsPublisher" type="jsk_pcl_ros::ResizePointsPublisher"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Resize PointCloud
+    </description>
+  </class>
+  <class name="jsk_pcl/RearrangeBoundingBox"
+         type="jsk_pcl_ros::RearrangeBoundingBox"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Rearrange and Rescale BoundingBoxArray
+    </description>
+  </class>
+
+  <class name="jsk_pcl/PointcloudScreenpoint" type="jsk_pcl_ros::PointcloudScreenpoint"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      subscribe pointcloud2 and convert screenpoint(x,y) to 3dpoint(x,y,z)
+      The pointcloud must be same size as screen, DepthImageCreator
+      take pointcloud and camera info to generate pointlocud.
+    </description>
+  </class>
+
+  <class name="jsk_pcl/DepthImageCreator" type="jsk_pcl_ros::DepthImageCreator"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      DepthImageCreator take pointcloud and camera info to generate pointlocud.
+    </description>
+  </class>
+
+  <class name="jsk_pcl/EuclideanClustering" type="jsk_pcl_ros::EuclideanClustering"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Clustering based on Euclidean distance
+    </description>
+  </class>
+
+  <class name="jsk_pcl/ClusterPointIndicesDecomposer" type="jsk_pcl_ros::ClusterPointIndicesDecomposer"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      decompose jsk_pcl_ros::ClusterPointIndices into PointCloud2
+    </description>
+  </class>
+  <class name="jsk_pcl/ClusterPointIndicesDecomposerZAxis" type="jsk_pcl_ros::ClusterPointIndicesDecomposerZAxis"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      decompose jsk_pcl_ros::ClusterPointIndices into PointCloud2 with sorting according to z axis
+    </description>
+  </class>
+  <class name="jsk_pcl/MovingLeastSquareSmoothing" type="jsk_pcl_ros::MovingLeastSquareSmoothing"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      smooth the pointcloud
+    </description>
+  </class>
+  <class name="jsk_pcl/FisheyeSpherePublisher"
+         type="jsk_pcl_ros::FisheyeSpherePublisher"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      publish sphere pointcloud generated from fisheye
+    </description>
+  </class>
+  <class name="jsk_pcl/VoxelGridDownsampleManager" type="jsk_pcl_ros::VoxelGridDownsampleManager"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      donwsample pointcloud in voxel
+    </description>
+  </class>
+  <class name="jsk_pcl/VoxelGridDownsampleDecoder" type="jsk_pcl_ros::VoxelGridDownsampleDecoder"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      decode donwsampled pointcloud
+    </description>
+  </class>
+  <class name="jsk_pcl/Snapit" type="jsk_pcl_ros::SnapIt"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      snapit nodelet node
+    </description>
+  </class>
+  <class name="jsk_pcl/KeypointsPublisher" type="jsk_pcl_ros::KeypointsPublisher"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      keypoints_publisher nodelet node
+    </description>
+  </class>
+  <class name="jsk_pcl/HintedPlaneDetector" type="jsk_pcl_ros::HintedPlaneDetector"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      HintedPlaneDetector nodelet node
+    </description>
+  </class>
+  <class name="jsk_pcl/OctreeChangePublisher" type="jsk_pcl_ros::OctreeChangePublisher"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      OctreeChangePublisher nodelet node
+    </description>
+  </class>
+  <class name="jsk_pcl/ColorizeRandomForest" type="jsk_pcl_ros::ColorizeRandomForest"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      jsk_pcl_ros::ColorizeRandomForest
+    </description>
+  </class>
+  <class name="jsk_pcl/ColorizeMapRandomForest" type="jsk_pcl_ros::ColorizeMapRandomForest"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      jsk_pcl_ros::ColorizeMapRandomForest
+    </description>
+  </class>
+  <class name="jsk_pcl/NormalEstimationOMP" type="jsk_pcl_ros::NormalEstimationOMP"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+  <class name="jsk_pcl/HeightmapConverter" type="jsk_pcl_ros::HeightmapConverter"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+  <class name="jsk_pcl/HeightmapToPointCloud" type="jsk_pcl_ros::HeightmapToPointCloud"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+  <class name="jsk_pcl/HeightmapMorphologicalFiltering" type="jsk_pcl_ros::HeightmapMorphologicalFiltering"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+  <class name="jsk_pcl/HeightmapTimeAccumulation" type="jsk_pcl_ros::HeightmapTimeAccumulation"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+  <class name="jsk_pcl/Kinfu" type="jsk_pcl_ros::Kinfu"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+  <class name="jsk_pcl/OctreeVoxelGrid" type="jsk_pcl_ros::OctreeVoxelGrid"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+  <class name="jsk_pcl/VoxelGridLargeScale" type="jsk_pcl_ros::VoxelGridLargeScale"
+         base_class_type="nodelet::Nodelet">
+    <description>
+    </description>
+  </class>
+
+  <!-- <class name="jsk_pcl/OrganizePointCloud" type="jsk_pcl_ros::OrganizePointCloud" -->
+  <!--        base_class_type="nodelet::Nodelet"> -->
+  <!--   <description> -->
+  <!--     jsk_pcl_ros::OrganizePointCloud -->
+  <!--   </description> -->
+  <!-- </class> -->
+  <class name="jsk_pcl/OctomapServerContact"
+         type="jsk_pcl_ros::OctomapServerContact"
+         base_class_type="nodelet::Nodelet">
+  </class>
+
+  <class name="jsk_pcl/CollisionDetector"
+         type="jsk_pcl_ros::CollisionDetector"
+         base_class_type="nodelet::Nodelet">
+  </class>
+
+  <class name="jsk_pcl/TargetAdaptiveTracking" type="jsk_pcl_ros::TargetAdaptiveTracking"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Nodelet to track object and update the appearance model online
+    </description>
+  </class>
+  <class name="jsk_pcl/PPFRegistration"
+         type="jsk_pcl_ros::PPFRegistration"
+         base_class_type="nodelet::Nodelet">
+  </class>
+  <class name="jsk_pcl/PrimitiveShapeClassifier"
+         type="jsk_pcl_ros::PrimitiveShapeClassifier"
+         base_class_type="nodelet::Nodelet">
+  </class>
+</library>

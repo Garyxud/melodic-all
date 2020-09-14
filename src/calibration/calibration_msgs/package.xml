@@ -1,0 +1,31 @@
+<package>
+  <name>calibration_msgs</name>
+  <version>0.10.14</version>
+  <description>
+     This package defines messages for storing calibration samples
+     to be used in full robot calibration procedures. This package
+     is still unstable. Expect the messages to change.
+  </description>
+  <author>Vijay Pradeep</author>
+  <maintainer email="vincent.rabaud@gmail.com">Vincent Rabaud</maintainer>
+  <license>BSD</license>
+  <url>http://www.ros.org/wiki/calibration_msgs</url>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- common_msgs -->
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

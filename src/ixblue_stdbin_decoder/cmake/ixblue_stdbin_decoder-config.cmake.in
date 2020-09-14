@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(Boost)
+
+set_and_check(ixblue_stdbin_decoder_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+set(ixblue_stdbin_decoder_LIBRARIES ixblue_stdbin_decoder::ixblue_stdbin_decoder)
+
+include("${CMAKE_CURRENT_LIST_DIR}/ixblue_stdbin_decoder-targets.cmake")
+
+check_required_components(ixblue_stdbin_decoder)

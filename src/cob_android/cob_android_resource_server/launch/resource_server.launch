@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- start script_server -->
+	<node pkg="cob_android_resource_server" type="resource_server" name="android_resource_server" cwd="node" respawn="false" output="screen" />
+
+</launch>

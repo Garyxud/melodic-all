@@ -1,0 +1,9 @@
+<launch>
+    <node name="linksys_ap_2_4ghz" pkg="linksys_access_point" type="linksys_apcontrol_node.py" output="screen" required="true">
+        <param name="interface" value="wl0"/>
+    </node>
+    <node name="linksys_ap_5ghz" pkg="linksys_access_point" type="linksys_apcontrol_node.py" output="screen" required="true">
+        <param name="interface" value="wl1"/>
+    </node>
+    <node name="dynreconf" pkg="dynamic_reconfigure" type="reconfigure_gui" output="screen"/>
+</launch>

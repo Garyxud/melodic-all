@@ -1,0 +1,12 @@
+<launch>
+    <node name="linksys_2_4" pkg="linksys_access_point" type="linksys_apcontrol_node.py" output="screen">
+          <param name="interface" value="wl0"/>
+	  <param name="ip" value="192.168.1.1"/>
+    </node>
+    <node name="linksys_5" pkg="linksys_access_point" type="linksys_apcontrol_node.py" output="screen">
+          <param name="interface" value="wl1"/>
+	  <param name="ip" value="192.168.1.1"/>
+    </node>
+    
+    <test test-name="linksys_test" pkg="network_control_tests" type="linksys_test.py" name="linksys_access_point_test" time-limit="240"/>
+</launch>

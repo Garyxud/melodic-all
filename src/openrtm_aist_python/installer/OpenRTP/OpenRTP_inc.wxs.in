@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!-- root directory -->		
+  <Directory Id="OpenRTP" Name="OpenRTP">
+    <Directory Id="OpenRTPVersion" Name="1.1">
+      <Component Id="Openrtp" Guid="{% Openrtp.GUID %}">
+	<Environment Id="OPENRTP_ROOT" Name="OPENRTP_ROOT" Action="set"
+		     System="yes" Value="[openrtpVersion]" />
+	{% for file in Openrtp.Files %}
+	<File Id="{% file.Id %}" Name="{% file.Name %}"
+	      DiskId="1" Source="{% file.Source %}">
+	  {% if file.Name is RTSystemEditorRCP.exe %}
+	  <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+		    Name="RTSystemEditor"
+		    Show="normal" WorkingDirectory="tools"/>
+	  {% endif %}
+	</File>
+	{% endfor %}
+      </Component>
+      
+      <!-- configuration -->
+      <Directory Id="openrtp_configuration" Name="configuration">
+        <Component Id="OpenrtpConfiguration" Guid="{% OpenrtpConfiguration.GUID %}">
+	  {% for file in OpenrtpConfiguration.Files %}
+	  <File Id="{% file.Id %}" Name="{% file.Name %}"
+		DiskId="1" Source="{% file.Source %}">
+	  </File>
+	  {% endfor %}
+        </Component>
+      </Directory>
+
+      <!-- plugins -->
+      <Directory Id="openrtp_plugins" Name="plugins">
+        <Component Id="OpenrtpPlugins" Guid="{% OpenrtpPlugins.GUID %}">
+	  {% for file in OpenrtpPlugins.Files %}
+	  <File Id="{% file.Id %}" Name="{% file.Name %}"
+		DiskId="1" Source="{% file.Source %}">
+	  </File>
+	  {% endfor %}
+        </Component>
+      </Directory>
+      
+    </Directory>
+  </Directory>
+</Include>
+

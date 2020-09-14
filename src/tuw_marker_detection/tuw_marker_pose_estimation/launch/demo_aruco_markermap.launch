@@ -1,0 +1,37 @@
+<launch>
+
+    <arg name="device" default="0"/>
+    <arg name="show" default="false"/>
+
+    <node pkg="tuw_uvc" type="general_node" name="camera">
+        <param name="video_device" value="/dev/video$(arg device)"/>
+        <param name="show_camera_image" value="$(arg show)"/>
+        <param name="convert_image" value="1"/>
+        <param name="camera_info_url" value="file://$(find tuw_uvc)/cfg/logitech.yml"/>
+        <param name="frame_id" value="camera"/>
+    </node>
+
+
+    <node pkg="tuw_aruco" type="aruco_node" name="arMarkerAruco" output="screen">
+        <param name="marker_dictonary" value="ARUCO_MIP_36h12"/>
+
+        <param name="pose_estimation_enabled" value="true"/>
+        <param name="publish_markers" value="true"/>
+        <param name="publish_fiducials" value="true"/>
+
+        <remap from="image" to="/camera/image_raw"/>
+        <remap from="camera_info" to="/camera/camera_info"/>
+        <remap from="markers" to="/markersAruco"/>
+        <remap from="fiducials" to="/fiducialsAruco"/>
+    </node>
+
+    <node pkg="tuw_marker_pose_estimation" type="pose_estimation_markermap_node" name="arPoseEstimation" output="screen" launch-prefix="gdb -ex run --args">
+        <param name="marker_map_config" value="$(find tuw_marker_pose_estimation)/launch/demo_aruco_markermap_config.xml" />
+
+        <remap from="fiducials" to="/fiducialsAruco"/>
+        <remap from="markers" to="/markersPoseEstimation"/>
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tuw_marker_pose_estimation)/rviz/demo_config.rviz" />
+
+</launch>

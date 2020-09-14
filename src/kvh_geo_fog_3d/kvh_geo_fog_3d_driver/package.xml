@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<!--
+Copyright (c) 2019, The MITRE Corporation
+All rights reserved.
+
+Sections of this project contains content developed by The MITRE Corporation.
+If this code is used in a deployment or embedded within another project,
+it is requested that you send an email to opensource@mitre.org in order to
+let us know where this software is being used.
+-->
+
+<package format="2">
+  <name>kvh_geo_fog_3d_driver</name>
+  <version>1.3.3</version>
+  <description>A ROS driver for the KVH Geo Fog 3D INS family of systems.</description>
+
+  <maintainer email="zlacelle@mitre.org">Zach LaCelle</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <author email="tbostic@mitre.org">Trevor Bostic</author>
+  <author email="zlacelle@mitre.org">Zach LaCelle</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>diagnostic_updater</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>kvh_geo_fog_3d_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>roslint</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_export_depend>diagnostic_updater</build_export_depend>
+  <build_export_depend>dynamic_reconfigure</build_export_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>kvh_geo_fog_3d_msgs</build_export_depend>
+  <build_export_depend>message_generation</build_export_depend>
+  <build_export_depend>nav_msgs</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>tf2_ros</build_export_depend>
+  <exec_depend>dynamic_reconfigure</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>kvh_geo_fog_3d_msgs</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <test_depend>rosunit</test_depend>
+
+  <export>
+    <rosdoc external="http://www.kvh.com/admin/products/gyros-imus-inss/ins/geo-fog-3d-dual/commercial-geo-fog-3d-dual/"/>
+  </export>
+</package>

@@ -1,0 +1,29 @@
+%YAML 1.1
+---
+name: RGBDSensor
+spec_version: 1
+spec_type: interface
+description: 'This is the standard RGB-Depth sensor interface used in ROS.'
+interface:
+  topics:
+    provides:
+      '/rgbd_sensor/rgb/camera_info':
+        type: 'sensor_msgs/CameraInfo'
+      '/rgbd_sensor/rgb/image_raw':
+        type: 'sensor_msgs/Image'
+        description: 'Raw color image to go along with the camera info.'
+      '/rgbd_sensor/rgb/image/color':
+        description: 'color image to go along with the camera info.'
+        type: 'sensor_msgs/PointCloud2'
+        description: 'The color image and depth image composed into a registered, colored point cloud.'
+      '/rgbd_sensor/depth/camera_info':
+        type: 'sensor_msgs/CameraInfo'
+      '/rgbd_sensor/depth/image_raw':
+        type: 'sensor_msgs/Image'
+        description: 'Raw depth image to go along with the camera info.'
+      '/rgbd_sensor/depth/points':
+        type: 'sensor_msgs/PointCloud2'
+        description: 'Depth image stream turtned into point clouds.'
+      '/rgbd_sensor/depth_registered/points':
+        type: 'sensor_msgs/PointCloud2'
+        description: 'The color image and depth image composed into a registered, colored point cloud.'

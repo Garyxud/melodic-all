@@ -1,0 +1,14 @@
+<package format="2">
+  <name>cob_android_settings</name>
+  <version>0.1.7</version>
+  <description>cob_android_settings</description>
+  
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_android_settings</url>
+
+  <maintainer email="bnm@ipa.fhg.de">Benjamin Maidel</maintainer>
+  <author email="bnm@ipa.fhg.de">Benjamin Maidel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

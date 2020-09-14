@@ -1,0 +1,17 @@
+<launch>
+
+  <include file="$(find jsk_perception)/sample/sample_selective_search.launch">
+    <arg name="gui" value="false" />
+  </include>
+
+  <test test-name="test_selective_search"
+        name="test_selective_search"
+        pkg="jsk_tools" type="test_topic_published.py"
+        retry="3">
+    <rosparam>
+      topic_0: /selective_search/output
+      timeout_0: 20
+    </rosparam>
+  </test>
+
+</launch>

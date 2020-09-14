@@ -1,0 +1,28 @@
+openrtm-aist for Debian
+-----------------------
+Debian package of OpenRTM-aist
+
+OpenRTM-aist supports Debian and Ubuntu distribution.
+
+OpenRTM-aist official deb packages might be provided for the newest
+and former major releases of Debian under the following URL.  For the
+Ubuntu distribution, deb packages might be provided for desktop
+versions of officially supported Ubuntu.
+
+- Debian package repository
+http://www.openrtm.org/pub/Linux/debian/
+
+- Ubuntu package repository
+http://www.openrtm.org/pub/Linux/ubuntu/
+
+The easyest way to install OpenRTM-aist to your Debian/Ubuntu systems
+is to download installation shell script from the following URL.
+
+- Ubuntu installation script: pkg_install100_ubuntu.sh
+- Debian installation script: pkg_install100_debian.sh
+http://openrtm.org/svnroot/OpenRTM-aist/trunk/OpenRTM-aist/build/
+
+For more details about OpenRTM-aist please visit the official site.
+http://www.openrtm.org
+
+ -- Noriaki Ando <n-ando@aist.go.jp>  Mon, 23 Jun 2008 16:18:55 +0900

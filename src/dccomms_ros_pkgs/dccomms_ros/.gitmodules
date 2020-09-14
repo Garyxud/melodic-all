@@ -1,0 +1,9 @@
+[submodule "modules/dccomms_utils"]
+	path = modules/dccomms_utils
+	url = https://github.com/dcentelles/dccomms_utils.git
+[submodule "modules/ns-3-dev"]
+	path = modules/ns-3-dev
+	url = https://github.com/dcentelles/ns-3-dev-fork.git
+[submodule "modules/exprtk"]
+	path = modules/exprtk
+	url = https://github.com/ArashPartow/exprtk.git

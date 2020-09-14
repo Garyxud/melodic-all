@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ypspur_ros</name>
+  <version>0.3.1</version>
+  <description>ROS wrapper for the mobile robot control platform YP-Spur</description>
+
+  <maintainer email="atsushi.w@openspur.org">Atsushi Watanabe</maintainer>
+  <license>BSD</license>
+  <author email="atsushi.w@openspur.org">Atsushi Watanabe</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <test_depend>roslint</test_depend>
+  <test_depend>rostest</test_depend>
+
+  <depend>diagnostic_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>tf</depend>
+  <depend>trajectory_msgs</depend>
+  <depend version_gte="1.17.0">ypspur</depend>
+</package>

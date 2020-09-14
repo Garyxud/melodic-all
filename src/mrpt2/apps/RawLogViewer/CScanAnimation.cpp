@@ -1,0 +1,682 @@
+/* +------------------------------------------------------------------------+
+   |                     Mobile Robot Programming Toolkit (MRPT)            |
+   |                          https://www.mrpt.org/                         |
+   |                                                                        |
+   | Copyright (c) 2005-2020, Individual contributors, see AUTHORS file     |
+   | See: https://www.mrpt.org/Authors - All rights reserved.               |
+   | Released under BSD License. See: https://www.mrpt.org/License          |
+   +------------------------------------------------------------------------+ */
+#include "CScanAnimation.h"
+
+//(*InternalHeaders(CScanAnimation)
+#include <wx/intl.h>
+#include <wx/string.h>
+//*)
+
+#ifdef None  // X header conflict...
+#undef None
+#endif
+
+#include <mrpt/maps/CColouredPointsMap.h>
+#include <mrpt/obs/CObservation3DRangeScan.h>
+#include <mrpt/obs/CObservationPointCloud.h>
+#include <mrpt/obs/CObservationVelodyneScan.h>
+#include <mrpt/opengl/CGridPlaneXY.h>
+#include <mrpt/opengl/CPlanarLaserScan.h>  // in library mrpt-maps
+#include <mrpt/opengl/stock_objects.h>
+
+#include <wx/app.h>
+#include <wx/busyinfo.h>
+#include <wx/log.h>
+#include <wx/msgdlg.h>
+#include <wx/progdlg.h>
+
+#include "xRawLogViewerMain.h"
+
+//(*IdInit(CScanAnimation)
+const long CScanAnimation::ID_RADIOBUTTON1 = wxNewId();
+const long CScanAnimation::ID_RADIOBUTTON2 = wxNewId();
+const long CScanAnimation::ID_STATICTEXT22 = wxNewId();
+const long CScanAnimation::ID_TEXTCTRL11 = wxNewId();
+const long CScanAnimation::ID_BUTTON5 = wxNewId();
+const long CScanAnimation::ID_BUTTON1 = wxNewId();
+const long CScanAnimation::ID_BUTTON2 = wxNewId();
+const long CScanAnimation::ID_STATICTEXT4 = wxNewId();
+const long CScanAnimation::ID_SPINCTRL2 = wxNewId();
+const long CScanAnimation::ID_CHECKBOX1 = wxNewId();
+const long CScanAnimation::ID_BUTTON3 = wxNewId();
+const long CScanAnimation::ID_XY_GLCANVAS = wxNewId();
+const long CScanAnimation::ID_SLIDER1 = wxNewId();
+const long CScanAnimation::ID_STATICTEXT1 = wxNewId();
+const long CScanAnimation::ID_SPINCTRL1 = wxNewId();
+const long CScanAnimation::ID_BUTTON4 = wxNewId();
+const long CScanAnimation::ID_STATICTEXT2 = wxNewId();
+const long CScanAnimation::ID_CHECKBOX2 = wxNewId();
+const long CScanAnimation::ID_STATICTEXT3 = wxNewId();
+//*)
+
+BEGIN_EVENT_TABLE(CScanAnimation, wxDialog)
+//(*EventTable(CScanAnimation)
+//*)
+END_EVENT_TABLE()
+
+using namespace mrpt;
+using namespace mrpt::maps;
+using namespace mrpt::obs;
+using namespace mrpt::opengl;
+using namespace mrpt::system;
+using namespace mrpt::math;
+using namespace std;
+
+CScanAnimation::CScanAnimation(
+	wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size)
+{
+	//(*Initialize(CScanAnimation)
+	wxFlexGridSizer* FlexGridSizer4;
+	wxFlexGridSizer* FlexGridSizer3;
+	wxFlexGridSizer* FlexGridSizer2;
+	wxFlexGridSizer* FlexGridSizer7;
+	wxFlexGridSizer* FlexGridSizer6;
+	wxFlexGridSizer* FlexGridSizer1;
+
+	Create(
+		parent, wxID_ANY, _("Animate laser scans"), wxDefaultPosition,
+		wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER,
+		_T("wxID_ANY"));
+	FlexGridSizer1 = new wxFlexGridSizer(4, 1, 0, 0);
+	FlexGridSizer1->AddGrowableCol(0);
+	FlexGridSizer1->AddGrowableRow(2);
+	StaticBoxSizer1 =
+		new wxStaticBoxSizer(wxHORIZONTAL, this, _("Get data from:"));
+	BoxSizer4 = new wxBoxSizer(wxVERTICAL);
+	BoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
+	FlexGridSizer8 = new wxFlexGridSizer(2, 4, 0, 0);
+	FlexGridSizer8->AddGrowableCol(2);
+	rbLoaded = new wxRadioButton(
+		this, ID_RADIOBUTTON1, _("Currently loaded rawlog"), wxDefaultPosition,
+		wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
+	rbLoaded->SetValue(true);
+	FlexGridSizer8->Add(
+		rbLoaded, 1, wxALL | wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL, 5);
+	FlexGridSizer8->Add(
+		-1, -1, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	FlexGridSizer8->Add(
+		-1, -1, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	FlexGridSizer8->Add(
+		-1, -1, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	rbFile = new wxRadioButton(
+		this, ID_RADIOBUTTON2, _("Rawlog in file:"), wxDefaultPosition,
+		wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
+	FlexGridSizer8->Add(
+		rbFile, 1, wxALL | wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL, 5);
+	StaticText22 = new wxStaticText(
+		this, ID_STATICTEXT22, _("Input file:"), wxDefaultPosition,
+		wxDefaultSize, 0, _T("ID_STATICTEXT22"));
+	FlexGridSizer8->Add(
+		StaticText22, 1, wxALL | wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL, 5);
+	edFile = new wxTextCtrl(
+		this, ID_TEXTCTRL11, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0,
+		wxDefaultValidator, _T("ID_TEXTCTRL11"));
+	FlexGridSizer8->Add(
+		edFile, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 5);
+	btnPickInput = new wxButton(
+		this, ID_BUTTON5, _("Select..."), wxDefaultPosition, wxDefaultSize, 0,
+		wxDefaultValidator, _T("ID_BUTTON5"));
+	FlexGridSizer8->Add(
+		btnPickInput, 1,
+		wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 0);
+	BoxSizer5->Add(
+		FlexGridSizer8, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	BoxSizer4->Add(
+		BoxSizer5, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	StaticBoxSizer1->Add(
+		BoxSizer4, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	FlexGridSizer1->Add(
+		StaticBoxSizer1, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	FlexGridSizer4 = new wxFlexGridSizer(1, 7, 0, 0);
+	FlexGridSizer4->AddGrowableCol(5);
+	FlexGridSizer4->AddGrowableRow(0);
+	btnPlay = new wxButton(
+		this, ID_BUTTON1, _("Start"), wxDefaultPosition, wxDefaultSize, 0,
+		wxDefaultValidator, _T("ID_BUTTON1"));
+	btnPlay->SetDefault();
+	FlexGridSizer4->Add(
+		btnPlay, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	btnStop = new wxButton(
+		this, ID_BUTTON2, _("Stop"), wxDefaultPosition, wxDefaultSize, 0,
+		wxDefaultValidator, _T("ID_BUTTON2"));
+	btnStop->Disable();
+	FlexGridSizer4->Add(
+		btnStop, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	StaticText2 = new wxStaticText(
+		this, ID_STATICTEXT4, _("Animation delay (ms):"), wxDefaultPosition,
+		wxDefaultSize, wxALIGN_CENTRE, _T("ID_STATICTEXT4"));
+	FlexGridSizer4->Add(
+		StaticText2, 1,
+		wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
+	edDelay = new wxSpinCtrl(
+		this, ID_SPINCTRL2, _T("5"), wxDefaultPosition, wxDefaultSize, 0, 0,
+		1000, 5, _T("ID_SPINCTRL2"));
+	edDelay->SetValue(_T("5"));
+	FlexGridSizer4->Add(
+		edDelay, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	cbAllowMix = new wxCheckBox(
+		this, ID_CHECKBOX1, _("Enable mixing of diff. lasers"),
+		wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator,
+		_T("ID_CHECKBOX1"));
+	cbAllowMix->SetValue(true);
+	FlexGridSizer4->Add(
+		cbAllowMix, 1,
+		wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
+	FlexGridSizer4->Add(
+		-1, -1, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 5);
+	btnClose = new wxButton(
+		this, ID_BUTTON3, _("Close"), wxDefaultPosition, wxDefaultSize, 0,
+		wxDefaultValidator, _T("ID_BUTTON3"));
+	FlexGridSizer4->Add(
+		btnClose, 1, wxALL | wxALIGN_BOTTOM | wxALIGN_CENTER_HORIZONTAL, 5);
+	FlexGridSizer1->Add(
+		FlexGridSizer4, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	FlexGridSizer2 = new wxFlexGridSizer(1, 1, 0, 0);
+	FlexGridSizer2->AddGrowableCol(0);
+	FlexGridSizer2->AddGrowableRow(0);
+	m_plot3D = new CMyGLCanvas(
+		this, ID_XY_GLCANVAS, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL,
+		_T("ID_XY_GLCANVAS"));
+	FlexGridSizer2->Add(
+		m_plot3D, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	FlexGridSizer1->Add(
+		FlexGridSizer2, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	FlexGridSizer3 = new wxFlexGridSizer(2, 1, 0, 0);
+	FlexGridSizer3->AddGrowableCol(0);
+	FlexGridSizer6 = new wxFlexGridSizer(1, 1, 0, 0);
+	FlexGridSizer6->AddGrowableCol(0);
+	slPos = new wxSlider(
+		this, ID_SLIDER1, 0, 0, 100, wxDefaultPosition, wxDefaultSize, 0,
+		wxDefaultValidator, _T("ID_SLIDER1"));
+	FlexGridSizer6->Add(
+		slPos, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 5);
+	FlexGridSizer3->Add(
+		FlexGridSizer6, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	FlexGridSizer7 = new wxFlexGridSizer(2, 4, 0, 0);
+	FlexGridSizer7->AddGrowableCol(3);
+	StaticText1 = new wxStaticText(
+		this, ID_STATICTEXT1, _("Rawlog index:"), wxDefaultPosition,
+		wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+	FlexGridSizer7->Add(
+		StaticText1, 1,
+		wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
+	edIndex = new wxSpinCtrl(
+		this, ID_SPINCTRL1, _T("0"), wxDefaultPosition, wxDefaultSize, 0, 0,
+		100, 0, _T("ID_SPINCTRL1"));
+	edIndex->SetValue(_T("0"));
+	FlexGridSizer7->Add(
+		edIndex, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	btnJump = new wxButton(
+		this, ID_BUTTON4, _("Jump"), wxDefaultPosition, wxDefaultSize, 0,
+		wxDefaultValidator, _T("ID_BUTTON4"));
+	FlexGridSizer7->Add(
+		btnJump, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	lbNumScans = new wxStaticText(
+		this, ID_STATICTEXT2, _("Number of laser scans: 0"), wxDefaultPosition,
+		wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+	FlexGridSizer7->Add(
+		lbNumScans, 1, wxALL | wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL, 5);
+	cbViewOrtho = new wxCheckBox(
+		this, ID_CHECKBOX2, _("Orthogonal projection"), wxDefaultPosition,
+		wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
+	cbViewOrtho->SetValue(false);
+	FlexGridSizer7->Add(
+		cbViewOrtho, 1,
+		wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
+	FlexGridSizer7->Add(
+		-1, -1, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	FlexGridSizer7->Add(
+		-1, -1, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL,
+		5);
+	lbNumPoints = new wxStaticText(
+		this, ID_STATICTEXT3, _("Number of points: 0"), wxDefaultPosition,
+		wxDefaultSize, 0, _T("ID_STATICTEXT3"));
+	FlexGridSizer7->Add(
+		lbNumPoints, 1, wxALL | wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL, 5);
+	FlexGridSizer3->Add(
+		FlexGridSizer7, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	FlexGridSizer1->Add(
+		FlexGridSizer3, 1, wxALL | wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP, 0);
+	SetSizer(FlexGridSizer1);
+	FlexGridSizer1->Fit(this);
+	FlexGridSizer1->SetSizeHints(this);
+	Center();
+
+	Bind(
+		wxEVT_RADIOBUTTON, &CScanAnimation::OnrbLoadedSelect, this,
+		ID_RADIOBUTTON1);
+	Bind(wxEVT_RADIOBUTTON, &CScanAnimation::OnrbFile, this, ID_RADIOBUTTON2);
+	Bind(wxEVT_BUTTON, &CScanAnimation::OnbtnPickInputClick, this, ID_BUTTON5);
+	Bind(wxEVT_BUTTON, &CScanAnimation::OnbtnPlayClick, this, ID_BUTTON1);
+	Bind(wxEVT_BUTTON, &CScanAnimation::OnbtnStopClick, this, ID_BUTTON2);
+	Bind(
+		wxEVT_CHECKBOX, &CScanAnimation::OncbAllowMixClick, this, ID_CHECKBOX1);
+	Bind(wxEVT_BUTTON, &CScanAnimation::OnbtnCloseClick, this, ID_BUTTON3);
+	Bind(
+		wxEVT_SLIDER, &CScanAnimation::OnslPosCmdScrollChanged, this,
+		ID_SLIDER1);
+	Bind(
+		wxEVT_SCROLL_THUMBTRACK, &CScanAnimation::OnslPosCmdScrollChanged, this,
+		ID_SLIDER1);
+	Bind(
+		wxEVT_SCROLL_CHANGED, &CScanAnimation::OnslPosCmdScrollChanged, this,
+		ID_SLIDER1);
+	Bind(wxEVT_BUTTON, &CScanAnimation::OnbtnJumpClick, this, ID_BUTTON4);
+	Bind(wxEVT_INIT_DIALOG, &CScanAnimation::OnInit, this, wxID_ANY);
+	//*)
+
+	// Initialize 3D view:
+	auto openGLSceneRef = m_plot3D->getOpenGLSceneRef();
+	openGLSceneRef->insert(mrpt::opengl::CGridPlaneXY::Create(
+		-50, 50, -50, 50, 0 /* z */, 5 /* freq */));
+	openGLSceneRef->insert(mrpt::opengl::stock_objects::CornerXYZSimple(
+		1.0 /*scale*/, 3.0 /*line width*/));
+
+	m_mixlasers = cbAllowMix->GetValue();
+}
+
+CScanAnimation::~CScanAnimation()
+{
+	//(*Destroy(CScanAnimation)
+	//*)
+}
+
+// Get the rawlog entry (from cur. loaded rawlog), build and displays its map:
+void CScanAnimation::RebuildMaps()
+{
+	WX_START_TRY
+
+	int idx = slPos->GetValue();
+
+	if (idx >= 0 && idx < (int)rawlog.size())
+	{
+		if (rawlog.getType(idx) == CRawlog::etSensoryFrame)
+		{
+			CSensoryFrame::Ptr sf = rawlog.getAsObservations(idx);
+			BuildMapAndRefresh(sf.get());
+		}
+		else if (rawlog.getType(idx) == CRawlog::etObservation)
+		{
+			CSensoryFrame::Ptr sf = std::make_shared<CSensoryFrame>();
+			sf->insert(rawlog.getAsObservation(idx));
+			BuildMapAndRefresh(sf.get());
+		}
+	}
+
+	WX_END_TRY
+}
+
+// This method is called in any case for displaying a laser scan.
+//  We keep an internal list of recent scans so they don't vanish
+//  instantaneously.
+void CScanAnimation::BuildMapAndRefresh(CSensoryFrame* sf)
+{
+	WX_START_TRY
+
+	// load from disk if needed:
+	for (auto& it : *sf) it->load();
+
+	// Mix?
+	if (!m_mixlasers)
+	{
+		// if not, just clear all old objects:
+		for (auto& m_gl_object : m_gl_objects)
+		{
+			TRenderObject& ro = m_gl_object.second;
+			m_plot3D->getOpenGLSceneRef()->removeObject(
+				ro.obj);  // Remove from the opengl viewport
+		}
+		m_gl_objects.clear();
+	}
+
+	// Insert new scans:
+	mrpt::system::TTimeStamp tim_last = INVALID_TIMESTAMP;
+	bool wereScans = false;
+	for (auto& it : *sf)
+	{
+		const std::string sNameInMap =
+			std::string(it->GetRuntimeClass()->className) + it->sensorLabel;
+		if (IS_CLASS(*it, CObservation2DRangeScan))
+		{
+			CObservation2DRangeScan::Ptr obs =
+				std::dynamic_pointer_cast<CObservation2DRangeScan>(it);
+			wereScans = true;
+			if (tim_last == INVALID_TIMESTAMP || tim_last < obs->timestamp)
+				tim_last = obs->timestamp;
+
+			// Already in the map with the same sensor label?
+			auto it_gl = m_gl_objects.find(sNameInMap);
+			if (it_gl != m_gl_objects.end())
+			{
+				// Update existing object:
+				TRenderObject& ro = it_gl->second;
+				std::dynamic_pointer_cast<CPlanarLaserScan>(ro.obj)->setScan(
+					*obs);
+				ro.timestamp = obs->timestamp;
+			}
+			else
+			{
+				// Create object:
+				CPlanarLaserScan::Ptr gl_obj =
+					std::make_shared<CPlanarLaserScan>();
+				gl_obj->setScan(*obs);
+
+				TRenderObject ro;
+				ro.obj = gl_obj;
+				ro.timestamp = obs->timestamp;
+				m_gl_objects[sNameInMap] = ro;
+				m_plot3D->getOpenGLSceneRef()->insert(gl_obj);
+			}
+		}
+		else if (IS_CLASS(*it, CObservation3DRangeScan))
+		{
+			CObservation3DRangeScan::Ptr obs =
+				std::dynamic_pointer_cast<CObservation3DRangeScan>(it);
+			wereScans = true;
+			if (tim_last == INVALID_TIMESTAMP || tim_last < obs->timestamp)
+				tim_last = obs->timestamp;
+
+			mrpt::maps::CPointsMap::Ptr pointMap;
+			mrpt::maps::CColouredPointsMap::Ptr pointMapCol;
+			mrpt::obs::T3DPointsProjectionParams pp;
+			pp.takeIntoAccountSensorPoseOnRobot = true;
+
+			// Color from intensity image?
+			if (obs->hasRangeImage && obs->hasIntensityImage)
+			{
+				pointMapCol = mrpt::maps::CColouredPointsMap::Create();
+				pointMapCol->colorScheme.scheme =
+					CColouredPointsMap::cmFromIntensityImage;
+
+				obs->unprojectInto(*pointMapCol, pp);
+				pointMap = pointMapCol;
+			}
+			else
+			{
+				// Empty point set, or load from XYZ in observation:
+				pointMap = mrpt::maps::CSimplePointsMap::Create();
+				if (obs->hasPoints3D)
+				{
+					for (size_t i = 0; i < obs->points3D_x.size(); i++)
+						pointMap->insertPoint(
+							obs->points3D_x[i], obs->points3D_y[i],
+							obs->points3D_z[i]);
+				}
+				else if (obs->hasRangeImage)
+				{
+					obs->unprojectInto(*pointMap, pp);
+				}
+			}
+
+			// Already in the map with the same sensor label?
+			CPointCloudColoured::Ptr gl_obj;
+
+			auto it_gl = m_gl_objects.find(sNameInMap);
+			if (it_gl != m_gl_objects.end())
+			{
+				// Update existing object:
+				TRenderObject& ro = it_gl->second;
+				gl_obj = std::dynamic_pointer_cast<CPointCloudColoured>(ro.obj);
+				ro.timestamp = obs->timestamp;
+			}
+			else
+			{
+				// Create object:
+				gl_obj = std::make_shared<CPointCloudColoured>();
+				gl_obj->setPointSize(3.0);
+
+				TRenderObject ro;
+				ro.obj = gl_obj;
+				ro.timestamp = obs->timestamp;
+				m_gl_objects[sNameInMap] = ro;
+				m_plot3D->getOpenGLSceneRef()->insert(gl_obj);
+			}
+
+			// Load as RGB or grayscale points:
+			if (pointMapCol)
+				gl_obj->loadFromPointsMap(pointMapCol.get());
+			else
+			{
+				gl_obj->loadFromPointsMap(pointMap.get());
+				mrpt::math::TPoint3D bbmin, bbmax;
+				gl_obj->getBoundingBox(bbmin, bbmax);
+				gl_obj->recolorizeByCoordinate(
+					bbmax.x, bbmin.x, 0 /*color by x*/, mrpt::img::cmJET);
+			}
+
+			// Add to list:
+			//				m_lstScans[obs->sensorLabel] = obs;
+		}
+		else if (IS_CLASS(*it, CObservationVelodyneScan))
+		{
+			CObservationVelodyneScan::Ptr obs =
+				std::dynamic_pointer_cast<CObservationVelodyneScan>(it);
+			wereScans = true;
+			if (tim_last == INVALID_TIMESTAMP || tim_last < obs->timestamp)
+				tim_last = obs->timestamp;
+
+			obs->generatePointCloud();
+			CColouredPointsMap pointMap;
+			pointMap.loadFromVelodyneScan(*obs);
+			obs->point_cloud.clear_deep();
+
+			// Already in the map with the same sensor label?
+			auto it_gl = m_gl_objects.find(sNameInMap);
+			if (it_gl != m_gl_objects.end())
+			{
+				// Update existing object:
+				TRenderObject& ro = it_gl->second;
+				CPointCloudColoured::Ptr gl_obj =
+					std::dynamic_pointer_cast<CPointCloudColoured>(ro.obj);
+				gl_obj->loadFromPointsMap(&pointMap);
+				ro.timestamp = obs->timestamp;
+			}
+			else
+			{
+				// Create object:
+				CPointCloudColoured::Ptr gl_obj =
+					std::make_shared<CPointCloudColoured>();
+				gl_obj->setPointSize(3.0);
+				gl_obj->loadFromPointsMap(&pointMap);
+
+				TRenderObject ro;
+				ro.obj = gl_obj;
+				ro.timestamp = obs->timestamp;
+				m_gl_objects[sNameInMap] = ro;
+				m_plot3D->getOpenGLSceneRef()->insert(gl_obj);
+			}
+		}
+		else if (IS_CLASS(*it, CObservationPointCloud))
+		{
+			auto obs = std::dynamic_pointer_cast<CObservationPointCloud>(it);
+			wereScans = true;
+			if (tim_last == INVALID_TIMESTAMP || tim_last < obs->timestamp)
+				tim_last = obs->timestamp;
+
+			// Already in the map with the same sensor label?
+			auto it_gl = m_gl_objects.find(sNameInMap);
+			if (it_gl != m_gl_objects.end())
+			{
+				// Update existing object:
+				TRenderObject& ro = it_gl->second;
+				auto gl_obj =
+					std::dynamic_pointer_cast<CPointCloudColoured>(ro.obj);
+				gl_obj->loadFromPointsMap(obs->pointcloud.get());
+				gl_obj->setPose(obs->sensorPose);
+				ro.timestamp = obs->timestamp;
+			}
+			else
+			{
+				// Create object:
+				auto gl_obj = std::make_shared<CPointCloudColoured>();
+				gl_obj->setPointSize(3.0);
+				gl_obj->loadFromPointsMap(obs->pointcloud.get());
+				gl_obj->setPose(obs->sensorPose);
+
+				TRenderObject ro;
+				ro.obj = gl_obj;
+				ro.timestamp = obs->timestamp;
+				m_gl_objects[sNameInMap] = ro;
+				m_plot3D->getOpenGLSceneRef()->insert(gl_obj);
+			}
+		}
+	}
+
+	// Check what observations are too old and must be deleted:
+	const double largest_period = 0.2;
+	std::vector<std::string> lst_to_delete;
+	for (auto& o : m_gl_objects)
+	{
+		TRenderObject& ro = o.second;
+
+		if ((tim_last == INVALID_TIMESTAMP &&
+			 wereScans)  // Scans without timestamps
+			|| (tim_last != INVALID_TIMESTAMP &&
+				fabs(mrpt::system::timeDifference(ro.timestamp, tim_last)) >
+					largest_period))
+		{
+			lst_to_delete.push_back(o.first);
+		}
+	}
+
+	// Remove too old observations:
+	for (const auto& s : lst_to_delete)
+	{
+		TRenderObject& ro = m_gl_objects[s];
+		m_plot3D->getOpenGLSceneRef()->removeObject(
+			ro.obj);  // Remove from the opengl viewport
+		m_gl_objects.erase(s);  // and from my list
+	}
+
+	// Force refresh view:
+	m_plot3D->setCameraProjective(!cbViewOrtho->IsChecked());
+	m_plot3D->Refresh();
+
+	// Post-process: unload 3D observations.
+	for (auto& o : *sf) o->unload();
+
+	WX_END_TRY
+}
+
+void CScanAnimation::OnbtnPlayClick(wxCommandEvent& event)
+{
+	//
+
+	// Disable all but stop while playing:
+	btnStop->Enable();
+	btnPlay->Disable();
+	btnClose->Disable();
+
+	slPos->Disable();
+
+	m_stop = false;
+
+	try
+	{
+		wxBusyCursor cursorBusy;
+		int delay_ms = edDelay->GetValue();
+
+		while (!m_stop)
+		{
+			int idx = slPos->GetValue();
+			if (idx >= ((int)rawlog.size()) - 1) break;  // End!
+
+			if (rawlog.getType(idx) != CRawlog::etActionCollection)
+			{
+				RebuildMaps();
+				::wxMilliSleep(delay_ms);
+			}
+
+			idx++;
+			slPos->SetValue(idx);
+			edIndex->SetValue(idx);
+			wxTheApp->Yield();
+		}
+	}
+	catch (...)
+	{
+	}
+
+	btnStop->Disable();
+	btnPlay->Enable();
+	btnClose->Enable();
+
+	slPos->Enable();
+}
+
+void CScanAnimation::OnbtnStopClick(wxCommandEvent& event) { m_stop = true; }
+void CScanAnimation::OnbtnCloseClick(wxCommandEvent& event) { Close(); }
+void CScanAnimation::OnslPosCmdScrollChanged(wxCommandEvent&)
+{
+	edIndex->SetValue(slPos->GetValue());
+	RebuildMaps();
+}
+
+void CScanAnimation::OnbtnJumpClick(wxCommandEvent& event)
+{
+	slPos->SetValue(edIndex->GetValue());
+	RebuildMaps();
+}
+
+void CScanAnimation::OnslPosCmdScroll(wxScrollEvent& event) { RebuildMaps(); }
+void CScanAnimation::OnbtnPickInputClick(wxCommandEvent& event) {}
+void CScanAnimation::OnInit(wxInitDialogEvent& event)
+{
+	slPos->SetValue(0);
+	slPos->SetMin(0);
+	slPos->SetMax((int)rawlog.size());
+
+	edIndex->SetValue(0);
+	edIndex->SetRange(0, (int)rawlog.size());
+
+	Fit();
+
+	wxCommandEvent dummy;
+
+	OnrbLoadedSelect(dummy);
+}
+
+void CScanAnimation::OnrbLoadedSelect(wxCommandEvent& event)
+{
+	edFile->Enable(false);
+	btnPickInput->Enable(false);
+
+	slPos->Enable(true);
+	edIndex->Enable(true);
+	btnJump->Enable(true);
+}
+
+void CScanAnimation::OnrbFile(wxCommandEvent& event)
+{
+	edFile->Enable(true);
+	btnPickInput->Enable(true);
+
+	slPos->Enable(false);
+	edIndex->Enable(false);
+	btnJump->Enable(false);
+}
+
+void CScanAnimation::OncbAllowMixClick(wxCommandEvent& event)
+{
+	m_mixlasers = cbAllowMix->GetValue();
+}
+
+void CScanAnimation::OncbViewOrthoClick(wxCommandEvent& event)
+{
+	this->RebuildMaps();
+}

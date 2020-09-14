@@ -1,0 +1,41 @@
+<package>
+  <name>pr2_arm_kinematics</name>
+  <version>1.0.10</version>
+  <description>This package provides a kinematics implementation for the PR2 robot. It can be used to compute forward and inverse kinematics.</description>
+  <maintainer email="ros-orphaned-packages@googlegroups.com">ROS Orphaned Package Maintainers</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/pr2_arm_kinematics</url>
+
+  <author>Sachin Chitta</author>
+  
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>angles</build_depend>
+  <build_depend>tf_conversions</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>kdl_parser</build_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>moveit_msgs</build_depend>
+  <build_depend>moveit_core</build_depend>
+  <build_depend>cmake_modules</build_depend>
+  <run_depend>moveit_core</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>angles</run_depend>
+  <run_depend>tf_conversions</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>kdl_parser</run_depend>
+  <run_depend>pluginlib</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+
+<export>
+    <cpp lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lpr2_arm_kinematics_lib" cflags="-I${prefix}/include"/>
+    <kinematics_base plugin="${prefix}/kinematics_plugins.xml"/>
+</export>
+
+</package>

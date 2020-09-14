@@ -1,0 +1,86 @@
+// -*- IDL -*-
+/*!
+ * @file Position.idl
+ * @brief Services for the Position interface.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef Position_idl
+#define Position_idl
+
+#include "ExtendedDataTypes.idl"
+#include "InterfaceDataTypes.idl"
+
+module RTC {
+interface Odometry2D
+{
+    /// Get the geometry of the sensor.
+    Geometry3D GetGeometry ();
+
+    /// Set the odometry to a given value.
+    void SetOdometry (in Pose2D newOdometry);
+};
+
+interface Odometry3D
+{
+    /// Get the geometry of the sensor.
+    Geometry3D GetGeometry ();
+
+    /// Set the odometry to a given value.
+    void SetOdometry (in Pose3D newOdometry);
+};
+
+interface VelocityControl2D
+{
+    /// Get the geometry of the device.
+    Geometry2D GetGeometry ();
+};
+
+interface VelocityControl3D
+{
+    /// Get the geometry of the device.
+    Geometry3D GetGeometry ();
+};
+
+interface PoseControl2D
+{
+    /// Get the geometry of the device.
+    Geometry2D GetGeometry ();
+};
+
+interface PoseControl3D
+{
+    /// Get the geometry of the device.
+    Geometry3D GetGeometry ();
+};
+
+interface CarlikeControl
+{
+    /// Get the geometry of the device.
+    Geometry2D GetGeometry ();
+};
+
+interface HeadingControl2D
+{
+    /// Get the geometry of the device.
+    Geometry2D GetGeometry ();
+};
+
+interface HeadingControl3D
+{
+    /// Get the geometry of the device.
+    Geometry3D GetGeometry ();
+};
+};
+
+#endif // Position_idl
+

@@ -1,0 +1,38 @@
+<launch>
+    <!-- Configure the IP address of SceneScan/SP1 -->
+    <arg name="device_address" default="192.168.10.10" />
+
+    <!-- Configure the destination where the calibration will saved -->
+    <arg name="calib_file" default="/tmp/nerian_calib.yaml" />
+
+    <!-- Configure the name of the ROS nodelet -->
+    <arg name="node_name" default="nerian_stereo_nodelet" />
+
+    <!-- Download the current camera calibration -->
+    <node pkg="nerian_stereo" type="download_calibration.sh" args="$(arg device_address) $(arg calib_file)" name="download_calib" output="screen" />
+
+    <node pkg="nodelet" type="nodelet" name="standalone_nodelet" args="manager" output="screen"/>
+    <node pkg="nodelet" type="nodelet" name="StereoNodelet" args="load nerian_stereo/StereoNodelet standalone_nodelet" output="screen">
+        <!-- possible values: none, mono8, rgb8, rgb32f -->
+        <param name="point_cloud_intensity_channel" type="string" value="mono8" />
+
+        <param name="ros_coordinate_system" type="bool" value="true" />
+        <param name="ros_timestamps" type="bool" value="true" />
+
+        <!-- Possible color coding schemes "rainbow" "red_blue" "none" -->
+        <param name="color_code_disparity_map" type="string" value="none" />
+        <param name="color_code_legend" type="bool" value="true" />
+
+        <param name="use_tcp" type="bool" value="false" />
+
+        <param name="remote_host" type="string" value="$(arg device_address)" />
+        <param name="remote_port" type="string" value="7681" />
+
+        <param name="calibration_file" type="string" value="$(arg calib_file)"/>
+        <param name="frame" type="string" value="map" />
+
+        <param name="delay_execution" type="double" value="0" />
+        <param name="max_depth" type="double" value="-1" />
+    </node>
+</launch>
+

@@ -1,0 +1,9 @@
+Vocabulary vocabulary  #  Specify isolated words candidates to be recognized (Enabled on isolated word mode)
+Grammar grammar        #  Or, specify grammar to be recognized
+string grammar_name    #  Or, simply specify grammar name which is already registered on the server
+
+float32 duration
+bool quiet
+float32 threshold
+---
+speech_recognition_msgs/SpeechRecognitionCandidates result

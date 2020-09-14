@@ -1,0 +1,85 @@
+<launch>
+  <arg name="other_topics" default=""/>
+  <arg name="other_options" default=""/>
+
+  <arg name="machine" default="c1" />
+  <include file="$(find pr2_machine)/pr2.machine" />
+
+  <!-- for PR2 -->
+  <arg name="save_openni" default="true" />
+  <arg name="save_tilt_scan" default="true" />
+  <arg name="save_base_scan" default="true" />
+  <arg name="save_robot_model" default="true" />
+  <arg name="save_all_image" default="true" />
+  <arg name="save_pressure" default="true" />
+  <arg name="save_gripper_command" default="true" />
+  <arg name="save_prosilica" default="false" />
+  <arg name="camera_namespace" default="openni"/>
+  <arg name="save_dir" default="/removable/bagfile/"/>
+  <arg name="bagfile_prefix" default="data" />
+  <arg name="remove_c2" default="true" />
+  <!--                          -->
+  <!--       Conditions         -->
+  <!--                          -->
+
+  <arg unless="$(arg save_base_scan)"
+       name="base_scan_topics" value="" />
+  <arg if    ="$(arg save_base_scan)"
+       name="base_scan_topics" value="/base_scan" />
+
+  <arg unless="$(arg save_tilt_scan)"
+       name="tilt_scan_topics" value="" />
+  <arg if    ="$(arg save_tilt_scan)"
+       name="tilt_scan_topics" value="/tilt_scan" />
+
+  <arg unless="$(arg save_all_image)"
+       name="all_image_topics" value="" />
+  <arg if    ="$(arg save_all_image)"
+       name="all_image_topics" value="-e .*/(image_raw|camera_info)" />
+
+  <arg unless="$(arg remove_c2)"
+       name="r_c2" value="" />
+  <arg if    ="$(arg remove_c2)"
+       name="r_c2" value="-x .*(_c2|_c3).*" />
+
+  <arg unless="$(arg save_pressure)"
+       name="pressure_topics" value="" />
+  <arg if    ="$(arg save_pressure)"
+       name="pressure_topics" value="/pressure/l_gripper_motor /pressure/r_gripper_motor" />
+
+  <arg unless="$(arg save_gripper_command)"
+       name="gripper_command_topics" value="" />
+  <arg if    ="$(arg save_gripper_command)"
+       name="gripper_command_topics"
+       value="/l_gripper_controller/command /r_gripper_controller/command" />
+
+  <arg unless="$(arg save_prosilica)"
+       name="prosilica_topics" value="" />
+  <arg if    ="$(arg save_prosilica)"
+       name="prosilica_topics" value="/prosilica/image_raw /prosilica/camera_info" />
+
+
+  <!-- execute -->
+  <include file="$(find jsk_data)/launch/common_record.launch">
+    <arg name="save_openni" value="$(arg save_openni)" />
+    <arg name="save_openni2" value="false" />
+    <arg name="save_robot_model" value="$(arg save_robot_model)" />
+    <arg name="save_all_image" value="$(arg save_all_image)" />
+    <arg name="camera_namespace" value="$(arg camera_namespace)" />
+    <arg name="save_dir" value="$(arg save_dir)" />
+    <arg name="bagfile_prefix" value="$(arg bagfile_prefix)" />
+    <arg name="other_options" value="$(arg other_options)" />
+    <arg name="other_topics" value="$(arg other_topics)
+                                    $(arg base_scan_topics)
+                                    $(arg tilt_scan_topics) 
+                                    $(arg r_c2)
+                                    $(arg pressure_topics) 
+                                    $(arg gripper_command_topics) 
+                                    $(arg prosilica_topics)" />
+    <arg name="machine" value="$(arg machine)" />
+  </include>
+  <node if  ="$(arg save_prosilica)" 
+        name="set_prosilica_mode" pkg="dynamic_reconfigure" type="dynparam"
+        args="set /prosilica_driver trigger_mode 'streaming'"
+        machine="$(arg machine)"/>
+</launch>

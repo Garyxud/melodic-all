@@ -1,0 +1,23 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdh_8h.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="152,237,229,267"/>
+<area shape="rect" id="node9" href="$sdhserial_8h.html" title="Interface of class SDH::cSDHSerial." alt="" coords="136,160,245,189"/>
+<area shape="rect" id="node14" href="$serialbase_8h.html" title="Interface of class SDH::cSerialBase, a virtal base class to access serial communication channels like..." alt="" coords="508,83,625,112"/>
+<area shape="rect" id="node24" href="$dsa_8cpp.html" title="This file contains definition of SDH::cDSA, a class to communicate with the tactile sensors of the SD..." alt="" coords="723,315,816,344"/>
+<area shape="rect" id="node50" href="$sdhbase_8cpp.html" title="Implementation of class SDH::cSDHBase." alt="" coords="1259,83,1379,112"/>
+<area shape="rect" id="node5" href="$cancat_8cpp.html" title="Yet incomplete tool to send and receive data via CAN. See __help__ and online help (&quot;&#45;h&quot; or..." alt="" coords="73,315,196,344"/>
+<area shape="rect" id="node7" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="220,315,313,344"/>
+<area shape="rect" id="node12" href="$sdhserial_8cpp.html" title="Interface of class SDH::cSDHSerial." alt="" coords="5,237,128,267"/>
+<area shape="rect" id="node18" href="$rs232-cygwin_8h.html" title="Interface of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="421,160,555,189"/>
+<area shape="rect" id="node29" href="$canserial-esd_8h.html" title="Interface of class SDH::cCANSerial_ESD, class to access CAN bus via ESD card on cygwin/linux." alt="" coords="579,160,712,189"/>
+<area shape="rect" id="node33" href="$canserial-peak_8h.html" title="Interface of class SDH::cCANSerial_PEAK, class to access CAN bus via PEAK card on cygwin/linux..." alt="" coords="891,160,1032,189"/>
+<area shape="rect" id="node37" href="$tcpserial_8h.html" title="Interface of class SDH::cTCPSerial, class to access TCP port cygwin/linux." alt="" coords="304,237,411,267"/>
+<area shape="rect" id="node43" href="$rs232-vcc_8h.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port with VCC compiler on Windows..." alt="" coords="1060,160,1172,189"/>
+<area shape="rect" id="node47" href="$serialbase_8cpp.html" title="Implementation of class SDH::cSerialBase, a virtual base class to access serial interfaces like RS232..." alt="" coords="736,160,867,189"/>
+<area shape="rect" id="node20" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="605,237,683,267"/>
+<area shape="rect" id="node26" href="$rs232-cygwin_8cpp.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="435,237,581,267"/>
+<area shape="rect" id="node22" href="$demo-benchmark_8cpp.html" title="Simple script to benchmark communication speed of the SDH. See __help__ and online help (&quot;&#45;h&amp;quo..." alt="" coords="517,315,699,344"/>
+<area shape="rect" id="node31" href="$canserial-esd_8cpp.html" title="Implementation of class SDH::cCANSerial_ESD, a class to access an ESD CAN interface on cygwin/linux a..." alt="" coords="707,237,856,267"/>
+<area shape="rect" id="node35" href="$canserial-peak_8cpp.html" title="Implementation of class SDH::cCANSerial_PEAK, a class to access a PEAK CAN interface on cygwin/linux ..." alt="" coords="880,237,1035,267"/>
+<area shape="rect" id="node41" href="$tcpserial_8cpp.html" title="Implementation of class SDH::cTCPSerial, a class to access a TCP port on cygwin/linux and Visual Stud..." alt="" coords="337,315,457,344"/>
+<area shape="rect" id="node45" href="$rs232-vcc_8cpp.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port with VCC compiler on Windows..." alt="" coords="1059,237,1184,267"/>
+</map>

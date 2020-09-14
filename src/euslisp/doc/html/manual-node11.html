@@ -1,0 +1,460 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//JP">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Text Processing</TITLE>
+<META NAME="description" CONTENT="Text Processing">
+<META NAME="keywords" CONTENT="manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="manual.css">
+
+<LINK REL="next" HREF="manual-node12.html">
+<LINK REL="previous" HREF="manual-node10.html">
+<LINK REL="up" HREF="manual-node2.html">
+<LINK REL="next" HREF="manual-node12.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<BR>
+<B> Next:</B> <A NAME="tex2html595"
+  HREF="manual-node12.html">Date and Time</A>
+<B>Up:</B> <A NAME="tex2html589"
+  HREF="manual-node2.html">EusLisp Basics</A>
+<B> Previous:</B> <A NAME="tex2html583"
+  HREF="manual-node10.html">Sequences, Arrays and Tables</A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html596"
+  HREF="manual-node11.html#SECTION02091000000000000000">Japanese Text</A>
+<LI><A NAME="tex2html597"
+  HREF="manual-node11.html#SECTION02092000000000000000">ICONV - Character Code Conversion</A>
+<LI><A NAME="tex2html598"
+  HREF="manual-node11.html#SECTION02093000000000000000">Regular Expression</A>
+<LI><A NAME="tex2html599"
+  HREF="manual-node11.html#SECTION02094000000000000000">Base64 encoding</A>
+<LI><A NAME="tex2html600"
+  HREF="manual-node11.html#SECTION02095000000000000000">DES cryptography</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION02090000000000000000">
+Text Processing</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION02091000000000000000">
+Japanese Text</A>
+</H2>
+Japanese characters are encoded in 16-bit, i.e. two bytes.
+Inside EusLisp, there is no provision to handle Japanese 16-bit
+character as a representation of Japanese.  They are just regarded
+as a series of byte-encoded characters.
+The following code will print a Japanese character "AI" that
+means <I>love</I> in English, if you are using a terminal
+that can display EUC kanji, like kterm.
+<PRE>
+(setq AI-str 
+      (let ((jstr (make-string 2)))
+          (setf (aref jstr 0) #xb0
+	        (aref jstr 1) #xa6)
+	  jstr))
+(print AI-str)
+</PRE>
+
+<P>
+In a similar manner, (intern AI-str) will create a symbol
+with its printname "AI".
+<PRE>
+(set (intern AI-str) "love")
+</PRE>
+
+<P>
+Conversion functions for different character codes and
+Roman-ji representation are provided.
+
+<P>
+
+ <BR>
+<BR> <A NAME="14377"></A>
+<B>romkan</B> <EM>romanji-str </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> Roman-ji representation is 
+converted into EUC coded Japanese.
+Numbers are converted into pronunciation in hiragana.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14387"></A>
+<B>romanji</B> <EM>kana-str </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> kana-str which represents
+Japanese in hiragana or in katakana coded in EUC
+is converted into a roman-ji representation.
+English alphabets and numbers are unchanged.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14397"></A>
+<B>sjis2euc</B> <EM>kana-str </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> kana-str coded in shift-jis
+is converted into EUC.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14407"></A>
+<B>euc2sjis</B> <EM>kana-str </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> kana-str coded in EUC
+is converted into shift-JIS.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14417"></A>
+<B>jis2euc</B> <EM>kana-str </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> kana-str coded in EUC
+is converted into JIS coding, which enters kana mode by
+<code>ESC\$B</code> and exits by <code>ESC(J</code>.
+Note that there is no euc2jis function is provided yet.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14427"></A>
+<B>kana-date</B> <EM>time </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> time is converted a Japanese
+date pronunciation represented in roman-ji. The default time
+is the current time.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14437"></A>
+<B>kana-date</B> <EM>time </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> time is converted a Japanese
+time pronunciation represented in roman-ji. The default time
+is the current time.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14447"></A>
+<B>hira2kata</B> <EM>hiragana-str </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+hiragana-str is converted into katakana representation.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14457"></A>
+<B>kata2hira</B> <EM>katakana-str </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+katakana-str is converted into hiragana representation.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+             <P>
+
+<H2><A NAME="SECTION02092000000000000000">
+ICONV - Character Code Conversion</A>
+</H2>
+
+<P>
+ICONV is a set of the gnu standard library functions for character
+code conversion.  The interface is programmed in eus/lib/clib/charconv.c.
+
+<P>
+
+ <BR>
+<BR> <A NAME="14467"></A>
+<B>iconv-open</B> <EM>to-code from-code </EM>[function] 
+
+</I></I>
+
+<DL COMPACT>
+<DT> 
+<DD> returns a descriptor for
+converting characters from <I>from-code to <I>to-code.
+</DD>
+</DL>
+<BR>
+<BR>
+
+             <P>
+
+<H2><A NAME="SECTION02093000000000000000">
+Regular Expression</A>
+</H2>
+
+<P>
+
+ <BR>
+<BR> <P>
+
+<A NAME="14479"></A>
+<B>regmatch</B> <EM>regpat string </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> searches for an occurence of a regular
+expression, <I>regpat</I> in <I>string</I>.
+If found, a list of the starting index and the ending index
+of the found pattern is returned.
+example;
+(regmatch "ca[ad]+r" "any string ...") will look for cadr, caar, cadadr ...
+ in the second argument.
+
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+             <P>
+
+<H2><A NAME="SECTION02094000000000000000">
+Base64 encoding</A>
+</H2>
+
+<P>
+Base64 is an encoding scheme to represent binary data using only
+printable graphic characters.  The scheme is applied to
+uuencode/uudecode.  The following functions are defined in
+lib/llib/base64.l.
+
+<P>
+
+ <BR>
+<BR> <A NAME="14491"></A>
+<B>base64encode</B> <EM>binstr </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+A binary string, <I>binstr </I> is converted to an ASCII string
+consisting only of <P><!-- MATH
+ \begin{displaymath}
+A-Za-z0-9+/=
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="163" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="manual-img28.png"
+ ALT="$\displaystyle A-Za-z0-9+/=$">
+</DIV><P></P>
+letters
+according to the base-64 encoding rule.
+The resulted string is 33% longer than the original.
+A newline is inserted every 76 characters.
+One or two '=' characters are padded at the end to adjust the
+length of the result to be a multiple of four.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14502"></A>
+<B>base64decode</B> <EM>ascstr </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+An ASCII string, <I>ascstr</I>, is converted to a binary string
+according to the base-64 encodeing.
+Error is reported if ascstr includes an invalid character.
+</DD>
+</DL>
+<BR>
+<BR>
+
+             <P>
+
+<H2><A NAME="SECTION02095000000000000000">
+DES cryptography</A>
+</H2>
+Linux and other UNIX employs the DES (Data Encryption Standard)
+to encrypt password strings.
+The function is provided in the libcrypt.so library.
+lib/llib/crypt.l links this library and provides the following
+functions for string encryption.
+Note that the <SPAN CLASS="MATH"><IMG
+ WIDTH="28" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="manual-img29.png"
+ ALT="$ 2^56$"></SPAN> key space of DES is not large enough to
+reject challenges by current powerful computers.  Note also
+that only the encrypting functions are provided and no
+rational decrypting is possible.
+
+<P>
+
+ <BR>
+<BR> <A NAME="14513"></A>
+<B>crypt</B> <EM>str salt </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+The raw function provided by libcrypt.so.
+<I>Str</I> is encrypted by using the <I>salt</I> string.
+<I>Salt</I> is a string of two characters, and used to randamize
+the output of encryption in 4096 ways.
+The output string is always 13 characters regardless to the
+length of <I>str</I>.
+In other words, only the first eight characters from <I>str</I>
+are taken for encryption, and the rest are ignored.
+The same string encrypted with the same salt is the same.
+The same string yields different encryption result 
+with different salts.
+The salt becomes the first two characters of the resulted
+encrypted string.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14528"></A>
+<B>rcrypt</B> <EM>str &amp;optional (salt (random-string 2)) </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+The plain string, <I>str</I>, is converted into its encrypted
+representation.  The <I>salt</I> is randomly generated if
+not given.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14540"></A>
+<B>random-string</B> <EM>len &amp;optional random-string </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+This is a utility function to generate a random string
+which constitutes of elements in the <I>random-string</I>.
+By default, "A-Za-z0-9/." is taken for the <I>random-string</I>.
+In order not to make mistakes between i, I, l, 1, O, 0, and o,
+you can specify *safe-salt-string* for the <I>random-string</I>.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+
+<A NAME="14553"></A>
+<B>compcrypt</B> <EM>input cryption </EM>[function]
+
+<DL COMPACT>
+<DT> 
+<DD> 
+<I>Input</I> is a plain string and <I>cryption</I> is a encrypted
+string.  <I>Input</I> is encrypted with the salt found in the <I>cryption</I>
+and the result is compared with it.  If both are the same,
+T is returnd, NIL, otherwise.
+</DD>
+</DL>
+<BR>
+<BR>
+
+<P>
+             
+<DIV CLASS="navigation"><HR>
+<BR>
+<B> Next:</B> <A NAME="tex2html595"
+  HREF="manual-node12.html">Date and Time</A>
+<B>Up:</B> <A NAME="tex2html589"
+  HREF="manual-node2.html">EusLisp Basics</A>
+<B> Previous:</B> <A NAME="tex2html583"
+  HREF="manual-node10.html">Sequences, Arrays and Tables</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Travis CI User
+2017-03-07
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,342 @@
+% -*- LaTeX -*-
+%
+% @file Appendix.tex
+% @brief OpenRTM-aist developers guide [Appendix]
+% @date $Date: 2005-05-12 09:06:21 $
+% @author Noriaki Ando <n-ando@aist.go.jp>
+%
+% Copyright (C) 2003-2005
+%     Task-intelligence Research Group,
+%     Intelligent Systems Research Institute,
+%     National Institute of
+%         Advanced Industrial Science and Technology (AIST), Japan
+%     All rights reserved.
+%
+% $Id$
+%
+
+\chapter{依存パッケージ類のビルドについて}\label{chap:pkg_install}
+
+%-------------------------------------------------------------------------------
+\section{ACEのビルド}
+
+\subsection{ACE (The ADAPTIVE Communication Environment)}
+The ADAPTIVE Communication Environment (ACE)\index{ACE} はオープンソースのフリーなオブジェクト指向フレームワークです。
+オブジェクト指向を有効に利用するための数多くのデザインパターンが適用されたており、ネットワーク通信のための共通の基盤を提供します。
+ACEの主な特長は、
+\begin{itemize}
+\item 移植性の向上
+\item デザインパターンの適用による高品質なソフトウエア開発
+\item QoSのサポート
+\item より高レベルなミドルウエア (たとえばCORBA) のための再利用可能なコンポーネントやパターンの提供
+\end{itemize}
+などが挙げられます。
+
+ACEは非常に多くのプラットフォームをサポートしており、フラットフォーム間で異なる各種の関数やスレッドモデルを隠蔽し、共通のインターフェースを提供しています。
+AIST-RTMは、ACEのスレッドモデル、動的ライブラリの読み込み、時刻取得・計測に関する機能、各種デザインパターンを利用して実装されています。
+ACEがサポートしているプラットフォームは以下のとおりです。
+
+\begin{tab}{● ACEが動作可能なプラットフォーム一覧}
+\begin{center}
+\begin{minipage}{0.9\linewidth}
+Windows (WinNT 3.5.x, 4.x, 2000, Embedded NT, XP, Win95/98, WinCE)
+および各種開発環境 (MSVC++, Borland C++ Builder, IBM Visual Age (32-, 64-bit Intel/Alpha)
+Mac OS X,
+Solaris 1.x, 2.x (SPARC / Intel),
+SGI IRIX 5.x, 6.x,
+DG/UX,
+HP-UX 9.x, 10.x, 11.x,
+Tru64UNIX 3.x, 4.x,
+AIX 3.x, 4.x, 5.x,
+UnixWare,
+SCO,
+Debian Linux 2.x, RedHat Linux 5.2, 6.x, 7.x, 8x, and 9.x, Timesys Linux,
+FreeBSD, NetBSD,
+LynxOS,
+VxWorks,
+ChorusOS,
+QnX Neutrino,
+RTEMS,
+OS9,
+PSoS,
+OpenVMS,
+MVS OpenEdition,
+CRAY UNICOS
+
+
+\end{minipage}
+\end{center}
+\end{tab}
+
+
+\subsection{ACEのダウンロード}
+ACEおよびACEを用いたORB(TAO)は以下のURLで配布されています。
+
+\begin{description}
+\item[ACE] {\tt http://www.cs.wustl.edu/~schmidt/ACE.html}
+\item[TAO] {\tt http://www.cs.wustl.edu/~schmidt/TAO.html}
+\end{description}
+
+以下のURLからソースコードがダウンロードできます。
+
+{\tt http://deuce.doc.wustl.edu/Download.html}
+
+ソースコードは tar.gz, tar.bz, zip 形式で圧縮されています。
+それぞれ、適切な方法で展開します。
+
+\subsection{UNIX系OSでのビルド}
+ビルドは基本的に展開したディレクトリ {\tt ACE\_wrapper} にあるINSTALLファイルの記述に従って行ってください。
+手順は以下のとおりです。
+
+\begin{itemize}
+\item 環境変数 ACE\_ROOT の設定
+\item platform.macros.GNUの編集
+\item config.hの編集
+\item ビルド
+\end{itemize}
+
+\subsection{環境変数 ACE\_ROOTの設定}
+まずはじめに、環境変数 ACE\_ROOT を設定します。
+
+
+\begin{cmd}
+\begin{verbatim}
+「csh系の場合」
+
+$ setenv ACE_ROOT [展開したディレクトリ]
+
+「bash系の場合」
+
+$ ACE_ROOT=[展開したディレクトリ]
+
+$ export ACE_ROOT
+\end{verbatim}
+\end{cmd}
+
+
+\subsubsection{platform.macros.GNUの設定}
+
+以後、ACEを展開したディレクトリ {\tt ACE\_wrapper} を {\tt \$ACE\_ROOT}として話を進めます。
+
+platform.macros.GNUの設定を行います。
+ディレクトリ{\tt \$ACE\_ROOT/include/makeinclude/}内に、対応プラットフォーム毎のMakefile用マクロが用意されています。
+ここでは、Linuxおよびgcc(g++)を用いてビルドするものと仮定します。
+Linux およびgcc(g++)のマクロは {\tt platform\_linux.GNU} ですので、これを platform.macros.GNU としてシンボリックリンクを張ります。
+
+\begin{cmd}
+\begin{verbatim}
+> cd $ACE_ROOT/include/makeinclude/
+> ln -s platform_linux.GNU platform.macros.GNU
+\end{verbatim}
+\end{cmd}
+
+
+\subsubsection{config.hの設定}
+
+次に、config.hの設定を行います。
+ディレクトリ{\tt \$ACE\_ROOT/ace/} 内に、対応プラットフォーム毎のconfig.hが用意されています。
+プラットフォームはLinuxと仮定してますので、config.h を config-linux.h へのシンボリックリンクとして作成します。
+
+\begin{cmd}
+\begin{verbatim}
+> cd $ACE_ROOT/ace/
+> ln -s config-linux.h config.h
+\end{verbatim}
+\end{cmd}
+
+\subsection{ビルド}
+
+これで準備が整いました。
+{\tt \$ACE\_ROOT}に移動してmakeします。
+
+\begin{cmd}
+\begin{verbatim}
+> cd $ACE_ROOT
+> make
+\end{verbatim}
+\end{cmd}
+
+ACEはかなり大きなシステムなので、ビルドには若干時間がかかります。
+
+
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\section{boostのビルド}
+
+\subsection{The boost C++ Library}
+boost は C++ のテンプレートライブラリ集です。
+C++ の標準的なテンプレートライブラリとしてはSTLがありますが、boostはさらに強力な標準ライブラリを求めて、 標準化委員会のメンバー達が立ち上げたプロジェクトによって開発されているテンプレートライブラリ集です。
+したがって、boostは次のC++の標準ライブラリとなるかもしれません。
+
+現在のところは標準ではないので、ほとんどの開発環境には付属していませんので、入っていなければ自分でビルド・インストールしなければなりません。
+
+ビルドといっても、boostはほとんどがテンプレートライブラリなので、ヘッダをインストールすするだけでビルドする必要のないものがほとんどです。
+しかし、OpenRTMではboostの正規表現ライブラリを使用しており、これはコンパイルが必要なboostライブラリのひとつですので、boostをビルドする必要があります。
+以下では、boostのビルドの仕方を順を追って説明します。
+
+なお、使用しているシステムのパッケージにboostが含まれている場合にはそれを利用してもよいでしょう。
+
+
+
+
+\subsection{ダウンロード}
+
+\verb|http://www.boost.org/| の ``Download'' メニューから boost をダウンロードしてください。
+
+ダウンロードしたソースコードを展開します。
+
+\begin{cmd}
+\begin{verbatim}
+> tar vxzf boost_1_32_0.tar.gz
+\end{verbatim}
+\end{cmd}
+
+\subsection{bjamのビルド}
+
+まず、boost のビルドツール \verb|bjam| をビルドします。
+bjamのビルドは付属の \verb|bild.sh| により行います。
+たいていの場合は、適切に環境を判断して自動的にビルドを行います。
+
+\begin{cmd}
+\begin{verbatim}
+> cd boost_1_32_0
+> cd tools/build/jam_src
+> ./build.sh
+   : (ビルドされる)
+> ls bin.(system_name)
+> ls bin.linuxx86 : 例
+> ls 
+bjam*           jam*            mkjambase*      yyacc*
+> cd - (boost ソースのトップティレクトリに戻る)
+\end{verbatim}
+\end{cmd}
+
+ビルドされたバイナリは \verb|bin.(system_name)| のディレクトリ内におかれます。
+
+\subsection{boostのビルド}
+
+
+まず、boost の Python 拡張ライブラリをビルドするためには \verb|tools/build/v1/python.jam| で定義されている、\verb|PYTHON_VERSION| を適切なバージョンに設定する必要があります。
+上記のバージョンではデフォルトは Python2.2 を使用するようになっています。
+
+その他の設定については、付属のドキュメント等を参照してください。
+
+\verb|bjam| によるboost のビルドは以下のように行います。
+
+\begin{cmd}
+\begin{verbatim}
+> tools/build/jam_src/bin.(システム名)/bjam -sTOOLS=gcc \
+  --prefix=/usr/local -sPYTHON_ROOT=/usr -sPYTHON_VERSION=2.3
+      :
+ビルドが始まる
+      :
+\end{verbatim}
+\end{cmd}
+
+ここでは、boost のインストールディレクトリを \verb+/usr/local/[include|lib]+ とし、Python のインストールディレクトリを \verb|/usr|、Pythonのバージョンを2.3としてビルドしています。
+細かいビルドオプションについては、付属のドキュメントを参照してください。
+
+ビルドはCPUの速度にも依りますが、Pen4数GHz程度のマシンで数十分ほどかかるでしょう。
+
+
+\subsection{boost のインストール}
+最後にrootになり、インストールを行います。
+
+\begin{cmd}
+\begin{verbatim}
+> su 
+# tools/build/jam_src/bin.(システム名)/bjam -sTOOLS=gcc \
+  --prefix=/usr/local -sPYTHON_ROOT=/usr -sPYTHON_VERSION=2.3 install
+        :
+インストールされる
+        :
+\end{verbatim}
+\end{cmd}
+
+インストールされた boost の共有ライブラリは、\verb|libboost_regex-gcc-1_32.so.1.32.0| や \verb|libboost_regex-gcc-1_32.so| などのバージョン名、ビルドツール名を含んだ名前でインストールされる場合があります。
+そういう場合には、
+
+\begin{cmd}
+\begin{verbatim}
+# cd /usr/local/lib
+# ln -s libboost_regex-gcc-1_32.so.1.32.0 libboost_regex.so
+\end{verbatim}
+\end{cmd}
+
+のように、シンボリックリンクを張ってやる必要があるかもしれません。
+とくに OpenRTM をコンパイルする際には少なくとも \verb|libboost_regex.so| が必要となりますので、\verb|/usr/local/lib| や \verb|/usr/lib| の下に \verb|libboost_regex.so| が存在する必要があります。
+
+\newpage
+
+%-------------------------------------------------------------------------------
+\section{omniORBのビルド}
+
+\subsection{omniORB}
+omniORB は、ORB (object request broker) に準拠した CORBA (Common Object Request Broker Architecture) 2.6 のフリーな実装です。
+もともとは AT\&T Lab. で開発されていましたが、AT\&T研究所の閉鎖にともない、sourceforgeにホストされるようになりました。 
+フリーなCORBA実装の中でもomniORBはTAOやMICOなどに比べるとCORBAサービス類が少ないといったデメリットがありますが、もっともパフォーマンスが高く、スピードが速い実装といわれています。
+
+\subsection{omniORBのダウンロード}
+omniORBの開発は sourceforge で行われていますので、ソースコードは omniORB の sourceforge サイト上の \verb|http://omniorb.sourceforge.net/| からダウンロードできます。
+google などで omniORB を検索するとたまに昔の AT\&T Lab. のページにたどり着くことがありますので間違えないようにしてください。
+
+ダウンロードしたソースコードを任意のディレクトリに展開します。
+
+\begin{cmd}
+\begin{verbatim}
+> tar vxzf omniORB-4.0.5.tar.gz
+> cd omniORB-4.0.5
+\end{verbatim}
+\end{cmd}
+
+\subsection{omniORBのビルド}
+原則として付属のドキュメントにしたがってビルド・インストールを行います。
+
+以下に、簡単な手順を示します。
+omniORB のソースディレクトリ下において、以下のような手順でビルドします。
+基本的には autoconf, automake を利用しているので \verb|./configure; make| のみでビルドできるはずです。
+
+\verb|build| ディレクトリは、\verb|configure| コマンドによって生成されるインストール用のソースファイル、オブジェクトファイルを保存するために作成します。
+これはマニュアルでも推奨されている方法です。 
+
+\begin{cmd}
+\begin{verbatim}
+> tar vxzf omniORB-4.0.5.tar.gz
+> cd omniORB-4.0.5
+> mkdir build
+> ../configure [options]
+\end{verbatim}
+\end{cmd}
+
+
+\verb|configure| コマンドの主なオプションを以下に示します。
+
+\begin{tab}{{\tt configure}オプション}
+\begin{tabular}{lp{80mm}}
+\footnotesize\verb|--prefix=dir| & 
+インストール先のデイレクトリを設定します。  \\
+\footnotesize\verb|--disable-static|  &
+静的なライブラリによるビルドを禁止します。 \\
+\footnotesize\verb|--enable-thread-tracing|  &
+omniORBにおけるスレッドのバグを発見しやすくします。(デフォルト)ただし実行パフォーマンスを多少低下させるので、そうしたくない場合には、\verb|--disable-thread-tracing| オプションを使用してください。 \\
+\footnotesize\verb|--with-openssl=dir|  &
+openSSLを使用する場合に、openSSLのインストールされたデイレクトリを指定します。 \\
+\footnotesize\verb|--with-omniORB-config=dir/file| &
+omniORB設定ファイルの場所とファイル名を指定します。デフォルトは \verb|/etc/omniORB.cfg| です。  \\
+\footnotesize\verb|--with-omniNames-logdir=dir/file| &
+omniORBログファイルの場所とファイル名を指定します。デフォルトは \verb|/var/omninames| です。 
+\end{tabular}
+\end{tab}
+
+\subsection{omniORBのインストール}
+\verb|build| ディレクトリ下でrootになり \verb|make install| でインストールします。
+
+\begin{cmd}
+\begin{verbatim}
+> su
+# make install
+\end{verbatim}
+\end{cmd}
+

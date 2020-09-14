@@ -1,0 +1,10 @@
+<launch>
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <param name="model" value="$(arg model)"/>
+
+  <arg name="topic_type" default="turtlebot" doc="topic type [turtlebot, turtlesim]"/>
+  <param name="topic_type" value="$(arg topic_type)"/>
+
+  <node pkg="turtle_teleop_multi_key" type="turtle_teleop_multi_key" name="turtle_teleop_multi_key"  output="screen">
+  </node>
+</launch>

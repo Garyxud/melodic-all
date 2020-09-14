@@ -1,0 +1,13 @@
+#!/bin/bash
+
+IFS=':' read -ra PREFIX_PATH <<< "$CMAKE_PREFIX_PATH"
+loop=true
+for dir in "${PREFIX_PATH[@]}"; do
+    if [ $loop = true -a -e ${dir}/etc/catkin/profile.d/99.jsk_tools.bash ] ; then
+        source ${dir}/etc/catkin/profile.d/99.jsk_tools.bash
+        loop=false
+    fi
+done
+if [ loop = true ] ; then
+    echo -e "Warning : Failed to load bashrc.ros"
+fi

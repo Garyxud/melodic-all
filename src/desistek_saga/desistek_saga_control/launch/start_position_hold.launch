@@ -1,0 +1,32 @@
+<launch>
+    <arg name="namespace" default="desistek_saga"/>
+
+    <include file="$(find desistek_saga_control)/launch/start_thruster_manager.launch">
+        <arg name="uuv_name" value="$(arg namespace)"/>
+    </include>
+
+    <group ns="$(arg namespace)">
+        <rosparam file="$(find desistek_saga_control)/config/inertial.yaml" command="load"/>
+        <rosparam file="$(find desistek_saga_control)/config/vel_pid_control.yaml" command="load"/>
+
+        <node pkg="uuv_control_cascaded_pid" type="AccelerationControl.py" name="acceleration_control"
+            output="screen">
+            <param name="tf_prefix" type="string" value="$(arg namespace)/" />
+        </node>
+
+        <node pkg="uuv_control_cascaded_pid" type="VelocityControl.py" name="velocity_control"
+            output="screen">
+            <remap from="odom" to="pose_gt"/>
+        </node>
+
+        <!-- <node pkg="uuv_trajectory_control_plocan" type="ROVUATrajectoryTracking.py" name="trajectory_tracking_desistek"
+              output="screen">
+            <remap from="odom" to="pose_gt"/>
+        </node> -->
+
+        <node pkg="uuv_control_cascaded_pid" type="PositionControl.py" name="position_control"
+              output="screen">
+              <remap from="odom" to="pose_gt"/>
+        </node>
+    </group>
+</launch>

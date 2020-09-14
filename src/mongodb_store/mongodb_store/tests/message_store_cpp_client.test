@@ -1,0 +1,9 @@
+<launch>
+
+  <include file="$(find mongodb_store)/launch/mongodb_store.launch">
+    <arg name="test_mode" value="true"/>
+  </include>
+  
+  <test test-name="test_message_store_cpp" pkg="mongodb_store" type="message_store_cpp_test"/>
+
+</launch>

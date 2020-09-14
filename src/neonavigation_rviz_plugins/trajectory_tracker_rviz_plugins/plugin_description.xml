@@ -1,0 +1,6 @@
+<library path="libtrajectory_tracker_rviz_plugins">
+  <class name="trajectory_tracker_rviz_plugins/PathWithVelocity" type="trajectory_tracker_rviz_plugins::PathWithVelocityDisplay" base_class_type="rviz::Display">
+    <description>Displays data from a trajectory_tracker_msgs::PathWithVelocity message.</description>
+    <message_type>trajectory_tracker_msgs/PathWithVelocity</message_type>
+  </class>
+</library>

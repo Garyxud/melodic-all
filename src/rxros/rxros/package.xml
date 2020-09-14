@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rxros</name>
+  <version>0.1.0</version>
+  <description>The RxROS package</description>
+
+  <author>Henrik Larsen</author>
+  <maintainer email="wasowski@itu.dk">Andrzej Wasowski</maintainer>
+  <maintainer email="g.a.vanderhoorn@tudelft.nl">G.A. vd. Hoorn</maintainer>
+  <maintainer email="henrik7264@outlook.com">Henrik Larsen</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+
+  <build_depend>rxcpp_vendor</build_depend>
+
+  <build_export_depend>rxcpp_vendor</build_export_depend>
+</package>

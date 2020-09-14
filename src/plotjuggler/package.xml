@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<package format="3">
+    <name>plotjuggler</name>
+    <version>2.8.4</version>
+    <description>PlotJuggler: juggle with data</description>
+
+    <maintainer email="davide.faconti@gmail.com">Davide Faconti</maintainer>
+    <license>LGPLv3</license>
+
+    <url type="website">https://github.com/facontidavide/PlotJuggler</url>
+
+    <author email="davide.faconti@gmail.com">Davide Faconti</author>
+
+    <!-- ROS1 dependencies -->
+    <buildtool_depend condition="$ROS_VERSION == 1">catkin</buildtool_depend>
+
+    <depend condition="$ROS_VERSION == 1">rosbag_storage</depend>
+    <depend condition="$ROS_VERSION == 1">roscpp</depend>
+    <depend condition="$ROS_VERSION == 1">roscpp_serialization</depend>
+    <depend condition="$ROS_VERSION == 1">diagnostic_msgs</depend>
+    <depend condition="$ROS_VERSION == 1">tf</depend>
+
+    <!-- ROS2 dependencies -->
+    <buildtool_depend condition="$ROS_VERSION == 2">ament_cmake</buildtool_depend>
+
+    <depend condition="$ROS_VERSION == 2">rclcpp</depend>
+    <depend condition="$ROS_VERSION == 2">rcpputils</depend>
+    <depend condition="$ROS_VERSION == 2">rosbag2</depend>
+    <depend condition="$ROS_VERSION == 2">rosbag2_transport</depend>
+    <depend condition="$ROS_VERSION == 2">fastcdr</depend>
+
+    <depend>sensor_msgs</depend>
+    <depend>geometry_msgs</depend>
+    <depend>nav_msgs</depend>
+    <depend>tf2_ros</depend>
+    <depend>tf2_msgs</depend>
+    <depend>plotjuggler_msgs</depend>
+
+    <!-- common dependancies -->
+    <depend>qtbase5-dev</depend>
+    <depend>qtdeclarative5-dev</depend>
+    <depend>qtmultimedia5-dev</depend>
+    <depend>binutils</depend>
+    <depend>libqt5-svg-dev</depend>
+    <depend>libqt5multimedia5-plugins</depend>
+    <depend>boost</depend>
+
+    <!-- The export tag contains other, unspecified, tags -->
+    <export>
+        <build_type condition="$ROS_VERSION == 1">catkin</build_type>
+        <build_type condition="$ROS_VERSION == 2">ament_cmake</build_type>
+    </export>
+</package>

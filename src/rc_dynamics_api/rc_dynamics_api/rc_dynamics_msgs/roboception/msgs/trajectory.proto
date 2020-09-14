@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "TrajectoryProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Trajectory
+/// \brief Message for Trajectory with timestamped poses
+
+import "roboception/msgs/time.proto";
+import "roboception/msgs/pose_stamped.proto";
+
+message Trajectory
+{
+  optional Time timestamp     = 1;  // Time of last change to trajectory
+  optional string parent      = 2;  // Name of the parent frame
+  optional string name        = 3;  // Name of the frame
+  optional string producer    = 4;  // Name of the producer of this data
+  repeated PoseStamped poses  = 5;  // The poses forming the trajectory
+}

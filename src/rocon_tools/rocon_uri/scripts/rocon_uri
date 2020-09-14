@@ -1,0 +1,98 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/tools/license/LICENSE
+#
+##############################################################################
+# Imports
+##############################################################################
+
+import argparse
+import os
+import copy
+import re
+import sys
+
+import rospy
+import rocon_uri
+import rocon_console.console as console
+
+##############################################################################
+# Methods
+##############################################################################
+
+def usage():
+    usage = console.green + "\nUtility for introspecting on rocon uri strings.\n\n" + console.reset
+    usage += console.bold + "Commands:\n" + console.reset
+    usage += console.cyan + "\trocon_uri parse URI\t" + console.yellow + "parse and attempt to validate a rocon URI.\n" + console.reset
+    usage += console.cyan + "\trocon_uri fields\t" + console.yellow + "print a full list of permitted fields in a rocon uri string.\n" + console.reset
+    usage += console.cyan + "\trocon_uri rules\t\t" + console.yellow + "print a full list of the ebnf rules for a rocon uri string.\n" + console.reset
+    usage += "\n"
+    return usage
+
+def _rocon_uri_cmd_parse(rocon_uri_string):
+    try:
+        uri = rocon_uri.RoconURI(rocon_uri_string)
+        print("\n\t" + console.bold + "'" + rocon_uri_string + "'" + console.reset + console.green + " is a valid rocon uri\n" + console.reset)
+        print("\t" + console.bold + "'Concert Name'          "+ console.reset + console.green + ": %s" % uri.concert_name+ console.reset)
+        print("\t" + console.bold + "'Hardware Platform'     "+ console.reset + console.green + ": %s" % uri.hardware_platform.string + console.reset)
+        print("\t" + console.bold + "'Name'                  "+ console.reset + console.green + ": %s" % uri.name.string + console.reset)
+        print("\t" + console.bold + "'Application Framework' "+ console.reset + console.green + ": %s" % uri.application_framework.string + console.reset)
+        print("\t" + console.bold + "'Operating System'      "+ console.reset + console.green + ": %s" % uri.operating_system.string + console.reset)
+        if uri.rapp:
+            print("\t" + console.bold + "'Rapp'                  "+ console.reset + console.green + ": %s" % uri.rapp + console.reset)
+    except rocon_uri.RoconURIValueError as e:
+        print(console.bold + "\nError" + console.reset)
+        print(console.red + "\tFailed to parse " +  console.cyan + rocon_uri_string + console.reset)
+        print(console.bold + "Reason" + console.reset)
+        print(console.red + "\t%s\n" % str(e) + console.reset)
+
+def _rocon_uri_cmd_fields():
+    print("\nA rocon uri string typically takes the form:\n")
+    print(console.green + "\trocon://concert_name/hardware_platform/name/application_framework/operating_system#rocon_app\n" + console.reset)
+    print("where permitted values for each of the fields include:\n")
+    yaml_rules = rocon_uri.rules.load_rules_into_dictionary()
+    rule_sets = {}
+    for yaml_rule_set in yaml_rules:  # each of hardware_platform, name, application_framework, os
+        rule_sets.update(yaml_rule_set)
+    for rule_set_name, rule_set in rule_sets.iteritems():
+        for name, group, elements in rocon_uri.rules.walk_yaml_rules(rule_set_name, rule_set):
+            split_name = name.split('/')
+            prefix = ''
+            for i in range(0, 2*(len(split_name)-1)):
+                prefix += ' '
+            print(prefix + console.cyan + "+ %s" % split_name[-1] + console.reset)
+            for element in elements:
+                print(prefix + console.yellow + "  - " + element + console.reset)
+
+    print("\nYou can modify or extend the list of permitted fields with a pull request at \n")
+    print(console.green + "\thttps://github.com/robotics-in-concert/rocon_tools/blob/indigo/rocon_uri/src/rocon_uri/rules/rules.yaml\n" + console.reset)
+
+def _rocon_uri_cmd_rules():
+    print("\nThe " + console.bold + "ebnf" + console.reset + " rules used to internally parse a rocon_uri string:\n" + console.reset)
+    rules = rocon_uri.rules.load_ebnf_rules()
+    for name, rules in rules.iteritems():
+        print(console.cyan + "  " + name + console.reset)
+        for rule in rules:
+            print(console.green + "    " + rule + console.reset)
+
+##############################################################################
+# Simple Printout of Rocon URI Rules
+##############################################################################
+
+if __name__ == '__main__':
+    # filter out remapping arguments in case we are being invoked via roslaunch
+    argv = rospy.myargv(sys.argv)
+    command = argv[1] if len(argv) > 1 else None
+    if command == 'parse':
+        if len(argv) < 3:
+            print("%s" % usage())
+        else:
+            _rocon_uri_cmd_parse(argv[2])
+    elif command == 'fields':
+        _rocon_uri_cmd_fields()
+    elif command == 'rules':
+        _rocon_uri_cmd_rules()
+    else:
+        print("%s" % usage())
+

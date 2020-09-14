@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>rtmros_nextage</name>
+  <version>0.8.6</version>
+  <description>The rtmros_nextage package is a ROS interface for <a href = "http://nextage.kawada.jp/en/">Nextage</a> dual-armed robot from Kawada Robotics Inc.
+  </description>
+  <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <author>Kei Okada</author>
+  <author>Isaac Isao Saito</author>
+  <author email="w.yasuda@opensource-robotics.tokyo.jp">Wataru Yasuda</author>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/rtmros_nextage</url>
+  <url type="bugtracker">https://github.com/tork-a/rtmros_nextage/issues</url>
+  <url type="repository">https://github.com/tork-a/rtmros_nextage</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <!-- <run_depend>nextage_calibration</run_depend> --> <!-- not released on melodic -->
+  <run_depend>nextage_description</run_depend>
+  <run_depend>nextage_gazebo</run_depend>
+  <run_depend>nextage_ik_plugin</run_depend>
+  <run_depend>nextage_moveit_config</run_depend>
+  <run_depend>nextage_ros_bridge</run_depend>
+  <export>
+    <metapackage/>
+  </export>
+</package>

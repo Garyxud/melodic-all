@@ -1,0 +1,10 @@
+# Send the topic name of sub_blackboard to send shutdown request
+# The blackboard watcher listening has the topic name it's listening to
+# Result response states whether sub_blackboard has been purged successfully
+# on request
+
+# topic name that is dynamically created for watching to shutdown
+string topic_name
+---
+# response stating successful shutdown of sub_blackboard
+bool result

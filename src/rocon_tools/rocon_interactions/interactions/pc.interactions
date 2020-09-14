@@ -1,0 +1,47 @@
+###############################################################################
+# PC
+###############################################################################
+
+interactions:
+    - name: Rocon Master Info
+      group: PC
+      compatibility: rocon:/pc/*/hydro|indigo/precise|quantal|raring|saucy|trusty
+      command: rocon_master_info
+      description: Generic information about this master (global executable).
+      max: -1
+
+    - name: Rqt Graph
+      group: 'PC'
+      compatibility: rocon:/pc/*/hydro|indigo/precise|quantal|raring|saucy|trusty
+      command: rqt_graph/rqt_graph
+      description: Graph of all topics and services (rosrunnable).
+      max: -1
+      icon:
+        resource_name: rocon_bubble_icons/rqt.png
+
+    - name: Rviz Markers
+      group: PC
+      compatibility: rocon:/pc/*/hydro|indigo/precise|quantal|raring|saucy|trusty
+      command: rocon_interactions/rviz.launch
+      description: Rviz with a customised view from a launch file (via roslaunch).
+      max: -1
+      icon:
+        resource_name: rocon_bubble_icons/rviz.png
+
+    - command: rqt_plot -t
+      group: PC
+      compatibility: rocon:/pc/*/indigo/trusty
+      name: Rqt Plot
+      description: Plot particular variables on gopher.
+      max: -1
+      icon:
+          resource_name: rocon_bubble_icons/rqt.png
+
+    - name: RosRun Rviz Markers
+      group: PC
+      compatibility: rocon:/pc/*/hydro|indigo/precise|quantal|raring|saucy|trusty
+      command: rviz/rviz -d $(find rocon_interactions)/rviz/markers.rviz
+      description: Rviz with a customised view directly (via rosrun).
+      max: -1
+      icon:
+        resource_name: rocon_bubble_icons/rviz.png

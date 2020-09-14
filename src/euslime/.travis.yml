@@ -1,0 +1,29 @@
+---
+language: python
+sudo: required
+cache:
+  - pip
+  - apt
+# addons:
+#   apt:
+#     packages:
+#       - emacs24-nox
+matrix:
+  include:
+    - python: 2.7
+  allow_failures:
+    - python: 3.5
+
+install:
+  - pip install -U flake8
+  - pip install . -U
+  - sudo apt install -y -qq emacs24-nox git make gcc g++ libx11-dev libjpeg-dev libxext-dev libgl1-mesa-dev libglu1-mesa-dev libpq-dev libpng-dev
+  - git clone http://github.com/euslisp/jskeus ../jskeus
+  - git clone https://github.com/slime/slime.git ../slime
+script:
+  - cd ../
+  - flake8 --ignore=E722,F821 euslime/euslime
+  - (cd jskeus; make)
+  - source jskeus/bashrc.eus
+  - emacs --batch -L slime -l euslime/slime-euslisp.el -l euslime/euslime.el -f euslime-prepare-files
+  - ./euslime/euslime_tests.py eus

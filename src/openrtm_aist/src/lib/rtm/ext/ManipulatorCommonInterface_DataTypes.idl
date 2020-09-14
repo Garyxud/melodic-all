@@ -1,0 +1,46 @@
+/*
+  Manipulator Common Interface (Data type defenition)
+    - This IDL is used as service port on RTC
+    - This command specification is provided by Intelligent RT Software
+  Project of JARA.
+  rev. 20140205
+*/
+
+#ifndef MANIPULATORCOMMONINTERFACE_DATATYPES_IDL
+#define MANIPULATORCOMMONINTERFACE_DATATYPES_IDL
+
+#include "BasicDataType.idl"
+
+module JARA_ARM {
+
+  typedef sequence<double> DoubleSeq;
+  typedef sequence<double> JointPos;
+
+  struct LimitValue {
+    double upper;
+    double lower;
+  };
+
+  struct RETURN_ID{
+    long id;
+    string comment;
+  };
+
+  const long OK = 0;
+  const long NG = -1;
+  const long STATUS_ERR = -2;
+  const long VALUE_ERR = -3;
+  const long NOT_SV_ON_ERR = -4;
+  const long FULL_MOTION_QUEUE_ERR = -5;
+  const long NOT_IMPLEMENTED = -6;
+
+  struct TimedJointPos {
+    RTC::Time tm;
+    JointPos pos;
+  };
+
+  typedef unsigned long ULONG;
+};
+
+#endif // MANIPULATORCOMMONINTERFACE_DATATYPES_IDL
+

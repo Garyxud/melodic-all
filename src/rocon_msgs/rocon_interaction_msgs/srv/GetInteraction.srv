@@ -1,0 +1,15 @@
+# For the auto app launcher (used with nfc tag) to get the information
+# about a single interaction.
+
+# We had to trim down the request data given to us by the nfc tag
+# so we use crc32 hashes for uniqueness purposes.
+int32 hash
+
+# The rocon uri of the requester. This is used as a check to
+# ensure the platform is compatible. Disabling for now until we have
+# a real need for this.
+
+---
+
+bool result
+Interaction interaction

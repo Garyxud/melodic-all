@@ -1,0 +1,15 @@
+<!-- 
+  Starts the way point navigator with default parameters
+ -->
+
+<launch>
+  <arg name="frequency"     default="5.0"/>
+  <arg name="close_enough"  default="0.2"/>
+  <arg name="goal_timeout"  default="60.0"/>
+  
+  <node pkg="yocs_waypoints_navi" type="yocs_waypoints_navi_node" name="waypoints_navi">
+    <param name="frequency"    value="$(arg frequency)"/>
+    <param name="close_enough" value="$(arg close_enough)"/>
+    <param name="goal_timeout" value="$(arg goal_timeout)"/>
+  </node>
+</launch>

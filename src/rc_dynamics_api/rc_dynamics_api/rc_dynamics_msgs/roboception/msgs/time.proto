@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "TimeProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Time
+/// \brief A message for time data
+
+message Time
+{
+  /// \brief Seconds
+  optional int64 sec = 1;
+
+  /// \brief Nanoseconds
+  optional int32 nsec = 2;
+}

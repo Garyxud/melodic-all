@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dataspeed_pds_msgs</name>
+  <version>1.0.5</version>
+  <description>
+    Messages for the Dataspeed Inc. Power Distribution System (PDS)
+  </description>
+
+  <license>BSD</license>
+  <author email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</author>
+  <author email="emyllyoja@dataspeedinc.com">Eric Myllyoja</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</maintainer>
+  <maintainer email="emyllyoja@dataspeedinc.com">Eric Myllyoja</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/dataspeed_pds</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/dataspeed_pds/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>std_msgs</depend>
+
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <exec_depend>rosbag_migration_rule</exec_depend>
+
+  <export>
+    <rosbag_migration_rule rule_file="bmr/0.1.1-0.1.2/Status.bmr"/>
+    <rosbag_migration_rule rule_file="bmr/0.1.2-1.0.0/Status.bmr"/>
+  </export>
+
+</package>

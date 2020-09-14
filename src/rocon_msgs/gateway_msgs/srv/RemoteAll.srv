@@ -1,0 +1,18 @@
+# Flips all except a blacklist to the specified target
+
+# The target recipient of the flip
+string gateway
+
+# list of connections to exclude, this will be added to the default blacklist
+Rule[] blacklist
+
+# if cancel is set, stops flipping all connections
+bool cancel
+
+---
+
+# Return a verbose error string to help with debugging if success fails.
+# Strings defined in gateway_comms.msg.Result
+int8 result
+string error_message
+

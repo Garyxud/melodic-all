@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+<arg name="sensor_ip" default="192.168.10.1" />
+<arg name="port" default="9990" />
+
+<include file="$(find leuze_description)/launch/rsl400_upload.launch"/>
+
+<node name="leuze_rsl_node" type="leuze_rsl_driver" pkg="leuze_rsl_driver" output="screen" args="$(arg sensor_ip) $(arg port)">
+    <rosparam command="load" file="$(find leuze_rsl_driver)/config/params.yaml" />
+    <remap from="scan" to="scan1/scan"/>
+    <remap from="status" to="scan1/status"/>    
+</node>
+
+</launch>

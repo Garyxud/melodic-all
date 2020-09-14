@@ -1,0 +1,29 @@
+<launch>
+  <arg name="run_rviz" default="true" />
+
+  <!-- env name="ROBOT" value="sim"/ -->
+  <include file="$(find pr2eus_tutorials)/launch/gazebo/pr2_gazebo_objects.launch" >
+    <arg name="run_rviz" value="false" />
+    <arg name="table_x_pos" value="0.16" />
+  </include>
+
+  <include file="$(find jsk_pr2_startup)/jsk_pr2_sensors/tilt_scan_cloud.launch"/>
+
+  <node name="kinect_points_throttle" pkg="topic_tools" type="throttle"
+        args="messages /head_mount_kinect/depth_registered/points 3.0" />
+
+  <!--include file="$(find roseus_tutorials)/launch/tabletop-object-detector.launch" >
+    <arg name="run_rviz" value="false" />
+    <arg name="tabletop_segmentation_points_in"
+         value="/head_mount_kinect/depth_registered/points_throttle" />
+  </include-->
+
+  <include file="$(find pr2eus_tutorials)/launch/template_grasp.launch" >
+    <arg name="kinect_camera_name" value="head_mount_kinect" />
+  </include>
+
+  <node if="$(arg run_rviz)"
+        pkg="rviz" name="pr2_rviz" type="rviz"
+        args="-d $(find pr2eus_tutorials)/config/pr2_tabletop_sim.vcg" />
+
+</launch>

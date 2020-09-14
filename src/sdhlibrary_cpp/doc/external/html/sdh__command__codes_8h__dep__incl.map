@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$sdh__codes_8h.html" title="This file contains function to convert the binary command codes of the SDH. To use this from a non gc..." alt="" coords="196,83,316,112"/>
+<area shape="rect" id="node5" href="$sdhserial_8h.html" title="Interface of class SDH::cSDHSerial." alt="" coords="109,160,219,189"/>
+<area shape="rect" id="node13" href="$sdhserial_8cpp.html" title="Interface of class SDH::cSDHSerial." alt="" coords="195,237,317,267"/>
+<area shape="rect" id="node15" href="$sdh__codes_8cpp.html" title="This file contains function to convert the binary command and return codes of the SDH to strings..." alt="" coords="293,160,427,189"/>
+<area shape="rect" id="node7" href="$sdh_8h.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="93,237,171,267"/>
+<area shape="rect" id="node9" href="$cancat_8cpp.html" title="Yet incomplete tool to send and receive data via CAN. See __help__ and online help (&quot;&#45;h&quot; or..." alt="" coords="5,315,128,344"/>
+<area shape="rect" id="node11" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="152,315,245,344"/>
+</map>

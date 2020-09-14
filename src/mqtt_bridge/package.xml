@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mqtt_bridge</name>
+  <version>0.1.7</version>
+  <description>The mqtt_bridge package</description>
+
+  <author email="junya.hayashi@groove-x.com">Junya Hayashi</author>
+  <maintainer email="junya.hayashi@groove-x.com">Junya Hayashi</maintainer>
+
+  <license>MIT</license>
+
+  <url>http://www.ros.org/wiki/mqtt_bridge</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rosbridge_library</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <!-- <exec_depend>python-inject-pip</exec_depend> -->
+  <!-- <exec_depend>python-msgpack</exec_depend> -->
+  <!-- <exec_depend>python-paho-mqtt-pip</exec_depend> -->
+
+  <export>
+  </export>
+</package>

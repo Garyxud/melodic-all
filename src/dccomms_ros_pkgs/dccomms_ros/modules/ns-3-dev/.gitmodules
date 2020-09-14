@@ -1,0 +1,3 @@
+[submodule "src/aqua-sim-ng"]
+	path = src/aqua-sim-ng
+	url = https://github.com/dcentelles/aqua-sim-ng

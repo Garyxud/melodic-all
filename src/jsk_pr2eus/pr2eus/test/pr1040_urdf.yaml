@@ -1,0 +1,1512 @@
+"<?xml version=\"1.0\" ?>\n<robot name=\"pr2\" xmlns:body=\"http://playerstage.sourceforge.net/gazebo/xmlschema/#body\"\
+  \ xmlns:controller=\"http://playerstage.sourceforge.net/gazebo/xmlschema/#controller\"\
+  \ xmlns:geom=\"http://playerstage.sourceforge.net/gazebo/xmlschema/#geom\" xmlns:interface=\"\
+  http://playerstage.sourceforge.net/gazebo/xmlschema/#interface\" xmlns:joint=\"\
+  http://playerstage.sourceforge.net/gazebo/xmlschema/#joint\" xmlns:sensor=\"http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor\"\
+  \ xmlns:xacro=\"http://ros.org/wiki/xacro\">\n  <gazebo>\n    <controller:gazebo_ros_controller_manager\
+  \ name=\"gazebo_ros_controller_manager\" plugin=\"libgazebo_ros_controller_manager.so\"\
+  >\n      <alwaysOn>true</alwaysOn>\n      <updateRate>1000.0</updateRate>\n    \
+  \  <interface:audio name=\"gazebo_ros_controller_manager_dummy_iface\"/>\n    </controller:gazebo_ros_controller_manager>\n\
+  \    <controller:gazebo_ros_power_monitor name=\"gazebo_ros_power_monitor_controller\"\
+  \ plugin=\"libgazebo_ros_power_monitor.so\">\n      <alwaysOn>true</alwaysOn>\n\
+  \      <updateRate>1.0</updateRate>\n      <timeout>5</timeout>\n      <interface:audio\
+  \ name=\"power_monitor_dummy_interface\"/>\n      <powerStateTopic>power_state</powerStateTopic>\n\
+  \      <powerStateRate>10.0</powerStateRate>\n      <fullChargeCapacity>87.78</fullChargeCapacity>\n\
+  \      <dischargeRate>-474</dischargeRate>\n      <chargeRate>525</chargeRate>\n\
+  \      <dischargeVoltage>15.52</dischargeVoltage>\n      <chargeVoltage>16.41</chargeVoltage>\n\
+  \    </controller:gazebo_ros_power_monitor>\n  </gazebo>\n  <material name=\"Blue\"\
+  >\n    <color rgba=\"0 0 0.8 1\"/>\n  </material>\n  <material name=\"Green\">\n\
+  \    <color rgba=\"0 0.8 0 1\"/>\n  </material>\n  <material name=\"Grey\">\n  \
+  \  <color rgba=\"0.7 0.7 0.7 1\"/>\n  </material>\n  <material name=\"Grey2\">\n\
+  \    <color rgba=\"0.9 0.9 0.9 1\"/>\n  </material>\n  <material name=\"Red\">\n\
+  \    <color rgba=\"0.8 0 0 1\"/>\n  </material>\n  <material name=\"White\">\n \
+  \   <color rgba=\"1 1 1 1\"/>\n  </material>\n  <material name=\"Black\">\n    <color\
+  \ rgba=\"0.1 0.1 0.1 1\"/>\n  </material>\n  <material name=\"LightGrey\">\n   \
+  \ <color rgba=\"0.6 0.6 0.6 1\"/>\n  </material>\n  <material name=\"Caster\">\n\
+  \    <texture filename=\"package://pr2_description/materials/textures/pr2_caster_texture.png\"\
+  />\n  </material>\n  <material name=\"Wheel_l\">\n    <texture filename=\"package://pr2_description/materials/textures/pr2_wheel_left.png\"\
+  />\n  </material>\n  <material name=\"Wheel_r\">\n    <texture filename=\"package://pr2_description/materials/textures/pr2_wheel_right.png\"\
+  />\n  </material>\n  <material name=\"RollLinks\">\n    <texture filename=\"package://pr2_description/materials/textures/pr2_wheel_left.png\"\
+  />\n  </material>\n  <link name=\"base_link\">\n    <inertial>\n      <mass value=\"\
+  116\"/>\n      <origin xyz=\"-0.061 0 0.1465\"/>\n      <inertia ixx=\"5.652232699207\"\
+  \ ixy=\"-0.009719934438\" ixz=\"1.293988226423\" iyy=\"5.669473158652\" iyz=\"-0.007379583694\"\
+  \ izz=\"3.683196351726\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/base_v0/base.dae\"\
+  />\n      </geometry>\n      <material name=\"White\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/base_v0/base_L.stl\"/>\n      </geometry>\n   \
+  \ </collision>\n  </link>\n  <link name=\"base_footprint\">\n    <inertial>\n  \
+  \    <mass value=\"1\"/>\n      <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\"\
+  \ ixy=\"0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n \
+  \   <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n  \
+  \      <box size=\"0.01 0.01 0.01\"/>\n      </geometry>\n      <material name=\"\
+  White\"/>\n    </visual>\n    <collision>\n      <origin rpy=\"0 0 0\" xyz=\"0 0\
+  \ 0.071\"/>\n      <geometry>\n        <box size=\"0.001 0.001 0.001\"/>\n     \
+  \ </geometry>\n    </collision>\n  </link>\n  <joint name=\"base_footprint_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"base_footprint\"/>\n    <child link=\"base_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0.051\"/>\n  </joint>\n  <link name=\"base_bellow_link\"\
+  >\n    <inertial>\n      <mass value=\"1\"/>\n      <origin xyz=\"0 0 0\"/>\n  \
+  \    <inertia ixx=\"0.01\" ixy=\"0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <box size=\"0.05 0.37 0.3\"/>\n      </geometry>\n  \
+  \    <material name=\"Black\"/>\n    </visual>\n    <collision>\n      <origin rpy=\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <box size=\"0.05 0.37 0.3\"/>\n\
+  \      </geometry>\n    </collision>\n  </link>\n  <joint name=\"base_bellow_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"base_link\"/>\n    <child link=\"base_bellow_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"-0.29 0 0.8\"/>\n  </joint>\n  <joint name=\"\
+  base_laser_joint\" type=\"fixed\">\n    <parent link=\"base_link\"/>\n    <child\
+  \ link=\"base_laser_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.275 0 0.252\"/>\n\
+  \    <axis xyz=\"0 1 0\"/>\n  </joint>\n  <link name=\"base_laser_link\" type=\"\
+  laser\">\n    <inertial>\n      <mass value=\"0.001\"/>\n      <origin rpy=\"0 0\
+  \ 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.0001\" ixy=\"0\" ixz=\"0\" iyy=\"\
+  0.000001\" iyz=\"0\" izz=\"0.0001\"/>\n    </inertial>\n  </link>\n  <gazebo reference=\"\
+  base_laser_link\">\n    <sensor:ray name=\"base_laser\">\n      <rayCount>640</rayCount>\n\
+  \      <rangeCount>640</rangeCount>\n      <laserCount>1</laserCount>\n      <origin>0.0\
+  \ 0.0 0.0</origin>\n      <displayRays>false</displayRays>\n      <minAngle>-129.998394137</minAngle>\n\
+  \      <maxAngle>129.998394137</maxAngle>\n      <minRange>0.08</minRange>\n   \
+  \   <maxRange>10.0</maxRange>\n      <resRange>0.01</resRange>\n      <updateRate>20</updateRate>\n\
+  \      <controller:gazebo_ros_laser name=\"gazebo_ros_base_laser_controller\" plugin=\"\
+  libgazebo_ros_laser.so\">\n        <gaussianNoise>0.005</gaussianNoise>\n      \
+  \  <alwaysOn>true</alwaysOn>\n        <updateRate>20</updateRate>\n        <topicName>base_scan</topicName>\n\
+  \        <frameName>base_laser_link</frameName>\n        <interface:laser name=\"\
+  gazebo_ros_base_laser_iface\"/>\n      </controller:gazebo_ros_laser>\n    </sensor:ray>\n\
+  \  </gazebo>\n  <joint name=\"fl_caster_rotation_joint\" type=\"continuous\">\n\
+  \    <parent link=\"base_link\"/>\n    <child link=\"fl_caster_rotation_link\"/>\n\
+  \    <origin rpy=\"0 0 0\" xyz=\"0.2246 0.2246 0.0282\"/>\n    <axis xyz=\"0 0 1\"\
+  />\n    <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\"\
+  \ friction=\"0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n    <calibration\
+  \ rising=\"-0.785398163397\"/>\n  </joint>\n  <link name=\"fl_caster_rotation_link\"\
+  >\n    <inertial>\n      <mass value=\"3.473082\"/>\n      <origin xyz=\"0 0 0.07\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/caster.stl\"/>\n\
+  \      </geometry>\n      <material name=\"Caster\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/base_v0/caster_L.stl\"/>\n      </geometry>\n \
+  \   </collision>\n  </link>\n  <transmission name=\"fl_caster_rotation_trans\" type=\"\
+  pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"fl_caster_rotation_motor\"\
+  />\n    <joint name=\"fl_caster_rotation_joint\"/>\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"fl_caster_l_wheel_joint\" type=\"continuous\"\
+  >\n    <parent link=\"fl_caster_rotation_link\"/>\n    <child link=\"fl_caster_l_wheel_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n \
+  \   <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"\
+  0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"\
+  fl_caster_l_wheel_link\">\n    <inertial>\n      <mass value=\"0.44036\"/>\n   \
+  \   <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\"\
+  \ ixz=\"0.00050272983\" iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"\
+  />\n      </geometry>\n      <material name=\"Wheel_l\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"fl_caster_l_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"fl_caster_l_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"fl_caster_l_wheel_motor\"/>\n    <joint name=\"fl_caster_l_wheel_joint\"\
+  />\n    <mechanicalReduction>79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <joint name=\"fl_caster_r_wheel_joint\" type=\"continuous\">\n    <parent link=\"\
+  fl_caster_rotation_link\"/>\n    <child link=\"fl_caster_r_wheel_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 -0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"\
+  100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"0.0\"/>\n   \
+  \ <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"fl_caster_r_wheel_link\"\
+  >\n    <inertial>\n      <mass value=\"0.44036\"/>\n      <origin xyz=\"0 0 0\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"/>\n\
+  \      </geometry>\n      <material name=\"Wheel_r\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"fl_caster_r_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"fl_caster_r_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"fl_caster_r_wheel_motor\"/>\n    <joint name=\"fl_caster_r_wheel_joint\"\
+  />\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <gazebo reference=\"fl_caster_rotation_link\">\n    <material value=\"PR2/caster_texture\"\
+  />\n  </gazebo>\n  <joint name=\"fr_caster_rotation_joint\" type=\"continuous\"\
+  >\n    <parent link=\"base_link\"/>\n    <child link=\"fr_caster_rotation_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.2246 -0.2246 0.0282\"/>\n    <axis xyz=\"\
+  0 0 1\"/>\n    <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"\
+  0.0\" friction=\"0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n    <calibration\
+  \ rising=\"-0.785398163397\"/>\n  </joint>\n  <link name=\"fr_caster_rotation_link\"\
+  >\n    <inertial>\n      <mass value=\"3.473082\"/>\n      <origin xyz=\"0 0 0.07\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/caster.stl\"/>\n\
+  \      </geometry>\n      <material name=\"Caster\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/base_v0/caster_L.stl\"/>\n      </geometry>\n \
+  \   </collision>\n  </link>\n  <transmission name=\"fr_caster_rotation_trans\" type=\"\
+  pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"fr_caster_rotation_motor\"\
+  />\n    <joint name=\"fr_caster_rotation_joint\"/>\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"fr_caster_l_wheel_joint\" type=\"continuous\"\
+  >\n    <parent link=\"fr_caster_rotation_link\"/>\n    <child link=\"fr_caster_l_wheel_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n \
+  \   <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"\
+  0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"\
+  fr_caster_l_wheel_link\">\n    <inertial>\n      <mass value=\"0.44036\"/>\n   \
+  \   <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\"\
+  \ ixz=\"0.00050272983\" iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"\
+  />\n      </geometry>\n      <material name=\"Wheel_l\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"fr_caster_l_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"fr_caster_l_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"fr_caster_l_wheel_motor\"/>\n    <joint name=\"fr_caster_l_wheel_joint\"\
+  />\n    <mechanicalReduction>79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <joint name=\"fr_caster_r_wheel_joint\" type=\"continuous\">\n    <parent link=\"\
+  fr_caster_rotation_link\"/>\n    <child link=\"fr_caster_r_wheel_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 -0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"\
+  100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"0.0\"/>\n   \
+  \ <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"fr_caster_r_wheel_link\"\
+  >\n    <inertial>\n      <mass value=\"0.44036\"/>\n      <origin xyz=\"0 0 0\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"/>\n\
+  \      </geometry>\n      <material name=\"Wheel_r\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"fr_caster_r_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"fr_caster_r_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"fr_caster_r_wheel_motor\"/>\n    <joint name=\"fr_caster_r_wheel_joint\"\
+  />\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <gazebo reference=\"fr_caster_rotation_link\">\n    <material value=\"PR2/caster_texture\"\
+  />\n  </gazebo>\n  <joint name=\"bl_caster_rotation_joint\" type=\"continuous\"\
+  >\n    <parent link=\"base_link\"/>\n    <child link=\"bl_caster_rotation_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"-0.2246 0.2246 0.0282\"/>\n    <axis xyz=\"\
+  0 0 1\"/>\n    <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"\
+  0.0\" friction=\"0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n    <calibration\
+  \ rising=\"2.35619449019\"/>\n  </joint>\n  <link name=\"bl_caster_rotation_link\"\
+  >\n    <inertial>\n      <mass value=\"3.473082\"/>\n      <origin xyz=\"0 0 0.07\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/caster.stl\"/>\n\
+  \      </geometry>\n      <material name=\"Caster\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/base_v0/caster_L.stl\"/>\n      </geometry>\n \
+  \   </collision>\n  </link>\n  <transmission name=\"bl_caster_rotation_trans\" type=\"\
+  pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"bl_caster_rotation_motor\"\
+  />\n    <joint name=\"bl_caster_rotation_joint\"/>\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"bl_caster_l_wheel_joint\" type=\"continuous\"\
+  >\n    <parent link=\"bl_caster_rotation_link\"/>\n    <child link=\"bl_caster_l_wheel_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n \
+  \   <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"\
+  0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"\
+  bl_caster_l_wheel_link\">\n    <inertial>\n      <mass value=\"0.44036\"/>\n   \
+  \   <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\"\
+  \ ixz=\"0.00050272983\" iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"\
+  />\n      </geometry>\n      <material name=\"Wheel_l\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"bl_caster_l_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"bl_caster_l_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"bl_caster_l_wheel_motor\"/>\n    <joint name=\"bl_caster_l_wheel_joint\"\
+  />\n    <mechanicalReduction>79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <joint name=\"bl_caster_r_wheel_joint\" type=\"continuous\">\n    <parent link=\"\
+  bl_caster_rotation_link\"/>\n    <child link=\"bl_caster_r_wheel_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 -0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"\
+  100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"0.0\"/>\n   \
+  \ <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"bl_caster_r_wheel_link\"\
+  >\n    <inertial>\n      <mass value=\"0.44036\"/>\n      <origin xyz=\"0 0 0\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"/>\n\
+  \      </geometry>\n      <material name=\"Wheel_r\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"bl_caster_r_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"bl_caster_r_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"bl_caster_r_wheel_motor\"/>\n    <joint name=\"bl_caster_r_wheel_joint\"\
+  />\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <gazebo reference=\"bl_caster_rotation_link\">\n    <material value=\"PR2/caster_texture\"\
+  />\n  </gazebo>\n  <joint name=\"br_caster_rotation_joint\" type=\"continuous\"\
+  >\n    <parent link=\"base_link\"/>\n    <child link=\"br_caster_rotation_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"-0.2246 -0.2246 0.0282\"/>\n    <axis xyz=\"\
+  0 0 1\"/>\n    <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"\
+  0.0\" friction=\"0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n    <calibration\
+  \ rising=\"2.35619449019\"/>\n  </joint>\n  <link name=\"br_caster_rotation_link\"\
+  >\n    <inertial>\n      <mass value=\"3.473082\"/>\n      <origin xyz=\"0 0 0.07\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/caster.stl\"/>\n\
+  \      </geometry>\n      <material name=\"Caster\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/base_v0/caster_L.stl\"/>\n      </geometry>\n \
+  \   </collision>\n  </link>\n  <transmission name=\"br_caster_rotation_trans\" type=\"\
+  pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"br_caster_rotation_motor\"\
+  />\n    <joint name=\"br_caster_rotation_joint\"/>\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"br_caster_l_wheel_joint\" type=\"continuous\"\
+  >\n    <parent link=\"br_caster_rotation_link\"/>\n    <child link=\"br_caster_l_wheel_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n \
+  \   <limit effort=\"100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"\
+  0.0\"/>\n    <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"\
+  br_caster_l_wheel_link\">\n    <inertial>\n      <mass value=\"0.44036\"/>\n   \
+  \   <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\"\
+  \ ixz=\"0.00050272983\" iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"\
+  />\n      </geometry>\n      <material name=\"Wheel_l\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"br_caster_l_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"br_caster_l_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"br_caster_l_wheel_motor\"/>\n    <joint name=\"br_caster_l_wheel_joint\"\
+  />\n    <mechanicalReduction>79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <joint name=\"br_caster_r_wheel_joint\" type=\"continuous\">\n    <parent link=\"\
+  br_caster_rotation_link\"/>\n    <child link=\"br_caster_r_wheel_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 -0.049 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"\
+  100\" velocity=\"100\"/>\n    <dynamics damping=\"0.0\" friction=\"0.0\"/>\n   \
+  \ <safety_controller k_velocity=\"10\"/>\n  </joint>\n  <link name=\"br_caster_r_wheel_link\"\
+  >\n    <inertial>\n      <mass value=\"0.44036\"/>\n      <origin xyz=\"0 0 0\"\
+  />\n      <inertia ixx=\"0.012411765597\" ixy=\"-0.000711733678\" ixz=\"0.00050272983\"\
+  \ iyy=\"0.015218160428\" iyz=\"-0.000004273467\" izz=\"0.011763977943\"/>\n    </inertial>\n\
+  \    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/base_v0/wheel.dae\"/>\n\
+  \      </geometry>\n      <material name=\"Wheel_r\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"1.57079632679 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <cylinder length=\"0.034\" radius=\"0.074792\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <gazebo reference=\"br_caster_r_wheel_link\">\n    <mu1 value=\"100.0\"\
+  />\n    <mu2 value=\"100.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <transmission name=\"br_caster_r_wheel_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"br_caster_r_wheel_motor\"/>\n    <joint name=\"br_caster_r_wheel_joint\"\
+  />\n    <mechanicalReduction>-79.2380952381</mechanicalReduction>\n  </transmission>\n\
+  \  <gazebo reference=\"br_caster_rotation_link\">\n    <material value=\"PR2/caster_texture\"\
+  />\n  </gazebo>\n  <gazebo reference=\"base_link\">\n    <selfCollide>false</selfCollide>\n\
+  \    <sensor:contact name=\"base_contact_sensor\">\n      <geom>base_link_geom</geom>\n\
+  \      <updateRate>100.0</updateRate>\n      <controller:gazebo_ros_bumper name=\"\
+  base_gazebo_ros_bumper_controller\" plugin=\"libgazebo_ros_bumper.so\">\n      \
+  \  <alwaysOn>true</alwaysOn>\n        <updateRate>100.0</updateRate>\n        <bumperTopicName>base_bumper</bumperTopicName>\n\
+  \        <interface:bumper name=\"base_bumper_iface\"/>\n      </controller:gazebo_ros_bumper>\n\
+  \    </sensor:contact>\n  </gazebo>\n  <gazebo reference=\"base_bellow_link\">\n\
+  \    <material value=\"PR2/Black\"/>\n  </gazebo>\n  <gazebo>\n    <controller:gazebo_ros_p3d\
+  \ name=\"p3d_base_controller\" plugin=\"libgazebo_ros_p3d.so\">\n      <alwaysOn>true</alwaysOn>\n\
+  \      <updateRate>100.0</updateRate>\n      <bodyName/>\n      <topicName>base_pose_ground_truth</topicName>\n\
+  \      <gaussianNoise>0.01</gaussianNoise>\n      <frameName>map</frameName>\n \
+  \     <xyzOffsets>0 0 0</xyzOffsets>\n      <rpyOffsets>0 0 0</rpyOffsets>\n   \
+  \   <interface:position name=\"p3d_base_position\"/>\n    </controller:gazebo_ros_p3d>\n\
+  \    <canonicalBody>base_footprint</canonicalBody>\n  </gazebo>\n  <joint name=\"\
+  torso_lift_joint\" type=\"prismatic\">\n    <parent link=\"base_link\"/>\n    <child\
+  \ link=\"torso_lift_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"-0.05 0 0.739675\"\
+  />\n    <axis xyz=\"0 0 1\"/>\n    <limit effort=\"10000\" lower=\"0\" upper=\"\
+  0.33\" velocity=\"0.013\"/>\n    <dynamics damping=\"20000.0\"/>\n    <safety_controller\
+  \ k_position=\"100\" k_velocity=\"2000000\" soft_lower_limit=\"0.0115\" soft_upper_limit=\"\
+  0.325\"/>\n    <calibration falling=\"0.00475\"/>\n  </joint>\n  <link name=\"torso_lift_link\"\
+  >\n    <inertial>\n      <mass value=\"36.248046\"/>\n      <origin xyz=\"-0.1 0\
+  \ -0.0885\"/>\n      <inertia ixx=\"2.771653750257\" ixy=\"0.004284522609\" ixz=\"\
+  -0.160418504506\" iyy=\"2.510019507959\" iyz=\"0.029664468704\" izz=\"0.526432355569\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/torso_v0/torso_lift_red.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey2\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/torso_v0/torso_lift_L.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"l_torso_lift_side_plate_joint\" type=\"\
+  fixed\">\n    <parent link=\"torso_lift_link\"/>\n    <child link=\"l_torso_lift_side_plate_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.0535 0.209285 0.176625\"/>\n  </joint>\n \
+  \ <link name=\"l_torso_lift_side_plate_link\">\n    <inertial>\n      <mass value=\"\
+  0.1\"/>\n      <origin xyz=\"-0.0625 0 0.05\"/>\n      <inertia ixx=\"0.001\" ixy=\"\
+  0\" ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n\
+  \  <joint name=\"r_torso_lift_side_plate_joint\" type=\"fixed\">\n    <parent link=\"\
+  torso_lift_link\"/>\n    <child link=\"r_torso_lift_side_plate_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0.0535 -0.209285 0.176625\"/>\n  </joint>\n  <link name=\"\
+  r_torso_lift_side_plate_link\">\n    <inertial>\n      <mass value=\"0.1\"/>\n \
+  \     <origin xyz=\"-0.0625 0 0.05\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"\
+  0\" iyy=\"0.001\" iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n  <link\
+  \ name=\"torso_lift_motor_screw_link\">\n    <inertial>\n      <mass value=\"1\"\
+  />\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"\
+  0\" ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n\
+  \  <joint name=\"torso_lift_motor_screw_joint\" type=\"continuous\">\n    <parent\
+  \ link=\"base_link\"/>\n    <child link=\"torso_lift_motor_screw_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"-0.15 0 0.7\"/>\n    <axis xyz=\"0 0 1\"/>\n    <dynamics\
+  \ damping=\"0.0001\"/>\n  </joint>\n  <gazebo reference=\"torso_lift_link\">\n \
+  \   <sensor:contact name=\"torso_lift_contact_sensor\">\n      <geom>torso_lift_link_geom</geom>\n\
+  \      <updateRate>100.0</updateRate>\n      <controller:gazebo_ros_bumper name=\"\
+  torso_lift_gazebo_ros_bumper_controller\" plugin=\"libgazebo_ros_bumper.so\">\n\
+  \        <alwaysOn>true</alwaysOn>\n        <updateRate>100.0</updateRate>\n   \
+  \     <bumperTopicName>torso_lift_bumper</bumperTopicName>\n        <interface:bumper\
+  \ name=\"torso_lift_gazebo_ros_bumper_iface\"/>\n      </controller:gazebo_ros_bumper>\n\
+  \    </sensor:contact>\n  </gazebo>\n  <gazebo>\n    <joint:screw name=\"torso_lift_screw_torso_lift_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>torso_lift_motor_screw_link</anchor>\n\
+  \      <anchorOffset>0 0 0</anchorOffset>\n      <axis>0 0 1</axis>\n      <threadPitch>3141.6</threadPitch>\n\
+  \    </joint:screw>\n  </gazebo>\n  <transmission name=\"torso_lift_trans\" type=\"\
+  pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"torso_lift_motor\"\
+  />\n    <joint name=\"torso_lift_joint\"/>\n    <mechanicalReduction>-47641.529999999999</mechanicalReduction>\n\
+  \    <simulated_actuated_joint name=\"torso_lift_motor_screw_joint\" simulated_reduction=\"\
+  3141.6\"/>\n  </transmission>\n  <joint name=\"imu_joint\" type=\"fixed\">\n   \
+  \ <parent link=\"torso_lift_link\"/>\n    <child link=\"imu_link\"/>\n    <origin\
+  \ rpy=\"0 3.14159265359 0\" xyz=\"-0.02977 -0.1497 0.164\"/>\n    <axis xyz=\"0\
+  \ 1 0\"/>\n  </joint>\n  <link name=\"imu_link\">\n    <inertial>\n      <mass value=\"\
+  0.001\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.0001\"\
+  \ ixy=\"0\" ixz=\"0\" iyy=\"0.000001\" iyz=\"0\" izz=\"0.0001\"/>\n    </inertial>\n\
+  \  </link>\n  <gazebo>\n    <controller:gazebo_ros_imu name=\"imu_controller\" plugin=\"\
+  libgazebo_ros_imu.so\">\n      <alwaysOn>true</alwaysOn>\n      <updateRate>100.0</updateRate>\n\
+  \      <bodyName/>\n      <topicName>torso_lift_imu/data</topicName>\n      <gaussianNoise>2.89e-08</gaussianNoise>\n\
+  \      <xyzOffsets>0 0 0</xyzOffsets>\n      <rpyOffsets>0 0 0</rpyOffsets>\n  \
+  \    <interface:position name=\"imu_position\"/>\n    </controller:gazebo_ros_imu>\n\
+  \  </gazebo>\n  <joint name=\"head_pan_joint\" type=\"revolute\">\n    <parent link=\"\
+  torso_lift_link\"/>\n    <child link=\"head_pan_link\"/>\n    <origin rpy=\"0 0\
+  \ 0\" xyz=\"-0.01707 0 0.38145\"/>\n    <axis xyz=\"0 0 1\"/>\n    <limit effort=\"\
+  2.645\" lower=\"-3.007\" upper=\"3.007\" velocity=\"6\"/>\n    <dynamics damping=\"\
+  0.5\"/>\n    <safety_controller k_position=\"100\" k_velocity=\"1.5\" soft_lower_limit=\"\
+  -2.857\" soft_upper_limit=\"2.857\"/>\n    <calibration rising=\"0.001673538132\"\
+  />\n  </joint>\n  <link name=\"head_pan_link\">\n    <inertial>\n      <mass value=\"\
+  6.339\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0.010907 0.031693 0.090507\"/>\n  \
+  \    <inertia ixx=\"0.032497592\" ixy=\"0.00063604088\" ixz=\"0.0025851534\" iyy=\"\
+  0.046545627\" iyz=\"-0.0024534295\" izz=\"0.057652724\"/>\n    </inertial>\n   \
+  \ <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n    \
+  \    <mesh filename=\"package://pr2_description/meshes/head_v0/head_pan.dae\"/>\n\
+  \      </geometry>\n      <material name=\"Blue\"/>\n    </visual>\n    <collision>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/head_v0/head_pan_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <transmission name=\"head_pan_trans\"\
+  \ type=\"pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"head_pan_motor\"\
+  />\n    <joint name=\"head_pan_joint\"/>\n    <mechanicalReduction>6</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"head_tilt_joint\" type=\"revolute\">\n    <parent\
+  \ link=\"head_pan_link\"/>\n    <child link=\"head_tilt_link\"/>\n    <origin rpy=\"\
+  0 0 0\" xyz=\"0.068 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"18\"\
+  \ lower=\"-0.471238\" upper=\"1.39626\" velocity=\"5\"/>\n    <dynamics damping=\"\
+  10.0\"/>\n    <safety_controller k_position=\"100\" k_velocity=\"3\" soft_lower_limit=\"\
+  -0.3712\" soft_upper_limit=\"1.29626\"/>\n    <calibration falling=\"0\"/>\n  </joint>\n\
+  \  <link name=\"head_tilt_link\">\n    <inertial>\n      <mass value=\"4.479\"/>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0.001716 -0.019556 0.055002\"/>\n      <inertia\
+  \ ixx=\"0.024223222\" ixy=\"0.00062063507\" ixz=\"-0.000096909696\" iyy=\"0.054723086\"\
+  \ iyz=\"0.002797024\" izz=\"0.067306377\"/>\n    </inertial>\n    <visual>\n   \
+  \   <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/head_v0/head_tilt_red.dae\"/>\n      </geometry>\n\
+  \      <material name=\"Green\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/head_v0/head_tilt_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <transmission name=\"head_tilt_trans\"\
+  \ type=\"pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"head_tilt_motor\"\
+  />\n    <joint name=\"head_tilt_joint\"/>\n    <mechanicalReduction>6</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"head_plate_frame_joint\" type=\"fixed\">\n \
+  \   <parent link=\"head_tilt_link\"/>\n    <child link=\"head_plate_frame\"/>\n\
+  \    <origin rpy=\"0 0 0\" xyz=\"0.0232 0 0.0645\"/>\n  </joint>\n  <link name=\"\
+  head_plate_frame\">\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\"\
+  \ iyy=\"0.001\" iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n    <visual>\n     \
+  \ <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <box size=\"\
+  0.01 0.01 0.01\"/>\n      </geometry>\n      <material name=\"Blue\"/>\n    </visual>\n\
+  \    <collision>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n\
+  \        <box size=\"0.01 0.01 0.01\"/>\n      </geometry>\n    </collision>\n \
+  \ </link>\n  <gazebo reference=\"head_plate_frame\">\n    <material value=\"Gazebo/Grey\"\
+  />\n  </gazebo>\n  <joint name=\"sensor_mount_frame_joint\" type=\"fixed\">\n  \
+  \  <parent link=\"head_plate_frame\"/>\n    <child link=\"sensor_mount_link\"/>\n\
+  \    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"sensor_mount_link\"\
+  >\n    <inertial>\n      <mass value=\"0.05\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"\
+  0\" izz=\"0.01\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <geometry>\n        <box size=\"0.01 0.01 0.01\"/>\n      </geometry>\n\
+  \      <material name=\"Blue\"/>\n    </visual>\n  </link>\n  <joint name=\"high_def_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"sensor_mount_link\"/>\n    <child link=\"\
+  high_def_frame\"/>\n    <origin rpy=\"-0.011367325963 -0.005165169215 -0.001364836162\"\
+  \ xyz=\"0.047781818569 -0.107456025003 0.053424595082\"/>\n  </joint>\n  <link name=\"\
+  high_def_frame\">\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin rpy=\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"\
+  0.001\" iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"\
+  high_def_optical_frame_joint\" type=\"fixed\">\n    <parent link=\"high_def_frame\"\
+  />\n    <child link=\"high_def_optical_frame\"/>\n    <origin rpy=\"-1.57079632679\
+  \ 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"high_def_optical_frame\"\
+  >\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"\
+  0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n  <gazebo reference=\"high_def_frame\"\
+  >\n    <sensor:camera name=\"high_def_sensor\">\n      <imageFormat>R8G8B8</imageFormat>\n\
+  \      <imageSize>2448 2050</imageSize>\n      <hfov>45</hfov>\n      <nearClip>0.1</nearClip>\n\
+  \      <farClip>100</farClip>\n      <updateRate>20.0</updateRate>\n      <controller:gazebo_ros_prosilica\
+  \ name=\"high_def_controller\" plugin=\"libgazebo_ros_prosilica.so\">\n        <alwaysOn>true</alwaysOn>\n\
+  \        <updateRate>20.0</updateRate>\n        <cameraName>prosilica</cameraName>\n\
+  \        <imageTopicName>image_raw</imageTopicName>\n        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n\
+  \        <pollServiceName>request_image</pollServiceName>\n        <frameName>high_def_optical_frame</frameName>\n\
+  \        <CxPrime>1224.5</CxPrime>\n        <Cx>1224.5</Cx>\n        <Cy>1025.5</Cy>\n\
+  \        <focalLength>2955</focalLength>\n        <distortionK1>0.0</distortionK1>\n\
+  \        <distortionK2>0.0</distortionK2>\n        <distortionK3>0.0</distortionK3>\n\
+  \        <distortionT1>0.0</distortionT1>\n        <distortionT2>0.0</distortionT2>\n\
+  \      </controller:gazebo_ros_prosilica>\n    </sensor:camera>\n    <material value=\"\
+  Gazebo/Black\"/>\n  </gazebo>\n  <joint name=\"double_stereo_frame_joint\" type=\"\
+  fixed\">\n    <parent link=\"sensor_mount_link\"/>\n    <child link=\"double_stereo_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"double_stereo_link\"\
+  >\n    <inertial>\n      <mass value=\"0.1\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"\
+  0\" izz=\"0.01\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  -0.01 0 0.025\"/>\n      <geometry>\n        <box size=\"0.02 0.12 0.05\"/>\n  \
+  \    </geometry>\n      <material name=\"Blue\"/>\n    </visual>\n  </link>\n  <joint\
+  \ name=\"wide_stereo_frame_joint\" type=\"fixed\">\n    <parent link=\"double_stereo_link\"\
+  />\n    <child link=\"wide_stereo_link\"/>\n    <origin rpy=\"-0.005760199259 -0.004094275046\
+  \ -0.051281425208\" xyz=\"0.051089087472 0.03017676504 0.04758883388\"/>\n  </joint>\n\
+  \  <link name=\"wide_stereo_link\">\n    <inertial>\n      <mass value=\"0.1\"/>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"\
+  0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n  </link>\n\
+  \  <joint name=\"wide_stereo_optical_frame_joint\" type=\"fixed\">\n    <parent\
+  \ link=\"wide_stereo_link\"/>\n    <child link=\"wide_stereo_optical_frame\"/>\n\
+  \    <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"wide_stereo_optical_frame\" type=\"camera\"/>\n  <joint name=\"\
+  wide_stereo_gazebo_l_stereo_camera_frame_joint\" type=\"fixed\">\n    <parent link=\"\
+  wide_stereo_link\"/>\n    <child link=\"wide_stereo_gazebo_l_stereo_camera_frame\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"wide_stereo_gazebo_l_stereo_camera_frame\"\
+  >\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin xyz=\"0 0 0\"/>\n\
+  \      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"\
+  0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"wide_stereo_gazebo_l_stereo_camera_optical_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"wide_stereo_gazebo_l_stereo_camera_frame\"\
+  />\n    <child link=\"wide_stereo_gazebo_l_stereo_camera_optical_frame\"/>\n   \
+  \ <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"wide_stereo_gazebo_l_stereo_camera_optical_frame\"/>\n  <gazebo\
+  \ reference=\"wide_stereo_gazebo_l_stereo_camera_frame\">\n    <sensor:camera name=\"\
+  wide_stereo_gazebo_l_stereo_camera_sensor\">\n      <imageSize>640 480</imageSize>\n\
+  \      <imageFormat>BAYER_BGGR8</imageFormat>\n      <hfov>90</hfov>\n      <nearClip>0.1</nearClip>\n\
+  \      <farClip>100</farClip>\n      <updateRate>25.0</updateRate>\n      <controller:gazebo_ros_depth_camera\
+  \ name=\"wide_stereo_gazebo_l_stereo_camera_controller\" plugin=\"libgazebo_ros_depth_camera.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <updateRate>25.0</updateRate>\n  \
+  \      <cameraName>wide_stereo/left</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <frameName>wide_stereo_optical_frame</frameName>\n\
+  \        <hackBaseline>0</hackBaseline>\n        <CxPrime>320.5</CxPrime>\n    \
+  \    <Cx>320.5</Cx>\n        <Cy>240.5</Cy>\n        <focalLength>320</focalLength>\n\
+  \        <distortionK1>0.0</distortionK1>\n        <distortionK2>0.0</distortionK2>\n\
+  \        <distortionK3>0.0</distortionK3>\n        <distortionT1>0.0</distortionT1>\n\
+  \        <distortionT2>0.0</distortionT2>\n        <interface:camera name=\"wide_stereo_gazebo_l_stereo_camera_iface\"\
+  />\n      </controller:gazebo_ros_depth_camera>\n    </sensor:camera>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material>PR2/Blue</material>\n  </gazebo>\n  <joint name=\"wide_stereo_gazebo_r_stereo_camera_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"wide_stereo_gazebo_l_stereo_camera_frame\"\
+  />\n    <child link=\"wide_stereo_gazebo_r_stereo_camera_frame\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 -0.09 0\"/>\n  </joint>\n  <link name=\"wide_stereo_gazebo_r_stereo_camera_frame\"\
+  >\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin xyz=\"0 0 0\"/>\n\
+  \      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"\
+  0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"wide_stereo_gazebo_r_stereo_camera_optical_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"wide_stereo_gazebo_r_stereo_camera_frame\"\
+  />\n    <child link=\"wide_stereo_gazebo_r_stereo_camera_optical_frame\"/>\n   \
+  \ <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"wide_stereo_gazebo_r_stereo_camera_optical_frame\"/>\n  <gazebo\
+  \ reference=\"wide_stereo_gazebo_r_stereo_camera_frame\">\n    <sensor:camera name=\"\
+  wide_stereo_gazebo_r_stereo_camera_sensor\">\n      <imageSize>640 480</imageSize>\n\
+  \      <imageFormat>BAYER_BGGR8</imageFormat>\n      <hfov>90</hfov>\n      <nearClip>0.1</nearClip>\n\
+  \      <farClip>100</farClip>\n      <updateRate>25.0</updateRate>\n      <controller:gazebo_ros_depth_camera\
+  \ name=\"wide_stereo_gazebo_r_stereo_camera_controller\" plugin=\"libgazebo_ros_depth_camera.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <updateRate>25.0</updateRate>\n  \
+  \      <cameraName>wide_stereo/right</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <frameName>wide_stereo_optical_frame</frameName>\n\
+  \        <hackBaseline>0.09</hackBaseline>\n        <CxPrime>320.5</CxPrime>\n \
+  \       <Cx>320.5</Cx>\n        <Cy>240.5</Cy>\n        <focalLength>320</focalLength>\n\
+  \        <distortionK1>0.0</distortionK1>\n        <distortionK2>0.0</distortionK2>\n\
+  \        <distortionK3>0.0</distortionK3>\n        <distortionT1>0.0</distortionT1>\n\
+  \        <distortionT2>0.0</distortionT2>\n        <interface:camera name=\"wide_stereo_gazebo_r_stereo_camera_iface\"\
+  />\n      </controller:gazebo_ros_depth_camera>\n    </sensor:camera>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material>PR2/Blue</material>\n  </gazebo>\n  <gazebo reference=\"wide_stereo_link\"\
+  >\n    <material value=\"PR2/Blue\"/>\n    <turnGravityOff value=\"true\"/>\n  </gazebo>\n\
+  \  <gazebo reference=\"wide_stereo_optical_frame\">\n    <material value=\"Gazebo/White\"\
+  />\n    <turnGravityOff value=\"true\"/>\n  </gazebo>\n  <joint name=\"narrow_stereo_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"double_stereo_link\"/>\n    <child link=\"\
+  narrow_stereo_link\"/>\n    <origin rpy=\"-0.006903728687 -0.023877940391 0.019898001069\"\
+  \ xyz=\"0.052896047605 0.060298935197 0.047912331373\"/>\n  </joint>\n  <link name=\"\
+  narrow_stereo_link\">\n    <inertial>\n      <mass value=\"0.1\"/>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"0\" ixz=\"0\"\
+  \ iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n  </link>\n  <joint name=\"\
+  narrow_stereo_optical_frame_joint\" type=\"fixed\">\n    <parent link=\"narrow_stereo_link\"\
+  />\n    <child link=\"narrow_stereo_optical_frame\"/>\n    <origin rpy=\"-1.57079632679\
+  \ 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"narrow_stereo_optical_frame\"\
+  \ type=\"camera\"/>\n  <joint name=\"narrow_stereo_gazebo_l_stereo_camera_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"narrow_stereo_link\"/>\n    <child link=\"\
+  narrow_stereo_gazebo_l_stereo_camera_frame\"/>\n    <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n  </joint>\n  <link name=\"narrow_stereo_gazebo_l_stereo_camera_frame\"\
+  >\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin xyz=\"0 0 0\"/>\n\
+  \      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"\
+  0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"narrow_stereo_gazebo_l_stereo_camera_optical_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"narrow_stereo_gazebo_l_stereo_camera_frame\"\
+  />\n    <child link=\"narrow_stereo_gazebo_l_stereo_camera_optical_frame\"/>\n \
+  \   <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"narrow_stereo_gazebo_l_stereo_camera_optical_frame\"/>\n  <gazebo\
+  \ reference=\"narrow_stereo_gazebo_l_stereo_camera_frame\">\n    <sensor:camera\
+  \ name=\"narrow_stereo_gazebo_l_stereo_camera_sensor\">\n      <imageSize>640 480</imageSize>\n\
+  \      <imageFormat>L8</imageFormat>\n      <hfov>45</hfov>\n      <nearClip>0.1</nearClip>\n\
+  \      <farClip>100</farClip>\n      <updateRate>25.0</updateRate>\n      <controller:gazebo_ros_depth_camera\
+  \ name=\"narrow_stereo_gazebo_l_stereo_camera_controller\" plugin=\"libgazebo_ros_depth_camera.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <updateRate>25.0</updateRate>\n  \
+  \      <cameraName>narrow_stereo/left</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <frameName>narrow_stereo_optical_frame</frameName>\n\
+  \        <hackBaseline>0</hackBaseline>\n        <CxPrime>320.5</CxPrime>\n    \
+  \    <Cx>320.5</Cx>\n        <Cy>240.5</Cy>\n        <focalLength>772.55</focalLength>\n\
+  \        <distortionK1>0.0</distortionK1>\n        <distortionK2>0.0</distortionK2>\n\
+  \        <distortionK3>0.0</distortionK3>\n        <distortionT1>0.0</distortionT1>\n\
+  \        <distortionT2>0.0</distortionT2>\n        <interface:camera name=\"narrow_stereo_gazebo_l_stereo_camera_iface\"\
+  />\n      </controller:gazebo_ros_depth_camera>\n    </sensor:camera>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material>PR2/Blue</material>\n  </gazebo>\n  <joint name=\"narrow_stereo_gazebo_r_stereo_camera_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"narrow_stereo_gazebo_l_stereo_camera_frame\"\
+  />\n    <child link=\"narrow_stereo_gazebo_r_stereo_camera_frame\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 -0.09 0\"/>\n  </joint>\n  <link name=\"narrow_stereo_gazebo_r_stereo_camera_frame\"\
+  >\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin xyz=\"0 0 0\"/>\n\
+  \      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"\
+  0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"narrow_stereo_gazebo_r_stereo_camera_optical_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"narrow_stereo_gazebo_r_stereo_camera_frame\"\
+  />\n    <child link=\"narrow_stereo_gazebo_r_stereo_camera_optical_frame\"/>\n \
+  \   <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"narrow_stereo_gazebo_r_stereo_camera_optical_frame\"/>\n  <gazebo\
+  \ reference=\"narrow_stereo_gazebo_r_stereo_camera_frame\">\n    <sensor:camera\
+  \ name=\"narrow_stereo_gazebo_r_stereo_camera_sensor\">\n      <imageSize>640 480</imageSize>\n\
+  \      <imageFormat>L8</imageFormat>\n      <hfov>45</hfov>\n      <nearClip>0.1</nearClip>\n\
+  \      <farClip>100</farClip>\n      <updateRate>25.0</updateRate>\n      <controller:gazebo_ros_depth_camera\
+  \ name=\"narrow_stereo_gazebo_r_stereo_camera_controller\" plugin=\"libgazebo_ros_depth_camera.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <updateRate>25.0</updateRate>\n  \
+  \      <cameraName>narrow_stereo/right</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <frameName>narrow_stereo_optical_frame</frameName>\n\
+  \        <hackBaseline>0.09</hackBaseline>\n        <CxPrime>320.5</CxPrime>\n \
+  \       <Cx>320.5</Cx>\n        <Cy>240.5</Cy>\n        <focalLength>772.55</focalLength>\n\
+  \        <distortionK1>0.0</distortionK1>\n        <distortionK2>0.0</distortionK2>\n\
+  \        <distortionK3>0.0</distortionK3>\n        <distortionT1>0.0</distortionT1>\n\
+  \        <distortionT2>0.0</distortionT2>\n        <interface:camera name=\"narrow_stereo_gazebo_r_stereo_camera_iface\"\
+  />\n      </controller:gazebo_ros_depth_camera>\n    </sensor:camera>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material>PR2/Blue</material>\n  </gazebo>\n  <gazebo reference=\"narrow_stereo_link\"\
+  >\n    <material value=\"PR2/Blue\"/>\n    <turnGravityOff value=\"true\"/>\n  </gazebo>\n\
+  \  <gazebo reference=\"narrow_stereo_optical_frame\">\n    <material value=\"Gazebo/White\"\
+  />\n    <turnGravityOff value=\"true\"/>\n  </gazebo>\n  <gazebo reference=\"double_stereo_double_stereo_link\"\
+  >\n    <material value=\"PR2/Blue\"/>\n  </gazebo>\n  <gazebo reference=\"sensor_mount_sensor_link\"\
+  >\n    <material value=\"PR2/Blue\"/>\n  </gazebo>\n  <joint name=\"projector_wg6802418_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"head_plate_frame\"/>\n    <child link=\"projector_wg6802418_frame\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0.11 0.0546\"/>\n  </joint>\n  <link name=\"\
+  projector_wg6802418_frame\">\n    <inertial>\n      <mass value=\"0.01\"/>\n   \
+  \   <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\"\
+  \ ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n\
+  \  <joint name=\"projector_wg6802418_child_frame_joint\" type=\"fixed\">\n    <parent\
+  \ link=\"projector_wg6802418_frame\"/>\n    <child link=\"projector_wg6802418_child_frame\"\
+  />\n    <origin rpy=\"0 -1.57079632679 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link\
+  \ name=\"projector_wg6802418_child_frame\">\n    <inertial>\n      <mass value=\"\
+  0.01\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.001\"\
+  \ ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n\
+  \  </link>\n  <gazebo reference=\"projector_wg6802418_child_frame\">\n    <projector\
+  \ name=\"projector_wg6802418_projector_wg6802418\">\n      \n      \n      <pose>0\
+  \ 0 0 0 -1.5707 0</pose>\n      \n      \n      <texture>stereo_projection_pattern_high_res_red.png</texture>\n\
+  \      \n      \n      <fov>0.959931088597</fov>\n      \n      \n      <near_clip>0.1</near_clip>\n\
+  \      \n      \n      <far_clip>10</far_clip>\n      \n    \n    </projector>\n\
+  \  </gazebo>\n  <gazebo>\n    <controller:gazebo_ros_projector name=\"projector_wg6802418_controller\"\
+  \ plugin=\"libgazebo_ros_projector.so\">\n      <projector>projector_wg6802418_child_frame/projector_wg6802418_projector_wg6802418</projector>\n\
+  \      <alwaysOn>true</alwaysOn>\n      <updateRate>15.0</updateRate>\n      <textureName>stereo_projection_pattern_high_res_red.png</textureName>\n\
+  \      <filterTextureName>stereo_projection_pattern_filter.png</filterTextureName>\n\
+  \      <textureTopicName>projector_wg6802418_controller/image</textureTopicName>\n\
+  \      <projectorTopicName>projector_wg6802418_controller/projector</projectorTopicName>\n\
+  \    </controller:gazebo_ros_projector>\n  </gazebo>\n  <joint name=\"head_mount_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"head_plate_frame\"/>\n    <child link=\"head_mount_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"-0.138 0 0.091\"/>\n  </joint>\n  <link name=\"\
+  head_mount_link\">\n    <inertial>\n      <mass value=\"0.1\"/>\n      <origin rpy=\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"0\" ixz=\"0\" iyy=\"\
+  0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/sensors/kinect_prosilica_v0/kinect_mount.dae\"\
+  />\n      </geometry>\n      <material name=\"gray\">\n        <color rgba=\"0.5\
+  \ 0.5 0.5 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <sphere radius=\"0.0005\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <joint name=\"head_mount_kinect_ir_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"head_mount_link\"/>\n    <child link=\"head_mount_kinect_ir_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"-0.032267 0.0125 0.136453\"/>\n  </joint>\n\
+  \  <link name=\"head_mount_kinect_ir_link\">\n    <inertial>\n      <mass value=\"\
+  0.1\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\"\
+  \ ixy=\"0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n \
+  \   <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n  \
+  \      <sphere radius=\"0.0005\"/>\n      </geometry>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <sphere\
+  \ radius=\"0.0005\"/>\n      </geometry>\n    </collision>\n  </link>\n  <joint\
+  \ name=\"head_mount_kinect_ir_optical_frame_joint\" type=\"fixed\">\n    <parent\
+  \ link=\"head_mount_kinect_ir_link\"/>\n    <child link=\"openni_depth_optical_frame\"\
+  />\n    <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"openni_depth_optical_frame\"/>\n  <gazebo reference=\"head_mount_kinect_ir_link\"\
+  >\n    <sensor:camera name=\"head_mount_ir_sensor\">\n      <imageFormat>L8</imageFormat>\n\
+  \      <imageSize>640 480</imageSize>\n      <hfov>57</hfov>\n      <nearClip>0.01</nearClip>\n\
+  \      <farClip>5</farClip>\n      <updateRate>1.0</updateRate>\n      <baseline>0.2</baseline>\n\
+  \      <controller:gazebo_ros_openni_kinect name=\"head_mount_kinect_ir_link_controller\"\
+  \ plugin=\"libgazebo_ros_openni_kinect.so\">\n        <alwaysOn>true</alwaysOn>\n\
+  \        <updateRate>1.0</updateRate>\n        <cameraName>openni_depth</cameraName>\n\
+  \        <imageTopicName>/openni/depth/image_raw</imageTopicName>\n        <cameraInfoTopicName>/openni/depth/camera_info</cameraInfoTopicName>\n\
+  \        <depthImageTopicName>/openni/depth/image_raw</depthImageTopicName>\n  \
+  \      <depthImageInfoTopicName>/openni/depth/camera_info</depthImageInfoTopicName>\n\
+  \        <pointCloudTopicName>/openni/depth/points</pointCloudTopicName>\n     \
+  \   <frameName>head_mount_kinect_ir_optical_frame</frameName>\n        <pointCloudCutoff>0.5</pointCloudCutoff>\n\
+  \        <distortionK1>0.00000001</distortionK1>\n        <distortionK2>0.00000001</distortionK2>\n\
+  \        <distortionK3>0.00000001</distortionK3>\n        <distortionT1>0.00000001</distortionT1>\n\
+  \        <distortionT2>0.00000001</distortionT2>\n      </controller:gazebo_ros_openni_kinect>\n\
+  \    </sensor:camera>\n    <material value=\"Gazebo/Red\"/>\n  </gazebo>\n  <joint\
+  \ name=\"head_mount_kinect_rgb_joint\" type=\"fixed\">\n    <parent link=\"head_mount_kinect_ir_link\"\
+  />\n    <child link=\"head_mount_kinect_rgb_link\"/>\n    <origin rpy=\"-0.013167920488\
+  \ -0.02664881137 0.001580421575\" xyz=\"-0.00241565729 -0.02203910714 -0.013031499221\"\
+  />\n  </joint>\n  <link name=\"head_mount_kinect_rgb_link\">\n    <inertial>\n \
+  \     <mass value=\"0.1\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n     \
+  \ <inertia ixx=\"0.01\" ixy=\"0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <sphere radius=\"0.0005\"/>\n      </geometry>\n    </visual>\n\
+  \    <collision>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n\
+  \        <sphere radius=\"0.0005\"/>\n      </geometry>\n    </collision>\n  </link>\n\
+  \  <joint name=\"head_mount_kinect_rgb_optical_frame_joint\" type=\"fixed\">\n \
+  \   <parent link=\"head_mount_kinect_rgb_link\"/>\n    <child link=\"openni_rgb_optical_frame\"\
+  />\n    <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"openni_rgb_optical_frame\"/>\n  <gazebo reference=\"head_mount_kinect_rgb_link\"\
+  >\n    <sensor:camera name=\"head_mount_rgb_sensor\">\n      <imageFormat>R8G8B8</imageFormat>\n\
+  \      <imageSize>640 480</imageSize>\n      <hfov>57</hfov>\n      <nearClip>0.01</nearClip>\n\
+  \      <farClip>5</farClip>\n      <updateRate>1.0</updateRate>\n      <baseline>0.2</baseline>\n\
+  \      <controller:gazebo_ros_openni_kinect name=\"head_mount_kinect_rgb_link_controller\"\
+  \ plugin=\"libgazebo_ros_openni_kinect.so\">\n        <alwaysOn>true</alwaysOn>\n\
+  \        <updateRate>1.0</updateRate>\n        <cameraName>openni_rgb</cameraName>\n\
+  \        <imageTopicName>/openni/rgb/image_raw</imageTopicName>\n        <cameraInfoTopicName>/openni/rgb/camera_info</cameraInfoTopicName>\n\
+  \        <pointCloudTopicName>/openni/depth_registered/points</pointCloudTopicName>\n\
+  \        <frameName>head_mount_kinect_rgb_optical_frame</frameName>\n        <pointCloudCutoff>0.5</pointCloudCutoff>\n\
+  \        <distortionK1>0.00000001</distortionK1>\n        <distortionK2>0.00000001</distortionK2>\n\
+  \        <distortionK3>0.00000001</distortionK3>\n        <distortionT1>0.00000001</distortionT1>\n\
+  \        <distortionT2>0.00000001</distortionT2>\n      </controller:gazebo_ros_openni_kinect>\n\
+  \    </sensor:camera>\n    <material value=\"Gazebo/Red\"/>\n  </gazebo>\n  <joint\
+  \ name=\"head_mount_prosilica_joint\" type=\"fixed\">\n    <parent link=\"head_mount_link\"\
+  />\n    <child link=\"head_mount_prosilica_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"\
+  -0.046457 0.0125 0.088921\"/>\n  </joint>\n  <link name=\"head_mount_prosilica_link\"\
+  >\n    <inertial>\n      <mass value=\"0.1\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\"\
+  \ izz=\"0.01\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <geometry>\n        <sphere radius=\"0.0005\"/>\n      </geometry>\n\
+  \    </visual>\n    <collision>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n \
+  \     <geometry>\n        <sphere radius=\"0.0005\"/>\n      </geometry>\n    </collision>\n\
+  \  </link>\n  <joint name=\"head_mount_prosilica_optical_frame_joint\" type=\"fixed\"\
+  >\n    <parent link=\"head_mount_prosilica_link\"/>\n    <child link=\"head_mount_prosilica_optical_frame\"\
+  />\n    <origin rpy=\"-1.57079632679 0 -1.57079632679\" xyz=\"0 0 0\"/>\n  </joint>\n\
+  \  <link name=\"head_mount_prosilica_optical_frame\"/>\n  <gazebo reference=\"head_mount_prosilica_link\"\
+  >\n    <sensor:camera name=\"head_mount_prosilica_link_sensor\">\n      <imageFormat>R8G8B8</imageFormat>\n\
+  \      <imageSize>320 240</imageSize>\n      <hfov>64.2</hfov>\n      <nearClip>0.1</nearClip>\n\
+  \      <farClip>100</farClip>\n      <updateRate>1.0</updateRate>\n      <controller:gazebo_ros_prosilica\
+  \ name=\"head_mount_prosilica_link_controller\" plugin=\"libgazebo_ros_prosilica.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <updateRate>1.0</updateRate>\n   \
+  \     <cameraName>prosilica_camera_1mb</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <pollServiceName>request_image</pollServiceName>\n\
+  \        <frameName>head_mount_prosilica_optical_frame</frameName>\n        <distortionK1>0.0</distortionK1>\n\
+  \        <distortionK2>0.0</distortionK2>\n        <distortionK3>0.0</distortionK3>\n\
+  \        <distortionT1>0.0</distortionT1>\n        <distortionT2>0.0</distortionT2>\n\
+  \      </controller:gazebo_ros_prosilica>\n    </sensor:camera>\n    <sensor:camera\
+  \ name=\"head_mount_prosilica_link_sim_pcd_sensor\">\n      <imageFormat>R8G8B8</imageFormat>\n\
+  \      <imageSize>320 240</imageSize>\n      <hfov>64.2</hfov>\n      <nearClip>0.1</nearClip>\n\
+  \      <farClip>100</farClip>\n      <updateRate>1.0</updateRate>\n      <controller:gazebo_ros_openni_kinect\
+  \ name=\"head_mount_prosilica_link_sim_pcd_controller\" plugin=\"libgazebo_ros_openni_kinect.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <updateRate>1.0</updateRate>\n   \
+  \     <cameraName>prosilica_camera_1mb_sim_pcd</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <frameName>head_mount_prosilica_optical_frame</frameName>\n\
+  \      </controller:gazebo_ros_openni_kinect>\n    </sensor:camera>\n    <material\
+  \ value=\"Gazebo/Red\"/>\n  </gazebo>\n  <joint name=\"laser_tilt_mount_joint\"\
+  \ type=\"revolute\">\n    <parent link=\"torso_lift_link\"/>\n    <child link=\"\
+  laser_tilt_mount_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.09893 0 0.227\"/>\n\
+  \    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"0.65\" lower=\"-0.7854\" upper=\"\
+  1.48353\" velocity=\"10\"/>\n    <dynamics damping=\"0.008\"/>\n    <safety_controller\
+  \ k_position=\"100\" k_velocity=\"0.05\" soft_lower_limit=\"-0.7354\" soft_upper_limit=\"\
+  1.43353\"/>\n    <calibration falling=\"-0.002508593176\"/>\n  </joint>\n  <link\
+  \ name=\"laser_tilt_mount_link\">\n    <inertial>\n      <mass value=\"0.591\"/>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"-0.001136 0.00167 -0.00713\"/>\n      <inertia\
+  \ ixx=\"0.001195273\" ixy=\"0.000023087\" ixz=\"0.000037467\" iyy=\"0.001083956\"\
+  \ iyz=\"0.000034906\" izz=\"0.000795014\"/>\n    </inertial>\n    <visual>\n   \
+  \   <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/tilting_laser_v0/tilting_hokuyo.dae\"/>\n     \
+  \ </geometry>\n      <material name=\"Red\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/tilting_laser_v0/tilting_hokuyo_L.stl\"/>\n   \
+  \   </geometry>\n    </collision>\n  </link>\n  <joint name=\"laser_tilt_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"laser_tilt_mount_link\"/>\n    <child link=\"\
+  laser_tilt_link\"/>\n    <origin rpy=\"0 0 -0.010209737439\" xyz=\"0 0 0.028221439926\"\
+  />\n    <axis xyz=\"0 1 0\"/>\n  </joint>\n  <link name=\"laser_tilt_link\" type=\"\
+  laser\">\n    <inertial>\n      <mass value=\"0.001\"/>\n      <origin rpy=\"0 0\
+  \ 0\" xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.0001\" ixy=\"0\" ixz=\"0\" iyy=\"\
+  0.000001\" iyz=\"0\" izz=\"0.0001\"/>\n    </inertial>\n  </link>\n  <gazebo reference=\"\
+  laser_tilt_link\">\n    <sensor:ray name=\"laser_tilt\">\n      <rayCount>640</rayCount>\n\
+  \      <rangeCount>640</rangeCount>\n      <laserCount>1</laserCount>\n      <origin>0.0\
+  \ 0.0 0.0</origin>\n      <displayRays>false</displayRays>\n      <minAngle>-79.9999999086</minAngle>\n\
+  \      <maxAngle>79.9999999086</maxAngle>\n      <minRange>0.08</minRange>\n   \
+  \   <maxRange>10.0</maxRange>\n      <resRange>0.01</resRange>\n      <updateRate>40</updateRate>\n\
+  \      <controller:gazebo_ros_laser name=\"gazebo_ros_laser_tilt_controller\" plugin=\"\
+  libgazebo_ros_laser.so\">\n        <gaussianNoise>0.005</gaussianNoise>\n      \
+  \  <alwaysOn>true</alwaysOn>\n        <updateRate>40</updateRate>\n        <topicName>tilt_scan</topicName>\n\
+  \        <frameName>laser_tilt_link</frameName>\n        <interface:laser name=\"\
+  gazebo_ros_laser_tilt_iface\"/>\n      </controller:gazebo_ros_laser>\n    </sensor:ray>\n\
+  \  </gazebo>\n  <gazebo reference=\"laser_tilt_mount_link\"/>\n  <transmission name=\"\
+  laser_tilt_mount_trans\" type=\"pr2_mechanism_model/SimpleTransmission\">\n    <actuator\
+  \ name=\"laser_tilt_mount_motor\"/>\n    <joint name=\"laser_tilt_mount_joint\"\
+  />\n    <mechanicalReduction>-6.05</mechanicalReduction>\n  </transmission>\n  <joint\
+  \ name=\"r_shoulder_pan_joint\" type=\"revolute\">\n    <parent link=\"torso_lift_link\"\
+  />\n    <child link=\"r_shoulder_pan_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"\
+  0 -0.188 0\"/>\n    <axis xyz=\"0 0 1\"/>\n    <limit effort=\"30\" lower=\"-2.2853981634\"\
+  \ upper=\"0.714601836603\" velocity=\"2.088\"/>\n    <dynamics damping=\"10.0\"\
+  />\n    <safety_controller k_position=\"100\" k_velocity=\"10\" soft_lower_limit=\"\
+  -2.1353981634\" soft_upper_limit=\"0.564601836603\"/>\n    <calibration rising=\"\
+  -0.776518237348\"/>\n  </joint>\n  <link name=\"r_shoulder_pan_link\">\n    <inertial>\n\
+  \      <mass value=\"25.799322\"/>\n      <origin rpy=\"0 0 0\" xyz=\"-0.001201\
+  \ 0.024513 -0.098231\"/>\n      <inertia ixx=\"0.86617914248\" ixy=\"-0.06086507933\"\
+  \ ixz=\"-0.12118061183\" iyy=\"0.87421714893\" iyz=\"-0.05886609911\" izz=\"0.27353821674\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/shoulder_v0/shoulder_pan.dae\"\
+  />\n      </geometry>\n      <material name=\"Blue\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/shoulder_v0/shoulder_pan.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"r_shoulder_lift_joint\" type=\"revolute\"\
+  >\n    <parent link=\"r_shoulder_pan_link\"/>\n    <child link=\"r_shoulder_lift_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.1 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n   \
+  \ <limit effort=\"30\" lower=\"-0.5236\" upper=\"1.3963\" velocity=\"2.082\"/>\n\
+  \    <dynamics damping=\"10.0\"/>\n    <safety_controller k_position=\"100\" k_velocity=\"\
+  10\" soft_lower_limit=\"-0.3536\" soft_upper_limit=\"1.2963\"/>\n    <calibration\
+  \ falling=\"-0.009537943724\"/>\n  </joint>\n  <link name=\"r_shoulder_lift_link\"\
+  >\n    <inertial>\n      <mass value=\"2.74988\"/>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0.02195 -0.02664 -0.03127\"/>\n      <inertia ixx=\"0.02105584615\" ixy=\"\
+  0.00496704022\" ixz=\"-0.00194808955\" iyy=\"0.02127223737\" iyz=\"0.0011042549\"\
+  \ izz=\"0.01975753814\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"0\
+  \ 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/shoulder_v0/shoulder_lift.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/shoulder_v0/shoulder_lift.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"r_upper_arm_roll_joint\" type=\"revolute\"\
+  >\n    <parent link=\"r_shoulder_lift_link\"/>\n    <child link=\"r_upper_arm_roll_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    <axis xyz=\"1 0 0\"/>\n    <limit\
+  \ effort=\"30\" lower=\"-3.9\" upper=\"0.8\" velocity=\"3.27\"/>\n    <dynamics\
+  \ damping=\"0.1\"/>\n    <safety_controller k_position=\"100\" k_velocity=\"2\"\
+  \ soft_lower_limit=\"-3.75\" soft_upper_limit=\"0.65\"/>\n    <calibration rising=\"\
+  -1.55394635146\"/>\n  </joint>\n  <link name=\"r_upper_arm_roll_link\">\n    <inertial>\n\
+  \      <mass value=\"0.1\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    \
+  \  <inertia ixx=\"0.01\" ixy=\"0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/shoulder_v0/upper_arm_roll.stl\"\
+  />\n      </geometry>\n      <material name=\"RollLinks\"/>\n    </visual>\n   \
+  \ <collision>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/shoulder_v0/upper_arm_roll_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"r_upper_arm_roll_link\"\
+  >\n    <material value=\"PR2/RollLinks\"/>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_upper_arm_roll_joint\">\n    <stopKd value=\"\
+  1.0\"/>\n    <stopKp value=\"1000000.0\"/>\n    <fudgeFactor value=\"0.5\"/>\n \
+  \ </gazebo>\n  <transmission name=\"r_upper_arm_roll_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"r_upper_arm_roll_motor\"/>\n    <joint name=\"r_upper_arm_roll_joint\"\
+  />\n    <mechanicalReduction>32.6525111499</mechanicalReduction>\n  </transmission>\n\
+  \  <gazebo reference=\"r_shoulder_pan_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_shoulder_pan_joint\">\n    <stopKd value=\"\
+  1.0\"/>\n    <stopKp value=\"1000000.0\"/>\n  </gazebo>\n  <gazebo reference=\"\
+  r_shoulder_lift_link\">\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n\
+  \  <gazebo reference=\"r_shoulder_lift_joint\">\n    <stopKd value=\"1.0\"/>\n \
+  \   <stopKp value=\"1000000.0\"/>\n  </gazebo>\n  <transmission name=\"r_shoulder_pan_trans\"\
+  \ type=\"pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"r_shoulder_pan_motor\"\
+  />\n    <joint name=\"r_shoulder_pan_joint\"/>\n    <mechanicalReduction>63.1552452977</mechanicalReduction>\n\
+  \    <compensator k_belt=\"4000.0\" kd_motor=\"15.0\" lambda_combined=\"0.0\" lambda_joint=\"\
+  40.0\" lambda_motor=\"40.0\" mass_motor=\"0.05\"/>\n  </transmission>\n  <transmission\
+  \ name=\"r_shoulder_lift_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"r_shoulder_lift_motor\"/>\n    <joint name=\"r_shoulder_lift_joint\"\
+  />\n    <mechanicalReduction>61.8948225713</mechanicalReduction>\n    <compensator\
+  \ k_belt=\"4000.0\" kd_motor=\"10.0\" lambda_combined=\"0.0\" lambda_joint=\"60.0\"\
+  \ lambda_motor=\"60.0\" mass_motor=\"0.05\"/>\n  </transmission>\n  <joint name=\"\
+  r_upper_arm_joint\" type=\"fixed\">\n    <parent link=\"r_upper_arm_roll_link\"\
+  />\n    <child link=\"r_upper_arm_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0\
+  \ 0\"/>\n  </joint>\n  <link name=\"r_upper_arm_link\">\n    <inertial>\n      <mass\
+  \ value=\"6.01769\"/>\n      <origin xyz=\"0.21398 -0.01621 -0.0002\"/>\n      <inertia\
+  \ ixx=\"0.01537748957\" ixy=\"0.00375711247\" ixz=\"-0.00070852914\" iyy=\"0.0747367044\"\
+  \ iyz=\"-0.0001793645\" izz=\"0.07608763307\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/upper_arm_v0/upper_arm.dae\"/>\n      </geometry>\n\
+  \      <material name=\"Green\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/upper_arm_v0/upper_arm.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"r_upper_arm_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n  <joint name=\"r_forearm_roll_joint\"\
+  \ type=\"continuous\">\n    <parent link=\"r_elbow_flex_link\"/>\n    <child link=\"\
+  r_forearm_roll_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    <axis xyz=\"\
+  1 0 0\"/>\n    <limit effort=\"30\" velocity=\"3.6\"/>\n    <dynamics damping=\"\
+  0.1\"/>\n    <safety_controller k_velocity=\"1\"/>\n    <calibration rising=\"-0.004431259649\"\
+  />\n  </joint>\n  <link name=\"r_forearm_roll_link\">\n    <inertial>\n      <mass\
+  \ value=\"0.1\"/>\n      <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"\
+  0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/upper_arm_v0/forearm_roll.stl\"/>\n      </geometry>\n\
+  \      <material name=\"RollLinks\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/upper_arm_v0/forearm_roll_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"r_forearm_roll_link\"\
+  >\n    <material value=\"PR2/RollLinks\"/>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_forearm_roll_joint\">\n    <fudgeFactor value=\"\
+  0.5\"/>\n  </gazebo>\n  <transmission name=\"r_forearm_roll_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"r_forearm_roll_motor\"/>\n    <joint name=\"r_forearm_roll_joint\"\
+  />\n    <mechanicalReduction>-90.5142857143</mechanicalReduction>\n  </transmission>\n\
+  \  <joint name=\"r_elbow_flex_joint\" type=\"revolute\">\n    <parent link=\"r_upper_arm_link\"\
+  />\n    <child link=\"r_elbow_flex_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.4\
+  \ 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"30\" lower=\"-2.3213\"\
+  \ upper=\"0\" velocity=\"3.3\"/>\n    <dynamics damping=\"1.0\"/>\n    <safety_controller\
+  \ k_position=\"100\" k_velocity=\"3\" soft_lower_limit=\"-2.1213\" soft_upper_limit=\"\
+  -0.15\"/>\n    <calibration falling=\"-1.1606\"/>\n  </joint>\n  <link name=\"r_elbow_flex_link\"\
+  >\n    <inertial>\n      <mass value=\"1.90327\"/>\n      <origin xyz=\"0.01014\
+  \ 0.00032 -0.01211\"/>\n      <inertia ixx=\"0.00346541989\" ixy=\"0.00004066825\"\
+  \ ixz=\"0.00043171614\" iyy=\"0.00441606455\" iyz=\"-0.00003968914\" izz=\"0.00359156824\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/upper_arm_v0/elbow_flex.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/upper_arm_v0/elbow_flex.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <gazebo reference=\"r_elbow_flex_joint\">\n    <initial_joint_position>-1.0</initial_joint_position>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_elbow_flex_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_elbow_flex_joint\">\n    <stopKd value=\"\
+  1.0\"/>\n    <stopKp value=\"1000000.0\"/>\n  </gazebo>\n  <transmission name=\"\
+  r_elbow_flex_trans\" type=\"pr2_mechanism_model/SimpleTransmission\">\n    <actuator\
+  \ name=\"r_elbow_flex_motor\"/>\n    <joint name=\"r_elbow_flex_joint\"/>\n    <mechanicalReduction>-36.167452007</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"r_forearm_joint\" type=\"fixed\">\n    <parent\
+  \ link=\"r_forearm_roll_link\"/>\n    <child link=\"r_forearm_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"r_forearm_link\">\n\
+  \    <inertial>\n      <mass value=\"2.57968\"/>\n      <origin xyz=\"0.18791 -0.00017\
+  \ -0.00912\"/>\n      <inertia ixx=\"0.00364857222\" ixy=\"0.00005215877\" ixz=\"\
+  0.00071534842\" iyy=\"0.01507736897\" iyz=\"-0.0000131077\" izz=\"0.01659310749\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/forearm_v0/forearm.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/forearm_v0/forearm.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"r_wrist_flex_joint\" type=\"revolute\"\
+  >\n    <parent link=\"r_forearm_link\"/>\n    <child link=\"r_wrist_flex_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.321 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n \
+  \   <limit effort=\"10\" lower=\"-2.18\" upper=\"0\" velocity=\"3.078\"/>\n    <dynamics\
+  \ damping=\"0.1\"/>\n    <safety_controller k_position=\"20\" k_velocity=\"4\" soft_lower_limit=\"\
+  -2\" soft_upper_limit=\"-0.1\"/>\n    <calibration falling=\"-0.51294068571\"/>\n\
+  \  </joint>\n  <link name=\"r_wrist_flex_link\">\n    <inertial>\n      <mass value=\"\
+  0.61402\"/>\n      <origin xyz=\"-0.00157 0 -0.00075\"/>\n      <inertia ixx=\"\
+  0.00065165722\" ixy=\"0.00000028864\" ixz=\"0.00000303477\" iyy=\"0.00019824443\"\
+  \ iyz=\"-0.00000022645\" izz=\"0.00064450498\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/forearm_v0/wrist_flex.dae\"/>\n      </geometry>\n\
+  \      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/forearm_v0/wrist_flex.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <joint name=\"r_wrist_roll_joint\"\
+  \ type=\"continuous\">\n    <parent link=\"r_wrist_flex_link\"/>\n    <child link=\"\
+  r_wrist_roll_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    <axis xyz=\"\
+  1 0 0\"/>\n    <limit effort=\"10\" velocity=\"3.6\"/>\n    <dynamics damping=\"\
+  0.1\"/>\n    <safety_controller k_velocity=\"2\"/>\n    <calibration rising=\"-1.468088018009\"\
+  />\n  </joint>\n  <link name=\"r_wrist_roll_link\">\n    <inertial>\n      <mass\
+  \ value=\"0.1\"/>\n      <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"\
+  0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/forearm_v0/wrist_roll.stl\"/>\n      </geometry>\n\
+  \      <material name=\"RollLinks\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/forearm_v0/wrist_roll_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"r_forearm_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n  <gazebo reference=\"\
+  r_wrist_flex_link\">\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n \
+  \ <gazebo reference=\"r_wrist_flex_joint\">\n    <stopKd value=\"1.0\"/>\n    <stopKp\
+  \ value=\"1000000.0\"/>\n  </gazebo>\n  <gazebo reference=\"r_wrist_roll_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <material value=\"PR2/RollLinks\"\
+  />\n  </gazebo>\n  <gazebo reference=\"r_wrist_roll_joint\">\n    <fudgeFactor value=\"\
+  0.5\"/>\n  </gazebo>\n  <transmission name=\"r_wrist_trans\" type=\"pr2_mechanism_model/WristTransmission\"\
+  >\n    <rightActuator mechanicalReduction=\"60.1714285714\" name=\"r_wrist_r_motor\"\
+  />\n    <leftActuator mechanicalReduction=\"60.1714285714\" name=\"r_wrist_l_motor\"\
+  />\n    <flexJoint mechanicalReduction=\"-1.0\" name=\"r_wrist_flex_joint\"/>\n\
+  \    <rollJoint mechanicalReduction=\"1.0\" name=\"r_wrist_roll_joint\"/>\n  </transmission>\n\
+  \  <joint name=\"r_gripper_palm_joint\" type=\"fixed\">\n    <parent link=\"r_wrist_roll_link\"\
+  />\n    <child link=\"r_gripper_palm_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n  </joint>\n  <link name=\"r_gripper_palm_link\">\n    <inertial>\n \
+  \     <mass value=\"0.58007\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0.06623 0.00053\
+  \ -0.00119\"/>\n      <inertia ixx=\"0.00035223921\" ixy=\"-0.00001580476\" ixz=\"\
+  -0.0000009175\" iyy=\"0.00067741312\" iyz=\"-0.00000059554\" izz=\"0.00086563316\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/gripper_palm.dae\"\
+  />\n      </geometry>\n      <material name=\"Red\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/gripper_v0/gripper_palm.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"r_gripper_led_joint\" type=\"fixed\"\
+  >\n    <parent link=\"r_gripper_palm_link\"/>\n    <child link=\"r_gripper_led_frame\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.0513 0 0.0244\"/>\n  </joint>\n  <link name=\"\
+  r_gripper_led_frame\"/>\n  <joint name=\"r_gripper_motor_accelerometer_joint\" type=\"\
+  fixed\">\n    <parent link=\"r_gripper_palm_link\"/>\n    <child link=\"r_gripper_motor_accelerometer_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"r_gripper_motor_accelerometer_link\"\
+  >\n    <inertial>\n      <mass value=\"0.001\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"\
+  0\" izz=\"0.001\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0 0 0\"/>\n      <geometry>\n        <box size=\"0.001 0.001 0.001\"/>\n\
+  \      </geometry>\n    </visual>\n    <collision>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0 0 0\"/>\n      <geometry>\n        <box size=\"0.001 0.001 0.001\"/>\n\
+  \      </geometry>\n    </collision>\n  </link>\n  <joint name=\"r_gripper_tool_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"r_gripper_palm_link\"/>\n    <child link=\"\
+  r_gripper_tool_frame\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.18 0 0\"/>\n  </joint>\n\
+  \  <link name=\"r_gripper_tool_frame\"/>\n  <link name=\"r_gripper_motor_slider_link\"\
+  >\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"\
+  0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"r_gripper_motor_slider_joint\"\
+  \ type=\"prismatic\">\n    <parent link=\"r_gripper_palm_link\"/>\n    <child link=\"\
+  r_gripper_motor_slider_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.16828 0 0\"/>\n\
+  \    <axis xyz=\"1 0 0\"/>\n    <limit effort=\"1000\" lower=\"-0.1\" upper=\"0.1\"\
+  \ velocity=\"0.2\"/>\n  </joint>\n  <link name=\"r_gripper_motor_screw_link\">\n\
+  \    <inertial>\n      <mass value=\"0.01\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.0001\" ixy=\"0\" ixz=\"0\" iyy=\"0.0001\" iyz=\"\
+  0\" izz=\"0.0001\"/>\n    </inertial>\n  </link>\n  <joint name=\"r_gripper_motor_screw_joint\"\
+  \ type=\"continuous\">\n    <parent link=\"r_gripper_motor_slider_link\"/>\n   \
+  \ <child link=\"r_gripper_motor_screw_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <dynamics damping=\"0.0001\"/>\n  </joint>\n\
+  \  <joint name=\"r_gripper_l_finger_joint\" type=\"revolute\">\n    <parent link=\"\
+  r_gripper_palm_link\"/>\n    <child link=\"r_gripper_l_finger_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0.07691 0.01 0\"/>\n    <axis xyz=\"0 0 1\"/>\n    <limit\
+  \ effort=\"1000\" lower=\"0\" upper=\"0.548\" velocity=\"0.5\"/>\n    <dynamics\
+  \ damping=\"0.02\"/>\n  </joint>\n  <link name=\"r_gripper_l_finger_link\">\n  \
+  \  <inertial>\n      <mass value=\"0.17126\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0.03598 0.0173 -0.00164\"/>\n      <inertia ixx=\"0.00007756198\" ixy=\"0.00000149095\"\
+  \ ixz=\"-0.00000983385\" iyy=\"0.00019708305\" iyz=\"-0.00000306125\" izz=\"0.00018105446\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/gripper_v0/l_finger.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"r_gripper_r_finger_joint\" type=\"\
+  revolute\">\n    <parent link=\"r_gripper_palm_link\"/>\n    <child link=\"r_gripper_r_finger_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.07691 -0.01 0\"/>\n    <axis xyz=\"0 0 -1\"\
+  />\n    <limit effort=\"1000\" lower=\"0\" upper=\"0.548\" velocity=\"0.5\"/>\n\
+  \    <dynamics damping=\"0.02\"/>\n  </joint>\n  <link name=\"r_gripper_r_finger_link\"\
+  >\n    <inertial>\n      <mass value=\"0.17389\"/>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0.03576 -0.01736 -0.00095\"/>\n      <inertia ixx=\"0.0000773841\" ixy=\"\
+  -0.00000209309\" ixz=\"-0.00000836228\" iyy=\"0.00019847383\" iyz=\"0.0000024611\"\
+  \ izz=\"0.00018106988\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"3.14159265359\
+  \ 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"3.14159265359 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <joint name=\"r_gripper_l_finger_tip_joint\"\
+  \ type=\"revolute\">\n    <parent link=\"r_gripper_l_finger_link\"/>\n    <child\
+  \ link=\"r_gripper_l_finger_tip_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.09137\
+  \ 0.00495 0\"/>\n    <axis xyz=\"0 0 -1\"/>\n    <limit effort=\"1000\" lower=\"\
+  0\" upper=\"0.548\" velocity=\"0.5\"/>\n    <dynamics damping=\"0.001\"/>\n  </joint>\n\
+  \  <link name=\"r_gripper_l_finger_tip_link\">\n    <inertial>\n      <mass value=\"\
+  0.04419\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0.00423 0.00284 0\"/>\n      <inertia\
+  \ ixx=\"0.00000837047\" ixy=\"0.00000583632\" ixz=\"0\" iyy=\"0.00000987067\" iyz=\"\
+  0\" izz=\"0.00001541768\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger_tip.dae\"\
+  />\n      </geometry>\n      <material name=\"Green\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/gripper_v0/l_finger_tip.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"r_gripper_r_finger_tip_joint\" type=\"\
+  revolute\">\n    <parent link=\"r_gripper_r_finger_link\"/>\n    <child link=\"\
+  r_gripper_r_finger_tip_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.09137 -0.00495\
+  \ 0\"/>\n    <axis xyz=\"0 0 1\"/>\n    <limit effort=\"1000\" lower=\"0\" upper=\"\
+  0.548\" velocity=\"0.5\"/>\n    <dynamics damping=\"0.001\"/>\n  </joint>\n  <link\
+  \ name=\"r_gripper_r_finger_tip_link\">\n    <inertial>\n      <mass value=\"0.04419\"\
+  />\n      <origin rpy=\"0 0 0\" xyz=\"0.00423 -0.00284 0\"/>\n      <inertia ixx=\"\
+  0.00000837047\" ixy=\"-0.00000583632\" ixz=\"0\" iyy=\"0.00000987067\" iyz=\"0\"\
+  \ izz=\"0.00001541768\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"3.14159265359\
+  \ 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger_tip.dae\"\
+  />\n      </geometry>\n      <material name=\"Green\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"3.14159265359 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger_tip.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"r_gripper_l_finger_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <mu1 value=\"500.0\"/>\n    <mu2\
+  \ value=\"500.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"1.0\"/>\n  </gazebo>\n\
+  \  <gazebo reference=\"r_gripper_l_finger_joint\">\n    <stopKd value=\"1.0\"/>\n\
+  \    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor value=\"1.0\"/>\n    <provideFeedback\
+  \ value=\"true\"/>\n  </gazebo>\n  <gazebo reference=\"r_gripper_r_finger_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <mu1 value=\"500.0\"/>\n    <mu2\
+  \ value=\"500.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"1.0\"/>\n  </gazebo>\n\
+  \  <gazebo reference=\"r_gripper_r_finger_joint\">\n    <stopKd value=\"1.0\"/>\n\
+  \    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor value=\"1.0\"/>\n    <provideFeedback\
+  \ value=\"true\"/>\n  </gazebo>\n  <gazebo reference=\"r_gripper_l_finger_tip_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <selfCollide>false</selfCollide>\n\
+  \    <sensor:contact name=\"r_gripper_l_finger_tip_contact_sensor\">\n      <geom>r_gripper_l_finger_tip_link_geom</geom>\n\
+  \      <updateRate>100.0</updateRate>\n      <controller:gazebo_ros_bumper name=\"\
+  r_gripper_l_finger_tip_gazebo_ros_bumper_controller\" plugin=\"libgazebo_ros_bumper.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <frameName>r_gripper_l_finger_tip_link</frameName>\n\
+  \        <updateRate>100.0</updateRate>\n        <bumperTopicName>r_gripper_l_finger_tip_bumper</bumperTopicName>\n\
+  \        <interface:bumper name=\"r_gripper_l_finger_tip_gazebo_ros_bumper_iface\"\
+  />\n      </controller:gazebo_ros_bumper>\n    </sensor:contact>\n    <mu1 value=\"\
+  500.0\"/>\n    <mu2 value=\"500.0\"/>\n    <kp value=\"10000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <gazebo reference=\"r_gripper_l_finger_tip_joint\">\n  \
+  \  <stopKd value=\"1.0\"/>\n    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor\
+  \ value=\"1.0\"/>\n    <provideFeedback value=\"true\"/>\n  </gazebo>\n  <gazebo\
+  \ reference=\"r_gripper_r_finger_tip_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <selfCollide>false</selfCollide>\n    <sensor:contact name=\"r_gripper_r_finger_tip_contact_sensor\"\
+  >\n      <geom>r_gripper_r_finger_tip_link_geom</geom>\n      <updateRate>100.0</updateRate>\n\
+  \      <controller:gazebo_ros_bumper name=\"r_gripper_r_finger_tip_gazebo_ros_bumper_controller\"\
+  \ plugin=\"libgazebo_ros_bumper.so\">\n        <alwaysOn>true</alwaysOn>\n     \
+  \   <frameName>r_gripper_r_finger_tip_link</frameName>\n        <updateRate>100.0</updateRate>\n\
+  \        <bumperTopicName>r_gripper_r_finger_tip_bumper</bumperTopicName>\n    \
+  \    <interface:bumper name=\"r_gripper_r_finger_tip_gazebo_ros_bumper_iface\"/>\n\
+  \      </controller:gazebo_ros_bumper>\n    </sensor:contact>\n    <mu1 value=\"\
+  500.0\"/>\n    <mu2 value=\"500.0\"/>\n    <kp value=\"10000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <gazebo>\n    <controller:gazebo_ros_p3d name=\"p3d_r_gripper_l_finger_controller\"\
+  \ plugin=\"libgazebo_ros_p3d.so\">\n      <alwaysOn>true</alwaysOn>\n      <updateRate>100.0</updateRate>\n\
+  \      <bodyName/>\n      <topicName>r_gripper_l_finger_pose_ground_truth</topicName>\n\
+  \      <gaussianNoise>0.0</gaussianNoise>\n      <frameName>base_link</frameName>\n\
+  \      <interface:position name=\"p3d_r_gripper_l_finger_position_iface\"/>\n  \
+  \  </controller:gazebo_ros_p3d>\n    <controller:gazebo_ros_f3d name=\"f3d_r_gripper_l_finger_controller\"\
+  \ plugin=\"libgazebo_ros_f3d.so\">\n      <alwaysOn>true</alwaysOn>\n      <updateRate>100.0</updateRate>\n\
+  \      <bodyName/>\n      <topicName>r_gripper_l_finger_force_ground_truth</topicName>\n\
+  \      <frameName>r_gripper_l_finger_link</frameName>\n      <interface:position\
+  \ name=\"f3d_r_gripper_l_finger_force_iface\"/>\n    </controller:gazebo_ros_f3d>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_gripper_r_finger_tip_joint\">\n    <stopKd\
+  \ value=\"1.0\"/>\n    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor value=\"\
+  1.0\"/>\n    <provideFeedback value=\"true\"/>\n  </gazebo>\n  <gazebo>\n    <body:box\
+  \ name=\"r_gripper_l_parallel_link\">\n      <massMatrix>true</massMatrix>\n   \
+  \   <mass>0.17126</mass>\n      <ixx>7.7562e-05</ixx>\n      <ixy>1.49095e-06</ixy>\n\
+  \      <ixz>-9.83385e-06</ixz>\n      <iyy>0.000197083</iyy>\n      <iyz>-3.06125e-06</iyz>\n\
+  \      <izz>0.000181054</izz>\n      <cx>0.03598</cx>\n      <cy>0.0173</cy>\n \
+  \     <cz>-0.00164</cz>\n      <xyz>0.82991 -0.157 0.790675</xyz>\n      <rpy>0\
+  \ -0 0</rpy>\n      <turnGravityOff>true</turnGravityOff>\n      <selfCollide>false</selfCollide>\n\
+  \    </body:box>\n    <body:box name=\"r_gripper_r_parallel_link\">\n      <massMatrix>true</massMatrix>\n\
+  \      <mass>0.17389</mass>\n      <ixx>7.73841e-05</ixx>\n      <ixy>-2.09309e-06</ixy>\n\
+  \      <ixz>-8.36228e-06</ixz>\n      <iyy>0.000198474</iyy>\n      <iyz>2.4611e-06</iyz>\n\
+  \      <izz>0.00018107</izz>\n      <cx>0.03576</cx>\n      <cy>-0.01736</cy>\n\
+  \      <cz>-0.00095</cz>\n      <xyz>0.82991 -0.219 0.790675</xyz>\n      <rpy>0\
+  \ -0 0</rpy>\n      <turnGravityOff>true</turnGravityOff>\n      <selfCollide>false</selfCollide>\n\
+  \    </body:box>\n  </gazebo>\n  <gazebo>\n    <joint:screw name=\"r_gripper_r_screw_screw_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>r_gripper_motor_screw_link</anchor>\n\
+  \      <anchorOffset>0 0 0</anchorOffset>\n      <axis>0 1 0</axis>\n      <threadPitch>-3141.6</threadPitch>\n\
+  \    </joint:screw>\n    <joint:screw name=\"r_gripper_l_screw_screw_joint\">\n\
+  \      <body1/>\n      <body2/>\n      <anchor>r_gripper_motor_screw_link</anchor>\n\
+  \      <anchorOffset>0 0 0</anchorOffset>\n      <axis>0 1 0</axis>\n      <threadPitch>3141.6</threadPitch>\n\
+  \    </joint:screw>\n  </gazebo>\n  <gazebo>\n    <joint:hinge name=\"r_gripper_r_parallel_root_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>r_gripper_palm_link</anchor>\n\
+  \      <axis>0 0 -1</axis>\n      <damping>0.2</damping>\n      <anchorOffset>0.05891\
+  \ -0.031 0</anchorOffset>\n    </joint:hinge>\n    <joint:hinge name=\"r_gripper_l_parallel_root_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>r_gripper_palm_link</anchor>\n\
+  \      <axis>0 0 1</axis>\n      <damping>0.2</damping>\n      <anchorOffset>0.05891\
+  \ 0.031 0</anchorOffset>\n    </joint:hinge>\n    <joint:hinge name=\"r_gripper_r_parallel_tip_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>r_gripper_r_finger_tip_link</anchor>\n\
+  \      <axis>0 0 1</axis>\n      <anchorOffset>-0.018 -0.021 0</anchorOffset>\n\
+  \    </joint:hinge>\n    <joint:hinge name=\"r_gripper_l_parallel_tip_joint\">\n\
+  \      <body1/>\n      <body2/>\n      <anchor>r_gripper_l_finger_tip_link</anchor>\n\
+  \      <axis>0 0 1</axis>\n      <anchorOffset>-0.018 0.021 0</anchorOffset>\n \
+  \   </joint:hinge>\n    <joint:slider name=\"r_gripper_joint\">\n      <body1/>\n\
+  \      <body2/>\n      <anchor>r_gripper_l_finger_tip_link</anchor>\n      <axis>0\
+  \ 1 0</axis>\n    </joint:slider>\n  </gazebo>\n  <gazebo reference=\"r_gripper_motor_slider_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <material value=\"PR2/Red\"/>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_gripper_motor_screw_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material value=\"PR2/Red\"/>\n  </gazebo>\n  <gazebo reference=\"r_gripper_l_parallel_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <material value=\"PR2/Red\"/>\n\
+  \  </gazebo>\n  <gazebo reference=\"r_gripper_r_parallel_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material value=\"PR2/Red\"/>\n  </gazebo>\n  <joint name=\"r_gripper_joint\"\
+  \ type=\"prismatic\">\n    <parent link=\"r_gripper_r_finger_tip_link\"/>\n    <child\
+  \ link=\"r_gripper_l_finger_tip_frame\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"\
+  />\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"1000\" lower=\"0\" upper=\"0.09\"\
+  \ velocity=\"0.2\"/>\n    <dynamics damping=\"10.0\"/>\n    <safety_controller k_position=\"\
+  20\" k_velocity=\"5000\" soft_lower_limit=\"-0.01\" soft_upper_limit=\"0.088\"/>\n\
+  \  </joint>\n  <link name=\"r_gripper_l_finger_tip_frame\"/>\n  <gazebo reference=\"\
+  r_gripper_palm_link\">\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n\
+  \  <gazebo>\n    <controller:gazebo_ros_p3d name=\"p3d_r_gripper_palm_controller\"\
+  \ plugin=\"libgazebo_ros_p3d.so\">\n      <alwaysOn>true</alwaysOn>\n      <updateRate>100.0</updateRate>\n\
+  \      <bodyName/>\n      <topicName>r_gripper_palm_pose_ground_truth</topicName>\n\
+  \      <xyzOffsets>0 0 0</xyzOffsets>\n      <rpyOffsets>0 0 0</rpyOffsets>\n  \
+  \    <gaussianNoise>0.0</gaussianNoise>\n      <frameName>map</frameName>\n    \
+  \  <interface:position name=\"p3d_r_gripper_palm_position_iface\"/>\n    </controller:gazebo_ros_p3d>\n\
+  \    <gripper name=\"r_grasp_hack\">\n      \n      \n      <grasp_check attach_steps=\"\
+  20\" detach_steps=\"40\" min_contact_count=\"2\"/>\n      \n      \n      <gripper_link>r_gripper_r_finger_tip_link</gripper_link>\n\
+  \      \n      \n      <gripper_link>r_gripper_l_finger_tip_link</gripper_link>\n\
+  \      \n      \n      <palm_link>r_gripper_palm_link</palm_link>\n      \n    \n\
+  \    </gripper>\n  </gazebo>\n  <transmission name=\"r_gripper_trans\" type=\"pr2_mechanism_model/PR2GripperTransmission\"\
+  >\n    <actuator name=\"r_gripper_motor\"/>\n    <gap_joint L0=\"0.0375528\" a=\"\
+  0.0683698\" b=\"0.0433849\" gear_ratio=\"40.095\" h=\"0.0\" mechanical_reduction=\"\
+  1.0\" name=\"r_gripper_joint\" phi0=\"0.518518122146\" r=\"0.0915\" screw_reduction=\"\
+  0.004\" t0=\"-0.0001914\" theta0=\"0.0628824676201\"/>\n    <use_simulated_gripper_joint/>\n\
+  \    <passive_joint name=\"r_gripper_l_finger_joint\"/>\n    <passive_joint name=\"\
+  r_gripper_r_finger_joint\"/>\n    <passive_joint name=\"r_gripper_r_finger_tip_joint\"\
+  />\n    <passive_joint name=\"r_gripper_l_finger_tip_joint\"/>\n    <simulated_actuated_joint\
+  \ name=\"r_gripper_motor_screw_joint\" passive_actuated_joint=\"r_gripper_motor_slider_joint\"\
+  \ simulated_reduction=\"3141.6\"/>\n  </transmission>\n  <joint name=\"l_shoulder_pan_joint\"\
+  \ type=\"revolute\">\n    <parent link=\"torso_lift_link\"/>\n    <child link=\"\
+  l_shoulder_pan_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0.188 0\"/>\n    <axis\
+  \ xyz=\"0 0 1\"/>\n    <limit effort=\"30\" lower=\"-0.714601836603\" upper=\"2.2853981634\"\
+  \ velocity=\"2.088\"/>\n    <dynamics damping=\"10.0\"/>\n    <safety_controller\
+  \ k_position=\"100\" k_velocity=\"10\" soft_lower_limit=\"-0.564601836603\" soft_upper_limit=\"\
+  2.1353981634\"/>\n    <calibration rising=\"0.781239605747\"/>\n  </joint>\n  <link\
+  \ name=\"l_shoulder_pan_link\">\n    <inertial>\n      <mass value=\"25.799322\"\
+  />\n      <origin rpy=\"0 0 0\" xyz=\"-0.001201 0.024513 -0.098231\"/>\n      <inertia\
+  \ ixx=\"0.86617914248\" ixy=\"-0.06086507933\" ixz=\"-0.12118061183\" iyy=\"0.87421714893\"\
+  \ iyz=\"-0.05886609911\" izz=\"0.27353821674\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/shoulder_v0/shoulder_pan.dae\"/>\n      </geometry>\n\
+  \      <material name=\"Blue\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/shoulder_v0/shoulder_pan.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <joint name=\"l_shoulder_lift_joint\"\
+  \ type=\"revolute\">\n    <parent link=\"l_shoulder_pan_link\"/>\n    <child link=\"\
+  l_shoulder_lift_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.1 0 0\"/>\n    <axis\
+  \ xyz=\"0 1 0\"/>\n    <limit effort=\"30\" lower=\"-0.5236\" upper=\"1.3963\" velocity=\"\
+  2.082\"/>\n    <dynamics damping=\"10.0\"/>\n    <safety_controller k_position=\"\
+  100\" k_velocity=\"10\" soft_lower_limit=\"-0.3536\" soft_upper_limit=\"1.2963\"\
+  />\n    <calibration falling=\"-0.00657910968\"/>\n  </joint>\n  <link name=\"l_shoulder_lift_link\"\
+  >\n    <inertial>\n      <mass value=\"2.74988\"/>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0.02195 -0.02664 -0.03127\"/>\n      <inertia ixx=\"0.02105584615\" ixy=\"\
+  0.00496704022\" ixz=\"-0.00194808955\" iyy=\"0.02127223737\" iyz=\"0.0011042549\"\
+  \ izz=\"0.01975753814\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"0\
+  \ 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/shoulder_v0/shoulder_lift.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/shoulder_v0/shoulder_lift.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"l_upper_arm_roll_joint\" type=\"revolute\"\
+  >\n    <parent link=\"l_shoulder_lift_link\"/>\n    <child link=\"l_upper_arm_roll_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    <axis xyz=\"1 0 0\"/>\n    <limit\
+  \ effort=\"30\" lower=\"-0.8\" upper=\"3.9\" velocity=\"3.27\"/>\n    <dynamics\
+  \ damping=\"0.1\"/>\n    <safety_controller k_position=\"100\" k_velocity=\"2\"\
+  \ soft_lower_limit=\"-0.65\" soft_upper_limit=\"3.75\"/>\n    <calibration rising=\"\
+  1.570749736298\"/>\n  </joint>\n  <link name=\"l_upper_arm_roll_link\">\n    <inertial>\n\
+  \      <mass value=\"0.1\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    \
+  \  <inertia ixx=\"0.01\" ixy=\"0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/shoulder_v0/upper_arm_roll.stl\"\
+  />\n      </geometry>\n      <material name=\"RollLinks\"/>\n    </visual>\n   \
+  \ <collision>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n \
+  \       <mesh filename=\"package://pr2_description/meshes/shoulder_v0/upper_arm_roll_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"l_upper_arm_roll_link\"\
+  >\n    <material value=\"PR2/RollLinks\"/>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_upper_arm_roll_joint\">\n    <stopKd value=\"\
+  1.0\"/>\n    <stopKp value=\"1000000.0\"/>\n    <fudgeFactor value=\"0.5\"/>\n \
+  \ </gazebo>\n  <transmission name=\"l_upper_arm_roll_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"l_upper_arm_roll_motor\"/>\n    <joint name=\"l_upper_arm_roll_joint\"\
+  />\n    <mechanicalReduction>32.6525111499</mechanicalReduction>\n  </transmission>\n\
+  \  <gazebo reference=\"l_shoulder_pan_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_shoulder_pan_joint\">\n    <stopKd value=\"\
+  1.0\"/>\n    <stopKp value=\"1000000.0\"/>\n  </gazebo>\n  <gazebo reference=\"\
+  l_shoulder_lift_link\">\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n\
+  \  <gazebo reference=\"l_shoulder_lift_joint\">\n    <stopKd value=\"1.0\"/>\n \
+  \   <stopKp value=\"1000000.0\"/>\n  </gazebo>\n  <transmission name=\"l_shoulder_pan_trans\"\
+  \ type=\"pr2_mechanism_model/SimpleTransmission\">\n    <actuator name=\"l_shoulder_pan_motor\"\
+  />\n    <joint name=\"l_shoulder_pan_joint\"/>\n    <mechanicalReduction>63.1552452977</mechanicalReduction>\n\
+  \    <compensator k_belt=\"4000.0\" kd_motor=\"15.0\" lambda_combined=\"0.0\" lambda_joint=\"\
+  40.0\" lambda_motor=\"40.0\" mass_motor=\"0.05\"/>\n  </transmission>\n  <transmission\
+  \ name=\"l_shoulder_lift_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"l_shoulder_lift_motor\"/>\n    <joint name=\"l_shoulder_lift_joint\"\
+  />\n    <mechanicalReduction>61.8948225713</mechanicalReduction>\n    <compensator\
+  \ k_belt=\"4000.0\" kd_motor=\"10.0\" lambda_combined=\"0.0\" lambda_joint=\"60.0\"\
+  \ lambda_motor=\"60.0\" mass_motor=\"0.05\"/>\n  </transmission>\n  <joint name=\"\
+  l_upper_arm_joint\" type=\"fixed\">\n    <parent link=\"l_upper_arm_roll_link\"\
+  />\n    <child link=\"l_upper_arm_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0\
+  \ 0\"/>\n  </joint>\n  <link name=\"l_upper_arm_link\">\n    <inertial>\n      <mass\
+  \ value=\"6.01769\"/>\n      <origin xyz=\"0.21405 0.01658 -0.00057\"/>\n      <inertia\
+  \ ixx=\"0.01530603856\" ixy=\"-0.00339324862\" ixz=\"0.00060765455\" iyy=\"0.07473694455\"\
+  \ iyz=\"-0.00019953729\" izz=\"0.07601594191\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/upper_arm_v0/upper_arm.dae\"/>\n      </geometry>\n\
+  \      <material name=\"Green\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/upper_arm_v0/upper_arm.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"l_upper_arm_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n  <joint name=\"l_forearm_roll_joint\"\
+  \ type=\"continuous\">\n    <parent link=\"l_elbow_flex_link\"/>\n    <child link=\"\
+  l_forearm_roll_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    <axis xyz=\"\
+  1 0 0\"/>\n    <limit effort=\"30\" velocity=\"3.6\"/>\n    <dynamics damping=\"\
+  0.1\"/>\n    <safety_controller k_velocity=\"1\"/>\n    <calibration rising=\"0.026675408119\"\
+  />\n  </joint>\n  <link name=\"l_forearm_roll_link\">\n    <inertial>\n      <mass\
+  \ value=\"0.1\"/>\n      <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"\
+  0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/upper_arm_v0/forearm_roll.stl\"/>\n      </geometry>\n\
+  \      <material name=\"RollLinks\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/upper_arm_v0/forearm_roll_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"l_forearm_roll_link\"\
+  >\n    <material value=\"PR2/RollLinks\"/>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_forearm_roll_joint\">\n    <fudgeFactor value=\"\
+  0.5\"/>\n  </gazebo>\n  <transmission name=\"l_forearm_roll_trans\" type=\"pr2_mechanism_model/SimpleTransmission\"\
+  >\n    <actuator name=\"l_forearm_roll_motor\"/>\n    <joint name=\"l_forearm_roll_joint\"\
+  />\n    <mechanicalReduction>-90.5142857143</mechanicalReduction>\n  </transmission>\n\
+  \  <joint name=\"l_elbow_flex_joint\" type=\"revolute\">\n    <parent link=\"l_upper_arm_link\"\
+  />\n    <child link=\"l_elbow_flex_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.4\
+  \ 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"30\" lower=\"-2.3213\"\
+  \ upper=\"0\" velocity=\"3.3\"/>\n    <dynamics damping=\"1.0\"/>\n    <safety_controller\
+  \ k_position=\"100\" k_velocity=\"3\" soft_lower_limit=\"-2.1213\" soft_upper_limit=\"\
+  -0.15\"/>\n    <calibration falling=\"-1.1606\"/>\n  </joint>\n  <link name=\"l_elbow_flex_link\"\
+  >\n    <inertial>\n      <mass value=\"1.90327\"/>\n      <origin xyz=\"0.01014\
+  \ 0.00032 -0.01211\"/>\n      <inertia ixx=\"0.00346541989\" ixy=\"0.00004066825\"\
+  \ ixz=\"0.00043171614\" iyy=\"0.00441606455\" iyz=\"-0.00003968914\" izz=\"0.00359156824\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/upper_arm_v0/elbow_flex.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/upper_arm_v0/elbow_flex.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <gazebo reference=\"l_elbow_flex_joint\">\n    <initial_joint_position>-1.0</initial_joint_position>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_elbow_flex_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_elbow_flex_joint\">\n    <stopKd value=\"\
+  1.0\"/>\n    <stopKp value=\"1000000.0\"/>\n  </gazebo>\n  <transmission name=\"\
+  l_elbow_flex_trans\" type=\"pr2_mechanism_model/SimpleTransmission\">\n    <actuator\
+  \ name=\"l_elbow_flex_motor\"/>\n    <joint name=\"l_elbow_flex_joint\"/>\n    <mechanicalReduction>-36.167452007</mechanicalReduction>\n\
+  \  </transmission>\n  <joint name=\"l_forearm_joint\" type=\"fixed\">\n    <parent\
+  \ link=\"l_forearm_roll_link\"/>\n    <child link=\"l_forearm_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"l_forearm_link\">\n\
+  \    <inertial>\n      <mass value=\"2.57968\"/>\n      <origin xyz=\"0.18791 -0.00017\
+  \ -0.00912\"/>\n      <inertia ixx=\"0.00364857222\" ixy=\"0.00005215877\" ixz=\"\
+  0.00071534842\" iyy=\"0.01507736897\" iyz=\"-0.0000131077\" izz=\"0.01659310749\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/forearm_v0/forearm.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/forearm_v0/forearm.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"l_wrist_flex_joint\" type=\"revolute\"\
+  >\n    <parent link=\"l_forearm_link\"/>\n    <child link=\"l_wrist_flex_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.321 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n \
+  \   <limit effort=\"10\" lower=\"-2.18\" upper=\"0\" velocity=\"3.078\"/>\n    <dynamics\
+  \ damping=\"0.1\"/>\n    <safety_controller k_position=\"20\" k_velocity=\"4\" soft_lower_limit=\"\
+  -2\" soft_upper_limit=\"-0.1\"/>\n    <calibration falling=\"-0.528730269239\"/>\n\
+  \  </joint>\n  <link name=\"l_wrist_flex_link\">\n    <inertial>\n      <mass value=\"\
+  0.61402\"/>\n      <origin xyz=\"-0.00157 0 -0.00075\"/>\n      <inertia ixx=\"\
+  0.00065165722\" ixy=\"0.00000028864\" ixz=\"0.00000303477\" iyy=\"0.00019824443\"\
+  \ iyz=\"-0.00000022645\" izz=\"0.00064450498\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/forearm_v0/wrist_flex.dae\"/>\n      </geometry>\n\
+  \      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/forearm_v0/wrist_flex.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <joint name=\"l_wrist_roll_joint\"\
+  \ type=\"continuous\">\n    <parent link=\"l_wrist_flex_link\"/>\n    <child link=\"\
+  l_wrist_roll_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n    <axis xyz=\"\
+  1 0 0\"/>\n    <limit effort=\"10\" velocity=\"3.6\"/>\n    <dynamics damping=\"\
+  0.1\"/>\n    <safety_controller k_velocity=\"2\"/>\n    <calibration rising=\"-1.490541466595\"\
+  />\n  </joint>\n  <link name=\"l_wrist_roll_link\">\n    <inertial>\n      <mass\
+  \ value=\"0.1\"/>\n      <origin xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.01\" ixy=\"\
+  0\" ixz=\"0\" iyy=\"0.01\" iyz=\"0\" izz=\"0.01\"/>\n    </inertial>\n    <visual>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/forearm_v0/wrist_roll.stl\"/>\n      </geometry>\n\
+  \      <material name=\"RollLinks\"/>\n    </visual>\n    <collision>\n      <origin\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/forearm_v0/wrist_roll_L.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"l_forearm_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n  <gazebo reference=\"\
+  l_wrist_flex_link\">\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n \
+  \ <gazebo reference=\"l_wrist_flex_joint\">\n    <stopKd value=\"1.0\"/>\n    <stopKp\
+  \ value=\"1000000.0\"/>\n  </gazebo>\n  <gazebo reference=\"l_wrist_roll_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <material value=\"PR2/RollLinks\"\
+  />\n  </gazebo>\n  <gazebo reference=\"l_wrist_roll_joint\">\n    <fudgeFactor value=\"\
+  0.5\"/>\n  </gazebo>\n  <transmission name=\"l_wrist_trans\" type=\"pr2_mechanism_model/WristTransmission\"\
+  >\n    <rightActuator mechanicalReduction=\"60.1714285714\" name=\"l_wrist_r_motor\"\
+  />\n    <leftActuator mechanicalReduction=\"60.1714285714\" name=\"l_wrist_l_motor\"\
+  />\n    <flexJoint mechanicalReduction=\"-1.0\" name=\"l_wrist_flex_joint\"/>\n\
+  \    <rollJoint mechanicalReduction=\"1.0\" name=\"l_wrist_roll_joint\"/>\n  </transmission>\n\
+  \  <joint name=\"l_gripper_palm_joint\" type=\"fixed\">\n    <parent link=\"l_wrist_roll_link\"\
+  />\n    <child link=\"l_gripper_palm_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n  </joint>\n  <link name=\"l_gripper_palm_link\">\n    <inertial>\n \
+  \     <mass value=\"0.58007\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0.06623 0.00053\
+  \ -0.00119\"/>\n      <inertia ixx=\"0.00035223921\" ixy=\"-0.00001580476\" ixz=\"\
+  -0.0000009175\" iyy=\"0.00067741312\" iyz=\"-0.00000059554\" izz=\"0.00086563316\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/gripper_palm.dae\"\
+  />\n      </geometry>\n      <material name=\"Red\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/gripper_v0/gripper_palm.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"l_gripper_led_joint\" type=\"fixed\"\
+  >\n    <parent link=\"l_gripper_palm_link\"/>\n    <child link=\"l_gripper_led_frame\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.0513 0 0.0244\"/>\n  </joint>\n  <link name=\"\
+  l_gripper_led_frame\"/>\n  <joint name=\"l_gripper_motor_accelerometer_joint\" type=\"\
+  fixed\">\n    <parent link=\"l_gripper_palm_link\"/>\n    <child link=\"l_gripper_motor_accelerometer_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"l_gripper_motor_accelerometer_link\"\
+  >\n    <inertial>\n      <mass value=\"0.001\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"\
+  0\" izz=\"0.001\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0 0 0\"/>\n      <geometry>\n        <box size=\"0.001 0.001 0.001\"/>\n\
+  \      </geometry>\n    </visual>\n    <collision>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0 0 0\"/>\n      <geometry>\n        <box size=\"0.001 0.001 0.001\"/>\n\
+  \      </geometry>\n    </collision>\n  </link>\n  <joint name=\"l_gripper_tool_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"l_gripper_palm_link\"/>\n    <child link=\"\
+  l_gripper_tool_frame\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.18 0 0\"/>\n  </joint>\n\
+  \  <link name=\"l_gripper_tool_frame\"/>\n  <link name=\"l_gripper_motor_slider_link\"\
+  >\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\" iyz=\"\
+  0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"l_gripper_motor_slider_joint\"\
+  \ type=\"prismatic\">\n    <parent link=\"l_gripper_palm_link\"/>\n    <child link=\"\
+  l_gripper_motor_slider_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.16828 0 0\"/>\n\
+  \    <axis xyz=\"1 0 0\"/>\n    <limit effort=\"1000\" lower=\"-0.1\" upper=\"0.1\"\
+  \ velocity=\"0.2\"/>\n  </joint>\n  <link name=\"l_gripper_motor_screw_link\">\n\
+  \    <inertial>\n      <mass value=\"0.01\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n      <inertia ixx=\"0.0001\" ixy=\"0\" ixz=\"0\" iyy=\"0.0001\" iyz=\"\
+  0\" izz=\"0.0001\"/>\n    </inertial>\n  </link>\n  <joint name=\"l_gripper_motor_screw_joint\"\
+  \ type=\"continuous\">\n    <parent link=\"l_gripper_motor_slider_link\"/>\n   \
+  \ <child link=\"l_gripper_motor_screw_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"\
+  0 0 0\"/>\n    <axis xyz=\"0 1 0\"/>\n    <dynamics damping=\"0.0001\"/>\n  </joint>\n\
+  \  <joint name=\"l_gripper_l_finger_joint\" type=\"revolute\">\n    <parent link=\"\
+  l_gripper_palm_link\"/>\n    <child link=\"l_gripper_l_finger_link\"/>\n    <origin\
+  \ rpy=\"0 0 0\" xyz=\"0.07691 0.01 0\"/>\n    <axis xyz=\"0 0 1\"/>\n    <limit\
+  \ effort=\"1000\" lower=\"0\" upper=\"0.548\" velocity=\"0.5\"/>\n    <dynamics\
+  \ damping=\"0.02\"/>\n  </joint>\n  <link name=\"l_gripper_l_finger_link\">\n  \
+  \  <inertial>\n      <mass value=\"0.17126\"/>\n      <origin rpy=\"0 0 0\" xyz=\"\
+  0.03598 0.0173 -0.00164\"/>\n      <inertia ixx=\"0.00007756198\" ixy=\"0.00000149095\"\
+  \ ixz=\"-0.00000983385\" iyy=\"0.00019708305\" iyz=\"-0.00000306125\" izz=\"0.00018105446\"\
+  />\n    </inertial>\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n\
+  \      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/gripper_v0/l_finger.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"l_gripper_r_finger_joint\" type=\"\
+  revolute\">\n    <parent link=\"l_gripper_palm_link\"/>\n    <child link=\"l_gripper_r_finger_link\"\
+  />\n    <origin rpy=\"0 0 0\" xyz=\"0.07691 -0.01 0\"/>\n    <axis xyz=\"0 0 -1\"\
+  />\n    <limit effort=\"1000\" lower=\"0\" upper=\"0.548\" velocity=\"0.5\"/>\n\
+  \    <dynamics damping=\"0.02\"/>\n  </joint>\n  <link name=\"l_gripper_r_finger_link\"\
+  >\n    <inertial>\n      <mass value=\"0.17389\"/>\n      <origin rpy=\"0 0 0\"\
+  \ xyz=\"0.03576 -0.01736 -0.00095\"/>\n      <inertia ixx=\"0.0000773841\" ixy=\"\
+  -0.00000209309\" ixz=\"-0.00000836228\" iyy=\"0.00019847383\" iyz=\"0.0000024611\"\
+  \ izz=\"0.00018106988\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"3.14159265359\
+  \ 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger.dae\"\
+  />\n      </geometry>\n      <material name=\"Grey\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"3.14159265359 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <joint name=\"l_gripper_l_finger_tip_joint\"\
+  \ type=\"revolute\">\n    <parent link=\"l_gripper_l_finger_link\"/>\n    <child\
+  \ link=\"l_gripper_l_finger_tip_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.09137\
+  \ 0.00495 0\"/>\n    <axis xyz=\"0 0 -1\"/>\n    <limit effort=\"1000\" lower=\"\
+  0\" upper=\"0.548\" velocity=\"0.5\"/>\n    <dynamics damping=\"0.001\"/>\n  </joint>\n\
+  \  <link name=\"l_gripper_l_finger_tip_link\">\n    <inertial>\n      <mass value=\"\
+  0.04419\"/>\n      <origin rpy=\"0 0 0\" xyz=\"0.00423 0.00284 0\"/>\n      <inertia\
+  \ ixx=\"0.00000837047\" ixy=\"0.00000583632\" ixz=\"0\" iyy=\"0.00000987067\" iyz=\"\
+  0\" izz=\"0.00001541768\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger_tip.dae\"\
+  />\n      </geometry>\n      <material name=\"Green\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
+  package://pr2_description/meshes/gripper_v0/l_finger_tip.stl\"/>\n      </geometry>\n\
+  \    </collision>\n  </link>\n  <joint name=\"l_gripper_r_finger_tip_joint\" type=\"\
+  revolute\">\n    <parent link=\"l_gripper_r_finger_link\"/>\n    <child link=\"\
+  l_gripper_r_finger_tip_link\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0.09137 -0.00495\
+  \ 0\"/>\n    <axis xyz=\"0 0 1\"/>\n    <limit effort=\"1000\" lower=\"0\" upper=\"\
+  0.548\" velocity=\"0.5\"/>\n    <dynamics damping=\"0.001\"/>\n  </joint>\n  <link\
+  \ name=\"l_gripper_r_finger_tip_link\">\n    <inertial>\n      <mass value=\"0.04419\"\
+  />\n      <origin rpy=\"0 0 0\" xyz=\"0.00423 -0.00284 0\"/>\n      <inertia ixx=\"\
+  0.00000837047\" ixy=\"-0.00000583632\" ixz=\"0\" iyy=\"0.00000987067\" iyz=\"0\"\
+  \ izz=\"0.00001541768\"/>\n    </inertial>\n    <visual>\n      <origin rpy=\"3.14159265359\
+  \ 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger_tip.dae\"\
+  />\n      </geometry>\n      <material name=\"Green\"/>\n    </visual>\n    <collision>\n\
+  \      <origin rpy=\"3.14159265359 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n   \
+  \     <mesh filename=\"package://pr2_description/meshes/gripper_v0/l_finger_tip.stl\"\
+  />\n      </geometry>\n    </collision>\n  </link>\n  <gazebo reference=\"l_gripper_l_finger_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <mu1 value=\"500.0\"/>\n    <mu2\
+  \ value=\"500.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"1.0\"/>\n  </gazebo>\n\
+  \  <gazebo reference=\"l_gripper_l_finger_joint\">\n    <stopKd value=\"1.0\"/>\n\
+  \    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor value=\"1.0\"/>\n    <provideFeedback\
+  \ value=\"true\"/>\n  </gazebo>\n  <gazebo reference=\"l_gripper_r_finger_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <mu1 value=\"500.0\"/>\n    <mu2\
+  \ value=\"500.0\"/>\n    <kp value=\"1000000.0\"/>\n    <kd value=\"1.0\"/>\n  </gazebo>\n\
+  \  <gazebo reference=\"l_gripper_r_finger_joint\">\n    <stopKd value=\"1.0\"/>\n\
+  \    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor value=\"1.0\"/>\n    <provideFeedback\
+  \ value=\"true\"/>\n  </gazebo>\n  <gazebo reference=\"l_gripper_l_finger_tip_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <selfCollide>false</selfCollide>\n\
+  \    <sensor:contact name=\"l_gripper_l_finger_tip_contact_sensor\">\n      <geom>l_gripper_l_finger_tip_link_geom</geom>\n\
+  \      <updateRate>100.0</updateRate>\n      <controller:gazebo_ros_bumper name=\"\
+  l_gripper_l_finger_tip_gazebo_ros_bumper_controller\" plugin=\"libgazebo_ros_bumper.so\"\
+  >\n        <alwaysOn>true</alwaysOn>\n        <frameName>l_gripper_l_finger_tip_link</frameName>\n\
+  \        <updateRate>100.0</updateRate>\n        <bumperTopicName>l_gripper_l_finger_tip_bumper</bumperTopicName>\n\
+  \        <interface:bumper name=\"l_gripper_l_finger_tip_gazebo_ros_bumper_iface\"\
+  />\n      </controller:gazebo_ros_bumper>\n    </sensor:contact>\n    <mu1 value=\"\
+  500.0\"/>\n    <mu2 value=\"500.0\"/>\n    <kp value=\"10000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <gazebo reference=\"l_gripper_l_finger_tip_joint\">\n  \
+  \  <stopKd value=\"1.0\"/>\n    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor\
+  \ value=\"1.0\"/>\n    <provideFeedback value=\"true\"/>\n  </gazebo>\n  <gazebo\
+  \ reference=\"l_gripper_r_finger_tip_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <selfCollide>false</selfCollide>\n    <sensor:contact name=\"l_gripper_r_finger_tip_contact_sensor\"\
+  >\n      <geom>l_gripper_r_finger_tip_link_geom</geom>\n      <updateRate>100.0</updateRate>\n\
+  \      <controller:gazebo_ros_bumper name=\"l_gripper_r_finger_tip_gazebo_ros_bumper_controller\"\
+  \ plugin=\"libgazebo_ros_bumper.so\">\n        <alwaysOn>true</alwaysOn>\n     \
+  \   <frameName>l_gripper_r_finger_tip_link</frameName>\n        <updateRate>100.0</updateRate>\n\
+  \        <bumperTopicName>l_gripper_r_finger_tip_bumper</bumperTopicName>\n    \
+  \    <interface:bumper name=\"l_gripper_r_finger_tip_gazebo_ros_bumper_iface\"/>\n\
+  \      </controller:gazebo_ros_bumper>\n    </sensor:contact>\n    <mu1 value=\"\
+  500.0\"/>\n    <mu2 value=\"500.0\"/>\n    <kp value=\"10000000.0\"/>\n    <kd value=\"\
+  1.0\"/>\n  </gazebo>\n  <gazebo>\n    <controller:gazebo_ros_p3d name=\"p3d_l_gripper_l_finger_controller\"\
+  \ plugin=\"libgazebo_ros_p3d.so\">\n      <alwaysOn>true</alwaysOn>\n      <updateRate>100.0</updateRate>\n\
+  \      <bodyName/>\n      <topicName>l_gripper_l_finger_pose_ground_truth</topicName>\n\
+  \      <gaussianNoise>0.0</gaussianNoise>\n      <frameName>base_link</frameName>\n\
+  \      <interface:position name=\"p3d_l_gripper_l_finger_position_iface\"/>\n  \
+  \  </controller:gazebo_ros_p3d>\n    <controller:gazebo_ros_f3d name=\"f3d_l_gripper_l_finger_controller\"\
+  \ plugin=\"libgazebo_ros_f3d.so\">\n      <alwaysOn>true</alwaysOn>\n      <updateRate>100.0</updateRate>\n\
+  \      <bodyName/>\n      <topicName>l_gripper_l_finger_force_ground_truth</topicName>\n\
+  \      <frameName>l_gripper_l_finger_link</frameName>\n      <interface:position\
+  \ name=\"f3d_l_gripper_l_finger_force_iface\"/>\n    </controller:gazebo_ros_f3d>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_gripper_r_finger_tip_joint\">\n    <stopKd\
+  \ value=\"1.0\"/>\n    <stopKp value=\"10000000.0\"/>\n    <fudgeFactor value=\"\
+  1.0\"/>\n    <provideFeedback value=\"true\"/>\n  </gazebo>\n  <gazebo>\n    <body:box\
+  \ name=\"l_gripper_l_parallel_link\">\n      <massMatrix>true</massMatrix>\n   \
+  \   <mass>0.17126</mass>\n      <ixx>7.7562e-05</ixx>\n      <ixy>1.49095e-06</ixy>\n\
+  \      <ixz>-9.83385e-06</ixz>\n      <iyy>0.000197083</iyy>\n      <iyz>-3.06125e-06</iyz>\n\
+  \      <izz>0.000181054</izz>\n      <cx>0.03598</cx>\n      <cy>0.0173</cy>\n \
+  \     <cz>-0.00164</cz>\n      <xyz>0.82991 0.219 0.790675</xyz>\n      <rpy>0 -0\
+  \ 0</rpy>\n      <turnGravityOff>true</turnGravityOff>\n      <selfCollide>false</selfCollide>\n\
+  \    </body:box>\n    <body:box name=\"l_gripper_r_parallel_link\">\n      <massMatrix>true</massMatrix>\n\
+  \      <mass>0.17389</mass>\n      <ixx>7.73841e-05</ixx>\n      <ixy>-2.09309e-06</ixy>\n\
+  \      <ixz>-8.36228e-06</ixz>\n      <iyy>0.000198474</iyy>\n      <iyz>2.4611e-06</iyz>\n\
+  \      <izz>0.00018107</izz>\n      <cx>0.03576</cx>\n      <cy>-0.01736</cy>\n\
+  \      <cz>-0.00095</cz>\n      <xyz>0.82991 0.157 0.790675</xyz>\n      <rpy>0\
+  \ -0 0</rpy>\n      <turnGravityOff>true</turnGravityOff>\n      <selfCollide>false</selfCollide>\n\
+  \    </body:box>\n  </gazebo>\n  <gazebo>\n    <joint:screw name=\"l_gripper_r_screw_screw_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>l_gripper_motor_screw_link</anchor>\n\
+  \      <anchorOffset>0 0 0</anchorOffset>\n      <axis>0 1 0</axis>\n      <threadPitch>-3141.6</threadPitch>\n\
+  \    </joint:screw>\n    <joint:screw name=\"l_gripper_l_screw_screw_joint\">\n\
+  \      <body1/>\n      <body2/>\n      <anchor>l_gripper_motor_screw_link</anchor>\n\
+  \      <anchorOffset>0 0 0</anchorOffset>\n      <axis>0 1 0</axis>\n      <threadPitch>3141.6</threadPitch>\n\
+  \    </joint:screw>\n  </gazebo>\n  <gazebo>\n    <joint:hinge name=\"l_gripper_r_parallel_root_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>l_gripper_palm_link</anchor>\n\
+  \      <axis>0 0 -1</axis>\n      <damping>0.2</damping>\n      <anchorOffset>0.05891\
+  \ -0.031 0</anchorOffset>\n    </joint:hinge>\n    <joint:hinge name=\"l_gripper_l_parallel_root_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>l_gripper_palm_link</anchor>\n\
+  \      <axis>0 0 1</axis>\n      <damping>0.2</damping>\n      <anchorOffset>0.05891\
+  \ 0.031 0</anchorOffset>\n    </joint:hinge>\n    <joint:hinge name=\"l_gripper_r_parallel_tip_joint\"\
+  >\n      <body1/>\n      <body2/>\n      <anchor>l_gripper_r_finger_tip_link</anchor>\n\
+  \      <axis>0 0 1</axis>\n      <anchorOffset>-0.018 -0.021 0</anchorOffset>\n\
+  \    </joint:hinge>\n    <joint:hinge name=\"l_gripper_l_parallel_tip_joint\">\n\
+  \      <body1/>\n      <body2/>\n      <anchor>l_gripper_l_finger_tip_link</anchor>\n\
+  \      <axis>0 0 1</axis>\n      <anchorOffset>-0.018 0.021 0</anchorOffset>\n \
+  \   </joint:hinge>\n    <joint:slider name=\"l_gripper_joint\">\n      <body1/>\n\
+  \      <body2/>\n      <anchor>l_gripper_l_finger_tip_link</anchor>\n      <axis>0\
+  \ 1 0</axis>\n    </joint:slider>\n  </gazebo>\n  <gazebo reference=\"l_gripper_motor_slider_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <material value=\"PR2/Red\"/>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_gripper_motor_screw_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material value=\"PR2/Red\"/>\n  </gazebo>\n  <gazebo reference=\"l_gripper_l_parallel_link\"\
+  >\n    <turnGravityOff>true</turnGravityOff>\n    <material value=\"PR2/Red\"/>\n\
+  \  </gazebo>\n  <gazebo reference=\"l_gripper_r_parallel_link\">\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material value=\"PR2/Red\"/>\n  </gazebo>\n  <joint name=\"l_gripper_joint\"\
+  \ type=\"prismatic\">\n    <parent link=\"l_gripper_r_finger_tip_link\"/>\n    <child\
+  \ link=\"l_gripper_l_finger_tip_frame\"/>\n    <origin rpy=\"0 0 0\" xyz=\"0 0 0\"\
+  />\n    <axis xyz=\"0 1 0\"/>\n    <limit effort=\"1000\" lower=\"0\" upper=\"0.09\"\
+  \ velocity=\"0.2\"/>\n    <dynamics damping=\"10.0\"/>\n    <safety_controller k_position=\"\
+  20\" k_velocity=\"5000\" soft_lower_limit=\"-0.01\" soft_upper_limit=\"0.088\"/>\n\
+  \  </joint>\n  <link name=\"l_gripper_l_finger_tip_frame\"/>\n  <gazebo reference=\"\
+  l_gripper_palm_link\">\n    <turnGravityOff>true</turnGravityOff>\n  </gazebo>\n\
+  \  <gazebo>\n    <controller:gazebo_ros_p3d name=\"p3d_l_gripper_palm_controller\"\
+  \ plugin=\"libgazebo_ros_p3d.so\">\n      <alwaysOn>true</alwaysOn>\n      <updateRate>100.0</updateRate>\n\
+  \      <bodyName/>\n      <topicName>l_gripper_palm_pose_ground_truth</topicName>\n\
+  \      <xyzOffsets>0 0 0</xyzOffsets>\n      <rpyOffsets>0 0 0</rpyOffsets>\n  \
+  \    <gaussianNoise>0.0</gaussianNoise>\n      <frameName>map</frameName>\n    \
+  \  <interface:position name=\"p3d_l_gripper_palm_position_iface\"/>\n    </controller:gazebo_ros_p3d>\n\
+  \    <gripper name=\"l_grasp_hack\">\n      \n      \n      <grasp_check attach_steps=\"\
+  20\" detach_steps=\"40\" min_contact_count=\"2\"/>\n      \n      \n      <gripper_link>l_gripper_r_finger_tip_link</gripper_link>\n\
+  \      \n      \n      <gripper_link>l_gripper_l_finger_tip_link</gripper_link>\n\
+  \      \n      \n      <palm_link>l_gripper_palm_link</palm_link>\n      \n    \n\
+  \    </gripper>\n  </gazebo>\n  <transmission name=\"l_gripper_trans\" type=\"pr2_mechanism_model/PR2GripperTransmission\"\
+  >\n    <actuator name=\"l_gripper_motor\"/>\n    <gap_joint L0=\"0.0375528\" a=\"\
+  0.0683698\" b=\"0.0433849\" gear_ratio=\"40.095\" h=\"0.0\" mechanical_reduction=\"\
+  1.0\" name=\"l_gripper_joint\" phi0=\"0.518518122146\" r=\"0.0915\" screw_reduction=\"\
+  0.004\" t0=\"-0.0001914\" theta0=\"0.0628824676201\"/>\n    <use_simulated_gripper_joint/>\n\
+  \    <passive_joint name=\"l_gripper_l_finger_joint\"/>\n    <passive_joint name=\"\
+  l_gripper_r_finger_joint\"/>\n    <passive_joint name=\"l_gripper_r_finger_tip_joint\"\
+  />\n    <passive_joint name=\"l_gripper_l_finger_tip_joint\"/>\n    <simulated_actuated_joint\
+  \ name=\"l_gripper_motor_screw_joint\" passive_actuated_joint=\"l_gripper_motor_slider_joint\"\
+  \ simulated_reduction=\"3141.6\"/>\n  </transmission>\n  <joint name=\"l_forearm_cam_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"l_forearm_roll_link\"/>\n    <child link=\"\
+  l_forearm_cam_frame\"/>\n    <origin rpy=\"-1.546567199268 -0.586857401467 -0.00081396214\"\
+  \ xyz=\"0.141990741541 0.004861352354 0.036556839191\"/>\n  </joint>\n  <link name=\"\
+  l_forearm_cam_frame\">\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin\
+  \ xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\"\
+  \ iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"l_forearm_cam_optical_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"l_forearm_cam_frame\"/>\n    <child link=\"\
+  l_forearm_cam_optical_frame\"/>\n    <origin rpy=\"-1.57079632679 0 -1.57079632679\"\
+  \ xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"l_forearm_cam_optical_frame\"/>\n\
+  \  <gazebo reference=\"l_forearm_cam_frame\">\n    <sensor:camera name=\"l_forearm_cam_sensor\"\
+  >\n      <imageSize>640 480</imageSize>\n      <imageFormat>R8G8B8</imageFormat>\n\
+  \      <hfov>90</hfov>\n      <nearClip>0.1</nearClip>\n      <farClip>100</farClip>\n\
+  \      <updateRate>25.0</updateRate>\n      <controller:gazebo_ros_depth_camera\
+  \ name=\"l_forearm_cam_controller\" plugin=\"libgazebo_ros_depth_camera.so\">\n\
+  \        <alwaysOn>true</alwaysOn>\n        <updateRate>25.0</updateRate>\n    \
+  \    <cameraName>l_forearm_cam</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <frameName>l_forearm_cam_optical_frame</frameName>\n\
+  \        <hackBaseline>0</hackBaseline>\n        <CxPrime>320.5</CxPrime>\n    \
+  \    <Cx>320.5</Cx>\n        <Cy>240.5</Cy>\n        <focalLength>320</focalLength>\n\
+  \        <distortionK1>0.0</distortionK1>\n        <distortionK2>0.0</distortionK2>\n\
+  \        <distortionK3>0.0</distortionK3>\n        <distortionT1>0.0</distortionT1>\n\
+  \        <distortionT2>0.0</distortionT2>\n        <interface:camera name=\"l_forearm_cam_iface\"\
+  />\n      </controller:gazebo_ros_depth_camera>\n    </sensor:camera>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material>PR2/Blue</material>\n  </gazebo>\n  <joint name=\"r_forearm_cam_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"r_forearm_roll_link\"/>\n    <child link=\"\
+  r_forearm_cam_frame\"/>\n    <origin rpy=\"1.537354862696 -0.561595941517 0.022521129693\"\
+  \ xyz=\"0.14018113564 -0.009682933404 0.039488105154\"/>\n  </joint>\n  <link name=\"\
+  r_forearm_cam_frame\">\n    <inertial>\n      <mass value=\"0.01\"/>\n      <origin\
+  \ xyz=\"0 0 0\"/>\n      <inertia ixx=\"0.001\" ixy=\"0\" ixz=\"0\" iyy=\"0.001\"\
+  \ iyz=\"0\" izz=\"0.001\"/>\n    </inertial>\n  </link>\n  <joint name=\"r_forearm_cam_optical_frame_joint\"\
+  \ type=\"fixed\">\n    <parent link=\"r_forearm_cam_frame\"/>\n    <child link=\"\
+  r_forearm_cam_optical_frame\"/>\n    <origin rpy=\"-1.57079632679 0 -1.57079632679\"\
+  \ xyz=\"0 0 0\"/>\n  </joint>\n  <link name=\"r_forearm_cam_optical_frame\"/>\n\
+  \  <gazebo reference=\"r_forearm_cam_frame\">\n    <sensor:camera name=\"r_forearm_cam_sensor\"\
+  >\n      <imageSize>640 480</imageSize>\n      <imageFormat>R8G8B8</imageFormat>\n\
+  \      <hfov>90</hfov>\n      <nearClip>0.1</nearClip>\n      <farClip>100</farClip>\n\
+  \      <updateRate>25.0</updateRate>\n      <controller:gazebo_ros_depth_camera\
+  \ name=\"r_forearm_cam_controller\" plugin=\"libgazebo_ros_depth_camera.so\">\n\
+  \        <alwaysOn>true</alwaysOn>\n        <updateRate>25.0</updateRate>\n    \
+  \    <cameraName>r_forearm_cam</cameraName>\n        <imageTopicName>image_raw</imageTopicName>\n\
+  \        <cameraInfoTopicName>camera_info</cameraInfoTopicName>\n        <frameName>r_forearm_cam_optical_frame</frameName>\n\
+  \        <hackBaseline>0</hackBaseline>\n        <CxPrime>320.5</CxPrime>\n    \
+  \    <Cx>320.5</Cx>\n        <Cy>240.5</Cy>\n        <focalLength>320</focalLength>\n\
+  \        <distortionK1>0.0</distortionK1>\n        <distortionK2>0.0</distortionK2>\n\
+  \        <distortionK3>0.0</distortionK3>\n        <distortionT1>0.0</distortionT1>\n\
+  \        <distortionT2>0.0</distortionT2>\n        <interface:camera name=\"r_forearm_cam_iface\"\
+  />\n      </controller:gazebo_ros_depth_camera>\n    </sensor:camera>\n    <turnGravityOff>true</turnGravityOff>\n\
+  \    <material>PR2/Blue</material>\n  </gazebo>\n</robot>\n"

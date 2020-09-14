@@ -1,0 +1,145 @@
+<launch>
+  
+  <!-- GDB functionality -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+  
+  <arg name="rviz" default="true" />
+  <arg name="reconfigure" default="true" />
+  
+  <arg name="camera" default="camera" />
+  <arg name="num_worker_threads" default="4" />
+  
+  <!-- Vendor and Product ID -->
+  <arg name="vendor"  default="0x2af2" />
+  <arg name="product" default="0x1001" />
+  
+  <!-- Depth/IR Camera Arguments -->
+  <arg name="depth_range" default="0" />
+  <arg name="threshold"   default="0" />
+  <arg name="nr_filter"   default="1" />
+  <arg name="pulse_count" default="2000" />
+  <arg name="ld_enable"   default="3" />
+  <arg name="ir_gain"     default="256" />
+  
+  <!-- RGB Camera Arguments -->
+  <arg name="ae_mode"          default="3" />
+  <arg name="brightness_gain"  default="1.0" />
+  <arg name="exposure_time"    default="0.01" />
+  <arg name="color_correction" default="1" />
+  
+  <arg name="r_gain" default="1.0" />
+  <arg name="g_gain" default="1.0" />
+  <arg name="b_gain" default="1.0" />
+  
+  <!-- Camera Misc Arguments -->
+  <arg name="temp_time" default="1.0" />
+  
+  <!-- PointCloud Argument -->
+  <arg name="pointcloud_rgb"      default="false" />
+  <arg name="flying_pixel_filter" default="false" />
+  
+  <!-- TOF camera launch -->
+  <include file="$(find cis_camera)/launch/tof.launch" >
+    
+    <arg name="launch_prefix" value="$(arg launch_prefix)" />
+    
+    <!-- Vendor and Product ID -->
+    <arg name="vendor"  value="$(arg vendor)"  />
+    <arg name="product" value="$(arg product)" />
+    
+    <!-- Depth/IR Camera Parameters-->
+    <arg name="depth_range" value="$(arg depth_range)" />
+    <arg name="threshold"   value="$(arg threshold)" />
+    <arg name="nr_filter"   value="$(arg nr_filter)" />
+    <arg name="pulse_count" value="$(arg pulse_count)" />
+    <arg name="ld_enable"   value="$(arg ld_enable)" />
+    <arg name="ir_gain"     value="$(arg ir_gain)" />
+    
+    <!-- RGB Camera Parameters-->
+    <arg name="ae_mode"          value="$(arg ae_mode)" />
+    <arg name="brightness_gain"  value="$(arg brightness_gain)" />
+    <arg name="exposure_time"    value="$(arg exposure_time)" />
+    <arg name="color_correction" value="$(arg color_correction)" />
+    
+    <arg name="r_gain" value="$(arg r_gain)" />
+    <arg name="g_gain" value="$(arg g_gain)" />
+    <arg name="b_gain" value="$(arg b_gain)" />
+    
+    <!-- Camera Misc Parameters -->
+    <arg name="temp_time" value="$(arg temp_time)" />
+    
+  </include>
+  
+  <group ns="$(arg camera)">
+    
+    <arg name="manager" value="$(arg camera)_nodelet_manager"/>
+    
+    <node pkg="nodelet" type="nodelet" args="manager"
+          name="$(arg manager)" output="screen" launch-prefix="$(arg launch_prefix)" >
+      <param name="num_worker_threads" value="$(arg num_worker_threads)" />
+    </node>
+    
+    <include file="$(find cis_camera)/launch/includes/processing.launch.xml">
+      
+      <arg name="manager"          value="$(arg manager)" />
+      <arg name="respawn"          value="false" />
+      <arg name="rgb_processing"   value="true" />
+      <arg name="ir_processing"    value="true" />
+      <arg name="depth_processing" value="true" />
+      
+      <arg name="depth_registered_processing" value="$(arg pointcloud_rgb)" />
+      <arg name="sw_registered_processing"    value="$(arg pointcloud_rgb)" />
+      
+      <arg name="hw_registered_processing"        value="false" />
+      <arg name="disparity_processing"            value="false" />
+      <arg name="disparity_registered_processing" value="false" />
+      
+    </include>
+    
+    <node if="$(arg flying_pixel_filter)"
+          name="voxel_grid"
+          pkg="nodelet" type="nodelet"
+          args="load pcl/VoxelGrid $(arg manager)"
+          output="screen" >
+      <remap unless="$(arg pointcloud_rgb)"
+              from="~input" to="/$(arg camera)/depth/points" />
+      <remap if="$(arg pointcloud_rgb)"
+              from="~input" to="/$(arg camera)/depth_registered/points" />
+      <rosparam>
+          filter_field_name: z
+          filter_limit_min: 0.015
+          filter_limit_max: 6.0
+          filter_limit_negative: False
+          leaf_size: 0.01
+      </rosparam>
+    </node>
+    
+    <node if="$(arg flying_pixel_filter)"
+          name="statistical_outlier_removal"
+          pkg="nodelet" type="nodelet"
+          args="load pcl/StatisticalOutlierRemoval $(arg manager)"
+          output="screen" >
+      <remap from="~input" to="/$(arg camera)/voxel_grid/output" />
+      <rosparam>
+          mean_k: 30
+          stddev: 0.4
+      </rosparam>
+    </node>
+    
+  </group>
+  
+  <node name="map_to_camera_base" pkg="tf" type="static_transform_publisher"
+        args="0 0 1.0 0 0 0 map camera_base 100" />
+  
+  <!-- RViz -->
+  <node if="$(arg rviz)"
+        name="rviz" pkg="rviz" type="rviz" launch-prefix="$(arg launch_prefix)"
+        args="-d $(find cis_camera)/launch/pointcloud.rviz"/>
+  
+  <!-- Dynamic Reconfigure-->
+  <node if="$(arg reconfigure)"
+        name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
+  
+</launch>

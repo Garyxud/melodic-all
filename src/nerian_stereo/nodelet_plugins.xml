@@ -1,0 +1,8 @@
+<library path="lib/libnerian_stereo_nodelet">
+  <class name="nerian_stereo/StereoNodelet" type="nerian_stereo::StereoNodelet" base_class_type="nodelet::Nodelet">
+  <description>
+  Nodelet for Nerian Vision's SceneScan stereo vision system.
+  </description>
+  </class>
+</library>
+

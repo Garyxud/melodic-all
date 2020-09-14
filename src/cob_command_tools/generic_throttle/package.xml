@@ -1,0 +1,18 @@
+<package format="2">
+  <name>generic_throttle</name>
+  <version>0.6.16</version>
+  <description>This package provides a throttle for ROS topics</description>
+
+  <license>Apache 2.0</license>
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <maintainer email="fmw@ipa.fhg.de">Florian Weisshardt</maintainer> 
+  <maintainer email="mattia.rh@gmail.com">Mattia Racca</maintainer>
+  <author email="mattia.rh@gmail.com">Mattia Racca</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>rostopic</exec_depend>
+</package>

@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+IFS=':' read -r PREFIX_PATH <<< "$CMAKE_PREFIX_PATH"
+loop=true
+for dir in "${PREFIX_PATH[@]}"; do
+    if [ $loop = true -a -e ${dir}/etc/catkin/profile.d/99.jsk_tools.zsh ] ; then
+        source ${dir}/etc/catkin/profile.d/99.jsk_tools.zsh
+        loop=false
+    fi
+done
+if [ loop = true ] ; then
+    echo -e "Warning : Failed to load zshrc.ros"
+fi

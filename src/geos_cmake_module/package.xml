@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>geos_cmake_module</name>
+  <version>0.0.2</version>
+  <description>cmake module for using the libgeos geometry library with ROS</description>
+
+  <maintainer email="daniel.dsouza@swri.org">Daniel D'Souza</maintainer>
+
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/swri-robotics/geos-cmake-module</url>
+  <url type="bugtracker">https://github.com/swri-robotics/geos-cmake-module/issues</url>
+
+  <author email="mateusz@loskot.net">Mateusz Loskot</author>
+  <author email="daniel.dsouza@swri.org">Daniel D'Souza</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <architecture_independent />
+  </export>
+</package>

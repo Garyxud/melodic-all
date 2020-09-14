@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.1" rtc:id="RTC:AIST.Hardware Interface.DIO:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtc:updateDate="2009-08-25T14:27:40.510+09:00" rtc:creationDate="2009-08-25T14:27:40.510+09:00" rtc:version="1.0.0" rtc:vendor="AIST" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1.0" rtc:description="Access to a device that controls and reads digital values." rtc:category="Hardware Interface" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="DIO"/>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="left" rtcExt:varname="bits" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedULong" rtc:name="Bits" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="Each bit of the unsigned long corresponds to a channel of the device." rtcDoc:number="1" rtcDoc:type="TimedULong" rtcDoc:description="Set the bits of the digital I/O device high and low."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="bits" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedULong" rtc:name="Bits" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="Each bit of the unsigned long corresponds to a channel of the device." rtcDoc:number="1" rtcDoc:type="TimedULong" rtcDoc:description="Get the bits of the digital I/O device."/>
+    </rtc:DataPorts>
+    <rtc:ServicePorts xsi:type="rtcExt:serviceport_ext" rtcExt:position="top" rtc:name="dioServices">
+        <rtc:ServiceInterface xsi:type="rtcDoc:serviceinterface_doc" rtc:path="~/include/rtm/idl" rtc:type="DIO" rtc:idlFile="DIO.idl" rtc:varname="" rtc:instanceName="dio" rtc:direction="Provided" rtc:name="dio">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Interface to the callbacks of a DIO device."/>
+        </rtc:ServiceInterface>
+    </rtc:ServicePorts>
+</rtc:RtcProfile>

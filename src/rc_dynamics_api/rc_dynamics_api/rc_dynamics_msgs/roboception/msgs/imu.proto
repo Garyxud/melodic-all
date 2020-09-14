@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "ImuProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Imu
+/// \brief Message for raw IMU (InertialMeasurementUnit) values
+
+import "roboception/msgs/time.proto";
+import "roboception/msgs/vector3d.proto";
+
+message Imu
+{
+  optional Time timestamp                     = 1; // Time when the data was captured
+  optional Vector3d linear_acceleration       = 2; // Linear acceleration in m/s² measured by the IMU
+  optional Vector3d angular_velocity          = 3; // Angular velocity in rad/s measured by the IMU
+}

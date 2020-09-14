@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dataspeed_pds_can</name>
+  <version>1.0.5</version>
+  <description>
+    Interface to the Dataspeed Inc. Power Distribution System (PDS) via CAN
+  </description>
+
+  <license>BSD</license>
+  <author email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</author>
+  <author email="emyllyoja@dataspeedinc.com">Eric Myllyoja</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</maintainer>
+  <maintainer email="emyllyoja@dataspeedinc.com">Eric Myllyoja</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/dataspeed_pds</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/dataspeed_pds/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>nodelet</depend>
+  <depend>can_msgs</depend>
+  <depend>dataspeed_pds_msgs</depend>
+  <depend>message_filters</depend>
+
+  <build_depend>dataspeed_can_msg_filters</build_depend>
+
+  <exec_depend>roslaunch</exec_depend>
+  <exec_depend>dataspeed_can_usb</exec_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+
+  <export>
+    <nodelet plugin="${prefix}/nodelets.xml" />
+  </export>
+
+</package>

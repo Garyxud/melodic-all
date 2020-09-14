@@ -1,0 +1,58 @@
+#qicore.log package
+package qicore
+
+#from qi import LogLevel, TimePoint
+
+struct LogLevel
+  level int
+end
+
+struct TimePoint
+  ns uint64
+end
+
+struct LogMessage
+  source    str
+  # Level of verbosity of the message
+  level     LogLevel
+  # timestamp when the message have been posted
+  timestamp TimePoint
+  # Category of the message
+  category  str
+  # machineID:PID
+  location  str
+  # The message itself
+  message   str
+end
+
+interface LogProvider
+  fn setVerbosity(level LogLevel)
+  fn setCategory(cat str, level LogLevel)
+  fn clearAndSet(filters [](str, LogLevel))
+
+  #fn addFilter(cat str, level LogLevel);
+  #fn setFilters(filters [](str, qi.LogLevel))
+  #fn clearFilters()
+  #fn filters() [](str, qi.LogLevel)
+end
+fn newLogProvider(l LogManager) LogProvider
+
+interface LogListener
+  fn setVerbosity(level LogLevel)
+  fn setCategory(cat str, level LogLevel)
+  #fn addFilter(cat str, level LogLevel)
+  #fn filters() [](str, qi.LogLevel)
+  fn clearFilters()
+
+  emit onLogMessage(LogMessage)
+  prop verbosity(LogLevel)
+  prop filters([](str, LogLevel))
+end
+fn newLogListener(l LogManager) LogListener
+
+interface LogManager
+  fn log(msg LogMessage)
+  fn getListener() LogListener
+  fn addProvider(provider LogProvider) int
+  fn removeProvider(idProvider int)
+end

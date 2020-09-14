@@ -1,0 +1,42 @@
+======
+rtexit
+======
+
+--------------------------
+RTコンポーネントを終了する
+--------------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtexit [options] <path>
+
+概要
+====
+
+実行中のRTコンポーネントを終了させます。コンポーネントは終了手続きをし
+て終了します。
+
+オプション
+==========
+
+.. include:: ../../common/ja/common_opts.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtexit /localhost/ConsoleOut0.rtc
+
+``ConsoleOut0.rtc`` コンポーネントを終了します。
+
+参照
+====
+
+  ``rtdel`` (1)
+

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!-- root directory -->		
+  <Directory Id="omniRoot" Name="omniORB">
+    <Directory Id="omniVersion" Name="4.1.4">
+      <Component Id="Omni" Guid="{% Omni.GUID %}">
+	<Environment Id="OMNI_ROOT" Name="OMNI_ROOT" Action="set"
+		     System="yes" Value="[omniVersion]" />
+	{% for file in Omni.Files %}
+	<File Id="{% file.Id %}" Name="{% file.Name %}"
+	      DiskId="1" Source="{% file.Source %}">
+	</File>
+	{% endfor %}
+      </Component>
+      
+      <!-- bin -->
+      <Directory Id="omni_bin" Name="bin">
+        <Directory Id="omni_bin_scripts" Name="scripts">
+          <Component Id="OmniBinScripts" Guid="{% OmniBinScripts.GUID %}">
+	    <Environment Id="OmniUpdatePath" Name="PATH" Action="set"
+			 System="yes" Part="last"
+			 Value="[omni_bin]x86_win32" />
+	    {% for file in OmniBinScripts.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+        <Directory Id="omni_bin_x86_win32" Name="x86_win32">
+          <Component Id="OmniBinX86_win32" Guid="{% OmniBinX86_win32.GUID %}">
+	    {% for file in OmniBinX86_win32.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+      </Directory>
+      
+      <!-- idl -->
+      <Directory Id="omni_idl" Name="idl">
+        <Component Id="OmniIdl" Guid="{% OmniIdl.GUID %}">
+	  {% for file in OmniIdl.Files %}
+	  <File Id="{% file.Id %}" Name="{% file.Name %}"
+		DiskId="1" Source="{% file.Source %}">
+	  </File>
+	  {% endfor %}
+        </Component>
+        <Directory Id="omni_idl_Cos" Name="COS">
+          <Component Id="OmniIdlCos" Guid="{% OmniIdlCos.GUID %}">
+	    {% for file in OmniIdlCos.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+      </Directory>
+      
+      <!-- include -->
+      <Directory Id="omni_include" Name="include">
+        <Component Id="OmniInclude" Guid="{% OmniInclude.GUID %}">
+	  {% for file in OmniInclude.Files %}
+	  <File Id="{% file.Id %}" Name="{% file.Name %}"
+		DiskId="1" Source="{% file.Source %}">
+	  </File>
+	  {% endfor %}
+        </Component>
+        <Directory Id="omni_include_Cos" Name="COS">
+          <Component Id="OmniIncludeCos" Guid="{% OmniIncludeCos.GUID %}">
+	    {% for file in OmniIncludeCos.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+        <Directory Id="omni_include_omniORB4" Name="omniORB4">
+          <Component Id="OmniIncludeOmniorb4" Guid="{% OmniIncludeOmniorb4.GUID %}">
+	    {% for file in OmniIncludeOmniorb4.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+          <Directory Id="omni_include_omniorb4_internal" Name="internal">
+            <Component Id="OmniIncludeOmniorb4Internal" Guid="{% OmniIncludeOmniorb4Internal.GUID %}">
+	      {% for file in OmniIncludeOmniorb4Internal.Files %}
+	      <File Id="{% file.Id %}" Name="{% file.Name %}"
+		    DiskId="1" Source="{% file.Source %}">
+	      </File>
+	      {% endfor %}
+            </Component>
+          </Directory>
+        </Directory>
+        <Directory Id="omni_include_omnithread" Name="omnithread">
+          <Component Id="OmniIncludeOmnithread" Guid="{% OmniIncludeOmnithread.GUID %}">
+	    {% for file in OmniIncludeOmnithread.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+        <Directory Id="omni_include_omniVms" Name="omniVms">
+          <Component Id="OmniIncludeOmnivms" Guid="{% OmniIncludeOmnivms.GUID %}">
+	    {% for file in OmniIncludeOmnivms.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+        <Directory Id="omni_include_python1.5" Name="python1.5">
+          <Component Id="OmniIncludePython1_5" Guid="{% OmniIncludePython1_5.GUID %}">
+	    {% for file in OmniIncludePython1_5.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+      </Directory>
+      
+      <!-- lib -->
+      <Directory Id="omni_lib" Name="lib">
+        <Directory Id="omni_lib_python" Name="python">
+          <Directory Id="omni_lib_python_omniidl" Name="omniidl">
+            <Component Id="OmniLibPythonOmniidl" Guid="{% OmniLibPythonOmniidl.GUID %}">
+	      {% for file in OmniLibPythonOmniidl.Files %}
+	      <File Id="{% file.Id %}" Name="{% file.Name %}"
+		    DiskId="1" Source="{% file.Source %}">
+	      </File>
+	      {% endfor %}
+            </Component>
+          </Directory>
+          <Directory Id="omni_lib_python_omniidl_be" Name="omniidl_be">
+            <Component Id="OmniLibPythonOmniidl_be" Guid="{% OmniLibPythonOmniidl_be.GUID %}">
+	      {% for file in OmniLibPythonOmniidl_be.Files %}
+	      <File Id="{% file.Id %}" Name="{% file.Name %}"
+		    DiskId="1" Source="{% file.Source %}">
+	      </File>
+	      {% endfor %}
+            </Component>
+            <Directory Id="omni_lib_python_omniidl_be_cxx" Name="cxx">
+              <Component Id="OmniLibPythonOmniidl_beCxx" Guid="{% OmniLibPythonOmniidl_beCxx.GUID %}">
+		{% for file in OmniLibPythonOmniidl_beCxx.Files %}
+		<File Id="{% file.Id %}" Name="{% file.Name %}"
+		      DiskId="1" Source="{% file.Source %}">
+		</File>
+		{% endfor %}
+              </Component>
+              <Directory Id="omni_lib_python_omniidl_be_cxx_dynskel" Name="dynskel">
+                <Component Id="OmniLibPythonOmniidl_beCxxDynskel" Guid="{% OmniLibPythonOmniidl_beCxxDynskel.GUID %}">
+		  {% for file in OmniLibPythonOmniidl_beCxxDynskel.Files %}
+		  <File Id="{% file.Id %}" Name="{% file.Name %}"
+			DiskId="1" Source="{% file.Source %}">
+		  </File>
+		  {% endfor %}
+                </Component>
+              </Directory>
+              <Directory Id="omni_lib_python_omniidl_be_cxx_header" Name="header">
+                <Component Id="OmniLibPythonOmniidl_beCxxHeader" Guid="{% OmniLibPythonOmniidl_beCxxHeader.GUID %}">
+		  {% for file in OmniLibPythonOmniidl_beCxxHeader.Files %}
+		  <File Id="{% file.Id %}" Name="{% file.Name %}"
+			DiskId="1" Source="{% file.Source %}">
+		  </File>
+		  {% endfor %}
+                </Component>
+              </Directory>
+              <Directory Id="omni_lib_python_omniidl_be_cxx_impl" Name="impl">
+                <Component Id="OmniLibPythonOmniidl_beCxxImpl" Guid="{% OmniLibPythonOmniidl_beCxxImpl.GUID %}">
+		  {% for file in OmniLibPythonOmniidl_beCxxImpl.Files %}
+		  <File Id="{% file.Id %}" Name="{% file.Name %}"
+			DiskId="1" Source="{% file.Source %}">
+		  </File>
+		  {% endfor %}
+                </Component>
+              </Directory>
+              <Directory Id="omni_lib_python_omniidl_be_cxx_skel" Name="skel">
+                <Component Id="OmniLibPythonOmniidl_beCxxSkel" Guid="{% OmniLibPythonOmniidl_beCxxSkel.GUID %}">
+		  {% for file in OmniLibPythonOmniidl_beCxxSkel.Files %}
+		  <File Id="{% file.Id %}" Name="{% file.Name %}"
+			DiskId="1" Source="{% file.Source %}">
+		  </File>
+		  {% endfor %}
+                </Component>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="omni_lib_python1.5" Name="python1.5">
+          <Component Id="OmniLibPython1_5" Guid="{% OmniLibPython1_5.GUID %}">
+	    {% for file in OmniLibPython1_5.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+        <Directory Id="omni_lib_x86_win32" Name="x86_win32">
+          <Component Id="OmniLibX86_win32" Guid="{% OmniLibX86_win32.GUID %}">
+	    {% for file in OmniLibX86_win32.Files %}
+	    <File Id="{% file.Id %}" Name="{% file.Name %}"
+		  DiskId="1" Source="{% file.Source %}">
+	    </File>
+	    {% endfor %}
+          </Component>
+        </Directory>
+      </Directory>
+      <!-- end of lib -->
+      
+    </Directory>
+  </Directory>
+</Include>
+

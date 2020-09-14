@@ -1,0 +1,45 @@
+<package>
+  <name>network_monitor_udp</name>
+  <version>1.0.16</version>
+  <description>Facilities to monitor a network connection by sending UDP packets from
+    a client to a server, which bounces them back to the client. The client
+    collects statistics on latency and loss. The server is a C standalone utility
+    or a ROS node. The client can be a ROS node, a standalone utility or a python class.</description>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/network_monitor_udp</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Blaise Gassend</author>
+  <author>Catalin Drula</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>rospy</build_depend>
+  <build_depend>diagnostic_msgs</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <run_depend>message_runtime</run_depend>
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>rospy</run_depend>
+  <run_depend>diagnostic_msgs</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>actionlib</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>rospy</test_depend> -->
+  <!-- <test_depend>diagnostic_msgs</test_depend> -->
+  <!-- <test_depend>actionlib_msgs</test_depend> -->
+  <!-- <test_depend>actionlib</test_depend> -->
+
+<export>
+    <rosdoc config="rosdoc.yaml"/>
+</export>
+
+</package>

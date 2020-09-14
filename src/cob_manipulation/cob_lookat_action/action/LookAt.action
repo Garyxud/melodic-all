@@ -1,0 +1,27 @@
+###goal definition
+
+string target_frame
+string pointing_frame
+
+#geometry_msgs/Transform target_trans
+#geometry_msgs/Transform pointing_offset
+
+uint8 X_POSITIVE = 0
+uint8 Y_POSITIVE = 1
+uint8 Z_POSITIVE = 2
+uint8 X_NEGATIVE = 3
+uint8 Y_NEGATIVE = 4
+uint8 Z_NEGATIVE = 5
+
+uint8 pointing_axis_type
+
+bool base_active
+
+---
+#result definition
+bool success
+string message
+---
+#feedback
+bool status
+string message

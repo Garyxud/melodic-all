@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+   <test test-name="test_parse_data" pkg="leuze_rsl_driver" type="test_parse_data" name="test_parse_data"/>
+</launch>

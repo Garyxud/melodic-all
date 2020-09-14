@@ -1,0 +1,9 @@
+string AXIS_X=x
+string AXIS_Y=y
+string AXIS_Z=z
+string AXIS_MX=mx
+string AXIS_MY=my
+string AXIS_MZ=mz
+string axis
+float64 val
+---

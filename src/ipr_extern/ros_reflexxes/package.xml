@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ros_reflexxes</name>
+  <version>0.8.8</version>
+  <description>The ros_reflexxes package</description>
+
+  <maintainer email="daniel.zumkeller@live.de">Daniel Zumkeller</maintainer>
+
+  <license>LGPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>cmake_modules</build_depend>
+  <depend>roscpp</depend>
+  <depend>libreflexxestype2</depend>
+  
+  
+  <url type="repository">https://gitlab.ira.uka.de/iirob/ros_reflexxes</url>
+  <url type="bugtracker">https://gitlab.ira.uka.de/iirob/ros_reflexxes/issues</url>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

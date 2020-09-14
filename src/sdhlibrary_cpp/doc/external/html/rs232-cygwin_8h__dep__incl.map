@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$dsa_8h.html" title="This file contains interface to SDH::cDSA, a class to communicate with the tactile sensors of the SDH..." alt="" coords="137,83,215,112"/>
+<area shape="rect" id="node9" href="$rs232-cygwin_8cpp.html" title="Implementation of class SDH::cRS232, a class to access serial RS232 port on cygwin/linux." alt="" coords="239,83,385,112"/>
+<area shape="rect" id="node11" href="$sdh_8cpp.html" title="This file contains the interface to class SDH::cSDH, the end user class to access the SDH from a PC..." alt="" coords="409,83,503,112"/>
+<area shape="rect" id="node5" href="$demo-benchmark_8cpp.html" title="Simple script to benchmark communication speed of the SDH. See __help__ and online help (&quot;&#45;h&amp;quo..." alt="" coords="5,160,187,189"/>
+<area shape="rect" id="node7" href="$dsa_8cpp.html" title="This file contains definition of SDH::cDSA, a class to communicate with the tactile sensors of the SD..." alt="" coords="211,160,304,189"/>
+</map>

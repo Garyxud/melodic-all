@@ -1,0 +1,2 @@
+Connection[] added
+Connection[] lost

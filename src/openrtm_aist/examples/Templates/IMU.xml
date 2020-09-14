@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.1" rtc:id="RTC:AIST.Sensor.IMU:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtc:updateDate="2009-08-25T14:46:44.462+09:00" rtc:creationDate="2009-08-25T14:46:44.462+09:00" rtc:version="1.0.0" rtc:vendor="AIST" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1.0" rtc:description="Interface to an Inertial Measurement Unit." rtc:category="Sensor" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="IMU"/>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="acceleration" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedAcceleration3D" rtc:name="Acceleration" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="Metres per second squared." rtcDoc:semantics="" rtcDoc:number="1" rtcDoc:type="TimedAcceleration3D" rtcDoc:description="Measured acceleration values along the x, y and z axes."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="right" rtcExt:varname="angVel" rtc:subscriprionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="TimedAngularVelocity3D" rtc:name="AngularVelocity" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="Radians per second." rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedAngularVelocity3D" rtcDoc:description="Velocities around the x, y and z axes."/>
+    </rtc:DataPorts>
+    <rtc:ServicePorts xsi:type="rtcExt:serviceport_ext" rtcExt:position="left" rtc:name="imuServices">
+        <rtc:ServiceInterface xsi:type="rtcDoc:serviceinterface_doc" rtc:path="~/include/rtm/idl" rtc:type="IMU" rtc:idlFile="IMU.idl" rtc:varname="" rtc:instanceName="imuServices" rtc:direction="Provided" rtc:name="imuServices">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Interface to the callbacks provided by an IMU device."/>
+        </rtc:ServiceInterface>
+    </rtc:ServicePorts>
+</rtc:RtcProfile>

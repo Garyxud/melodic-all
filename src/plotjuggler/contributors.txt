@@ -1,0 +1,16 @@
+Main developer: 
+   Davide Faconti
+   
+Contributors:
+   Alexandre Audes (@aeudes)
+   Arturo Martín-de-Nicolás
+   Dorian Scholz 
+   Eddy Scott
+   Hilario Tome'
+   Jorge Rodriguez (@veimox)
+   Marcel Soler 
+   Mikael Arguedas
+   Kartik Mohta
+   Robin Vanhove (@1r0b1n0)
+   Victor Lopez
+   

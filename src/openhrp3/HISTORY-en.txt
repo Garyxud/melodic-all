@@ -1,0 +1,546 @@
+OpenHRP3 Updates History (Release Notes)
+
+Ver.3.1.9
+=========================
+・ supports OpenRTM-aist 1.1.2, 1.2.0, trunk
+
+・ supports ARM64
+
+・ supports Ubuntu 16.04
+
+・ supports Boost 1.34.0
+
+・ Support clang
+
+・ layout python stub to right place
+
+・ Fix many compile warning
+
+・ hrplib/hrpModel : changes return type of World::numBodies(),numXXX() from int to unsigned
+
+・ hrplib/hrpModel : supports slide joints (Link:SLIDE_JOINT) in calcCMJacobian()
+
+・ hrplib/hrpModel : fixes a bug in calcInverseKinematics
+
+・ hrplib/hrpModel : fixes bugs when loading PROTO Surface
+
+・ hrplib/hrpPlanner : enables to add an extra connection check between trees
+
+・ hrplib/hrpPlanner : Algorithm::ignoreCollisionAtStart() and Algorithm::ignoreCollisionAtGoal()
+
+・ hrplib/hrpPlanner : Fix bugs, uses attitude() instead of R
+
+・ hrplib/hrpCollision : modifies CreateSSV() to prevent Zero Div
+
+・ hrplib/hrpCollision : fix detection of triangle
+
+・ hrplib/hrpUtil : TriangleMeshShaper.cpp: checks values to prevent NaN
+
+・ hrplib/hrpUtil : ModelNodeSet.h,BodyInfo_impl.cpp: uses aligned allocator
+
+・ hrplib/hrpUtil : Add angular momentum jacobian
+
+・ hrplib/hrpUtil : Eigen3d.cpp,testEigen3d.cpp: add the correction of floating point error
+
+・ hrplib/hrpUtil : Add google test for Eigen3d.cpp
+
+・ server/ModelLoader : ColladaWriter.h: check that a base link and an effector links exist
+
+・ server/ModelLoader : exportCollada.cpp help message for adding information of manipulator to collada file
+
+・ server/ModelLoader : BodyInfo_impl.cpp: set default mass properties
+
+・ server/ModelLoader : projectGenerator.cpp: Add outport for root link actual pos and rot
+
+・ server/ModelLoader : projectGenerator.cpp: Add integration method (EULER, RUNGE_KUTTA..) argument and update readme
+
+・ server/ModelLoader : projectGenerator.cpp: projectGenerator.cpp: generating default outport:dq in project file by projectGenerator
+
+・ server/ModelLoader : ModelLoader_impl.cpp: fix ModelLoader to enable the compile without collada
+
+・ server/ModelLoader : ModelLoader_impl.cpp: support PROJECT_DIR in ModelLoader
+
+・ server/ModelLoader : ColladaWriter.h: fix for reducing CORBA communication on 32bit machine on models with many shapes
+
+・ server/ModelLoader : README.md: add README.md with options and an example for projectGenerator
+
+・ sample : Add hand bush for sample1_bush.wrl. Currently do not fix indent to check diff. Update bush parameters
+
+・ sample : sample_special_joint_robot.wrl: Add sample robot to check special joints, 6dof+ leg, toe foot etc..
+
+・ sample : sample_4leg_robot*.wrl: Add 4leg robot
+
+・ sample : sample1_bush.wrl, example/customizer:: Add sample1 model with rubber bush and bush customizer
+
+
+Ver.3.1.8
+=========================
+・ sample/model/sample1.wrl rotate imu mount coordinate for debug
+
+・ hrplib/hrpModel/ForwardDynamics.cpp Fix accel sensor frame
+discussed in https://github.com/fkanehiro/hrpsys-base/issues/472
+・ modelloader / projectGenerator move openhrp-project-generator from hrpsys-base
+
+・ export-collada has been renamed to openhrp-export-collada
+
+・ export-vrml　: add --use-inline-shape to output separate mesh files
+
+・ Eigen3d.h use 1.0e-12 instaed of 1.0e-6 for error check
+
+・ hrplib/hrpUtil/MatrixSolvers user calcSRInverse
+
+・ BodyInfoCollada_impl.cpp  fix for wrong collada interpretation, joint axis is in child frame
+
+・ super ugry hack for catkin build
+
+・ update .travis.yml
+
+・ adds ppa repository without confirmation
+
+・ create symlink for share directory for backword compatibility
+
+・ changes openrtm-aist to openrtm-aist-dev and adds collada-dom-dev
+
+・ changes PPA repository
+
+・ fix problem when environment variable "_" not set
+
+・ add dependency for ubuntu trusty
+
+・ Fix test to match change python stub install location (fixes #36)
+
+・ Change python stub install location (fixes #36)
+
+Ver.3.1.7
+=========================
+・add package.xml and CMakeLists.txt for catkin compile
+
+・disable java IDL compile by defualt
+
+・disable java python compile by defualt
+
+・convert wrl file into COLLADA file during compile
+
+・add sample3dof robot model
+
+・add .travis.yml file
+
+・fix servo gain in PD controller 
+
+・add CollisionDetector::colldingPairs()
+
+・support OpenRTM 1.1.1
+
+・fix bug in COLLADA loading
+
+Ver.3.1.6
+=========================
+* fix inertia matrix conversion of ModelLoader
+
+* fix segment's name of ModelLoader
+
+* fix link's rotation of ModelLoader
+
+Ver.3.1.5
+=========================
+* support QNX
+
+* support java 1.7
+
+* fix thread safe problem for loading collada
+
+* rename tlimit -> climit in ModelLoader.idl
+
+* fix inertia matrix of ColladaWriter
+
+* fix inertia matrix of SampleRobot
+
+* check if normal.isZero() before normal.normalize()
+
+Ver.3.1.4
+=========================
+* OpenHRP3 now officially supports Ubuntu 12.10.
+
+* The virtual joint can be used now. Thereby, the simulation of a closed link mechanism is possible. 
+
+* resolved some miscellaneous problems in OpenHRP.
+
+Ver.3.1.3
+=========================
+* OpenHRP3 now officially supports Ubuntu 11.10, 12.04.
+
+* The C++ library for matrices, vectors were changed into Eigen from Tvmet. 
+
+* ModelLoader supported to the model file of COLLADA form. 
+
+* The contact model for sphere-sphere and sphere-mesh pairs was added.
+
+* resolved some miscellaneous problems in OpenHRP.
+
+Ver.3.1.2
+=========================
+ * OpenHRP3 now officially supports Ubuntu 11.04.
+
+ * With the version upgrade of OpenRTM, we supports OpenRTM-aist-1.0.2,OpenRTM-aist-1.1.0. 
+
+ * The fault RengeSensor information is not saved at a model file was corrected. 
+
+ * The fault of the display of RengeSensor was corrected. 
+
+ * The problem of the Extrusion node in ModelLoader was solved. 
+
+ * New functions were added to the ViewSimulator server. 
+
+ * The starting point and the terminal point of an animation can be specified now. 
+
+ * resolved some miscellaneous problems in OpenHRP.
+
+
+Ver.3.1.1 (09-05-2011)
+=========================
+ * GraphView now supports displaying the position of a model and the posture.
+
+ * Resolved miscellaneous problems of CollisionView.
+
+ * Added a feature that supports creating model files that have multiple Segment node on GrxUI.
+
+ * Added a feature that supports combining the existing model on GrxUI.
+ 
+ * Added a View which sets up a controller bridge. 
+
+ * resolved some miscellaneous problems in OpenHRP.
+ 
+
+Ver.3.1.00-Release (21-09-2010)
+==============================
+
+ * OpenHRP3 now officially supports Ubuntu 10.04 LTS.
+
+ * Revised creating view process of the GrxUI start.
+
+ * improved a parsing VRML function.
+
+ * Revised it to leave out frames when processing was not possible for fps, at replay.
+
+ * Revised it to synchronize the update time of ViewSimulation with the frame rate of the camera
+
+ * Revised it to be update contents of RobotState View, at replay after the simulation too.
+
+ * Fixed bug that exception is raised when plural ControllerBridge works..
+
+ * Supports plural WorldItem.
+
+ * Revised it to lower display load of Property View.
+
+ * Fixed the issue of cross axle of the graph.
+
+ * Resolved miscellaneous problems of JythonPromptView.
+
+ * Resolved miscellaneous problems of OnlineViewer.
+
+ * Resolved miscellaneous problems of 3DView.
+
+ * resolved some miscellaneous problems in OpenHRP
+
+
+Ver.3.1.0(BETA 4) (15-03-2010)
+==============================
+
+ * According with the version upgrade of OpenRTM, 
+   we now support OpenRTM-aist-1.0.0-Release.
+
+ * OpenHRP3 now officially supports Ubuntu 9.1.
+
+ * The problem of extending the simulation time is now resolved.
+
+ * Fixed the issue of previous project name remaining in new projects.
+
+ * Fixed the issue of not reflecting Collision setings.
+
+ * Fixed the assertion occurrence of GrxUIonEclipse, at its start up.
+
+ * Plane that defined in crossSection field was not orthogonal, respect to 
+   the line that defined in spine field. This problem is resolved.
+
+ * Resolved miscellaneous problems of ModelLoader.
+
+ * Resolved miscellaneous problems of ServerManagerView.
+
+ * Visualized Bounding-box tree.
+
+ * Enabled interference check using with Bounding-box.
+
+ * Property input system is improved to be editable as user's preference.
+
+ * GrxUIonEclipse now supports Eclipse3.4.2(Ganymede).
+
+ * Published Eclipse3.4.2 and Eclipse3.2 packages that include all the 
+   plugins that are necessary for GrxUIonEclipse.
+
+ * GrxUIonEclipse plugin now supports language switching between 
+   Japanese and English.
+
+ * Published binary package installer for Windows.
+
+ * Published Debian binary package for Linux.
+
+ * Developed Joystick component as an Eclipse plugin.
+
+ * pkg-config is now supported.
+
+ * Switching between High-gain mode and Torque-control mode can now be done 
+   by Property-View window.
+
+ * Each tab in OpenHRP-View are changed to views.
+
+ * To correspond only to RGB form of no compression,
+   the format of the recording image changed. 
+
+Ver.3.1.0(BETA 3) (14-09-2009)
+==============================
+
+ * With the version upgrade of OpenRTM, we moved our dependence on OpenRTM-aist 
+   from Ver 0.4.2 to 1.0.0-rc1.
+
+ * 'GrxUI on Eclipse' now supports Eclipse RCP.
+
+ * OpenHRP3 now officially supports Ubuntu 9.04.
+
+ * Fixed the problem of not displaying graphs on GraphView.
+
+ * The issue that Jython scripts could not be run normally upon JythonPrompt 
+   View, was resolved.
+
+ * When multiple copies of same RTC are generated by ControllerBridge, 
+   connecting ports could not be done as normal. This problem is now resolved.
+
+ * Changed the value of "scale" in sample model file house.wrl .
+
+ * Some values did not reflected when edit in 3DView's Edit mode. This issue is 
+   now resolved.
+
+ * OpenHRP3 now supports loading models that does not have Segment node.
+
+ * When a dialog box is moved away from 3DView area, the screen did not 
+   refreshed and the dialog's client area kept displaying. This problem is now 
+   resolved.
+
+ * PropertyView of 'GrxUI on Eclipse' had values that were diffrent from 
+   property name. This problem is now resolved.
+
+ * The viewpoint settings did not reflected when recording. This issue is now 
+   fixed.
+
+ * The flicker of GraphView was reduced.
+
+
+Ver.3.1.0(BETA 2) (09-06-2009)
+==============================
+
+ * Added documentation for PD_HGtest.
+
+ * Abolished using bin/unix, bin/dos directories.
+
+ * LoggerView is now supported frame-by-frame playback.
+
+ * LoggerView is fixed to support forward/reverse playback at "1/64" speed.
+
+ * Simulating model could not be displayed when simulation was started, 
+   while LoggerView slider was at a middle possition of the track. 
+   This problem has now been resolved.
+
+ * Fixed the problem with GraphView, that not updating graph according to 
+   the elapsed time.
+
+ * Fixed the problem with GraphView, that graphs could not be added/deleted.
+
+ * Free joints that are not viewed on GraphView, can now be selected
+   and excluded using view-selecting combo box.
+
+ * When launching GrxUI, a list box that allows to select robot name, 
+   appeares at the top of RobotStateView, and disappeared when project 
+   loading is completed. This problem has now been resolved.
+
+ * Fixed the problem of not displaying joint values, when model was set to 
+   hidden on RobotStateView.
+
+ * Robot could not be selected from list, when multiple models are loaded in 
+   RobotStateView. This issue has now been resolved.
+
+ * Handled the exception that occured when ServerManagerView was closed 
+   and restarted.
+
+ * 3DView display did not advance, when focus was moved from GrxUI perspective 
+   to another. This problem has now been fixed.
+
+ * Fixed the problem that GrxUI perspective could not be loaded in newly 
+   opened Eclipse Windows.
+
+ * When multiple Eclipse windows were opened and if GrxUI perspective loaded 
+   window was not closed using "X" button, eclipse could not be launched next 
+   time. This problem has now been fixed.
+
+ * Fixed the issue that objects could not be rebinded from NameServer, when 
+   GrxUI perspective was closed and reloaded.
+
+ * NameServer went shutdown if ProcessManagerView was closed when NameServer 
+   life cycle is synchronous with GrxUI. This issue has now been fixed.
+
+ * The problem with starting PD_HGtest is fixed.
+
+ * Increasing list fields in controllerTabView and collisionTabView of 
+   OpenHRPView, caused difficulties to operate the interface at the bottom.
+   This issue has now been fixed.
+
+ * Even the WorldState's item properties were updated in PropertyView, the 
+   change was not reflected in OpenHRPView. This issue has now been resolved.
+
+ * Fixed the problem with WorldStateItem becoming "not selected" when it 
+   was delete. 
+
+ * Fixed the malfunction of inverse kinematics related 3DView button.
+
+ * Item's name change was not reflected until the focus moved to another item.
+   This issue has now been fixed.
+
+ * When AIST dynamics server engine is used to simulate a collision check 
+   between cylinder model and plane model, cylinder model was sinked in 
+   plane model. This issue has now been fixed.
+
+ * The problem with saving logs is resolved.
+
+ * The problem with saving Python script is resolved.
+
+ * Logs is set to be stored in heap memory, until we complete testing heap 
+   resources of JavaVM. This step was taken for improving processing speed.
+
+
+Ver.3.1.0(BETA) (03-03-2009)
+============================
+
+ * Implemented GrxUI as an Eclipse plug-in.
+
+ * ModelLoader was rewritten in C++. Because of that, model reading speed 
+   was greatly improved the compared to the series 3.0 that written in Java.
+
+ * Added a feature that supports creating model files on GrxUI.
+
+ * Started using CMake to generate makefiles and project files. This helped 
+   to make the directory structure clear and eazy-to-use.
+
+ * Server Management Panel (Server Manager View) was added to control the 
+   starting of CORBA servers on GrxUI.
+
+ * Bacame compatible with Ubuntu 8.10 .
+
+ * When a link has contact with another object, the contact-point and the 
+   contact-force of the simulator can now get through controller bridge.
+
+ * Simulating a robot mechanism that has a fixed joint other than "Root", 
+   is also supported now.
+
+ * Prevented generating a new VirtualRobot, when simulation is restarted.
+
+ * Specifying multiple ID names for --in-port/--out-port options in 
+   ControllerBridge is now supported.
+
+ * ControllerBridge now supports with multiple RTC's.
+
+ * "jointAxis" data type that used in sample models, was converted to "SfVec3f".
+
+
+Ver.3.0.3 (28-11-2008)
+======================
+
+ * The issue of Modaless dialog remains displayed at start-up, was fixed.
+
+ * Image output properties (COLOR_IMAGE, GRAYSCALE_IMAGE, DEPTH_IMAGE) are 
+   now available to use.
+
+ * The issue of model's behavior becomes odd, when it is given the initial 
+   rotation value by editing VRML file.
+
+ * Embeded OpenRTM-aist-0.4.2 installer in to Ubuntu installer script and 
+   removed unnecessary packages.[Linux edition]
+
+ * Introduced environment configurator package for Windows.
+
+ * Function of dll export in rtc controller's sample, is modified to refer 
+   the macro provided by OpenRTM-aist-0.4.2.
+
+ * Updated English documentations.
+
+ * Updated Troubleshooting page.
+
+
+Ver.3.0.2 (19-09-2008)
+======================
+
+ * The trouble that the Series button doesn't activate, even if the graph 
+   contents were made after creating a new project on GrxUI, was resolved.
+
+ * Fixed the issue with omniNames, that had started with GrxUI doesn't exits 
+   automatically with GrxUI exit.
+
+ * The issue that InPort could not be created in type of ABS_TRANSFORM in 
+   ControllerBridge, was fixed.
+
+ * The Trouble that the identification name was not able to be used by 
+   specifying the input port of ControllerBridge, was corrected.
+
+ * When orientation of the robot's base coordinates system and the angles 
+   of all joints were given in the NoSim mode (the mode when Forward Dynamics 
+   is deselected) and the simulation started, the issue of displaying as 
+   it moves only the base link preceded, was resolved.
+
+ * Resolved the problem of which the OK/CANCEL button was not displayed, 
+   when GrxUI's OpenHRP Tab-window-size was too narrow.
+
+ * Fixed the issue of that unbale to simulate SampleController, When it was 
+   executed with "Tokyo University's server" (DynamicsSimulator/server.ut).
+
+ * The problem that the image generation of ViewSimulator was not going 
+   corresponding to the simulation time, was corrected.
+
+ * The error occured when DynamicsSimulator was started in debug mode of 
+   VC++, was resolved.[Windows edition]
+
+ * Fixed the trouble which was unable to refer jython.jar, since the jython 
+   distributors changed the installing location of jython.jar . [Linux edition]
+
+ * The definitions in config.sh and config.bat were changed to include only 
+   user-definable parameters.
+
+ * Java3D and JMF are now included in package it self.
+
+ * OpenHRP3 has changed to use Java3D Ver 1.4.1, since we found a trouble 
+   with 1.5 series, when acquisitioning depth buffer.
+
+ * Temp directory of GrxUI was changed to ${HOME}/.grxui .[Linux edition]
+
+ * The format of the configuration file, read by the config-file option of 
+   ControllerBridge was changed.
+
+ * The file-extension that had to specify for 'module' option in ControllerBridge 
+   was made to be able to omit.
+
+ * Added a function that outputs simulation time, when receiving data from 
+   DynamicsSimulator.
+
+ * English web manuals were published.
+
+
+Ver.3.0.1 (2008/06/18)
+======================
+
+ * The issue with matrix calculation library, in Ver.3.0.0 was resolved.
+
+ * OpenHRP3 is no more supported with Visual C++ 2005. Please use Visual 
+   C++ 2008 from now on.
+
+ * Added Make.vars and install script for Ubuntu 8.04.
+
+ * Added arm-type sample robot "PA10".(Model data was provided by 
+   "MITSUBISHI HEAVY INDUSTRIES, LTD")
+
+ * The license was changed to EPL along with the start of general distributing

@@ -1,0 +1,13 @@
+diff --exclude=.hg -ur include/omnithread.h.orig include/omnithread.h
+--- include/omnithread.h.orig	2008-09-19 18:29:03.000000000 +0900
++++ include/omnithread.h	2009-05-12 17:58:23.000000000 +0900
+@@ -180,6 +180,9 @@
+ #elif defined(__Lynx__)
+ #include <omnithread/posix.h>
+ 
++#elif defined(__QNXNTO__)
++#include <omnithread/posix.h>
++
+ #else
+ #error "No implementation header file"
+ #endif

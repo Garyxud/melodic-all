@@ -1,0 +1,721 @@
+// -*- IDL -*-
+/*!
+ * @file ExtendedDataTypes.idl
+ * @brief Extended data types for robotics applications.
+ * @date $Date: $
+ * @author Geoffrey Biggs <geoffrey.biggs@aist.go.jp>
+ *
+ * Copyright (C) 2009
+ *     RT Synthesis Research Group
+ *     Intelligent Systems Research Institute,
+ *     National Institute of
+ *         Advanced Industrial Science and Technology (AIST), Japan
+ *     All rights reserved.
+ *
+ */
+
+#ifndef ExtendedDataTypes_idl
+#define ExtendedDataTypes_idl
+
+#include "BasicDataType.idl"
+
+module RTC {
+    /*!
+     * @struct RGBColour
+     * @brief Red/green/blue colour specification, with values between 0.0 for
+     * none and 1.0 for full.
+     */
+    struct RGBColour
+    {
+        double r;
+        double g;
+        double b;
+    };
+
+    //------------------------------------------------------------
+    // 2D data types
+    //------------------------------------------------------------
+
+    /*!
+     * @struct Point2D
+     * @brief Point in 2D cartesian space.
+     */
+    struct Point2D
+    {
+        /// X coordinate in metres.
+        double x;
+        /// Y coordinate in metres.
+        double y;
+    };
+
+    /*!
+     * @struct Vector2D
+     * @brief Vector in 2D cartesian space.
+     */
+    struct Vector2D
+    {
+        /// X value in metres.
+        double x;
+        /// Y value in metres.
+        double y;
+    };
+
+    /*!
+     * @struct Pose2D
+     * @brief Pose in 2D cartesian space.
+     */
+    struct Pose2D
+    {
+        /// 2D position.
+        Point2D position;
+        /// Heading in radians.
+        double heading;
+    };
+
+    /*!
+     * @struct Velocity2D
+     * @brief Velocities in 2D cartesian space.
+     */
+    struct Velocity2D
+    {
+        /// Velocity along the x axis in metres per second.
+        double vx;
+        /// Velocity along the y axis in metres per second.
+        double vy;
+        /// Yaw velocity in radians per second.
+        double va;
+    };
+
+    /*!
+     * @struct Acceleration2D
+     * @brief Accelerations in 2D cartesian space.
+     */
+    struct Acceleration2D
+    {
+        /// Acceleration along the x axis, in metres per second per second.
+        double ax;
+        /// Acceleration along the y axis, in metres per second per second.
+        double ay;
+    };
+
+    /*!
+     * @struct PoseVel2D
+     * @brief Pose and velocity in 2D cartesian space.
+     */
+    struct PoseVel2D
+    {
+        Pose2D pose;
+        Velocity2D velocities;
+    };
+
+    /*!
+     * @struct Size2D
+     * @brief Size in 2D cartesian space.
+     */
+    struct Size2D
+    {
+        /// Length in metres.
+        double l;
+        /// Width in metres.
+        double w;
+    };
+
+    /*!
+     * @struct Geometry2D
+     * @brief Geometry information for a device in 2D cartesian space.
+     */
+    struct Geometry2D
+    {
+        /// Pose of the device's base point in its parent device's (e.g. the robot's)
+        /// coordinate space.
+        Pose2D pose;
+        /// Size of the device, taken with the origin at its base point.
+        Size2D size;
+    };
+
+    /*!
+     * @struct Covariance2D
+     * @brief Covariance matrix for a 2D pose.
+     */
+    struct Covariance2D
+    {
+        /// (0, 0) value of the covariance matrix.
+        double xx;
+        /// (0, 1) value of the covariance matrix.
+        double xy;
+        /// (0, 2) value of the covariance matrix.
+        double xt;
+        /// (1, 1) value of the covariance matrix.
+        double yy;
+        /// (1, 2) value of the covariance matrix.
+        double yt;
+        /// (2, 2) value of the covariance matrix.
+        double tt;
+    };
+
+    /*!
+     * @struct PointCovariance2D
+     * @brief Covariance matrix for a 2D point.
+     */
+    struct PointCovariance2D
+    {
+        /// (0, 0) value of the covariance matrix.
+        double xx;
+        /// (0, 1) value of the covariance matrix.
+        double xy;
+        /// (1, 1) value of the covariance matrix.
+        double yy;
+    };
+
+    /*!
+     * @struct Carlike
+     * @brief Control specification for a car-like robot.
+     */
+    struct Carlike
+    {
+        /// Speed in metres per second.
+        double speed;
+        /// Steering angle in radians.
+        double steeringAngle;
+    };
+
+    /*!
+     * @struct SpeedHeading2D
+     * @brief Control specification for a robot capable of moving in a given direction in 2D space.
+     */
+    struct SpeedHeading2D
+    {
+        /// Speed in metres per second.
+        double speed;
+        /// Direction of travel in radians from the x axis.
+        double heading;
+    };
+
+    //------------------------------------------------------------
+    // 3D data types
+    //------------------------------------------------------------
+
+    /*!
+     * @struct Point3D
+     * @brief Point in 3D cartesian space.
+     */
+    struct Point3D
+    {
+        /// X coordinate in metres.
+        double x;
+        /// Y coordinate in metres.
+        double y;
+        /// Z coordinate in metres.
+        double z;
+    };
+
+    /*!
+     * @struct Vector3D
+     * @brief Vector in 3D cartesian space.
+     */
+    struct Vector3D
+    {
+        /// X value in metres.
+        double x;
+        /// Y value in metres.
+        double y;
+        /// Z value in metres.
+        double z;
+    };
+
+    /*!
+     * @struct Orientation3D
+     * @brief Orientation in 3D cartesian space.
+     */
+    struct Orientation3D
+    {
+        /// Roll angle in radians.
+        double r;
+        /// Pitch angle in radians.
+        double p;
+        /// Yaw angle in radians.
+        double y;
+    };
+
+    /*!
+     * @struct Pose3D
+     * @brief Pose in 3D cartesian space.
+     */
+    struct Pose3D
+    {
+        /// 3D position.
+        Point3D position;
+        /// 3D orientation.
+        Orientation3D orientation;
+    };
+
+    /*!
+     * @struct Velocity3D
+     * @brief Velocities in 3D cartesian space.
+     */
+    struct Velocity3D
+    {
+        /// Velocity along the x axis in metres per second.
+        double vx;
+        /// Velocity along the y axis in metres per second.
+        double vy;
+        /// Velocity along the z axis in metres per second.
+        double vz;
+        /// Roll velocity in radians per second.
+        double vr;
+        /// Pitch velocity in radians per second.
+        double vp;
+        /// Yaw velocity in radians per second.
+        double va;
+    };
+
+    /*!
+     * @struct AngularVelocity3D
+     * @brief Angular velocities in 3D cartesian space.
+     */
+    struct AngularVelocity3D
+    {
+        /// Velocity around the x axis, in radians per second.
+        double avx;
+        /// Velocity around the y axis, in radians per second.
+        double avy;
+        /// Velocity around the z axis, in radians per second.
+        double avz;
+    };
+
+    /*!
+     * @struct Acceleration3D
+     * @brief Accelerations in 3D cartesian space.
+     */
+    struct Acceleration3D
+    {
+        /// Acceleration along the x axis, in metres per second per second.
+        double ax;
+        /// Acceleration along the y axis, in metres per second per second.
+        double ay;
+        /// Acceleration along the z axis, in metres per second per second.
+        double az;
+    };
+
+    /*!
+     * @struct AngularAcceleration3D
+     * @brief Angular accelerations in 3D cartesian space.
+     */
+    struct AngularAcceleration3D
+    {
+        /// Acceleration around the x axis, in radians per second per second.
+        double aax;
+        /// Acceleration around the y axis, in radians per second per second.
+        double aay;
+        /// Acceleration around the z axis, in radians per second per second.
+        double aaz;
+    };
+
+    /*!
+     * @struct PoseVel3D
+     * @brief Pose and velocity in 3D cartesian space.
+     */
+    struct PoseVel3D
+    {
+        Pose3D pose;
+        Velocity3D velocities;
+    };
+
+    /*!
+     * @struct Size3D
+     * @brief Size in 3D cartesian space.
+     */
+    struct Size3D
+    {
+        /// Length in metres.
+        double l;
+        /// Width in metres.
+        double w;
+        /// Height in metres.
+        double h;
+    };
+
+    /*!
+     * @struct Geoemtry3D
+     * @brief Geometry information for a device in 3D cartesian space.
+     */
+    struct Geometry3D
+    {
+        /// Pose of the device's base point in its parent device's (e.g. the robot's)
+        /// coordinate space.
+        Pose3D pose;
+        /// Size of the device, taken with the origin at its base point.
+        Size3D size;
+    };
+
+    /*!
+     * @struct Covariance3D
+     * @brief Covariance matrix for a 3D pose.
+     */
+    struct Covariance3D
+    {
+        /// (0, 0) value of the covariance matrix.
+        double xx;
+        /// (0, 1) value of the covariance matrix.
+        double xy;
+        /// (0, 2) value of the covariance matrix.
+        double xz;
+        /// (0, 3) value of the covariance matrix.
+        double xr;
+        /// (0, 4) value of the covariance matrix.
+        double xp;
+        /// (0, 5) value of the covariance matrix.
+        double xa;
+        /// (1, 1) value of the covariance matrix.
+        double yy;
+        /// (1, 2) value of the covariance matrix.
+        double yz;
+        /// (1, 3) value of the covariance matrix.
+        double yr;
+        /// (1, 4) value of the covariance matrix.
+        double yp;
+        /// (1, 5) value of the covariance matrix.
+        double ya;
+        /// (2, 2) value of the covariance matrix.
+        double zz;
+        /// (2, 3) value of the covariance matrix.
+        double zr;
+        /// (2, 4) value of the covariance matrix.
+        double zp;
+        /// (2, 5) value of the covariance matrix.
+        double za;
+        /// (3, 3) value of the covariance matrix.
+        double rr;
+        /// (3, 4) value of the covariance matrix.
+        double rp;
+        /// (3, 5) value of the covariance matrix.
+        double ra;
+        /// (4, 4) value of the covariance matrix.
+        double pp;
+        /// (4, 5) value of the covariance matrix.
+        double pa;
+        /// (5, 5) value of the covariance matrix.
+        double aa;
+    };
+
+    /*!
+     * @struct SpeedHeading3D
+     * @brief Control specification for a robot capable of moving in a given direction in 3D space.
+     */
+    struct SpeedHeading3D
+    {
+        /// Speed in metres per second.
+        double speed;
+        /// Direction of travel.
+        Orientation3D direction;
+    };
+
+    /*!
+     * @struct OAP
+     * @brief Orientation, approach and position vectors.
+     */
+    struct OAP
+    {
+        Vector3D orientation;
+        Vector3D approach;
+        Vector3D position;
+    };
+
+    //------------------------------------------------------------
+    // Timed data types
+    //------------------------------------------------------------
+
+    /*!
+     * @struct TimedRGBColour
+     * @brief Time-stamped version of RGBColour.
+     */
+    struct TimedRGBColour
+    {
+        Time tm;
+        RGBColour data;
+    };
+
+    /*!
+     * @struct TimedPoint2D
+     * @brief Time-stamped version of Point2D.
+     */
+    struct TimedPoint2D
+    {
+        Time tm;
+        Point2D data;
+    };
+
+    /*!
+     * @struct TimedVector2D
+     * @brief Time-stamped version of Vector2D.
+     */
+    struct TimedVector2D
+    {
+        Time tm;
+        Vector2D data;
+    };
+
+    /*!
+     * @struct TimedPose2D
+     * @brief Time-stamped version of Pose2D.
+     */
+    struct TimedPose2D
+    {
+        Time tm;
+        Pose2D data;
+    };
+
+    /*!
+     * @struct TimedVelocity2D
+     * @brief Time-stamped version of Velocity2D.
+     */
+    struct TimedVelocity2D
+    {
+        Time tm;
+        Velocity2D data;
+    };
+
+    /*!
+     * @struct TimedAcceleration2D
+     * @brief Time-stamped version of Acceleration2D.
+     */
+    struct TimedAcceleration2D
+    {
+        Time tm;
+        Acceleration2D data;
+    };
+
+    /*!
+     * @struct TimedPoseVel2D
+     * @brief Time-stamped version of PoseVel2D.
+     */
+    struct TimedPoseVel2D
+    {
+        Time tm;
+        PoseVel2D data;
+    };
+
+    /*!
+     * @struct TimedSize2D
+     * @brief Time-stamped version of Size2D.
+     */
+    struct TimedSize2D
+    {
+        Time tm;
+        Size2D data;
+    };
+
+    /*!
+     * @struct TimedGeometry2D
+     * @brief Time-stamped version of Geometry2D.
+     */
+    struct TimedGeometry2D
+    {
+        Time tm;
+        Geometry2D data;
+    };
+
+    /*!
+     * @struct TimedCovariance2D
+     * @brief Time-stamped version of Covariance2D.
+     */
+    struct TimedCovariance2D
+    {
+        Time tm;
+        Covariance2D data;
+    };
+
+    /*!
+     * @struct TimedPointCovariance2D
+     * @brief Time-stamped version of PointCovariance2D.
+     */
+    struct TimedPointCovariance2D
+    {
+        Time tm;
+        PointCovariance2D data;
+    };
+
+    /*!
+     * @struct TimedCarlike
+     * @brief Time-stamped version of Carlike.
+     */
+    struct TimedCarlike
+    {
+        Time tm;
+        Carlike data;
+    };
+
+    /*!
+     * @struct TimedSpeedHeading2D
+     * @brief Time-stamped version of SpeedHeading2D.
+     */
+    struct TimedSpeedHeading2D
+    {
+        Time tm;
+        SpeedHeading2D data;
+    };
+
+    /*!
+     * @struct TimedPoint3D
+     * @brief Time-stamped version of Point3D.
+     */
+    struct TimedPoint3D
+    {
+        Time tm;
+        Point3D data;
+    };
+
+    /*!
+     * @struct TimedVector3D
+     * @brief Time-stamped version of Vector3D.
+     */
+    struct TimedVector3D
+    {
+        Time tm;
+        Vector3D data;
+    };
+
+    /*!
+     * @struct TimedOrientation3D
+     * @brief Time-stamped version of Orientation3D.
+     */
+    struct TimedOrientation3D
+    {
+        Time tm;
+        Orientation3D data;
+    };
+
+    /*!
+     * @struct TimedPose3D
+     * @brief Time-stamped version of Pose3D.
+     */
+    struct TimedPose3D
+    {
+        Time tm;
+        Pose3D data;
+    };
+
+    /*!
+     * @struct TimedVelocity3D
+     * @brief Time-stamped version of Velocity3D.
+     */
+    struct TimedVelocity3D
+    {
+        Time tm;
+        Velocity3D data;
+    };
+
+    /*!
+     * @struct TimedAngularVelocity3D
+     * @brief Time-stamped version of AngularVelocity3D.
+     */
+    struct TimedAngularVelocity3D
+    {
+        Time tm;
+        AngularVelocity3D data;
+    };
+
+    /*!
+     * @struct TimedAcceleration3D
+     * @brief Time-stamped version of Acceleration3D.
+     */
+    struct TimedAcceleration3D
+    {
+        Time tm;
+        Acceleration3D data;
+    };
+
+    /*!
+     * @struct TimedAngularAcceleration3D
+     * @brief Time-stamped version of AngularAcceleration3D.
+     */
+    struct TimedAngularAcceleration3D
+    {
+        Time tm;
+        AngularAcceleration3D data;
+    };
+
+    /*!
+     * @struct TimedPoseVel3D
+     * @brief Time-stamped version of PoseVel3D.
+     */
+    struct TimedPoseVel3D
+    {
+        Time tm;
+        PoseVel3D data;
+    };
+
+    /*!
+     * @struct TimedSize3D
+     * @brief Time-stamped version of Size3D.
+     */
+    struct TimedSize3D
+    {
+        Time tm;
+        Size3D data;
+    };
+
+    /*!
+     * @struct TimedGeometry3D
+     * @brief Time-stamped version of Geometry3D.
+     */
+    struct TimedGeometry3D
+    {
+        Time tm;
+        Geometry3D data;
+    };
+
+    /*!
+     * @struct TimedCovariance3D
+     * @brief Time-stamped version of Covariance3D.
+     */
+    struct TimedCovariance3D
+    {
+        Time tm;
+        Covariance3D data;
+    };
+
+    /*!
+     * @struct TimedSpeedHeading3D
+     * @brief Time-stamped version of SpeedHeading3D.
+     */
+    struct TimedSpeedHeading3D
+    {
+        Time tm;
+        SpeedHeading3D data;
+    };
+
+    /*!
+     * @struct TimedOAP
+     * @brief Time-stamped version of OAP.
+     */
+    struct TimedOAP
+    {
+        Time tm;
+        OAP data;
+    };
+
+  /*!
+   * @struct Quaternion
+   * @brief Data type for Quaternion
+   */
+  struct Quaternion
+  {
+    double x;
+    double y;
+    double z;
+    double w;
+  };
+
+  /*!
+   * @struct TimedQuaternion
+   * @brief Timed version data type for Quaternion
+   */
+  struct TimedQuaternion
+  {
+    Time tm;
+    Quaternion data;
+  };
+};
+
+#endif // ExtendedDataTypes_idl

@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_concert/license/LICENSE
+#
+##############################################################################
+# Imports
+##############################################################################
+
+import argparse
+import sys
+import rospy
+import rocon_master_info
+
+##############################################################################
+# Functions
+##############################################################################
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='View master information details.\n\nThis command will defer \
+             to the rqt plugin if available, otherwise it will simply print details to the console.')
+    parser.add_argument('-c', '--console', action='store_true', help='force output to the console only')
+    myargs = rospy.myargv(argv=sys.argv)
+    return parser.parse_args(args=myargs[1:])
+
+
+##############################################################################
+# Main
+##############################################################################
+
+if __name__ == '__main__':
+    args = parse_arguments()
+    rocon_master_info.main('master_info', 'Master Information', console=args.console)

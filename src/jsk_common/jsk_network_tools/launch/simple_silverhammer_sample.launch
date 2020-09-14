@@ -1,0 +1,52 @@
+<launch>
+  <group ns="silverhammer">
+    <!-- FC to OCS -->
+    <node pkg="jsk_network_tools" type="silverhammer_lowspeed_streamer.py"
+          output="screen"
+          name="fc_streamer">
+      <rosparam>
+        message: jsk_network_tools/FC2OCS
+        to_port: 1024
+        send_rate: 1.0
+      </rosparam>
+      <remap from="~input" to="fc2ocs_original" />
+    </node>
+    <node pkg="jsk_network_tools" type="silverhammer_lowspeed_receiver.py"
+          output="screen"
+          name="fc_receiver">
+      <rosparam>
+        message: jsk_network_tools/FC2OCS
+        receive_port: 1024
+      </rosparam>
+    </node>
+
+    <!-- OCS to FC -->
+    <node pkg="jsk_network_tools" type="silverhammer_lowspeed_streamer.py"
+          output="screen"
+          name="ocs_streamer">
+      <rosparam>
+        message: jsk_network_tools/OCS2FC
+        to_port: 1025
+        send_rate: 1.0
+      </rosparam>
+      <remap from="~input" to="ocs2fc_original" />
+    </node>
+    <node pkg="jsk_network_tools" type="silverhammer_lowspeed_receiver.py"
+          output="screen"
+          name="ocs_receiver">
+      <rosparam>
+        message: jsk_network_tools/OCS2FC
+        receive_port: 1025
+      </rosparam>
+    </node>
+    
+    <node pkg="jsk_network_tools" type="fc2ocs_publisher.py" name="fc2ocs_original">
+      <rosparam>
+        pub_rate: 1000
+      </rosparam>
+    </node>
+    <node pkg="jsk_network_tools" type="ocs2fc_publisher.py" name="ocs2fc_original" />
+    <node pkg="rqt_console" type="rqt_console" name="silverhammer_console" />
+    <node pkg="rqt_graph" type="rqt_graph" name="silverhammer_graph" />
+  </group>
+</launch>

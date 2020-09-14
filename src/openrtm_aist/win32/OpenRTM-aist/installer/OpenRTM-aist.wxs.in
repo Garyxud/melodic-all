@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">   
+  <?define ProductName = "{% Product.Name %}-{% Product.Version %} for $(env.VC_VERSION)"?>
+  <Product Name="{% Product.Name %}-{% Product.Version %} for $(env.VC_VERSION)" 
+           Id="{% Product.Id %}"
+           Language='$(var.language)'
+	   Codepage='$(var.codepage)'
+	   Version="{% Product.Version %}" 
+           Manufacturer="{% Product.Manufacturer %}"
+           UpgradeCode="{% Product.UpgradeCode %}">
+    <Package Id="*" 
+             Keywords="Installer"
+             Description="{% Package.Description %}"
+             InstallerVersion="{% Package.InstallerVersion %}"
+	     Languages='$(var.language)'
+             Compressed="{% Package.Compressed %}"
+	     SummaryCodepage='$(var.codepage)' />
+    <!-- プロパティ -->
+    <Property Id='USERPROFILEDIR' Value='%USERPROFILE%' />
+    <!-- アップグレード -->
+    <Upgrade Id="{% Product.UpgradeCode %}">
+      <UpgradeVersion OnlyDetect="yes"
+		      Minimum="1.1.0.1"
+		      Maximum="1.2.0"
+		      Property="NEWERVERSIONDETECTED"
+		      IncludeMinimum="no" /> 
+      <UpgradeVersion OnlyDetect="no"
+		      Minimum="1.1.0"
+		      Maximum="1.1.0.1"
+		      Property="OLDERVERSIONBEINGUPGRADED"
+		      IncludeMaximum="no" /> 
+      <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
+                      Minimum='1.1.0' IncludeMinimum='yes'
+                      Maximum='1.2.0' IncludeMaximum='no' />
+    </Upgrade>
+    <InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallInitialize"/>
+    </InstallExecuteSequence>
+    <!-- メディア -->    
+    <Media Id="1" Cabinet="OpenRTM.cab" EmbedCab="yes"/>
+
+    <!-- フォルダ構成 -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- Program Files フォルダ -->
+      <Directory Id="ProgramFilesFolder" SourceName="PFILE">
+	<Directory Id="INSTALLLOCATION"
+		   Name="{% Product.Name %}">
+	  <Directory Id="Version"
+		     Name="{% Product.ShortVersion %}">
+	    <!-- bin -->
+	    <Directory Id="bin" Name="bin">
+	      <Component Id="Bin" Guid="{% Bin.GUID %}">
+		<Environment Id='RTM_ROOT' Name='RTM_ROOT' Action='set'
+			     System='yes' Part='all' Value='[Version]' />
+		<Environment Id='UpdatePath' Name='PATH' Action='set'
+			     System='yes' Part='last'
+			     Value='[bin]' />
+		{% for file in Bin.Files %}
+		<File Id="{% file.Id %}"
+		      Name="{% file.Name %}" DiskId="1"
+		      Source="{% file.Source %}">
+		  {% if file.Name is rtm-naming.bat %}
+		  <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+			    Name="Start Naming Service"
+			    Show="normal" WorkingDirectory="bin"/>
+		  {% endif %}
+		  {% if file.Name is rtc.conf %}
+		  <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+			    Name="rtc.conf for RTC daemon"
+			    Show="normal" WorkingDirectory="bin"/>
+		  {% endif %}
+		</File>
+		{% endfor %}
+		{% for file in Rtcd.Files %}
+		<File Id="{% file.Id %}"
+		      Name="{% file.Name %}" DiskId="1"
+		      Source="{% file.Source %}">
+		  {% if file.Name is rtcd.exe %}
+		  <Shortcut Id="{% file.Id %}" Directory="ToolsMenuFolder"
+			    Name="Start RTC daemon" Arguments=" -d "
+			    Show="normal" WorkingDirectory="bin"/>
+		  {% endif %}
+		</File>
+		{% endfor %}
+		{% for file in Rtcprof.Files %}
+		<File Id="{% file.Id %}"
+		      Name="{% file.Name %}" DiskId="1"
+		      Source="{% file.Source %}">
+		</File>
+		{% endfor %}
+	      </Component>
+	    </Directory>
+	    <!-- etc -->
+	    <Directory Id="etc" Name="etc">
+	      <Component Id="Etc" Guid="{% Etc.GUID %}">
+		{% for file in Etc.Files %}
+		<File Id="{% file.Id %}"
+		      Name="{% file.Name %}" DiskId="1"
+		      Source="{% file.Source %}">
+		</File>
+		{% endfor %}
+	      </Component>
+	    </Directory>
+	    <!-- cmake -->
+	    <Directory Id="cmake" Name="cmake">
+	      <Component Id="Cmake" Guid="{% Cmake.GUID %}">
+		{% for file in Cmake.Files %}
+		<File Id="{% file.Id %}"
+		      Name="{% file.Name %}" DiskId="1"
+		      Source="{% file.Source %}">
+		</File>
+		{% endfor %}
+	      </Component>
+	    </Directory>
+	    <!-- rtm -->
+	    <Directory Id="rtm" Name="rtm">
+	      <Component Id="Headers" Guid="{% Headers.GUID %}">
+		{% for file in Headers.Files %}
+		<File Id="{% file.Id %}"
+		      Name="{% file.Name %}" DiskId="1"
+		      Source="{% file.Source %}"/>
+		{% endfor %}
+	      </Component>
+	      <!-- idl -->
+	      <Directory Id="idl" Name="idl">
+		<Component Id="IDLs" Guid="{% IDLs.GUID %}">
+		  {% for file in IDLs.Files %}
+		  <File Id="{% file.Id %}"
+			Name="{% file.Name %}" DiskId="1"
+			Source="{% file.Source %}"/>
+		  {% endfor %}
+		</Component>
+	      </Directory><!--end of idl-->
+	    </Directory><!--end of rtm-->
+	    <!-- coil -->
+	    <Directory Id="coil" Name="coil">
+	      <Component Id="COILs" Guid="{% COILs.GUID %}">
+		{% for file in COILs.Files %}
+		<File Id="{% file.Id %}"
+		      Name="{% file.Name %}" DiskId="1"
+		      Source="{% file.Source %}"/>
+		{% endfor %}
+	      </Component>
+	    </Directory><!--end of coil-->
+	    
+	    <!-- doc -->
+	    <Directory Id="doc" Name="doc">
+	      <Directory Id="CXXdoc" Name="C++">
+		<!-- Classref_jp -->
+		<Directory Id="classref_jp" Name="classref_jp">
+		  <Component Id="Classref_jp" Guid="{% Classref_jp.GUID %}">
+	      	    {% for file in Classref_jp.Files %}
+		    <File Id="{% file.Id %}"
+			  Name="{% file.Name %}" DiskId="1"
+			  Source="{% file.Source %}">
+		      {% if file.Name is index.html %}
+		      <Shortcut Id="{% file.Id %}" Directory="DocMenuFolder"
+				Name="Japanese Class reference"
+				Show="normal"/>
+		      {% endif %}
+		    </File>
+		    {% endfor %}
+		  </Component>
+		</Directory>
+		<!-- Classref_en -->
+		<Directory Id="classref_en" Name="classref_en">
+		  <Component Id="Classref_en" Guid="{% Classref_en.GUID %}">
+	      	    {% for file in Classref_en.Files %}
+		    <File Id="{% file.Id %}"
+			  Name="{% file.Name %}" DiskId="1"
+			  Source="{% file.Source %}">
+		      {% if file.Name is index.html %}
+		      <Shortcut Id="{% file.Id %}" Directory="DocMenuFolder"
+				Name="English Class reference"
+				Show="normal"/>
+		      {% endif %}
+		    </File>
+		    {% endfor %}
+		  </Component>
+		</Directory>
+		<!-- IDLref_jp -->
+		<Directory Id="idlref_jp" Name="idlref_jp">
+		  <Component Id="IDLref_jp" Guid="{% IDLref_jp.GUID %}">
+	      	    {% for file in IDLref_jp.Files %}
+		    <File Id="{% file.Id %}"
+			  Name="{% file.Name %}" DiskId="1"
+			  Source="{% file.Source %}">
+		      {% if file.Name is index.html %}
+		      <Shortcut Id="{% file.Id %}" Directory="DocMenuFolder"
+				Name="Japanese IDL reference"
+				Show="normal"/>
+		      {% endif %}
+		    </File>
+		    {% endfor %}
+		  </Component>
+		</Directory>
+		<!-- IDLref_en -->
+		<Directory Id="idlref_en" Name="idlref_en">
+		  <Component Id="IDLref_en" Guid="{% IDLref_en.GUID %}">
+	      	    {% for file in IDLref_en.Files %}
+		    <File Id="{% file.Id %}"
+			  Name="{% file.Name %}" DiskId="1"
+			  Source="{% file.Source %}">
+		      {% if file.Name is index.html %}
+		      <Shortcut Id="{% file.Id %}" Directory="DocMenuFolder"
+				Name="English IDL reference"
+				Show="normal"/>
+		      {% endif %}
+		    </File>
+		    {% endfor %}
+		  </Component>
+		</Directory>
+	      </Directory>
+	    </Directory><!--end of doc-->
+	    
+	    <!-- utils -->
+	    <Directory Id="utils" Name="utils">
+	      <Directory Id="rtc_template"
+			 Name="rtc-template">
+		<Component Id="RtcTemplate" Guid="{% RtcTemplate.GUID %}">
+		  <Environment Id='UpdatePath2' Name='PATH' Action='set'
+			       System='yes' Part='last'
+			       Value='%RTM_ROOT%\utils\rtc-template' />
+	      	  {% for file in RtcTemplate.Files %}
+		  <File Id="{% file.Id %}"
+			Name="{% file.Name %}" DiskId="1"
+			Source="{% file.Source %}"/>
+		  {% endfor %}
+		</Component>
+	      </Directory>
+	    </Directory>
+	    
+	    <!-- extension -->
+	    <Directory Id="ext" Name="ext">
+	      <Directory Id="sdo" Name="sdo">
+		<Component Id="SDOService" Guid="{% SDOService.GUID %}">
+	      	  {% for file in SDOService.Files %}
+		  <File Id="{% file.Id %}"
+			Name="{% file.Name %}" DiskId="1"
+			Source="{% file.Source %}"/>
+		  {% endfor %}
+		  </Component>
+	      </Directory>
+	    </Directory>
+
+	    <!-- examples -->
+	    <Directory Id="examples" Name="examples">
+	      <Directory Id="CXXexamples" Name="C++">
+
+		<!-- OpenCV-RTC components -->
+		<?if $(env.INCLUDE_OPENCV_RTC) = YES ?>
+		<?include OpenCV-RTC_inc.wxs ?>
+		<?endif ?>
+		<!-- end of OpenCV-RTC -->
+
+		<Component Id="Examples" Guid="{% Examples.GUID %}">
+		  {% for file in Examples.Files %}
+		  <File Id="{% file.Id %}"
+			Name="{% file.Name %}" DiskId="1"
+			Source="{% file.Source %}">
+		    {% if file.Name is rtc.conf %}
+		    <Shortcut Id="{% file.Id %}" Directory="ExpMenuFolder"
+			      Name="rtc.conf for examples"
+			      Show="normal" WorkingDirectory="CXXexamples"/>
+		    {% endif %}
+		    {% if-any file.Shortcut %}{% if file.Shortcut is True %}
+		    <Shortcut Id="{% file.Id %}" Directory="ExpMenuFolder"
+			      Name="{% file.Name %}"
+			      Show="normal"
+			      WorkingDirectory="CXXexamples"
+			      Icon="RTC.ico" IconIndex="0"
+			      {% if-any file.Arguments %}
+			      Arguments='{% file.Arguments %}'{% endif %}> 
+		      {% if file.Name is ConsoleInComp.exe %}
+		      <Icon Id="RTC.ico" SourceFile="Bitmaps\RTC.ico"/>
+		      {% endif %}
+		    </Shortcut>
+		    {% endif %}{% endif %}
+		  </File>
+		  {% endfor %}
+		</Component>
+	      </Directory>
+	    </Directory>
+
+	    <!-- omniORB components -->
+	    <?if $(env.INCLUDE_OMNIORB) = YES ?>
+	    <?include omniORB_inc.wxs ?>
+	    <?endif ?>
+	    <!-- end of omniORB -->
+	    
+	    <!-- rtmtools components -->
+	    <?if $(env.INCLUDE_OPENRTP) = YES ?>
+	    <?include OpenRTP_inc.wxs ?>
+	    <?endif ?>
+	    <!-- end of rtmtools -->
+	    
+	    <!-- OpenCV components -->
+	    <?if $(env.INCLUDE_OPENCV) = YES ?>
+	    <?include OpenCV_inc.wxs ?>
+	    <?endif ?>
+	    <!-- end of OpenCV -->
+	    
+	  </Directory>
+	</Directory><!--end of OpenRTM-aist-->
+
+
+      </Directory>
+
+      <!-- システムフォルダ -->
+      <Directory Id="SystemFolder"
+		 SourceName="System32">
+	<?if $(env.VC_VERSION) = "Visual C++ 2005" ?>
+	<?include VC8msm_inc.wxs ?>
+	<?endif ?>
+	<?if $(env.VC_VERSION) = "Visual C++ 2008" ?>
+	<?include VC9msm_inc.wxs ?>
+	<?endif ?>
+	<?if $(env.VC_VERSION) = "Visual C++ 2010" ?>
+	<?include VC10msm_inc.wxs ?>
+	<?endif ?>
+      </Directory>
+      <!-- プログラムフォルダ -->
+      <Directory Id="ProgramMenuFolder">
+	<Directory Id="AppMenuFolder"
+		   Name="{% Product.Name %} {% Product.ShortVersion %}">
+	  <Directory Id="CxxMenuFolder" Name="C++">
+	    <Directory Id="ToolsMenuFolder" Name="tools">
+	    </Directory>
+	    <Directory Id="Components" Name="components">
+	      <Directory Id="ExpMenuFolder" Name="examples">
+	      </Directory>
+	      <Directory Id="OpenCVRtcMenuFolder" Name="opencv-rtcs">
+	      </Directory>
+	    </Directory>
+	    <Directory Id="DocMenuFolder" Name="documents">
+	    </Directory>
+	  </Directory>
+	</Directory>
+      </Directory>
+    </Directory>
+
+
+    <!-- OpenRTM-aist -->
+    <Feature Id="OpenRTM" Level="1" Title="OpenRTM-aist (C++)"
+	     ConfigurableDirectory="INSTALLLOCATION">
+      <!-- runtime -->
+      <Feature Id="Runtime" Level="1" Title="Runtime Environment">
+	<ComponentRef Id="Bin"/>
+	<ComponentRef Id="COILs"/>
+	<ComponentRef Id="Etc"/>
+	<ComponentRef Id="Cmake"/>
+	<ComponentRef Id="SDOService"/>
+      </Feature>
+      <!-- devel -->
+      <Feature Id="Devel" Level="1" Title="Development Environment">
+	<ComponentRef Id="Headers"/>
+	<ComponentRef Id="IDLs"/>
+	<ComponentRef Id="RtcTemplate"/>
+      </Feature>
+      <!-- examples -->
+      <Feature Id="Examples" Level="1" Title="Examples">
+	<ComponentRef Id="Examples"/>
+      </Feature>
+      <!-- opencv examples -->
+      <Feature Id="OpenCVRTC" Level="1" Title="OpenCV RTC">
+	<ComponentRef Id="OpenCVRTCBin"/>
+      </Feature>
+      <!-- documents -->
+      <Feature Id="Docs" Level="1" Title="Documents">
+	<Feature Id="Docs_en" Level="1" Title="Class reference (English)">
+	  <ComponentRef Id="Classref_en"/>
+	  <ComponentRef Id="IDLref_en"/>
+	</Feature>
+	<Feature Id="Docs_jp" Level="1" Title="Class reference (Japanese)">
+	  <ComponentRef Id="Classref_jp"/>
+	  <ComponentRef Id="IDLref_jp"/>
+	</Feature>
+      </Feature>
+    </Feature>
+
+    <!-- OpenRTP tools -->
+    <?if $(env.INCLUDE_OPENRTP) = YES ?>
+    <Feature Id="OpenRTP" Level="1" Title="OpenRT Platform Tool Chain">
+      <!-- rtse rcp -->
+      <Feature Id="RTSystemEditor" Level="1" Title="RTSystemEditor">
+	<ComponentRef Id="Openrtp" />
+	<ComponentRef Id="OpenrtpConfiguration" />
+	<ComponentRef Id="OpenrtpPlugins" />
+	<ComponentRef Id="org.eclipse.core.runtime.compatibility.registry_3.2.200.v20080610" />
+	<ComponentRef Id="META_INF" />
+	<ComponentRef Id="org.eclipse.equinox.launcher.win32.win32.x86_1.0.101.R34x_v20080731" />
+	<ComponentRef Id="META_INF_2" />
+      </Feature>
+    </Feature>
+    <?endif ?>
+
+    <!-- omniORB -->
+    <?if $(env.INCLUDE_OMNIORB) = YES ?>
+    <Feature Id="omniORB" Level="1" Title="omniORB">
+      <Feature Id="omniORBRuntime" Level="1"
+	       Title="Runtime Environment">
+	<ComponentRef Id="Omni"/>
+	<ComponentRef Id="OmniBinScripts"/>
+	<ComponentRef Id="OmniBinX86_win32"/>
+      </Feature>
+      <Feature Id="omniORBDevel" Level="1"
+	       Title="Development Environment">
+	<ComponentRef Id="OmniIdl"/>
+	<ComponentRef Id="OmniIdlCos"/>
+	<ComponentRef Id="OmniInclude"/>
+	<ComponentRef Id="OmniIncludeCos"/>
+	<ComponentRef Id="OmniIncludeOmniorb4"/>
+	<ComponentRef Id="OmniIncludeOmniorb4Internal"/>
+	<ComponentRef Id="OmniIncludeOmnithread"/>
+	<ComponentRef Id="OmniIncludeOmnivms"/>
+	<ComponentRef Id="OmniIncludePython1_5"/>
+	<ComponentRef Id="OmniLibPythonOmniidl"/>
+	<ComponentRef Id="OmniLibPythonOmniidl_be"/>
+	<ComponentRef Id="OmniLibPythonOmniidl_beCxx"/>
+	<ComponentRef Id="OmniLibPythonOmniidl_beCxxDynskel"/>
+	<ComponentRef Id="OmniLibPythonOmniidl_beCxxHeader"/>
+	<ComponentRef Id="OmniLibPythonOmniidl_beCxxImpl"/>
+	<ComponentRef Id="OmniLibPythonOmniidl_beCxxSkel"/>
+	<ComponentRef Id="OmniLibPython1_5"/>
+	<ComponentRef Id="OmniLibX86_win32"/>
+      </Feature>
+    </Feature>
+    <?endif ?>
+
+    <!-- OpenCV -->
+    <?if $(env.INCLUDE_OPENCV) = YES ?>
+    <Feature Id="OpenCV" Level="1" Title="OpenCV2.1">
+      <Feature Id="OpenCV2.1Runtime" Level="1"
+	       Title="Runtime Environment">
+	<ComponentRef Id="OpenCV"/>
+	<ComponentRef Id="OpenCVBin"/>
+	<ComponentRef Id="OpenCVDoc"/>
+      </Feature>
+      <Feature Id="OpenCV2.1Devel" Level="1"
+	       Title="Development Environment">
+	<ComponentRef Id="OpenCVIncludeOpencv"/>
+	<ComponentRef Id="OpenCVLib"/>
+      </Feature>
+    </Feature>
+    <?endif ?>
+
+    <Feature Id="VCRedist"
+	     Title="$(env.VC_VERSION) Runtime" AllowAdvertise="no" Level="1"> 
+      <MergeRef Id="VCCRTx86.msm"/> 
+      <?if $(env.VC_VERSION) = "Visual C++ 2005" ?>
+      <MergeRef Id="POLVCCRTx86.msm"/>
+      <?endif ?>
+      <?if $(env.VC_VERSION) = "Visual C++ 2008" ?>
+      <MergeRef Id="POLVCCRTx86.msm"/>
+      <?endif ?>
+      <?if $(env.VC_VERSION) = "Visual C++ 2010" ?>
+      <?endif ?>
+    </Feature>
+
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="Bitmaps/bannrbmp.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="Bitmaps/dlgbmp.bmp" />
+    <WixVariable Id="WixUICostingPopupOptOut" Value="1" Overridable="no" />
+
+    <!-- <UIRef Id="WixUI_Mondo" /> -->
+    <!-- WixUI_Mondo にインストールの種類を選択するダイアログを追加したもの -->
+    <UIRef Id="WixUI_Mondo_RTM" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+  </Product>
+</Wix>

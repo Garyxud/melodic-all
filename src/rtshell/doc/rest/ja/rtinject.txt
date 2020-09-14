@@ -1,0 +1,132 @@
+========
+rtinject
+========
+
+--------------------
+ポートにデータを送る
+--------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtinject [options] <path1:port1> [path2:port2...]
+
+概要
+====
+
+値を一つ以上のポートに送ります。デフォルトは一回のみ送ります。複数回や
+定期的に送ることもできます。
+
+目的のポートにデフォルトの接続を作ります。
+
+オプション
+==========
+
+-c CONST, --const=CONST
+  Pythonフォーマットとして送る一定値。指定されていない場合、標準入力
+  から値を読む。 ``{time}`` が存在する場合、現在の時刻に置き換えられる。
+
+-m MODULES, --mod=MODULES
+  Import する必要な Python モジュール。値の必要なモジュールが自動的に
+  ロードされていない場合、このオプションで指定してください。モジュール
+  とそのモジュールの ``__POA`` のモジュールも import します。
+
+-n MAX, --number=MAX
+  値を何回送るかを指定する。 ``-1`` に設定した場合、永遠に送り続けます。
+
+-p PATHS, --path=PATHS
+  モジュールのサーチパス。Pythonの ``PYTHONPATH`` 変数に追加する。
+
+-r RATE, --rate=RATE
+  周期を指定する。単位はヘルツ。
+
+-t TIMEOUT, --timeout=TIMEOUT
+  タイムアウト時間を指定する。単位は秒。このオプションは ``--number``
+  と一緒に使用で来ません。
+
+.. include:: ../../common/ja/common_opts.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtinject /localhost/ConsoleOut0.rtc:in
+
+stdinからの値を ``ConsoleOut0.rtc`` の ``in`` ポートに送ります。
+
+::
+
+  $ rtinject /localhost/ConsoleOut0.rtc:in -c
+    'RTC.TimedLong({time}, 42)'
+
+``42`` と現在の時刻を ``consoleout0.rtc`` の ``in`` ポートに送ります。「'」を
+使ってpythonのステートメントを守ります。（Windowsでは「"」を使ってくださ
+い。）
+
+::
+
+  $ rtinject /localhost/ConsoleOut0.rtc:in -c
+    'RTC.TimedLong(RTC.Time(1, 0), 42)'
+
+``42`` とタイムスタンプを1秒として ``ConsoleOut0.rtc`` の ``in`` ポートに送ります。
+
+::
+
+  $ rtinject /localhost/ConsoleOut0.rtc:in -n 5
+
+stdinからの値を五回 ``ConsoleOut0.rtc`` の ``in`` ポートに送ります。
+
+::
+
+  $ rtinject /localhost/ConsoleOut0.rtc:in -n 5 -c
+    'RTC.TimedLong({time}, 42)'
+
+``42`` と現在の時刻を ``consoleout0.rtc`` の ``in`` ポートに５回送ります。
+
+::
+
+  $ rtinject /localhost/ConsoleOut0.rtc:in -t 5 -r 10 -c
+    'RTC.TimedLong({time}, 42)'
+
+``42`` と現在の時刻を10Hzで ``consoleout0.rtc`` の ``in`` ポートに５秒間送
+ります。
+
+::
+
+  $ rtinject /localhost/MyComp0.rtc:in -c 'MyData.MyVal(84)'
+
+``MyData.MyVal(84)`` を ``MyComp0.rtc`` の ``in`` ポートに送ります。クラスは
+Pythonのサーチパス(``PYTHONPATH``)に存在するモジュールに指定されていま
+す。そのモジュールはOMG IDLファイルからジェネレートされました。
+
+::
+
+  $ rtinject /localhost/MyComp0.rtc:in -p /usr/local/mods
+    -c 'MyData.MyVal(84)'
+
+``MyData.MyVal(84)`` を ``MyComp0.rtc`` の ``in`` ポートに送ります。クラスは
+Pythonのサーチパス(``PYTHONPATH``)に存在しないモジュールに指定されていま
+す。モジュールのパスは``-p``で指定されます。
+
+::
+
+  $ rtinject /localhost/MyComp0.rtc:in -p /usr/local/mods -m mymod
+    -c 'MyData.MyVal(84)'
+
+``MyData.MyVal(84)`` を ``MyComp0.rtc`` の ``in`` ポートに送ります。クラスは
+Pythonのサーチパス(``PYTHONPATH``)に存在する ``mymod`` というモジュール
+を指定します。
+
+
+参照
+====
+
+  ``rtcat`` (1),
+  ``rtlog`` (1),
+  ``rtprint`` (1)
+

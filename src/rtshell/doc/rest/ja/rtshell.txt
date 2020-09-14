@@ -1,0 +1,210 @@
+=======
+rtshell
+=======
+
+--------------------------------------
+RTミドルウェア用のコマンドラインツール
+--------------------------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+概要
+====
+
+rtshellはRTコンポーネント、マネージャ及び全RTシステムを管理するツール
+を提供します。OpenRTM-aistとそれに準じているインタフェースを提供する
+他のミドルウェアに対応しています。
+
+コマンドの多くは、ネームサーバで動作しているコンポーネントとマネージャ
+ーをファイルシステムのように扱えるようにしてあります。
+ディレクトリに入ったり、コンポーネントをcatのようにで読んだり、アクティブさせ
+たり、ポートを接続させたりすることができます。ほかのコマンドはRTシステムを
+管理するためのRTSProfileファイルに関連して使用されます。
+
+rtshellのコマンドは、何らかの都合により RTSystemEditor が使うことができない 
+OpenRTM-aist のユーザ向きです。
+システムリソースが少ない場合、GUIがない場合（特にネットワークにも接続できな
+い場合）、スクリプトを使いたい場合などに役に立ちます。コマンドラインを使用
+するのになじみがあるユーザにとってはrtshellは非常に便利です。
+
+コマンド
+========
+
+  rtact
+    RTコンポーネントをアクティブにする。
+
+  rtcat
+    RTコンポーネントのメタデータを表示する。
+
+  rtcheck
+    起動中のRTシステムを保存されたRTSProfileと比べる。
+
+  rtcomp
+    コンポジットコンポーネントを作る。
+
+  rtcon
+    ポートを接続する。
+
+  rtconf
+    コンポーネントのコンフィグレーションを編集する。
+
+  rtcryo
+    起動中のRTシステムをRTSProfileファイルに保存する。
+
+  rtcwd
+    現在のワーキングダイレクトリを変更する。
+
+  rtdeact
+    コンポーネントをディアクティブにする。
+
+  rtdel
+    ネームサーバからオブジェクトを消す。
+
+  rtdis
+    ポートの接続を削除する。
+
+  rtdoc
+    RTコンポーネントのドキュメンテーションを表示する。
+
+  rtexit
+    RTコンポーネントを停止する。
+
+  rtfind
+    起動中のRTコンポーネントやマネージャ等を探す。
+
+  rtinject
+    ポートにデータを送る。
+
+  rtlog
+    ポートが送るデータをログに保存して再生する。
+
+  rtls
+    ダイレクトリのオブジェクトをリストする。
+
+  rtmgr
+    マネジャーでRTコンポーネントを管理する。
+
+  rtprint
+    ポートが送るデータをターミナルに表示する。
+
+  rtpwd
+    現在のワーキングダイレクトリを表示する。
+
+  rtreset
+    RTコンポーネントをリセットする。
+
+  rtresurrect
+    RTSProfileファイルに保存されたRTシステムを復元する。
+
+  rtstart
+    RTシステムを起動する。
+
+  rtstodot
+    起動中のRTシステムをグラフで表示する。
+
+  rtstop
+    RTシステムを停止する。
+
+  rtteardown
+    RTシステムを削除する。
+
+
+RTCツリー
+=========
+
+すべてのコマンドはRTCツリー上で起動します。RTCツリーとは、ネームサーバ上
+のコンテキスト、コンポーネント、マネージャ等をファイルシステムに見立てて
+扱うことができる仕組みです。通常のファイルシステムと同じように扱うことが
+できます。
+
+ネームサーバはルートディレクトリ（ ``/`` ）からのサブディレクトリとして扱
+われます。その下にはファイルとサブディレクトリが存在します。サブディレク
+トリはネームサーバ上のネーミングコンテクストに対応します。ファイルはコン
+ポーネントとマネージャーに対応します。
+
+ツリーを構築するためのネームサーバを与える方法は2通りあります。一つはコマ
+ンドに渡したネームサーバへのパスです。これは現在のツリーの作業ディレクト
+リに追加され、最初の要素はネームサーバとして扱われます。
+
+もう一つは ``RTCTREE_NAMESERVERS`` 環境変数です。ネームサーバアドレスをセミ
+コロンで区切り、リストを渡すこともできます。
+
+
+シェルコンプリーション
+======================
+
+Bash（バッシュ）シェルの使う方はrtshellに含めているコンプリーションスク
+リプトによってrtshellのコマンドをもっと使いやすくできます。スクリプトは
+``${prefix}/share/rtshell`` にインストールされます。以下のコマンドでロー
+ドしてください::
+
+  $ source bash_completion
+
+以上のコマンドを ``~/.bashrc`` というファイルに保存したら自動的にロードさ
+れます。
+
+コンプリーションの例::
+
+  $ rtcwd [TAB]
+  $ rtcwd localhost/
+  $ rtcwd localhost/[TAB]
+  $ rtcwd localhost/kenroke.host_cxt/
+  $ rtcwd localhost/kenroke.host_cxt/[TAB][TAB]
+  ConsoleIn0.rtc  ConfigSample0.rtc  manager.mgr  Sensor0.rtc
+  $ rtcwd localhost/kenroke.host_cxt/[ENTER]
+  $ rtconf ConfigSample0.rtc set [TAB]
+  double_param0  double_param1  int_param0     int_param1     str_param0
+  str_param1     vector_param0
+  $ rtcon Sensor0.rtc:[TAB]
+  in   out
+
+
+システムの要件
+==============
+
+rtshellは **rtctree 3.0** が必要です。インストールされていない場合はコマン
+ドは起動しません。
+
+RTSProfileを使うコマンドは **rtsprofile 2.0** が必要です。インストールされ
+ていない場合はこのコマンドは起動しません。
+
+rtshellは **Python 2.6** が必要です。Python 3.0はまだテストされていないの
+で動かない可能性はあります。
+
+``rtinject`` 、 ``rtlog`` 及び ``rtprint`` は **OpenRTM-python** が必要です。
+
+Ubuntu 9.04より古いUbuntuのバージョンの使う方は正しいPythonを手動でイン
+ストールする必要です。新しいUbuntuにアップグレードすることをお考えくださ
+い。10.04はLTSを提供します。
+
+.. include:: ../../common/ja/common_body.txt
+
+参照
+====
+
+  ``rtact`` (1),
+  ``rtcat`` (1),
+  ``rtcheck`` (1),
+  ``rtcomp`` (1),
+  ``rtcon`` (1),
+  ``rtconf`` (1),
+  ``rtcryo`` (1),
+  ``rtcwd`` (1),
+  ``rtdeact`` (1),
+  ``rtdel`` (1),
+  ``rtdis`` (1),
+  ``rtexit`` (1),
+  ``rtfind`` (1),
+  ``rtinject`` (1),
+  ``rtlog`` (1),
+  ``rtls`` (1),
+  ``rtmgr`` (1),
+  ``rtprint`` (1),
+  ``rtpwd`` (1),
+  ``rtreset`` (1),
+  ``rtresurrect`` (1),
+  ``rtstart`` (1),
+  ``rtstodot`` (1),
+  ``rtstop`` (1),
+  ``rtteardown`` (1)
+

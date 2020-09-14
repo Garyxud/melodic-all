@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<package>
+  <name>std_capabilities</name>
+  <version>0.1.0</version>
+  <description>This package contains standard capability interfaces, which describe common robot capabilities in terms of ROS concepts such as topics, services, actions, and parameters.</description>
+
+  <maintainer email="william@osrfoundation.org">William Woodall</maintainer>
+  <maintainer email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/std_capabilities</url>
+  <url type="repository">https://github.com/osrf/std_capabilities.git</url>
+  <url type="bugtracker">https://github.com/osrf/std_capabilities/issues</url>
+
+  <author email="william@osrfoundation.org">William Woodall</author>
+  <author email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <capability_interface>
+      interfaces/Diagnostics.yaml
+    </capability_interface>
+    <capability_interface>
+      interfaces/DifferentialMobileBase.yaml
+    </capability_interface>
+    <capability_interface>
+      interfaces/LaserSensor.yaml
+    </capability_interface>
+    <capability_interface>
+      interfaces/MultiEchoLaserSensor.yaml
+    </capability_interface>
+    <capability_interface>
+      interfaces/Navigation2D.yaml
+    </capability_interface>
+    <capability_interface>
+      interfaces/RGBDSensor.yaml
+    </capability_interface>
+    <capability_interface>
+      interfaces/RobotStatePublisher.yaml
+    </capability_interface>
+  </export>
+</package>

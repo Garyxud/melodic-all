@@ -1,0 +1,9 @@
+#goal definition
+#objects can be ordered either by an id which will be
+#lookedup inside script or by an tag name (eg. KFP)
+string[] object_tags 
+int32[] object_ids
+---
+#result definition
+bool success
+string error_message

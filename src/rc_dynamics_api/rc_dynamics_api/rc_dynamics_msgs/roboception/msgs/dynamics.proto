@@ -1,0 +1,31 @@
+syntax = "proto2";
+
+package roboception.msgs;
+option java_package = "com.roboception.msgs";
+option java_outer_classname = "DynamicsProtos";
+
+/// \ingroup roboception.msgs
+/// \interface Dynamics
+/// \brief Message for dynamics, so timestamped pose, velocity, acceleration and covariance
+
+import "roboception/msgs/time.proto";
+import "roboception/msgs/pose.proto";
+import "roboception/msgs/vector3d.proto";
+import "roboception/msgs/frame.proto";
+
+message Dynamics
+{
+  optional Time timestamp                     = 1; // Time when the data was captured
+  optional Pose pose                          = 2;
+  optional string pose_frame                  = 3; // Name of the frame that the pose is given in
+  optional Vector3d linear_velocity           = 4; // Linear velocity in m/s
+  optional string linear_velocity_frame       = 5; // Name of the frame that the linear_velocity is given in
+  optional Vector3d angular_velocity          = 6; // Angular velocity in rad/s
+  optional string angular_velocity_frame      = 7; // Name of the frame that the angular_velocity is given in
+  optional Vector3d linear_acceleration       = 8; // Gravity compensated linear acceleration in m/s²
+  optional string linear_acceleration_frame   = 9; // Name of the frame that the acceleration is given in
+  repeated double covariance                  = 10 [packed=true]; // Row-major representation of the 15x15 covariance matrix
+  optional Frame cam2imu_transform            = 11; // pose of the left camera wrt. the IMU frame
+  optional bool possible_jump                 = 12; // True if there possibly was a jump in the pose estimation
+  optional string producer                    = 13; // Name of the producer of this data
+}

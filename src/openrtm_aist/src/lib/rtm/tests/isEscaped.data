@@ -1,0 +1,40 @@
+\c
+
+---- テストデータ --------
+\c          --> true.
+\t          --> true.
+\\\b        --> true.
+\\\n        --> true.
+\\\f        --> true.
+\\\r        --> true.
+\\\"        --> true.
+\\\'        --> true.
+\\          --> true.
+\\\\        --> true.
+\\\\\\\t    --> true.
+
+入力無し    --> false.
+a           --> false.
+\           --> false.
+\\t         --> false.
+\\\         --> false.
+\tttttt     --> false.
+\\tab       --> false.
+--------------------------
+
+----------------------- usage ---------------------------
+isEscaped()メソッドで判定したい文字列をこのファイルの
+一行目に記述し、PropertiesTestを実行する。
+isEscaped()の呼び出しは以下のように行っている。
+
+void test_isEscaped() {
+   string str;
+   ifstream ifs("isEscaped.data");
+   getline(ifs, str);
+   ifs.close();
+   cout << "size: " << str.size() << ":" << str << endl;
+   CPPUNIT_ASSERT(isEscaped(str, str.size() - 1));
+			    }
+よって、判定する文字は入力した最後の文字である。
+---------------------------------------------------------
+

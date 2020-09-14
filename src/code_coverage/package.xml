@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>code_coverage</name>
+  <version>0.4.3</version>
+  <description>CMake configuration to run coverage</description>
+  <author email="mike@vanadiumlabs.com">Michael Ferguson</author>
+  <maintainer email="mike@vanadiumlabs.com">Michael Ferguson</maintainer>
+
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/mikeferguson/code_coverage</url>
+  <url type="bugtracker">https://github.com/mikeferguson/code_coverage/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>lcov</depend>
+  <depend condition="$ROS_PYTHON_VERSION == 2">python-coverage</depend>
+  <depend condition="$ROS_PYTHON_VERSION == 3">python3-coverage</depend>
+
+</package>

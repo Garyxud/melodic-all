@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mrpt_navigation</name>
+  <version>0.1.26</version>
+  <description>
+    Tools related to the Mobile Robot Programming Toolkit (MRPT).
+    Refer to http://wiki.ros.org/mrpt_navigation for further documentation.
+  </description>
+  <maintainer email="jlblanco@ual.es">Jose-Luis Blanco-Claraco</maintainer>
+  <maintainer email="markus.bader@tuwien.ac.at">Markus Bader</maintainer>
+  <author>Jose-Luis Blanco-Claraco</author>
+  <author>Markus Bader</author>
+  <license>BSD</license>
+  <url>http://wiki.ros.org/mrpt_navigation</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>mrpt_local_obstacles</exec_depend>
+  <exec_depend>mrpt_localization</exec_depend>
+  <exec_depend>mrpt_map</exec_depend>
+  <exec_depend>mrpt_rawlog</exec_depend>
+  <exec_depend>mrpt_reactivenav2d</exec_depend>
+  <exec_depend>mrpt_tutorials</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

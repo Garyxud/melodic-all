@@ -1,0 +1,262 @@
+#=======================================================================
+#//! \file
+#//! \section sdhlibrary_cpp_makefile_settings_general General file information
+#//!   \author    Dirk Osswald 
+#//!   \date      2007-01-03
+#//!  
+#//! \brief  
+#//!   Settings for Makefiles for SDH SDHLibrary C project.
+#//!
+#//!   For a general description of the project see \ref sdhlibrary_cpp_dox_general "general project information".
+#//!
+#//! \section sdhlibrary_cpp_makefile_settings_variables Makefile variables
+#//!   The variables defined here state project specific settings which are
+#//!   then used by the Makefiles which include this Makefile-settings
+#//!   - \ref Makefile      "Makefile"
+#//!   - \ref sdh/Makefile  "sdh/Makefile"
+#//!   - \ref demo/Makefile "demo/Makefile"
+#//!
+#//! \section sdhlibrary_cpp_makefile_settings_links Links
+#//!   - The online documentation for \c gnu \c make can be found at
+#//!     <a href="http://www.gnu.org/software/make/manual/make.html">
+#//!     http://www.gnu.org/software/make/manual/make.html</a>
+#//!  
+#//! \section sdhlibrary_cpp_makefile_settings_copyright Copyright
+#//!
+#//!  Copyright (c) 2007 SCHUNK GmbH & Co. KG
+#//!
+#//!  <HR>
+#//!  \internal
+#//!
+#//!    \subsection sdhlibrary_cpp_makefile_settings_details SVN related, detailed file specific information:
+#//!      $LastChangedBy: Osswald2 $
+#//!      $LastChangedDate: 2014-02-20 16:00:30 +0100 (Thu, 20 Feb 2014) $
+#//!      \par SVN file revision:
+#//!        $Id: Makefile-settings 11372 2014-02-20 15:00:30Z Osswald2 $
+#//!
+#//!  \subsection sdhlibrary_cpp_makefile_settings_changelog Changelog of this file:
+#//!      \include Makefile.log
+#//!
+#=======================================================================
+#//! \cond ignore_me   doxygen cannot parse Makefiles, so just ignore it
+
+
+ifndef BASEDIR
+ ${error BASEDIR, the path to the ".../SDHLibrary/cpp" directory, is not set!} 
+endif
+
+
+# "reinclude protection". Like for header files we have to prevent
+# that the variables below get modified multiple times if this file gets
+# included more than once:
+ifndef MAKEFILE_SETTINGS_
+export MAKEFILE_SETTINGS_ := 1
+
+
+########################################################################
+# first some variables
+
+#-------------------
+# target system specifics
+
+## define a variable OSNAME to hold the name of the Operating System:
+#  - "cygwin" for cygwin/windows
+#  - "linux" for Linux (SuSE, debian, Ubuntu, ...)
+
+ifeq (CYGWIN, ${findstring CYGWIN,${shell uname}})
+export OSNAME=cygwin
+else 
+ifeq (Linux, ${findstring Linux,${shell uname}})
+export OSNAME=linux
+else
+${error "Could not determine OSNAME from output of shell command uname = '${shell uname}'!"}
+endif
+endif
+
+#
+#-------------------
+
+#-------------------
+# Settings for the end-user: adjust these to your needs
+
+## Choose wether to build a static (*.a) or a shared (*.so/*.dll) library:
+#export LIBRARY_TYPE=static
+export LIBRARY_TYPE=shared
+
+#-----
+## Choose wether to generate a SDHLibrary with support for the ESD CAN interface (1) or not (0)
+export WITH_ESD_CAN=0
+
+ifeq (${WITH_ESD_CAN},1)
+## If the ESD CAN library should be used and is not in a standard path then
+## - add the path to its header (ntcan.h) to EXTRAINCDIRS and
+## - add the path to its library (ntcan.lib on windows/cygwin, ntcan.a/ntcan.so on linux) to EXTRALDFLAGS
+## - add the name of the library (usually ntcan) to EXTRALIBS (without -l prefix and .a/.lib suffix)
+export EXTRACPPFLAGS += -D WITH_ESD_CAN=1
+export EXTRAINCDIRS += /cygdrive/c/Programme/ESD/CAN/SDK/include
+export EXTRALDFLAGS += -L/cygdrive/c/Programme/ESD/CAN/SDK/lib/vc/i386
+export EXTRALIBS    += ntcan
+else
+export EXTRACPPFLAGS += -D WITH_ESD_CAN=0
+endif
+
+#-----
+## Choose wether to generate a SDHLibrary with support for the PEAK CAN interface (1) or not (0)
+export WITH_PEAK_CAN=0
+
+ifeq (${WITH_PEAK_CAN},1)
+export EXTRACPPFLAGS += -D WITH_PEAK_CAN=1
+
+## The linux and the windows/cygwin drivers for PEAK differ very much...
+ifeq (${OSNAME},linux) 
+
+## if your headers for the PEAK library (libpcan.h, pcan.h) are in an unusal place then state the directory/ies here:
+#export EXTRAINCDIRS += 
+
+## if your library for the PEAK library (libpcan.so) is in an unusal place then state the directory here:
+#export EXTRALDFLAGS += -L
+
+## the name of the PEAK library (without "lib" prefix and suffix)
+export EXTRALIBS    += pcan
+endif # OSNAME == linux
+
+ifeq (${OSNAME},cygwin) 
+
+## if your headers for the PEAK library (Pcan_usb.h) are in an unusal place then state the directory here:
+## (The SDHLibrary currently supports the PCAN-Light driver API from PEAK only, not the 
+##  newer PCAN-Basic variant. On linux please use the "chardev" driver, not the "netdev" one.
+export EXTRAINCDIRS += /home/osswald/SCHUNK/vendor/pcan_usb/PCAN-Light/Api
+
+## if your library for the PEAK library (libpcan.so/Pcan_usb.lib) is in an unusal place then state the directory/ies here:
+export EXTRALDFLAGS += -L/home/osswald/SCHUNK/vendor/pcan_usb/PCAN-Light/Lib/Visual\ C++
+
+## the name of the PEAK library (without suffix)
+export EXTRALIBS    += Pcan_usb
+endif # OSNAME == cygwin
+
+else
+export EXTRACPPFLAGS += -D WITH_PEAK_CAN=0
+endif
+
+## Flag, that is 1 if any CAN support is provided (either ESD, or PEAK or both), else 0
+export ANY_CAN_AVAILABLE = ${shell echo $$((${WITH_ESD_CAN} || ${WITH_PEAK_CAN}))}
+
+#-----
+## if you have the boost library > v1.35 then you can compile additional demos like demo-contact-grasping which depend on boost::thread
+
+## flag to indicate if you have boost at all
+export HAVE_BOOST=0
+
+## The path to the boost libraries (cygwin has a rather old v1.33 boost by default, but we need boost > v1.35, so you have to download/install that manually)
+export BOOST_LIB_DIR=/usr/lib
+export BOOST_INC_DIR=/usr/include
+#/boost
+
+# The actual boost libraries that different programs need are defined 
+# as target specific variables in the sub Makefile demo/Makefile
+#-----
+
+## The name of the library to generate 
+## (without prefix (like "lib") or suffix (like ".a", ".so", ".dll"))
+export SDHLIBRARY_NAME=SDHLibrary-CPP
+
+## Prefix for installation:
+export INSTALL_PREFIX=/usr/local
+
+## Choose the directory where to install header files
+export INSTALL_DIR_INC=${INSTALL_PREFIX}/include/sdh
+
+## Choose the directory where to install the generated library
+export INSTALL_DIR_LIB=${INSTALL_PREFIX}/lib
+
+## Choose the directory where to install the generated (demo) programs
+export INSTALL_DIR_BIN=${INSTALL_PREFIX}/bin
+
+## Choose where to install the generated doxygen documentation
+## (set to empty to not install doc)
+export INSTALL_DIR_DOC=/usr/share/doc/${SDHLIBRARY_NAME}
+
+#
+########################################################################
+
+## Platform specific compiler flags: 
+ifeq (${OSNAME},cygwin) 
+export EXTRACPPFLAGS += -Wno-unknown-pragmas -D OSNAME_CYGWIN=1
+endif
+
+ifeq (${OSNAME},linux)
+export EXTRACPPFLAGS += -D OSNAME_LINUX=1 -fPIC
+endif
+
+#-------------------
+
+endif # ifndef MAKEFILE_SETTINGS_
+
+
+# Path and name of the header file containing the 
+# PROJECT_NAME and PROJECT_RELEASE defines (see Makefile-common).
+export RELEASE_FILE=${BASEDIR}/sdh/release.h
+
+
+# extract the setting for SDH_USE_NAMESPACE from sdhlibrary_settins
+export SDH_USE_NAMESPACE=${shell cat ${BASEDIR}/sdh/sdhlibrary_settings.h | grep -e "\#define *SDH_USE_NAMESPACE" | sed "s/\#define *SDH_USE_NAMESPACE *\([0-9]\) */\1/" }
+
+
+## Suffix of the executable (if any)
+ifeq (${OSNAME},cygwin) 
+  export EXESUFFIX=.exe
+else
+  export EXESUFFIX=
+endif
+
+## (local) library name with path and suffix:
+ifeq (${OSNAME},linux)
+ifeq (${LIBRARY_TYPE},static)
+  export PSDHLIBRARY_NAME = ${LIBDIR}/lib${SDHLIBRARY_NAME}.a
+endif
+ifeq (${LIBRARY_TYPE},shared)
+  export PSDHLIBRARY_NAME = ${LIBDIR}/lib${SDHLIBRARY_NAME}.so
+endif
+endif
+
+ifeq (${OSNAME},cygwin)
+ifeq (${LIBRARY_TYPE},static)
+  export PSDHLIBRARY_NAME = ${LIBDIR}/lib${SDHLIBRARY_NAME}.a
+endif
+ifeq (${LIBRARY_TYPE},shared)
+  export PSDHLIBRARY_NAME = ${LIBDIR}/${SDHLIBRARY_NAME}.dll
+endif
+endif
+
+
+#----------------------------
+# some directories:
+
+# Path to common stuff like sub-makefiles
+export COMMON_DIR=${shell if [ -d "${BASEDIR}/../../../common" ]; then \
+	             echo "${BASEDIR}/../../../common";\
+		   else \
+	             echo "${BASEDIR}" ; \
+	           fi}
+
+# Object files directory
+export OBJDIR = ${BASEDIR}/obj
+
+# Binary files directory
+export BINDIR = ${BASEDIR}/bin
+
+# Library files directory
+export LIBDIR = ${BASEDIR}/bin
+
+# Dependency files directory
+export DEPDIR = ${BASEDIR}/.dep
+
+# Documentation files directory
+export DOCDIR = ${BASEDIR}/doc
+
+#
+########################################################################
+
+#-----------------------------------------------------------------------
+#//! \endcond
+########################################################################

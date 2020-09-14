@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+ROS_DISTRO=melodic
+EXEC_NAME=ethercat_grant
+case "$1" in
+ configure)
+   chmod +s /opt/ros/$ROS_DISTRO/bin/$EXEC_NAME
+   ;;
+ *)
+       echo "postinst called with unknown argument \`$1'" >&2
+       exit 0
+   ;;
+esac
+#DEBHELPER#

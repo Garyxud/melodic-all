@@ -1,0 +1,401 @@
+ProjectType: "Visual C++"
+Version: "__VCVERSION__"
+Name: libRTCSkel
+ProjectGUID: __GUID__
+RootNamespace: libRTCSkel
+Keyword: "Win32Proj"
+Configurations:
+  - Name: "Debug|Win32"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "4"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VCCLCompilerTool:
+      - Key: Optimization
+        Value: "0"
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;_DEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "3"
+      - Key: RuntimeLibrary
+        Value: "3"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "4"
+    VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkeld.lib"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          cd "$(OutDir)"
+          copy libRTCSkeld.lib "$(SolutionDir)\\bin"
+    VC10_OutputDirectory: "$(ProjectDir)$(Configuration)"
+    VC10_IntermediateDirectory: "$(Configuration)"
+    VC10_ConfigurationType: "StaticLibrary"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_CharacterSet: "NotSet"
+    VC10_LinkIncrementalCondition: "true"
+    VC10_VCPreBuildEventTool: 
+      - Key: Command 
+        Value: | 
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VC10_VCCLCompilerTool:
+      - Key: Optimization
+        Value: "Disabled"
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;_DEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "EnableFastChecks"
+      - Key: RuntimeLibrary
+        Value: "MultiThreadedDebugDLL"
+      - Key: PrecompiledHeader
+        Value: "NotUsing"
+      - Key: WarningLevel
+        Value: "Level3"
+      - Key: DebugInformationFormat
+        Value: "EditAndContinue"
+    VC10_VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkeld.lib"
+    VC10_VCPostBuildEventTool: 
+      - Key: Command
+        Value: | 
+          cd "$(OutDir)"
+          copy libRTCSkeld.lib "$(SolutionDir)\\bin"
+  - Name: "Debug|x64"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "4"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VCCLCompilerTool:
+      - Key: Optimization
+        Value: "0"
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;_DEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "3"
+      - Key: RuntimeLibrary
+        Value: "3"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "4"
+    VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkeld.lib"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          cd "$(OutDir)"
+          copy libRTCSkeld.lib "$(SolutionDir)\\bin"
+    VC10_OutputDirectory: "$(ProjectDir)$(Configuration)"
+    VC10_IntermediateDirectory: "$(Configuration)"
+    VC10_ConfigurationType: "StaticLibrary"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_CharacterSet: "NotSet"
+    VC10_LinkIncrementalCondition: "true"
+    VC10_VCPreBuildEventTool: 
+      - Key: Command 
+        Value: | 
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VC10_VCCLCompilerTool:
+      - Key: Optimization
+        Value: "Disabled"
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;_DEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key: MinimalRebuild
+        Value: "true"
+      - Key: BasicRuntimeChecks
+        Value: "EnableFastChecks"
+      - Key: RuntimeLibrary
+        Value: "MultiThreadedDebugDLL"
+      - Key: PrecompiledHeader
+        Value: "NotUsing"
+      - Key: WarningLevel
+        Value: "Level3"
+      - Key: DebugInformationFormat
+        Value: "EditAndContinue"
+    VC10_VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkeld.lib"
+    VC10_VCPostBuildEventTool: 
+      - Key: Command
+        Value: | 
+          cd "$(OutDir)"
+          copy libRTCSkeld.lib "$(SolutionDir)\\bin"
+  - Name: "Release|Win32"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "4"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    WholeProgramOptimization: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;NDEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: RuntimeLibrary
+        Value: "2"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "3"
+    VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkel.lib"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          cd "$(OutDir)"
+          copy libRTCSkel.lib "$(SolutionDir)\\bin"
+    VC10_OutputDirectory: "$(ProjectDir)$(Configuration)"
+    VC10_IntermediateDirectory: "$(Configuration)"
+    VC10_ConfigurationType: "StaticLibrary"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_CharacterSet: "NotSet"
+    VC10_LinkIncrementalCondition: "false"
+    VC10_VCPreBuildEventTool: 
+      - Key: Command 
+        Value: | 
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VC10_VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;NDEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key: RuntimeLibrary
+        Value: "MultiThreadedDLL"
+      - Key: UsePrecompiledHeader
+        Value: "NotUsing"
+      - Key: WarningLevel
+        Value: "Level3"
+      - Key: DebugInformationFormat
+        Value: "ProgramDatabase"
+    VC10_VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkel.lib"
+    VC10_VCPostBuildEventTool: 
+      - Key: Command 
+        Value: | 
+          cd "$(OutDir)"
+          copy libRTCSkel.lib "$(SolutionDir)\\bin"
+  - Name: "Release|x64"
+    OutputDirectory: "$(ProjectDir)$(ConfigurationName)"
+    IntermediateDirectory: "$(ConfigurationName)"
+    ConfigurationType: "4"
+    InheritedPropertySheets: "$(SolutionDir)rtm_config.vsprops;$(SolutionDir)rtm_distbuild.vsprops"
+    CharacterSet: "0"
+    WholeProgramOptimization: "0"
+    VCPreBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;NDEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE"
+      - Key: RuntimeLibrary
+        Value: "2"
+      - Key: UsePrecompiledHeader
+        Value: "0"
+      - Key: WarningLevel
+        Value: "3"
+      - Key: DebugInformationFormat
+        Value: "3"
+    VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkel.lib"
+    VCPostBuildEventTool:
+      - Key: CommandLine
+        Value: |
+          cd "$(OutDir)"
+          copy libRTCSkel.lib "$(SolutionDir)\\bin"
+    VC10_OutputDirectory: "$(ProjectDir)$(Configuration)"
+    VC10_IntermediateDirectory: "$(Configuration)"
+    VC10_ConfigurationType: "StaticLibrary"
+    VC10_InheritedPropertySheets: 
+      - "$(SolutionDir)rtm_config.props"
+      - "$(SolutionDir)rtm_distbuild.props"
+    VC10_CharacterSet: "NotSet"
+    VC10_LinkIncrementalCondition: "false"
+    VC10_VCPreBuildEventTool: 
+      - Key: Command 
+        Value: | 
+          set PATH=$(rtm_path);%PYTHON_ROOT%\\;%PATH%
+          makewrapper.py BasicDataType.idl
+          makewrapper.py DataPort.idl
+          makewrapper.py Manager.idl
+          makewrapper.py OpenRTM.idl
+          makewrapper.py RTC.idl
+          makewrapper.py SDOPackage.idl
+          makewrapper.py ExtendedDataTypes.idl
+          makewrapper.py InterfaceDataTypes.idl
+          omniidl -bcxx -Wba -nf BasicDataType.idl
+          omniidl -bcxx -Wba -nf DataPort.idl
+          omniidl -bcxx -Wba -nf Manager.idl
+          omniidl -bcxx -Wba -nf OpenRTM.idl
+          omniidl -bcxx -Wba -nf RTC.idl
+          omniidl -bcxx -Wba -nf SDOPackage.idl
+          omniidl -bcxx -Wba -nf ExtendedDataTypes.idl
+          omniidl -bcxx -Wba -nf InterfaceDataTypes.idl
+    VC10_VCCLCompilerTool:
+      - Key: PreprocessorDefinitions
+        Value: "WIN32;NDEBUG;_LIB;__WIN32__;__NT__;__OSVERSION__=4;__x86__;_WIN32_WINNT=0x0400;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)"
+      - Key: RuntimeLibrary
+        Value: "MultiThreadedDLL"
+      - Key: UsePrecompiledHeader
+        Value: "NotUsing"
+      - Key: WarningLevel
+        Value: "Level3"
+      - Key: DebugInformationFormat
+        Value: "ProgramDatabase"
+    VC10_VCLibrarianTool:
+      - Key: OutputFile
+        Value: "$(OutDir)\\libRTCSkel.lib"
+    VC10_VCPostBuildEventTool: 
+      - Key: Command 
+        Value: | 
+          cd "$(OutDir)"
+          copy libRTCSkel.lib "$(SolutionDir)\\bin"

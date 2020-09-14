@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>rc_dynamics_api</name>
+    <version>0.10.0</version>
+    <description>
+      The rc_dynamics_api provides an API for easy handling of the dynamic-state data
+      streams provided by Roboception's stereo camera with self-localization.
+      See http://rc-visard.com
+
+      Dynamic-state estimates of the rc_visard relate to its self-localization and
+      ego-motion estimation. These states refer to rc_visard's current pose,
+      velocity, or acceleration and are published on demand via several data streams.
+      For a complete list and descriptions of these dynamics states and the
+      respective data streams please refer to rc_visard's user manual.
+    </description>
+
+    <maintainer email="felix.ruess@roboception.de">Felix Ruess</maintainer>
+
+    <author email="heiko.hirschmueller@roboception.de">Heiko Hirschmueller</author>
+    <author email="christian.emmerich@roboception.de">Christian Emmerich</author>
+    <author email="felix.endres@roboception.de">Felix Endres</author>
+
+    <license>BSD</license>
+
+    <url type="website">http://rc-visard.com</url>
+    <url type="repository">https://github.com/roboception/rc_dynamics_api</url>
+    <url type="bugtracker">https://github.com/roboception/rc_dynamics_api/issues</url>
+
+    <buildtool_depend>cmake</buildtool_depend>
+    <build_export_depend>catkin</build_export_depend>
+
+    <build_depend>protobuf-dev</build_depend>
+    <exec_depend>protobuf</exec_depend>
+    <depend>curl</depend>
+
+    <doc_depend>doxygen</doc_depend>
+
+    <export>
+      <build_type>cmake</build_type>
+    </export>
+</package>

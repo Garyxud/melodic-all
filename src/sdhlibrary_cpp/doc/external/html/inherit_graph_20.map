@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$class_s_d_h_1_1c_serial_base.html" title="Low&#45;level communication class to access a serial port." alt="" coords="7,85,132,115"/>
+<area shape="rect" id="node3" href="$class_s_d_h_1_1c_c_a_n_serial___e_s_d.html" title="Low&#45;level communication class to access a CAN port from company ESD (http://www.esd.eu/)" alt="" coords="187,5,344,35"/>
+<area shape="rect" id="node5" href="$class_s_d_h_1_1c_c_a_n_serial___p_e_a_k.html" title="Low&#45;level communication class to access a CAN port from company PEAK (http://www.peak&#45;system.com)" alt="" coords="183,59,348,88"/>
+<area shape="rect" id="node7" href="$class_s_d_h_1_1c_r_s232.html" title="Low&#45;level communication class to access a serial port on Cygwin and Linux." alt="" coords="215,112,316,141"/>
+<area shape="rect" id="node9" href="$class_s_d_h_1_1c_t_c_p_serial.html" title="Low&#45;level communication class to access a CAN port." alt="" coords="204,165,327,195"/>
+</map>

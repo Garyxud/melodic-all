@@ -1,0 +1,23 @@
+<package>
+  <name>rocon_ebnf</name>
+  <version>0.3.2</version>
+  <description>
+    Internal packaging of the 0.91 version of the simple python
+    <a href="http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form">EBNF</a>
+    parser written by LParis.
+  </description>
+  <maintainer email="d.stonier@gmail.com">Daniel Stonier</maintainer>
+  <license>GPL</license>
+  <url type="website">http://lparis45.free.fr/rp.html</url>
+  <url type="repository">https://github.com/robotics-in-concert/rocon_tools</url>
+  <url type="bugtracker">https://github.com/robotics-in-concert/rocon_tools/issues</url>
+  <author>LParis</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>python-catkin-pkg</build_depend>
+  <test_depend>rosunit</test_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml"/>    
+  </export>
+</package>

@@ -1,0 +1,256 @@
+=====
+rtlog
+=====
+
+------------------------------------------
+ポートのデータをログに保存、再生する
+------------------------------------------
+
+.. include:: ../../common/ja/docinfo_block.txt
+
+書式
+====
+
+rtlog [options] <path1>:<port1> [<path2>:<port2>...]
+
+概要
+====
+
+コンポーネントがデータポートで送るデータをログファイルに保存したり、再
+生したりします。複数のポートでもログが可能です。ログされたコンポーネント
+を再現するためにログファイルを再生することが加能です。
+
+ログの複数データストリームから再生されたストリームを選択することができま
+す。例えばログに複数のレーザからのデータが保存されたら一つのみのレーザ
+データを再生することが加能です。再生はログの始まりだけではなくて途中から
+途中までを再生して、再生レートを変えたり出力されたデータのタイムスタン
+プを編集することも可能です。
+
+デフォルトでログを保存します。コマンドに渡したすべてのポートはアウトポ
+ートにする必要があります。再生モードの場合、すべてのポートはインポートに
+してログのデータ型に合わせる必要があります。
+
+ログで記録されるそれぞれのポートは一つのデータストリームを作ります。
+再生の時、このデータストリームは複数のインポートに送ることができます。
+データストリームは名前で区別されます。名前はコマンドラインに与えられな
+かった場合、デフォルトの名前を自動的に作ります。
+
+ログツールから目的のポートまでの接続はデフォルトのプロパティで作られま
+す。
+
+オプション
+==========
+
+-a, --absolute-times
+  ログデータからのタイムスタンプは記録されたままの値を送ります。
+  指定しない場合、タイムスタンプは現在の時刻でオフセットされます。
+
+-d, --display-info
+  ログの情報を表示して終了します。
+
+-e END, --end=END
+  記録や再生を止めるタイムスタンプまたはインデクスを指定します。ログの
+  最初と最後のデータの間を指定してください。 ``-1`` を指定すると永遠に記
+  録またはログの最後まで再生します。インデクスで指定したい場合、
+  ``--index`` も指定してください。
+
+-f FILENAME, --filename=FILENAME
+  ログファイルの名前を指定します。指定しない場合、現在の時刻がファイル
+  名になります。
+  再生の時は必須です。
+
+--path=PATHS
+  モジュールのサーチパスを指定します。Pythonの ``PYTHONPATH`` 変数に追加
+  されます。
+
+
+-i, --index
+  ``--start`` と ``--end`` の値をタイムスタンプではなくてインデクスとして
+  指定します。
+
+-l LOGGER, --logger=LOGGER
+  ログ種類を選択します。デフォルトはSimplePickle（ ``simpkl`` ）です。テ
+  キストログ（ ``text`` ）を使うこともできます。テキストログは再生できま
+  せん。
+
+-m MODULES, --mod=MODULES
+  Import する必要な Python モジュールを指定します。値に必要なモジュー
+  ルが自動的にロードされていない場合、このオプションで指定してください。
+  モジュールとそのモジュールの ``__POA`` のモジュールも import します。
+
+-n, --ignore-times
+  （再生のみ）ログに記録されたタイムスタンプを無視して定期的にログデー
+  タを再生します。周期を変える場合、 ``--exec-rate`` を使ってください。
+
+-p, --play
+  再生モード。
+
+-r RATE, --rate=RATE
+  （再生のみ）再生レートをスケールします。
+
+-s START, --start=START
+  （再生のみ）再生を始めるタイムスタンプまたはインデクスを指定します。
+  ログの最初と最後のデータの間にすることは必須です。インデクスで指定す
+  る場合、 ``--index`` も指定してください。
+
+-t TIMEOUT, --timeout=TIMEOUT
+  記録または再生のタイムアウト時間を指定します。このオプションを使う場
+  合、 ``--start`` と ``--end`` を使うことはできません。
+
+-x EXEC_RATE, --exec-rate=EXEC_RATE
+  コンポーネントの実行レートを指定します。単位はヘルツです。
+
+
+.. include:: ../../common/ja/common_opts.txt
+
+.. include:: ../../common/ja/common_body.txt
+
+例
+==
+
+::
+
+  $ rtlog -f log.rtlog /localhost/ConsoleIn0.rtc:out.numbers
+
+``ConsoleIn0.rtc`` コンポーネントは ``out`` ポートで送るデータをログします。
+データストリームは ``numbers`` という名前で区別されます。ログファイル名は
+``log.rtlog`` です。
+
+::
+
+  $ rtlog -f log.rtlog -p /localhost/ConsoleOut0.rtc:in.numbers
+
+ログファイルから ``numbers`` というデータストリームを ``ConsoleOut0.rtc`` の
+``in`` ポートに再生します。
+
+::
+
+  $ rtlog -f log.rtlog -d
+
+ログの情報を表示します。ログの開始時間、終了時間、データストリーム等が
+含まれています。
+
+
+::
+
+  $ rtlog -f log.rtlog -e 1292489690
+    /localhost/ConsoleIn0.rtc:out.numbers
+
+コンピュータの時計が「1292489690」になるまでログし、終了します。
+
+::
+
+  $ rtlog -f log.rtlog -e 10 -i /localhost/ConsoleIn0.rtc:out.numbers
+
+10個のデータをログして終了します。
+
+::
+
+  $ rtlog -f log.rtlog -t 10 /localhost/ConsoleIn0.rtc:out.numbers
+
+10秒間ログして終了します。
+
+::
+
+  $ rtlog -f log.rtlog -p -s 1292489690
+    /localhost/ConsoleOut0.rtc:in.numbers
+
+「1292489690」のタイムスタンプから再生を始めます。
+
+::
+
+  $ rtlog -f log.rtlog -p -e 1292489700
+    /localhost/ConsoleOut0.rtc:in.numbers
+
+最初のデータから「1292489700」のタイムスタンプまで再生します。
+
+::
+
+  $ rtlog -f log.rtlog -p -s 1292489690 -e 1292489700
+    /localhost/ConsoleOut0.rtc:in.numbers
+
+「1292489690」のタイムスタンプから「1292489700」のタイムスタンプまで再
+生します.（大体10秒のデータ。）
+
+::
+
+  $ rtlog -f log.rtlog -p -s 5 -i
+    /localhost/ConsoleOut0.rtc:in.numbers
+
+５個目のデータから再生を始めます。
+
+::
+
+  $ rtlog -f log.rtlog -p -e 10 /localhost/ConsoleOut0.rtc:in.numbers
+
+最初のデータから10個目のデータまで再生します。
+
+::
+
+  $ rtlog -f log.rtlog -p -s 5 -e 10
+    /localhost/ConsoleOut0.rtc:in.numbers
+
+5個目のデータから10個目のデータまで再生します。（5個のデータ。）
+
+::
+
+  $ rtlog -f log.rtlog -p -t 10 /localhost/ConsoleOut0.rtc:in.numbers
+
+最初の10秒間のデータを再生します。
+
+::
+
+  $ rtlog -f log.rtlog -p -r 5 /localhost/ConsoleOut0.rtc:in.numbers
+
+ログの記録の早さを5倍で再生します。
+
+::
+
+  $ rtlog -f log.rtlog -p -r 0.2 /localhost/ConsoleOut0.rtc:in.numbers
+
+ログの記録の早さを0.2倍で再生します。
+
+::
+
+  $ rtlog -f log.rtlog -p -n 5 -x 1 /localhost/ConsoleOut0.rtc:in.numbers
+
+1秒に1回実行して、1回の実行で5個のデータを再生します。
+
+::
+
+  $ rtlog -f log.rtlog /localhost/Sensor0.rtc:out.sensor
+    /localhost/Controller0.rtc:out.ctrl /localhost/Motor0.rtc:out.motor
+
+一つのファイルに三つのデータストリームを記録します。ストリームの名前は
+``sensor`` と ``ctrl`` と ``motor`` です。
+
+::
+
+  $ rtlog -f log.rtlog /localhost/Sensor0.rtc:in.motor
+    /localhost/Motor0.rtc:in.ctrl
+
+一つのログから二つのデータストリームを別々のポートに再生します。
+
+::
+
+  $ rtlog -f log.rtlog -p /localhost/Controller0.rtc:in.sensor
+    /localhost/Controller0.rtc:in.motor
+
+一つのログから二つのデータストリームを同じポートに再生します。
+
+::
+
+  $ rtlog -f log.rtlog -p /localhost/Sensor0.rtc:in.motor
+    /localhost/Controller0.rtc:in.motor
+
+ログから一つのデータストリームを複数のポートに再生します。
+
+``--mod`` と ``--path`` の例は ``rtinject(1)`` を参照してください。
+
+参照
+====
+
+  ``rtcat`` (1),
+  ``rtinject`` (1),
+  ``rtprint`` (1)
+

@@ -1,0 +1,51 @@
+<package>
+  <name>multi_interface_roam</name>
+  <version>1.0.16</version>
+  <description>sdsdddsdsds</description>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
+
+  <license>BSD</license>
+  <license>LGPL</license>
+  <license>GPL for sigblock</license>
+
+  <url type="website">http://ros.org/wiki/multi_interface_roam</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Blaise Gassend</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>rospy</build_depend>
+  <build_depend>network_monitor_udp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>diagnostic_msgs</build_depend>
+  <build_depend>pr2_msgs</build_depend>
+  <build_depend>asmach</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>ieee80211_channels</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>rospy</run_depend>
+  <run_depend>network_monitor_udp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>diagnostic_msgs</run_depend>
+  <run_depend>pr2_msgs</run_depend>
+  <run_depend>asmach</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>ieee80211_channels</run_depend>
+  <run_depend>python-twisted-core</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>rospy</test_depend> -->
+  <!-- <test_depend>network_monitor_udp</test_depend> -->
+  <!-- <test_depend>std_msgs</test_depend> -->
+  <!-- <test_depend>diagnostic_msgs</test_depend> -->
+  <!-- <test_depend>pr2_msgs</test_depend> -->
+  <!-- <test_depend>wpa_supplicant_node</test_depend> -->
+  <!-- <test_depend>asmach</test_depend> -->
+  <!-- <test_depend>dynamic_reconfigure</test_depend> -->
+  <!-- <test_depend>ieee80211_channels</test_depend> -->
+
+</package>

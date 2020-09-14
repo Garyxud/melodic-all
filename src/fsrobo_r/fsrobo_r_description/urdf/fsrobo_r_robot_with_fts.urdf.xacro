@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="fsrobo_r">
+  <!-- fsrobo_r -->
+  <xacro:include filename="$(find fsrobo_r_description)/urdf/fsrobo_r.urdf.xacro" /> 
+  
+  <!-- arm -->
+  <xacro:fsrobo_r_robot prefix=""/>
+
+  <link name="world" />
+
+  <!-- force torque sensor -->
+  <link name="sensor">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.5" />
+  		<inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.04" length="0.045" />
+      </geometry>
+      <material name="">
+        <color rgba="1 0.7 0.9 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="link6_sensor" type="fixed">
+    <origin xyz="0 0 0.0225" rpy="0 0 0" />
+    <parent link="Link6" />
+    <child link="sensor" />
+  </joint>
+
+  <link name="tool_adapter">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.05" />
+  		<inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.04" length="0.015" />
+      </geometry>
+      <material name="">
+        <color rgba="0.7 1 0.9 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="sensor_hand_adapter" type="fixed">
+    <origin xyz="0 0 0.03" rpy="0 0 0" />
+    <parent link="sensor" />
+    <child link="tool_adapter" />
+  </joint>
+
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+</robot>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>turtle_teleop_multi_key</name>
+  <version>0.0.4</version>
+  <description>
+    Provides teleoperation using multi-key input for Turtlesim/Turtlebot3.
+  </description>
+  <license>MIT License</license>
+  <author email="roomedia@naver.com">EngHyu</author>
+  <maintainer email="roomedia@naver.com">EngHyu</maintainer>
+  <url type="website">https://wiki.ros.org/turtle_teleop_multi_key</url>
+  <url type="repository">https://github.com/EngHyu/turtle_teleop_multi_key</url>
+  <url type="bugtracker">https://github.com/EngHyu/turtle_teleop_multi_key/issues</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>geometry_msgs</depend>
+</package>

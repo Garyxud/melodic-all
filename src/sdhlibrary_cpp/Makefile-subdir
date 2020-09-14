@@ -1,0 +1,118 @@
+#=======================================================================
+#//! \file
+#//! \section common_makefile_subdir_general General file information
+#//!   \author    Dirk Osswald 
+#//!   \date      2007-01-15
+#//!  
+#//! \brief  
+#//!   Generic Makefile for calling other Makefiles in sub directories
+#//!
+#//!   This Makefile is meant to be included in other Makefiles, it
+#//!   provides some generic variables and targets
+#//!
+#//! \section common_makefile_subdir_variables Makefile variables
+#//!   - SUBDIRS : The list of subdirectories where to call make in
+#//!   - MAKE_OUTPUT_FILTER : piped command to filter the output of make, e.g. to correct invalid messages from compilers
+#//!                          example: MAKE_OUTPUT_FILTER = 2>&1 | sed "s/bla/blu/"
+#//!                          would replace all "bla" by "blu" from the output (including stderr) of make.
+#//!
+#//! \section common_makefile_subdir_targets Makefile targets
+#//!   Each of the following targets is made recursively in
+#//!   all subdirectories SUBDIRS:
+#//!   - \b \c all
+#//!   - \b \c build
+#//!   - \b \c doc
+#//!   - \b \c tags
+#//!   - \b \c clean
+#//!   - \b \c mrproper
+#//!   - \b \c install
+#//!   - \b \c install_only
+#//!   - \b \c dist
+#//!   - \b \c dist_only
+#//!
+#//!   The Makefiles in the subdirectories decide what to do (and which
+#//!   targets are valid at all).
+#//!
+#//! \section common_makefile_subdir_links Links
+#//!   - The online documentation for \c gnu \c make can be found at
+#//!     <a href="http://www.gnu.org/software/make/manual/make.html">
+#//!     http://www.gnu.org/software/make/manual/make.html</a>
+#//!  
+#//! \section common_makefile_subdir_copyright Copyright
+#//!
+#//!  Copyright (c) 2007 SCHUNK GmbH & Co. KG
+#//!
+#//!  <HR>
+#//!  \internal
+#//!
+#//!    \subsection common_makefile_subdir_details SVN related, detailed file specific information:
+#//!      $LastChangedBy: Osswald2 $
+#//!      $LastChangedDate: 2010-11-04 09:02:43 +0100 (Thu, 04 Nov 2010) $
+#//!      \par SVN file revision:
+#//!        $Id: Makefile-subdir 6155 2010-11-04 08:02:43Z Osswald2 $
+#//!
+#//!  \subsection common_makefile_subdir_changelog Changelog of this file:
+#//!      \include Makefile-subdir.log
+#//!
+#=======================================================================
+#//! \cond ignore_me   doxygen cannot parse Makefiles, so just ignore it
+
+
+########################################################################
+# now the targets
+
+.PHONY: all build doc tags clean mrproper install install_only dist dist_only
+all build doc tags clean mrproper install install_only dist dist_only: recursive 
+all:          TARGET=all
+build:        TARGET=build
+doc:          TARGET=doc
+tags:         TARGET=tags
+clean:        TARGET=clean
+mrproper:     TARGET=mrproper
+install:      TARGET=install
+install_only: TARGET=install_only
+dist:         TARGET=dist
+dist_only:    TARGET=dist_only
+
+# generate target ${TARGET} in all subdirectories in ${SUBDIRS}
+#   this will stop in case the called make reports an error unless -k has been given
+#
+#   Remark: Bugfix Bug 351: PIPESTATUS is an automatic variable of the bash shell. 
+#   So if another shell is used then PIPESTATUS cannot be used to determine if the 
+#   recursively called make succeded. Therefore we now export PIPESTATUS="0" (which
+#   means 'true' for shells) to keep make going on non bash shells. 
+.PHONY: recursive
+recursive:
+	@if [ "$$PIPESTATUS" = "" ]; then \
+	  export PIPESTATUS="0" ; \
+	fi ;\
+	for d in ${SUBDIRS} ; do \
+	  echo ;\
+	  echo "======================================================================" ;\
+	  echo "| Generating target '${TARGET}' in subdir '$$d'" ;\
+	  echo "----------------------------------------------------------------------" ;\
+	  ${MAKE} -C $$d ${TARGET} ${ECLIPSIFY} ${MAKE_OUTPUT_FILTER};\
+	  if [ "$$PIPESTATUS" != "0" ]; then \
+	    if echo "$$MAKEFLAGS" | grep -q -e "\(^k\|^[^ ].*k\| -k\)" - ; then \
+	      true ; \
+	    else \
+	      break ; \
+	    fi ; \
+	  fi ; \
+	  echo "----------------------------------------------------------------------" ;\
+	  echo -n "| Finished generating target '${TARGET}' in subdir '$$d' at " ;\
+	  date "+%F %H.%M.%S" ;\
+	  echo "======================================================================" ;\
+	done
+
+#
+#-----------------------------------------------------------------------
+
+#-----------------------------------------------------------------------
+# emacs settings:
+# Local Variables:
+# mode: Makefile
+# End:
+#-----------------------------------------------------------------------
+#//! \endcond
+########################################################################

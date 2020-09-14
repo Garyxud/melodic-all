@@ -1,0 +1,64 @@
+<launch>
+  <arg name="other_topics" default=""/>
+  <arg name="other_regex_topics" default=""/>
+  <arg name="other_options" default=""/>
+
+  <arg name="machine" default="localhost" />
+  <machine name="localhost" address="localhost" />
+
+  <arg name="save_openni" default="true" />
+  <arg name="save_openni2" default="false" />
+  <arg name="save_robot_model" default="true" />
+  <arg name="save_all_image" default="true" />
+  <arg name="save_multisense" default="false" />
+  <arg name="camera_namespace" default="openni"/>
+  
+  <arg name="save_dir"/> <!-- destination directory of bagfile -->
+  <arg name="bagfile_prefix"/> <!-- prefix of bagfile name (filename is prefix_date.bag) -->
+  <param name="mk_save_dir" command="mkdir -p $(arg save_dir)" />
+  <!--                          -->
+  <!--       Conditions         -->
+  <!--                          -->
+
+  <arg unless="$(arg save_openni)"
+       name="openni_topics" value="" />
+  <arg if    ="$(arg save_openni)"
+       name="openni_topics" value="/$(arg camera_namespace)/depth_registered/image_raw /$(arg camera_namespace)/depth_registered/camera_info /$(arg camera_namespace)/rgb/image_raw /$(arg camera_namespace)/rgb/camera_info /tf /tf_static" />
+
+  <arg unless="$(arg save_openni2)"
+       name="openni2_topics" value="" />
+  <arg if    ="$(arg save_openni2)"
+       name="openni2_topics" value="/$(arg camera_namespace)/depth_registered/image_raw /$(arg camera_namespace)/depth_registered/hw_registered/image_rect_raw /$(arg camera_namespace)/depth_registered/camera_info /$(arg camera_namespace)/rgb/image_raw /$(arg camera_namespace)/rgb/camera_info /tf /tf_static" />
+
+  <arg unless="$(arg save_robot_model)"
+       name="robot_model_topics" value="" />
+  <arg if    ="$(arg save_robot_model)"
+       name="robot_model_topics" value="/tf /tf_static /joint_states" />
+
+  <arg unless="$(arg save_all_image)"
+       name="all_image_topics" value="" />
+  <arg if    ="$(arg save_all_image)"
+       name="all_image_topics" value=" .*/(image|image_raw|camera_info)" />
+
+  <arg unless="$(arg save_multisense)"
+       name="multisense_topics" value="" />
+  <arg if    ="$(arg save_multisense)"
+       name="multisense_topics" value="/multisense/left/image_rect_color /multisense/left/camera_info
+                                       /multisense/depth /multisense/depth/camera_info
+                                       /tilt_laser_listener/output_cloud /multisense/imu/magnetometer" />
+
+  <!-- execute -->
+  <node name="default_rosbag_record" pkg="rosbag" type="record"
+        machine="$(arg machine)"
+        args="$(arg openni_topics)
+              $(arg openni2_topics) 
+              $(arg robot_model_topics) 
+              $(arg other_topics)
+              -o $(arg save_dir)/$(arg bagfile_prefix)
+              $(arg other_options)
+	      -e
+              $(arg all_image_topics)
+              $(arg multisense_topics)
+	      $(arg other_regex_topics)
+              "/>
+</launch>

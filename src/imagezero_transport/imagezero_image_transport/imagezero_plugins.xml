@@ -1,0 +1,13 @@
+<library path="lib/libimagezero_image_transport">
+  <class name="image_transport/imagezero_pub" type="imagezero_image_transport::ImageZeroPublisher" base_class_type="image_transport::PublisherPlugin">
+    <description>
+      This plugin publishes a CompressedImage using ImageZero compression.
+    </description>
+  </class>
+
+  <class name="image_transport/imagezero_sub" type="imagezero_image_transport::ImageZeroSubscriber" base_class_type="image_transport::SubscriberPlugin">
+    <description>
+      This plugin decompresses a CompressedImage topic using ImageZero compression.
+    </description>
+  </class>
+</library>

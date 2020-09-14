@@ -1,0 +1,17 @@
+<launch>
+  <arg name="record" default="false"/>
+  <arg name="bag_filename" default="recording.bag"/>
+
+  <node pkg="rosbag" type="record" name="recording"
+    args="record -O $(arg bag_filename)
+      /desistek_saga/dp_controller/trajectory
+      /desistek_saga/dp_controller/reference
+      /desistek_saga/pose_gt
+      /hydrodynamics/current_velocity
+      /desistek_saga/thruster_manager/input
+      /desistek_saga/wrench_perturbation
+      /desistek_saga/thrusters/0/thrust
+      /desistek_saga/thrusters/1/thrust
+      /desistek_saga/thrusters/2/thrust"
+    if="$(arg record)"/>
+</launch>

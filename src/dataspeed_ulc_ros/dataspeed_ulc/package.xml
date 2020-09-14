@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dataspeed_ulc</name>
+  <version>0.0.5</version>
+  <description>
+    CAN interface to the Universal Lat/Lon Controller (ULC) firmware
+  </description>
+
+  <license>BSD</license>
+  <author email="mradovnikovich@dataspeedinc.com">Micho Radovnikovich</author>
+  <maintainer email="mradovnikovich@dataspeedinc.com">Micho Radovnikovich</maintainer>
+  <url type="repository">https://bitbucket.org/dataspeedinc/dataspeed_ulc_ros</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/dataspeed_ulc_ros/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>dataspeed_ulc_can</exec_depend>
+  <exec_depend>dataspeed_ulc_msgs</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+
+</package>

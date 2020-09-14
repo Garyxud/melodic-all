@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>network_interface</name>
+  <version>2.1.0</version>
+  <description>Network interfaces and messages.</description>
+  <license>MIT</license>
+
+  <maintainer email="software@autonomoustuff.com">AutonomouStuff Software Development Team</maintainer>
+
+  <url type="bugtracker">https://github.com/astuff/network_interface/issues</url>
+  <url type="repository">https://github.com/astuff/network_interface</url>
+
+  <author email="jwhitley@autonomoustuff.com">Joshua Whitley</author>
+  <author email="dstanek@autonomoustuff.com">Daniel Stanek</author>
+  <author email="jkale@autonomoustuff.com">Joe Kale</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>roslint</build_depend>
+  <depend>std_msgs</depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <test_depend>rosunit</test_depend>
+</package>

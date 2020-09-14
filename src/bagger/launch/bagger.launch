@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <node name="bagger" pkg="bagger" type="bagger" output="screen" respawn="true">
+    <rosparam command="load" file="$(find bagger)/config/example_profiles.yaml" />
+  </node>
+</launch>

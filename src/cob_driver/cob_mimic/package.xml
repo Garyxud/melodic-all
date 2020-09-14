@@ -1,0 +1,32 @@
+<package format="2">
+  <name>cob_mimic</name>
+  <version>0.7.3</version>
+  <description>This package implements the Care-O-bot mimic</description>
+
+  <license>Apache 2.0</license>
+
+  <url type="website">http://ros.org/wiki/cob_mimic</url>
+
+  <maintainer email="felixmessmer@gmail.com">Felix Messmer</maintainer>
+  <maintainer email="benjamin.maidel@ipa.fraunhofer.de">Benjamin Maidel</maintainer>
+  <author email="nhg@ipa.fhg.de">Nadia Hammoudeh Garcia</author>
+  <author email="benjamin.maidel@ipa.fraunhofer.de">Benjamin Maidel</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <depend>actionlib_msgs</depend>
+  <depend>actionlib</depend>
+  <depend>boost</depend>
+  <depend>diagnostic_updater</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>libvlc-dev</depend>
+  <depend>roscpp</depend>
+  <depend>roslib</depend>
+  <depend>vlc</depend>
+
+  <exec_depend>rospy</exec_depend>
+
+</package>

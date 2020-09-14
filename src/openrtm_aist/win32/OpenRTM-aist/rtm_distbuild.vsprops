@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="OpenRTM-aist-$(RTM_SHORTVER)"
+	>
+	<UserMacro
+		Name="rtm_root"
+		Value="$(SolutionDir)"
+	/>
+	<UserMacro
+		Name="rtm_depend_libd"
+		Value="$(coil_libd) libRTCSkeld.lib $(omni_libd) advapi32.lib ws2_32.lib mswsock.lib"
+	/>
+	<UserMacro
+		Name="rtm_depend_lib"
+		Value="$(coil_lib) libRTCSkel.lib $(omni_lib) advapi32.lib ws2_32.lib mswsock.lib"
+	/>
+</VisualStudioPropertySheet>

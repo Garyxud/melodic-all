@@ -1,0 +1,17 @@
+<launch>
+
+  <include file="$(find jsk_perception)/sample/sample_slic_super_pixels.launch">
+    <arg name="gui" value="false" />
+  </include>
+
+  <test test-name="test_slic_super_pixels"
+        name="test_slic_super_pixels"
+        pkg="jsk_tools" type="test_topic_published.py"
+        retry="3">
+    <rosparam>
+      topic_0: /slic_super_pixels/output
+      timeout_0: 20
+    </rosparam>
+  </test>
+
+</launch>

@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+"""
+An iPython environment for making quick updates to the knowledgebase, or for exploring the Python API.
+Launch this script then type call methods on `ltmc` (try the tab completion to explore).
+"""
+from traitlets.config.loader import Config
+try:
+    get_ipython
+except NameError:
+    nested = 0
+    cfg = Config()
+else:
+    cfg = Config()
+    nested = 1
+
+
+from IPython.terminal.embed import InteractiveShellEmbed
+shell = InteractiveShellEmbed(config=cfg,
+                              banner1="knowledge_representation Interactive Shell 0.1.0",
+                              exit_msg="Leaving knowledge_representation Interactive Shell")
+
+LOGO = r"""
+           __             ___  __   __   ___      __   ___  __     
+|__/ |\ | /  \ |  | |    |__  |  \ / _` |__      |__) |__  |__)    
+|  \ | \| \__/ |/\| |___ |___ |__/ \__> |___ ___ |  \ |___ |                                                       
+"""
+
+import knowledge_representation
+from knowledge_representation import Entity, EntityAttribute, Concept, Instance, Map, Point, Pose, Region
+
+# Register __str__ as pretty printer for built in types
+formatter = shell.display_formatter.formatters['text/plain']
+str_printer = lambda obj, p, cycle: p.text(str(obj) if not cycle else '...')
+for type in [Entity, EntityAttribute, Concept, Instance, Map, Point, Pose, Region]:
+    formatter.for_type(type, str_printer)
+
+ltmc = knowledge_representation.get_default_ltmc()
+
+shell(LOGO)

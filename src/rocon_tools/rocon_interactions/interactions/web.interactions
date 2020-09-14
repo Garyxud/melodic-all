@@ -1,0 +1,20 @@
+##############################################################################
+# Web URLS
+###############################################################################
+
+interactions:
+    - name: Chimek
+      command: web_url(http://chimek.yujinrobot.com/)
+      group: 'Web'
+      compatibility: rocon:/*/*/*/chrome|firefox|safari|opera|internet_explorer
+      description: Everything you need to know about chimek to get through life.
+      icon:
+          resource_name: rocon_bubble_icons/chimek.png
+
+    - name: Ros Wiki - Interactions
+      command: web_url(http://wiki.ros.org/rocon_interactions)
+      group: 'Web'
+      compatibility: rocon:/*/*/*/chrome|firefox|safari|opera|internet_explorer
+      description: Documentation for rocon_interactions on the ros wiki
+      icon:
+          resource_name: rocon_bubble_icons/ros.png

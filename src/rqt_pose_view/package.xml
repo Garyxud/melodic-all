@@ -1,0 +1,34 @@
+<package>
+  <name>rqt_pose_view</name>
+  <version>0.5.8</version>
+  <description>rqt_pose_view provides a GUI plugin for visualizing 3D poses.</description>
+  <maintainer email="dthomas@osrfoundation.org">Dirk Thomas</maintainer>
+  <maintainer email="scholz@sim.tu-darmstadt.de">Dorian Scholz</maintainer>
+  <maintainer email="ablasdel@gmail.com">Aaron Blasdel</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://wiki.ros.org/rqt_pose_view</url>
+  <url type="repository">https://github.com/ros-visualization/rqt_pose_view</url>
+  <url type="bugtracker">https://github.com/ros-visualization/rqt_pose_view/issues</url>
+
+  <author>Dorian Scholz</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>gl_dependency</run_depend>
+  <run_depend>python-opengl</run_depend>
+  <run_depend version_gte="0.2.19">python_qt_binding</run_depend>
+  <run_depend>python-rospkg</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rostopic</run_depend>
+  <run_depend>rqt_gui</run_depend>
+  <run_depend>rqt_gui_py</run_depend>
+  <run_depend>rqt_py_common</run_depend>
+  <run_depend>tf</run_depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
+  </export>
+</package>

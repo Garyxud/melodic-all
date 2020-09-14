@@ -1,0 +1,21 @@
+<package>
+  <name>uos_gazebo_worlds</name>
+  <version>1.0.0</version>
+  <description>Gazebo world and model files for UOS.</description>
+  <maintainer email="mguenthe@uni-osnabrueck.de">Martin Guenther</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/uos_gazebo_worlds</url>
+
+  <author>Martin Guenther</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>gazebo_ros</run_depend>
+
+<export>
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+</export>
+
+</package>

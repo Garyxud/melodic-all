@@ -1,0 +1,4 @@
+# This config enables the bulkhead and the arm mounting plate
+
+MOOSE_BULKHEAD=1
+MOOSE_ARM_MOUNT=1

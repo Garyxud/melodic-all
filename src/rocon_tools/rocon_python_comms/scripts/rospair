@@ -1,0 +1,165 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_tools/license/LICENSE
+#
+##############################################################################
+# Imports
+##############################################################################
+
+import os
+import sys
+import socket
+import rospy
+import genpy
+import yaml
+import rocon_python_comms
+import rosgraph
+import argparse
+import rocon_console.console as console
+import roslib.message
+
+##############################################################################
+# Methods
+##############################################################################
+
+def full_usage():
+    """Print generic usage for rospair"""
+    print("""Commands:
+\trospair call\tcall the service pair server with the provided args
+\trospair info\tprint information about a service pair
+\trospair list\tlist active service pairs
+\trospair type\tprint service pair type
+
+Type rospair <command> -h for more detailed usage, e.g. 'rospair call -h'
+""")
+    sys.exit(getattr(os, 'EX_USAGE', 1))
+
+#    parser.add_argument('command', nargs=1, type=str, help="Command to pass through to rospair %s" % commands)
+    #parser.add_argument('-d', '--debug', action='store_true', help='print debugging information')
+
+def rospair_cmd_info(args):
+    parser = argparse.ArgumentParser(description='Gather information on an active service pair (client or server).')
+    args = parser.parse_args(args=args)
+    print("Todo: info on a service pair")
+
+def rospair_cmd_list(args):
+    parser = argparse.ArgumentParser(description='List all active service pairs (clients/servers/both).')
+    #parser.add_argument('namespace', nargs='?', default=None, help="Namespace to constrain the search list.")
+    args = parser.parse_args(args=args)
+    try:
+        master = rosgraph.Master('/rospair')
+        (pair_servers, pair_clients) = _get_pairs(master)
+        print(console.bold + "Pair Servers" + console.reset)
+        for server in pair_servers:
+            print("  %s" % server)
+        print(console.bold + "Pair Clients" + console.reset)
+        for client in pair_clients:
+            print("  %s" % client)
+    except socket.error:
+        raise ServicePairIOException("Unable to communicate with master!")
+
+def rospair_cmd_call(args):
+    parser = argparse.ArgumentParser(description='Call a service pair server.')
+    parser.add_argument('pair_name', nargs=1, type=str, help="Name of the service pair to lookup type for.")
+    parser.add_argument('yaml', nargs=argparse.REMAINDER, type=str, help="Yaml arguments to load the call.")
+    args = parser.parse_args(args=args)
+    pair_name = args.pair_name[0]
+    master = rosgraph.Master('/rospair')
+    service_pair_type_str = _get_service_pair_type(pair_name, master)
+    if service_pair_type_str is None:
+        console.logerror("Service pair not found [%s]" % pair_name)
+        sys.exit(1)
+    (pair_servers, unused_pair_clients) = _get_pairs(master)
+    if pair_name not in pair_servers:
+        console.logerror("Service pair server not found [%s]" % pair_name)
+        sys.exit(1)
+    #try:
+    service_pair_type = roslib.message.get_message_class(service_pair_type_str)
+    if service_pair_type is None:
+        console.logerror("Invalid service pair type: %s"% service_pair_type_str)
+        sys.exit(1)
+    service_pair_request_type = roslib.message.get_message_class(service_pair_type_str[:-len("Pair")] + "Request")
+    if service_pair_type is None:
+        console.logerror("Invalid service pair type: %s"% service_pair_type_str[:-len("Pair")] + "Request")
+        sys.exit(1)
+    rospy.init_node("rospair", anonymous=True)
+    service_pair_client = rocon_python_comms.ServicePairClient(pair_name, service_pair_type)
+    service_pair_client.wait_for_service(rospy.Duration(0.5))
+    request = service_pair_request_type()
+    yaml_content = []
+    for yaml_piece in args.yaml:
+        yaml_content.append(yaml.load(yaml_piece))
+    try:
+        genpy.message.fill_message_args(request, yaml_content)
+    except genpy.message.MessageException as e:
+        console.logerror("%s" % str(e))
+        sys.exit(1)
+    response = service_pair_client(request, timeout=rospy.Duration(2.0))
+    print("Response:\n%s" % str(response))
+
+def rospair_cmd_type(args):
+    parser = argparse.ArgumentParser(description='Get the type of a service pair.')
+    parser.add_argument('pair_name', nargs=1, type=str, help="Name of the service pair to lookup type for.")
+    args = parser.parse_args(args=args)
+    master = rosgraph.Master('/rospair')
+    service_pair_type = _get_service_pair_type(args.pair_name[0], master)
+    if service_pair_type is not None:
+        print("%s" % service_pair_type)
+    else:
+        console.logerror("Service pair does not exist [%s]" % args.pair_name[0])
+
+def _get_service_pair_type(pair_name, master):
+    topic_types = master.getTopicTypes()
+    for [topic, type] in topic_types:
+        if pair_name + '/response' == topic:
+            return "%s" % type[:-len('Response')]
+    return None
+    
+def _get_pairs(master):
+    try:
+        (publisher_info, subscriber_info, unused_services) = master.getSystemState()
+        subs = [sub for [sub, node_list] in subscriber_info if sub.endswith('/response') or sub.endswith('request')]
+        pubs = [pub for [pub, node_list] in publisher_info if pub.endswith('/response') or pub.endswith('request')]
+        pair_servers = []
+        pair_clients = []
+        for pub in pubs:
+            if pub.endswith('/response'):
+                server_name = pub[:-len('/response')]
+                if server_name + '/request' in subs:
+                    # could use an additional topic type check for 'Pair' in the name of the msg
+                    pair_servers.append(server_name)
+            elif pub.endswith('/request'):
+                client_name = pub[:-len('/request')]
+                if client_name + '/response' in subs:
+                    # could use an additional topic type check for 'Pair' in the name of the msg
+                    pair_clients.append(client_name)
+    except socket.error:
+        raise ServicePairIOException("Unable to communicate with master!")
+    return (pair_servers, pair_clients)
+
+
+##############################################################################
+# Main
+##############################################################################
+
+if __name__ == '__main__':
+    argv=sys.argv
+    if len(argv) == 1:
+        full_usage()
+    command = argv[1]
+    args = argv[2:]
+    commands = {'info' : rospair_cmd_info,
+                'call' : rospair_cmd_call, 
+                'list' : rospair_cmd_list,
+                'type' : rospair_cmd_type
+               }
+    try:
+        commands[command](args)
+    except rocon_python_comms.ServicePairIOException as e:
+        console.logerror("%s" % str(e))
+        sys.exit(1)
+    except KeyError:
+        full_usage()
+
+    #args = parse_arguments()

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <rtm_root>..\..\</rtm_root>
+    <cv_lib>"cv.lib";"cvcam.lib";"highgui.lib";"cxcore.lib"</cv_lib>
+    <cv_libd>"cv.lib";"cvcam.lib";"highgui.lib";"cxcore.lib"</cv_libd>
+    <user_lib>$(cv_lib)</user_lib>
+    <user_libd>$(cv_libd)</user_libd>
+    <cv_root>C:\Program Files\OpenCV</cv_root>
+    <cv_includes>"$(cv_root)\cv\include";"$(cv_root)\cvaux\include";"$(cv_root)\cxcore\include";"$(cv_root)\otherlibs\highgui";"$(cv_root)\otherlibs\cvcam\include"</cv_includes>
+    <cv_libdir>$(cv_root)\lib</cv_libdir>
+    <cv_bin>$(cv_root)\bin</cv_bin>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_PropertySheetDisplayName>OpenCV</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(cv_includes);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(cv_libdir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="rtm_root">
+      <Value>$(rtm_root)</Value>
+    </BuildMacro>
+    <BuildMacro Include="user_lib">
+      <Value>$(user_lib)</Value>
+    </BuildMacro>
+    <BuildMacro Include="user_libd">
+      <Value>$(user_libd)</Value>
+    </BuildMacro>
+    <BuildMacro Include="cv_root">
+      <Value>$(cv_root)</Value>
+    </BuildMacro>
+    <BuildMacro Include="cv_includes">
+      <Value>$(cv_includes)</Value>
+    </BuildMacro>
+    <BuildMacro Include="cv_libdir">
+      <Value>$(cv_libdir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="cv_bin">
+      <Value>$(cv_bin)</Value>
+    </BuildMacro>
+    <BuildMacro Include="cv_lib">
+      <Value>$(cv_lib)</Value>
+    </BuildMacro>
+    <BuildMacro Include="cv_libd">
+      <Value>$(cv_libd)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,7 @@
+// Excluding directories.
+util/admin
+sample/model/mockup
+java/plugins
+sample/JoystickControl/TkJoyStick
+sample/JoystickControl/JoystickComponent-project.zip
+

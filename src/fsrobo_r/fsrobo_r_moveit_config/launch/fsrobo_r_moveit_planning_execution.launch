@@ -1,0 +1,17 @@
+<launch>
+  <arg name="sim" default="false" />
+  <arg name="limited" default="false"/>
+  <arg name="debug" default="false" />
+
+  <!-- kinematics -->
+  <arg name="kinematics" default="kinematics"/>
+
+  <!-- Remap follow_joint_trajectory -->
+  <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/>
+  
+  <!-- Launch moveit -->
+  <include file="$(find fsrobo_r_moveit_config)/launch/move_group.launch">
+    <arg name="debug" default="$(arg debug)" />
+    <arg name="kinematics" value="$(arg kinematics)"/>
+  </include>
+</launch>

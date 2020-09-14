@@ -1,0 +1,166 @@
+class update_dbw_fca_msgs_Misc1Report_69b8d73a35bd68d7646a5e2e37b66f50(MessageUpdateRule):
+	old_type = "dbw_fca_msgs/Misc1Report"
+	old_full_text = """
+Header header
+
+# Turn Signal enumeration
+TurnSignal turn_signal
+
+# Buttons
+bool btn_cc_on_off    # Cruise Control On/Off Toggle
+bool btn_cc_res       # Cruise Control Resume
+bool btn_cc_cncl      # Cruise Control Cancel
+bool btn_cc_set_inc   # Cruise Control Set+
+bool btn_cc_set_dec   # Cruise Control Set-
+bool btn_cc_gap_inc   # Cruise Control Gap+
+bool btn_cc_gap_dec   # Cruise Control Gap-
+bool btn_cc_mode      # Cruise Control Mode
+bool btn_ld_ok        # Left D-Pad OK
+bool btn_ld_up        # Left D-Pad Up
+bool btn_ld_down      # Left D-Pad Down
+bool btn_ld_left      # Left D-Pad Left
+bool btn_ld_right     # Left D-Pad Right
+
+# Faults
+bool fault_bus
+
+# Doors
+bool door_rear_left
+bool door_rear_right
+bool door_trunk
+
+================================================================================
+MSG: std_msgs/Header
+# Standard metadata for higher-level stamped data types.
+# This is generally used to communicate timestamped data 
+# in a particular coordinate frame.
+# 
+# sequence ID: consecutively increasing ID 
+uint32 seq
+#Two-integer timestamp that is expressed as:
+# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')
+# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')
+# time-handling sugar is provided by the client library
+time stamp
+#Frame this data is associated with
+string frame_id
+
+================================================================================
+MSG: dbw_fca_msgs/TurnSignal
+uint8 value
+
+uint8 NONE=0
+uint8 LEFT=1
+uint8 RIGHT=2
+"""
+
+	new_type = "dbw_fca_msgs/Misc1Report"
+	new_full_text = """
+Header header
+
+# Turn Signal enumeration
+TurnSignal turn_signal
+
+# Highbeam headlights / flash to pass enumeration
+HighBeam high_beam
+
+# Front Windshield Wipers enumeration
+Wiper wiper
+
+# Buttons
+bool btn_cc_on_off    # Cruise Control On/Off Toggle
+bool btn_cc_res       # Cruise Control Resume
+bool btn_cc_cncl      # Cruise Control Cancel
+bool btn_cc_set_inc   # Cruise Control Set+
+bool btn_cc_set_dec   # Cruise Control Set-
+bool btn_cc_gap_inc   # Cruise Control Gap+
+bool btn_cc_gap_dec   # Cruise Control Gap-
+bool btn_cc_mode      # Cruise Control Mode
+bool btn_ld_ok        # Left D-Pad OK
+bool btn_ld_up        # Left D-Pad Up
+bool btn_ld_down      # Left D-Pad Down
+bool btn_ld_left      # Left D-Pad Left
+bool btn_ld_right     # Left D-Pad Right
+
+# Faults
+bool fault_bus
+
+# Doors
+bool door_rear_left
+bool door_rear_right
+bool door_trunk
+
+================================================================================
+MSG: std_msgs/Header
+# Standard metadata for higher-level stamped data types.
+# This is generally used to communicate timestamped data 
+# in a particular coordinate frame.
+# 
+# sequence ID: consecutively increasing ID 
+uint32 seq
+#Two-integer timestamp that is expressed as:
+# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')
+# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')
+# time-handling sugar is provided by the client library
+time stamp
+#Frame this data is associated with
+string frame_id
+
+================================================================================
+MSG: dbw_fca_msgs/TurnSignal
+uint8 value
+
+uint8 NONE=0
+uint8 LEFT=1
+uint8 RIGHT=2
+uint8 HAZARD=3
+
+================================================================================
+MSG: dbw_fca_msgs/HighBeam
+uint8 value
+
+uint8 IDLE=0
+uint8 HIBM_FLASH_ON=1
+uint8 HIBM_ON=2
+================================================================================
+MSG: dbw_fca_msgs/Wiper
+uint8 status
+
+uint8 OFF=0
+uint8 MANUAL_ON=4
+uint8 MANUAL_LOW=5
+uint8 MANUAL_HIGH=6
+uint8 MIST_FLICK=7
+uint8 WASH=8
+uint8 FLT=14
+"""
+
+	order = 2
+	migrated_types = [
+		("Header","Header"),
+		("TurnSignal","TurnSignal"),]
+
+	valid = True
+
+	def update(self, old_msg, new_msg):
+		self.migrate(old_msg.header, new_msg.header)
+		self.migrate(old_msg.turn_signal, new_msg.turn_signal)
+		new_msg.high_beam = self.get_new_class('dbw_fca_msgs/HighBeam')()
+		new_msg.wiper = self.get_new_class('dbw_fca_msgs/Wiper')()
+		new_msg.btn_cc_on_off = old_msg.btn_cc_on_off
+		new_msg.btn_cc_res = old_msg.btn_cc_res
+		new_msg.btn_cc_cncl = old_msg.btn_cc_cncl
+		new_msg.btn_cc_set_inc = old_msg.btn_cc_set_inc
+		new_msg.btn_cc_set_dec = old_msg.btn_cc_set_dec
+		new_msg.btn_cc_gap_inc = old_msg.btn_cc_gap_inc
+		new_msg.btn_cc_gap_dec = old_msg.btn_cc_gap_dec
+		new_msg.btn_cc_mode = old_msg.btn_cc_mode
+		new_msg.btn_ld_ok = old_msg.btn_ld_ok
+		new_msg.btn_ld_up = old_msg.btn_ld_up
+		new_msg.btn_ld_down = old_msg.btn_ld_down
+		new_msg.btn_ld_left = old_msg.btn_ld_left
+		new_msg.btn_ld_right = old_msg.btn_ld_right
+		new_msg.fault_bus = old_msg.fault_bus
+		new_msg.door_rear_left = old_msg.door_rear_left
+		new_msg.door_rear_right = old_msg.door_rear_right
+		new_msg.door_trunk = old_msg.door_trunk

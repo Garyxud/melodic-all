@@ -1,0 +1,19 @@
+<launch>
+  <arg name="wait_for_supervisor" default="true" />
+  <arg name="autostart" default="true" />
+  <arg name="autostart_after_reconfigure" default="false"/>
+  <arg name="heartbeat_rate" default="1.0"/>
+
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find robot_activity_tutorials)/rosconsole.conf"/>
+  <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${logger}] [${time}]: ${message}"/>
+
+  <node pkg="robot_activity_tutorials" type="robot_activity_tutorials_node" name="robot_activity_tutorials"
+    output="screen">
+<!-- launch-prefix="valgrind" --> <!--leak-check=full -v">"-->
+    <param name="wait_for_supervisor" type="bool" value="$(arg wait_for_supervisor)" />
+    <param name="autostart" type="bool" value="$(arg autostart)" />
+    <param name="autostart_after_reconfigure" type="bool" value="$(arg autostart_after_reconfigure)" />
+    <param name="heartbeat_rate" type="double" value="$(arg heartbeat_rate)" />
+  </node>
+
+</launch>

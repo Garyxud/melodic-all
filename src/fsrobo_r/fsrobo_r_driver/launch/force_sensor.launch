@@ -1,0 +1,20 @@
+<launch>
+
+  <arg name="planning_group" default="manipulator" />
+  <arg name="robot_name" default="/" />
+  <arg name="remote" default="False" />
+  <arg name="address" default="" />
+  <arg name="env-loader" default="" />
+  <arg name="user" default="rosusr" />
+  <arg name="password" default="" />
+
+  <machine if="$(arg remote)" name="adapter" address="$(arg address)" env-loader="$(arg env-loader)" default="true" user="$(arg user)" password="$(arg password)" />
+
+  <group ns="$(arg robot_name)">
+    <!-- force_publisher: force sensor -->
+    <node pkg="fsrobo_r_driver" type="force_publisher.py" name="force_publisher"/>
+    <!-- force_observer: stop trajectory if force limit is exceeded -->
+    <node pkg="fsrobo_r_driver" type="force_observer.py" name="force_observer" args="$(arg planning_group)" output="screen" />
+
+  </group>
+</launch>

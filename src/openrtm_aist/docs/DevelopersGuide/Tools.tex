@@ -1,0 +1,815 @@
+% -*- LaTeX -*-
+%
+% @file Tools.tex
+% @brief OpenRTM-aist developers guide [Tools]
+% @date $Date: 2005-05-12 09:06:21 $
+% @author Noriaki Ando <n-ando@aist.go.jp>
+%
+% Copyright (C) 2003-2005
+%     Task-intelligence Research Group,
+%     Intelligent Systems Research Institute,
+%     National Institute of
+%         Advanced Industrial Science and Technology (AIST), Japan
+%     All rights reserved.
+%
+% $Id$
+%
+
+\chapter{OpenRTM\--aist ツール}\label{chap:OpenRTM-Tools}
+
+本章では、OpenRTM\--aist に付属のツールについて説明します。
+OpenRTM\--aist には開発をサポートするためのツール群がいくつか用意されています。
+まだ、基本的なツールしかありませんが、今後ユーザの要望に沿う形で増やして行く予定です。
+
+\section{RTCLink}\label{sec:RTCLink}
+RTコンポーネントを組み合わせてシステムを構築するにはいくつかの方法があります。
+
+\begin{itemize}
+\item GUIによる方法
+\item XML による方法
+\item スクリプトによる方法
+\item コンポーネントからの直接アクセス
+\item 通常のアプリケーションからの直接アクセス
+\end{itemize}
+
+このうち、もっとも直感的でわかりやすいシステム構築法はこれから説明するGUI(RTCLink)による構築方法です。
+この方法はコンポーネントのInPort/OutPortをマウスによるドラッグアンドドロップで接続し、GUIからの操作でコンポーネントのON/OFFを行うことによりシステムを組み立て動作させることが出来ます。
+直感的でわかりやすく、システムの組み換えも簡単に行えるため、コンポーネントのテスト段階やシステム構築のテスト段階により適している方法です。
+
+\subsection{動作条件}
+RTCLink は Python のツールキットのひとつである wxPython で記述されています。
+したがって、Python と wxPython が動作する環境であればどのOS上でも動作させることが出来ます。
+
+動作条件は以下のとおりです。
+
+\begin{tab}{● RTCLink 動作条件}
+\begin{tabular}{ll}
+Python & Python 2.3 以上 \\
+wxPython & wxPython 2.5.1.5u \\
+OpenRTM & aist-0.2.0 以上 \\
+\end{tabular}
+\end{tab}
+
+
+\subsection{起動}
+RTCLink を起動させると図~\ref{fig:RTCLink}のようなウインドウが現れます。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RTCLink.eps,width=0.9\columnwidth}}
+\caption{RTCLink}
+\label{fig:RTCLink}
+\end{figure}
+
+RTCLink は大きく分けて以下の4つのウインドウから構成されています。
+
+\begin{itemize}
+\item ネーミングウインドウ
+\item ログウインドウ
+\item プロファイルウインドウ
+\item システムドローウインドウ
+\end{itemize}
+
+\subsection{ネーミングウインドウ}
+左側のウインドウはネーミングサービスに登録されているコンポーネントネームツリーを表示するウインドウです。
+コンポーネントは起動されると所定のネーミングサービス(設定ファイル：通常は \verb|rtc.conf| に記述されているネーミングサービス)に自分の名前を登録します。
+ネーミングウインドウではその名前を見ることが出来ます。
+
+名前の登録の仕方には2つの種類があります。
+
+\begin{tab}{● 名前の登録の仕方}
+\begin{tabular}{lp{110mm}}
+ロングネーム & ホストコンテキスト/マネージャコンテキスト/カテゴリコンテキスト/モジュールコンテキスト/コンポーネントからなる階層により定義される名前。一意性が保証され、名前が衝突することはない。デフォルトではこの名前がネームサービスに登録されます。\\
+エイリアス & コンポーネントの別名。ユーザが任意の階層構造で名前を登録することが出来る。もちろん、階層化しない登録も可能。ただし、一意性は保証されないためユーザが名前の衝突を起こさないように考慮する必要がある。もし名前の衝突が発生した場合には、古いオブジェクトは新しいオブジェクトで上書きされる。\\
+\end{tabular}
+\end{tab}
+
+エイリアスの登録の仕方は \verb|RtcBase| クラスリファレンス \verb|appendAlias()| の項を参照してください。
+
+\subsubsection{ネームサーバへの接続}
+起動時、RTCLinkはデフォルトのネームサーバへ接続します。
+デフォルトのネームサーバは、最後に接続したネームサーバ(履歴ファイルが存在する場合)もしくは、ローカルホスト上のネームサーバになります。
+
+現在接続しているネームサーバはツリーのルートアイテムのラベルとして表示されています。
+
+現在と異なるネームサーバへ接続したい場合には、
+\begin{tab}{● ネームサーバへの接続}
+\begin{tabular}{ll}
+ツールバー上の\epsfile{file=icon/Connect.eps,width=5mm} ボタンを押す\\
+メニューバーの「File」-「Connect Name Server」を選択する\\
+ネーミングツリーのルートアイテム上で右クリックし 「Connect」 を選択する\\
+\end{tabular}
+\end{tab}
+のいずれかの方法でネームサーバ接続ダイアログを表示させます(図~\ref{fig:NameServerDialog})。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/NameServerDialog.eps,width=0.5\columnwidth}}
+\caption{ネームサーバ接続ダイアログ}
+\label{fig:NameServerDialog}
+\end{figure}
+
+接続したいネームサーバのアドレスとポート番号を \verb|name_server:port| の形式で入力しOKを押すと接続されます。
+ポート番号が省略された場合 omniORB のデフォルトのネームサービスポート番号が使用されます。
+
+\subsubsection{アイテムとコンテキストメニュー}
+ネーミングツリー上で表示されるアイテムは以下のとおりです。
+
+\begin{tab}{}
+\begin{tabular}{ll}
+\epsfile{file=icon/Computer.eps,width=5mm} & ホストコンテキスト \\
+\epsfile{file=icon/Manager.eps,width=5mm} & マネージャコンテキスト \\
+\epsfile{file=icon/Category.eps,width=5mm} & カテゴリコンテキスト \\
+\epsfile{file=icon/Module.eps,width=5mm} & モジュールコンテキスト \\
+\epsfile{file=icon/Component.eps,width=5mm} & コンポーネント \\
+\end{tabular}
+\end{tab}
+
+ネーミングツリーのアイテム上で右クリックをすると、アイテム毎のコンテキストメニューが表示されます。
+
+各アイテムにおけるコンテキストメニューは以下のようになっています。
+
+\begin{tab}{● マネージャコンテキスト (未実装)}
+\begin{tabular}{ll}
+Create & コンポーネントの生成 \\
+Load & モジュールのロード \\
+Delete & ネーミングコンテキストの削除 \\
+%Property & マネージャのプロパティ \\
+\end{tabular}
+\end{tab}
+
+\begin{tab}{● モジュールコンテキスト (未実装)}
+\begin{tabular}{ll}
+Create & コンポーネントの生成 \\
+Delete & ネーミングコンテキストの削除 \\
+%Property & マネージャのプロパティ \\
+\end{tabular}
+\end{tab}
+
+\begin{tab}{● コンポーネント}
+\begin{tabular}{ll}
+Start & コンポーネントの起動 \\
+Stop & コンポーネントの停止 \\
+Reset & コンポーネントのリセット \\
+Exit & コンポーネントの終了 \\
+Kill & コンポーネントの強制終了 \\
+Delete & ネーミングコンテキストの削除 \\
+Profile & コンポーネントプロファイル \\
+\end{tabular}
+\end{tab}
+
+%\begin{figure}[H]
+%\begin{center}
+%\begin{minipage}{0.3\columnwidth}
+%\vbox to 40mm{%
+%\epsfile{file=figs/ContextMenu_Manager.eps,width=0.5\columnwidth}\vss}
+%\caption{マネージャコンテキストメニュー}
+%\label{fig:ContextMenu_Manager}
+%\end{minipage}
+%\begin{minipage}{0.3\columnwidth}
+%\vbox to 40mm{%
+%\epsfile{file=figs/ContextMenu_Module.eps,width=0.5\columnwidth}\vss}
+%\caption{マネージャコンテキストメニュー}
+%\label{fig:ContextMenu_Module}
+%\end{minipage}
+%\begin{minipage}{0.3\columnwidth}
+%\vbox to 40mm{%
+%\epsfile{file=figs/ContextMenu_Component.eps,width=0.5\columnwidth}\vss}
+%\caption{マネージャコンテキストメニュー}
+%\label{fig:ContextMenu_Component}
+%\end{minipage}
+%\end{center}
+%\end{figure}
+%
+
+\subsection{ログウインドウ}
+OpenRTMではネームサービスのネームスペース内にグローバルなログ収集コンポーネント(GlobalLogger)をトップレベルにおくことが出来ます。
+さらに、コンポーネントから出力されるログメッセージをこのログ収集コンポーネントに集めることが出来ます。
+ログウインドウはこの GlobalLogger に入力されたログメッセージを表示することで、全てのコンポーネントが出力するログメッセージを常時監視することが出来ます。
+
+\subsection{プロファイルウインドウ}
+コンポーネントのプロファイルを表示するウインドウです。
+表示されるプロファイルは以下のとおりです。
+\begin{tab}{}
+\begin{tabular}{ll}
+\bf Instance ID & コンポーネントインスタンスID (コンポーネント名)\\
+\bf Implementation ID & コンポーネント実装ID (モジュール名)\\
+\bf Maker & コンポーネントの作成者\\
+\bf Description & コンポーネントの概要説明\\
+\bf Version & コンポーネントのバージョン\\
+\bf Category & コンポーネントのカテゴリ\\
+\bf Component Type & コンポーネントタイプ\\
+\bf Activity Type & アクティビティタイプ\\
+\bf Max Instance & 最大のインスタンス数\\
+\bf Language & コンポーネント記述言語\\
+\bf Language Type & コンポーネント記述言語タイプ\\
+\bf InPort Profile & InPortのプロファイル\\
+\bf OutPort Profile & OutPortのプロファイル\\
+\end{tabular}
+\end{tab}
+
+\subsection{システムドローウインドウ}
+中央部はシステム構築のためのシステムドローウインドウです。
+マルチウインドウ(UNIXではタブウインドウ)表示となっています。
+
+\begin{tab}{● システムドローウインドウの表示}
+\begin{itemize}\itemsep=-5mm
+\item ツールバー上の\epsfile{file=icon/NewRTSystem.eps,width=5mm} ボタンを押す\\
+\item メニューバーの「File」-「New System」を選択する\\
+\end{itemize}
+\end{tab}
+システムドローウインドウは、ツールバーの\epsfile{file=icon/NewRTSystem.eps,width=5mm} ボタンを押すか、メニューバーの「File」-「New System」を選択することで新規に開くことが出来ます。
+ここにネーミングウインドウからコンポーネントをドラッグアンドドロップし、システムを組み立ててゆきます。
+
+\subsection{システムドローウインドウ上でのシステム構築}
+\subsubsection{コンポーネントの配置}
+ネーミングツリーウインドウをクリックしてツリーを展開してゆきます。
+
+ツリー画面上に当該コンポーネント名がない場合は、以下の点を確認してください。
+\begin{itemize}
+\item ネーミングサービスが起動しているかどうか？ (起動及びポート番号の確認)
+\item コンポーネントが起動しているかどうか？
+\end{itemize}
+
+ツリー画面上のコンポーネント名(\epsfile{file=icon/Component.eps,width=5mm})をマウスの左ボタンを押してドラッグし、システムドローウインドウにドロップします。
+すると、コンポーネントブロックが表示されます。
+
+起動されていないコンポーネントをドラッグ\&ドロップした場合には、黒いブロックが表示されます。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/RTCLinkDnD.eps,width=0.9\columnwidth}}
+\caption{ドラッグアンドドロップによるコンポーネントの配置。　前回のシステム構築時に、コンポーネントを接続したままRtcLinkを終了した場合は、当該コンポーネントを配置した時に、前回の接続状態が再現されます。}
+\label{fig:ComponentDnD}
+\end{figure}
+
+\subsubsection{RTコンポーネントの選択・移動・削除}
+
+\begin{description}
+%============================================================
+\item[選択]
+選択したいコンポーネントをマウスの左ボタンでクリックします(図~\ref{fig:ComponentSelect})。
+複数のRTコンポーネントを選択するには[Shiftキー]＋[マウスの左ボタン]でクリックし連続選択します(図~\ref{fig:ComponentsSelect})。
+コンポーネントが選択されて選択色になります。
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ComponentSelect.eps,width=75mm}}
+\caption{コンポーネントの選択}
+\label{fig:ComponentSelect}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ComponentsSelect.eps,width=75mm}}
+\caption{複数コンポーネントの選択}
+\label{fig:ComponentsSelect}
+\end{minipage}
+\end{center}
+\end{figure}
+%============================================================
+\item[移動]
+選択色のコンポーネントをマウスの左ボタンでドラッグすると移動することができます(図~\ref{fig:ComponentMove})。
+複数選択している場合は、選択色のコンポーネントのどれかを[マウスの左ボタン]でドラッグすると選択されたすべてのコンポーネントを同時に移動することができます。
+%============================================================
+\item[選択解除]
+RTコンポーネント以外の領域で[マウスの左ボタン]をクリックすると、選択が解除されます(図~\ref{fig:ComponentUnselect})。
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ComponentMove.eps,width=75mm}}
+\caption{RTコンポーネントの移動}
+\label{fig:ComponentMove}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ComponentUnselect.eps,width=75mm}}
+\caption{コンポーネントの選択解除}
+\label{fig:ComponentUnselect}
+\end{minipage}
+\end{center}
+\end{figure}
+%============================================================
+\item[削除]
+RTコンポーネント上で[マウスの右ボタン]をクリックするとコンテキストメニューが表示されます。
+メニュー内の'Delete Item'を選択またはDeleteキーを押すと、マウスカーソルの下のRTコンポーネントがSystem画面上から削除される(図~\ref{fig:ComponentDelete})。
+複数のコンポーネントを削除する場合は、最初に削除対象のRTコンポーネントを選択状態にします。
+次にコンポーネント外の領域で[マウスの右ボタン]をクリックするとコンテキストメニューが表示されますので、メニュー内の'Delete to Selected Item'を選択またはDeleteキーを押すと選択色のコンポーネントがシステムドローウインドウ上から削除されます。
+この削除は、システムドローウインドウ上からの削除ですので、コンポーネントそのものが削除されるわけではありません。
+\begin{figure}[H]
+\centering{\epsfile{file=figs/ComponentDelete.eps,width=75mm}}
+\caption{コンポーネントの削除}
+\label{fig:ComponentDelete}
+\end{figure}
+%============================================================
+\item[左右反転]
+コンポーネントを[マウスの中ボタン]でクリックすると、コンポーネントが左右反転表示されInportとOutPortの位置が入れ替わります(図~\ref{fig:ComponentFlipLR})。
+%============================================================
+\item[回転]
+コンポーネントを[Shiftキー]＋[マウスの中ボタン]でクリックすると、インポートとアウトポートの位置が上下方向に入れ替わる(図~\ref{fig:ComponentRotate})。
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ComponentFlipLR.eps,width=75mm}}
+\caption{コンポーネントの左右反転}
+\label{fig:ComponentFlipLR}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ComponentRotate.eps,width=75mm}}
+\caption{コンポーネントの回転}
+\label{fig:ComponentRotate}
+\end{minipage}
+\end{center}
+\end{figure}
+
+%============================================================
+\item[拡大縮小]
+コンポーネントが選択状態の時に表示される四隅の黒い点を[マウスの左ボタン]でドラッグすると拡大縮小を行うことができます(図~\ref{fig:ComponentMag})。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/ComponentMag.eps,width=75mm}}
+\caption{コンポーネントの拡大縮小}
+\label{fig:ComponentMag}
+\end{figure}
+
+\end{description}
+
+\subsubsection{InPort/OutPortの名前と型情報の表示}
+
+InPort/OutPortを[マウスの右ボタン]でクリックすると、ポートの名前と型情報が表示されます(図~\ref{fig:InPortOutPortTypeName})。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/InPortOutPortTypeName.eps,width=75mm}}
+\caption{InPort/OutPortの名前と型情報の表示}
+\label{fig:InPortOutPortTypeName}
+\end{figure}
+
+
+
+\subsubsection{コンポーネントの接続と接続解除}
+RTコンポーネントを接続する方法は、以下の2通りあります。
+
+\begin{description}
+\item[InPort/OutPortをクリックして接続]
+接続元のインポートを[マウスの左ボタン] でクリック(図~\ref{fig:Connect1-1})した後で、接続先のアウトポートを[マウスの左ボタン] でクリック(図~\ref{fig:onnect1-2})する。
+インポートとアウトポートが線で接続されて接続色になります。
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/Connect1-1.eps,width=75mm}}
+\caption{コンポーネントの接続1(a)}
+\label{fig:Connect1-1}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/Connect1-2.eps,width=75mm}}
+\caption{コンポーネントの接続1(b)}
+\label{fig:Connect1-2}
+\end{minipage}
+\end{center}
+\end{figure}
+
+\item[InPort/OutPort間をドラッグアンドドロップで接続]
+接続元のインポートを[マウスの左ボタン] でクリックしたままの状態で、接続先のアウトポートへマウスカーソルをドラッグ(図~\ref{fig:Connect2-1})して、ボタンを離します。
+インポートとアウトポートが線で接続されて接続色になります(図~\ref{fig:Connect2-2})。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/Connect2-1.eps,width=75mm}}
+\caption{コンポーネントの接続2(a)}
+\label{fig:Connect2-1}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/Connect2-2.eps,width=75mm}}
+\caption{コンポーネントの接続2(b)}
+\label{fig:Connect2-2}
+\end{minipage}
+\end{center}
+\end{figure}
+
+\item[コンポーネントの接続を解除する]
+接続を解除したい線を[マウスの左ボタン]でクリックし選択(図~\ref{fig:ConnectDelete1})した後で、[Deleteキー]を押下する(図~\ref{fig:ConnectDelete2})。
+
+\begin{figure}[H]
+\begin{center}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConnectDelete1.eps,width=75mm}}
+\caption{接続の解除(a)}
+\label{fig:ConnectDelete1}
+\end{minipage}
+\begin{minipage}{75mm}
+\centering{\epsfile{file=figs/ConnectDelete2.eps,width=75mm}}
+\caption{接続の解除(b)}
+\label{fig:ConnectDelete2}
+\end{minipage}
+\end{center}
+\end{figure}
+
+\item[接続した線を移動する]
+ポートを接続した線が折れ線になっている時は、線を移動することができます。
+線を[マウスの左ボタン] でクリックすると、移動可能な線の上に赤丸が表示されます。
+赤丸印を[マウスの左ボタン] でドラッグすると線を移動することができます。
+水平線は上下方向に、垂直線は左右方向に移動できます(図~\ref{fig:LineMove})。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/LineMove.eps,width=75mm}}
+\caption{折れ線の移動}
+\label{fig:LineMove}
+\end{figure}
+
+\end{description}
+
+\subsubsection{コンポーネントのStart/Stop等}
+
+コンポーネントブロック上で右クリックをすると、コンテキストメニューが表示されます(図~\ref{fig:CompStart})。
+\begin{figure}[H]
+\centering{\epsfile{file=figs/CompStart.eps,width=70mm}}
+\caption{コンポーネントのStart}
+\label{fig:CompStart}
+\end{figure}
+
+コンテキストメニューには以下ような項目があります。
+このメニューからコンポーネントのStart, Stop 等の操作を行うことが出来ます。
+Startしている状態でStartメニューを選んだり、Stopしている状態でStopメニューを選択することも出来ますが、その場合は何も起こりません。
+
+\begin{tab}{●コンポーネントコンテキストメニュー}
+\begin{tabular}{ll}
+Start & コンポーネントの起動 \\
+Stop & コンポーネントの停止 \\
+Reset & コンポーネントのリセット \\
+Exit & コンポーネントの終了 \\
+Kill & コンポーネントの強制終了 \\
+Delete Item & コンポーネントの削除
+\end{tabular}
+\end{tab}
+
+
+
+\subsection{システムのセーブとロード}
+RTCLink ではシステムドローウィンドウに構成したシステムの状態を保存したり、保存したシステムを復元することが出来ます。
+
+\subsubsection{構築したシステムの保存}
+システムの保存を行うには、以下の2通りの方法があります。
+
+\subsubsection*{Save System}
+システムドローウィンドウ上に構成したシステムをデフォルト名 (システムドローウィンドウのタイトル)でXMLファイルに保存します。
+例えば、ウィンドウのタイトルが「System:1」の場合は、System1.xmlというファイル名になります。
+
+\begin{tab}{● 構築したシステムをデフォルト名で保存}
+\begin{tabular}{l}
+メニューバーの「File」−「Save System」を選択する \\
+システムドローウィンドウで[右クリック]しメニューから「Save System」を選択する \\
+\end{tabular}
+\end{tab}
+
+\subsubsection*{Save System as}
+システムドローウィンドウ上に構成したシステムをユーザ任意のファイル名で保存します。
+名前を付けて保存したい場合は、
+\begin{tab}{● 構築したシステムを名前を付けて保存}
+\begin{tabular}{l}
+メニューバーの「File」−「Save System As」を選択する\\
+システムドローウィンドウで[右クリック]しメニューから「Save System As」を選択する\\
+\end{tabular}
+\end{tab}
+
+Save System as の場合は、ファイルセーブ・ダイアログが表示されます(図~\ref{fig:SaveAsDialog})。
+
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/SaveAsDialog.eps,width=0.5\columnwidth}}
+\caption{ファイルセーブ・ダイアログ}
+\label{fig:SaveAsDialog}
+\end{figure}
+ 
+ファイルセーブ・ダイアログに任意のファイル名を入力しOKを押すとXMLファイルに保存されます。
+
+\subsubsection{保存したシステムの復元}
+XMLファイルに保存したシステム構成を復元するには、
+
+\begin{tab}{● 保存したシステムを復元}
+\begin{tabular}{l}
+メニューバーの「File」−「Open System」を選択する\\
+システムドローウィンドウで[右クリック]しメニューから「Open System」を選択する\\
+\end{tabular}
+\end{tab}
+
+ファイルオープン・ダイアログが表示されます(図~\ref{fig:FileOpenDialog})。
+\begin{figure}[H]
+\centering{\epsfile{file=figs/FileOpenDialog.eps,width=0.5\columnwidth}}
+\caption{ファイルオープン・ダイアログ}
+\label{fig:FileOpenDialog}
+\end{figure}
+ 
+ファイルオープン・ダイアログにユーザ任意のファイル名を入力しOKを押すと前回保存したシステムが白いコンポーネントブロックで表示されます(図~\ref{fig:SystemLoad0})。
+ここでは、読み込んだシステム構成で正しいのか確認する段階となります。
+ 
+ファイルオープン・ダイアログが表示されます(図~\ref{fig:FileOpenDialog})。
+\begin{figure}[H]
+\centering{\epsfile{file=figs/SystemLoad0.eps,width=0.5\columnwidth}}
+\caption{ロードされた直後のシステム}
+\label{fig:SystemLoad0}
+\end{figure}
+
+システム構成の確認の段階で、図~\ref{fig:SystemLoad1}の様にコンポーネントブロックが黒い場合は、コンポーネントが起動していない状態です。コンポーネントを起動後、もう一度保存したシステムの復元を行ってください。
+
+\begin{figure}[H]
+\centering{\epsfile{file=figs/SystemLoad1.eps,width=0.5\columnwidth}}
+\caption{コンポーネントが起動していない状態}
+\label{fig:SystemLoad1}
+\end{figure}
+
+次に、コンポーネントの接続を行います。
+システムドローウィンドウのバックグランドで[右クリック]を行うとコンテキストメニューが表示されます。
+メニュー内の「Connect」を選択してください。
+コンポーネントブロックが青色に変わりStart/Stop等の操作が可能となります。
+
+\begin{tab}{● システム構成の確認時のコンテキストメニュー}
+\begin{tabular}{ll}
+Connect & コンポーネントの接続 \\
+Delete & 表示しているシステム構成の削除\\
+\end{tabular}
+\end{tab}
+
+\subsection{リフレッシュ}
+コンポーネントを接続したままRTCLinkを終了したり、コンポーネントを再起動した時等に、RTCLink上のシステム構成と実際のコンポーネントの接続状態が異なる時があります。
+その際は、システムドローウィンドウのバックグランド上で[右クリック]を行いコンテキストメニュー内の「Refresh」を選択してください。
+
+リフレッシュを行うと、コンポーネントの状態に合わせコンポーネントブロックの色を再表示し、システムドローウィンドウ上のシステム構成にあわせて接続や切断を行います。
+システムドローウィンドウ上のシステム構成にない接続が検出された場合は、システム構成にあわせて再接続(接続や切断)を行うかダイアログで確認が行われます。
+
+ 
+%図 4.25 再接続確認ダイアログ
+%　再接続確認ダイアログでOKを選択すると、システムドローウィンドウ上のシステム構成にあわせた再接続が行われます。
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section{\tt rtc-template}
+\verb|rtc-template| はコンポーネントの雛形を生成する簡単なコードジェネレータです。
+
+\verb|rtc-template| には現在のところ以下の機能があります。
+
+\begin{tab}{● {\tt rtc-template} の機能}
+\begin{itemize}
+\item RtcBase を継承したクラスの雛形の生成
+\item コンポーネントのプロファイルの埋め込み
+\item InPortの生成と登録
+\item OutPortの生成と登録
+\end{itemize}
+\end{tab}
+
+RTCBase インターフェースを継承した独自のインターフェースを持ったコンポーネントの生成にはまだ対応していません。
+今後のバージョンで対応する予定です。
+
+
+使用できるオプションは \verb|--help| オプションで表示することが出来ます。
+
+\begin{cmd}
+\begin{verbatim}
+> rtc-template --help
+
+Usage: rtc-template [OPTIONS]
+Options:
+    [--help]                              Print this help.
+    [--c++]                               Generate C++ template code.
+    [--python]                            Generate Python tempalte code.
+    [--output[=output_file]]              Output base file name.
+    [--module-name[=name]]                Your module name.
+    [--module-desc[=description]]         Module description.
+    [--module-version[=version]]          Module version.
+    [--module-author[=author]]            Module author.
+    [--module-category[=category]]        Module category.
+    [--module-comp-type[=component_type]] Component type.
+    [--module-act-type[=activity_type]]   Component's activity type.
+    [--module-max-inst[=max_instance]]    Number of maximum instance.
+    [--module-lang[=language]]            Language.
+    [--module-inport[=PortName:Type]]     InPort's name and tyoe.
+    [--module-outport[=PortName:Type]]    OutPort's name and type
+     :
+\end{verbatim}
+\end{cmd}
+
+
+\subsection{\tt --help}
+\verb|rtc-template| のヘルプを表示します。
+各オプションの意味と指定方法についても記述されていますので、参照してください。
+
+\subsection{\tt --c++}
+C++ のコードを生成します。
+このオプションが指定された場合、コンポーネントのモジュール名(後述)がHogeの場合、以下のファイルが生成されます。
+
+\begin{tab}{● 生成されるコード}
+\begin{tabular}{ll}
+Hoge.h & Hogeコンポーネントのヘッダファイル \\
+Hoge.cpp & Hogeコンポーネントの実装ファイル \\
+HogeComp.cpp & Hogeコンポーネントのスタンドアロン版実装ファイル \\
+Makefile.Hoge & Hoge コンポーネントのMakefile \\
+\end{tabular}
+\end{tab}
+
+\subsection{\tt --python}
+Python のコードを生成します。
+コンポーネントのモジュール名(後述)がHogeの場合、以下のファイルが生成されます。
+
+\begin{tab}{● 生成されるコード}
+\begin{tabular}{ll}
+Hoge.py & HogeコンポーネントのPython版実装ファイル \\
+\end{tabular}
+\end{tab}
+
+\subsection{\tt --output}
+コンポーネントのモジュール名に関わらず、生成するファイルの名前を指定します。
+\verb|--output=Foo| を指定した場合、場合、以下のファイルが生成されます。
+
+\begin{tab}{● 生成されるコード}
+\begin{tabular}{ll}
+Foo.h & コンポーネントのヘッダファイル \\
+Foo.cpp & コンポーネントの実装ファイル \\
+FooComp.cpp & コンポーネントのスタンドアロン版実装ファイル \\
+Makefile.Foo & コンポーネントのMakefile \\
+\end{tabular}
+\end{tab}
+
+このオプションは \verb|--c++| が指定されている場合にのみ有効です。
+
+\subsection{\tt --module-name}
+モジュールの名前を指定します。
+ここで指定した名前は、クラス名にも使用されるので、C++のクラスメイトして有効な名前を指定してください。
+
+\subsection{\tt --module-desc}
+このコンポーネントモジュールの概要説明を記述します。
+ダブルクオートで囲めば、空白を含めることも出来ます。
+
+\subsection{\tt --module-version}
+バージョン番号を指定します。
+
+\subsection{\tt --module-author}
+コンポーネントの作成者を記述します。
+
+\subsection{\tt --module-category}
+コンポーネントのカテゴリを記述します。
+
+\subsection{\tt --module-comp-type}
+コンポーネントタイプを指定します。
+コンポーネントタイプについては、\ref{sec:CompCreate_rtc_template}節の「コンポーネントタイプ」の項を参照してください。
+
+\subsection{\tt --module-act-type}
+コンポーネントアクティビティタイプを指定します。
+コンポーネントアクティビティタイプについては、\ref{sec:CompCreate_rtc_template}節の「コンポーネントアクティビティタイプ」の項を参照してください。
+
+\subsection{\tt --module-max-inst}
+生成可能な最大のインスタンス数を数値で指定します。
+
+\subsection{\tt --module-lang}
+コンポーネント記述言語を指定します。
+このオプションは \verb|--c++|, \verb|--python| の指定によって上書きされますので、指定しなくとも構いません。
+
+\subsection{\tt --module-inport}
+このコンポーネントが持つ InPort をしてします。InPortを複数持つ場合には、このオプションを複数指定できます。
+
+\begin{tab}{● InPort指定例}
+\begin{tabular}{ll}
+pos:TimedFloatSeq & ``pos'' という名前を持つ、時間付きFloatのシーケンス型\\
+vel:TimedFloat & ``pos'' という名前を持つ、時間付きFloat型\\
+num:TimedShort & ``num'' という名前を持つ、時間付きShort型\\
+\end{tabular}
+\end{tab}
+
+InPortに付ける名前と型をコロン「:」で区切って指定します。
+指定可能な型については、\ref{sec:CompCreate_rtc_template}節の「変数型」の項を参照してください。
+
+\subsection{\tt --module-outport}
+このコンポーネントが持つ OutPort をしてします。OutPortを複数持つ場合には、このオプションを複数指定できます。
+指定の仕方については、InPortと同じです。
+
+
+
+
+\section{\tt rtm-config}
+\verb|rtm-config| はビルド時の各種設定情報を取得するためのコマンドです。
+
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --help
+Usage: rtm-config [OPTIONS]
+Options:
+        [--prefix[=DIR]]
+        [--exec-prefix[=DIR]]
+        [--version]
+        [--libs]
+        [--cflags]
+        [--libdir]
+        [--orb]
+        [--idlc]
+        [--idlflags]
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt --prefix}
+OpenRTM\--aist のインストールディレクトリのプリフィクスを取得します。
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --prefix
+/usr/local
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt --exec-prefix}
+OpenRTM\--aist の実行ファイルがインストールされたディレクトリのプリフィクスを取得します。
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --exec-prefix
+/usr/local
+\end{verbatim}
+\end{cmd}
+プリフィクス + \verb|bin| が実際のディレクトリです。
+
+\subsection{\tt --version}
+OpenRTM\--aist のバージョン番号を取得します。
+\begin{cmd}
+\begin{verbatim}> ./rtm-config --version
+aist-0.2.0
+\end{verbatim}
+\end{cmd}
+上記の例からわかるように、OpenRTM\--aist では \verb|aist-x.x.x|というバージョン番号をとります。
+
+\subsection{\tt --libs}
+リンク時に必要なライブラリへのパスとライブラリをリンカへ渡すオプションの形式で取得します。
+Makefileを記述する際に、ライブラリの指定を \verb|rtm-config| を利用して行うことで、移植性のあるMakefile を記述することが出来ます。
+
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --libs
+-L/usr/local/lib -L/usr/local/lib -L/usr/local/lib -lpthread -lACE \
+-lboost_regex -lomniORB4 -lomnithread -lomniDynamic4 -lRTC
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt --cflags}
+コンパイル時に必要なコンパイルオプションをコンパイラへ渡すオプションの形式で取得します。
+Makefileを記述する際に、コンパイルオプションの指定を \verb|rtm-config| を利用して行うことで、移植性のあるMakefile を記述することが出来ます
+\begin{cmd}
+\begin{verbatim}> ./rtm-config --cflags
+-I/usr/local/include -I/usr/local/include -I/usr/local/include \
+-I/usr/local/include -I/usr/local/include -I/usr/local/include/rtm/idl
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt --libdir}
+OpenRTM\--aist の雑多なファイルをインストールしておくディレクトリを取得します。
+
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --libdir
+/usr/local/lib/OpenRTM
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt --orb}
+OpenRTM\--aist がどのORBでビルドされているかを指定します。
+下記の例では、OpenRTM\--aist が omniORB でビルドされていることを示しています。
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --orb
+omniORB
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt --idlc}
+OpenRTM\--aist がビルド時に使用した IDL コンパイラコマンドのフルパスを取得します。
+ユーザがコンポーネントに新たなインターフェースを追加する際には、このオプションで取得したIDLコンパイラを使用しなければなりません。
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --idlc
+/usr/local/bin/../bin/omniidl
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt --idlflags}
+OpenRTM\--aist がビルド時に使用した IDL コンパイラコマンドへ与えたオプションを所得します。
+\begin{cmd}
+\begin{verbatim}
+> ./rtm-config --idlflags
+-bcxx -Wba -nf
+\end{verbatim}
+\end{cmd}
+
+\subsection{\tt rtm-config の使用法}
+\verb|rtm-config| を使用することにより、マシン毎に異なった設定でビルドされたOpenRTMがインストールされていても、その設定情報を容易に取得することができます。
+主な利用方法は、マシン毎に異なるコンパイルオプション、リンクオプションを \verb|rtm-config| により取得し Makefile で使用することです。
+Makefile 内でバッククオートで\verb|rtm-config --libs| や \verb|rtm-config --cflags| を実行しコンパイルオプション、リンクオプションを設定すれば、他のマシンでもMakefileを書き換えることなく使用することが出来ます。
+ 
+\section{\tt rtm-naming}
+\verb|rtm-naming| は ORB 毎に異なるネームサーバーに対する起動ラッパです。
+現在のところ omniORB にしか対応していませんが、今後 OpenRTM\--aist が他のORBに対応した際に、同じコマンドオプションでネームサービスを起動できるようにするために用意されています。
+
+
+\section{\tt rtcd}
+\verb|rtcd| はコンポーネントを持たないコンポーネントマネージャだけからなる実行ファイルです。
+\verb|rtcd| を起動して、後からローダブルモジュールコンポーネントをロードして使用します。

@@ -1,0 +1,7 @@
+corba.nameservers: localhost
+naming.formats: %h.host_cxt/%n.rtc
+logger.enable: NO
+example.ConsoleOut.config_file: consout.conf
+example.ConsoleIn.config_file: consin.conf
+#example.ConsoleIn.config_file: component.conf
+

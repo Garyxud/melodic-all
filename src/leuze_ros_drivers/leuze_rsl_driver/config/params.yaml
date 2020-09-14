@@ -1,0 +1,9 @@
+# Values to be expected from the laser. If they do not match, they will be adjusted internally.
+# This serves as a quick check for the user.
+scan_size: 2700
+angle_min: rad(-3*pi/4)
+angle_max: rad(3*pi/4)
+scan_time: 0.04
+range_min: 0.001
+range_max: 65.0
+scan_frame: "scanner_laser"

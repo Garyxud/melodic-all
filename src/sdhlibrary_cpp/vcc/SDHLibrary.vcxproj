@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{026D2B19-D26D-44AB-82F4-35E5A0CC8E07}</ProjectGuid>
+    <RootNamespace>SDHLibrary</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.25123.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\sdh;C:\Programme\ESD\CAN\SDK\include;d:\home\osswald2\SCHUNK\vendor\pcan_usb\PCAN-Light\Api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;WITH_ESD_CAN=1;WITH_PEAK_CAN=1;SDH_IN_SDHLIBRARY_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\sdh;C:\Programme\ESD\CAN\SDK\include;d:\home\osswald2\SCHUNK\vendor\pcan_usb\PCAN-Light\Api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;WITH_ESD_CAN=1;WITH_PEAK_CAN=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\sdh\canserial-esd.cpp" />
+    <ClCompile Include="..\sdh\canserial-peak.cpp" />
+    <ClCompile Include="..\sdh\crc.cpp" />
+    <ClCompile Include="..\sdh\dsa.cpp">
+      <StructMemberAlignment Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</StructMemberAlignment>
+    </ClCompile>
+    <ClCompile Include="..\sdh\rs232-vcc.cpp" />
+    <ClCompile Include="..\sdh\sdh.cpp" />
+    <ClCompile Include="..\sdh\sdhbase.cpp" />
+    <ClCompile Include="..\sdh\sdhexception.cpp" />
+    <ClCompile Include="..\sdh\sdhserial.cpp" />
+    <ClCompile Include="..\sdh\sdh_codes.cpp" />
+    <ClCompile Include="..\sdh\serialbase.cpp" />
+    <ClCompile Include="..\sdh\simplestringlist.cpp" />
+    <ClCompile Include="..\sdh\simplevector.cpp" />
+    <ClCompile Include="..\sdh\tcpserial.cpp" />
+    <ClCompile Include="..\sdh\unit_converter.cpp" />
+    <ClCompile Include="..\sdh\util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\sdh\basisdef.h" />
+    <CustomBuild Include="..\sdh\canserial-esd.h" />
+    <ClInclude Include="..\sdh\canserial-peak.h" />
+    <ClInclude Include="..\sdh\crc.h" />
+    <ClInclude Include="..\sdh\dbg.h" />
+    <ClInclude Include="..\sdh\dsa.h" />
+    <ClInclude Include="..\sdh\release.h" />
+    <ClInclude Include="..\sdh\rs232-vcc.h" />
+    <ClInclude Include="..\sdh\sdh.h" />
+    <ClInclude Include="..\sdh\sdhbase.h" />
+    <ClInclude Include="..\sdh\sdhexception.h" />
+    <ClInclude Include="..\sdh\sdhlibrary_settings.h" />
+    <ClInclude Include="..\sdh\sdhserial.h" />
+    <ClInclude Include="..\sdh\sdh_codes.h" />
+    <ClInclude Include="..\sdh\sdh_command_codes.h" />
+    <ClInclude Include="..\sdh\sdh_return_codes.h" />
+    <ClInclude Include="..\sdh\serialbase.h" />
+    <ClInclude Include="..\sdh\simplestringlist.h" />
+    <ClInclude Include="..\sdh\simpletime.h" />
+    <ClInclude Include="..\sdh\simplevector.h" />
+    <ClInclude Include="..\sdh\tcpserial.h" />
+    <ClInclude Include="..\sdh\unit_converter.h" />
+    <ClInclude Include="..\sdh\util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\vendor\pcan_usb\PCAN-Light\Lib\Visual C++\Pcan_usb.lib" />
+    <Library Include="c:\Programme\ESD\CAN\SDK\lib\vc\i386\ntcan.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

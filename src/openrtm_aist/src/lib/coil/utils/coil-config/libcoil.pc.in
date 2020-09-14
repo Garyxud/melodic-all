@@ -1,0 +1,18 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@coil_libdir@
+includedir=@coil_includedir@
+coil_prefix=@prefix@
+coil_exec_prefix=@exec_prefix@
+coil_cxx=@CXX@
+coil_cflags=@CXXFLAGS@ -I@coil_includedir@
+coil_libs=@LDFLAGS@ -L${prefix}/lib @LIBS@ -lcoil
+coil_libdir=@coil_libdir@
+coil_version=@COIL_VERSION@
+
+Name: @PACKAGE@
+Description: @COIL_DESCRIPTION@
+Version: @COIL_VERSION@
+Requires:
+Libs: ${coil_libs}
+Cflags: ${coil_cflags}

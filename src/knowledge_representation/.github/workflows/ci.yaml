@@ -1,0 +1,42 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  industrial_ci:
+    env:
+      AFTER_INSTALL_TARGET_DEPENDENCIES: 'pip install -U PyYAML svgpathtools && scripts/configure_postgresql.sh'
+      AFTER_SCRIPT: 'cd $target_ws && rosenv && catkin build $(catkin_topological_order "${TARGET_REPO_PATH}" --only-names) --no-deps --no-status --verbose --make-args roslint'
+      CATKIN_LINT: true
+      CLANG_FORMAT_VERSION: 3.9
+      PARALLEL_TESTS: false
+      ROS_REPO: main
+    strategy:
+      matrix:
+        env:
+          - {ROS_DISTRO: melodic}
+          - {ROS_DISTRO: melodic, GITHUB_LABEL: mysql, AFTER_INSTALL_TARGET_DEPENDENCIES: 'pip install -U PyYAML svgpathtools && scripts/configure_mysql.sh'}
+          - {ROS_DISTRO: melodic, GITHUB_LABEL: clang-format, CLANG_FORMAT_CHECK: file, AFTER_SCRIPT: ""}
+          - {ROS_DISTRO: melodic, GITHUB_LABEL: clang-tidy, CLANG_TIDY: true, NOT_TEST_BUILD: true, CATKIN_LINT: false, AFTER_SCRIPT: ""}
+          - {ROS_DISTRO: noetic, AFTER_INSTALL_TARGET_DEPENDENCIES: 'pip3 install -U PyYAML svgpathtools && scripts/configure_postgresql.sh', AFTER_SCRIPT: 'cd $target_ws && rosenv && colcon build --event-handlers status- desktop_notification- --cmake-target-skip-unavailable --cmake-target roslint'
+          }
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: 'ros-industrial/industrial_ci@master'
+        env: ${{matrix.env}}
+        continue-on-error: ${{ matrix.env.GITHUB_LABEL == 'mysql' }}
+  python-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 2.7
+    - name: Install dependencies
+      run: |
+        pip install flake8 pep8-naming
+    - name: Lint
+      run: |
+        flake8 -v

@@ -1,0 +1,5 @@
+# This is the roboception equivalent to the std_msgs/Trigger service.
+# It only differs in the response, which is the roboception standard
+# return code
+---
+rc_common_msgs/ReturnCode return_code
